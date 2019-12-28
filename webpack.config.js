@@ -14,11 +14,6 @@ module.exports = {
                 use: 'ts-loader',
                 exclude: /node_modules/
             },
-            // {
-            //     test: /\.js$/,
-            //     exclude: /node_modules/,
-            //     loader: 'babel-loader'
-            // },
             {
                 test: /\.(png|jpeg|jpg|icon|gif)$/,
                 use: [{
