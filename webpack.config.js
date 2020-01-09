@@ -16,11 +16,12 @@ module.exports = {
             },
             {
                 test: /\.(png|jpeg|jpg|icon|gif)$/,
-                use: [{
+                use: [
+                    {
                     loader: "file-loader",
                     options: {
                         outputPath: 'images',
-                        name: '[name]-[sha1:hash:7].[ext]'
+                        name: '[name]-[sha1:hash:7].[ext]',
                     }
                 }]
             },
@@ -42,7 +43,7 @@ module.exports = {
     },
 
     output: {
-        filename: "bundle,js",
+        filename: "bundle.js",
         path: path.resolve(__dirname, 'dist')
     },
 
@@ -55,6 +56,6 @@ module.exports = {
     devServer: {
         open: true,
         port: 5000,
-        overlay: true
+        overlay: true,
     }
 };
