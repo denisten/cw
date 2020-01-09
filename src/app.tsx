@@ -1,8 +1,8 @@
 import React from 'react'
 import ScrollContainer from 'react-indiana-drag-scroll'
-import tower from './img/buildings/building-1.png'
 import styled from "styled-components";
 import map from './img/map/map.png'
+import {FirstTower} from "./img/buildings/first-building";
 
 const ComponentWrapper = styled.div`
   border: solid 5px #E2D7C7;
@@ -22,17 +22,10 @@ const MapWrapper = styled.div`
   display: block;
   width: 5000px;
   height: 5000px;
-  border: 2px solid;
   background-repeat: repeat;
   position: relative;
   top: 0;
   left: 0;
-`;
-
-const FirstTower = styled.img`
-  position: absolute;
-  top: 12%;
-  left: 37%;
 `;
 
 
@@ -48,7 +41,7 @@ export const App = () => {
                     onEndScroll={(...args) => { console.log('onEndScroll', args) }}
                 >
                     <MapWrapper>
-                        <FirstTower src={tower} alt="tower"/>
+                        <FirstTower/>
                     </MapWrapper>
                 </ScrollContainer>
             </ComponentWrapper>
