@@ -1,11 +1,11 @@
-import React from 'react'
-import ScrollContainer from 'react-indiana-drag-scroll'
-import styled from 'styled-components'
-import map from './img/map/map.png'
-import { FirstTower } from './img/buildings/first-building'
-import { ModalWindow } from './components/modal-window'
-import { useStore } from 'effector-react'
-import { AppConditionState } from './effector/app-condition/store'
+import React from 'react';
+import ScrollContainer from 'react-indiana-drag-scroll';
+import styled from 'styled-components';
+import map from './img/map/map.png';
+import { FirstTower } from './img/buildings/first-building';
+import { ModalWindow } from './components/modal-window';
+import { useStore } from 'effector-react';
+import { AppConditionState } from './effector/app-condition/store';
 
 const ComponentWrapper = styled.div`
   border: solid 5px #e2d7c7;
@@ -13,12 +13,12 @@ const ComponentWrapper = styled.div`
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-`
+`;
 
 const ScrollContainerStyle = {
   height: '100%',
   width: '100%',
-}
+};
 
 const MapWrapper = styled.div`
   background-image: url(${map});
@@ -29,10 +29,10 @@ const MapWrapper = styled.div`
   position: relative;
   top: 0;
   left: 0;
-`
+`;
 
-export const App = () => {
-  const { isModalWindowOpen } = useStore(AppConditionState)
+export const App = (): React.ReactElement => {
+  const { isModalWindowOpen } = useStore(AppConditionState);
 
   return (
     <ComponentWrapper>
@@ -40,14 +40,14 @@ export const App = () => {
       <ScrollContainer
         style={ScrollContainerStyle}
         nativeMobileScroll={false}
-        onStartScroll={(...args) => {
-          console.log('onStartScroll', args)
+        onStartScroll={(...args): void => {
+          console.log('onStartScroll', args);
         }}
-        onScroll={(...args) => {
-          console.log('onScroll', args)
+        onScroll={(...args): void => {
+          console.log('onScroll', args);
         }}
-        onEndScroll={(...args) => {
-          console.log('onEndScroll', args)
+        onEndScroll={(...args): void => {
+          console.log('onEndScroll', args);
         }}
       >
         <MapWrapper>
@@ -55,5 +55,5 @@ export const App = () => {
         </MapWrapper>
       </ScrollContainer>
     </ComponentWrapper>
-  )
-}
+  );
+};
