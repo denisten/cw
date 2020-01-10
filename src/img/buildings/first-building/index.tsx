@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import styled from "styled-components";
 import tower from './building-1.png'
 import shadow from './shadow.png'
@@ -17,7 +17,7 @@ export const FirstTower = () => {
     return(
         <FirstTowerWrapper>
             <TowerWrapper src={tower} alt="tower1" useMap="#image-map"  />
-            <map  name="image-map">
+            <map name="image-map">
                 <area alt="area" onClick={() => {
                     toggleModalWindow()
                 }} onMouseOver={() => setHoverState(true)} onMouseOut={() => setHoverState(false)} coords="75,16,352,544" shape="rect"/>
