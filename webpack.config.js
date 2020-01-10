@@ -5,7 +5,10 @@ module.exports = {
     mode: "development",
     entry: './src/index.tsx',
     devtool: 'inline-source-map',
-
+    stats: {
+        "errors": true,
+        "warnings": true
+    },
     module: {
         rules: [
             {
@@ -14,7 +17,11 @@ module.exports = {
                 use: [
                     {loader: 'ts-loader', options: {
                         configFile: 'tsconfig.json'
-                        }}
+                        }}, {
+                    loader: 'eslint-loader', options: {
+                            emitWarning: true,
+                        }
+                    }
                 ],
                 exclude: /node_modules/
             },
