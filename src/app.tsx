@@ -41,12 +41,15 @@ export const App = (): React.ReactElement => {
         style={ScrollContainerStyle}
         nativeMobileScroll={false}
         onStartScroll={(...args): void => {
+          // eslint-disable-next-line no-console
           console.log('onStartScroll', args);
         }}
         onScroll={(...args): void => {
+          // eslint-disable-next-line no-console
           console.log('onScroll', args);
         }}
         onEndScroll={(...args): void => {
+          // eslint-disable-next-line no-console
           console.log('onEndScroll', args);
         }}
       >
