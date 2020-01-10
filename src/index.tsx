@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom';
-import React from 'react'
+import React from 'react';
 import {App} from "./app";
 
 console.log('hello world');

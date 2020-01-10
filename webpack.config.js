@@ -1,6 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
-const TSLintPlugin = require('tslint-webpack-plugin');
 
 module.exports = {
     mode: "development",
@@ -13,14 +12,6 @@ module.exports = {
                 test: /\.tsx?$/,
                 include: path.resolve(__dirname, 'src'),
                 use: [
-                    {
-                        loader: 'tslint-loader',
-                        options: {
-                            tsConfigFile: 'tsconfig.json',
-                            configFile: 'tslint.json',
-                            failOnHint: true,
-                            typeCheck: true,
-                        }},
                     {loader: 'ts-loader', options: {
                         configFile: 'tsconfig.json'
                         }}
@@ -63,11 +54,6 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             template: "public/index.html"
-        }),
-        new TSLintPlugin({
-            files: ['./src/**/*.tsx','./src/**/*.ts'],
-            config: './tslint.json',
-            project: './tsconfig.json'
         })
     ],
 
