@@ -1,0 +1,44 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true,
+    "es2017": true
+  },
+  "extends": [
+    "prettier",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:react/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "tsconfig.json",
+    "tsconfigRootDir": ".",
+    "createDefaultProgram": true
+  },
+  "plugins": ["@typescript-eslint", "prettier", "react"],
+  "rules": {
+    "jsx-quotes": [
+      1,
+      "prefer-double"
+    ],
+    "react/jsx-uses-react": 1,
+    "@typescript-eslint/no-explicit-any": 2,
+    "no-magic-numbers": 2,
+    "no-console": 2,
+    "no-debugger": 2,
+    "indent": [2, 2],
+    "max-classes-per-file": [2, 2],
+    "no-empty": 1,
+    "no-duplicate-imports": 2,
+    "prefer-const": 2,
+    "no-bitwise": 2,
+    "no-eval": 2,
+    "jsx-boolean-value": 0,
+    "jsx-no-lambda": 0,
+    "radix": 0,
+    "curly": 0
+  }
+}

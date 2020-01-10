@@ -2,11 +2,13 @@
   "name": "customer-world",
   "version": "1.0.0",
   "description": "customer-wold mvp client application",
-  "main": "index.js",
+  "main": "./src/index.tsx",
   "scripts": {
     "start": "webpack-dev-server",
     "build": "webpack",
+    "lint": "eslint --cache --ext .js,.jsx,.ts,.tsx src",
     "show-browsers": "npx browserslist",
+    "clear": "rm -rf dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -15,10 +17,21 @@
   "browserslist": [
     "> 0.3%"
   ],
+  "lint-staged": {
+    "*.{ts, tsx}": [
+      "eslint --max-warnings=0",
+      "prettier --write",
+      "git add"
+    ]
+  },
   "dependencies": {
     "core-js": "^3.6.1",
+    "effector": "^20.9.1",
+    "effector-react": "^20.6.0",
+    "eslint": "^6.8.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "react-indiana-drag-scroll": "^1.5.3",
     "styled-components": "^4.4.1"
   },
   "devDependencies": {
@@ -29,13 +42,27 @@
     "@types/react": "^16.9.17",
     "@types/react-dom": "^16.9.4",
     "@types/styled-components": "^4.4.1",
+    "@typescript-eslint/eslint-plugin": "^2.15.0",
+    "@typescript-eslint/parser": "^2.15.0",
     "babel-loader": "^8.0.6",
+    "eslint-config-prettier": "^6.9.0",
+    "eslint-loader": "^3.0.3",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-react": "^7.17.0",
     "file-loader": "^5.0.2",
     "html-webpack-plugin": "^3.2.0",
+    "husky": "^4.0.6",
+    "lint-staged": "^9.5.0",
+    "prettier": "^1.19.1",
     "ts-loader": "^6.2.1",
     "typescript": "^3.7.4",
     "webpack": "^4.41.4",
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.10.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   }
 }
