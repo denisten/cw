@@ -3,6 +3,9 @@ import ScrollContainer from 'react-indiana-drag-scroll'
 import styled from "styled-components";
 import map from './img/map/map.png'
 import {FirstTower} from "./img/buildings/first-building";
+import {ModalWindow} from "./components/modal-window";
+import {useStore} from "effector-react";
+import {AppConditionState} from "./effector/app-condition/store";
 
 const ComponentWrapper = styled.div`
   border: solid 5px #E2D7C7;
@@ -31,8 +34,12 @@ const MapWrapper = styled.div`
 
 
 export const App = () => {
+
+    const {isModalWindowOpen} = useStore(AppConditionState);
+
         return (
             <ComponentWrapper>
+                {isModalWindowOpen ? <ModalWindow/> : ''}
                 <ScrollContainer
                     style={ScrollContainerStyle}
                     nativeMobileScroll={false}
