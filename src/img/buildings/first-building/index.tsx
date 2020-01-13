@@ -7,8 +7,8 @@ import { TowerWrapper } from '../../../UI/tower-wrapper';
 const FirstTowerWrapper = styled.div`
   display: block;
   position: absolute;
-  top: 12%;
-  left: 37%;
+  top: 28.5%;
+  left: 45.8%;
   vertical-align: top;
 `;
 
@@ -25,7 +25,7 @@ export const FirstTower = (): React.ReactElement => {
           }}
           onMouseOver={(): void => setHoverState(true)}
           onMouseOut={(): void => setHoverState(false)}
-          coords="75,16,352,544"
+          coords="135,18,30,294"
           shape="rect"
         />
       </map>
