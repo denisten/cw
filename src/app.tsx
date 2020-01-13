@@ -45,6 +45,7 @@ export const App = (): React.ReactElement => {
     }
     console.log('asdf');
     debugger;
+    console.log('asdfasdf');
   }, [isModalWindowOpen]);
   return (
     <ComponentWrapper>
