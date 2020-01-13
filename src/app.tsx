@@ -44,6 +44,7 @@ export const App = (): React.ReactElement => {
       if (scrollContainerNode) scrollContainerNode.scrollTo(cordX, cordY);
     }
     console.log('asdf');
+    debugger;
   }, [isModalWindowOpen]);
   return (
     <ComponentWrapper>
