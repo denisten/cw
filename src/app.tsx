@@ -6,10 +6,6 @@ import { ModalWindow } from './components/modal-window';
 import { useStore } from 'effector-react';
 import { AppConditionState } from './effector/app-condition/store';
 import { Map } from './components/map';
-import { LazyImage } from '@tsareff/lazy-image';
-import map11 from './img/map/1.1.png';
-import './style.css';
-import cat from './img/buildings/first-building/cat.png';
 
 const ComponentWrapper = styled.div`
   border: solid 5px #e2d7c7;
@@ -23,7 +19,6 @@ const ScrollContainerStyle = {
   height: '100%',
   width: '100%',
 };
-
 const MapWrapper = styled.div`
   display: block;
   width: 3840px;
@@ -31,8 +26,8 @@ const MapWrapper = styled.div`
   position: relative;
 `;
 
-const cordX = 1243,
-  cordY = 533;
+const cordX = 651,
+  cordY = 429;
 
 export const App = (): React.ReactElement => {
   const { isModalWindowOpen } = useStore(AppConditionState);
@@ -43,12 +38,10 @@ export const App = (): React.ReactElement => {
       const scrollContainerNode = myRef.current.container.current;
       if (scrollContainerNode) scrollContainerNode.scrollTo(cordX, cordY);
     }
-    console.log('asdf');
-    debugger;
-    console.log('asdfasdf');
   }, [isModalWindowOpen]);
+
   return (
-    <ComponentWrapper>
+    <ComponentWrapper id="rootScroll">
       {isModalWindowOpen ? <ModalWindow /> : ''}
       <ScrollContainer
         ref={myRef}
@@ -70,10 +63,6 @@ export const App = (): React.ReactElement => {
         <MapWrapper>
           <Map />
           <FirstTower />
-          <LazyImage
-            src="https://www.tokkoro.com/picsup/3009691-adorable_animal_cat_green-eyes_kitty_tabby_whiskers.jpg"
-            className="test"
-          />
         </MapWrapper>
       </ScrollContainer>
     </ComponentWrapper>
