@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import ScrollContainer from 'react-indiana-drag-scroll';
 import styled from 'styled-components';
-import map from './img/map/map.png';
 import { FirstTower } from './img/buildings/first-building';
 import { ModalWindow } from './components/modal-window';
 import { useStore } from 'effector-react';
 import { AppConditionState } from './effector/app-condition/store';
+import { Map } from './components/map';
 
 const ComponentWrapper = styled.div`
   border: solid 5px #e2d7c7;
@@ -19,25 +19,32 @@ const ScrollContainerStyle = {
   height: '100%',
   width: '100%',
 };
-
 const MapWrapper = styled.div`
-  background-image: url(${map});
   display: block;
-  width: 5000px;
-  height: 5000px;
-  background-repeat: repeat;
+  width: 3840px;
+  height: 2700px;
   position: relative;
-  top: 0;
-  left: 0;
 `;
+
+const cordX = 651,
+  cordY = 429;
 
 export const App = (): React.ReactElement => {
   const { isModalWindowOpen } = useStore(AppConditionState);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const myRef: any = useRef<HTMLElement>(null);
+  useEffect(() => {
+    if (myRef.current) {
+      const scrollContainerNode = myRef.current.container.current;
+      if (scrollContainerNode) scrollContainerNode.scrollTo(cordX, cordY);
+    }
+  }, [isModalWindowOpen]);
 
   return (
-    <ComponentWrapper>
+    <ComponentWrapper id="rootScroll">
       {isModalWindowOpen ? <ModalWindow /> : ''}
       <ScrollContainer
+        ref={myRef}
         style={ScrollContainerStyle}
         nativeMobileScroll={false}
         onStartScroll={(...args): void => {
@@ -54,6 +61,7 @@ export const App = (): React.ReactElement => {
         }}
       >
         <MapWrapper>
+          <Map />
           <FirstTower />
         </MapWrapper>
       </ScrollContainer>

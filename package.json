@@ -19,7 +19,7 @@
   ],
   "lint-staged": {
     "*.{ts, tsx}": [
-      "eslint --max-warnings=0",
+      "eslint --cache --ext .js,.jsx,.ts,.tsx src --max-warnings=0",
       "prettier --write",
       "git add"
     ]
@@ -39,12 +39,14 @@
     "@babel/core": "^7.7.7",
     "@babel/preset-env": "^7.7.7",
     "@babel/preset-react": "^7.7.4",
+    "@tsareff/lazy-image": "^1.0.0",
     "@types/react": "^16.9.17",
     "@types/react-dom": "^16.9.4",
     "@types/styled-components": "^4.4.1",
     "@typescript-eslint/eslint-plugin": "^2.15.0",
     "@typescript-eslint/parser": "^2.15.0",
     "babel-loader": "^8.0.6",
+    "css-loader": "^3.4.2",
     "eslint-config-prettier": "^6.9.0",
     "eslint-loader": "^3.0.3",
     "eslint-plugin-prettier": "^3.1.2",
@@ -54,6 +56,7 @@
     "husky": "^4.0.6",
     "lint-staged": "^9.5.0",
     "prettier": "^1.19.1",
+    "style-loader": "^1.1.2",
     "ts-loader": "^6.2.1",
     "typescript": "^3.7.4",
     "webpack": "^4.41.4",

@@ -5,7 +5,7 @@ const ModalWindowWrapper = styled.div`
   position: absolute;
   z-index: 1;
   right: 0;
-  width: 20%;
+  width: 35%;
   height: 100%;
   background-color: green;
 `;
