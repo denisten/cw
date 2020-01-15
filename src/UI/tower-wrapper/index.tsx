@@ -1,5 +1,13 @@
 import styled from 'styled-components';
-export const TowerWrapper = styled.img`
+
+export const TowerImgWrapper = styled.img<TowerWrapperProps>`
   position: absolute;
   z-index: 100;
+  width: ${props => props.width}%;
+  height: ${props => props.height}%;
 `;
+
+type TowerWrapperProps = {
+  width?: number;
+  height?: number;
+};

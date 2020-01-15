@@ -1,11 +1,11 @@
 import React, { useEffect, useRef } from 'react';
 import ScrollContainer from 'react-indiana-drag-scroll';
 import styled from 'styled-components';
-import { FirstTower } from './img/buildings/first-building';
 import { ModalWindow } from './components/modal-window';
 import { useStore } from 'effector-react';
 import { AppConditionState } from './effector/app-condition/store';
 import { Map } from './components/map';
+import { Buildings } from './buildings';
 
 const ComponentWrapper = styled.div`
   border: solid 5px #e2d7c7;
@@ -21,8 +21,8 @@ const ScrollContainerStyle = {
 };
 const MapWrapper = styled.div`
   display: block;
-  width: 3840px;
-  height: 2700px;
+  width: 7680px;
+  height: 5400px;
   position: relative;
 `;
 
@@ -39,7 +39,6 @@ export const App = (): React.ReactElement => {
       if (scrollContainerNode) scrollContainerNode.scrollTo(cordX, cordY);
     }
   }, [isModalWindowOpen]);
-
   return (
     <ComponentWrapper id="rootScroll">
       {isModalWindowOpen ? <ModalWindow /> : ''}
@@ -62,7 +61,8 @@ export const App = (): React.ReactElement => {
       >
         <MapWrapper>
           <Map />
-          <FirstTower />
+          <Buildings />
+          {/*<FirstTower />*/}
         </MapWrapper>
       </ScrollContainer>
     </ComponentWrapper>

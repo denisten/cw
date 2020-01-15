@@ -80,5 +80,6 @@ module.exports = {
     open: true,
     port: 5000,
     overlay: true,
+    host: '0.0.0.0',
   },
 };

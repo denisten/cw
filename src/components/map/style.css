@@ -2,49 +2,41 @@
     position:relative;
 }
 
-.p21{
-    margin-top: -5px;
-}
-
-.p32 {
-    margin-top: -4px;
-}
-
 .img11 {
-    width: 960px;
-    height: 540px;
+    width: 1920px;
+    height: 1080px;
 }
 
 .img12 {
-    width: 1920px;
-    height: 540px;
+    width: 3840px;
+    height: 1080px;
 }
 
 .img13 {
-    width: 960px;
-    height: 540px;
+    width: 1920px;
+    height: 1080px;
 }
 .img21 {
-    width: 960px;
-    height: 1080px;
+    width: 1920px;
+    height: 2160px;
 }
 .img22 {
-    width: 1920px;
-    height: 1080px;
+    width: 3840px;
+    height: 2160px;
 }
 .img23 {
-    width: 960px;
-    height: 1080px;
+    width: 1920px;
+    height: 2160px;
 }
 .img31 {
-    width: 960px;
-    height: 1080px;
+    width: 1920px;
+    height: 2160px;
 }
 .img32 {
-    width: 1920px;
-    height:1080px;
+    width: 3840px;
+    height: 2160px;
 }
 .img33 {
-    width: 960px;
-    height: 1080px;
+    width: 1920px;
+    height: 2160px;
 }

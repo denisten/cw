@@ -22,15 +22,15 @@ const MapWrapper = styled.div`
 export const Map: React.FC = () => {
   return (
     <MapWrapper>
-      <LazyImage src={map11} className="img-wrapper p21 img11" />
-      <LazyImage src={map12} className="img-wrapper p32 img12" />
-      <LazyImage src={map13} className="img-wrapper p21 img13" />
-      <LazyImage src={map21} className="img-wrapper p21 img21" />
-      <LazyImage src={map22} className="img-wrapper p32 img22" />
-      <LazyImage src={map23} className="img-wrapper p21 img23" />
-      <LazyImage src={map31} className="img-wrapper p21 img31" />
-      <LazyImage src={map32} className="img-wrapper p32 img32" />
-      <LazyImage src={map33} className="img-wrapper p21 img33" />
+      <LazyImage src={map11} className="img-wrapper img11" />
+      <LazyImage src={map12} className="img-wrapper img12" />
+      <LazyImage src={map13} className="img-wrapper img13" />
+      <LazyImage src={map21} className="img-wrapper img21" />
+      <LazyImage src={map22} className="img-wrapper img22" />
+      <LazyImage src={map23} className="img-wrapper img23" />
+      <LazyImage src={map31} className="img-wrapper img31" />
+      <LazyImage src={map32} className="img-wrapper img32" />
+      <LazyImage src={map33} className="img-wrapper img33" />
     </MapWrapper>
   );
 };
