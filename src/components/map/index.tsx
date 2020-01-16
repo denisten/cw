@@ -18,7 +18,7 @@ const MapWrapper = styled.div`
   flex-wrap: wrap;
 `;
 
-const styleConfig: styleConfigTypes = {
+const styleConfig: StyleConfigTypes = {
   img11: {
     width: '1920px',
     height: '1080px',
@@ -44,8 +44,8 @@ const styleConfig: styleConfigTypes = {
     height: '2160px',
   },
 };
-type styleConfigTypes = Record<string, divStyleType>;
-type divStyleType = {
+type StyleConfigTypes = Record<string, DivStyleType>;
+type DivStyleType = {
   width: string;
   height: string;
 };
