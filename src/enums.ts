@@ -4,3 +4,8 @@ export enum TowerLevel {
   mid = 1,
   high = 2,
 }
+
+export enum ScaleValues {
+  HALF = 0.5,
+  ORIGIN = 1,
+}
