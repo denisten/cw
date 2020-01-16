@@ -9,7 +9,6 @@ import map23 from '../../img/map/2.3.png';
 import map31 from '../../img/map/3.1.png';
 import map32 from '../../img/map/3.2.png';
 import map33 from '../../img/map/3.3.png';
-import './style.css';
 import { LazyImage } from '@tsareff/lazy-image';
 
 const MapWrapper = styled.div`
@@ -19,18 +18,51 @@ const MapWrapper = styled.div`
   flex-wrap: wrap;
 `;
 
+const styleConfig = {
+  img11: {
+    width: '1920px',
+    height: '1080px',
+    position: 'relative',
+  } as React.CSSProperties,
+  img12: {
+    width: '3840px',
+    height: '1080px',
+    position: 'relative',
+  } as React.CSSProperties,
+  img13: {
+    width: '1920px',
+    height: '1080px',
+    position: 'relative',
+  } as React.CSSProperties,
+  img21: {
+    width: '1920px',
+    height: '2160px',
+    position: 'relative',
+  } as React.CSSProperties,
+  img22: {
+    width: '3840px',
+    height: '2160px',
+    position: 'relative',
+  } as React.CSSProperties,
+  img23: {
+    width: '1920px',
+    height: '2160px',
+    position: 'relative',
+  } as React.CSSProperties,
+};
+
 export const Map: React.FC = () => {
   return (
     <MapWrapper>
-      <LazyImage src={map11} className="img-wrapper img11" />
-      <LazyImage src={map12} className="img-wrapper img12" />
-      <LazyImage src={map13} className="img-wrapper img13" />
-      <LazyImage src={map21} className="img-wrapper img21" />
-      <LazyImage src={map22} className="img-wrapper img22" />
-      <LazyImage src={map23} className="img-wrapper img23" />
-      <LazyImage src={map31} className="img-wrapper img31" />
-      <LazyImage src={map32} className="img-wrapper img32" />
-      <LazyImage src={map33} className="img-wrapper img33" />
+      <LazyImage src={map11} style={styleConfig.img11} />
+      <LazyImage src={map12} style={styleConfig.img12} />
+      <LazyImage src={map13} style={styleConfig.img13} />
+      <LazyImage src={map21} style={styleConfig.img21} />
+      <LazyImage src={map22} style={styleConfig.img22} />
+      <LazyImage src={map23} style={styleConfig.img23} />
+      <LazyImage src={map31} style={styleConfig.img21} />
+      <LazyImage src={map32} style={styleConfig.img22} />
+      <LazyImage src={map33} style={styleConfig.img23} />
     </MapWrapper>
   );
 };

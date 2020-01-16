@@ -6,10 +6,11 @@ import { useStore } from 'effector-react';
 import { AppConditionState } from './effector/app-condition/store';
 import { Map } from './components/map';
 import { Buildings } from './buildings';
+import { BuildingsService } from './buildings/config';
 
 const ComponentWrapper = styled.div`
   border: solid 5px #e2d7c7;
-  background: #282828;
+  background-color: green;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
@@ -19,22 +20,26 @@ const ScrollContainerStyle = {
   height: '100%',
   width: '100%',
 };
-const MapWrapper = styled.div`
+const MapWrapper = styled.div<{ scaleValue: number }>`
   display: block;
   width: 7680px;
   height: 5400px;
   position: relative;
+  transform: scale(${props => props.scaleValue});
 `;
 
-const cordX = 651,
-  cordY = 429;
-
 export const App = (): React.ReactElement => {
-  const { isModalWindowOpen } = useStore(AppConditionState);
+  const { isModalWindowOpen, scaleValue, focusOn } = useStore(
+    AppConditionState
+  );
+  const localBuildingService = new BuildingsService();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const myRef: any = useRef<HTMLElement>(null);
   useEffect(() => {
     if (myRef.current) {
+      const {
+        coords: [cordX, cordY],
+      } = localBuildingService.getConfigForTower(focusOn);
       const scrollContainerNode = myRef.current.container.current;
       if (scrollContainerNode) scrollContainerNode.scrollTo(cordX, cordY);
     }
@@ -59,7 +64,7 @@ export const App = (): React.ReactElement => {
           console.log('onEndScroll', args);
         }}
       >
-        <MapWrapper>
+        <MapWrapper scaleValue={scaleValue}>
           <Map />
           <Buildings />
           {/*<FirstTower />*/}

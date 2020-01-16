@@ -1,15 +1,17 @@
 import { TowersProgressDomain } from './domain';
-import { TowerLevel } from '../../buildings/first-building/enums';
+import { TowerLevel } from '../../enums';
 
 export enum TowersTypes {
   MAIN_TOWER = 'mainTower',
+  MUSIC = 'music',
 }
 
 const initState: TowersProgressStoreType = {
-  [TowersTypes.MAIN_TOWER]: TowerLevel.low,
+  [TowersTypes.MAIN_TOWER]: TowerLevel.high,
+  [TowersTypes.MUSIC]: TowerLevel.high,
 };
 export const TowersProgressStore = TowersProgressDomain.store<
   TowersProgressStoreType
 >(initState);
 
-type TowersProgressStoreType = Record<TowersTypes | string, TowerLevel>;
+type TowersProgressStoreType = Record<TowersTypes, TowerLevel>;

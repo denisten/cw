@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { TowerWrapper } from './first-building';
+import { TowerWrapper } from '../UI/tower-component-wrapper';
 import { BuildingsService } from './config';
 import { useStore } from 'effector-react';
 import {
@@ -10,17 +10,18 @@ import {
 export const Buildings = () => {
   const localService = new BuildingsService();
   const localTowersProgressStore = useStore(TowersProgressStore);
+  const towersKeys = Object.keys(localTowersProgressStore) as TowersTypes[];
   return (
     <Fragment>
-      {Object.keys(localTowersProgressStore).map(el => {
-        const data = localService.getConfigForTower(TowersTypes.MAIN_TOWER);
+      {towersKeys.map(el => {
+        const data = localService.getConfigForTower(el);
         const currentTower = data[localTowersProgressStore[el]];
         if (currentTower) {
           return (
             <Fragment key={el}>
               <TowerWrapper
-                key={el}
-                position={data.position}
+                towerType={el}
+                position={currentTower.position}
                 areaCoords={currentTower.areaCoords}
                 shadowImg={currentTower.shadowImg}
                 tower={currentTower.img}
