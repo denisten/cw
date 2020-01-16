@@ -18,37 +18,36 @@ const MapWrapper = styled.div`
   flex-wrap: wrap;
 `;
 
-const styleConfig = {
+const styleConfig: styleConfigTypes = {
   img11: {
     width: '1920px',
     height: '1080px',
-    position: 'relative',
-  } as React.CSSProperties,
+  },
   img12: {
     width: '3840px',
     height: '1080px',
-    position: 'relative',
-  } as React.CSSProperties,
+  },
   img13: {
     width: '1920px',
     height: '1080px',
-    position: 'relative',
-  } as React.CSSProperties,
+  },
   img21: {
     width: '1920px',
     height: '2160px',
-    position: 'relative',
-  } as React.CSSProperties,
+  },
   img22: {
     width: '3840px',
     height: '2160px',
-    position: 'relative',
-  } as React.CSSProperties,
+  },
   img23: {
     width: '1920px',
     height: '2160px',
-    position: 'relative',
-  } as React.CSSProperties,
+  },
+};
+type styleConfigTypes = Record<string, divStyleType>;
+type divStyleType = {
+  width: string;
+  height: string;
 };
 
 export const Map: React.FC = () => {

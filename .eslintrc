@@ -28,7 +28,11 @@
     "react/prop-types": 0,
     "react/jsx-uses-react": 1,
     "@typescript-eslint/no-explicit-any": 2,
-    "no-magic-numbers": 2,
+    "no-magic-numbers": 0,
+    "@typescript-eslint/no-magic-numbers": [2, {
+      "ignoreEnums": true,
+      "ignore" : [1]
+    }],
     "no-console": 2,
     "no-debugger": 2,
     "indent": [2, 2],

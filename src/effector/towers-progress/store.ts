@@ -1,5 +1,5 @@
 import { TowersProgressDomain } from './domain';
-import { TowerLevel } from '../../enums';
+import { TowerLevel } from '../../buildings/config';
 
 export enum TowersTypes {
   MAIN_TOWER = 'mainTower',

@@ -8,8 +8,7 @@ import { Map } from './components/map';
 import { Buildings } from './buildings';
 import { BuildingsService } from './buildings/config';
 import mapTile from './img/map/map-tile.png';
-import { updateScaleValue } from './effector/app-condition/events';
-import { ScaleValues } from './enums';
+import { updateScaleValue, ScaleValues } from './effector/app-condition/events';
 
 const ComponentWrapper = styled.div`
   border: solid 5px #e2d7c7;
@@ -91,7 +90,7 @@ export const App = (): React.ReactElement => {
         ref={myRef}
         style={ScrollContainerStyle}
         nativeMobileScroll={false}
-        onEndScroll={(...args): void => {
+        onEndScroll={(...args) => {
           // eslint-disable-next-line no-console
           console.log('onEndScroll', args);
         }}

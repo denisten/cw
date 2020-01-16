@@ -1,6 +1,10 @@
 import { AppDomain } from './domain';
 import { TowersTypes } from '../towers-progress/store';
-import { ScaleValues } from '../../enums';
+
+export enum ScaleValues {
+  HALF = 0.5,
+  ORIGIN = 1,
+}
 
 export const modalWindowOpen = AppDomain.event<TowersTypes>(
   'User clicked to view extra info about building'

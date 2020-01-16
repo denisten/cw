@@ -4,9 +4,9 @@ import {
   modalWindowOpen,
   toggleModalWindow,
   updateScaleValue,
+  ScaleValues,
 } from './events';
 import { TowersTypes } from '../towers-progress/store';
-import { ScaleValues } from '../../enums';
 
 const initState = {
   isModalWindowOpen: false,

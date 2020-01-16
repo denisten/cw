@@ -26,11 +26,11 @@ export const TowerWrapper: React.FC<TypeWrapperProps> = ({
       <map name={tower}>
         <area
           alt="area"
-          onClick={(): void => {
+          onClick={() => {
             toggleModalWindow(towerType);
           }}
-          onMouseOver={(): void => setHoverState(true)}
-          onMouseOut={(): void => setHoverState(false)}
+          onMouseOver={() => setHoverState(true)}
+          onMouseOut={() => setHoverState(false)}
           coords={areaCoords}
           shape="rect"
         />

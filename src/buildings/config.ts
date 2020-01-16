@@ -1,4 +1,3 @@
-/* eslint no-magic-numbers : 0 */
 import mainTowerLevel1Img from './main-tower/main-tower-level-1.png';
 import mainTowerLevel1Shadow from './main-tower/main-tower-level-1-shadow.png';
 import mainTowerLevel2Img from './main-tower/main-tower-level-2.png';
@@ -12,9 +11,15 @@ import musicTowerLevel2Shadow from './music/level-2-shadow.png';
 import musicTowerLevel3Img from './music/level-3.png';
 import musicTowerLevel3Shadow from './music/level-3-shadow.png';
 import { TowersTypes } from '../effector/towers-progress/store';
-import { TowerLevel } from '../enums';
+
+export enum TowerLevel {
+  low = 0,
+  mid = 1,
+  high = 2,
+}
+
 export class BuildingsService {
-  _config: BuildingServiceConfigTypes = {
+  readonly _config: BuildingServiceConfigTypes = {
     [TowersTypes.MAIN_TOWER]: {
       info: 'info',
       coords: [2748, 1313],
