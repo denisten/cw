@@ -29,9 +29,9 @@
     "react/jsx-uses-react": 1,
     "@typescript-eslint/no-explicit-any": 2,
     "no-magic-numbers": 0,
-    "@typescript-eslint/no-magic-numbers": [2, {
+    "@typescript-eslint/no-magic-numbers": [1, {
       "ignoreEnums": true,
-      "ignore" : [1]
+      "ignoreReadonlyClassProperties": true
     }],
     "no-console": 2,
     "no-debugger": 2,

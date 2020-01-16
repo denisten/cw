@@ -19,7 +19,7 @@ export enum TowerLevel {
 }
 
 export class BuildingsService {
-  readonly _config: BuildingServiceConfigTypes = {
+  static readonly _config: BuildingServiceConfigTypes = {
     [TowersTypes.MAIN_TOWER]: {
       info: 'info',
       coords: [2748, 1313],
