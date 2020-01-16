@@ -20,13 +20,19 @@
   },
   "plugins": ["@typescript-eslint", "prettier", "react"],
   "rules": {
+    "@typescript-eslint/explicit-function-return-type": "off",
     "jsx-quotes": [
       1,
       "prefer-double"
     ],
+    "react/prop-types": 0,
     "react/jsx-uses-react": 1,
     "@typescript-eslint/no-explicit-any": 2,
-    "no-magic-numbers": 2,
+    "no-magic-numbers": 0,
+    "@typescript-eslint/no-magic-numbers": [1, {
+      "ignoreEnums": true,
+      "ignoreReadonlyClassProperties": true
+    }],
     "no-console": 2,
     "no-debugger": 2,
     "indent": [2, 2],
