@@ -6,13 +6,15 @@ export enum ScaleValues {
   ORIGIN = 1,
 }
 
-export const modalWindowOpen = AppDomain.event<TowersTypes>(
+export const extraTowerInfoModalOpened = AppDomain.event<TowersTypes>(
   'User clicked to view extra info about building'
 );
-export const modalWindowClosed = AppDomain.event(
+export const extraTowerInfoModalClosed = AppDomain.event(
   'User clicked to close extra info about building'
 );
-export const toggleModalWindow = AppDomain.event<TowersTypes>(
+export const toggleExtraTowerInfoModal = AppDomain.event<TowersTypes>(
   'User toggled modal window'
 );
+export const profileInfoModalWindowOpened = AppDomain.event();
+export const profileInfoModalWindowClosed = AppDomain.event();
 export const updateScaleValue = AppDomain.event<ScaleValues>();

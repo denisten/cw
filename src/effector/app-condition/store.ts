@@ -1,42 +1,59 @@
 import { AppDomain } from './domain';
 import {
-  modalWindowClosed,
-  modalWindowOpen,
-  toggleModalWindow,
+  extraTowerInfoModalClosed,
+  extraTowerInfoModalOpened,
+  toggleExtraTowerInfoModal,
   updateScaleValue,
   ScaleValues,
+  profileInfoModalWindowOpened,
+  profileInfoModalWindowClosed,
 } from './events';
 import { TowersTypes } from '../towers-progress/store';
 
+const initScaleValue = 1;
+
 const initState = {
-  isModalWindowOpen: false,
-  scaleValue: 0.7,
+  isExtraTowerInfoModalOpen: false,
+  scaleValue: initScaleValue,
   focusOn: TowersTypes.MAIN_TOWER,
+  isProfileInfoModalOpen: false,
 };
 
 export const AppConditionState = AppDomain.store<AppConditionType>(initState)
-  .on(modalWindowOpen, (state, payload) => ({
+  .on(extraTowerInfoModalOpened, (state, payload) => ({
     ...state,
-    isModalWindowOpen: true,
+    isExtraTowerInfoModalOpen: true,
     focusOn: payload,
   }))
-  .on(modalWindowClosed, state => ({
+  .on(extraTowerInfoModalClosed, state => ({
     ...state,
-    isModalWindowOpen: false,
-    focusOn: TowersTypes.MAIN_TOWER,
+    isExtraTowerInfoModalOpen: false,
   }))
-  .on(toggleModalWindow, (state, payload) => ({
+  .on(toggleExtraTowerInfoModal, (state, payload) => ({
     ...state,
-    isModalWindowOpen: !state.isModalWindowOpen,
+    isExtraTowerInfoModalOpen: !state.isExtraTowerInfoModalOpen,
     focusOn: payload,
   }))
-  .on(updateScaleValue, (state, payload) => ({
+  .on(updateScaleValue, (state, payload) => {
+    let localScaleValue = payload;
+    if (state.scaleValue === payload) localScaleValue = initScaleValue;
+    return {
+      ...state,
+      scaleValue: localScaleValue,
+    };
+  })
+  .on(profileInfoModalWindowOpened, state => ({
     ...state,
-    scaleValue: payload,
+    isProfileInfoModalOpen: true,
+  }))
+  .on(profileInfoModalWindowClosed, state => ({
+    ...state,
+    isProfileInfoModalOpen: false,
   }));
 
 type AppConditionType = {
-  isModalWindowOpen: boolean;
+  isExtraTowerInfoModalOpen: boolean;
+  isProfileInfoModalOpen: boolean;
   focusOn: TowersTypes;
   scaleValue: ScaleValues;
 };

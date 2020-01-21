@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import ScrollContainer from 'react-indiana-drag-scroll';
 import styled from 'styled-components';
-import { ModalWindow } from '../modal-window';
+import { ModalWindow } from '../extra-tower-info-modal-window';
 import { useStore } from 'effector-react';
 import { AppConditionState } from '../../effector/app-condition/store';
 import { Map } from '../map';
@@ -12,7 +12,9 @@ import {
   updateScaleValue,
   ScaleValues,
 } from '../../effector/app-condition/events';
-import { AuthButton } from '../auth-button';
+import { ProfileButton } from '../profile-button';
+import { ProfileModalWindow } from '../profile-modal-window';
+import { ScaleButton } from '../../UI/scale-button';
 
 const ComponentWrapper = styled.div`
   border: solid 5px #e2d7c7;
@@ -28,6 +30,7 @@ const ScrollContainerStyle = {
   height: '100%',
   width: '100%',
 };
+
 const MapWrapper = styled.div<{ scaleValue: number }>`
   display: block;
   width: 7680px;
@@ -38,26 +41,19 @@ const MapWrapper = styled.div<{ scaleValue: number }>`
 
 const styleConfig = {
   button1: {
-    position: 'fixed',
-    top: '10%',
-    width: '100px',
-    height: '98px',
-    zIndex: 100,
-    left: '10%',
-  } as React.CSSProperties,
-  button2: {
-    position: 'fixed',
-    top: '10%',
-    width: '100px',
-    height: '98px',
-    zIndex: 100,
-    left: '20%',
-  } as React.CSSProperties,
+    top: 10,
+    width: 3,
+    height: 5,
+    left: 10,
+  },
 };
 export const RootComponent = (): React.ReactElement => {
-  const { isModalWindowOpen, scaleValue, focusOn } = useStore(
-    AppConditionState
-  );
+  const {
+    isExtraTowerInfoModalOpen,
+    isProfileInfoModalOpen,
+    scaleValue,
+    focusOn,
+  } = useStore(AppConditionState);
   const localBuildingService = new BuildingsService();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const myRef: any = useRef<HTMLElement>(null);
@@ -70,28 +66,21 @@ export const RootComponent = (): React.ReactElement => {
       const scrollContainerNode = myRef.current.container.current;
       if (scrollContainerNode) scrollContainerNode.scrollTo(cordX, cordY);
     }
-  }, [isModalWindowOpen]);
+  }, [isExtraTowerInfoModalOpen]);
+
   return (
     <ComponentWrapper id="rootScroll">
-      <AuthButton />
-      <button
-        style={styleConfig.button1}
-        onClick={() => {
+      {isProfileInfoModalOpen ? <ProfileModalWindow /> : ''}
+      <ProfileButton />
+      <ScaleButton
+        scaleRefinements="0.5"
+        {...styleConfig.button1}
+        callBack={() => {
           updateScaleValue(ScaleValues.HALF);
         }}
-      >
-        0.5 SCALE
-      </button>
-      <button
-        style={styleConfig.button2}
-        onClick={() => {
-          updateScaleValue(ScaleValues.ORIGIN);
-        }}
-      >
-        1 SCALE
-      </button>
+      />
 
-      {isModalWindowOpen ? <ModalWindow /> : ''}
+      {isExtraTowerInfoModalOpen ? <ModalWindow /> : ''}
       <ScrollContainer
         ref={myRef}
         style={ScrollContainerStyle}

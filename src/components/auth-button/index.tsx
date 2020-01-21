@@ -9,7 +9,7 @@ const AuthButtonWrapper = styled.div`
   position: fixed;
   top: 10%;
   left: 30%;
-  z-index: 100;
+  z-index: 10;
 `;
 
 export const AuthButton = () => {
