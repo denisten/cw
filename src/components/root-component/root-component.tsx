@@ -77,7 +77,7 @@ export const RootComponent = (): React.ReactElement => {
         }}
       />
 
-      {isExtraTowerInfoModalOpen ? <ModalWindow /> : ''}
+      <ModalWindow opened={isExtraTowerInfoModalOpen} />
       <ScrollContainer
         ref={myRef}
         style={styleConfig.ScrollContainerStyle}
