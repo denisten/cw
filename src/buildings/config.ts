@@ -14,13 +14,7 @@ import arenaTowerLevel2Img from './arena/level-2.png';
 import arenaTowerLevel2Shadow from './arena/level-2-shadow.png';
 import mollTowerLevel2Img from './moll/level-2.png';
 import mollTowerLevel2Shadow from './moll/level-2-shadow.png';
-import { TowersTypes } from '../effector/towers-progress/store';
-
-export enum TowerLevel {
-  low = 0,
-  mid = 1,
-  high = 2,
-}
+import { TowerLevel, TowersTypes } from '../effector/towers-progress/store';
 
 export class BuildingsService {
   _config: BuildingServiceConfigTypes = {
@@ -82,7 +76,7 @@ export class BuildingsService {
     },
     [TowersTypes.ARENA]: {
       info: 'info',
-      coords: [2271, 1733],
+      coords: [1944, 877],
       [TowerLevel.low]: {
         // TODO: не настоящая картинка
         img: musicTowerLevel1Img,
@@ -112,7 +106,7 @@ export class BuildingsService {
     },
     [TowersTypes.MOLL]: {
       info: 'info',
-      coords: [2271, 1733],
+      coords: [2533, 802],
       [TowerLevel.low]: {
         // TODO: не настоящая картинка
         img: musicTowerLevel1Img,

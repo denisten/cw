@@ -20,9 +20,9 @@ export const Buildings = () => {
           return (
             <Fragment key={el}>
               <TowerWrapper
+                towerCoords={data.coords}
                 width={currentTower.width}
                 height={currentTower.height}
-                towerType={el}
                 position={currentTower.position}
                 areaCoords={currentTower.areaCoords}
                 shadowImg={currentTower.shadowImg}

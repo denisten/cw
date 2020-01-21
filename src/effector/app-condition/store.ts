@@ -7,15 +7,17 @@ import {
   ScaleValues,
   profileInfoModalWindowOpened,
   profileInfoModalWindowClosed,
+  updateFocusOnValue,
 } from './events';
-import { TowersTypes } from '../towers-progress/store';
 
 const initScaleValue = 1;
+// eslint-disable-next-line @typescript-eslint/no-magic-numbers
+const initFocusOnValue = [2748, 1313];
 
 const initState = {
   isExtraTowerInfoModalOpen: false,
   scaleValue: initScaleValue,
-  focusOn: TowersTypes.MAIN_TOWER,
+  focusOn: initFocusOnValue,
   isProfileInfoModalOpen: false,
 };
 
@@ -49,11 +51,15 @@ export const AppConditionState = AppDomain.store<AppConditionType>(initState)
   .on(profileInfoModalWindowClosed, state => ({
     ...state,
     isProfileInfoModalOpen: false,
+  }))
+  .on(updateFocusOnValue, (state, payload) => ({
+    ...state,
+    focusOn: payload,
   }));
 
 type AppConditionType = {
   isExtraTowerInfoModalOpen: boolean;
   isProfileInfoModalOpen: boolean;
-  focusOn: TowersTypes;
+  focusOn: number[];
   scaleValue: ScaleValues;
 };

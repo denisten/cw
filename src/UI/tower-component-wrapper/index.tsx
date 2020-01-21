@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { extraTowerInfoModalOpened } from '../../effector/app-condition/events';
-import { TowersTypes } from '../../effector/towers-progress/store';
 import { LazyImage } from '@tsareff/lazy-image';
 const TowerStyledWrapper = styled.div<TowerStyledWrapperProps>`
   display: block;
@@ -16,9 +15,9 @@ export const TowerWrapper: React.FC<TypeWrapperProps> = ({
   areaCoords,
   shadowImg,
   tower,
-  towerType,
   height,
   width,
+  towerCoords,
 }): React.ReactElement => {
   const [posX, posY] = position;
   const [hoverState, setHoverState] = useState(false);
@@ -39,7 +38,7 @@ export const TowerWrapper: React.FC<TypeWrapperProps> = ({
         <area
           alt="area"
           onClick={() => {
-            extraTowerInfoModalOpened(towerType);
+            extraTowerInfoModalOpened(towerCoords);
           }}
           onMouseOver={() => setHoverState(true)}
           onMouseOut={() => setHoverState(false)}
@@ -53,7 +52,7 @@ export const TowerWrapper: React.FC<TypeWrapperProps> = ({
 };
 
 type TypeWrapperProps = {
-  towerType: TowersTypes;
+  towerCoords: number[];
   position: number[];
   areaCoords: string;
   shadowImg: string;

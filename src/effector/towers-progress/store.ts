@@ -1,13 +1,15 @@
 import { TowersProgressDomain } from './domain';
-import { TowerLevel } from '../../buildings/config';
-
+export enum TowerLevel {
+  low = 0,
+  mid = 1,
+  high = 2,
+}
 export enum TowersTypes {
   MAIN_TOWER = 'mainTower',
   MUSIC = 'music',
   ARENA = 'arena',
   MOLL = 'moll',
 }
-
 const initState: TowersProgressStoreType = {
   [TowersTypes.MAIN_TOWER]: TowerLevel.high,
   [TowersTypes.MUSIC]: TowerLevel.high,

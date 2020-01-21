@@ -6,11 +6,11 @@ import { useStore } from 'effector-react';
 import { AppConditionState } from '../../effector/app-condition/store';
 import { Map } from '../map';
 import { Buildings } from '../../buildings';
-import { BuildingsService } from '../../buildings/config';
 import mapTile from '../../img/map/map-tile.png';
 import {
   updateScaleValue,
   ScaleValues,
+  updateFocusOnValue,
 } from '../../effector/app-condition/events';
 import { ProfileButton } from '../profile-button';
 import { ProfileModalWindow } from '../profile-modal-window';
@@ -25,11 +25,6 @@ const ComponentWrapper = styled.div`
   height: 100vh;
   overflow: hidden;
 `;
-
-const ScrollContainerStyle = {
-  height: '100%',
-  width: '100%',
-};
 
 const MapWrapper = styled.div<{ scaleValue: number }>`
   display: block;
@@ -46,7 +41,12 @@ const styleConfig = {
     height: 5,
     left: 10,
   },
+  ScrollContainerStyle: {
+    height: '100%',
+    width: '100%',
+  },
 };
+
 export const RootComponent = (): React.ReactElement => {
   const {
     isExtraTowerInfoModalOpen,
@@ -54,15 +54,12 @@ export const RootComponent = (): React.ReactElement => {
     scaleValue,
     focusOn,
   } = useStore(AppConditionState);
-  const localBuildingService = new BuildingsService();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const myRef: any = useRef<HTMLElement>(null);
 
   useEffect(() => {
     if (myRef.current) {
-      const {
-        coords: [cordX, cordY],
-      } = localBuildingService.getConfigForTower(focusOn);
+      const [cordX, cordY] = focusOn;
       const scrollContainerNode = myRef.current.container.current;
       if (scrollContainerNode) scrollContainerNode.scrollTo(cordX, cordY);
     }
@@ -83,11 +80,11 @@ export const RootComponent = (): React.ReactElement => {
       {isExtraTowerInfoModalOpen ? <ModalWindow /> : ''}
       <ScrollContainer
         ref={myRef}
-        style={ScrollContainerStyle}
+        style={styleConfig.ScrollContainerStyle}
         nativeMobileScroll={false}
         onEndScroll={(...args) => {
-          // eslint-disable-next-line no-console
-          console.log('onEndScroll', args);
+          // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+          updateFocusOnValue(args.slice(0, 2));
         }}
       >
         <MapWrapper scaleValue={scaleValue}>
