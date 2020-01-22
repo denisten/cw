@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ExitButton } from '../../UI/close-button';
+import { ExitButton } from '../../UI/exit-button';
 import { extraTowerInfoModalClosed } from '../../effector/app-condition/events';
 
 type ModalWindowProps = {
@@ -10,7 +10,7 @@ type ModalWindowProps = {
 enum marginRightValues {
   OPENED = 0,
   // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-  CLOSED = -35,
+  CLOSED = -100,
 }
 
 const ModalWindowWrapper = styled.div<ModalWindowProps>`
@@ -28,10 +28,10 @@ const ModalWindowWrapper = styled.div<ModalWindowProps>`
 
 const StyleConfig = {
   exitButton: {
-    width: 5,
     height: 3,
     top: 1,
     left: 1,
+    hoverFlag: true,
   },
 };
 

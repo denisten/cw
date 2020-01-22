@@ -1,37 +1,42 @@
 import React from 'react';
-import styled from 'styled-components';
-import { ExitButton } from '../../UI/close-button';
+import { ExitButton } from '../../UI/exit-button';
 import { profileInfoModalWindowClosed } from '../../effector/app-condition/events';
 import { AuthButton } from '../auth-button';
-
-const ProfileModalWindowWrapper = styled.div`
-  width: 60%;
-  height: 80%;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: aqua;
-  z-index: 20;
-`;
+import background from './background.png';
+import { AvatarWrapper } from '../../UI/avatar-wrapper';
+import avatarImg from '../../img/avatars/1-1.png';
+import { ImgWrapper } from '../../UI/img-wrapper';
 
 const StyledConfig = {
   exitButton: {
-    width: 4,
-    height: 4,
+    height: 5,
     top: 1,
     right: 1,
+    hoverFlag: true,
+  },
+  mainWrapper: {
+    height: 80,
+    zIndex: 20,
+    top: 50,
+    left: 50,
+    transformTranslate: '-50%, -50%',
+  },
+  avatar: {
+    height: 10,
+    top: 2,
+    left: 2,
   },
 };
 
 export const ProfileModalWindow = () => {
   return (
-    <ProfileModalWindowWrapper>
+    <ImgWrapper {...StyledConfig.mainWrapper} src={background}>
+      <AvatarWrapper src={avatarImg} {...StyledConfig.avatar} />
       <AuthButton />
       <ExitButton
         {...StyledConfig.exitButton}
         callBack={() => profileInfoModalWindowClosed()}
       />
-    </ProfileModalWindowWrapper>
+    </ImgWrapper>
   );
 };
