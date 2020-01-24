@@ -7,6 +7,7 @@ const TowerStyledWrapper = styled.div<TowerStyledWrapperProps>`
   position: absolute;
   top: ${props => props.posX}%;
   left: ${props => props.posY}%;
+  z-index: ${props => props.zIndex};
   vertical-align: top;
 `;
 
@@ -18,6 +19,7 @@ export const TowerWrapper: React.FC<TypeWrapperProps> = ({
   height,
   width,
   towerCoords,
+  zIndex,
 }): React.ReactElement => {
   const [posX, posY] = position;
   const [hoverState, setHoverState] = useState(false);
@@ -27,7 +29,7 @@ export const TowerWrapper: React.FC<TypeWrapperProps> = ({
     position: 'absolute',
   } as React.CSSProperties;
   return (
-    <TowerStyledWrapper posX={posX} posY={posY}>
+    <TowerStyledWrapper posX={posX} posY={posY} zIndex={zIndex}>
       <LazyImage
         src={tower}
         alt="tower"
@@ -59,9 +61,11 @@ type TypeWrapperProps = {
   tower: string;
   width: number;
   height: number;
+  zIndex?: number;
 };
 
 type TowerStyledWrapperProps = {
   posX: number;
   posY: number;
+  zIndex?: number;
 };

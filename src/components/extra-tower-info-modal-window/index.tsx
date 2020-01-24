@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { ExitButton } from '../../UI/exit-button';
 import { extraTowerInfoModalClosed } from '../../effector/app-condition/events';
 
-type ModalWindowProps = {
+export type ModalWindowProps = {
   opened?: boolean;
 };
 
@@ -13,7 +13,7 @@ enum marginRightValues {
   CLOSED = -100,
 }
 
-const ModalWindowWrapper = styled.div<ModalWindowProps>`
+export const ModalWindowWrapper = styled.div<ModalWindowProps>`
   position: absolute;
   z-index: 1;
   right: 0;

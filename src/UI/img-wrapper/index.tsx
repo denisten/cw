@@ -34,7 +34,7 @@ interface ParentDivWrapperProps {
 export interface ImgWrapperProps extends ParentDivWrapperProps {
   callBack?: () => void;
   src: string;
-  children?: React.ReactElement[];
+  children?: React.ReactElement[] | React.ReactElement;
 }
 
 export const ImgWrapper: React.FC<ImgWrapperProps> = ({

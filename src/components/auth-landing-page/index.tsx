@@ -10,7 +10,7 @@ export const AuthLandingPage = () => {
       localStorage.setItem(AuthCookieKey, cookie);
     }
     setTimeout(() => {
-      // window.close();
+      window.close();
       // eslint-disable-next-line @typescript-eslint/no-magic-numbers
     }, 2000);
   }, []);

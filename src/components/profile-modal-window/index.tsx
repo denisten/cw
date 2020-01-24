@@ -6,6 +6,7 @@ import background from './background.png';
 import { AvatarWrapper } from '../../UI/avatar-wrapper';
 import avatarImg from '../../img/avatars/1-1.png';
 import { ImgWrapper } from '../../UI/img-wrapper';
+import { SaveButton } from '../../UI/save-button';
 
 const StyledConfig = {
   exitButton: {
@@ -22,9 +23,16 @@ const StyledConfig = {
     transformTranslate: '-50%, -50%',
   },
   avatar: {
-    height: 10,
+    height: 21,
     top: 2,
     left: 2,
+  },
+  saveButton: {
+    height: 7,
+    bottom: 0,
+    left: 50,
+    transformTranslate: '-50%, -50%',
+    hoverFlag: true,
   },
 };
 
@@ -36,6 +44,12 @@ export const ProfileModalWindow = () => {
       <ExitButton
         {...StyledConfig.exitButton}
         callBack={() => profileInfoModalWindowClosed()}
+      />
+      <SaveButton
+        {...StyledConfig.saveButton}
+        callBack={() => {
+          profileInfoModalWindowClosed();
+        }}
       />
     </ImgWrapper>
   );

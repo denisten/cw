@@ -6,7 +6,7 @@ import { AuthLandingPage } from './components/auth-landing-page';
 
 export enum Routes {
   MAIN = '/',
-  AUTH_LANDING_PAGE = '/test',
+  AUTH_LANDING_PAGE = '/landingPage',
 }
 
 export const App = () => {

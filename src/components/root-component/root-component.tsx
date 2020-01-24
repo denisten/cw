@@ -15,6 +15,9 @@ import {
 import { ProfileButton } from '../profile-button';
 import { ProfileModalWindow } from '../profile-modal-window';
 import { ScaleButton } from '../../UI/scale-button';
+import { MoneyWrapper } from '../../UI/money-wrapper';
+import { TaskButton } from '../../UI/task-button';
+import { TaskModalWindow } from '../task-modal-window';
 
 const ComponentWrapper = styled.div`
   border: solid 5px #e2d7c7;
@@ -36,14 +39,20 @@ const MapWrapper = styled.div<{ scaleValue: number }>`
 
 const styleConfig = {
   button1: {
-    top: 10,
+    bottom: 10,
     width: 3,
     height: 5,
-    left: 10,
+    right: 10,
   },
   ScrollContainerStyle: {
     height: '100%',
     width: '100%',
+  },
+  moneyWrapper: {
+    zIndex: 20,
+    height: 5,
+    top: 5,
+    left: 10,
   },
 };
 
@@ -51,6 +60,7 @@ export const RootComponent = (): React.ReactElement => {
   const {
     isExtraTowerInfoModalOpen,
     isProfileInfoModalOpen,
+    isTaskModalOpen,
     scaleValue,
     focusOn,
   } = useStore(AppConditionState);
@@ -69,6 +79,8 @@ export const RootComponent = (): React.ReactElement => {
     <ComponentWrapper id="rootScroll">
       {isProfileInfoModalOpen ? <ProfileModalWindow /> : ''}
       <ProfileButton />
+      <TaskButton />
+      <MoneyWrapper count={9999} {...styleConfig.moneyWrapper} />
       <ScaleButton
         scaleRefinements="0.5"
         {...styleConfig.button1}
@@ -78,6 +90,7 @@ export const RootComponent = (): React.ReactElement => {
       />
 
       <ModalWindow opened={isExtraTowerInfoModalOpen} />
+      <TaskModalWindow opened={isTaskModalOpen} />
       <ScrollContainer
         ref={myRef}
         style={styleConfig.ScrollContainerStyle}

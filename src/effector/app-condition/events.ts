@@ -18,3 +18,5 @@ export const profileInfoModalWindowOpened = AppDomain.event();
 export const profileInfoModalWindowClosed = AppDomain.event();
 export const updateScaleValue = AppDomain.event<ScaleValues>();
 export const updateFocusOnValue = AppDomain.event<number[]>();
+export const taskModalWindowOpened = AppDomain.event();
+export const taskModalWindowClosed = AppDomain.event();

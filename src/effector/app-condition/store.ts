@@ -8,6 +8,8 @@ import {
   profileInfoModalWindowOpened,
   profileInfoModalWindowClosed,
   updateFocusOnValue,
+  taskModalWindowOpened,
+  taskModalWindowClosed,
 } from './events';
 
 const initScaleValue = 1;
@@ -19,6 +21,7 @@ const initState = {
   scaleValue: initScaleValue,
   focusOn: initFocusOnValue,
   isProfileInfoModalOpen: false,
+  isTaskModalOpen: false,
 };
 
 export const AppConditionState = AppDomain.store<AppConditionType>(initState)
@@ -55,11 +58,20 @@ export const AppConditionState = AppDomain.store<AppConditionType>(initState)
   .on(updateFocusOnValue, (state, payload) => ({
     ...state,
     focusOn: payload,
+  }))
+  .on(taskModalWindowOpened, state => ({
+    ...state,
+    isTaskModalOpen: true,
+  }))
+  .on(taskModalWindowClosed, state => ({
+    ...state,
+    isTaskModalOpen: false,
   }));
 
 type AppConditionType = {
   isExtraTowerInfoModalOpen: boolean;
   isProfileInfoModalOpen: boolean;
+  isTaskModalOpen: boolean;
   focusOn: number[];
   scaleValue: ScaleValues;
 };
