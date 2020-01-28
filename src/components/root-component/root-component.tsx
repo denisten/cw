@@ -20,13 +20,13 @@ import { TaskButton } from '../../UI/task-button';
 import { TaskModalWindow } from '../task-modal-window';
 
 const ComponentWrapper = styled.div`
-  border: solid 5px #e2d7c7;
   background-image: url("${mapTile}");
   background-repeat: repeat;
   background-size: auto;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
+  position: relative;
 `;
 
 const MapWrapper = styled.div<{ scaleValue: number }>`

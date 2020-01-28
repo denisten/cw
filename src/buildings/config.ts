@@ -1,27 +1,31 @@
-import mainTowerLevel1Img from './main-tower/level-1.png';
-import mainTowerLevel1Shadow from './main-tower/level-1-shadow.png';
-import mainTowerLevel2Img from './main-tower/level-2.png';
-import mainTowerLevel2Shadow from './main-tower/level-2-shadow.png';
-import mainTowerLevel3Shadow from './main-tower/level-3-shadow.png';
-import mainTowerLevel3Img from './main-tower/level-3.png';
-import musicTowerLevel1Img from './music/level-1.png';
-import musicTowerLevel1Shadow from './music/level-1-shadow.png';
-import musicTowerLevel2Img from './music/level-2.png';
-import musicTowerLevel2Shadow from './music/level-2-shadow.png';
-import musicTowerLevel3Img from './music/level-3.png';
-import musicTowerLevel3Shadow from './music/level-3-shadow.png';
-import arenaTowerLevel2Img from './arena/level-2.png';
-import arenaTowerLevel2Shadow from './arena/level-2-shadow.png';
-import mollTowerLevel2Img from './moll/level-2.png';
-import mollTowerLevel2Shadow from './moll/level-2-shadow.png';
-import eggTowerLevel3Img from './egg/level-3.png';
-import eggTowerLevel3Shadow from './egg/level-3-shadow.png';
-import libraryTowerLevel2Img from './library/level-2.png';
-import libraryTowerLevel2Shadow from './library/level-2-shadow.png';
-import observatoryTowerLevel2Img from './observatory/level-2.png';
-import observatoryTowerLevel2Shadow from './observatory/level-2-shadow.png';
-import tariffTowerLevel2Img from './tariff/level-2.png';
-import tariffTowerLevel2Shadow from './tariff/level-2-shadow.png';
+import mainTowerLevel1Img from './main-tower/1.png';
+import mainTowerLevel1Stroke from './main-tower/1-stroke.png';
+import mainTowerLevel2Img from './main-tower/2.png';
+import mainTowerLevel2Stroke from './main-tower/2-stroke.png';
+import mainTowerLevel3Stroke from './main-tower/3-stroke.png';
+import mainTowerLevel3Img from './main-tower/3.png';
+import musicTowerLevel1Img from './music/1.png';
+import musicTowerLevel1Stroke from './music/1-stroke.png';
+import musicTowerLevel2Img from './music/2.png';
+import musicTowerLevel2Stroke from './music/2-stroke.png';
+import musicTowerLevel3Img from './music/3.png';
+import musicTowerLevel3Stroke from './music/3-stroke.png';
+import arenaTowerLevel2Img from './arena/2.png';
+import arenaTowerLevel2Stroke from './arena/2-stroke.png';
+import mollTowerLevel2Img from './moll/2.png';
+import mollTowerLevel2Stroke from './moll/2-stroke.png';
+import eggTowerLevel3Img from './egg/3.png';
+import eggTowerLevel3Stroke from './egg/3-stroke.png';
+import libraryTowerLevel2Img from './library/2.png';
+import libraryTowerLevel2Stroke from './library/2-stroke.png';
+import observatoryTowerLevel2Img from './observatory/2.png';
+import observatoryTowerLevel2Stroke from './observatory/2-stroke.png';
+import tariffTowerLevel2Img from './tariff/2.png';
+import tariffTowerLevel2Stroke from './tariff/2-stroke.png';
+import theaterTowerLevel2Img from './theater/2.png';
+import theaterTowerLevel2Stroke from './theater/2-stroke.png';
+import TVTowerLevel2Stroke from './TV/2-stroke.png';
+import TVTowerLevel2Img from './TV/2.png';
 import { TowerLevel, TowersTypes } from '../effector/towers-progress/store';
 
 export class BuildingsService {
@@ -34,7 +38,7 @@ export class BuildingsService {
         img: mainTowerLevel1Img,
         width: 382,
         height: 687,
-        shadowImg: mainTowerLevel1Shadow,
+        shadowImg: mainTowerLevel1Stroke,
         areaCoords: '84,168,299,576',
         position: [29.5, 45.4],
       },
@@ -42,7 +46,7 @@ export class BuildingsService {
         img: mainTowerLevel2Img,
         width: 382,
         height: 744,
-        shadowImg: mainTowerLevel2Shadow,
+        shadowImg: mainTowerLevel2Stroke,
         areaCoords: '84,121,301,659',
         position: [28.5, 45.4],
       },
@@ -50,8 +54,7 @@ export class BuildingsService {
         img: mainTowerLevel3Img,
         width: 382,
         height: 761,
-        shadowImg: mainTowerLevel3Shadow,
-        // areaCoords: '84,118,319,659',
+        shadowImg: mainTowerLevel3Stroke,
         areaCoords: '298,157,87,662',
         position: [28.13, 45.4],
       },
@@ -64,7 +67,7 @@ export class BuildingsService {
         img: musicTowerLevel1Img,
         width: 504,
         height: 414,
-        shadowImg: musicTowerLevel1Shadow,
+        shadowImg: musicTowerLevel1Stroke,
         areaCoords: '128,57,418,291',
         position: [42.2, 36.9],
       },
@@ -72,7 +75,7 @@ export class BuildingsService {
         img: musicTowerLevel2Img,
         width: 501,
         height: 441,
-        shadowImg: musicTowerLevel2Shadow,
+        shadowImg: musicTowerLevel2Stroke,
         areaCoords: '84,121,301,659',
         position: [41.8, 37],
       },
@@ -80,52 +83,52 @@ export class BuildingsService {
         img: musicTowerLevel3Img,
         width: 438,
         height: 460,
-        shadowImg: musicTowerLevel3Shadow,
+        shadowImg: musicTowerLevel3Stroke,
         areaCoords: '84,118,319,659',
         position: [40.8, 37.4],
       },
     },
     [TowersTypes.ARENA]: {
       info: 'info',
-      coords: [1944, 877],
+      coords: [2762, 778],
       zIndex: 1,
       [TowerLevel.low]: {
         // TODO: не настоящая картинка
         img: musicTowerLevel1Img,
         width: 1,
         height: 2,
-        shadowImg: musicTowerLevel1Shadow,
+        shadowImg: musicTowerLevel1Stroke,
         areaCoords: '128,57,418,291',
         position: [42.2, 36.9],
       },
       [TowerLevel.mid]: {
         img: arenaTowerLevel2Img,
-        width: 561,
-        height: 369,
-        shadowImg: arenaTowerLevel2Shadow,
+        width: 650,
+        height: 422,
+        shadowImg: arenaTowerLevel2Stroke,
         areaCoords: '95,301,466,77',
-        position: [26.6, 34.9],
+        position: [22.3, 41.5],
       },
       [TowerLevel.high]: {
         // TODO: не настоящая картинка
         img: musicTowerLevel3Img,
         width: 1,
         height: 2,
-        shadowImg: musicTowerLevel3Shadow,
+        shadowImg: musicTowerLevel3Stroke,
         areaCoords: '84,118,319,659',
         position: [40.8, 37.4],
       },
     },
     [TowersTypes.MOLL]: {
       info: 'info',
-      coords: [2533, 802],
+      coords: [3311, 837],
       zIndex: 1,
       [TowerLevel.low]: {
         // TODO: не настоящая картинка
         img: musicTowerLevel1Img,
         width: 1,
         height: 2,
-        shadowImg: musicTowerLevel1Shadow,
+        shadowImg: musicTowerLevel1Stroke,
         areaCoords: '128,57,418,291',
         position: [42.2, 36.9],
       },
@@ -133,16 +136,16 @@ export class BuildingsService {
         img: mollTowerLevel2Img,
         width: 604,
         height: 468,
-        shadowImg: mollTowerLevel2Shadow,
+        shadowImg: mollTowerLevel2Stroke,
         areaCoords: '74,380,544,63',
-        position: [22, 39.9],
+        position: [22.56, 49.95],
       },
       [TowerLevel.high]: {
         // TODO: не настоящая картинка
         img: musicTowerLevel3Img,
         width: 1,
         height: 2,
-        shadowImg: musicTowerLevel3Shadow,
+        shadowImg: musicTowerLevel3Stroke,
         areaCoords: '84,118,319,659',
         position: [40.8, 37.4],
       },
@@ -156,7 +159,7 @@ export class BuildingsService {
         img: musicTowerLevel1Img,
         width: 1,
         height: 2,
-        shadowImg: musicTowerLevel1Shadow,
+        shadowImg: musicTowerLevel1Stroke,
         areaCoords: '128,57,418,291',
         position: [42.2, 36.9],
       },
@@ -165,7 +168,7 @@ export class BuildingsService {
         img: mollTowerLevel2Img,
         width: 604,
         height: 468,
-        shadowImg: mollTowerLevel2Shadow,
+        shadowImg: mollTowerLevel2Stroke,
         areaCoords: '74,380,544,63',
         position: [22, 39.9],
       },
@@ -173,21 +176,21 @@ export class BuildingsService {
         img: eggTowerLevel3Img,
         width: 384,
         height: 531,
-        shadowImg: eggTowerLevel3Shadow,
+        shadowImg: eggTowerLevel3Stroke,
         areaCoords: '320,441,50,45',
         position: [31.5, 50.9],
       },
     },
     [TowersTypes.LIBRARY]: {
       info: 'info',
-      coords: [1450, 2169],
+      coords: [1458, 1802],
       zIndex: 1,
       [TowerLevel.low]: {
         // TODO: не настоящая картинка
         img: musicTowerLevel1Img,
         width: 1,
         height: 2,
-        shadowImg: musicTowerLevel1Shadow,
+        shadowImg: musicTowerLevel1Stroke,
         areaCoords: '128,57,418,291',
         position: [42.2, 36.9],
       },
@@ -195,16 +198,16 @@ export class BuildingsService {
         img: libraryTowerLevel2Img,
         width: 540,
         height: 540,
-        shadowImg: libraryTowerLevel2Shadow,
+        shadowImg: libraryTowerLevel2Stroke,
         areaCoords: '78,92,454,445',
-        position: [46.4, 27.6],
+        position: [40.5, 25.7],
       },
       [TowerLevel.high]: {
         // TODO: не настоящая картинка
         img: eggTowerLevel3Img,
         width: 384,
         height: 531,
-        shadowImg: eggTowerLevel3Shadow,
+        shadowImg: eggTowerLevel3Stroke,
         areaCoords: '320,441,50,45',
         position: [31.5, 50.9],
       },
@@ -212,13 +215,13 @@ export class BuildingsService {
     [TowersTypes.OBSERVATORY]: {
       info: 'info',
       coords: [2039, 1209],
-      zIndex: 1,
+      zIndex: 2,
       [TowerLevel.low]: {
         // TODO: не настоящая картинка
         img: musicTowerLevel1Img,
         width: 1,
         height: 2,
-        shadowImg: musicTowerLevel1Shadow,
+        shadowImg: musicTowerLevel1Stroke,
         areaCoords: '128,57,418,291',
         position: [42.2, 36.9],
       },
@@ -226,16 +229,16 @@ export class BuildingsService {
         img: observatoryTowerLevel2Img,
         width: 351,
         height: 606,
-        shadowImg: observatoryTowerLevel2Shadow,
+        shadowImg: observatoryTowerLevel2Stroke,
         areaCoords: '64,129,288,539',
-        position: [27.2, 33.3],
+        position: [26.7, 32.8],
       },
       [TowerLevel.high]: {
         // TODO: не настоящая картинка
         img: eggTowerLevel3Img,
         width: 384,
         height: 531,
-        shadowImg: eggTowerLevel3Shadow,
+        shadowImg: eggTowerLevel3Stroke,
         areaCoords: '320,441,50,45',
         position: [31.5, 50.9],
       },
@@ -249,7 +252,7 @@ export class BuildingsService {
         img: musicTowerLevel1Img,
         width: 1,
         height: 2,
-        shadowImg: musicTowerLevel1Shadow,
+        shadowImg: musicTowerLevel1Stroke,
         areaCoords: '128,57,418,291',
         position: [42.2, 36.9],
       },
@@ -257,7 +260,7 @@ export class BuildingsService {
         img: tariffTowerLevel2Img,
         width: 330,
         height: 635,
-        shadowImg: tariffTowerLevel2Shadow,
+        shadowImg: tariffTowerLevel2Stroke,
         areaCoords: '55,92,284,570',
         position: [27, 48.2],
       },
@@ -266,7 +269,69 @@ export class BuildingsService {
         img: eggTowerLevel3Img,
         width: 384,
         height: 531,
-        shadowImg: eggTowerLevel3Shadow,
+        shadowImg: eggTowerLevel3Stroke,
+        areaCoords: '320,441,50,45',
+        position: [31.5, 50.9],
+      },
+    },
+    [TowersTypes.THEATER]: {
+      info: 'info',
+      coords: [2096, 960],
+      zIndex: 1,
+      [TowerLevel.low]: {
+        // TODO: не настоящая картинка
+        img: musicTowerLevel1Img,
+        width: 1,
+        height: 2,
+        shadowImg: musicTowerLevel1Stroke,
+        areaCoords: '128,57,418,291',
+        position: [42.2, 36.9],
+      },
+      [TowerLevel.mid]: {
+        img: theaterTowerLevel2Img,
+        width: 584,
+        height: 461,
+        shadowImg: theaterTowerLevel2Stroke,
+        areaCoords: '518,397,95,92',
+        position: [25.5, 35.3],
+      },
+      [TowerLevel.high]: {
+        // TODO: не настоящая картинка
+        img: eggTowerLevel3Img,
+        width: 384,
+        height: 531,
+        shadowImg: eggTowerLevel3Stroke,
+        areaCoords: '320,441,50,45',
+        position: [31.5, 50.9],
+      },
+    },
+    [TowersTypes.TV]: {
+      info: 'info',
+      coords: [1312, 1183],
+      zIndex: 1,
+      [TowerLevel.low]: {
+        // TODO: не настоящая картинка
+        img: musicTowerLevel1Img,
+        width: 1,
+        height: 2,
+        shadowImg: musicTowerLevel1Stroke,
+        areaCoords: '128,57,418,291',
+        position: [42.2, 36.9],
+      },
+      [TowerLevel.mid]: {
+        img: TVTowerLevel2Img,
+        width: 474,
+        height: 1058,
+        shadowImg: TVTowerLevel2Stroke,
+        areaCoords: '365,1006,120,255',
+        position: [21.6, 26.42],
+      },
+      [TowerLevel.high]: {
+        // TODO: не настоящая картинка
+        img: eggTowerLevel3Img,
+        width: 384,
+        height: 531,
+        shadowImg: eggTowerLevel3Stroke,
         areaCoords: '320,441,50,45',
         position: [31.5, 50.9],
       },
