@@ -21,10 +21,9 @@ const TaskModalWindowWrapper = styled.div<ModalWindowProps>`
   transition-duration: 0.5s;
   transition-property: margin-right;
   height: 50%;
-  //width: null;
+  width: 37%;
   top: 50%;
-  transform: translate(-50%, -50%);
-  background-color: green;
+  transform: translate(0%, -50%);
 `;
 
 const StyleConfig = {
@@ -35,6 +34,7 @@ const StyleConfig = {
     hoverFlag: true,
   },
   backgroundImg: {
+    border: '1px solid',
     height: 100,
   },
 };

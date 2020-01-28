@@ -7,14 +7,9 @@ import { AppConditionState } from '../../effector/app-condition/store';
 import { Map } from '../map';
 import { Buildings } from '../../buildings';
 import mapTile from '../../img/map/map-tile.png';
-import {
-  updateScaleValue,
-  ScaleValues,
-  updateFocusOnValue,
-} from '../../effector/app-condition/events';
+import { updateFocusOnValue } from '../../effector/app-condition/events';
 import { ProfileButton } from '../profile-button';
 import { ProfileModalWindow } from '../profile-modal-window';
-import { ScaleButton } from '../../UI/scale-button';
 import { MoneyWrapper } from '../../UI/money-wrapper';
 import { TaskButton } from '../../UI/task-button';
 import { TaskModalWindow } from '../task-modal-window';
@@ -38,12 +33,6 @@ const MapWrapper = styled.div<{ scaleValue: number }>`
 `;
 
 const styleConfig = {
-  button1: {
-    bottom: 10,
-    width: 3,
-    height: 5,
-    right: 10,
-  },
   ScrollContainerStyle: {
     height: '100%',
     width: '100%',
@@ -81,13 +70,6 @@ export const RootComponent = (): React.ReactElement => {
       <ProfileButton />
       <TaskButton />
       <MoneyWrapper count={9999} {...styleConfig.moneyWrapper} />
-      <ScaleButton
-        scaleRefinements="0.5"
-        {...styleConfig.button1}
-        callBack={() => {
-          updateScaleValue(ScaleValues.HALF);
-        }}
-      />
 
       <ModalWindow opened={isExtraTowerInfoModalOpen} />
       <TaskModalWindow opened={isTaskModalOpen} />
