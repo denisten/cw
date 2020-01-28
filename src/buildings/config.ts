@@ -26,6 +26,8 @@ import theaterTowerLevel2Img from './theater/2.png';
 import theaterTowerLevel2Stroke from './theater/2-stroke.png';
 import TVTowerLevel2Stroke from './TV/2-stroke.png';
 import TVTowerLevel2Img from './TV/2.png';
+import stadiumLevel2Img from './stadium/2.png';
+import stadiumLevel2Stroke from './stadium/2-stroke.png';
 import { TowerLevel, TowersTypes } from '../effector/towers-progress/store';
 
 export class BuildingsService {
@@ -62,7 +64,7 @@ export class BuildingsService {
     [TowersTypes.MUSIC]: {
       info: 'info',
       coords: [2271, 1733],
-      zIndex: 1,
+      zIndex: 2,
       [TowerLevel.low]: {
         img: musicTowerLevel1Img,
         width: 504,
@@ -106,7 +108,7 @@ export class BuildingsService {
         width: 650,
         height: 422,
         shadowImg: arenaTowerLevel2Stroke,
-        areaCoords: '95,301,466,77',
+        areaCoords: '590,60,64,365',
         position: [22.3, 41.5],
       },
       [TowerLevel.high]: {
@@ -325,6 +327,37 @@ export class BuildingsService {
         shadowImg: TVTowerLevel2Stroke,
         areaCoords: '365,1006,120,255',
         position: [21.6, 26.42],
+      },
+      [TowerLevel.high]: {
+        // TODO: не настоящая картинка
+        img: eggTowerLevel3Img,
+        width: 384,
+        height: 531,
+        shadowImg: eggTowerLevel3Stroke,
+        areaCoords: '320,441,50,45',
+        position: [31.5, 50.9],
+      },
+    },
+    [TowersTypes.STADIUM]: {
+      info: 'info',
+      coords: [2020, 1797],
+      zIndex: 1,
+      [TowerLevel.low]: {
+        // TODO: не настоящая картинка
+        img: musicTowerLevel1Img,
+        width: 1,
+        height: 2,
+        shadowImg: musicTowerLevel1Stroke,
+        areaCoords: '128,57,418,291',
+        position: [42.2, 36.9],
+      },
+      [TowerLevel.mid]: {
+        img: stadiumLevel2Img,
+        width: 695,
+        height: 533,
+        shadowImg: stadiumLevel2Stroke,
+        areaCoords: '595,126,90,476',
+        position: [37.8, 30.6],
       },
       [TowerLevel.high]: {
         // TODO: не настоящая картинка
