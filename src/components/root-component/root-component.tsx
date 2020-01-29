@@ -65,7 +65,6 @@ export const RootComponent = (): React.ReactElement => {
     if (myRef.current) {
       const [cordX, cordY] = focusOn;
       const scrollContainerNode = myRef.current.container.current;
-      // console.log(myRef.current.container);
       if (scrollContainerNode)
         scrollContainerNode.scrollTo(
           cordX - window.innerWidth / divideNumber.WIDTH,
