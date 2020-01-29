@@ -8,12 +8,12 @@ enum divideNumber {
 export const useScrollTo = (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   node: any,
-  scrollTo: number[],
+  towerCoords: number[],
   isExtraTowerInfoModalOpen: boolean
 ) => {
   useEffect(() => {
     if (node) {
-      const [cordX, cordY] = scrollTo;
+      const [cordX, cordY] = towerCoords;
       const scrollContainerNode = node.container.current;
       if (scrollContainerNode)
         scrollContainerNode.scrollTo(
