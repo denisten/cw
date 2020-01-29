@@ -14,6 +14,11 @@ import { MoneyWrapper } from '../../UI/money-wrapper';
 import { TaskButton } from '../../UI/task-button';
 import { TaskModalWindow } from '../task-modal-window';
 
+enum divideNumber {
+  WIDTH = 2.5,
+  HEIGHT = 1.8,
+}
+
 const ComponentWrapper = styled.div`
   background-image: url("${mapTile}");
   background-repeat: repeat;
@@ -60,7 +65,12 @@ export const RootComponent = (): React.ReactElement => {
     if (myRef.current) {
       const [cordX, cordY] = focusOn;
       const scrollContainerNode = myRef.current.container.current;
-      if (scrollContainerNode) scrollContainerNode.scrollTo(cordX, cordY);
+      // console.log(myRef.current.container);
+      if (scrollContainerNode)
+        scrollContainerNode.scrollTo(
+          cordX - window.innerWidth / divideNumber.WIDTH,
+          cordY - window.innerHeight / divideNumber.HEIGHT
+        );
     }
   }, [isExtraTowerInfoModalOpen]);
 
