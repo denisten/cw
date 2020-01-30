@@ -28,6 +28,12 @@ import TVTowerLevel2Stroke from './TV/2-stroke.png';
 import TVTowerLevel2Img from './TV/2.png';
 import stadiumLevel2Img from './stadium/2.png';
 import stadiumLevel2Stroke from './stadium/2-stroke.png';
+import airportLevel1Img from './airport/1.png';
+import airportLevel2Img from './airport/2.png';
+import airportLevel3Img from './airport/3.png';
+import airportLevel1Stroke from './airport/1-stroke.png';
+import airportLevel2Stroke from './airport/2-stroke.png';
+import airportLevel3Stroke from './airport/3-stroke.png';
 import { TowerLevel, TowersTypes } from '../effector/towers-progress/store';
 
 export class BuildingsService {
@@ -310,14 +316,14 @@ export class BuildingsService {
     [TowersTypes.TV]: {
       info: 'info',
       coords: [2262, 1726],
-      zIndex: 1,
+      zIndex: 2,
       [TowerLevel.low]: {
         // TODO: не настоящая картинка
         img: musicTowerLevel1Img,
         width: 1,
         height: 2,
         shadowImg: musicTowerLevel1Stroke,
-        areaCoords: '128,57,418,291',
+        areaCoords: '93,286,362,1006',
         position: [42.2, 36.9],
       },
       [TowerLevel.mid]: {
@@ -348,7 +354,7 @@ export class BuildingsService {
         width: 1,
         height: 2,
         shadowImg: musicTowerLevel1Stroke,
-        areaCoords: '128,57,418,291',
+        areaCoords: '27,39,524,355',
         position: [42.2, 36.9],
       },
       [TowerLevel.mid]: {
@@ -356,7 +362,7 @@ export class BuildingsService {
         width: 695,
         height: 533,
         shadowImg: stadiumLevel2Stroke,
-        areaCoords: '595,126,90,476',
+        areaCoords: '27,39,524,355',
         position: [37.8, 30.6],
       },
       [TowerLevel.high]: {
@@ -367,6 +373,35 @@ export class BuildingsService {
         shadowImg: eggTowerLevel3Stroke,
         areaCoords: '320,441,50,45',
         position: [31.5, 50.9],
+      },
+    },
+    [TowersTypes.AIRPORT]: {
+      info: 'info',
+      coords: [2481, 1244],
+      zIndex: 1,
+      [TowerLevel.low]: {
+        img: airportLevel1Img,
+        width: 572,
+        height: 398,
+        shadowImg: airportLevel1Stroke,
+        areaCoords: '510,47,70,345',
+        position: [20, 28.5],
+      },
+      [TowerLevel.mid]: {
+        img: airportLevel2Img,
+        width: 573,
+        height: 406,
+        shadowImg: airportLevel2Stroke,
+        areaCoords: '595,126,90,476',
+        position: [19.7, 28.4],
+      },
+      [TowerLevel.high]: {
+        img: airportLevel3Img,
+        width: 573,
+        height: 449,
+        shadowImg: airportLevel3Stroke,
+        areaCoords: '595,126,90,476',
+        position: [18.9, 28.3],
       },
     },
   };

@@ -16,6 +16,7 @@ export enum TowersTypes {
   THEATER = 'theater',
   TV = 'tv',
   STADIUM = 'stadium',
+  AIRPORT = 'airport',
 }
 const initState: TowersProgressStoreType = {
   [TowersTypes.MAIN_TOWER]: TowerLevel.high,
@@ -29,6 +30,7 @@ const initState: TowersProgressStoreType = {
   [TowersTypes.THEATER]: TowerLevel.mid,
   [TowersTypes.TV]: TowerLevel.mid,
   [TowersTypes.STADIUM]: TowerLevel.mid,
+  [TowersTypes.AIRPORT]: TowerLevel.high,
 };
 export const TowersProgressStore = TowersProgressDomain.store<
   TowersProgressStoreType
