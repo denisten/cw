@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import ScrollContainer from 'react-indiana-drag-scroll';
 import styled from 'styled-components';
 import { ModalWindow } from '../extra-tower-info-modal-window';
@@ -13,6 +13,7 @@ import { ProfileModalWindow } from '../profile-modal-window';
 import { MoneyWrapper } from '../../UI/money-wrapper';
 import { TaskButton } from '../../UI/task-button';
 import { TaskModalWindow } from '../task-modal-window';
+import { useScrollTo } from '../../hooks/useScrollTo';
 
 const ComponentWrapper = styled.div`
   background-image: url("${mapTile}");
@@ -45,6 +46,11 @@ const styleConfig = {
   },
 };
 
+enum divideNumber {
+  WIDTH = 2.5,
+  HEIGHT = 1.8,
+}
+
 export const RootComponent = (): React.ReactElement => {
   const {
     isExtraTowerInfoModalOpen,
@@ -56,13 +62,14 @@ export const RootComponent = (): React.ReactElement => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const myRef: any = useRef<HTMLElement>(null);
 
-  useEffect(() => {
-    if (myRef.current) {
-      const [cordX, cordY] = focusOn;
-      const scrollContainerNode = myRef.current.container.current;
-      if (scrollContainerNode) scrollContainerNode.scrollTo(cordX, cordY);
-    }
-  }, [isExtraTowerInfoModalOpen]);
+  const [cordX, cordY] = focusOn;
+  const scrollCoords = [
+    cordX - window.innerWidth / divideNumber.WIDTH,
+    cordY - window.innerHeight / divideNumber.HEIGHT,
+  ];
+  let scrollNode;
+  if (myRef.current) scrollNode = myRef.current.container.current;
+  useScrollTo(scrollNode, scrollCoords, isExtraTowerInfoModalOpen);
 
   return (
     <ComponentWrapper id="rootScroll">

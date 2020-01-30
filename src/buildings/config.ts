@@ -34,7 +34,7 @@ export class BuildingsService {
   _config: BuildingServiceConfigTypes = {
     [TowersTypes.MAIN_TOWER]: {
       info: 'info',
-      coords: [2748, 1313],
+      coords: [3672, 2036],
       zIndex: 2,
       [TowerLevel.low]: {
         img: mainTowerLevel1Img,
@@ -63,7 +63,7 @@ export class BuildingsService {
     },
     [TowersTypes.MUSIC]: {
       info: 'info',
-      coords: [2271, 1733],
+      coords: [3115, 2455],
       zIndex: 2,
       [TowerLevel.low]: {
         img: musicTowerLevel1Img,
@@ -92,7 +92,7 @@ export class BuildingsService {
     },
     [TowersTypes.ARENA]: {
       info: 'info',
-      coords: [2762, 778],
+      coords: [3537, 1408],
       zIndex: 1,
       [TowerLevel.low]: {
         // TODO: не настоящая картинка
@@ -123,7 +123,7 @@ export class BuildingsService {
     },
     [TowersTypes.MOLL]: {
       info: 'info',
-      coords: [3311, 837],
+      coords: [4156, 1458],
       zIndex: 1,
       [TowerLevel.low]: {
         // TODO: не настоящая картинка
@@ -154,7 +154,7 @@ export class BuildingsService {
     },
     [TowersTypes.EGG]: {
       info: 'info',
-      coords: [3277, 1382],
+      coords: [4095, 1996],
       zIndex: 2,
       [TowerLevel.low]: {
         // TODO: не настоящая картинка
@@ -185,7 +185,7 @@ export class BuildingsService {
     },
     [TowersTypes.LIBRARY]: {
       info: 'info',
-      coords: [1458, 1802],
+      coords: [2256, 2490],
       zIndex: 1,
       [TowerLevel.low]: {
         // TODO: не настоящая картинка
@@ -216,7 +216,7 @@ export class BuildingsService {
     },
     [TowersTypes.OBSERVATORY]: {
       info: 'info',
-      coords: [2039, 1209],
+      coords: [2688, 1833],
       zIndex: 2,
       [TowerLevel.low]: {
         // TODO: не настоящая картинка
@@ -247,7 +247,7 @@ export class BuildingsService {
     },
     [TowersTypes.TARIFF]: {
       info: 'info',
-      coords: [3066, 1192],
+      coords: [3867, 1809],
       zIndex: 1,
       [TowerLevel.low]: {
         // TODO: не настоящая картинка
@@ -278,7 +278,7 @@ export class BuildingsService {
     },
     [TowersTypes.THEATER]: {
       info: 'info',
-      coords: [2096, 960],
+      coords: [2964, 1643],
       zIndex: 1,
       [TowerLevel.low]: {
         // TODO: не настоящая картинка
@@ -309,7 +309,7 @@ export class BuildingsService {
     },
     [TowersTypes.TV]: {
       info: 'info',
-      coords: [1312, 1183],
+      coords: [2262, 1726],
       zIndex: 1,
       [TowerLevel.low]: {
         // TODO: не настоящая картинка
@@ -340,7 +340,7 @@ export class BuildingsService {
     },
     [TowersTypes.STADIUM]: {
       info: 'info',
-      coords: [2020, 1797],
+      coords: [2705, 2314],
       zIndex: 1,
       [TowerLevel.low]: {
         // TODO: не настоящая картинка
