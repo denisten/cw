@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ScrollContainer from 'react-indiana-drag-scroll';
 import styled from 'styled-components';
 import { ModalWindow } from '../extra-tower-info-modal-window';
@@ -67,9 +67,11 @@ export const RootComponent = (): React.ReactElement => {
     cordX - window.innerWidth / divideNumber.WIDTH,
     cordY - window.innerHeight / divideNumber.HEIGHT,
   ];
-  let scrollNode;
-  if (myRef.current) scrollNode = myRef.current.container.current;
-  useScrollTo(scrollNode, scrollCoords, isExtraTowerInfoModalOpen);
+  const [scrollNode, setScrollNode] = useState(null);
+  useEffect(() => {
+    if (myRef.current) setScrollNode(myRef.current.container.current);
+  }, []);
+  useScrollTo(scrollNode, scrollCoords, [isExtraTowerInfoModalOpen]);
 
   return (
     <ComponentWrapper id="rootScroll">
