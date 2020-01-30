@@ -12,8 +12,12 @@ import musicTowerLevel3Img from './music/3.png';
 import musicTowerLevel3Stroke from './music/3-stroke.png';
 import arenaTowerLevel2Img from './arena/2.png';
 import arenaTowerLevel2Stroke from './arena/2-stroke.png';
+import mollTowerLevel1Img from './moll/1.png';
 import mollTowerLevel2Img from './moll/2.png';
+import mollTowerLevel3Img from './moll/3.png';
+import mollTowerLevel1Stroke from './moll/1-stroke.png';
 import mollTowerLevel2Stroke from './moll/2-stroke.png';
+import mollTowerLevel3Stroke from './moll/3-stroke.png';
 import eggTowerLevel3Img from './egg/3.png';
 import eggTowerLevel3Stroke from './egg/3-stroke.png';
 import libraryTowerLevel2Img from './library/2.png';
@@ -34,6 +38,8 @@ import airportLevel3Img from './airport/3.png';
 import airportLevel1Stroke from './airport/1-stroke.png';
 import airportLevel2Stroke from './airport/2-stroke.png';
 import airportLevel3Stroke from './airport/3-stroke.png';
+import moneyVaultLevel2Img from './money-vault/2.png';
+import moneyVaultLevel2Stroke from './money-vault/2-stroke.png';
 import { TowerLevel, TowersTypes } from '../effector/towers-progress/store';
 
 export class BuildingsService {
@@ -132,30 +138,28 @@ export class BuildingsService {
       coords: [4156, 1458],
       zIndex: 1,
       [TowerLevel.low]: {
-        // TODO: не настоящая картинка
-        img: musicTowerLevel1Img,
-        width: 1,
-        height: 2,
-        shadowImg: musicTowerLevel1Stroke,
+        img: mollTowerLevel1Img,
+        width: 605,
+        height: 425,
+        shadowImg: mollTowerLevel1Stroke,
         areaCoords: '128,57,418,291',
-        position: [42.2, 36.9],
+        position: [23.3, 50],
       },
       [TowerLevel.mid]: {
         img: mollTowerLevel2Img,
-        width: 604,
-        height: 468,
+        width: 605,
+        height: 466,
         shadowImg: mollTowerLevel2Stroke,
         areaCoords: '74,380,544,63',
         position: [22.56, 49.95],
       },
       [TowerLevel.high]: {
-        // TODO: не настоящая картинка
-        img: musicTowerLevel3Img,
-        width: 1,
-        height: 2,
-        shadowImg: musicTowerLevel3Stroke,
+        img: mollTowerLevel3Img,
+        width: 604,
+        height: 469,
+        shadowImg: mollTowerLevel3Stroke,
         areaCoords: '84,118,319,659',
-        position: [40.8, 37.4],
+        position: [22.56, 49.95],
       },
     },
     [TowersTypes.EGG]: {
@@ -394,6 +398,35 @@ export class BuildingsService {
         shadowImg: airportLevel2Stroke,
         areaCoords: '595,126,90,476',
         position: [19.7, 28.4],
+      },
+      [TowerLevel.high]: {
+        img: airportLevel3Img,
+        width: 573,
+        height: 449,
+        shadowImg: airportLevel3Stroke,
+        areaCoords: '595,126,90,476',
+        position: [18.9, 28.3],
+      },
+    },
+    [TowersTypes.MONEY_VAULT]: {
+      info: 'info',
+      coords: [5079, 1441],
+      zIndex: 1,
+      [TowerLevel.low]: {
+        img: airportLevel1Img,
+        width: 572,
+        height: 398,
+        shadowImg: airportLevel1Stroke,
+        areaCoords: '510,47,70,345',
+        position: [20, 28.5],
+      },
+      [TowerLevel.mid]: {
+        img: moneyVaultLevel2Img,
+        width: 584,
+        height: 606,
+        shadowImg: moneyVaultLevel2Stroke,
+        areaCoords: '103,107,483,511',
+        position: [20.4, 61.4],
       },
       [TowerLevel.high]: {
         img: airportLevel3Img,
