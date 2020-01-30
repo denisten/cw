@@ -46,6 +46,11 @@ const styleConfig = {
   },
 };
 
+enum divideNumber {
+  WIDTH = 2.5,
+  HEIGHT = 1.8,
+}
+
 export const RootComponent = (): React.ReactElement => {
   const {
     isExtraTowerInfoModalOpen,
@@ -57,7 +62,14 @@ export const RootComponent = (): React.ReactElement => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const myRef: any = useRef<HTMLElement>(null);
 
-  useScrollTo(myRef.current, focusOn, isExtraTowerInfoModalOpen);
+  const [cordX, cordY] = focusOn;
+  const scrollCoords = [
+    cordX - window.innerWidth / divideNumber.WIDTH,
+    cordY - window.innerHeight / divideNumber.HEIGHT,
+  ];
+  let scrollNode;
+  if (myRef.current) scrollNode = myRef.current.container.current;
+  useScrollTo(scrollNode, scrollCoords, isExtraTowerInfoModalOpen);
 
   return (
     <ComponentWrapper id="rootScroll">
