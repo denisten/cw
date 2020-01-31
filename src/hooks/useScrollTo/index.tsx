@@ -8,7 +8,9 @@ export const useScrollTo = (
 ) => {
   useEffect(() => {
     if (node) {
+      node.style.scrollBehavior = 'smooth';
       node.scrollTo(...scrollCoords);
+      node.style.scrollBehavior = '';
     }
-  }, [...dependency, node]);
+  }, [...dependency, node, scrollCoords]);
 };

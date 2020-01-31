@@ -7,13 +7,13 @@ import { AppConditionState } from '../../effector/app-condition/store';
 import { Map } from '../map';
 import { Buildings } from '../../buildings';
 import mapTile from '../../img/map/map-tile.png';
-import { updateFocusOnValue } from '../../effector/app-condition/events';
 import { ProfileButton } from '../profile-button';
 import { ProfileModalWindow } from '../profile-modal-window';
 import { MoneyWrapper } from '../../UI/money-wrapper';
 import { TaskButton } from '../../UI/task-button';
 import { TaskModalWindow } from '../task-modal-window';
 import { useScrollTo } from '../../hooks/useScrollTo';
+import { OnEndScrollHandler } from '../../utils/on-end-scroll-handler';
 
 const ComponentWrapper = styled.div`
   background-image: url("${mapTile}");
@@ -46,7 +46,7 @@ const styleConfig = {
   },
 };
 
-enum divideNumber {
+export enum divideNumber {
   WIDTH = 2.5,
   HEIGHT = 1.8,
 }
@@ -61,7 +61,6 @@ export const RootComponent = (): React.ReactElement => {
   } = useStore(AppConditionState);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const myRef: any = useRef<HTMLElement>(null);
-
   const [cordX, cordY] = focusOn;
   const scrollCoords = [
     cordX - window.innerWidth / divideNumber.WIDTH,
@@ -87,8 +86,7 @@ export const RootComponent = (): React.ReactElement => {
         style={styleConfig.ScrollContainerStyle}
         nativeMobileScroll={false}
         onEndScroll={(...args) => {
-          // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-          updateFocusOnValue(args.slice(0, 2));
+          OnEndScrollHandler(args.slice(0, 2));
         }}
       >
         <MapWrapper scaleValue={scaleValue}>
