@@ -31,7 +31,6 @@ const MapWrapper = styled.div<{ scaleValue: number }>`
   height: 5400px;
   position: relative;
   transform: scale(${props => props.scaleValue});
-  scroll-behavior: smooth;
 `;
 
 const styleConfig = {
