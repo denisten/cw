@@ -25,7 +25,7 @@ const initState: TowersProgressStoreType = {
   [TowersTypes.ARENA]: TowerLevel.mid,
   [TowersTypes.MOLL]: TowerLevel.high,
   [TowersTypes.EGG]: TowerLevel.high,
-  [TowersTypes.LIBRARY]: TowerLevel.mid,
+  [TowersTypes.LIBRARY]: TowerLevel.high,
   [TowersTypes.OBSERVATORY]: TowerLevel.mid,
   [TowersTypes.TARIFF]: TowerLevel.mid,
   [TowersTypes.THEATER]: TowerLevel.mid,

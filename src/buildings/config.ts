@@ -20,8 +20,12 @@ import mollTowerLevel2Stroke from './moll/2-stroke.png';
 import mollTowerLevel3Stroke from './moll/3-stroke.png';
 import eggTowerLevel3Img from './egg/3.png';
 import eggTowerLevel3Stroke from './egg/3-stroke.png';
+import libraryTowerLevel1Img from './library/1.png';
 import libraryTowerLevel2Img from './library/2.png';
+import libraryTowerLevel3Img from './library/3.png';
+import libraryTowerLevel1Stroke from './library/1-stroke.png';
 import libraryTowerLevel2Stroke from './library/2-stroke.png';
+import libraryTowerLevel3Stroke from './library/3-stroke.png';
 import observatoryTowerLevel2Img from './observatory/2.png';
 import observatoryTowerLevel2Stroke from './observatory/2-stroke.png';
 import tariffTowerLevel2Img from './tariff/2.png';
@@ -196,32 +200,30 @@ export class BuildingsService {
     [TowersTypes.LIBRARY]: {
       info: 'info',
       coords: [2256, 2490],
-      zIndex: 1,
+      zIndex: 2,
       [TowerLevel.low]: {
-        // TODO: не настоящая картинка
-        img: musicTowerLevel1Img,
-        width: 1,
-        height: 2,
-        shadowImg: musicTowerLevel1Stroke,
-        areaCoords: '128,57,418,291',
-        position: [42.2, 36.9],
+        img: libraryTowerLevel1Img,
+        width: 545,
+        height: 426,
+        shadowImg: libraryTowerLevel1Stroke,
+        areaCoords: '88,97,430,332',
+        position: [42.5, 25.7],
       },
       [TowerLevel.mid]: {
         img: libraryTowerLevel2Img,
-        width: 540,
-        height: 540,
+        width: 541,
+        height: 446,
         shadowImg: libraryTowerLevel2Stroke,
-        areaCoords: '78,92,454,445',
-        position: [40.5, 25.7],
+        areaCoords: '77,54,448,366',
+        position: [42, 25.7],
       },
       [TowerLevel.high]: {
-        // TODO: не настоящая картинка
-        img: eggTowerLevel3Img,
-        width: 384,
-        height: 531,
-        shadowImg: eggTowerLevel3Stroke,
-        areaCoords: '320,441,50,45',
-        position: [31.5, 50.9],
+        img: libraryTowerLevel3Img,
+        width: 530,
+        height: 540,
+        shadowImg: libraryTowerLevel3Stroke,
+        areaCoords: '81,86,444,462',
+        position: [40.2, 26],
       },
     },
     [TowersTypes.OBSERVATORY]: {
