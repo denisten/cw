@@ -150,7 +150,7 @@ export class BuildingsService {
         width: 605,
         height: 425,
         shadowImg: mollTowerLevel1Stroke,
-        areaCoords: '128,57,418,291',
+        areaCoords: '531,63,75,378',
         position: [23.3, 50],
       },
       [TowerLevel.mid]: {
@@ -158,7 +158,7 @@ export class BuildingsService {
         width: 605,
         height: 466,
         shadowImg: mollTowerLevel2Stroke,
-        areaCoords: '74,380,544,63',
+        areaCoords: '533,74,68,408',
         position: [22.56, 49.95],
       },
       [TowerLevel.high]: {
@@ -166,7 +166,7 @@ export class BuildingsService {
         width: 604,
         height: 469,
         shadowImg: mollTowerLevel3Stroke,
-        areaCoords: '84,118,319,659',
+        areaCoords: '546,52,56,405',
         position: [22.56, 49.95],
       },
     },
