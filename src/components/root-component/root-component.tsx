@@ -61,7 +61,7 @@ export const RootComponent = (): React.ReactElement => {
   } = useStore(AppConditionState);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const myRef: any = useRef<HTMLElement>(null);
-  const [cordX, cordY] = focusOn;
+  const [cordX, cordY] = focusOn.coords;
   const scrollCoords = [
     cordX - window.innerWidth / divideNumber.WIDTH,
     cordY - window.innerHeight / divideNumber.HEIGHT,

@@ -10,6 +10,7 @@ import {
   updateFocusOnValue,
   taskModalWindowOpened,
   taskModalWindowClosed,
+  ExtraTowerInfoModalOpenedProps,
 } from './events';
 
 const initScaleValue = 1;
@@ -19,7 +20,10 @@ const initFocusOnValue = [3693, 1949];
 const initState = {
   isExtraTowerInfoModalOpen: false,
   scaleValue: initScaleValue,
-  focusOn: initFocusOnValue,
+  focusOn: {
+    coords: initFocusOnValue,
+    towerTitle: null,
+  },
   isProfileInfoModalOpen: false,
   isTaskModalOpen: false,
 };
@@ -33,11 +37,15 @@ export const AppConditionState = AppDomain.store<AppConditionType>(initState)
   .on(extraTowerInfoModalClosed, state => ({
     ...state,
     isExtraTowerInfoModalOpen: false,
+    focusOn: {
+      ...state.focusOn,
+      towerTitle: null,
+    },
   }))
   .on(toggleExtraTowerInfoModal, (state, payload) => ({
     ...state,
     isExtraTowerInfoModalOpen: !state.isExtraTowerInfoModalOpen,
-    focusOn: payload,
+    focusOn: { ...state.focusOn, coords: payload },
   }))
   .on(updateScaleValue, (state, payload) => {
     let localScaleValue = payload;
@@ -57,7 +65,7 @@ export const AppConditionState = AppDomain.store<AppConditionType>(initState)
   }))
   .on(updateFocusOnValue, (state, payload) => ({
     ...state,
-    focusOn: payload,
+    focusOn: { ...state.focusOn, coords: payload },
   }))
   .on(taskModalWindowOpened, state => ({
     ...state,
@@ -72,6 +80,6 @@ type AppConditionType = {
   isExtraTowerInfoModalOpen: boolean;
   isProfileInfoModalOpen: boolean;
   isTaskModalOpen: boolean;
-  focusOn: number[];
+  focusOn: ExtraTowerInfoModalOpenedProps;
   scaleValue: ScaleValues;
 };
