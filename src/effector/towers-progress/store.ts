@@ -19,6 +19,7 @@ export enum TowersTypes {
   AIRPORT = 'airport',
   MONEY_VAULT = 'moneyVault',
   BANK = 'bank',
+  CYBER_ARENA = 'cyberArena',
 }
 const initState: TowersProgressStoreType = {
   [TowersTypes.MAIN_TOWER]: {
@@ -75,6 +76,10 @@ const initState: TowersProgressStoreType = {
   },
   [TowersTypes.BANK]: {
     level: TowerLevel.mid,
+    progress: 0,
+  },
+  [TowersTypes.CYBER_ARENA]: {
+    level: TowerLevel.low,
     progress: 0,
   },
 };

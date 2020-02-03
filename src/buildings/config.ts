@@ -46,6 +46,8 @@ import moneyVaultLevel2Img from './money-vault/2.png';
 import moneyVaultLevel2Stroke from './money-vault/2-stroke.png';
 import bankLevel2Img from './bank/2.png';
 import bankLevel2Stroke from './bank/2-stroke.png';
+import cyberArenaLevel1Img from './cyber-arena/1.png';
+import cyberArenaLevel1Stroke from './cyber-arena/1-stroke.png';
 import { TowerLevel, TowersTypes } from '../effector/towers-progress/store';
 
 export class BuildingsService {
@@ -416,6 +418,7 @@ export class BuildingsService {
       info: 'info',
       coords: [5079, 1441],
       zIndex: 1,
+      // TODO: не настоящая картинка
       [TowerLevel.low]: {
         img: airportLevel1Img,
         width: 572,
@@ -433,6 +436,7 @@ export class BuildingsService {
         position: [20.4, 61.4],
       },
       [TowerLevel.high]: {
+        // TODO: не настоящая картинка
         img: airportLevel3Img,
         width: 573,
         height: 449,
@@ -454,6 +458,37 @@ export class BuildingsService {
         areaCoords: '510,47,70,345',
         position: [20, 28.5],
       },
+      [TowerLevel.mid]: {
+        img: bankLevel2Img,
+        width: 579,
+        height: 688,
+        shadowImg: bankLevel2Stroke,
+        areaCoords: '516,39,69,578',
+        position: [23, 66.4],
+      },
+      // TODO: не настоящая картинка
+      [TowerLevel.high]: {
+        img: airportLevel3Img,
+        width: 573,
+        height: 449,
+        shadowImg: airportLevel3Stroke,
+        areaCoords: '595,126,90,476',
+        position: [18.9, 28.3],
+      },
+    },
+    [TowersTypes.CYBER_ARENA]: {
+      info: 'info',
+      coords: [4860, 2526],
+      zIndex: 1,
+      [TowerLevel.low]: {
+        img: cyberArenaLevel1Img,
+        width: 765,
+        height: 554,
+        shadowImg: cyberArenaLevel1Stroke,
+        areaCoords: '81,57,675,472',
+        position: [40.7, 59],
+      },
+      // TODO: не настоящая картинка
       [TowerLevel.mid]: {
         img: bankLevel2Img,
         width: 579,
