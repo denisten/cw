@@ -21,23 +21,70 @@ export enum TowersTypes {
   BANK = 'bank',
 }
 const initState: TowersProgressStoreType = {
-  [TowersTypes.MAIN_TOWER]: TowerLevel.high,
-  [TowersTypes.MUSIC]: TowerLevel.high,
-  [TowersTypes.ARENA]: TowerLevel.mid,
-  [TowersTypes.MOLL]: TowerLevel.high,
-  [TowersTypes.EGG]: TowerLevel.high,
-  [TowersTypes.LIBRARY]: TowerLevel.high,
-  [TowersTypes.OBSERVATORY]: TowerLevel.mid,
-  [TowersTypes.TARIFF]: TowerLevel.mid,
-  [TowersTypes.THEATER]: TowerLevel.mid,
-  [TowersTypes.TV]: TowerLevel.mid,
-  [TowersTypes.STADIUM]: TowerLevel.mid,
-  [TowersTypes.AIRPORT]: TowerLevel.high,
-  [TowersTypes.MONEY_VAULT]: TowerLevel.mid,
-  [TowersTypes.BANK]: TowerLevel.mid,
+  [TowersTypes.MAIN_TOWER]: {
+    level: TowerLevel.high,
+    progress: 0,
+  },
+  [TowersTypes.MUSIC]: {
+    level: TowerLevel.high,
+    progress: 0,
+  },
+  [TowersTypes.ARENA]: {
+    level: TowerLevel.mid,
+    progress: 0,
+  },
+  [TowersTypes.MOLL]: {
+    level: TowerLevel.high,
+    progress: 0,
+  },
+  [TowersTypes.EGG]: {
+    level: TowerLevel.high,
+    progress: 0,
+  },
+  [TowersTypes.LIBRARY]: {
+    level: TowerLevel.high,
+    progress: 0,
+  },
+  [TowersTypes.OBSERVATORY]: {
+    level: TowerLevel.mid,
+    progress: 0,
+  },
+  [TowersTypes.TARIFF]: {
+    level: TowerLevel.mid,
+    progress: 0,
+  },
+  [TowersTypes.THEATER]: {
+    level: TowerLevel.mid,
+    progress: 0,
+  },
+  [TowersTypes.TV]: {
+    level: TowerLevel.mid,
+    progress: 0,
+  },
+  [TowersTypes.STADIUM]: {
+    level: TowerLevel.mid,
+    progress: 0,
+  },
+  [TowersTypes.AIRPORT]: {
+    level: TowerLevel.high,
+    progress: 0,
+  },
+  [TowersTypes.MONEY_VAULT]: {
+    level: TowerLevel.mid,
+    progress: 0,
+  },
+  [TowersTypes.BANK]: {
+    level: TowerLevel.mid,
+    progress: 0,
+  },
 };
 export const TowersProgressStore = TowersProgressDomain.store<
   TowersProgressStoreType
 >(initState);
 
-type TowersProgressStoreType = Record<TowersTypes, TowerLevel>;
+type TowerData = {
+  level: TowerLevel;
+  progress: number;
+};
+
+type TowersProgressStoreType = Record<TowersTypes, TowerData>;

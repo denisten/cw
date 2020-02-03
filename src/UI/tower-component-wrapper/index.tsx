@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { extraTowerInfoModalOpened } from '../../effector/app-condition/events';
 import { LazyImage } from '@tsareff/lazy-image';
+import { TowersTypes } from '../../effector/towers-progress/store';
 const TowerStyledWrapper = styled.div<TowerStyledWrapperProps>`
   display: block;
   position: absolute;
@@ -20,6 +21,8 @@ export const TowerWrapper: React.FC<TypeWrapperProps> = ({
   width,
   towerCoords,
   zIndex,
+  towerTitle,
+  focusOnTowerTitle,
 }): React.ReactElement => {
   const [posX, posY] = position;
   const [hoverState, setHoverState] = useState(false);
@@ -28,6 +31,21 @@ export const TowerWrapper: React.FC<TypeWrapperProps> = ({
     height: `${height}px`,
     position: 'absolute',
   } as React.CSSProperties;
+
+  const mouseOverHandle = () => {
+    if (!(focusOnTowerTitle && focusOnTowerTitle === towerTitle))
+      setHoverState(false);
+  };
+
+  const handleClick = () => {
+    extraTowerInfoModalOpened({
+      coords: towerCoords,
+      towerTitle,
+    });
+  };
+
+  useEffect(() => mouseOverHandle(), [focusOnTowerTitle]);
+
   return (
     <TowerStyledWrapper posX={posX} posY={posY} zIndex={zIndex}>
       <LazyImage
@@ -39,11 +57,9 @@ export const TowerWrapper: React.FC<TypeWrapperProps> = ({
       <map name={tower}>
         <area
           alt="area"
-          onClick={() => {
-            extraTowerInfoModalOpened(towerCoords);
-          }}
+          onClick={handleClick}
           onMouseOver={() => setHoverState(true)}
-          onMouseOut={() => setHoverState(false)}
+          onMouseOut={mouseOverHandle}
           coords={areaCoords}
           shape="rect"
         />
@@ -62,6 +78,8 @@ type TypeWrapperProps = {
   width: number;
   height: number;
   zIndex?: number;
+  towerTitle: TowersTypes;
+  focusOnTowerTitle: TowersTypes | null;
 };
 
 type TowerStyledWrapperProps = {
