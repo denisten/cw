@@ -10,25 +10,25 @@ import { SaveButton } from '../../UI/save-button';
 
 const StyledConfig = {
   exitButton: {
-    height: 5,
+    height: '5%',
     top: 1,
     right: 1,
     hoverFlag: true,
   },
   mainWrapper: {
-    height: 80,
+    height: '80%',
     zIndex: 20,
     top: 50,
     left: 50,
     transformTranslate: '-50%, -50%',
   },
   avatar: {
-    height: 21,
+    height: '21%',
     top: 2,
     left: 2,
   },
   saveButton: {
-    height: 7,
+    height: '7%',
     bottom: 0,
     left: 50,
     transformTranslate: '-50%, -50%',

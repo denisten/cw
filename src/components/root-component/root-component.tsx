@@ -40,7 +40,7 @@ const styleConfig = {
   },
   moneyWrapper: {
     zIndex: 20,
-    height: 5,
+    height: '5%',
     top: 5,
     left: 10,
   },

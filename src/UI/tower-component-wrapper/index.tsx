@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { extraTowerInfoModalOpened } from '../../effector/app-condition/events';
 import { LazyImage } from '@tsareff/lazy-image';
 import { TowersTypes } from '../../effector/towers-progress/store';
+import { UpdateButton } from '../update-button';
 const TowerStyledWrapper = styled.div<TowerStyledWrapperProps>`
   display: block;
   position: absolute;
@@ -10,6 +11,8 @@ const TowerStyledWrapper = styled.div<TowerStyledWrapperProps>`
   left: ${props => props.posY}%;
   z-index: ${props => props.zIndex};
   vertical-align: top;
+  width: ${props => props.width}px;
+  height: ${props => props.height}px;
 `;
 
 export const TowerWrapper: React.FC<TypeWrapperProps> = ({
@@ -23,6 +26,7 @@ export const TowerWrapper: React.FC<TypeWrapperProps> = ({
   zIndex,
   towerTitle,
   focusOnTowerTitle,
+  progress,
 }): React.ReactElement => {
   const [posX, posY] = position;
   const [hoverState, setHoverState] = useState(false);
@@ -47,7 +51,15 @@ export const TowerWrapper: React.FC<TypeWrapperProps> = ({
   useEffect(() => mouseOverHandle(), [focusOnTowerTitle]);
 
   return (
-    <TowerStyledWrapper posX={posX} posY={posY} zIndex={zIndex}>
+    <TowerStyledWrapper
+      posX={posX}
+      posY={posY}
+      zIndex={zIndex}
+      width={width}
+      height={height}
+    >
+      {/* eslint-disable-next-line @typescript-eslint/no-magic-numbers */}
+      {progress === 100 ? <UpdateButton /> : ''}
       <LazyImage
         src={tower}
         alt="tower"
@@ -80,10 +92,13 @@ type TypeWrapperProps = {
   zIndex?: number;
   towerTitle: TowersTypes;
   focusOnTowerTitle: TowersTypes | null;
+  progress: number;
 };
 
 type TowerStyledWrapperProps = {
   posX: number;
   posY: number;
   zIndex?: number;
+  width: number;
+  height: number;
 };

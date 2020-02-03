@@ -28,14 +28,14 @@ const TaskModalWindowWrapper = styled.div<ModalWindowProps>`
 
 const StyleConfig = {
   exitButton: {
-    height: 3,
+    height: '3%',
     left: 1,
     top: 1,
     hoverFlag: true,
   },
   backgroundImg: {
     border: '1px solid',
-    height: 100,
+    height: '100%',
   },
 };
 

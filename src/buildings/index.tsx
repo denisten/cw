@@ -22,6 +22,7 @@ export const Buildings = () => {
           return (
             <Fragment key={towerTitle}>
               <TowerWrapper
+                progress={localTowersProgressStore[towerTitle].progress}
                 focusOnTowerTitle={focusOn.towerTitle}
                 towerTitle={towerTitle}
                 zIndex={data.zIndex}

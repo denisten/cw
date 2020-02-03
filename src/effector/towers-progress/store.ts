@@ -1,4 +1,5 @@
 import { TowersProgressDomain } from './domain';
+import { addProgressPoints } from './events';
 export enum TowerLevel {
   low = 0,
   mid = 1,
@@ -85,7 +86,13 @@ const initState: TowersProgressStoreType = {
 };
 export const TowersProgressStore = TowersProgressDomain.store<
   TowersProgressStoreType
->(initState);
+>(initState).on(addProgressPoints, (state, { towerTitle, points }) => ({
+  ...state,
+  [towerTitle]: {
+    ...state[towerTitle],
+    progress: state[towerTitle].progress + points,
+  },
+}));
 
 type TowerData = {
   level: TowerLevel;
