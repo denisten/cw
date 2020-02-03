@@ -12,20 +12,18 @@ export const Buildings = () => {
   const localService = new BuildingsService();
   const localTowersProgressStore = useStore(TowersProgressStore);
   const towersKeys = Object.keys(localTowersProgressStore) as TowersTypes[];
-  const {
-    focusOn: { towerTitle },
-  } = useStore(AppConditionState);
+  const { focusOn } = useStore(AppConditionState);
   return (
     <Fragment>
-      {towersKeys.map(el => {
-        const data = localService.getConfigForTower(el);
-        const currentTower = data[localTowersProgressStore[el].level];
+      {towersKeys.map(towerTitle => {
+        const data = localService.getConfigForTower(towerTitle);
+        const currentTower = data[localTowersProgressStore[towerTitle].level];
         if (currentTower) {
           return (
-            <Fragment key={el}>
+            <Fragment key={towerTitle}>
               <TowerWrapper
-                focusOnTowerTitle={towerTitle}
-                towerTitle={el}
+                focusOnTowerTitle={focusOn.towerTitle}
+                towerTitle={towerTitle}
                 zIndex={data.zIndex}
                 towerCoords={data.coords}
                 width={currentTower.width}

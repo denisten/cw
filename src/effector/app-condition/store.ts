@@ -15,13 +15,13 @@ import {
 
 const initScaleValue = 1;
 // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-const initFocusOnValue = [3693, 1949];
+const initFocusOnCoordsValues = [3693, 1949];
 
 const initState = {
   isExtraTowerInfoModalOpen: false,
   scaleValue: initScaleValue,
   focusOn: {
-    coords: initFocusOnValue,
+    coords: initFocusOnCoordsValues,
     towerTitle: null,
   },
   isProfileInfoModalOpen: false,

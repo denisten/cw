@@ -82,9 +82,9 @@ export const TowersProgressStore = TowersProgressDomain.store<
   TowersProgressStoreType
 >(initState);
 
-type BuildingData = {
+type TowerData = {
   level: TowerLevel;
   progress: number;
 };
 
-type TowersProgressStoreType = Record<TowersTypes, BuildingData>;
+type TowersProgressStoreType = Record<TowersTypes, TowerData>;
