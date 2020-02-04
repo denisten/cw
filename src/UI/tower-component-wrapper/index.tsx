@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { extraTowerInfoModalOpened } from '../../effector/app-condition/events';
-import { LazyImage } from '@tsareff/lazy-image';
+// import { LazyImage } from '@tsareff/lazy-image';
 import { TowersTypes } from '../../effector/towers-progress/store';
 import { UpdateButton } from '../update-button';
+import { Substrate } from '../substrate';
+import { upgradeTower } from '../../effector/towers-progress/events';
 const TowerStyledWrapper = styled.div<TowerStyledWrapperProps>`
   display: block;
   position: absolute;
@@ -14,6 +16,8 @@ const TowerStyledWrapper = styled.div<TowerStyledWrapperProps>`
   width: ${props => props.width}px;
   height: ${props => props.height}px;
 `;
+
+const upgradeTowerDelay = 1500;
 
 export const TowerWrapper: React.FC<TypeWrapperProps> = ({
   position,
@@ -27,10 +31,11 @@ export const TowerWrapper: React.FC<TypeWrapperProps> = ({
   towerTitle,
   focusOnTowerTitle,
   progress,
+  update,
 }): React.ReactElement => {
   const [posX, posY] = position;
   const [hoverState, setHoverState] = useState(false);
-  const towerSize = {
+  const StyledConfig = {
     width: `${width}px`,
     height: `${height}px`,
     position: 'absolute',
@@ -50,6 +55,13 @@ export const TowerWrapper: React.FC<TypeWrapperProps> = ({
 
   useEffect(() => mouseOverHandle(), [focusOnTowerTitle]);
 
+  useEffect(() => {
+    if (update) {
+      setTimeout(() => {
+        upgradeTower(towerTitle);
+      }, upgradeTowerDelay);
+    }
+  });
   return (
     <TowerStyledWrapper
       posX={posX}
@@ -59,13 +71,15 @@ export const TowerWrapper: React.FC<TypeWrapperProps> = ({
       height={height}
     >
       {/* eslint-disable-next-line @typescript-eslint/no-magic-numbers */}
-      {progress === 100 ? <UpdateButton /> : ''}
-      <LazyImage
-        src={tower}
-        alt="tower"
-        useMap={'#' + tower}
-        style={towerSize}
-      />
+      {progress === 100 ? <UpdateButton towerTitle={towerTitle} /> : ''}
+      {update ? <Substrate width={width} height={height} /> : ''}
+      {/*<LazyImage*/}
+      {/*  src={tower}*/}
+      {/*  alt="tower"*/}
+      {/*  useMap={'#' + tower}*/}
+      {/*  style={StyledConfig}*/}
+      {/*/>*/}
+      <img src={tower} alt="tower" useMap={'#' + tower} style={StyledConfig} />
       <map name={tower}>
         <area
           alt="area"
@@ -93,6 +107,7 @@ type TypeWrapperProps = {
   towerTitle: TowersTypes;
   focusOnTowerTitle: TowersTypes | null;
   progress: number;
+  update: boolean;
 };
 
 type TowerStyledWrapperProps = {

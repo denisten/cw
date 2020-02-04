@@ -9,3 +9,5 @@ export type AddProgressPointsProps = {
 export const addProgressPoints = TowersProgressDomain.event<
   AddProgressPointsProps
 >();
+
+export const upgradeTower = TowersProgressDomain.event<TowersTypes>();
