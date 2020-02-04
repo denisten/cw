@@ -22,7 +22,7 @@ export const Buildings = () => {
           return (
             <Fragment key={towerTitle}>
               <TowerWrapper
-                update={upgradingTowerTitle === towerTitle}
+                upgradeFlag={upgradingTowerTitle === towerTitle}
                 progress={localTowersProgressStore[towerTitle].progress}
                 focusOnTowerTitle={focusOn.towerTitle}
                 towerTitle={towerTitle}

@@ -62,8 +62,7 @@ export const ModalWindow: React.FC<ModalWindowProps> = ({ opened }) => {
         callBack={() => extraTowerInfoModalClosed()}
       />
       <button style={{ ...StyleConfig.upgradeButton }} onClick={handleClick}>
-        {' '}
-        UPGRADE{' '}
+        UPGRADE
       </button>
       hello
     </ModalWindowWrapper>

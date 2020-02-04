@@ -31,7 +31,7 @@ export const TowerWrapper: React.FC<TypeWrapperProps> = ({
   towerTitle,
   focusOnTowerTitle,
   progress,
-  update,
+  upgradeFlag,
 }): React.ReactElement => {
   const [posX, posY] = position;
   const [hoverState, setHoverState] = useState(false);
@@ -56,7 +56,7 @@ export const TowerWrapper: React.FC<TypeWrapperProps> = ({
   useEffect(() => mouseOverHandle(), [focusOnTowerTitle]);
 
   useEffect(() => {
-    if (update) {
+    if (upgradeFlag) {
       setTimeout(() => {
         upgradeTower(towerTitle);
       }, upgradeTowerDelay);
@@ -72,7 +72,7 @@ export const TowerWrapper: React.FC<TypeWrapperProps> = ({
     >
       {/* eslint-disable-next-line @typescript-eslint/no-magic-numbers */}
       {progress === 100 ? <UpdateButton towerTitle={towerTitle} /> : ''}
-      {update ? <Substrate width={width} height={height} /> : ''}
+      {upgradeFlag ? <Substrate width={width} height={height} /> : ''}
       {/*<LazyImage*/}
       {/*  src={tower}*/}
       {/*  alt="tower"*/}
@@ -108,7 +108,7 @@ type TypeWrapperProps = {
   towerTitle: TowersTypes;
   focusOnTowerTitle: TowersTypes | null;
   progress: number;
-  update: boolean;
+  upgradeFlag: boolean;
 };
 
 type TowerStyledWrapperProps = {
