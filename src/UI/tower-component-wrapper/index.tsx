@@ -78,7 +78,7 @@ export const TowerWrapper: React.FC<TypeWrapperProps> = ({
       {/*  alt="tower"*/}
       {/*  useMap={'#' + tower}*/}
       {/*  style={StyledConfig}*/}
-      // TODO uncomment after fixing @tsareff/lazy-image lib
+      {/*// TODO uncomment after fixing @tsareff/lazy-image lib*/}
       {/*/>*/}
       <img src={tower} alt="tower" useMap={'#' + tower} style={StyledConfig} />
       <map name={tower}>
