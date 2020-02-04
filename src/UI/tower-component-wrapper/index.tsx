@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { extraTowerInfoModalOpened } from '../../effector/app-condition/events';
-// import { LazyImage } from '@tsareff/lazy-image';
+// import { LazyImage } from '@tsareff/lazy-image'; // TODO uncomment after fixing @tsareff/lazy-image lib
 import { TowersTypes } from '../../effector/towers-progress/store';
 import { UpdateButton } from '../update-button';
 import { Substrate } from '../substrate';
@@ -78,6 +78,7 @@ export const TowerWrapper: React.FC<TypeWrapperProps> = ({
       {/*  alt="tower"*/}
       {/*  useMap={'#' + tower}*/}
       {/*  style={StyledConfig}*/}
+      // TODO uncomment after fixing @tsareff/lazy-image lib
       {/*/>*/}
       <img src={tower} alt="tower" useMap={'#' + tower} style={StyledConfig} />
       <map name={tower}>
