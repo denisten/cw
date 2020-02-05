@@ -78,6 +78,7 @@ module.exports = {
     }),
     new BundleAnalyzerPlugin({
       analyzerHost: 'localhost',
+      openAnalyzer: false,
     }),
   ],
 
