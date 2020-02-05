@@ -28,7 +28,7 @@ const initState: TowersProgressStoreType = {
     progress: 0,
   },
   [TowersTypes.MUSIC]: {
-    level: TowerLevel.high,
+    level: TowerLevel.low,
     progress: 0,
   },
   [TowersTypes.ARENA]: {
@@ -36,7 +36,7 @@ const initState: TowersProgressStoreType = {
     progress: 0,
   },
   [TowersTypes.MOLL]: {
-    level: TowerLevel.high,
+    level: TowerLevel.low,
     progress: 0,
   },
   [TowersTypes.EGG]: {
@@ -44,7 +44,7 @@ const initState: TowersProgressStoreType = {
     progress: 0,
   },
   [TowersTypes.LIBRARY]: {
-    level: TowerLevel.high,
+    level: TowerLevel.low,
     progress: 0,
   },
   [TowersTypes.OBSERVATORY]: {
@@ -68,7 +68,7 @@ const initState: TowersProgressStoreType = {
     progress: 0,
   },
   [TowersTypes.AIRPORT]: {
-    level: TowerLevel.high,
+    level: TowerLevel.low,
     progress: 0,
   },
   [TowersTypes.MONEY_VAULT]: {
