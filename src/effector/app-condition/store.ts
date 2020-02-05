@@ -11,7 +11,10 @@ import {
   taskModalWindowOpened,
   taskModalWindowClosed,
   ExtraTowerInfoModalOpenedProps,
+  showUpgradeIcon,
 } from './events';
+import { TowersTypes } from '../towers-progress/store';
+import { upgradeTower } from '../towers-progress/events';
 
 const initScaleValue = 1;
 // eslint-disable-next-line @typescript-eslint/no-magic-numbers
@@ -26,6 +29,7 @@ const initState = {
   },
   isProfileInfoModalOpen: false,
   isTaskModalOpen: false,
+  upgradingTowerTitle: null,
 };
 
 export const AppConditionState = AppDomain.store<AppConditionType>(initState)
@@ -74,6 +78,14 @@ export const AppConditionState = AppDomain.store<AppConditionType>(initState)
   .on(taskModalWindowClosed, state => ({
     ...state,
     isTaskModalOpen: false,
+  }))
+  .on(showUpgradeIcon, (state, payload) => ({
+    ...state,
+    upgradingTowerTitle: payload,
+  }))
+  .on(upgradeTower, state => ({
+    ...state,
+    upgradingTowerTitle: null,
   }));
 
 type AppConditionType = {
@@ -82,4 +94,5 @@ type AppConditionType = {
   isTaskModalOpen: boolean;
   focusOn: ExtraTowerInfoModalOpenedProps;
   scaleValue: ScaleValues;
+  upgradingTowerTitle: TowersTypes | null;
 };

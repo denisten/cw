@@ -4,7 +4,7 @@ import { profileInfoModalWindowOpened } from '../../effector/app-condition/event
 import { ImgWrapper } from '../../UI/img-wrapper';
 
 const StyleConfig = {
-  height: 8,
+  height: '8%',
   zIndex: 10,
   top: 5,
   left: 5,

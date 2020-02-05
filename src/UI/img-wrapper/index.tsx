@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const ParentDivWrapper = styled.div<ParentDivWrapperProps>`
-  height: ${props => props.height}%;
+  height: ${props => props.height};
   position: absolute;
   top: ${props => props.top}%;
   left: ${props => props.left}%;
@@ -28,7 +28,7 @@ interface ParentDivWrapperProps {
   hoverFlag?: boolean;
   zIndex?: number;
   transformTranslate?: string;
-  height?: number;
+  height?: string;
 }
 
 export interface ImgWrapperProps extends ParentDivWrapperProps {
