@@ -1,6 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
-  .BundleAnalyzerPlugin;
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+//   .BundleAnalyzerPlugin;
 const path = require('path');
 
 module.exports = {
@@ -76,10 +76,10 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: 'public/index.html',
     }),
-    new BundleAnalyzerPlugin({
-      analyzerHost: 'localhost',
-      openAnalyzer: false,
-    }),
+    // new BundleAnalyzerPlugin({
+    //   analyzerHost: 'localhost',
+    //   openAnalyzer: false,
+    // }),
   ],
 
   devServer: {
