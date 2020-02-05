@@ -7,7 +7,7 @@ const AuthButtonWrapper = styled.div`
   height: 10%;
   background-color: darkgoldenrod;
   position: fixed;
-  top: 10%;
+  top: 50%;
   left: 30%;
   z-index: 10;
 `;

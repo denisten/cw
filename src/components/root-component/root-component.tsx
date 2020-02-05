@@ -7,13 +7,12 @@ import { AppConditionState } from '../../effector/app-condition/store';
 import { Map } from '../map';
 import { Buildings } from '../../buildings';
 import mapTile from '../../img/map/map-tile.png';
-import { ProfileButton } from '../profile-button';
 import { ProfileModalWindow } from '../profile-modal-window';
-import { MoneyWrapper } from '../../UI/money-wrapper';
 import { TaskButton } from '../../UI/task-button';
 import { TaskModalWindow } from '../task-modal-window';
 import { useScrollTo } from '../../hooks/useScrollTo';
 import { OnEndScrollHandler } from '../../utils/on-end-scroll-handler';
+import { ProfileButton } from '../../UI/profile-button';
 
 const ComponentWrapper = styled.div`
   background-image: url("${mapTile}");
@@ -77,7 +76,7 @@ export const RootComponent = (): React.ReactElement => {
       {isProfileInfoModalOpen ? <ProfileModalWindow /> : ''}
       <ProfileButton />
       <TaskButton />
-      <MoneyWrapper count={9999} {...styleConfig.moneyWrapper} />
+      {/*<MoneyWrapper count={9999} {...styleConfig.moneyWrapper} />*/}
 
       <ModalWindow opened={isExtraTowerInfoModalOpen} />
       <TaskModalWindow opened={isTaskModalOpen} />
