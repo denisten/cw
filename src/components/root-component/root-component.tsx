@@ -7,7 +7,7 @@ import { AppConditionState } from '../../effector/app-condition/store';
 import { Map } from '../map';
 import { Buildings } from '../../buildings';
 import mapTile from '../../img/map/map-tile.png';
-import { ProfileModalWindow } from '../profile-modal-window';
+import { Menu } from '../profile-modal-window';
 import { TaskButton } from '../../UI/task-button';
 import { TaskModalWindow } from '../task-modal-window';
 import { useScrollTo } from '../../hooks/useScrollTo';
@@ -73,7 +73,7 @@ export const RootComponent = (): React.ReactElement => {
 
   return (
     <ComponentWrapper id="rootScroll">
-      {isProfileInfoModalOpen ? <ProfileModalWindow /> : ''}
+      {isProfileInfoModalOpen ? <Menu /> : ''}
       <ProfileButton />
       <TaskButton />
       {/*<MoneyWrapper count={9999} {...styleConfig.moneyWrapper} />*/}

@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ExitButton } from '../../UI/exit-button';
 import { profileInfoModalWindowClosed } from '../../effector/app-condition/events';
-import { AuthButton } from '../auth-button';
 import background from './background.png';
-import { AvatarWrapper } from '../../UI/avatar-wrapper';
-import avatarImg from '../../img/avatars/1-1.png';
 import { ImgWrapper } from '../../UI/img-wrapper';
 import { SaveButton } from '../../UI/save-button';
-import { Menu } from '../menu';
+import { MenuItemsComponent } from '../menu';
+import { MenuContent } from '../menu-content';
+import { MenuItems } from '../../UI/menu-paragraph';
+
 const StyledConfig = {
   exitButton: {
     height: '5%',
@@ -37,12 +37,17 @@ const StyledConfig = {
   },
 };
 
-export const ProfileModalWindow = () => {
+export const Menu = () => {
+  const [selectedMenuItem, setSelectedMenuItem] = useState<MenuItems>(
+    MenuItems.PROFILE
+  );
   return (
     <ImgWrapper {...StyledConfig.mainWrapper} src={background}>
-      <Menu />
-      <AvatarWrapper src={avatarImg} {...StyledConfig.avatar} />
-      <AuthButton />
+      <MenuItemsComponent
+        selectedMenuItem={selectedMenuItem}
+        setSelectedMenuItem={item => setSelectedMenuItem(item)}
+      />
+      <MenuContent content={selectedMenuItem} />
       <ExitButton
         {...StyledConfig.exitButton}
         callBack={() => profileInfoModalWindowClosed()}

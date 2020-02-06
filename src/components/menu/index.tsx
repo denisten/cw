@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { MenuItems, MenuParagraph } from '../../UI/menu-paragraph';
 
@@ -12,37 +12,28 @@ const MenuWrapper = styled.div`
   flex-direction: column;
 `;
 
-export const Menu = () => {
-  const [selectedMenuItem, setSelectedMenuItem] = useState<MenuItems>(
-    MenuItems.PROFILE
-  );
+type MenuItemsComponentProps = {
+  selectedMenuItem: MenuItems;
+  setSelectedMenuItem: (props: MenuItems) => void;
+};
+
+export const MenuItemsComponent: React.FC<MenuItemsComponentProps> = ({
+  selectedMenuItem,
+  setSelectedMenuItem,
+}) => {
+  const MenuItemsObjectValues = Object.values(MenuItems) as MenuItems[];
   return (
     <MenuWrapper>
-      <MenuParagraph
-        menuElement={MenuItems.PROFILE}
-        selectedMenuItem={selectedMenuItem}
-        onClickHandler={() => setSelectedMenuItem(MenuItems.PROFILE)}
-      />
-      <MenuParagraph
-        menuElement={MenuItems.TASKS}
-        selectedMenuItem={selectedMenuItem}
-        onClickHandler={() => setSelectedMenuItem(MenuItems.TASKS)}
-      />
-      <MenuParagraph
-        menuElement={MenuItems.SETTINGS}
-        selectedMenuItem={selectedMenuItem}
-        onClickHandler={() => setSelectedMenuItem(MenuItems.SETTINGS)}
-      />
-      <MenuParagraph
-        menuElement={MenuItems.FEEDBACK}
-        selectedMenuItem={selectedMenuItem}
-        onClickHandler={() => setSelectedMenuItem(MenuItems.FEEDBACK)}
-      />
-      <MenuParagraph
-        menuElement={MenuItems.DOCUMENTS}
-        selectedMenuItem={selectedMenuItem}
-        onClickHandler={() => setSelectedMenuItem(MenuItems.DOCUMENTS)}
-      />
+      {MenuItemsObjectValues.map(el => {
+        return (
+          <MenuParagraph
+            key={el}
+            menuElement={el}
+            selectedMenuItem={selectedMenuItem}
+            onClickHandler={() => setSelectedMenuItem(el)}
+          />
+        );
+      })}
     </MenuWrapper>
   );
 };
