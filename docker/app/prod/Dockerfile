@@ -1,6 +1,6 @@
 FROM node:alpine as builder
 WORKDIR /app
-COPY front/ ./
+COPY ./ ./
 RUN yarn install
 RUN yarn build
 
