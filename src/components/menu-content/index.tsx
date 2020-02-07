@@ -6,7 +6,6 @@ import styled from 'styled-components';
 const MenuContentWrapper = styled.div`
   width: 66%;
   height: 74%;
-  border: 2px solid;
   position: absolute;
   top: 10%;
   right: 6%;

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const ParentDivWrapper = styled.div<ParentDivWrapperProps>`
   height: ${props => props.height};
-  position: absolute;
+  position: ${props => props.position || 'absolute'};
   top: ${props => props.top}%;
   left: ${props => props.left}%;
   bottom: ${props => props.bottom}%;
@@ -21,6 +21,7 @@ const ImgStyledWrapper = styled.img`
 `;
 
 interface ParentDivWrapperProps {
+  position?: string;
   top?: number;
   left?: number;
   right?: number;
@@ -39,6 +40,7 @@ export interface ImgWrapperProps extends ParentDivWrapperProps {
 
 export const ImgWrapper: React.FC<ImgWrapperProps> = ({
   callBack,
+  position,
   top,
   left,
   bottom,
@@ -53,6 +55,7 @@ export const ImgWrapper: React.FC<ImgWrapperProps> = ({
 }) => {
   return (
     <ParentDivWrapper
+      position={position}
       zIndex={zIndex}
       top={top}
       left={left}

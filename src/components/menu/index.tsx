@@ -10,6 +10,8 @@ const MenuWrapper = styled.div`
   top: 7%;
   display: flex;
   flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
 `;
 
 type MenuItemsComponentProps = {

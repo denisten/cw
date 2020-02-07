@@ -1,4 +1,5 @@
 import { UserDataDomain } from './domain';
+import { updateUserName } from './events';
 
 type UserDataStoreType = {
   nickName: string;
@@ -18,4 +19,9 @@ const initState: UserDataStoreType = {
   money: 2900,
 };
 
-export const UserDataStore = UserDataDomain.store<UserDataStoreType>(initState);
+export const UserDataStore = UserDataDomain.store<UserDataStoreType>(
+  initState
+).on(updateUserName, (state, payload) => ({
+  ...state,
+  name: payload,
+}));

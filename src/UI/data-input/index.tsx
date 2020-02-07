@@ -3,15 +3,11 @@ import styled from 'styled-components';
 import penImg from './pen.png';
 const DataInputWrapper = styled.div<DataInputWrapperProps>`
   width: auto;
-  height: 17%;
+  height: 25%;
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  position: absolute;
-  top: ${props => props.top}%;
-  bottom: ${props => props.bottom}%;
-  left: ${props => props.left}%;
-  right: ${props => props.right}%;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
 `;
 
 const inputSpaceForOneLetter = 12;
@@ -19,7 +15,6 @@ const inputSpaceForOneLetter = 12;
 const InputWrapper = styled.input<InputWrapperProps>`
   width: ${props => props.value.length * inputSpaceForOneLetter}px;
   min-width: 100px;
-  height: 50px;
   border: none;
   outline: none;
   color: #1b4f75;
@@ -28,20 +23,31 @@ const InputWrapper = styled.input<InputWrapperProps>`
   cursor: default;
 `;
 
+const TitleWrapper = styled.span`
+  font-size: 1.4em;
+  color: #1b4f75;
+  font-weight: bold;
+  padding: 0;
+`;
+
 type DataInputWrapperProps = {
   top?: number;
   bottom?: number;
   left?: number;
   right?: number;
+  padding?: string;
+  margin?: string;
 };
 
 type InputWrapperProps = {
   value: string;
 };
 
-type DataInputProps = {
+interface DataInputProps extends DataInputWrapperProps {
   value: string;
-};
+  callBack: (name: string) => void;
+  title: string;
+}
 
 const StyledConfig = {
   pen: {
@@ -49,12 +55,20 @@ const StyledConfig = {
   },
 };
 
-export const DataInput: React.FC<DataInputProps> = ({ value }) => {
+export const DataInput: React.FC<DataInputProps> = ({
+  value,
+  callBack,
+  title,
+  ...styledProps
+}) => {
   const [editMode, setEditMode] = useState(true);
   const [content, setContent] = useState(value);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const onBlurHandler = () => setEditMode(true);
+  const onBlurHandler = () => {
+    setEditMode(true);
+    callBack(content);
+  };
   const onClickHandler = () => {
     setEditMode(!editMode);
     if (inputRef) {
@@ -64,23 +78,26 @@ export const DataInput: React.FC<DataInputProps> = ({ value }) => {
     }
   };
   return (
-    <DataInputWrapper>
-      <InputWrapper
-        ref={inputRef}
-        value={content}
-        type="text"
-        disabled={editMode}
-        onChange={e => {
-          setContent(e.target.value);
-        }}
-        onBlur={onBlurHandler}
-      />
-      <img
-        src={penImg}
-        alt="pen"
-        onClick={onClickHandler}
-        style={{ ...StyledConfig.pen }}
-      />
+    <DataInputWrapper {...styledProps}>
+      <TitleWrapper>{title}</TitleWrapper>
+      <div>
+        <InputWrapper
+          ref={inputRef}
+          value={content}
+          type="text"
+          disabled={editMode}
+          onChange={e => {
+            setContent(e.target.value);
+          }}
+          onBlur={onBlurHandler}
+        />
+        <img
+          src={penImg}
+          alt="pen"
+          onClick={onClickHandler}
+          style={{ ...StyledConfig.pen }}
+        />
+      </div>
     </DataInputWrapper>
   );
 };

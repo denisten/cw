@@ -18,7 +18,7 @@ const StyledConfig = {
   mainWrapper: {
     height: '76.5%',
     zIndex: 20,
-    position: 'relative',
+    position: 'absolute',
     top: 50,
     left: 50,
     transformTranslate: '-50%, -50%',

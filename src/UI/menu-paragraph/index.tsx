@@ -26,7 +26,7 @@ const MenuParagraphWrapper = styled.span<MenuParagraphWrapperProps>`
   height: 15%;
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   font-size: 2em;
   color: #1b4f75;
