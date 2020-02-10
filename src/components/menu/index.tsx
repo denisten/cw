@@ -4,13 +4,13 @@ import { MenuItems, MenuParagraph } from '../../UI/menu-paragraph';
 
 const MenuWrapper = styled.div`
   width: 20%;
-  height: 83%;
+  height: 44%;
   position: absolute;
   left: 5%;
   top: 7%;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   align-items: center;
 `;
 
@@ -31,7 +31,7 @@ export const MenuItemsComponent: React.FC<MenuItemsComponentProps> = ({
           <MenuParagraph
             key={el}
             menuElement={el}
-            selectedMenuItem={selectedMenuItem}
+            isItemSelected={selectedMenuItem === el}
             onClickHandler={() => setSelectedMenuItem(el)}
           />
         );

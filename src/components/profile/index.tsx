@@ -8,15 +8,9 @@ import { DataInput } from '../../UI/data-input';
 import {
   editUserName,
   editUserSurname,
-  updateUserCityName,
+  editUserCityName,
 } from '../../effector/user-data/events';
 import { CustomButton } from '../../UI/button';
-
-const NickNameWrapper = styled.span`
-  font-size: 3em;
-  color: #1b4f75;
-  font-weight: 900;
-`;
 
 const UserInfoBlockWrapper = styled.div`
   width: 80%;
@@ -60,6 +54,7 @@ const ProfileHeader = styled.div`
 
 const ProfileHeaderUserData = styled.div`
   margin-left: 5%;
+  min-width: 27%;
 `;
 
 const AccountData = styled.div`
@@ -82,14 +77,21 @@ const StyledConfig = {
     position: 'relative',
     left: 10,
     width: 100,
+    fontSize: 1.8,
   },
   titleWrapperPhone: {
     width: 38,
+    fontSize: 1.8,
   },
   button: {
     width: 24,
     height: 50,
     content: 'Выйти',
+  },
+  nickNameWrapper: {
+    title: '',
+    minWidth: 170,
+    fontSize: 1.8,
   },
 };
 
@@ -109,12 +111,16 @@ export const Profile = () => {
       <ProfileHeader>
         <img src={avatarImg} {...StyledConfig.avatar} alt="profile" />
         <ProfileHeaderUserData>
-          <NickNameWrapper> {localUserData.nickName}</NickNameWrapper>
+          <DataInput
+            {...StyledConfig.nickNameWrapper}
+            value={localUserData.nickName}
+            callBack={name => editUserCityName(name)}
+          />
           <MoneyWrapper count={localUserData.money} />
         </ProfileHeaderUserData>
       </ProfileHeader>
       <UserInfoBlockWrapper>
-        <TitleWrapper {...StyledConfig.titleWrapperInfo} fontSize={1.8}>
+        <TitleWrapper {...StyledConfig.titleWrapperInfo}>
           Информация
         </TitleWrapper>
         <InputsWrapper>
@@ -131,15 +137,13 @@ export const Profile = () => {
           <DataInput
             title="Название города"
             value={localUserData.cityName}
-            callBack={name => updateUserCityName(name)}
+            callBack={name => editUserCityName(name)}
           />
         </InputsWrapper>
 
-        <TitleWrapper {...StyledConfig.titleWrapperInfo} fontSize={1.8}>
-          Аккаунт
-        </TitleWrapper>
+        <TitleWrapper {...StyledConfig.titleWrapperInfo}>Аккаунт</TitleWrapper>
         <AccountData>
-          <TitleWrapper {...StyledConfig.titleWrapperPhone} fontSize={1.8}>
+          <TitleWrapper {...StyledConfig.titleWrapperPhone}>
             Телефон
             <PhoneWrapper>{localUserData.phoneNumber}</PhoneWrapper>
           </TitleWrapper>

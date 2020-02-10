@@ -10,17 +10,20 @@ const DataInputWrapper = styled.div<DataInputWrapperProps>`
   flex-direction: column;
 `;
 
-const inputSpaceForOneLetter = 12;
+const inputSpaceForOneLetter = 14;
+const inputWrapperMinWidth = 100;
+const inputDefaultFontSize = 1.4;
 
 const InputWrapper = styled.input<InputWrapperProps>`
   width: ${props => props.value.length * inputSpaceForOneLetter}px;
-  min-width: 100px;
+  min-width: ${props => props.minWidth || inputWrapperMinWidth}px;
   border: none;
   outline: none;
   color: #1b4f75;
-  font-size: 1.4em;
+  font-size: ${props => props.fontSize || inputDefaultFontSize}em;
   background-color: inherit;
   cursor: default;
+  font-weight: ${props => props.fontWeight || 'bold'};
 `;
 
 const TitleWrapper = styled.span`
@@ -28,6 +31,10 @@ const TitleWrapper = styled.span`
   color: #1b4f75;
   font-weight: bold;
   padding: 0;
+`;
+
+const PenImgWrapper = styled.img`
+  cursor: pointer;
 `;
 
 type DataInputWrapperProps = {
@@ -41,24 +48,27 @@ type DataInputWrapperProps = {
 
 type InputWrapperProps = {
   value: string;
+  minWidth?: number;
+  fontWeight?: string;
+  fontSize?: number;
 };
 
 interface DataInputProps extends DataInputWrapperProps {
   value: string;
   callBack: (name: string) => void;
   title: string;
+  minWidth?: number;
+  fontWeight?: string;
+  fontSize?: number;
 }
-
-const StyledConfig = {
-  pen: {
-    cursor: 'pointer',
-  },
-};
 
 export const DataInput: React.FC<DataInputProps> = ({
   value,
   callBack,
   title,
+  fontWeight,
+  fontSize,
+  minWidth,
   ...styledProps
 }) => {
   const [editMode, setEditMode] = useState(true);
@@ -86,17 +96,15 @@ export const DataInput: React.FC<DataInputProps> = ({
           value={content}
           type="text"
           disabled={editMode}
+          minWidth={minWidth}
+          fontWeight={fontWeight}
+          fontSize={fontSize}
           onChange={e => {
             setContent(e.target.value);
           }}
           onBlur={onBlurHandler}
         />
-        <img
-          src={penImg}
-          alt="pen"
-          onClick={onClickHandler}
-          style={{ ...StyledConfig.pen }}
-        />
+        <PenImgWrapper src={penImg} alt="pen" onClick={onClickHandler} />
       </div>
     </DataInputWrapper>
   );

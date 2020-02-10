@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 type MenuParagraphWrapperProps = {
   content: string;
-  selected: boolean;
+  isItemSelected: boolean;
 };
 
 export enum MenuItems {
@@ -29,8 +29,8 @@ const MenuParagraphWrapper = styled.span<MenuParagraphWrapperProps>`
   justify-content: flex-start;
   align-items: center;
   font-size: 2em;
-  color: #1b4f75;
-  font-weight: ${props => (props.selected ? 'bold' : 'normal')};
+  color: #${props => (props.isItemSelected ? '1b4f75' : '3e6f93')};
+  font-weight: ${props => (props.isItemSelected ? 'bold' : 'normal')};
   p {
     &:hover {
       cursor: pointer;
@@ -38,23 +38,26 @@ const MenuParagraphWrapper = styled.span<MenuParagraphWrapperProps>`
   }
 `;
 
+const MenuParagraphTitleWrapper = styled.span`
+  cursor: pointer;
+`;
+
 type MenuParagraphProps = {
   menuElement: MenuItems;
-  selectedMenuItem: MenuItems;
+  isItemSelected: boolean;
   onClickHandler: () => void;
 };
 
 export const MenuParagraph: React.FC<MenuParagraphProps> = ({
   menuElement,
-  selectedMenuItem,
+  isItemSelected,
   onClickHandler,
 }) => {
   return (
-    <MenuParagraphWrapper
-      content={menuElement}
-      selected={selectedMenuItem === menuElement}
-    >
-      <p onClick={onClickHandler}> {TranslatedMenuItems[menuElement]} </p>
+    <MenuParagraphWrapper content={menuElement} isItemSelected={isItemSelected}>
+      <MenuParagraphTitleWrapper onClick={onClickHandler}>
+        {TranslatedMenuItems[menuElement]}
+      </MenuParagraphTitleWrapper>
     </MenuParagraphWrapper>
   );
 };

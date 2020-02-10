@@ -1,5 +1,10 @@
 import { UserDataDomain } from './domain';
-import { editUserName, editUserSurname, updateUserCityName } from './events';
+import {
+  editUserName,
+  editUserSurname,
+  editUserCityName,
+  editUserNickname,
+} from './events';
 
 type UserDataStoreType = {
   nickName: string;
@@ -11,7 +16,7 @@ type UserDataStoreType = {
 };
 
 const initState: UserDataStoreType = {
-  nickName: 'Unknown',
+  nickName: 'NameName',
   name: 'Init name',
   surname: 'Иванов',
   cityName: 'LA',
@@ -28,7 +33,11 @@ export const UserDataStore = UserDataDomain.store<UserDataStoreType>(initState)
     ...state,
     surname: payload,
   }))
-  .on(updateUserCityName, (state, payload) => ({
+  .on(editUserCityName, (state, payload) => ({
     ...state,
     cityName: payload,
+  }))
+  .on(editUserNickname, (state, payload) => ({
+    ...state,
+    nickName: payload,
   }));
