@@ -14,6 +14,7 @@ import { TaskButton } from '../../UI/task-button';
 import { TaskModalWindow } from '../task-modal-window';
 import { useScrollTo } from '../../hooks/useScrollTo';
 import { OnEndScrollHandler } from '../../utils/on-end-scroll-handler';
+import { Bridges } from '../../buildings/bridges';
 
 const ComponentWrapper = styled.div`
   background-image: url("${mapTile}");
@@ -92,6 +93,7 @@ export const RootComponent = (): React.ReactElement => {
         <MapWrapper scaleValue={scaleValue}>
           <Map />
           <Buildings />
+          <Bridges showBridges={true} />
         </MapWrapper>
       </ScrollContainer>
     </ComponentWrapper>
