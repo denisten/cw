@@ -16,7 +16,7 @@ const StyledConfig = {
     hoverFlag: true,
   },
   mainWrapper: {
-    height: '76.5%',
+    height: '70.5%',
     zIndex: 20,
     position: 'absolute',
     top: 50,
