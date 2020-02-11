@@ -39,7 +39,7 @@
     }],
     "no-console": 2,
     "no-debugger": 2,
-    "indent": [2, 2],
+    "indent": [0, 2],
     "max-classes-per-file": [2, 2],
     "no-empty": 1,
     "no-duplicate-imports": 2,
