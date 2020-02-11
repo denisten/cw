@@ -15,18 +15,21 @@ type MenuContentProps = {
   content: MenuItems;
 };
 
-export const MenuContent: React.FC<MenuContentProps> = ({ content }) => {
-  let ContentComponent;
+const MenuContentSelector: React.FC<MenuContentProps> = ({ content }) => {
   switch (content) {
     case MenuItems.PROFILE:
-      ContentComponent = <Profile />;
-      break;
+      return <Profile />;
     case MenuItems.DOCUMENTS:
-      ContentComponent = <h1>Documents</h1>;
-      break;
+      return <h1>Documents</h1>;
     default:
-      ContentComponent = <h1> In progress... </h1>;
-      break;
+      return <h1>In Progress...</h1>;
   }
-  return <MenuContentWrapper>{ContentComponent}</MenuContentWrapper>;
+};
+
+export const MenuContent: React.FC<MenuContentProps> = ({ content }) => {
+  return (
+    <MenuContentWrapper>
+      <MenuContentSelector content={content} />
+    </MenuContentWrapper>
+  );
 };

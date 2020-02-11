@@ -1,15 +1,14 @@
 import React from 'react';
 import avatarImg from '../../img/avatars/1-1.png';
 import { useStore } from 'effector-react';
-import { UserDataStore } from '../../effector/user-data/store';
+import {
+  UserDataStoreKeys,
+  UserDataStore,
+} from '../../effector/user-data/store';
 import styled from 'styled-components';
 import { MoneyWrapper } from '../../UI/money-wrapper';
 import { DataInput } from '../../UI/data-input';
-import {
-  editUserName,
-  editUserSurname,
-  editUserCityName,
-} from '../../effector/user-data/events';
+import { editUserData } from '../../effector/user-data/events';
 import { CustomButton } from '../../UI/button';
 
 const UserInfoBlockWrapper = styled.div`
@@ -113,8 +112,11 @@ export const Profile = () => {
         <ProfileHeaderUserData>
           <DataInput
             {...StyledConfig.nickNameWrapper}
+            key={1}
             value={localUserData.nickName}
-            callBack={name => editUserCityName(name)}
+            callBack={value =>
+              editUserData({ key: UserDataStoreKeys.NICKNAME, value })
+            }
           />
           <MoneyWrapper count={localUserData.money} />
         </ProfileHeaderUserData>
@@ -126,18 +128,27 @@ export const Profile = () => {
         <InputsWrapper>
           <DataInput
             title="Имя"
+            key={2}
             value={localUserData.name}
-            callBack={name => editUserName(name)}
+            callBack={value =>
+              editUserData({ key: UserDataStoreKeys.NAME, value })
+            }
           />
           <DataInput
             title="Фамилия"
+            key={3}
             value={localUserData.surname}
-            callBack={name => editUserSurname(name)}
+            callBack={value =>
+              editUserData({ key: UserDataStoreKeys.SURNAME, value })
+            }
           />
           <DataInput
             title="Название города"
+            key={4}
             value={localUserData.cityName}
-            callBack={name => editUserCityName(name)}
+            callBack={value =>
+              editUserData({ key: UserDataStoreKeys.CITY_NAME, value })
+            }
           />
         </InputsWrapper>
 

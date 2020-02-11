@@ -10,12 +10,11 @@ const DataInputWrapper = styled.div<DataInputWrapperProps>`
   flex-direction: column;
 `;
 
-const inputSpaceForOneLetter = 14;
 const inputWrapperMinWidth = 100;
 const inputDefaultFontSize = 1.4;
 
 const InputWrapper = styled.input<InputWrapperProps>`
-  width: ${props => props.value.length * inputSpaceForOneLetter}px;
+  width: 40%;
   min-width: ${props => props.minWidth || inputWrapperMinWidth}px;
   border: none;
   outline: none;

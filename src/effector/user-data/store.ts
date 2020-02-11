@@ -1,43 +1,36 @@
 import { UserDataDomain } from './domain';
-import {
-  editUserName,
-  editUserSurname,
-  editUserCityName,
-  editUserNickname,
-} from './events';
+import { editUserData } from './events';
 
-type UserDataStoreType = {
-  nickName: string;
-  name: string;
-  surname: string;
-  cityName: string;
-  phoneNumber: string;
-  money: number;
+export enum UserDataStoreKeys {
+  NICKNAME = 'nickName',
+  NAME = 'name',
+  SURNAME = 'surname',
+  CITY_NAME = 'cityName',
+  PHONE_NUMBER = 'phoneNumber',
+  MONEY = 'money',
+}
+
+export type UserDataStoreType = {
+  [UserDataStoreKeys.NICKNAME]: string;
+  [UserDataStoreKeys.NAME]: string;
+  [UserDataStoreKeys.SURNAME]: string;
+  [UserDataStoreKeys.CITY_NAME]: string;
+  [UserDataStoreKeys.PHONE_NUMBER]: string;
+  [UserDataStoreKeys.MONEY]: number;
 };
 
 const initState: UserDataStoreType = {
-  nickName: 'NameName',
-  name: 'Init name',
-  surname: 'Иванов',
-  cityName: 'LA',
-  phoneNumber: '8-800-555-35-35',
-  money: 2900,
+  [UserDataStoreKeys.NICKNAME]: 'NameName',
+  [UserDataStoreKeys.NAME]: 'Init name',
+  [UserDataStoreKeys.SURNAME]: 'Иванов',
+  [UserDataStoreKeys.CITY_NAME]: 'LA',
+  [UserDataStoreKeys.PHONE_NUMBER]: '8-800-555-35-35',
+  [UserDataStoreKeys.MONEY]: 2900,
 };
 
-export const UserDataStore = UserDataDomain.store<UserDataStoreType>(initState)
-  .on(editUserName, (state, payload) => ({
-    ...state,
-    name: payload,
-  }))
-  .on(editUserSurname, (state, payload) => ({
-    ...state,
-    surname: payload,
-  }))
-  .on(editUserCityName, (state, payload) => ({
-    ...state,
-    cityName: payload,
-  }))
-  .on(editUserNickname, (state, payload) => ({
-    ...state,
-    nickName: payload,
-  }));
+export const UserDataStore = UserDataDomain.store<UserDataStoreType>(
+  initState
+).on(editUserData, (state, { key, value }) => ({
+  ...state,
+  [key]: value,
+}));
