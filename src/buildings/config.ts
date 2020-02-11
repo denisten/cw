@@ -48,6 +48,8 @@ import bankLevel2Img from './bank/2.png';
 import bankLevel2Stroke from './bank/2-stroke.png';
 import cyberArenaLevel1Img from './cyber-arena/1.png';
 import cyberArenaLevel1Stroke from './cyber-arena/1-stroke.png';
+import factoryLevel1Img from './factory/1.png';
+import factoryLevel1Stroke from './factory/1-stroke.png';
 import { TowerLevel, TowersTypes } from '../effector/towers-progress/store';
 
 export class BuildingsService {
@@ -487,6 +489,68 @@ export class BuildingsService {
         shadowImg: cyberArenaLevel1Stroke,
         areaCoords: '81,57,675,472',
         position: [40.7, 59],
+      },
+      // TODO: не настоящая картинка
+      [TowerLevel.mid]: {
+        img: bankLevel2Img,
+        width: 579,
+        height: 688,
+        shadowImg: bankLevel2Stroke,
+        areaCoords: '516,39,69,578',
+        position: [23.4, 66.4],
+      },
+      // TODO: не настоящая картинка
+      [TowerLevel.high]: {
+        img: airportLevel3Img,
+        width: 573,
+        height: 449,
+        shadowImg: airportLevel3Stroke,
+        areaCoords: '595,126,90,476',
+        position: [18.9, 28.3],
+      },
+    },
+    [TowersTypes.CYBER_ARENA]: {
+      info: 'info',
+      coords: [4860, 2526],
+      zIndex: 1,
+      [TowerLevel.low]: {
+        img: cyberArenaLevel1Img,
+        width: 765,
+        height: 554,
+        shadowImg: cyberArenaLevel1Stroke,
+        areaCoords: '81,57,675,472',
+        position: [40.7, 59],
+      },
+      // TODO: не настоящая картинка
+      [TowerLevel.mid]: {
+        img: bankLevel2Img,
+        width: 579,
+        height: 688,
+        shadowImg: bankLevel2Stroke,
+        areaCoords: '516,39,69,578',
+        position: [23.4, 66.4],
+      },
+      // TODO: не настоящая картинка
+      [TowerLevel.high]: {
+        img: airportLevel3Img,
+        width: 573,
+        height: 449,
+        shadowImg: airportLevel3Stroke,
+        areaCoords: '595,126,90,476',
+        position: [18.9, 28.3],
+      },
+    },
+    [TowersTypes.FACTORY]: {
+      info: 'info',
+      coords: [4933, 1921],
+      zIndex: 1,
+      [TowerLevel.low]: {
+        img: factoryLevel1Img,
+        width: 790,
+        height: 582,
+        shadowImg: factoryLevel1Stroke,
+        areaCoords: '715,137,109,481',
+        position: [28.3, 58.6],
       },
       // TODO: не настоящая картинка
       [TowerLevel.mid]: {
