@@ -12,6 +12,7 @@ import {
   taskModalWindowClosed,
   ExtraTowerInfoModalOpenedProps,
   showUpgradeIcon,
+  editIsAuthorizedFlag,
 } from './events';
 import { TowersTypes } from '../towers-progress/store';
 import { upgradeTower } from '../towers-progress/events';
@@ -30,9 +31,10 @@ const initState = {
   isProfileInfoModalOpen: false,
   isTaskModalOpen: false,
   upgradingTowerTitle: null,
+  isAuthorized: false,
 };
 
-export const AppConditionState = AppDomain.store<AppConditionType>(initState)
+export const AppCondition = AppDomain.store<AppConditionType>(initState)
   .on(extraTowerInfoModalOpened, (state, payload) => ({
     ...state,
     isExtraTowerInfoModalOpen: true,
@@ -86,6 +88,10 @@ export const AppConditionState = AppDomain.store<AppConditionType>(initState)
   .on(upgradeTower, state => ({
     ...state,
     upgradingTowerTitle: null,
+  }))
+  .on(editIsAuthorizedFlag, (state, payload) => ({
+    ...state,
+    isAuthorized: payload,
   }));
 
 type AppConditionType = {
@@ -95,4 +101,5 @@ type AppConditionType = {
   focusOn: ExtraTowerInfoModalOpenedProps;
   scaleValue: ScaleValues;
   upgradingTowerTitle: TowersTypes | null;
+  isAuthorized: boolean;
 };

@@ -10,10 +10,12 @@ import { MoneyWrapper } from '../../UI/money-wrapper';
 import { DataInput } from '../../UI/data-input';
 import { editUserData } from '../../effector/user-data/events';
 import { CustomButton } from '../../UI/button';
+import { AppCondition } from '../../effector/app-condition/store';
+import { handleAuthButtonClick } from '../../utils/handle-auth-button-click';
 
 const UserInfoBlockWrapper = styled.div`
-  width: 80%;
-  height: 90%;
+  width: 100%;
+  height: 72%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -29,12 +31,12 @@ const TitleWrapper = styled.div<TitleWrapperProps>`
   left: ${props => props.left}%;
   bottom: ${props => props.bottom}%;
   right: ${props => props.right}%;
-  width: ${props => props.width}%;
 `;
 
 const ProfileWrapper = styled.div`
   width: 100%;
-  height: 90%;
+  height: 100%;
+  overflow: hidden;
 `;
 const InputsWrapper = styled.div`
   display: flex;
@@ -69,13 +71,14 @@ const PhoneWrapper = styled.div`
 `;
 
 const StyledConfig = {
+  nonAuthorizedAvatar: {
+    height: '14%',
+    marginBottom: '5%',
+  },
   avatar: {
     height: '80%',
   },
   titleWrapperInfo: {
-    position: 'relative',
-    left: 10,
-    width: 100,
     fontSize: 1.8,
   },
   titleWrapperPhone: {
@@ -83,9 +86,14 @@ const StyledConfig = {
     fontSize: 1.8,
   },
   button: {
-    width: 24,
+    width: 7,
     height: 50,
     content: 'Выйти',
+  },
+  enterButton: {
+    width: 11,
+    height: 7,
+    content: 'Войти',
   },
   nickNameWrapper: {
     title: '',
@@ -103,64 +111,92 @@ type TitleWrapperProps = {
   right?: number;
   width?: number;
 };
+
+const NonAuthorizedPanel = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
+
 export const Profile = () => {
   const localUserData = useStore(UserDataStore);
+  const { isAuthorized } = useStore(AppCondition);
   return (
     <ProfileWrapper>
-      <ProfileHeader>
-        <img src={avatarImg} {...StyledConfig.avatar} alt="profile" />
-        <ProfileHeaderUserData>
-          <DataInput
-            {...StyledConfig.nickNameWrapper}
-            key={1}
-            value={localUserData.nickName}
-            callBack={value =>
-              editUserData({ key: UserDataStoreKeys.NICKNAME, value })
-            }
+      {isAuthorized ? (
+        <React.Fragment>
+          <ProfileHeader>
+            <img src={avatarImg} {...StyledConfig.avatar} alt="profile" />
+            <ProfileHeaderUserData>
+              <DataInput
+                {...StyledConfig.nickNameWrapper}
+                key={1}
+                value={localUserData.nickName}
+                callBack={value =>
+                  editUserData({ key: UserDataStoreKeys.NICKNAME, value })
+                }
+              />
+              <MoneyWrapper count={localUserData.money} />
+            </ProfileHeaderUserData>
+          </ProfileHeader>
+          <UserInfoBlockWrapper>
+            <TitleWrapper {...StyledConfig.titleWrapperInfo}>
+              Информация
+            </TitleWrapper>
+            <InputsWrapper>
+              <DataInput
+                title="Имя"
+                key={2}
+                value={localUserData.name}
+                callBack={value =>
+                  editUserData({ key: UserDataStoreKeys.NAME, value })
+                }
+              />
+              <DataInput
+                title="Фамилия"
+                key={3}
+                value={localUserData.surname}
+                callBack={value =>
+                  editUserData({ key: UserDataStoreKeys.SURNAME, value })
+                }
+              />
+              <DataInput
+                title="Название города"
+                key={4}
+                value={localUserData.cityName}
+                callBack={value =>
+                  editUserData({ key: UserDataStoreKeys.CITY_NAME, value })
+                }
+              />
+            </InputsWrapper>
+            <TitleWrapper {...StyledConfig.titleWrapperInfo}>
+              Аккаунт
+            </TitleWrapper>
+            <AccountData>
+              <TitleWrapper {...StyledConfig.titleWrapperPhone}>
+                Телефон
+                <PhoneWrapper>{localUserData.phoneNumber}</PhoneWrapper>
+              </TitleWrapper>
+              <CustomButton {...StyledConfig.button} />
+            </AccountData>
+          </UserInfoBlockWrapper>
+        </React.Fragment>
+      ) : (
+        <NonAuthorizedPanel>
+          <img
+            src={avatarImg}
+            style={{ ...StyledConfig.nonAuthorizedAvatar }}
+            alt="profile"
           />
-          <MoneyWrapper count={localUserData.money} />
-        </ProfileHeaderUserData>
-      </ProfileHeader>
-      <UserInfoBlockWrapper>
-        <TitleWrapper {...StyledConfig.titleWrapperInfo}>
-          Информация
-        </TitleWrapper>
-        <InputsWrapper>
-          <DataInput
-            title="Имя"
-            key={2}
-            value={localUserData.name}
-            callBack={value =>
-              editUserData({ key: UserDataStoreKeys.NAME, value })
-            }
+          <CustomButton
+            callback={handleAuthButtonClick}
+            {...StyledConfig.enterButton}
           />
-          <DataInput
-            title="Фамилия"
-            key={3}
-            value={localUserData.surname}
-            callBack={value =>
-              editUserData({ key: UserDataStoreKeys.SURNAME, value })
-            }
-          />
-          <DataInput
-            title="Название города"
-            key={4}
-            value={localUserData.cityName}
-            callBack={value =>
-              editUserData({ key: UserDataStoreKeys.CITY_NAME, value })
-            }
-          />
-        </InputsWrapper>
-
-        <TitleWrapper {...StyledConfig.titleWrapperInfo}>Аккаунт</TitleWrapper>
-        <AccountData>
-          <TitleWrapper {...StyledConfig.titleWrapperPhone}>
-            Телефон
-            <PhoneWrapper>{localUserData.phoneNumber}</PhoneWrapper>
-          </TitleWrapper>
-          <CustomButton {...StyledConfig.button} />
-        </AccountData>
-      </UserInfoBlockWrapper>
+        </NonAuthorizedPanel>
+      )}
     </ProfileWrapper>
   );
 };

@@ -27,3 +27,4 @@ export const updateFocusOnValue = AppDomain.event<number[]>();
 export const taskModalWindowOpened = AppDomain.event();
 export const taskModalWindowClosed = AppDomain.event();
 export const showUpgradeIcon = AppDomain.event<TowersTypes>();
+export const editIsAuthorizedFlag = AppDomain.event<boolean>();
