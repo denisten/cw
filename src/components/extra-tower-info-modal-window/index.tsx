@@ -4,7 +4,7 @@ import { ExitButton } from '../../UI/exit-button';
 import { extraTowerInfoModalClosed } from '../../effector/app-condition/events';
 import { addProgressPoints } from '../../effector/towers-progress/events';
 import { useStore } from 'effector-react';
-import { AppConditionState } from '../../effector/app-condition/store';
+import { AppCondition } from '../../effector/app-condition/store';
 
 export type ModalWindowProps = {
   opened?: boolean;
@@ -48,7 +48,7 @@ const StyleConfig = {
 export const ModalWindow: React.FC<ModalWindowProps> = ({ opened }) => {
   const {
     focusOn: { towerTitle },
-  } = useStore(AppConditionState);
+  } = useStore(AppCondition);
 
   const handleClick = () => {
     if (towerTitle) {

@@ -3,7 +3,7 @@ import ScrollContainer from 'react-indiana-drag-scroll';
 import styled from 'styled-components';
 import { ModalWindow } from '../extra-tower-info-modal-window';
 import { useStore } from 'effector-react';
-import { AppConditionState } from '../../effector/app-condition/store';
+import { AppCondition } from '../../effector/app-condition/store';
 import { Map } from '../map';
 import { Buildings } from '../../buildings';
 import mapTile from '../../img/map/map-tile.png';
@@ -58,7 +58,7 @@ export const RootComponent = (): React.ReactElement => {
     isTaskModalOpen,
     scaleValue,
     focusOn,
-  } = useStore(AppConditionState);
+  } = useStore(AppCondition);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const myRef: any = useRef<HTMLElement>(null);
   const [cordX, cordY] = focusOn.coords;

@@ -6,7 +6,7 @@ import { AuthLandingPage } from './components/auth-landing-page';
 import { GlobalStyle } from './global-style';
 export enum Routes {
   MAIN = '/',
-  AUTH_LANDING_PAGE = '/landingPage',
+  AUTH_LANDING_PAGE = '/auth/callback',
 }
 
 export const App = () => {

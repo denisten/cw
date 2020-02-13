@@ -22,12 +22,13 @@ const TranslatedMenuItems = {
   [MenuItems.DOCUMENTS]: 'Документы и оферта',
 };
 
-const MenuParagraphWrapper = styled.span<MenuParagraphWrapperProps>`
-  height: 15%;
+const MenuParagraphWrapper = styled.div<MenuParagraphWrapperProps>`
+  height: min-content;
   width: 100%;
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  margin-bottom: 8%;
   font-size: 2em;
   color: #${props => (props.isItemSelected ? '1b4f75' : '3e6f93')};
   font-weight: ${props => (props.isItemSelected ? 'bold' : 'normal')};
@@ -38,7 +39,7 @@ const MenuParagraphWrapper = styled.span<MenuParagraphWrapperProps>`
   }
 `;
 
-const MenuParagraphTitleWrapper = styled.span`
+const MenuParagraphTitleWrapper = styled.div`
   cursor: pointer;
 `;
 

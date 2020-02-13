@@ -4,7 +4,7 @@ import { MenuItems, MenuParagraph } from '../../UI/menu-paragraph';
 
 const MenuWrapper = styled.div`
   width: 20%;
-  height: 44%;
+  height: 60%;
   position: absolute;
   left: 5%;
   top: 7%;
