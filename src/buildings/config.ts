@@ -34,8 +34,12 @@ import theaterTowerLevel2Img from './theater/2.png';
 import theaterTowerLevel2Stroke from './theater/2-stroke.png';
 import TVTowerLevel2Stroke from './TV/2-stroke.png';
 import TVTowerLevel2Img from './TV/2.png';
+import stadiumLevel1Img from './stadium/1.png';
 import stadiumLevel2Img from './stadium/2.png';
+import stadiumLevel3Img from './stadium/3.png';
+import stadiumLevel1Stroke from './stadium/1-stroke.png';
 import stadiumLevel2Stroke from './stadium/2-stroke.png';
+import stadiumLevel3Stroke from './stadium/3-stroke.png';
 import airportLevel1Img from './airport/1.png';
 import airportLevel2Img from './airport/2.png';
 import airportLevel3Img from './airport/3.png';
@@ -358,33 +362,31 @@ export class BuildingsService {
     },
     [TowersTypes.STADIUM]: {
       info: 'info',
-      coords: [2705, 2314],
+      coords: [2676, 2362],
       zIndex: 1,
       [TowerLevel.low]: {
-        // TODO: не настоящая картинка
-        img: musicTowerLevel1Img,
-        width: 1,
-        height: 2,
-        shadowImg: musicTowerLevel1Stroke,
+        img: stadiumLevel1Img,
+        width: 635,
+        height: 391,
+        shadowImg: stadiumLevel1Stroke,
         areaCoords: '27,39,524,355',
-        position: [42.2, 36.9],
+        position: [39.5, 30.7],
       },
       [TowerLevel.mid]: {
         img: stadiumLevel2Img,
-        width: 695,
-        height: 533,
+        width: 696,
+        height: 414,
         shadowImg: stadiumLevel2Stroke,
         areaCoords: '27,39,524,355',
-        position: [37.8, 30.6],
+        position: [39.2, 30.5],
       },
       [TowerLevel.high]: {
-        // TODO: не настоящая картинка
-        img: eggTowerLevel3Img,
-        width: 384,
-        height: 531,
-        shadowImg: eggTowerLevel3Stroke,
+        img: stadiumLevel3Img,
+        width: 695,
+        height: 533,
+        shadowImg: stadiumLevel3Stroke,
         areaCoords: '320,441,50,45',
-        position: [31.5, 50.9],
+        position: [37.2, 30.5],
       },
     },
     [TowersTypes.AIRPORT]: {
@@ -467,37 +469,6 @@ export class BuildingsService {
         shadowImg: bankLevel2Stroke,
         areaCoords: '516,39,69,578',
         position: [23, 66.4],
-      },
-      // TODO: не настоящая картинка
-      [TowerLevel.high]: {
-        img: airportLevel3Img,
-        width: 573,
-        height: 449,
-        shadowImg: airportLevel3Stroke,
-        areaCoords: '595,126,90,476',
-        position: [18.9, 28.3],
-      },
-    },
-    [TowersTypes.CYBER_ARENA]: {
-      info: 'info',
-      coords: [4860, 2526],
-      zIndex: 1,
-      [TowerLevel.low]: {
-        img: cyberArenaLevel1Img,
-        width: 765,
-        height: 554,
-        shadowImg: cyberArenaLevel1Stroke,
-        areaCoords: '81,57,675,472',
-        position: [40.7, 59],
-      },
-      // TODO: не настоящая картинка
-      [TowerLevel.mid]: {
-        img: bankLevel2Img,
-        width: 579,
-        height: 688,
-        shadowImg: bankLevel2Stroke,
-        areaCoords: '516,39,69,578',
-        position: [23.4, 66.4],
       },
       // TODO: не настоящая картинка
       [TowerLevel.high]: {
