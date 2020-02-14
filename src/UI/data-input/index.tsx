@@ -10,12 +10,17 @@ const DataInputWrapper = styled.div<DataInputWrapperProps>`
   flex-direction: column;
 `;
 
-const inputWrapperMinWidth = 100;
+const inputWrapperMinWidthCoefficient = 6;
 const inputDefaultFontSize = 1.4;
+const extraWidthPerLetter = 13;
 
-const InputWrapper = styled.input<InputWrapperProps>`
-  width: 40%;
-  min-width: ${props => props.minWidth || inputWrapperMinWidth}px;
+const InputWrapper = styled.input.attrs(({ value }: InputWrapperProps) => {
+  if (value)
+    return {
+      style: { width: value.toString().length * extraWidthPerLetter + 'px' },
+    };
+})<InputWrapperProps>`
+  min-width: ${window.innerWidth / inputWrapperMinWidthCoefficient + 'px'};
   border: none;
   outline: none;
   color: #1b4f75;
@@ -47,6 +52,7 @@ type DataInputWrapperProps = {
 
 type InputWrapperProps = {
   value: string;
+  extendFlag?: boolean;
   minWidth?: number;
   fontWeight?: string;
   fontSize?: number;
@@ -91,9 +97,9 @@ export const DataInput: React.FC<DataInputProps> = ({
       <TitleWrapper>{title}</TitleWrapper>
       <div>
         <InputWrapper
+          type="text"
           ref={inputRef}
           value={content}
-          type="text"
           disabled={editMode}
           minWidth={minWidth}
           fontWeight={fontWeight}

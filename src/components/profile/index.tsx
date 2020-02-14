@@ -86,7 +86,7 @@ const StyledConfig = {
     fontSize: 1.8,
   },
   button: {
-    width: 7,
+    width: 19,
     height: 50,
     content: 'Выйти',
   },
@@ -180,7 +180,10 @@ export const Profile = () => {
                 Телефон
                 <PhoneWrapper>{localUserData.phoneNumber}</PhoneWrapper>
               </TitleWrapper>
-              <CustomButton {...StyledConfig.button} />
+              <CustomButton
+                callback={() => handleAuthButtonClick(false)}
+                {...StyledConfig.button}
+              />
             </AccountData>
           </UserInfoBlockWrapper>
         </React.Fragment>
@@ -192,7 +195,7 @@ export const Profile = () => {
             alt="profile"
           />
           <CustomButton
-            callback={handleAuthButtonClick}
+            callback={() => handleAuthButtonClick(true)}
             {...StyledConfig.enterButton}
           />
         </NonAuthorizedPanel>

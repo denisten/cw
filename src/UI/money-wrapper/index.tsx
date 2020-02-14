@@ -5,8 +5,8 @@ import moneyIcon from './icon_money.png';
 
 const CountWrapper = styled.div`
   font-size: 1.6em;
-  width: 73%;
-  height: 30%;
+  width: 46%;
+  height: 24%;
   border-radius: 5px;
   box-shadow: 1.1px 1.7px 1.9px 0.1px rgba(26, 120, 169, 0.63);
   border: solid 1px #00f0ff;
@@ -26,9 +26,6 @@ const StyleConfig = {
   moneyIcon: {
     marginRight: '5%',
   } as React.CSSProperties,
-  numerousWrapper: {
-    fontSize: '1.6em',
-  },
 };
 
 export const MoneyWrapper: React.FC<MoneyWrapperProp> = ({ count }) => {
@@ -39,7 +36,7 @@ export const MoneyWrapper: React.FC<MoneyWrapperProp> = ({ count }) => {
         src={moneyIcon}
         style={{ ...StyleConfig.moneyIcon }}
       />
-      <span style={{ ...StyleConfig.numerousWrapper }}>{count}</span>
+      <span>{count}</span>
     </CountWrapper>
   );
 };
