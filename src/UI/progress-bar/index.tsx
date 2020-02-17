@@ -8,6 +8,7 @@ const ProgressBarWrapper = styled.div`
   border: 1px solid;
   border-radius: 50px;
   overflow: hidden;
+  justify-content: flex-start;
   .first {
     width: 33%;
     height: 100%;
