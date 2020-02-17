@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { ExitButton } from '../../UI/exit-button';
 import { taskModalWindowClosed } from '../../effector/app-condition/events';
-import { ModalWindowProps } from '../extra-tower-info-modal-window';
+import { ModalWindowProps } from '../tower-info';
 import modalWindowImg from './background.png';
 import { ImgWrapper } from '../../UI/img-wrapper';
 

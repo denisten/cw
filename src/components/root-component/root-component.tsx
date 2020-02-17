@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ScrollContainer from 'react-indiana-drag-scroll';
 import styled from 'styled-components';
-import { ModalWindow } from '../extra-tower-info-modal-window';
+import { TowerInfo } from '../tower-info';
 import { useStore } from 'effector-react';
 import { AppCondition } from '../../effector/app-condition/store';
 import { Map } from '../map';
@@ -71,14 +71,13 @@ export const RootComponent = (): React.ReactElement => {
     if (myRef.current) setScrollNode(myRef.current.container.current);
   }, []);
   useScrollTo(scrollNode, scrollCoords, [isExtraTowerInfoModalOpen]);
-
   return (
     <ComponentWrapper id="rootScroll">
       {isProfileInfoModalOpen ? <Menu /> : ''}
       <ProfileButton />
       <TaskButton />
 
-      <ModalWindow opened={isExtraTowerInfoModalOpen} />
+      <TowerInfo opened={isExtraTowerInfoModalOpen} />
       <TaskModalWindow opened={isTaskModalOpen} />
       <ScrollContainer
         ref={myRef}
