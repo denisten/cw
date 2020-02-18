@@ -4,7 +4,7 @@ services:
 
   #Balancer
   reverse_proxy:
-    image: cwmts-docker.artifactory.prostream.ru/images/backend/reverse-proxy:front
+    image: cwmts-docker.artifactory.prostream.ru/images/backend/reverse-proxy:local
     restart: always
     ports:
       - "80:80"
@@ -12,13 +12,13 @@ services:
     network_mode: host
   #Backend
   backend_webserver:
-    image: cwmts-docker.artifactory.prostream.ru/images/backend/webserver:prod
+    image: cwmts-docker.artifactory.prostream.ru/images/backend/webserver/master:latest
     container_name: cwmts_backend_webserver
     restart: always
     ports:
       - "8080:8080"
   backend_app:
-    image: cwmts-docker.artifactory.prostream.ru/images/backend/app:prod
+    image: cwmts-docker.artifactory.prostream.ru/images/backend/app/master:latest
     container_name: cwmts_backend_app
     env_file:
       - .env
