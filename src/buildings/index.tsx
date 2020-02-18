@@ -23,6 +23,8 @@ export const Buildings = () => {
             <Fragment key={towerTitle}>
               <TowerWrapper
                 upgradeFlag={upgradingTowerTitle === towerTitle}
+                maxLevel={data.maxLevel}
+                currentLevel={localTowersProgressStore[towerTitle].level}
                 progress={localTowersProgressStore[towerTitle].progress}
                 focusOnTowerTitle={focusOn.towerTitle}
                 towerTitle={towerTitle}

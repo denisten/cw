@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { extraTowerInfoModalOpened } from '../../effector/app-condition/events';
 import { LazyImage } from '@tsareff/lazy-image';
-import { TowersTypes } from '../../effector/towers-progress/store';
+import { TowerLevel, TowersTypes } from '../../effector/towers-progress/store';
 import { UpdateButton } from '../update-button';
 import { Substrate } from '../substrate';
 import { upgradeTower } from '../../effector/towers-progress/events';
@@ -21,6 +21,8 @@ const upgradeTowerDelay = 1500;
 
 export const TowerWrapper: React.FC<TypeWrapperProps> = ({
   position,
+  maxLevel,
+  currentLevel,
   areaCoords,
   shadowImg,
   tower,
@@ -71,7 +73,11 @@ export const TowerWrapper: React.FC<TypeWrapperProps> = ({
       height={height}
     >
       {/* eslint-disable-next-line @typescript-eslint/no-magic-numbers */}
-      {progress === 100 ? <UpdateButton towerTitle={towerTitle} /> : ''}
+      {progress >= 100 && currentLevel < maxLevel ? (
+        <UpdateButton towerTitle={towerTitle} />
+      ) : (
+        ''
+      )}
       {upgradeFlag ? <Substrate width={width} height={height} /> : ''}
       <LazyImage
         src={tower}
@@ -97,6 +103,8 @@ export const TowerWrapper: React.FC<TypeWrapperProps> = ({
 type TypeWrapperProps = {
   towerCoords: number[];
   position: number[];
+  maxLevel: TowerLevel;
+  currentLevel: TowerLevel;
   areaCoords: string;
   shadowImg: string;
   tower: string;

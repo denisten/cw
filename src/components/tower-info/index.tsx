@@ -6,19 +6,28 @@ import { addProgressPoints } from '../../effector/towers-progress/events';
 import { useStore } from 'effector-react';
 import { AppCondition } from '../../effector/app-condition/store';
 import { ProgressBar } from '../../UI/progress-bar';
+import { TowerInfoContent } from '../tower-info-content';
+import shape from './shape.png';
+import {
+  TowersProgressStore,
+  TowersTypes,
+} from '../../effector/towers-progress/store';
+import { BuildingsService } from '../../buildings/config';
 
 export type ModalWindowProps = {
   opened?: boolean;
-};
-
-type TowerInfoMenuElement = {
-  selected: boolean;
 };
 
 enum marginRightValues {
   OPENED = 0,
   // eslint-disable-next-line @typescript-eslint/no-magic-numbers
   CLOSED = -100,
+}
+
+export enum TowerInfoContentValues {
+  TASK = 'task',
+  CHAT = 'chat',
+  DESCRIPTION = 'description',
 }
 
 export const ModalWindowWrapper = styled.div<ModalWindowProps>`
@@ -28,54 +37,40 @@ export const ModalWindowWrapper = styled.div<ModalWindowProps>`
   width: 50%;
   height: 100%;
   background-color: white;
-  padding-left: 7.5%;
-  padding-top: 8.5%;
+  padding: 5.5% 0 0 4.5%;
   box-sizing: border-box;
   margin-right: ${props =>
     !props.opened ? marginRightValues.CLOSED : marginRightValues.OPENED}%;
   transition-duration: 0.5s;
   transition-property: margin-right;
-  font-size: 1.2em;
 `;
 
 const ModalWindowContentWrapper = styled.div`
   height: 100%;
   width: 80%;
-  border: 1px solid sienna;
 `;
 const TowerInfoHeader = styled.div`
   width: 100%;
   height: 20%;
-  border: 1px solid red;
-  //margin: 9% 0 0 4%;
-  box-sizing: border-box;
-  font-size: 80%;
 `;
 
 const HeaderLine = styled.div`
   width: 100%;
   height: 40%;
-  border: 1px solid green;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: row;
 `;
 
 const Title = styled.div`
-  font-size: 32px;
+  font-size: 2em;
   font-weight: 900;
-  font-stretch: normal;
-  font-style: normal;
   line-height: 1;
-  letter-spacing: normal;
   color: #000000;
   margin-bottom: 3.3%;
 `;
 
 const UpgradeButton = styled.div`
-  width: 130px;
-  height: 40px;
+  width: 100%;
+  height: 62%;
   border-radius: 8px;
   background-color: #5ee220;
   display: flex;
@@ -83,16 +78,22 @@ const UpgradeButton = styled.div`
   align-items: center;
   color: #fff;
   cursor: pointer;
+  font-size: 100%;
 `;
 
-const HeaderLineElement = styled.div`
-  width: 33%;
+const HeaderLineElement = styled.div<{ width: number }>`
+  width: ${props => props.width}%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: flex-start;
   flex-direction: column;
-  margin: 0 5%;
+  padding: 0 3%;
+  font-size: 85%;
+  font-family: SFProDisplay;
+  font-weight: 600;
+  line-height: 1.5;
+  color: #000000;
 `;
 
 const TowerInfoMenu = styled.div`
@@ -102,13 +103,19 @@ const TowerInfoMenu = styled.div`
   width: 100%;
 `;
 
-const TowerInfoMenuElement = styled.div<TowerInfoMenuElement>`
+const TowerInfoMenuElement = styled.div<{ selected: boolean }>`
   height: 100%;
   text-align: center;
   cursor: pointer;
-  border-bottom: ${props => (props.selected ? '3px solid #ff2d2d' : 'none')};
   z-index: 2;
   margin-right: 10%;
+  color: #${props => (props.selected ? '000000' : '999999')};
+  :after {
+    content: '';
+    display: block;
+    margin-top: 2%;
+    border-bottom: 3px solid #${props => (props.selected ? 'ff2d2d' : 'e8e8e8')};
+  }
 `;
 
 const Divider = styled.div`
@@ -116,7 +123,8 @@ const Divider = styled.div`
   height: 3px;
   background-color: #e8e8e8;
   position: relative;
-  top: -0.4%;
+  top: -0.3%;
+  margin: 0 0 3.5% 0;
 `;
 
 const StyleConfig = {
@@ -129,17 +137,24 @@ const StyleConfig = {
 };
 
 export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
-  const {
+  let {
     focusOn: { towerTitle },
   } = useStore(AppCondition);
-
+  const localService = new BuildingsService();
+  const LocalTowerProgressStore = useStore(TowersProgressStore);
+  if (!towerTitle) {
+    towerTitle = TowersTypes.MAIN_TOWER;
+  }
+  const { title } = localService.getConfigForTower(towerTitle);
   const handleClick = () => {
     if (towerTitle) {
-      addProgressPoints({ points: 100, towerTitle });
+      addProgressPoints({ points: 20, towerTitle });
     }
   };
 
-  const [selectMenu, setSelectMenu] = useState([true, false, false]);
+  const [selectedMenu, setSelectMenu] = useState(
+    TowerInfoContentValues.DESCRIPTION
+  );
 
   return (
     <ModalWindowWrapper opened={opened}>
@@ -148,45 +163,50 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
           {...StyleConfig.exitButton}
           callBack={() => extraTowerInfoModalClosed()}
         />
-
         <TowerInfoHeader>
-          <Title>МТС Библиотека</Title>
+          <Title>{title}</Title>
           <HeaderLine>
-            <HeaderLineElement>
+            <HeaderLineElement width={36}>
               Уровень эволюции
-              <ProgressBar />
+              <ProgressBar
+                progress={LocalTowerProgressStore[towerTitle].progress}
+              />
             </HeaderLineElement>
 
-            <HeaderLineElement>
+            <HeaderLineElement width={36}>
               <span>Еженедельный доход</span>
-              <span>300∆</span>
+              <span>
+                300
+                <img src={shape} alt="money" />
+              </span>
             </HeaderLineElement>
-            <HeaderLineElement>
+            <HeaderLineElement width={28}>
               <UpgradeButton onClick={handleClick}>Улучшить</UpgradeButton>
             </HeaderLineElement>
           </HeaderLine>
         </TowerInfoHeader>
         <TowerInfoMenu>
           <TowerInfoMenuElement
-            selected={selectMenu[0]}
-            onClick={() => setSelectMenu([true, false, false])}
+            selected={selectedMenu === TowerInfoContentValues.DESCRIPTION}
+            onClick={() => setSelectMenu(TowerInfoContentValues.DESCRIPTION)}
           >
             Описание
           </TowerInfoMenuElement>
           <TowerInfoMenuElement
-            selected={selectMenu[1]}
-            onClick={() => setSelectMenu([false, true, false])}
+            selected={selectedMenu === TowerInfoContentValues.CHAT}
+            onClick={() => setSelectMenu(TowerInfoContentValues.CHAT)}
           >
             Чат
           </TowerInfoMenuElement>
           <TowerInfoMenuElement
-            selected={selectMenu[2]}
-            onClick={() => setSelectMenu([false, false, true])}
+            selected={selectedMenu === TowerInfoContentValues.TASK}
+            onClick={() => setSelectMenu(TowerInfoContentValues.TASK)}
           >
             Задания
           </TowerInfoMenuElement>
         </TowerInfoMenu>
         <Divider />
+        <TowerInfoContent selectedMenu={selectedMenu} />
       </ModalWindowContentWrapper>
     </ModalWindowWrapper>
   );

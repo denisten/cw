@@ -60,8 +60,10 @@ export class BuildingsService {
   _config: BuildingServiceConfigTypes = {
     [TowersTypes.MAIN_TOWER]: {
       info: 'info',
+      title: 'Тариф минуты',
       coords: [3672, 2036],
       zIndex: 2,
+      maxLevel: TowerLevel.high,
       [TowerLevel.low]: {
         img: mainTowerLevel1Img,
         width: 382,
@@ -89,8 +91,10 @@ export class BuildingsService {
     },
     [TowersTypes.MUSIC]: {
       info: 'info',
+      title: 'МТС музыка',
       coords: [3115, 2455],
       zIndex: 2,
+      maxLevel: TowerLevel.high,
       [TowerLevel.low]: {
         img: musicTowerLevel1Img,
         width: 504,
@@ -118,8 +122,10 @@ export class BuildingsService {
     },
     [TowersTypes.ARENA]: {
       info: 'info',
+      title: 'МТС Арена',
       coords: [3537, 1408],
       zIndex: 1,
+      maxLevel: TowerLevel.mid,
       [TowerLevel.low]: {
         // TODO: не настоящая картинка
         img: musicTowerLevel1Img,
@@ -149,8 +155,10 @@ export class BuildingsService {
     },
     [TowersTypes.MOLL]: {
       info: 'info',
+      title: 'Молл',
       coords: [4156, 1458],
       zIndex: 1,
+      maxLevel: TowerLevel.high,
       [TowerLevel.low]: {
         img: mollTowerLevel1Img,
         width: 605,
@@ -178,8 +186,10 @@ export class BuildingsService {
     },
     [TowersTypes.EGG]: {
       info: 'info',
+      title: 'Мой МТС',
       coords: [4095, 1996],
       zIndex: 2,
+      maxLevel: TowerLevel.high,
       [TowerLevel.low]: {
         // TODO: не настоящая картинка
         img: musicTowerLevel1Img,
@@ -209,8 +219,10 @@ export class BuildingsService {
     },
     [TowersTypes.LIBRARY]: {
       info: 'info',
+      title: 'Библиотека',
       coords: [2256, 2490],
       zIndex: 2,
+      maxLevel: TowerLevel.high,
       [TowerLevel.low]: {
         img: libraryTowerLevel1Img,
         width: 545,
@@ -238,8 +250,10 @@ export class BuildingsService {
     },
     [TowersTypes.OBSERVATORY]: {
       info: 'info',
+      title: 'Домашний интернет',
       coords: [2688, 1833],
       zIndex: 2,
+      maxLevel: TowerLevel.mid,
       [TowerLevel.low]: {
         // TODO: не настоящая картинка
         img: musicTowerLevel1Img,
@@ -269,8 +283,10 @@ export class BuildingsService {
     },
     [TowersTypes.TARIFF]: {
       info: 'info',
+      title: 'Тариф ГБ',
       coords: [3867, 1809],
       zIndex: 1,
+      maxLevel: TowerLevel.mid,
       [TowerLevel.low]: {
         // TODO: не настоящая картинка
         img: musicTowerLevel1Img,
@@ -300,8 +316,10 @@ export class BuildingsService {
     },
     [TowersTypes.THEATER]: {
       info: 'info',
+      title: 'Афиша',
       coords: [2964, 1643],
       zIndex: 1,
+      maxLevel: TowerLevel.mid,
       [TowerLevel.low]: {
         // TODO: не настоящая картинка
         img: musicTowerLevel1Img,
@@ -331,8 +349,10 @@ export class BuildingsService {
     },
     [TowersTypes.TV]: {
       info: 'info',
+      title: 'Цифровое ТВ',
       coords: [2262, 1726],
       zIndex: 2,
+      maxLevel: TowerLevel.mid,
       [TowerLevel.low]: {
         // TODO: не настоящая картинка
         img: musicTowerLevel1Img,
@@ -362,8 +382,10 @@ export class BuildingsService {
     },
     [TowersTypes.STADIUM]: {
       info: 'info',
+      title: 'Фитнес',
       coords: [2676, 2362],
       zIndex: 1,
+      maxLevel: TowerLevel.high,
       [TowerLevel.low]: {
         img: stadiumLevel1Img,
         width: 635,
@@ -391,8 +413,10 @@ export class BuildingsService {
     },
     [TowersTypes.AIRPORT]: {
       info: 'info',
+      title: 'Роуминг',
       coords: [2481, 1244],
       zIndex: 1,
+      maxLevel: TowerLevel.high,
       [TowerLevel.low]: {
         img: airportLevel1Img,
         width: 572,
@@ -420,8 +444,10 @@ export class BuildingsService {
     },
     [TowersTypes.MONEY_VAULT]: {
       info: 'info',
+      title: 'МТС Деньги',
       coords: [5079, 1441],
       zIndex: 1,
+      maxLevel: TowerLevel.mid,
       // TODO: не настоящая картинка
       [TowerLevel.low]: {
         img: airportLevel1Img,
@@ -451,8 +477,10 @@ export class BuildingsService {
     },
     [TowersTypes.BANK]: {
       info: 'info',
+      title: 'Банк',
       coords: [5404, 1763],
       zIndex: 1,
+      maxLevel: TowerLevel.mid,
       // TODO: не настоящая картинка
       [TowerLevel.low]: {
         img: airportLevel1Img,
@@ -482,8 +510,10 @@ export class BuildingsService {
     },
     [TowersTypes.CYBER_ARENA]: {
       info: 'info',
+      title: 'WASD',
       coords: [4860, 2526],
       zIndex: 1,
+      maxLevel: TowerLevel.low,
       [TowerLevel.low]: {
         img: cyberArenaLevel1Img,
         width: 765,
@@ -513,8 +543,10 @@ export class BuildingsService {
     },
     [TowersTypes.FACTORY]: {
       info: 'info',
+      title: 'Салоный связи',
       coords: [4933, 1921],
       zIndex: 1,
+      maxLevel: TowerLevel.low,
       [TowerLevel.low]: {
         img: factoryLevel1Img,
         width: 790,
@@ -556,8 +588,10 @@ type BuildingServiceConfigTypes = Record<
 
 type CurrentTowerServiceConfigTypes = {
   info: string;
+  title: string;
   coords: number[];
   zIndex: number;
+  maxLevel: TowerLevel;
   [TowerLevel.low]: TowerLevelType;
   [TowerLevel.mid]: TowerLevelType;
   [TowerLevel.high]: TowerLevelType;

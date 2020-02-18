@@ -26,7 +26,7 @@ export enum TowersTypes {
 const initState: TowersProgressStoreType = {
   [TowersTypes.MAIN_TOWER]: {
     level: TowerLevel.low,
-    progress: 0,
+    progress: 30,
   },
   [TowersTypes.MUSIC]: {
     level: TowerLevel.low,
