@@ -1,15 +1,19 @@
-build_local:
-	 DOCKER_BUILDKIT=1 docker build . --tag cwmts-docker.artifactory.prostream.ru/images/frontend/app:local -f docker/app/local/Dockerfile
+build:
+	 DOCKER_BUILDKIT=1 docker build . --tag cwmts-docker.artifactory.prostream.ru/images/frontend/app/master:local -f docker/app/local/Dockerfile
+	 docker-compose build
+build_auth:
+	 DOCKER_BUILDKIT=1 docker build . --tag cwmts-docker.artifactory.prostream.ru/images/frontend/app/feature/auth:local -f docker/app/local/Dockerfile
+	 docker-compose build
 
-local_up:
+up:
+	docker-compose pull backend_app backend_webserver
 	docker-compose up -d
-local_up_docker:
+	npm install
+	npm start -- --open-page http://web.cwmts.local
+up_debug:
 	docker-compose up
-local_down:
+down:
 	docker-compose down
-local_push:
+push:
 	docker-compose push
-local_build: build_local
-	docker-compose build --build-arg USER_ID=$$(id -u) --build-arg GROUP_ID=$$(id -g)
-local_build_no_cache:
-	docker-compose build --no-cache --build-arg USER_ID=$$(id -u) --build-arg GROUP_ID=$$(id -g)
+restart: down up

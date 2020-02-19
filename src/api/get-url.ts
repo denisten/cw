@@ -6,5 +6,7 @@ interface GetUrlProp {
 }
 
 export const getUrl = async (): Promise<GetUrlProp> => {
-  return await axios.get(apiRoutes.GET_URL);
+  const response = await axios.get(apiRoutes.GET_URL);
+
+  return response.data;
 };

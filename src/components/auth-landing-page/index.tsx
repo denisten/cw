@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { getCookie } from '../../utils/get-cookie';
 
-export const AuthCookieKey = 'oauth';
+export const AuthCookieKey = 'id_token';
 
 export const AuthLandingPage = () => {
   useEffect(() => {
