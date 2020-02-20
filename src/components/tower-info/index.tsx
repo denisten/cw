@@ -150,6 +150,11 @@ const StyleConfig = {
     top: 48,
     left: 40,
   },
+  descriptionButton: {
+    position: 'absolute',
+    top: '46%',
+    left: '39.7%',
+  },
 };
 
 export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
@@ -243,6 +248,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
             nextTutorDescriptionStep();
             addProgressPoints({ points: 35, towerTitle: towerTitle });
           }}
+          {...StyleConfig.descriptionButton}
         >
           Раскрыть
         </button>

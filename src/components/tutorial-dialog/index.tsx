@@ -99,7 +99,7 @@ export const TutorialDialog: React.FC = () => {
           if (i + 1 === txt.length) {
             setTextGenerating(false);
           }
-        }, 2 * i);
+        }, 12 * i);
       }
     }, delayBetweenDialogMessages);
   }, [onBoardingState]);

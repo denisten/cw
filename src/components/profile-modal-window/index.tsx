@@ -60,7 +60,11 @@ export const Menu = () => {
   );
   const menuItemsComponentCallBack = (item: MenuItems) => {
     setSelectedMenuItem(item);
-    if (item === MenuItems.SETTINGS) nextTutorStep();
+    if (
+      item === MenuItems.SETTINGS &&
+      tutorialCondition === TutorialConditions.SETTINGS_ARROW
+    )
+      nextTutorStep();
   };
   const handleSaveButtonClick = () => {
     profileInfoModalWindowClosed();
