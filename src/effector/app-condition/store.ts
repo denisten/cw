@@ -15,6 +15,7 @@ import {
   editIsAuthorizedFlag,
   nextTutorStep,
   nextTutorDescriptionStep,
+  turnOffTutorialMode,
 } from './events';
 import { TowersTypes } from '../towers-progress/store';
 import { upgradeTower } from '../towers-progress/events';
@@ -26,7 +27,7 @@ const initScaleValue = 1;
 const initFocusOnCoordsValues = [3693, 1949];
 
 export enum TutorialConditions {
-  DONT_NEED = 0,
+  OFF = 0,
   DIALOG = 1,
   TOWER_ARROW = 2,
   UNLOCK_BUTTON = 3,
@@ -118,6 +119,10 @@ export const AppCondition = AppDomain.store<AppConditionType>(initState)
   .on(nextTutorDescriptionStep, state => ({
     ...state,
     tutorialTextId: state.tutorialTextId + 1,
+  }))
+  .on(turnOffTutorialMode, state => ({
+    ...state,
+    tutorialCondition: TutorialConditions.OFF,
   }));
 
 type AppConditionType = {

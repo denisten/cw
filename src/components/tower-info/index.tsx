@@ -173,7 +173,10 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
   );
 
   useEffect(() => {
-    if (LocalTowerProgressStore[towerTitle].progress >= maxProgressValue) {
+    if (
+      LocalTowerProgressStore[towerTitle].progress >= maxProgressValue &&
+      tutorialCondition
+    ) {
       nextTutorStep();
     }
   }, [LocalTowerProgressStore[towerTitle].progress]);

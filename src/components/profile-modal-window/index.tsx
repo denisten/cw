@@ -3,6 +3,7 @@ import { ExitButton } from '../../UI/exit-button';
 import {
   nextTutorStep,
   profileInfoModalWindowClosed,
+  turnOffTutorialMode,
 } from '../../effector/app-condition/events';
 import background from './background.png';
 import { ImgWrapper } from '../../UI/img-wrapper';
@@ -64,7 +65,7 @@ export const Menu = () => {
   const handleSaveButtonClick = () => {
     profileInfoModalWindowClosed();
     if (tutorialCondition === TutorialConditions.SAVE_CITY_NAME_ARROW)
-      nextTutorStep();
+      turnOffTutorialMode();
   };
 
   return (

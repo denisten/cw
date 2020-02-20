@@ -66,7 +66,7 @@ export const TowerWrapper: React.FC<TypeWrapperProps> = ({
         coords: towerCoords,
         towerTitle,
       });
-      nextTutorStep();
+      if (tutorialCondition) nextTutorStep();
     }
   };
 
