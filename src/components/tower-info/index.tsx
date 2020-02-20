@@ -1,10 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { ExitButton } from '../../UI/exit-button';
-import { extraTowerInfoModalClosed } from '../../effector/app-condition/events';
+import {
+  extraTowerInfoModalClosed,
+  nextTutorDescriptionStep,
+  nextTutorStep,
+} from '../../effector/app-condition/events';
 import { addProgressPoints } from '../../effector/towers-progress/events';
 import { useStore } from 'effector-react';
-import { AppCondition } from '../../effector/app-condition/store';
+import {
+  AppCondition,
+  maxProgressValue,
+  TutorialConditions,
+} from '../../effector/app-condition/store';
 import { ProgressBar } from '../../UI/progress-bar';
 import { TowerInfoContent } from '../tower-info-content';
 import shape from './shape.png';
@@ -13,6 +21,8 @@ import {
   TowersTypes,
 } from '../../effector/towers-progress/store';
 import { BuildingsService } from '../../buildings/config';
+import { Directions, TutorialArrow } from '../../UI/tutorial-arrow';
+import { BuildingsDescriptionService } from '../../buildings/descriptions';
 
 export type ModalWindowProps = {
   opened?: boolean;
@@ -134,27 +144,45 @@ const StyleConfig = {
     left: 1,
     hoverFlag: true,
   },
+  tutorialArrow: {
+    direction: Directions.TOP,
+    range: 2,
+    top: 48,
+    left: 40,
+  },
 };
 
 export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
-  let {
-    focusOn: { towerTitle },
-  } = useStore(AppCondition);
-  const localService = new BuildingsService();
-  const LocalTowerProgressStore = useStore(TowersProgressStore);
-  if (!towerTitle) {
-    towerTitle = TowersTypes.MAIN_TOWER;
-  }
-  const { title } = localService.getConfigForTower(towerTitle);
+  const {
+      focusOn: { towerTitle: notVerifiedTowerTitle },
+      tutorialTextId,
+      tutorialCondition,
+    } = useStore(AppCondition),
+    LocalTowerProgressStore = useStore(TowersProgressStore);
+  const towerTitle: TowersTypes =
+    notVerifiedTowerTitle || TowersTypes.MAIN_TOWER;
+  const localBuildingService = new BuildingsService(),
+    localDescriptionService = new BuildingsDescriptionService();
+  const descriptionText = localDescriptionService.getDescriptionForCurrentTower(
+    towerTitle,
+    tutorialTextId
+  );
+  const { title } = localBuildingService.getConfigForTower(towerTitle);
+  const [selectedMenu, setSelectMenu] = useState(
+    TowerInfoContentValues.DESCRIPTION
+  );
+
+  useEffect(() => {
+    if (LocalTowerProgressStore[towerTitle].progress >= maxProgressValue) {
+      nextTutorStep();
+    }
+  }, [LocalTowerProgressStore[towerTitle].progress]);
+
   const handleClick = () => {
     if (towerTitle) {
       addProgressPoints({ points: 20, towerTitle });
     }
   };
-
-  const [selectedMenu, setSelectMenu] = useState(
-    TowerInfoContentValues.DESCRIPTION
-  );
 
   return (
     <ModalWindowWrapper opened={opened}>
@@ -206,7 +234,20 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
           </TowerInfoMenuElement>
         </TowerInfoMenu>
         <Divider />
-        <TowerInfoContent selectedMenu={selectedMenu} />
+        <TowerInfoContent selectedMenu={selectedMenu} text={descriptionText} />
+        <button
+          onClick={() => {
+            nextTutorDescriptionStep();
+            addProgressPoints({ points: 35, towerTitle: towerTitle });
+          }}
+        >
+          Раскрыть
+        </button>
+        {tutorialCondition === TutorialConditions.UNLOCK_BUTTON ? (
+          <TutorialArrow {...StyleConfig.tutorialArrow} />
+        ) : (
+          ''
+        )}
       </ModalWindowContentWrapper>
     </ModalWindowWrapper>
   );

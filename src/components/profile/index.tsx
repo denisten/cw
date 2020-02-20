@@ -123,7 +123,7 @@ const NonAuthorizedPanel = styled.div`
 
 export const Profile = () => {
   const localUserData = useStore(UserDataStore);
-  const { isAuthorized } = useStore(AppCondition);
+  const { isAuthorized, tutorialCondition } = useStore(AppCondition);
   return (
     <ProfileWrapper>
       {isAuthorized ? (
@@ -181,7 +181,7 @@ export const Profile = () => {
                 <PhoneWrapper>{localUserData.phoneNumber}</PhoneWrapper>
               </TitleWrapper>
               <CustomButton
-                callback={() => handleAuthButtonClick(false)}
+                callback={() => handleAuthButtonClick(false, tutorialCondition)}
                 {...StyledConfig.button}
               />
             </AccountData>
@@ -195,7 +195,7 @@ export const Profile = () => {
             alt="profile"
           />
           <CustomButton
-            callback={() => handleAuthButtonClick(true)}
+            callback={() => handleAuthButtonClick(true, tutorialCondition)}
             {...StyledConfig.enterButton}
           />
         </NonAuthorizedPanel>

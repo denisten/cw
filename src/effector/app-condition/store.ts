@@ -13,13 +13,29 @@ import {
   ExtraTowerInfoModalOpenedProps,
   showUpgradeIcon,
   editIsAuthorizedFlag,
+  nextTutorStep,
+  nextTutorDescriptionStep,
 } from './events';
 import { TowersTypes } from '../towers-progress/store';
 import { upgradeTower } from '../towers-progress/events';
 
+export const maxProgressValue = 100;
+
 const initScaleValue = 1;
 // eslint-disable-next-line @typescript-eslint/no-magic-numbers
 const initFocusOnCoordsValues = [3693, 1949];
+
+export enum TutorialConditions {
+  DONT_NEED = 0,
+  DIALOG = 1,
+  TOWER_ARROW = 2,
+  UNLOCK_BUTTON = 3,
+  UPGRADE_ARROW = 4,
+  PROFILE_ARROW = 5,
+  SETTINGS_ARROW = 6,
+  CHANGE_CITY_NAME_ARROW = 7,
+  SAVE_CITY_NAME_ARROW = 8,
+}
 
 const initState = {
   isExtraTowerInfoModalOpen: false,
@@ -32,6 +48,8 @@ const initState = {
   isTaskModalOpen: false,
   upgradingTowerTitle: null,
   isAuthorized: false,
+  tutorialCondition: TutorialConditions.PROFILE_ARROW,
+  tutorialTextId: 0,
 };
 
 export const AppCondition = AppDomain.store<AppConditionType>(initState)
@@ -92,6 +110,14 @@ export const AppCondition = AppDomain.store<AppConditionType>(initState)
   .on(editIsAuthorizedFlag, (state, payload) => ({
     ...state,
     isAuthorized: payload,
+  }))
+  .on(nextTutorStep, state => ({
+    ...state,
+    tutorialCondition: state.tutorialCondition + 1,
+  }))
+  .on(nextTutorDescriptionStep, state => ({
+    ...state,
+    tutorialTextId: state.tutorialTextId + 1,
   }));
 
 type AppConditionType = {
@@ -102,4 +128,6 @@ type AppConditionType = {
   scaleValue: ScaleValues;
   upgradingTowerTitle: TowersTypes | null;
   isAuthorized: boolean;
+  tutorialCondition: TutorialConditions;
+  tutorialTextId: number;
 };
