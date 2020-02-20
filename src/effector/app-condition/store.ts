@@ -49,7 +49,7 @@ const initState = {
   isTaskModalOpen: false,
   upgradingTowerTitle: null,
   isAuthorized: false,
-  tutorialCondition: TutorialConditions.TOWER_ARROW,
+  tutorialCondition: TutorialConditions.DIALOG,
   tutorialTextId: 0,
 };
 
