@@ -49,7 +49,7 @@ type MenuParagraphProps = {
   onClickHandler: () => void;
 };
 
-export const MenuParagraph: React.FC<MenuParagraphProps> = ({
+export const MenuNavigationElement: React.FC<MenuParagraphProps> = ({
   menuElement,
   isItemSelected,
   onClickHandler,

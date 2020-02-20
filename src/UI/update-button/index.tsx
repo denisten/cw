@@ -13,7 +13,7 @@ const StyleConfig = {
   hoverFlag: true,
 };
 
-export const UpdateButton: React.FC<UpdateButtonProps> = ({ towerTitle }) => {
+export const UpgradeButton: React.FC<UpgradeButtonProps> = ({ towerTitle }) => {
   return (
     <ImgWrapper
       src={updateImg}
@@ -23,6 +23,6 @@ export const UpdateButton: React.FC<UpdateButtonProps> = ({ towerTitle }) => {
   );
 };
 
-type UpdateButtonProps = {
+type UpgradeButtonProps = {
   towerTitle: TowersTypes;
 };

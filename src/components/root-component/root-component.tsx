@@ -14,6 +14,7 @@ import { useScrollTo } from '../../hooks/useScrollTo';
 import { OnEndScrollHandler } from '../../utils/on-end-scroll-handler';
 import { Bridges } from '../../buildings/bridges';
 import { ProfileButton } from '../../UI/profile-button';
+import { TutorialToolsSelector } from '../../utils/arrows-container';
 
 const ComponentWrapper = styled.div`
   background-image: url("${mapTile}");
@@ -58,6 +59,7 @@ export const RootComponent = (): React.ReactElement => {
     isTaskModalOpen,
     scaleValue,
     focusOn,
+    tutorialCondition,
   } = useStore(AppCondition);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const myRef: any = useRef<HTMLElement>(null);
@@ -74,11 +76,14 @@ export const RootComponent = (): React.ReactElement => {
   return (
     <ComponentWrapper id="rootScroll">
       {isProfileInfoModalOpen ? <Menu /> : ''}
-      <ProfileButton />
+      <ProfileButton tutorialCondition={tutorialCondition} />
       <TaskButton />
-
       <TowerInfo opened={isExtraTowerInfoModalOpen} />
       <TaskModalWindow opened={isTaskModalOpen} />
+      <TutorialToolsSelector
+        tutorialCondition={tutorialCondition}
+        isInsideScrollContainer={false}
+      />
       <ScrollContainer
         ref={myRef}
         style={styleConfig.ScrollContainerStyle}
@@ -88,6 +93,10 @@ export const RootComponent = (): React.ReactElement => {
         }}
       >
         <MapWrapper scaleValue={scaleValue}>
+          <TutorialToolsSelector
+            tutorialCondition={tutorialCondition}
+            isInsideScrollContainer={true}
+          />
           <Map />
           <Buildings />
           <Bridges showBridges={true} />

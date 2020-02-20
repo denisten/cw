@@ -28,3 +28,7 @@ export const taskModalWindowOpened = AppDomain.event();
 export const taskModalWindowClosed = AppDomain.event();
 export const showUpgradeIcon = AppDomain.event<TowersTypes>();
 export const editIsAuthorizedFlag = AppDomain.event<boolean>();
+
+export const nextTutorStep = AppDomain.event();
+export const turnOffTutorialMode = AppDomain.event();
+export const nextTutorDescriptionStep = AppDomain.event();

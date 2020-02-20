@@ -86,11 +86,11 @@ export const DataInput: React.FC<DataInputProps> = ({
   };
   const onClickHandler = () => {
     setEditMode(!editMode);
-    if (inputRef) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-      // @ts-ignore
-      setTimeout(() => inputRef.current.focus());
-    }
+    setTimeout(() => {
+      if (inputRef.current) {
+        inputRef.current.focus();
+      }
+    });
   };
   return (
     <DataInputWrapper {...styledProps}>

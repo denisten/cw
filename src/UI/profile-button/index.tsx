@@ -1,8 +1,12 @@
 import React from 'react';
 import profileImg from './button_nickname.png';
-import { profileInfoModalWindowOpened } from '../../effector/app-condition/events';
+import {
+  nextTutorStep,
+  profileInfoModalWindowOpened,
+} from '../../effector/app-condition/events';
 import { ImgWrapper } from '../../UI/img-wrapper';
 import styled from 'styled-components';
+import { TutorialConditions } from '../../effector/app-condition/store';
 
 type NickNameWrapperProps = {
   nickName: string;
@@ -42,15 +46,25 @@ const StyleConfig = {
   hoverFlag: true,
 };
 
-export const ProfileButton = () => {
+type ProfileButtonProps = {
+  tutorialCondition: TutorialConditions;
+};
+
+export const ProfileButton: React.FC<ProfileButtonProps> = ({
+  tutorialCondition,
+}) => {
+  const handleClick = () => {
+    if (!tutorialCondition) {
+      profileInfoModalWindowOpened();
+      return;
+    }
+    if (tutorialCondition === TutorialConditions.PROFILE_ARROW) {
+      profileInfoModalWindowOpened();
+      nextTutorStep();
+    }
+  };
   return (
-    <ImgWrapper
-      src={profileImg}
-      callBack={() => {
-        profileInfoModalWindowOpened();
-      }}
-      {...StyleConfig}
-    >
+    <ImgWrapper src={profileImg} callBack={handleClick} {...StyleConfig}>
       <NickNameWrapper nickName="NickName" />
       <MoneyCounterWrapper money={228} />
     </ImgWrapper>
