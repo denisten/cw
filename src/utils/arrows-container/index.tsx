@@ -33,7 +33,6 @@ export const TutorialToolsSelector: React.FC<ArrowsContainerProps> = ({
         />
       );
     case TutorialConditions.TOWER_ARROW:
-    case TutorialConditions.UPGRADE_ARROW:
       if (isInsideScrollContainer)
         return (
           <TutorialArrow
@@ -41,6 +40,17 @@ export const TutorialToolsSelector: React.FC<ArrowsContainerProps> = ({
             left={47.4}
             range={1}
             direction={Directions.BOTTOM}
+          />
+        );
+      else return <Fragment />;
+    case TutorialConditions.UPGRADE_ARROW:
+      if (isInsideScrollContainer)
+        return (
+          <TutorialArrow
+            top={29}
+            left={46.4}
+            range={0.5}
+            direction={Directions.RIGHT}
           />
         );
       else return <Fragment />;
