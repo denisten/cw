@@ -54,13 +54,13 @@ export const ProfileButton: React.FC<ProfileButtonProps> = ({
   tutorialCondition,
 }) => {
   const handleClick = () => {
-    if (
-      tutorialCondition === TutorialConditions.PROFILE_ARROW ||
-      !tutorialCondition
-    ) {
+    if (!tutorialCondition) {
       profileInfoModalWindowOpened();
-      if (tutorialCondition === TutorialConditions.PROFILE_ARROW)
-        nextTutorStep();
+      return;
+    }
+    if (tutorialCondition === TutorialConditions.PROFILE_ARROW) {
+      profileInfoModalWindowOpened();
+      nextTutorStep();
     }
   };
   return (
