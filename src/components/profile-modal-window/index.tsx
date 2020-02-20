@@ -56,9 +56,6 @@ const StyledConfig = {
 
 export const Menu = () => {
   const { tutorialCondition, selectedMenuItem } = useStore(AppCondition);
-  // const [selectedMenuItem, setSelectedMenuItem] = useState<MenuItems>(
-  //   MenuItems.PROFILE
-  // );
   const menuItemsComponentCallBack = (item: MenuItems) => {
     menuOpened(item);
     if (
