@@ -9,7 +9,6 @@ import { Buildings } from '../../buildings';
 import mapTile from '../../img/map/map-tile.png';
 import { Menu } from '../profile-modal-window';
 import { TaskButton } from '../../UI/task-button';
-import { TaskModalWindow } from '../task-modal-window';
 import { useScrollTo } from '../../hooks/useScrollTo';
 import { OnEndScrollHandler } from '../../utils/on-end-scroll-handler';
 import { Bridges } from '../../buildings/bridges';
@@ -55,8 +54,7 @@ export enum divideNumber {
 export const RootComponent = (): React.ReactElement => {
   const {
     isExtraTowerInfoModalOpen,
-    isProfileInfoModalOpen,
-    isTaskModalOpen,
+    selectedMenuItem,
     scaleValue,
     focusOn,
     tutorialCondition,
@@ -75,11 +73,10 @@ export const RootComponent = (): React.ReactElement => {
   useScrollTo(scrollNode, scrollCoords, [isExtraTowerInfoModalOpen]);
   return (
     <ComponentWrapper id="rootScroll">
-      {isProfileInfoModalOpen ? <Menu /> : ''}
+      {selectedMenuItem ? <Menu /> : ''}
       <ProfileButton tutorialCondition={tutorialCondition} />
       <TaskButton />
       <TowerInfo opened={isExtraTowerInfoModalOpen} />
-      <TaskModalWindow opened={isTaskModalOpen} />
       <TutorialToolsSelector
         tutorialCondition={tutorialCondition}
         isInsideScrollContainer={false}

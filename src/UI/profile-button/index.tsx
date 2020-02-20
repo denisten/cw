@@ -1,12 +1,10 @@
 import React from 'react';
 import profileImg from './button_nickname.png';
-import {
-  nextTutorStep,
-  profileInfoModalWindowOpened,
-} from '../../effector/app-condition/events';
+import { nextTutorStep, menuOpened } from '../../effector/app-condition/events';
 import { ImgWrapper } from '../../UI/img-wrapper';
 import styled from 'styled-components';
 import { TutorialConditions } from '../../effector/app-condition/store';
+import { MenuItems } from '../menu-paragraph';
 
 type NickNameWrapperProps = {
   nickName: string;
@@ -55,11 +53,11 @@ export const ProfileButton: React.FC<ProfileButtonProps> = ({
 }) => {
   const handleClick = () => {
     if (!tutorialCondition) {
-      profileInfoModalWindowOpened();
+      menuOpened(MenuItems.PROFILE);
       return;
     }
     if (tutorialCondition === TutorialConditions.PROFILE_ARROW) {
-      profileInfoModalWindowOpened();
+      menuOpened(MenuItems.PROFILE);
       nextTutorStep();
     }
   };

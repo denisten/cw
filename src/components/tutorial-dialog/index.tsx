@@ -80,7 +80,7 @@ const buttonContents = [
 ];
 
 const delayBetweenDialogMessages = 600;
-
+const delayBetweenLetterAppearing = 12;
 export const TutorialDialog: React.FC = () => {
   const [usedTxt, setUsedTxt] = useState('');
   const [onBoardingState, setOnBoardingState] = useState(0);
@@ -99,7 +99,7 @@ export const TutorialDialog: React.FC = () => {
           if (i + 1 === txt.length) {
             setTextGenerating(false);
           }
-        }, 12 * i);
+        }, delayBetweenLetterAppearing * i);
       }
     }, delayBetweenDialogMessages);
   }, [onBoardingState]);

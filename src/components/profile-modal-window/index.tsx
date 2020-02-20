@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ExitButton } from '../../UI/exit-button';
 import {
   nextTutorStep,
-  profileInfoModalWindowClosed,
+  menuClosed,
+  menuOpened,
   turnOffTutorialMode,
 } from '../../effector/app-condition/events';
 import background from './background.png';
@@ -54,12 +55,9 @@ const StyledConfig = {
 };
 
 export const Menu = () => {
-  const { tutorialCondition } = useStore(AppCondition);
-  const [selectedMenuItem, setSelectedMenuItem] = useState<MenuItems>(
-    MenuItems.PROFILE
-  );
+  const { tutorialCondition, selectedMenuItem } = useStore(AppCondition);
   const menuItemsComponentCallBack = (item: MenuItems) => {
-    setSelectedMenuItem(item);
+    menuOpened(item);
     if (
       item === MenuItems.SETTINGS &&
       tutorialCondition === TutorialConditions.SETTINGS_ARROW
@@ -67,7 +65,7 @@ export const Menu = () => {
       nextTutorStep();
   };
   const handleSaveButtonClick = () => {
-    profileInfoModalWindowClosed();
+    menuClosed();
     if (tutorialCondition === TutorialConditions.SAVE_CITY_NAME_ARROW)
       turnOffTutorialMode();
   };
@@ -75,7 +73,7 @@ export const Menu = () => {
   return (
     <ImgWrapper {...StyledConfig.mainWrapper} src={background}>
       <MenuItemsComponent
-        selectedMenuItem={selectedMenuItem}
+        selectedMenuItem={selectedMenuItem || MenuItems.PROFILE}
         callBack={menuItemsComponentCallBack}
       />
       {tutorialCondition === TutorialConditions.SETTINGS_ARROW ? (
@@ -83,11 +81,8 @@ export const Menu = () => {
       ) : (
         <React.Fragment />
       )}
-      <MenuContent content={selectedMenuItem} />
-      <ExitButton
-        {...StyledConfig.exitButton}
-        callBack={() => profileInfoModalWindowClosed()}
-      />
+      <MenuContent content={selectedMenuItem || MenuItems.PROFILE} />
+      <ExitButton {...StyledConfig.exitButton} callBack={() => menuClosed()} />
       <SaveButton
         {...StyledConfig.saveButton}
         callBack={handleSaveButtonClick}

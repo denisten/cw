@@ -1,5 +1,6 @@
 import { AppDomain } from './domain';
 import { TowersTypes } from '../towers-progress/store';
+import { MenuItems } from '../../UI/menu-paragraph';
 
 export enum ScaleValues {
   HALF = 0.5,
@@ -20,12 +21,10 @@ export const extraTowerInfoModalClosed = AppDomain.event(
 export const toggleExtraTowerInfoModal = AppDomain.event<number[]>(
   'User toggled modal window'
 );
-export const profileInfoModalWindowOpened = AppDomain.event();
-export const profileInfoModalWindowClosed = AppDomain.event();
+export const menuOpened = AppDomain.event<MenuItems>();
+export const menuClosed = AppDomain.event();
 export const updateScaleValue = AppDomain.event<ScaleValues>();
 export const updateFocusOnValue = AppDomain.event<number[]>();
-export const taskModalWindowOpened = AppDomain.event();
-export const taskModalWindowClosed = AppDomain.event();
 export const showUpgradeIcon = AppDomain.event<TowersTypes>();
 export const editIsAuthorizedFlag = AppDomain.event<boolean>();
 

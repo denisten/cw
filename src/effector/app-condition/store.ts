@@ -5,11 +5,9 @@ import {
   toggleExtraTowerInfoModal,
   updateScaleValue,
   ScaleValues,
-  profileInfoModalWindowOpened,
-  profileInfoModalWindowClosed,
+  menuOpened,
+  menuClosed,
   updateFocusOnValue,
-  taskModalWindowOpened,
-  taskModalWindowClosed,
   ExtraTowerInfoModalOpenedProps,
   showUpgradeIcon,
   editIsAuthorizedFlag,
@@ -19,12 +17,13 @@ import {
 } from './events';
 import { TowersTypes } from '../towers-progress/store';
 import { upgradeTower } from '../towers-progress/events';
+import { MenuItems } from '../../UI/menu-paragraph';
 
 export const maxProgressValue = 100;
+const initFocusXCord = 3693,
+  initFocusYCord = 1949;
 
 const initScaleValue = 1;
-// eslint-disable-next-line @typescript-eslint/no-magic-numbers
-const initFocusOnCoordsValues = [3693, 1949];
 
 export enum TutorialConditions {
   OFF = 0,
@@ -42,11 +41,10 @@ const initState = {
   isExtraTowerInfoModalOpen: false,
   scaleValue: initScaleValue,
   focusOn: {
-    coords: initFocusOnCoordsValues,
+    coords: [initFocusXCord, initFocusYCord],
     towerTitle: null,
   },
-  isProfileInfoModalOpen: false,
-  isTaskModalOpen: false,
+  selectedMenuItem: null,
   upgradingTowerTitle: null,
   isAuthorized: false,
   tutorialCondition: TutorialConditions.DIALOG,
@@ -80,25 +78,17 @@ export const AppCondition = AppDomain.store<AppConditionType>(initState)
       scaleValue: localScaleValue,
     };
   })
-  .on(profileInfoModalWindowOpened, state => ({
+  .on(menuOpened, (state, payload) => ({
     ...state,
-    isProfileInfoModalOpen: true,
+    selectedMenuItem: payload,
   }))
-  .on(profileInfoModalWindowClosed, state => ({
+  .on(menuClosed, state => ({
     ...state,
-    isProfileInfoModalOpen: false,
+    selectedMenuItem: null,
   }))
   .on(updateFocusOnValue, (state, payload) => ({
     ...state,
     focusOn: { ...state.focusOn, coords: payload },
-  }))
-  .on(taskModalWindowOpened, state => ({
-    ...state,
-    isTaskModalOpen: true,
-  }))
-  .on(taskModalWindowClosed, state => ({
-    ...state,
-    isTaskModalOpen: false,
   }))
   .on(showUpgradeIcon, (state, payload) => ({
     ...state,
@@ -127,8 +117,7 @@ export const AppCondition = AppDomain.store<AppConditionType>(initState)
 
 type AppConditionType = {
   isExtraTowerInfoModalOpen: boolean;
-  isProfileInfoModalOpen: boolean;
-  isTaskModalOpen: boolean;
+  selectedMenuItem: MenuItems | null;
   focusOn: ExtraTowerInfoModalOpenedProps;
   scaleValue: ScaleValues;
   upgradingTowerTitle: TowersTypes | null;
