@@ -55,6 +55,12 @@ import cyberArenaLevel1Stroke from './cyber-arena/1-stroke.png';
 import factoryLevel1Img from './factory/1.png';
 import factoryLevel1Stroke from './factory/1-stroke.png';
 import { TowerLevel, TowersTypes } from '../effector/towers-progress/store';
+import satelliteTvLevel1Img from './satellite-tv/1.png';
+import satelliteTvLevel1Stroke from './satellite-tv/1-stroke.png';
+import partnerBlueLevel1Img from './partners-build/partner-blue/1.png';
+import partnerBlueLevel1Stroke from './partners-build/partner-blue/1-stroke.png';
+import partnerYellowLevel1Img from './partners-build/partner-yellow/1.png';
+import partnerYellowLevel1Stroke from './partners-build/partner-yellow/1-stroke.png';
 
 export class BuildingsService {
   _config: BuildingServiceConfigTypes = {
@@ -252,7 +258,7 @@ export class BuildingsService {
       info: 'info',
       title: 'Домашний интернет',
       coords: [2688, 1833],
-      zIndex: 2,
+      zIndex: 3,
       maxLevel: TowerLevel.mid,
       [TowerLevel.low]: {
         // TODO: не настоящая картинка
@@ -554,6 +560,105 @@ export class BuildingsService {
         shadowImg: factoryLevel1Stroke,
         areaCoords: '715,137,109,481',
         position: [28.3, 58.6],
+      },
+      // TODO: не настоящая картинка
+      [TowerLevel.mid]: {
+        img: bankLevel2Img,
+        width: 579,
+        height: 688,
+        shadowImg: bankLevel2Stroke,
+        areaCoords: '516,39,69,578',
+        position: [23.4, 66.4],
+      },
+      // TODO: не настоящая картинка
+      [TowerLevel.high]: {
+        img: airportLevel3Img,
+        width: 573,
+        height: 449,
+        shadowImg: airportLevel3Stroke,
+        areaCoords: '595,126,90,476',
+        position: [18.9, 28.3],
+      },
+    },
+    [TowersTypes.SATELLITETV]: {
+      info: 'info',
+      title: 'Спутниковое TV',
+      coords: [2530, 1904],
+      zIndex: 2,
+      maxLevel: TowerLevel.low,
+      [TowerLevel.low]: {
+        img: satelliteTvLevel1Img,
+        width: 479,
+        height: 585,
+        shadowImg: satelliteTvLevel1Stroke,
+        areaCoords: '80,46,398,531',
+        position: [25.9, 30],
+      },
+      // TODO: не настоящая картинка
+      [TowerLevel.mid]: {
+        img: bankLevel2Img,
+        width: 579,
+        height: 688,
+        shadowImg: bankLevel2Stroke,
+        areaCoords: '516,39,69,578',
+        position: [23.4, 66.4],
+      },
+      // TODO: не настоящая картинка
+      [TowerLevel.high]: {
+        img: airportLevel3Img,
+        width: 573,
+        height: 449,
+        shadowImg: airportLevel3Stroke,
+        areaCoords: '595,126,90,476',
+        position: [18.9, 28.3],
+      },
+    },
+    [TowersTypes.PARTNER_BLUE]: {
+      info: 'info',
+      title: 'Здание партнера',
+      coords: [3958, 2773],
+      zIndex: 2,
+      maxLevel: TowerLevel.low,
+      [TowerLevel.low]: {
+        img: partnerBlueLevel1Img,
+        width: 375,
+        height: 645,
+        shadowImg: partnerBlueLevel1Stroke,
+        areaCoords: '51,49,336,590',
+        position: [41, 49.2],
+      },
+      // TODO: не настоящая картинка
+      [TowerLevel.mid]: {
+        img: bankLevel2Img,
+        width: 579,
+        height: 688,
+        shadowImg: bankLevel2Stroke,
+        areaCoords: '516,39,69,578',
+        position: [23.4, 66.4],
+      },
+      // TODO: не настоящая картинка
+      [TowerLevel.high]: {
+        img: airportLevel3Img,
+        width: 573,
+        height: 449,
+        shadowImg: airportLevel3Stroke,
+        areaCoords: '595,126,90,476',
+        position: [18.9, 28.3],
+      },
+    },
+    [TowersTypes.PARTNER_YELLOW]: {
+      info: 'info',
+      title: 'Здание партнера 2',
+      coords: [3718, 2932],
+      zIndex: 2,
+      maxLevel: TowerLevel.low,
+      [TowerLevel.low]: {
+        img: partnerYellowLevel1Img,
+        width: 657,
+        height: 690,
+        shadowImg: partnerYellowLevel1Stroke,
+        areaCoords: '53,54,604,641',
+        position: [44, 42.8],
       },
       // TODO: не настоящая картинка
       [TowerLevel.mid]: {
