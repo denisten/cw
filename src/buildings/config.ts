@@ -55,12 +55,12 @@ import cyberArenaLevel1Stroke from './cyber-arena/1-stroke.png';
 import factoryLevel1Img from './factory/1.png';
 import factoryLevel1Stroke from './factory/1-stroke.png';
 import { TowerLevel, TowersTypes } from '../effector/towers-progress/store';
-import satelliteTvLevel1Img from './satelliteTv/1.png';
-import satelliteTvLevel1Stroke from './satelliteTv/1-stroke.png';
-import partnerBlueLevel1Img from './partners-build/partnerBlue/1.png';
-import partnerBlueLevel1Stroke from './partners-build/partnerBlue/1-stroke.png';
-import partnerYellowLevel1Img from './partners-build/partnerYellow/1.png';
-import partnerYellowLevel1Stroke from './partners-build/partnerYellow/1-stroke.png';
+import satelliteTvLevel1Img from './satellite-tv/1.png';
+import satelliteTvLevel1Stroke from './satellite-tv/1-stroke.png';
+import partnerBlueLevel1Img from './partners-build/partner-blue/1.png';
+import partnerBlueLevel1Stroke from './partners-build/partner-blue/1-stroke.png';
+import partnerYellowLevel1Img from './partners-build/partner-yellow/1.png';
+import partnerYellowLevel1Stroke from './partners-build/partner-yellow/1-stroke.png';
 
 export class BuildingsService {
   _config: BuildingServiceConfigTypes = {
