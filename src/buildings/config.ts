@@ -59,6 +59,8 @@ import satelliteTvLevel1Img from './satelliteTv/1.png';
 import satelliteTvLevel1Stroke from './satelliteTv/1-stroke.png';
 import partnerBlueLevel1Img from './partners-build/partnerBlue/1.png';
 import partnerBlueLevel1Stroke from './partners-build/partnerBlue/1-stroke.png';
+import partnerYellowLevel1Img from './partners-build/partnerYellow/1.png';
+import partnerYellowLevel1Stroke from './partners-build/partnerYellow/1-stroke.png';
 
 export class BuildingsService {
   _config: BuildingServiceConfigTypes = {
@@ -611,7 +613,6 @@ export class BuildingsService {
         position: [18.9, 28.3],
       },
     },
-
     [TowersTypes.PARTNER_BLUE]: {
       info: 'info',
       title: 'Здание партнера',
@@ -625,6 +626,39 @@ export class BuildingsService {
         shadowImg: partnerBlueLevel1Stroke,
         areaCoords: '51,49,336,590',
         position: [41, 49.2],
+      },
+      // TODO: не настоящая картинка
+      [TowerLevel.mid]: {
+        img: bankLevel2Img,
+        width: 579,
+        height: 688,
+        shadowImg: bankLevel2Stroke,
+        areaCoords: '516,39,69,578',
+        position: [23.4, 66.4],
+      },
+      // TODO: не настоящая картинка
+      [TowerLevel.high]: {
+        img: airportLevel3Img,
+        width: 573,
+        height: 449,
+        shadowImg: airportLevel3Stroke,
+        areaCoords: '595,126,90,476',
+        position: [18.9, 28.3],
+      },
+    },
+    [TowersTypes.PARTNER_YELLOW]: {
+      info: 'info',
+      title: 'Здание партнера 2',
+      coords: [3718, 2932],
+      zIndex: 2,
+      maxLevel: TowerLevel.low,
+      [TowerLevel.low]: {
+        img: partnerYellowLevel1Img,
+        width: 657,
+        height: 690,
+        shadowImg: partnerYellowLevel1Stroke,
+        areaCoords: '53,54,604,641',
+        position: [44, 42.8],
       },
       // TODO: не настоящая картинка
       [TowerLevel.mid]: {
