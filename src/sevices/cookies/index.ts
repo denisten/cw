@@ -6,8 +6,9 @@ export const authCookieKey = 'id_token';
 class CookieService {
   private _idToken = '';
 
-  get idToken(): string | undefined {
-    return this._idToken || getCookie(authCookieKey);
+  get idToken(): string | '' {
+    if (!this._idToken) this.setToken();
+    return this._idToken;
   }
 
   resetToken = () => {
@@ -15,6 +16,10 @@ class CookieService {
     localStorage.removeItem(authCookieKey);
     editIsAuthorizedFlag(false);
   };
+
+  setToken() {
+    this._idToken = getCookie(authCookieKey) || '';
+  }
 }
 
 const instance = new CookieService();
