@@ -72,7 +72,8 @@ const PhoneWrapper = styled.div`
 
 const StyledConfig = {
   nonAuthorizedAvatar: {
-    height: '14%',
+    width: '140px',
+    height: '149px',
     marginBottom: '5%',
   },
   avatar: {
@@ -86,13 +87,13 @@ const StyledConfig = {
     fontSize: 1.8,
   },
   button: {
-    width: 19,
-    height: 50,
+    width: '19%',
+    height: '50%',
     content: 'Выйти',
   },
   enterButton: {
-    width: 11,
-    height: 7,
+    width: '201px',
+    height: '52px',
     content: 'Войти',
   },
   nickNameWrapper: {
