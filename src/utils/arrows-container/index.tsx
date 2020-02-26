@@ -12,7 +12,8 @@ export const TutorialToolsSelector: React.FC<ArrowsContainerProps> = ({
   isInsideScrollContainer,
 }) => {
   switch (tutorialCondition) {
-    case TutorialConditions.PROFILE_ARROW:
+    case TutorialConditions.MENU_ARROW:
+    case TutorialConditions.MENU_ARROW_2:
       if (!isInsideScrollContainer)
         return (
           <TutorialArrow
@@ -63,6 +64,15 @@ export const TutorialToolsSelector: React.FC<ArrowsContainerProps> = ({
           left={49}
           range={2}
           direction={Directions.BOTTOM}
+        />
+      );
+    case TutorialConditions.AUTH_ARROW:
+      return (
+        <TutorialArrow
+          top={57}
+          left={56}
+          range={2}
+          direction={Directions.TOP}
         />
       );
     default:

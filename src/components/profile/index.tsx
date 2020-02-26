@@ -2,17 +2,21 @@ import React from 'react';
 import avatarImg from '../../img/avatars/1-1.png';
 import { useStore } from 'effector-react';
 import {
-  UserDataStoreKeys,
   UserDataStore,
+  UserDataStoreKeys,
 } from '../../effector/user-data/store';
 import styled from 'styled-components';
 import { MoneyWrapper } from '../../UI/money-wrapper';
 import { DataInput } from '../../UI/data-input';
 import { editUserData } from '../../effector/user-data/events';
 import { CustomButton } from '../../UI/button';
-import { AppCondition } from '../../effector/app-condition/store';
+import {
+  AppCondition,
+  TutorialConditions,
+} from '../../effector/app-condition/store';
 import { handleAuthButtonClick } from '../../utils/handle-auth-button-click';
 import { CookieService } from '../../sevices/cookies';
+import { turnOffTutorialMode } from '../../effector/app-condition/events';
 
 const UserInfoBlockWrapper = styled.div`
   width: 100%;
@@ -124,7 +128,7 @@ const NonAuthorizedPanel = styled.div`
 
 export const Profile = () => {
   const localUserData = useStore(UserDataStore);
-  const { isAuthorized } = useStore(AppCondition);
+  const { isAuthorized, tutorialCondition } = useStore(AppCondition);
   return (
     <ProfileWrapper>
       {isAuthorized ? (
@@ -196,7 +200,11 @@ export const Profile = () => {
             alt="profile"
           />
           <CustomButton
-            callback={() => handleAuthButtonClick()}
+            callback={() => {
+              if (tutorialCondition === TutorialConditions.AUTH_ARROW)
+                turnOffTutorialMode();
+              handleAuthButtonClick();
+            }}
             {...StyledConfig.enterButton}
           />
         </NonAuthorizedPanel>
