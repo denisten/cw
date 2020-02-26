@@ -47,7 +47,7 @@ const initState = {
   selectedMenuItem: null,
   upgradingTowerTitle: null,
   isAuthorized: false,
-  tutorialCondition: TutorialConditions.OFF,
+  tutorialCondition: TutorialConditions.DIALOG,
   tutorialTextId: 0,
 };
 
