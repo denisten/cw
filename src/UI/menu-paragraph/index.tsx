@@ -23,15 +23,19 @@ const TranslatedMenuItems = {
 };
 
 const MenuParagraphWrapper = styled.div<MenuParagraphWrapperProps>`
-  height: min-content;
+  height: 80px;
   width: 100%;
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  margin-bottom: 8%;
-  font-size: 2em;
-  color: #${props => (props.isItemSelected ? '1b4f75' : '3e6f93')};
+  font-size: 33.5px;
+  color: #${props => (props.isItemSelected ? 'ffffff' : '9fa9b0')};
   font-weight: ${props => (props.isItemSelected ? 'bold' : 'normal')};
+  background-color: ${props => (props.isItemSelected ? '#768c9b' : 'none')};
+  padding-left: 80px;
+  box-sizing: border-box;
+  clip-path: polygon(${props => (props.isItemSelected ? '0% 0%,90% 0%,100% 50%,90% 100%,0% 100%' : 'none')});
+
   p {
     &:hover {
       cursor: pointer;

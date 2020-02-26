@@ -13,6 +13,7 @@ const MenuWrapper = styled.div`
   background: url(${background}) no-repeat center;
   background-size: 100% 100%;
   flex-shrink: 0;
+
 `;
 
 type MenuItemsComponentProps = {
