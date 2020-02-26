@@ -12,7 +12,9 @@ export const Buildings = () => {
   const localService = new BuildingsService();
   const localTowersProgressStore = useStore(TowersProgressStore);
   const towersKeys = Object.keys(localTowersProgressStore) as TowersTypes[];
-  const { focusOn, upgradingTowerTitle } = useStore(AppCondition);
+  const { focusOn, upgradingTowerTitle, tutorialCondition } = useStore(
+    AppCondition
+  );
   return (
     <Fragment>
       {towersKeys.map(towerTitle => {
@@ -22,7 +24,10 @@ export const Buildings = () => {
           return (
             <Fragment key={towerTitle}>
               <TowerWrapper
+                tutorialCondition={tutorialCondition}
                 upgradeFlag={upgradingTowerTitle === towerTitle}
+                maxLevel={data.maxLevel}
+                currentLevel={localTowersProgressStore[towerTitle].level}
                 progress={localTowersProgressStore[towerTitle].progress}
                 focusOnTowerTitle={focusOn.towerTitle}
                 towerTitle={towerTitle}

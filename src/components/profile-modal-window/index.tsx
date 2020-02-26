@@ -1,12 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ExitButton } from '../../UI/exit-button';
-import { profileInfoModalWindowClosed } from '../../effector/app-condition/events';
+import {
+  nextTutorStep,
+  menuClosed,
+  menuOpened,
+  turnOffTutorialMode,
+} from '../../effector/app-condition/events';
 import background from './background.png';
 import { ImgWrapper } from '../../UI/img-wrapper';
 import { SaveButton } from '../../UI/save-button';
 import { MenuItemsComponent } from '../menu-items';
 import { MenuContent } from '../menu-content';
 import { MenuItems } from '../../UI/menu-paragraph';
+import { useStore } from 'effector-react';
+import {
+  AppCondition,
+  TutorialConditions,
+} from '../../effector/app-condition/store';
+import { Directions, TutorialArrow } from '../../UI/tutorial-arrow';
 
 const StyledConfig = {
   exitButton: {
@@ -35,28 +46,46 @@ const StyledConfig = {
     transformTranslate: '-50%, -50%',
     hoverFlag: true,
   },
+  tutorialArrow: {
+    direction: Directions.LEFT,
+    range: 2,
+    top: 20,
+    left: 20,
+  },
 };
 
 export const Menu = () => {
-  const [selectedMenuItem, setSelectedMenuItem] = useState<MenuItems>(
-    MenuItems.PROFILE
-  );
+  const { tutorialCondition, selectedMenuItem } = useStore(AppCondition);
+  const menuItemsComponentCallBack = (item: MenuItems) => {
+    menuOpened(item);
+    if (
+      item === MenuItems.SETTINGS &&
+      tutorialCondition === TutorialConditions.SETTINGS_ARROW
+    )
+      nextTutorStep();
+  };
+  const handleSaveButtonClick = () => {
+    menuClosed();
+    if (tutorialCondition === TutorialConditions.SAVE_CITY_NAME_ARROW)
+      turnOffTutorialMode();
+  };
+
   return (
     <ImgWrapper {...StyledConfig.mainWrapper} src={background}>
       <MenuItemsComponent
-        selectedMenuItem={selectedMenuItem}
-        setSelectedMenuItem={item => setSelectedMenuItem(item)}
+        selectedMenuItem={selectedMenuItem || MenuItems.PROFILE}
+        callBack={menuItemsComponentCallBack}
       />
-      <MenuContent content={selectedMenuItem} />
-      <ExitButton
-        {...StyledConfig.exitButton}
-        callBack={() => profileInfoModalWindowClosed()}
-      />
+      {tutorialCondition === TutorialConditions.SETTINGS_ARROW ? (
+        <TutorialArrow {...StyledConfig.tutorialArrow} />
+      ) : (
+        <React.Fragment />
+      )}
+      <MenuContent content={selectedMenuItem || MenuItems.PROFILE} />
+      <ExitButton {...StyledConfig.exitButton} callBack={() => menuClosed()} />
       <SaveButton
         {...StyledConfig.saveButton}
-        callBack={() => {
-          profileInfoModalWindowClosed();
-        }}
+        callBack={handleSaveButtonClick}
       />
     </ImgWrapper>
   );

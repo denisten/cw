@@ -1,11 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { extraTowerInfoModalOpened } from '../../effector/app-condition/events';
+import {
+  extraTowerInfoModalOpened,
+  nextTutorStep,
+} from '../../effector/app-condition/events';
 import { LazyImage } from '@tsareff/lazy-image';
-import { TowersTypes } from '../../effector/towers-progress/store';
-import { UpdateButton } from '../update-button';
+import { TowerLevel, TowersTypes } from '../../effector/towers-progress/store';
+import { UpgradeButton } from '../update-button';
 import { Substrate } from '../substrate';
 import { upgradeTower } from '../../effector/towers-progress/events';
+import {
+  maxProgressValue,
+  TutorialConditions,
+} from '../../effector/app-condition/store';
+
 const TowerStyledWrapper = styled.div<TowerStyledWrapperProps>`
   display: block;
   position: absolute;
@@ -21,6 +29,9 @@ const upgradeTowerDelay = 1500;
 
 export const TowerWrapper: React.FC<TypeWrapperProps> = ({
   position,
+  tutorialCondition,
+  maxLevel,
+  currentLevel,
   areaCoords,
   shadowImg,
   tower,
@@ -47,10 +58,16 @@ export const TowerWrapper: React.FC<TypeWrapperProps> = ({
   };
 
   const handleClick = () => {
-    extraTowerInfoModalOpened({
-      coords: towerCoords,
-      towerTitle,
-    });
+    if (
+      !tutorialCondition ||
+      tutorialCondition === TutorialConditions.TOWER_ARROW
+    ) {
+      extraTowerInfoModalOpened({
+        coords: towerCoords,
+        towerTitle,
+      });
+      if (tutorialCondition) nextTutorStep();
+    }
   };
 
   useEffect(() => mouseOverHandle(), [focusOnTowerTitle]);
@@ -59,6 +76,7 @@ export const TowerWrapper: React.FC<TypeWrapperProps> = ({
     if (upgradeFlag) {
       setTimeout(() => {
         upgradeTower(towerTitle);
+        if (tutorialCondition) nextTutorStep();
       }, upgradeTowerDelay);
     }
   }, [upgradeFlag]);
@@ -70,8 +88,11 @@ export const TowerWrapper: React.FC<TypeWrapperProps> = ({
       width={width}
       height={height}
     >
-      {/* eslint-disable-next-line @typescript-eslint/no-magic-numbers */}
-      {progress === 100 ? <UpdateButton towerTitle={towerTitle} /> : ''}
+      {progress >= maxProgressValue && currentLevel < maxLevel ? (
+        <UpgradeButton towerTitle={towerTitle} />
+      ) : (
+        ''
+      )}
       {upgradeFlag ? <Substrate width={width} height={height} /> : ''}
       <LazyImage
         src={tower}
@@ -97,6 +118,9 @@ export const TowerWrapper: React.FC<TypeWrapperProps> = ({
 type TypeWrapperProps = {
   towerCoords: number[];
   position: number[];
+  tutorialCondition: TutorialConditions;
+  maxLevel: TowerLevel;
+  currentLevel: TowerLevel;
   areaCoords: string;
   shadowImg: string;
   tower: string;

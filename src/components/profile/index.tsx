@@ -12,6 +12,7 @@ import { editUserData } from '../../effector/user-data/events';
 import { CustomButton } from '../../UI/button';
 import { AppCondition } from '../../effector/app-condition/store';
 import { handleAuthButtonClick } from '../../utils/handle-auth-button-click';
+import { handleLogoutButtonClick } from '../../utils/handle-logout-button-click';
 
 const UserInfoBlockWrapper = styled.div`
   width: 100%;
@@ -86,7 +87,7 @@ const StyledConfig = {
     fontSize: 1.8,
   },
   button: {
-    width: 7,
+    width: 19,
     height: 50,
     content: 'Выйти',
   },
@@ -180,7 +181,10 @@ export const Profile = () => {
                 Телефон
                 <PhoneWrapper>{localUserData.phoneNumber}</PhoneWrapper>
               </TitleWrapper>
-              <CustomButton {...StyledConfig.button} />
+              <CustomButton
+                callback={() => handleLogoutButtonClick()}
+                {...StyledConfig.button}
+              />
             </AccountData>
           </UserInfoBlockWrapper>
         </React.Fragment>
@@ -192,7 +196,7 @@ export const Profile = () => {
             alt="profile"
           />
           <CustomButton
-            callback={handleAuthButtonClick}
+            callback={() => handleAuthButtonClick()}
             {...StyledConfig.enterButton}
           />
         </NonAuthorizedPanel>

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ScrollContainer from 'react-indiana-drag-scroll';
 import styled from 'styled-components';
-import { ModalWindow } from '../extra-tower-info-modal-window';
+import { TowerInfo } from '../tower-info';
 import { useStore } from 'effector-react';
 import { AppCondition } from '../../effector/app-condition/store';
 import { Map } from '../map';
@@ -9,11 +9,11 @@ import { Buildings } from '../../buildings';
 import mapTile from '../../img/map/map-tile.png';
 import { Menu } from '../profile-modal-window';
 import { TaskButton } from '../../UI/task-button';
-import { TaskModalWindow } from '../task-modal-window';
 import { useScrollTo } from '../../hooks/useScrollTo';
 import { OnEndScrollHandler } from '../../utils/on-end-scroll-handler';
 import { Bridges } from '../../buildings/bridges';
 import { ProfileButton } from '../../UI/profile-button';
+import { TutorialToolsSelector } from '../../utils/arrows-container';
 
 const ComponentWrapper = styled.div`
   background-image: url("${mapTile}");
@@ -54,10 +54,10 @@ export enum divideNumber {
 export const RootComponent = (): React.ReactElement => {
   const {
     isExtraTowerInfoModalOpen,
-    isProfileInfoModalOpen,
-    isTaskModalOpen,
+    selectedMenuItem,
     scaleValue,
     focusOn,
+    tutorialCondition,
   } = useStore(AppCondition);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const myRef: any = useRef<HTMLElement>(null);
@@ -71,15 +71,16 @@ export const RootComponent = (): React.ReactElement => {
     if (myRef.current) setScrollNode(myRef.current.container.current);
   }, []);
   useScrollTo(scrollNode, scrollCoords, [isExtraTowerInfoModalOpen]);
-
   return (
     <ComponentWrapper id="rootScroll">
-      {isProfileInfoModalOpen ? <Menu /> : ''}
-      <ProfileButton />
+      {selectedMenuItem ? <Menu /> : ''}
+      <ProfileButton tutorialCondition={tutorialCondition} />
       <TaskButton />
-
-      <ModalWindow opened={isExtraTowerInfoModalOpen} />
-      <TaskModalWindow opened={isTaskModalOpen} />
+      <TowerInfo opened={isExtraTowerInfoModalOpen} />
+      <TutorialToolsSelector
+        tutorialCondition={tutorialCondition}
+        isInsideScrollContainer={false}
+      />
       <ScrollContainer
         ref={myRef}
         style={styleConfig.ScrollContainerStyle}
@@ -89,6 +90,10 @@ export const RootComponent = (): React.ReactElement => {
         }}
       >
         <MapWrapper scaleValue={scaleValue}>
+          <TutorialToolsSelector
+            tutorialCondition={tutorialCondition}
+            isInsideScrollContainer={true}
+          />
           <Map />
           <Buildings />
           <Bridges showBridges={true} />

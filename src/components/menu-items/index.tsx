@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { MenuItems, MenuParagraph } from '../../UI/menu-paragraph';
+import { MenuItems, MenuNavigationElement } from '../../UI/menu-paragraph';
 
 const MenuWrapper = styled.div`
   width: 20%;
@@ -16,23 +16,23 @@ const MenuWrapper = styled.div`
 
 type MenuItemsComponentProps = {
   selectedMenuItem: MenuItems;
-  setSelectedMenuItem: (props: MenuItems) => void;
+  callBack: (props: MenuItems) => void;
 };
 
 export const MenuItemsComponent: React.FC<MenuItemsComponentProps> = ({
   selectedMenuItem,
-  setSelectedMenuItem,
+  callBack,
 }) => {
   const MenuItemsObjectValues = Object.values(MenuItems) as MenuItems[];
   return (
     <MenuWrapper>
       {MenuItemsObjectValues.map(el => {
         return (
-          <MenuParagraph
+          <MenuNavigationElement
             key={el}
             menuElement={el}
             isItemSelected={selectedMenuItem === el}
-            onClickHandler={() => setSelectedMenuItem(el)}
+            onClickHandler={() => callBack(el)}
           />
         );
       })}

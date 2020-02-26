@@ -15,11 +15,7 @@ export const App = () => {
       <GlobalStyle />
       <Switch>
         <Route exact path={Routes.MAIN} component={RootComponent} />
-        <Route
-          exact
-          path={Routes.AUTH_LANDING_PAGE}
-          component={AuthLandingPage}
-        />
+        <Route path={Routes.AUTH_LANDING_PAGE} component={AuthLandingPage} />
       </Switch>
     </Router>
   );
