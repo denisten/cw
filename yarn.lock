@@ -2548,6 +2548,11 @@ ee-first@1.1.1:
   resolved "https://registry.yarnpkg.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
   integrity sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
 
+effector-localstorage@^0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/effector-localstorage/-/effector-localstorage-0.5.1.tgz#02f759b575f888e3b4708121ffebe6d3f097429c"
+  integrity sha512-dSo49pHDJTx/r+puOfsmGpHazBNd8gXIx6Zm7+rtoKSIBmBmCWp5HmLiRYQw6QTYphi9LohupvxpgHVdXMGvkw==
+
 effector-react@^20.6.0:
   version "20.6.0"
   resolved "https://registry.yarnpkg.com/effector-react/-/effector-react-20.6.0.tgz#3b4f0829f2ed23b513715d1b3d089cb1551b29dd"

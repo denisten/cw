@@ -1,18 +1,19 @@
-import React, { useEffect, Fragment } from 'react';
-import { getCookie } from '../../utils/get-cookie';
+import { useEffect } from 'react';
+import { authCookieKey, CookieService } from '../../sevices/cookies';
+import { editIsAuthorizedFlag } from '../../effector/app-condition/events';
 
-export const authCookieKey = 'id_token';
-const delayBeforeAuthWindowClose = 2000;
+const delayBeforeAuthWindowClose = 1000;
 
 export const AuthLandingPage = () => {
   useEffect(() => {
-    const cookie = getCookie(authCookieKey);
+    const cookie = CookieService.idToken;
     if (cookie) {
       localStorage.setItem(authCookieKey, cookie);
+      editIsAuthorizedFlag(true);
     }
     setTimeout(() => {
       window.close();
     }, delayBeforeAuthWindowClose);
   }, []);
-  return <Fragment />;
+  return null;
 };

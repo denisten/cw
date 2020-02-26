@@ -1,10 +1,6 @@
 build:
 	 DOCKER_BUILDKIT=1 docker build . --tag cwmts-docker.artifactory.prostream.ru/images/frontend/app/master:local -f docker/app/local/Dockerfile
 	 docker-compose build
-build_auth:
-	 DOCKER_BUILDKIT=1 docker build . --tag cwmts-docker.artifactory.prostream.ru/images/frontend/app/feature/auth:local -f docker/app/local/Dockerfile
-	 docker-compose build
-
 
 up:
 	./bin/project.init.sh

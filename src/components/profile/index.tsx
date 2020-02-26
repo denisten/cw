@@ -12,7 +12,7 @@ import { editUserData } from '../../effector/user-data/events';
 import { CustomButton } from '../../UI/button';
 import { AppCondition } from '../../effector/app-condition/store';
 import { handleAuthButtonClick } from '../../utils/handle-auth-button-click';
-import { handleLogoutButtonClick } from '../../utils/handle-logout-button-click';
+import { CookieService } from '../../sevices/cookies';
 
 const UserInfoBlockWrapper = styled.div`
   width: 100%;
@@ -182,7 +182,7 @@ export const Profile = () => {
                 <PhoneWrapper>{localUserData.phoneNumber}</PhoneWrapper>
               </TitleWrapper>
               <CustomButton
-                callback={() => handleLogoutButtonClick()}
+                callback={() => CookieService.resetToken()}
                 {...StyledConfig.button}
               />
             </AccountData>
