@@ -1,17 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 import { MenuItems, MenuNavigationElement } from '../../UI/menu-paragraph';
+import background from './background.png';
 
 const MenuWrapper = styled.div`
-  width: 20%;
-  height: 60%;
-  position: absolute;
-  left: 5%;
-  top: 7%;
+  width: 406px;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  background: url(${background}) no-repeat center;
+  background-size: 100% 100%;
+  flex-shrink: 0;
 `;
 
 type MenuItemsComponentProps = {

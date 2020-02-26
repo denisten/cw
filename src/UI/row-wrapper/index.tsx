@@ -12,12 +12,14 @@ const ParentDivWrapper = styled.div<RowWrapperProps>`
 interface RowWrapperProps {
   width?: string;
   height?: string;
+  children?: React.ReactElement[] | React.ReactElement;
 }
 
 
 export const RowWrapper: React.FC<RowWrapperProps> = ({
   width,
   height,
+  children,
   ...props
 }) => {
   return (
@@ -25,6 +27,7 @@ export const RowWrapper: React.FC<RowWrapperProps> = ({
       width = {width}
       height = {height}
     >
+      {children}
     </ParentDivWrapper>
   );
 };

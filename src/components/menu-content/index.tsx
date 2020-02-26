@@ -5,11 +5,8 @@ import styled from 'styled-components';
 import { Settings } from '../settings';
 
 const MenuContentWrapper = styled.div`
-  width: 66%;
-  height: 74%;
-  position: absolute;
-  top: 10%;
-  right: 6%;
+  flex: 1;
+  background-color: white
 `;
 
 type MenuContentProps = {

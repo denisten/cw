@@ -36,7 +36,7 @@ const StyledConfig = {
     top: 50,
     left: 50,
     transformTranslate: '-50%, -50%',
-    width: '820px'
+    width: '1250px'
   },
   avatar: {
     height: '13%',
@@ -87,7 +87,17 @@ export const Menu = () => {
       <ExitButton {...StyledConfig.exitButton} callBack={() => menuClosed()} />
       </HeaderComponent>
       <RowWrapper {...StyledConfig.rowWrapper}>
+      <MenuItemsComponent
+        selectedMenuItem={selectedMenuItem || MenuItems.PROFILE}
+        callBack={menuItemsComponentCallBack}
+      />
 
+      {tutorialCondition === TutorialConditions.SETTINGS_ARROW ? (
+        <TutorialArrow {...StyledConfig.tutorialArrow} />
+      ) : (
+        <React.Fragment />
+      )}
+      <MenuContent content={selectedMenuItem || MenuItems.PROFILE} />
       </RowWrapper>
       {/* <MenuItemsComponent
         selectedMenuItem={selectedMenuItem || MenuItems.PROFILE}
