@@ -1,18 +1,19 @@
-import React, { useEffect } from 'react';
-import { getCookie } from '../../utils/get-cookie';
+import { useEffect } from 'react';
+import { authCookieKey, CookieService } from '../../sevices/cookies';
+import { editIsAuthorizedFlag } from '../../effector/app-condition/events';
 
-export const AuthCookieKey = 'oauth';
+const delayBeforeAuthWindowClose = 1000;
 
 export const AuthLandingPage = () => {
   useEffect(() => {
-    const cookie = getCookie(AuthCookieKey);
+    const cookie = CookieService.idToken;
     if (cookie) {
-      localStorage.setItem(AuthCookieKey, cookie);
+      localStorage.setItem(authCookieKey, cookie);
+      editIsAuthorizedFlag(true);
     }
     setTimeout(() => {
       window.close();
-      // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-    }, 2000);
+    }, delayBeforeAuthWindowClose);
   }, []);
-  return <div>AuthLandingPageText</div>;
+  return null;
 };

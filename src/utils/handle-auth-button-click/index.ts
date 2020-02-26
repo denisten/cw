@@ -1,10 +1,11 @@
-import { editIsAuthorizedFlag } from '../../effector/app-condition/events';
-import { TutorialConditions } from '../../effector/app-condition/store';
+import { getUrlForAuthorization } from '../../api';
 
-export const handleAuthButtonClick = (
-  authFlag: boolean,
-  tutorialCondition: TutorialConditions
-) => {
-  if (tutorialCondition !== TutorialConditions.SETTINGS_ARROW)
-    editIsAuthorizedFlag(authFlag);
+export const handleAuthButtonClick = async () => {
+  const authWindow = window.open(
+    undefined,
+    'window_auth',
+    'height=500,width=550'
+  );
+  const { url } = await getUrlForAuthorization();
+  if (authWindow) authWindow.location.href = url;
 };

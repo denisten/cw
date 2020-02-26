@@ -1,6 +1,7 @@
 import { AppDomain } from './domain';
 import { TowersTypes } from '../towers-progress/store';
 import { MenuItems } from '../../UI/menu-paragraph';
+import { AppConditionType } from './store';
 
 export enum ScaleValues {
   HALF = 0.5,
@@ -31,3 +32,5 @@ export const editIsAuthorizedFlag = AppDomain.event<boolean>();
 export const nextTutorStep = AppDomain.event();
 export const turnOffTutorialMode = AppDomain.event();
 export const nextTutorDescriptionStep = AppDomain.event();
+
+export const setAuthValue = AppDomain.event<AppConditionType>();
