@@ -87,14 +87,17 @@ const StyledConfig = {
     fontSize: 1.8,
   },
   button: {
-    width: '19%',
-    height: '50%',
+    width: '201px',
+    height: '52px',
     content: 'Выйти',
+    fontSize: '28.5px'
   },
   enterButton: {
     width: '201px',
     height: '52px',
     content: 'Войти',
+    fontSize: '28.5px',
+    margin: '0 0 30px 0'
   },
   nickNameWrapper: {
     title: '',

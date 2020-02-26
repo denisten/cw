@@ -16,6 +16,8 @@ const CustomButtonWrapper = styled.div<CustomButtonWrapperProps>`
   width: ${props => props.width};
   height: ${props => props.height};
   cursor: pointer;
+  font-size: ${props => props.fontSize};
+  margin: ${props => props.margin};
 `;
 
 const TitleWrapper = styled.span<{ color?: string }>`
@@ -34,6 +36,8 @@ type CustomButtonWrapperProps = {
   src?: number;
   width?: string;
   height?: string;
+  fontSize?: string;
+  margin?: string;
 };
 
 interface CustomButtonProps extends CustomButtonWrapperProps {
