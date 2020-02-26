@@ -4,7 +4,7 @@ import { profileInfoModalWindowClosed } from '../../effector/app-condition/event
 import background from './background.png';
 import { ImgWrapper } from '../../UI/img-wrapper';
 import { SaveButton } from '../../UI/save-button';
-import { MenuItemsComponent } from '../menu';
+import { MenuItemsComponent } from '../menu-items';
 import { MenuContent } from '../menu-content';
 import { MenuItems } from '../../UI/menu-paragraph';
 

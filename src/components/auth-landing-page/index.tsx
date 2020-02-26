@@ -1,18 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import { getCookie } from '../../utils/get-cookie';
 
-export const AuthCookieKey = 'id_token';
+export const authCookieKey = 'id_token';
+const delayBeforeAuthWindowClose = 2000;
 
 export const AuthLandingPage = () => {
   useEffect(() => {
-    const cookie = getCookie(AuthCookieKey);
+    const cookie = getCookie(authCookieKey);
     if (cookie) {
-      localStorage.setItem(AuthCookieKey, cookie);
+      localStorage.setItem(authCookieKey, cookie);
     }
     setTimeout(() => {
       window.close();
-      // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-    }, 2000);
+    }, delayBeforeAuthWindowClose);
   }, []);
-  return <div>AuthLandingPageText</div>;
+  return <Fragment />;
 };

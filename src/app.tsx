@@ -6,7 +6,7 @@ import { AuthLandingPage } from './components/auth-landing-page';
 import { GlobalStyle } from './global-style';
 export enum Routes {
   MAIN = '/',
-  AUTH_LANDING_PAGE = '/auth/callback',
+  AUTH_LANDING_PAGE = '/auth-callback',
 }
 
 export const App = () => {
@@ -15,7 +15,11 @@ export const App = () => {
       <GlobalStyle />
       <Switch>
         <Route exact path={Routes.MAIN} component={RootComponent} />
-        <Route path={Routes.AUTH_LANDING_PAGE} component={AuthLandingPage} />
+        <Route
+          exact
+          path={Routes.AUTH_LANDING_PAGE}
+          component={AuthLandingPage}
+        />
       </Switch>
     </Router>
   );
