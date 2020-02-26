@@ -19,10 +19,12 @@ import {
 } from '../../effector/app-condition/store';
 import { Directions, TutorialArrow } from '../../UI/tutorial-arrow';
 import { HeaderComponent } from '../header';
+import { RowWrapper } from '../../UI/row-wrapper';
+import { ColumnWrapper } from '../../UI/column-wrapper';
 
 const StyledConfig = {
   exitButton: {
-    height: '5%',
+    height: '28px',
     top: 1,
     right: 1,
     hoverFlag: true,
@@ -34,6 +36,7 @@ const StyledConfig = {
     top: 50,
     left: 50,
     transformTranslate: '-50%, -50%',
+    width: '820px'
   },
   avatar: {
     height: '13%',
@@ -53,6 +56,13 @@ const StyledConfig = {
     top: 20,
     left: 20,
   },
+  rowWrapper: {
+    width: '100%',
+    height: '100%'
+  },
+  header: {
+    height: '85px'
+  }
 };
 
 export const Menu = () => {
@@ -72,9 +82,14 @@ export const Menu = () => {
   };
 
   return (
-    <ImgWrapper {...StyledConfig.mainWrapper} src={background}>
-      <HeaderComponent/>
-      <MenuItemsComponent
+    <ColumnWrapper {...StyledConfig.mainWrapper}>
+      <HeaderComponent {...StyledConfig.header}>
+      <ExitButton {...StyledConfig.exitButton} callBack={() => menuClosed()} />
+      </HeaderComponent>
+      <RowWrapper {...StyledConfig.rowWrapper}>
+
+      </RowWrapper>
+      {/* <MenuItemsComponent
         selectedMenuItem={selectedMenuItem || MenuItems.PROFILE}
         callBack={menuItemsComponentCallBack}
       />
@@ -88,7 +103,7 @@ export const Menu = () => {
       <SaveButton
         {...StyledConfig.saveButton}
         callBack={handleSaveButtonClick}
-      />
-    </ImgWrapper>
+      /> */}
+    </ColumnWrapper>
   );
 };
