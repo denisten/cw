@@ -88,6 +88,7 @@ export const Menu = () => {
       </HeaderComponent>
       <RowWrapper {...StyledConfig.rowWrapper}>
       <MenuItemsComponent
+        currentNotifysList = {['tasks', 'feedback']} // TODO get real data from somewhere
         selectedMenuItem={selectedMenuItem || MenuItems.PROFILE}
         callBack={menuItemsComponentCallBack}
       />

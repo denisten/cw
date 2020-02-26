@@ -19,11 +19,13 @@ const MenuWrapper = styled.div`
 type MenuItemsComponentProps = {
   selectedMenuItem: MenuItems;
   callBack: (props: MenuItems) => void;
+  currentNotifysList: Array<string>;
 };
 
 export const MenuItemsComponent: React.FC<MenuItemsComponentProps> = ({
   selectedMenuItem,
   callBack,
+  currentNotifysList,
 }) => {
   const MenuItemsObjectValues = Object.values(MenuItems) as MenuItems[];
   return (
@@ -34,6 +36,7 @@ export const MenuItemsComponent: React.FC<MenuItemsComponentProps> = ({
             key={el}
             menuElement={el}
             isItemSelected={selectedMenuItem === el}
+            haveNotify = {currentNotifysList.findIndex(elem => elem === el) !== -1}
             onClickHandler={() => callBack(el)}
           />
         );

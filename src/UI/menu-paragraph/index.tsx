@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import notifyMin from '../../img/notify-icons/notify-min.png';
 
 type MenuParagraphWrapperProps = {
   content: string;
@@ -28,7 +29,7 @@ const MenuParagraphWrapper = styled.div<MenuParagraphWrapperProps>`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  font-size: 33.5px;
+  font-size: 30.5px;
   color: #${props => (props.isItemSelected ? 'ffffff' : '9fa9b0')};
   font-weight: ${props => (props.isItemSelected ? 'bold' : 'normal')};
   background-color: ${props => (props.isItemSelected ? '#768c9b' : 'none')};
@@ -42,6 +43,15 @@ const MenuParagraphWrapper = styled.div<MenuParagraphWrapperProps>`
     }
   }
 `;
+const Notify = styled.div `
+    margin-left: 13px;
+    width: 23px;
+    height: 32px;
+    background: url(${notifyMin}) no-repeat center;
+    background-size: 100% 100%;
+    flex-shrink: 0;
+`
+
 
 const MenuParagraphTitleWrapper = styled.div`
   cursor: pointer;
@@ -51,18 +61,21 @@ type MenuParagraphProps = {
   menuElement: MenuItems;
   isItemSelected: boolean;
   onClickHandler: () => void;
+  haveNotify: boolean;
 };
 
 export const MenuNavigationElement: React.FC<MenuParagraphProps> = ({
   menuElement,
   isItemSelected,
   onClickHandler,
+  haveNotify
 }) => {
   return (
     <MenuParagraphWrapper content={menuElement} isItemSelected={isItemSelected}>
       <MenuParagraphTitleWrapper onClick={onClickHandler}>
         {TranslatedMenuItems[menuElement]}
       </MenuParagraphTitleWrapper>
+      {haveNotify ? <Notify/> : null}
     </MenuParagraphWrapper>
   );
 };

@@ -4,6 +4,7 @@ import { Profile } from '../profile';
 import styled from 'styled-components';
 import { Settings } from '../settings';
 
+
 const MenuContentWrapper = styled.div`
   flex: 1;
   background-color: white;
