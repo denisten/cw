@@ -14,11 +14,12 @@ import {
   nextTutorStep,
   nextTutorDescriptionStep,
   turnOffTutorialMode,
+  setAuthValue,
 } from './events';
 import { TowersTypes } from '../towers-progress/store';
 import { upgradeTower } from '../towers-progress/events';
 import { MenuItems } from '../../UI/menu-paragraph';
-
+import connectLocalStorage from 'effector-localstorage/sync';
 export const maxProgressValue = 100;
 const initFocusXCord = 3693,
   initFocusYCord = 1949;
@@ -47,9 +48,13 @@ const initState = {
   selectedMenuItem: null,
   upgradingTowerTitle: null,
   isAuthorized: false,
-  tutorialCondition: TutorialConditions.DIALOG,
+  tutorialCondition: TutorialConditions.OFF,
   tutorialTextId: 0,
 };
+
+const appConditionLocalStorage = connectLocalStorage('AppCondition').onChange(
+  setAuthValue
+);
 
 export const AppCondition = AppDomain.store<AppConditionType>(initState)
   .on(extraTowerInfoModalOpened, (state, payload) => ({
@@ -113,9 +118,12 @@ export const AppCondition = AppDomain.store<AppConditionType>(initState)
   .on(turnOffTutorialMode, state => ({
     ...state,
     tutorialCondition: TutorialConditions.OFF,
-  }));
+  }))
+  .on(setAuthValue, (state, { isAuthorized }) => ({ ...state, isAuthorized }));
 
-type AppConditionType = {
+AppCondition.watch(appConditionLocalStorage);
+
+export type AppConditionType = {
   isExtraTowerInfoModalOpen: boolean;
   selectedMenuItem: MenuItems | null;
   focusOn: ExtraTowerInfoModalOpenedProps;
