@@ -8,7 +8,7 @@ const ParentDivWrapper = styled.div<ParentDivWrapperProps>`
   left: ${props => props.left}%;
   bottom: ${props => props.bottom}%;
   right: ${props => props.right}%;
-  display: inline-block;
+  display: flex;
   z-index: ${props => props.zIndex};
   transform: translate(${props => props.transformTranslate});
   &:hover {

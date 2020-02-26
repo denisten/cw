@@ -18,6 +18,7 @@ import {
   TutorialConditions,
 } from '../../effector/app-condition/store';
 import { Directions, TutorialArrow } from '../../UI/tutorial-arrow';
+import { HeaderComponent } from '../header';
 
 const StyledConfig = {
   exitButton: {
@@ -27,7 +28,7 @@ const StyledConfig = {
     hoverFlag: true,
   },
   mainWrapper: {
-    height: '70.5%',
+    height: '820px',
     zIndex: 20,
     position: 'absolute',
     top: 50,
@@ -72,6 +73,7 @@ export const Menu = () => {
 
   return (
     <ImgWrapper {...StyledConfig.mainWrapper} src={background}>
+      <HeaderComponent/>
       <MenuItemsComponent
         selectedMenuItem={selectedMenuItem || MenuItems.PROFILE}
         callBack={menuItemsComponentCallBack}
