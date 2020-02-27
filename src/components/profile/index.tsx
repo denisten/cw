@@ -250,7 +250,7 @@ export const Profile = () => {
 
             {!editState ?<RowWrapper paddingLeft = "238px">
              <CustomButton
-            callback={() => toggleInputEdit()}
+            callback={() => CookieService.resetToken()}
             {...StyledConfig.exitButton}
           />
             </RowWrapper> : null}
