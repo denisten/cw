@@ -3,11 +3,11 @@ import styled from 'styled-components';
 import penImg from './pen.png';
 const DataInputWrapper = styled.div<DataInputWrapperProps>`
   width: auto;
-  margin-bottom: 18px;
   display: flex;
   justify-content: center;
   align-items: flex-start;
   flex-direction: column;
+  margin: ${props => props.margin};
 `;
 
 const inputWrapperMinWidthCoefficient = 6;
@@ -23,7 +23,7 @@ const InputWrapper = styled.input.attrs(({ value }: InputWrapperProps) => {
   min-width: ${window.innerWidth / inputWrapperMinWidthCoefficient + 'px'};
   border: none;
   outline: none;
-  color: #1b4f75;
+  color: ${props => props.color || '#1b4f75'};
   font-size: ${props => props.fontSize || inputDefaultFontSize}em;
   cursor: default;
   font-weight: ${props => props.fontWeight || 'bold'};
@@ -61,6 +61,7 @@ type InputWrapperProps = {
   fontWeight?: string;
   fontSize?: number | string;
   heigth?: string;
+  color?: string;
 
 };
 
@@ -72,6 +73,7 @@ interface DataInputProps extends DataInputWrapperProps {
   fontWeight?: string;
   fontSize?: number | string;
   editState?: boolean;
+  color?: string;
 }
 
 export const DataInput: React.FC<DataInputProps> = ({
@@ -82,6 +84,7 @@ export const DataInput: React.FC<DataInputProps> = ({
   fontSize,
   minWidth,
   editState,
+  color,
   ...styledProps
 }) => {
   // const [editMode, setEditMode] = useState(true);
@@ -112,6 +115,7 @@ export const DataInput: React.FC<DataInputProps> = ({
           minWidth={minWidth}
           fontWeight={fontWeight}
           fontSize={fontSize}
+          color={color}
           onChange={e => {
             setContent(e.target.value);
           }}

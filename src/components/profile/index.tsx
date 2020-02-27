@@ -56,8 +56,6 @@ const ProfileHeader = styled.div`
 `;
 
 const ProfileHeaderUserData = styled.div`
-  margin-left: 5%;
-  min-width: 27%;
 `;
 
 const AccountData = styled.div`
@@ -106,8 +104,9 @@ const StyledConfig = {
   nickNameWrapper: {
     title: '',
     minWidth: 170,
-    fontSize: '1.6',
+    fontSize: '2',
     color: 'white',
+    margin: '15px 0px 0 0'
   },
   editButton: {
     width: '250px',
@@ -240,19 +239,7 @@ export const Profile = () => {
             {...StyledConfig.saveButton}
           /> : null}
             </RowWrapper>
-            {/* <TitleWrapper {...StyledConfig.titleWrapperInfo}>
-              Аккаунт
-            </TitleWrapper>
-            <AccountData>
-              <TitleWrapper {...StyledConfig.titleWrapperPhone}>
-                Телефон
-                <PhoneWrapper>{localUserData.phoneNumber}</PhoneWrapper>
-              </TitleWrapper>
-              <CustomButton
-                callback={() => CookieService.resetToken()}
-                {...StyledConfig.button}
-              />
-            </AccountData> */}
+
           </UserInfoBlockWrapper>
         </React.Fragment>
       ) : (
