@@ -51,7 +51,9 @@ const InputsWrapper = styled.div`
 const ProfileHeader = styled.div`
   display: flex;
   justify-content: center;
-  height: 28%;
+  position: relative;
+  top: -21px;
+  left: 34px;
 `;
 
 const ProfileHeaderUserData = styled.div`
@@ -78,7 +80,8 @@ const StyledConfig = {
     marginBottom: '5%',
   },
   avatar: {
-    height: '80%',
+    height: '133px',
+    border: 'solid 2px #ffffff',
   },
   titleWrapperInfo: {
     fontSize: 1.8,
@@ -152,6 +155,13 @@ box-sizing: border-box;
 padding-left: ${props => props.paddingLeft || '0px'};
 `
 
+const Billet = styled.div`
+width: 487px;
+height: 123px;
+background-color: #01acc8;
+clip-path: polygon(30% 0%,70% 0%,100% 0,100% 0%,80% 100%,30% 100%,0 100%,0 0);
+`
+
 export const Profile = () => {
   const localUserData = useStore(UserDataStore);
   const { isAuthorized } = useStore(AppCondition);
@@ -162,22 +172,25 @@ export const Profile = () => {
 
   return (
     <ProfileWrapper>
-      {isAuthorized ? (
+      {!isAuthorized ? (
         <React.Fragment>
-          {/* <ProfileHeader>
-            <img src={avatarImg} {...StyledConfig.avatar} alt="profile" />
-            <ProfileHeaderUserData>
-              <DataInput
-                {...StyledConfig.nickNameWrapper}
-                key={1}
-                value={localUserData.nickName}
-                callBack={value =>
-                  editUserData({ key: UserDataStoreKeys.NICKNAME, value })
-                }
-              />
-              <MoneyWrapper count={localUserData.money} />
-            </ProfileHeaderUserData>
-          </ProfileHeader> */}
+          <Billet>
+            <ProfileHeader>
+              <img src={avatarImg} {...StyledConfig.avatar} alt="profile" />
+              <ProfileHeaderUserData>
+                <DataInput
+                  {...StyledConfig.nickNameWrapper}
+                  key={1}
+                  value={localUserData.nickName}
+                  callBack={value =>
+                    editUserData({ key: UserDataStoreKeys.NICKNAME, value })
+                  }
+                />
+                <MoneyWrapper count={localUserData.money} />
+              </ProfileHeaderUserData>
+            </ProfileHeader>
+          </Billet>
+          
           <UserInfoBlockWrapper>
             <RowWrapper paddingLeft = "50px">
             <TitleWrapper {...StyledConfig.titleWrapperInfo}>

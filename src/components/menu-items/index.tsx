@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { MenuItems, MenuNavigationElement } from '../../UI/menu-paragraph';
 import background from './background.png';
-import profilerowBcg from './profileRowBcg.png';
 
 const MenuWrapper = styled.div`
   width: 406px;
@@ -17,16 +16,6 @@ const MenuWrapper = styled.div`
   position: relative;
 `;
 
-const ProfileRow = styled.div `
-  position: absolute;
-  top: -39px;
-  left: 0;
-  height: 118px;
-  background: url(${profilerowBcg}) no-repeat center;
-  background-size: 100% 100%;
-  z-index: 2;
-  width: 100%;
-`
 
 type MenuItemsComponentProps = {
   selectedMenuItem: MenuItems;
@@ -53,7 +42,6 @@ export const MenuItemsComponent: React.FC<MenuItemsComponentProps> = ({
           />
         );
       })}
-     <ProfileRow/>
     </MenuWrapper>
   );
 };

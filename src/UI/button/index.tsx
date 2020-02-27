@@ -18,6 +18,8 @@ const CustomButtonWrapper = styled.div<CustomButtonWrapperProps>`
   cursor: pointer;
   font-size: ${props => props.fontSize};
   margin: ${props => props.margin};
+  box-shadow: 1.5px 1.3px 3.4px 0.6px rgba(72, 72, 72, 0.28);
+
 `;
 
 const TitleWrapper = styled.span<{ color?: string }>`

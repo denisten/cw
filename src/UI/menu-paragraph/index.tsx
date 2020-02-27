@@ -35,8 +35,6 @@ const MenuParagraphWrapper = styled.div<MenuParagraphWrapperProps>`
   background-color: ${props => (props.isItemSelected ? '#768c9b' : 'none')};
   padding-left: 80px;
   box-sizing: border-box;
-  clip-path: polygon(${props => (props.isItemSelected ? '0% 0%,90% 0%,100% 50%,90% 100%,0% 100%' : 'none')});
-  z-index: 3;
 
   p {
     &:hover {
