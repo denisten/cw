@@ -119,6 +119,14 @@ const StyledConfig = {
     height: '52px',
     content: 'Сохранить',
     fontSize: '28.5px',
+    margin: '115px 0 0 0'
+  },
+  exitButton: {
+    width: '201px',
+    height: '52px',
+    content: 'Выйти',
+    fontSize: '28.5px',
+    margin: '115px 0 0 0'
   },
 };
 
@@ -136,7 +144,7 @@ type TitleWrapperProps = {
 type RowWrapperType = {
   display?: string;
   paddingLeft?: string;
-  marginBottom?: string;
+  margin?: string;
 };
 
 const NonAuthorizedPanel = styled.div`
@@ -153,7 +161,8 @@ display: flex;
 align-items: center;
 box-sizing: border-box;
 padding-left: ${props => props.paddingLeft || '0px'};
-margin-bottom:${props => props.marginBottom || '0px'};
+margin:${props => props.margin || '0px'};
+min-height: 52px;
 `
 
 const Billet = styled.div`
@@ -175,7 +184,7 @@ export const Profile = () => {
 
   return (
     <ProfileWrapper>
-      {!isAuthorized ? (
+      {isAuthorized ? (
         <React.Fragment>
           <Billet>
           </Billet>
@@ -193,9 +202,8 @@ export const Profile = () => {
                 <MoneyWrapper count={localUserData.money} />
               </ProfileHeaderUserData>
             </ProfileHeader>
-          
           <UserInfoBlockWrapper>
-            <RowWrapper paddingLeft = "50px" marginBottom = "30px">
+            <RowWrapper paddingLeft = "50px" margin = "0 0 30px 0">
             <TitleWrapper {...StyledConfig.titleWrapperInfo}>
               Информация
             </TitleWrapper>
@@ -233,12 +241,19 @@ export const Profile = () => {
                 }
               />
             </InputsWrapper>
-            <RowWrapper paddingLeft = "238px">
-            {editState ? <CustomButton
+            {editState ? <RowWrapper paddingLeft = "238px">
+             <CustomButton
             callback={() => toggleInputEdit()}
             {...StyledConfig.saveButton}
-          /> : null}
-            </RowWrapper>
+          />
+            </RowWrapper>: null}
+
+            {!editState ?<RowWrapper paddingLeft = "238px">
+             <CustomButton
+            callback={() => toggleInputEdit()}
+            {...StyledConfig.exitButton}
+          />
+            </RowWrapper> : null}
 
           </UserInfoBlockWrapper>
         </React.Fragment>

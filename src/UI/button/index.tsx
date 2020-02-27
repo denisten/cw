@@ -10,8 +10,6 @@ const CustomButtonWrapper = styled.div<CustomButtonWrapperProps>`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 5px;
-  box-shadow: 1.5px 1.3px 3.4px 0.6px rgba(72, 72, 72, 0.28);
   background-color: #01acc8;
   width: ${props => props.width};
   height: ${props => props.height};
