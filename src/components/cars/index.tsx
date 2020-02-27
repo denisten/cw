@@ -15,6 +15,8 @@ const animation = keyframes`
   /* transform: translate( 36.1%, 38.1%); */
   left: 36.1%;
   top: 38.1%;
+  background: url(${toLeftBg}) no-repeat center;
+      background-size: 100% 100%;
 }
 `
 
@@ -48,7 +50,7 @@ const CarBlock = styled.div`
   background-size: 100% 100%;
   animation-name: ${animation};
   animation-duration: 5s;
-  animation-timing-function: cubic-bezier(0.42,0,0.58,1);
+  animation-timing-function: linear;
   animation-direction: alternate;
   animation-iteration-count: infinite;
   /* animation:  4s linear 3s infinite alternate ${animation}; */
