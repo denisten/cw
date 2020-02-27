@@ -36,7 +36,7 @@ const TitleWrapper = styled.div<TitleWrapperProps>`
 const ProfileWrapper = styled.div`
   width: 100%;
   height: 100%;
-  overflow: hidden;
+  position: relative;
 `;
 const InputsWrapper = styled.div`
   display: flex;
@@ -50,9 +50,8 @@ const InputsWrapper = styled.div`
 
 const ProfileHeader = styled.div`
   display: flex;
-  justify-content: center;
-  position: relative;
-  top: -21px;
+  position: absolute;
+  top: 6px;
   left: 34px;
 `;
 
@@ -107,7 +106,8 @@ const StyledConfig = {
   nickNameWrapper: {
     title: '',
     minWidth: 170,
-    fontSize: 1.8,
+    fontSize: '1.6',
+    color: 'white',
   },
   editButton: {
     width: '250px',
@@ -137,6 +137,7 @@ type TitleWrapperProps = {
 type RowWrapperType = {
   display?: string;
   paddingLeft?: string;
+  marginBottom?: string;
 };
 
 const NonAuthorizedPanel = styled.div`
@@ -153,6 +154,7 @@ display: flex;
 align-items: center;
 box-sizing: border-box;
 padding-left: ${props => props.paddingLeft || '0px'};
+margin-bottom:${props => props.marginBottom || '0px'};
 `
 
 const Billet = styled.div`
@@ -160,6 +162,8 @@ width: 487px;
 height: 123px;
 background-color: #01acc8;
 clip-path: polygon(30% 0%,70% 0%,100% 0,100% 0%,80% 100%,30% 100%,0 100%,0 0);
+margin-bottom: 27px;
+
 `
 
 export const Profile = () => {
@@ -175,7 +179,8 @@ export const Profile = () => {
       {!isAuthorized ? (
         <React.Fragment>
           <Billet>
-            <ProfileHeader>
+          </Billet>
+          <ProfileHeader>
               <img src={avatarImg} {...StyledConfig.avatar} alt="profile" />
               <ProfileHeaderUserData>
                 <DataInput
@@ -189,10 +194,9 @@ export const Profile = () => {
                 <MoneyWrapper count={localUserData.money} />
               </ProfileHeaderUserData>
             </ProfileHeader>
-          </Billet>
           
           <UserInfoBlockWrapper>
-            <RowWrapper paddingLeft = "50px">
+            <RowWrapper paddingLeft = "50px" marginBottom = "30px">
             <TitleWrapper {...StyledConfig.titleWrapperInfo}>
               Информация
             </TitleWrapper>

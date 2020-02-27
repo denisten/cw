@@ -59,7 +59,7 @@ type InputWrapperProps = {
   extendFlag?: boolean;
   minWidth?: number;
   fontWeight?: string;
-  fontSize?: number;
+  fontSize?: number | string;
   heigth?: string;
 
 };
@@ -70,7 +70,7 @@ interface DataInputProps extends DataInputWrapperProps {
   title: string;
   minWidth?: number;
   fontWeight?: string;
-  fontSize?: number;
+  fontSize?: number | string;
   editState?: boolean;
 }
 
