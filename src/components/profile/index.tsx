@@ -16,7 +16,6 @@ import { CookieService } from '../../sevices/cookies';
 
 const UserInfoBlockWrapper = styled.div`
   width: 100%;
-  height: 72%;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;

@@ -18,14 +18,14 @@ const MenuWrapper = styled.div`
 `;
 
 const ProfileRow = styled.div `
-position: absolute;
-top: -43px;
-left: 0;
-width: 891px;
-height: 123px;
-background: url(${profilerowBcg}) no-repeat center;
-background-size: 100% 100%;
-z-index: 2;
+  position: absolute;
+  top: -39px;
+  left: 0;
+  height: 118px;
+  background: url(${profilerowBcg}) no-repeat center;
+  background-size: 100% 100%;
+  z-index: 2;
+  width: 100%;
 `
 
 type MenuItemsComponentProps = {
