@@ -19,7 +19,6 @@ const UserInfoBlockWrapper = styled.div`
   height: 72%;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: space-evenly;
 `;
 
@@ -32,6 +31,7 @@ const TitleWrapper = styled.div<TitleWrapperProps>`
   left: ${props => props.left}%;
   bottom: ${props => props.bottom}%;
   right: ${props => props.right}%;
+  margin: ${props => props.margin};
 `;
 
 const ProfileWrapper = styled.div`
@@ -46,6 +46,8 @@ const InputsWrapper = styled.div`
   flex-direction: column;
   height: 54%;
   width: 60%;
+  padding-left: 92px;
+  box-sizing: border-box;
 `;
 
 const ProfileHeader = styled.div`
@@ -82,6 +84,7 @@ const StyledConfig = {
   },
   titleWrapperInfo: {
     fontSize: 1.8,
+    margin: '0 30px 0 0'
   },
   titleWrapperPhone: {
     width: 38,
@@ -105,6 +108,12 @@ const StyledConfig = {
     minWidth: 170,
     fontSize: 1.8,
   },
+  editButton: {
+    width: '250px',
+    height: '52px',
+    content: 'Редактировать',
+    fontSize: '25.5px',
+  },
 };
 
 type TitleWrapperProps = {
@@ -115,6 +124,7 @@ type TitleWrapperProps = {
   bottom?: number;
   right?: number;
   width?: number;
+  margin?: string;
 };
 
 const NonAuthorizedPanel = styled.div`
@@ -126,6 +136,13 @@ const NonAuthorizedPanel = styled.div`
   flex-direction: column;
 `;
 
+const RowWrapper = styled.div`
+display: flex;
+align-items: center;
+padding-left: 52px;
+box-sizing: border-box;
+`
+
 export const Profile = () => {
   const localUserData = useStore(UserDataStore);
   const { isAuthorized } = useStore(AppCondition);
@@ -133,7 +150,7 @@ export const Profile = () => {
     <ProfileWrapper>
       {isAuthorized ? (
         <React.Fragment>
-          <ProfileHeader>
+          {/* <ProfileHeader>
             <img src={avatarImg} {...StyledConfig.avatar} alt="profile" />
             <ProfileHeaderUserData>
               <DataInput
@@ -146,14 +163,20 @@ export const Profile = () => {
               />
               <MoneyWrapper count={localUserData.money} />
             </ProfileHeaderUserData>
-          </ProfileHeader>
+          </ProfileHeader> */}
           <UserInfoBlockWrapper>
+            <RowWrapper>
             <TitleWrapper {...StyledConfig.titleWrapperInfo}>
               Информация
             </TitleWrapper>
+            <CustomButton
+            callback={() => handleAuthButtonClick()}
+            {...StyledConfig.editButton}
+          />
+            </RowWrapper>
             <InputsWrapper>
               <DataInput
-                title="Имя"
+                title="Никнейм"
                 key={2}
                 value={localUserData.name}
                 callBack={value =>
@@ -161,7 +184,7 @@ export const Profile = () => {
                 }
               />
               <DataInput
-                title="Фамилия"
+                title="Имя помощника"
                 key={3}
                 value={localUserData.surname}
                 callBack={value =>
@@ -177,7 +200,7 @@ export const Profile = () => {
                 }
               />
             </InputsWrapper>
-            <TitleWrapper {...StyledConfig.titleWrapperInfo}>
+            {/* <TitleWrapper {...StyledConfig.titleWrapperInfo}>
               Аккаунт
             </TitleWrapper>
             <AccountData>
@@ -189,7 +212,7 @@ export const Profile = () => {
                 callback={() => CookieService.resetToken()}
                 {...StyledConfig.button}
               />
-            </AccountData>
+            </AccountData> */}
           </UserInfoBlockWrapper>
         </React.Fragment>
       ) : (
