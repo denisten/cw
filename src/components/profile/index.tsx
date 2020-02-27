@@ -106,7 +106,7 @@ const StyledConfig = {
     minWidth: 170,
     fontSize: '2',
     color: 'white',
-    margin: '15px 0px 0 0'
+    margin: '35px 0px 0 0'
   },
   editButton: {
     width: '250px',
