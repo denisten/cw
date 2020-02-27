@@ -15,6 +15,11 @@ import { Bridges } from '../../buildings/bridges';
 import { ProfileButton } from '../../UI/profile-button';
 import { TutorialToolsSelector } from '../../utils/arrows-container';
 
+export enum MapSize {
+  WIDTH = 7680,
+  HEIGHT = 5400,
+}
+
 const ComponentWrapper = styled.div`
   background-image: url("${mapTile}");
   background-repeat: repeat;
@@ -27,8 +32,8 @@ const ComponentWrapper = styled.div`
 
 const MapWrapper = styled.div<{ scaleValue: number }>`
   display: block;
-  width: 7680px;
-  height: 5400px;
+  width: ${MapSize.WIDTH}px;
+  height: ${MapSize.HEIGHT}px;
   position: relative;
   transform: scale(${props => props.scaleValue});
 `;
