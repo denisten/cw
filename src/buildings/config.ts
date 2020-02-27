@@ -61,6 +61,10 @@ import partnerBlueLevel1Img from './partners-build/partner-blue/1.png';
 import partnerBlueLevel1Stroke from './partners-build/partner-blue/1-stroke.png';
 import partnerYellowLevel1Img from './partners-build/partner-yellow/1.png';
 import partnerYellowLevel1Stroke from './partners-build/partner-yellow/1-stroke.png';
+import slotMachineLevel1Img from './slot-machine/1.png';
+import slotMachineLevel1Stroke from './slot-machine/1-stroke.png';
+import routerLevel1Img from './router/1.png';
+import routerLevel1Stroke from './router/1-stroke.png';
 
 export class BuildingsService {
   _config: BuildingServiceConfigTypes = {
@@ -659,6 +663,72 @@ export class BuildingsService {
         shadowImg: partnerYellowLevel1Stroke,
         areaCoords: '53,54,604,641',
         position: [44, 42.8],
+      },
+      // TODO: не настоящая картинка
+      [TowerLevel.mid]: {
+        img: bankLevel2Img,
+        width: 579,
+        height: 688,
+        shadowImg: bankLevel2Stroke,
+        areaCoords: '516,39,69,578',
+        position: [23.4, 66.4],
+      },
+      // TODO: не настоящая картинка
+      [TowerLevel.high]: {
+        img: airportLevel3Img,
+        width: 573,
+        height: 449,
+        shadowImg: airportLevel3Stroke,
+        areaCoords: '595,126,90,476',
+        position: [18.9, 28.3],
+      },
+    },
+    [TowersTypes.SLOT_MACHINE]: {
+      info: 'info',
+      title: 'Игротека',
+      coords: [4523, 2978],
+      zIndex: 2,
+      maxLevel: TowerLevel.low,
+      [TowerLevel.low]: {
+        img: slotMachineLevel1Img,
+        width: 451,
+        height: 604,
+        shadowImg: slotMachineLevel1Stroke,
+        areaCoords: '392,148,101,545',
+        position: [46, 54.8],
+      },
+      // TODO: не настоящая картинка
+      [TowerLevel.mid]: {
+        img: bankLevel2Img,
+        width: 579,
+        height: 688,
+        shadowImg: bankLevel2Stroke,
+        areaCoords: '516,39,69,578',
+        position: [23.4, 66.4],
+      },
+      // TODO: не настоящая картинка
+      [TowerLevel.high]: {
+        img: airportLevel3Img,
+        width: 573,
+        height: 449,
+        shadowImg: airportLevel3Stroke,
+        areaCoords: '595,126,90,476',
+        position: [18.9, 28.3],
+      },
+    },
+    [TowersTypes.ROUTER]: {
+      info: 'info',
+      title: 'Роутер',
+      coords: [5276, 2832],
+      zIndex: 2,
+      maxLevel: TowerLevel.low,
+      [TowerLevel.low]: {
+        img: routerLevel1Img,
+        width: 503,
+        height: 539,
+        shadowImg: routerLevel1Stroke,
+        areaCoords: '434,188,79,472',
+        position: [45, 65],
       },
       // TODO: не настоящая картинка
       [TowerLevel.mid]: {

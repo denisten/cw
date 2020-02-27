@@ -25,6 +25,8 @@ export enum TowersTypes {
   SATELLITETV = 'satelliteTv',
   PARTNER_BLUE = 'partnerBlue',
   PARTNER_YELLOW = 'partnerYellow',
+  SLOT_MACHINE = 'slotMachine',
+  ROUTER = 'router',
 }
 const initState: TowersProgressStoreType = {
   [TowersTypes.MAIN_TOWER]: {
@@ -100,6 +102,14 @@ const initState: TowersProgressStoreType = {
     progress: 0,
   },
   [TowersTypes.PARTNER_YELLOW]: {
+    level: TowerLevel.low,
+    progress: 0,
+  },
+  [TowersTypes.SLOT_MACHINE]: {
+    level: TowerLevel.low,
+    progress: 0,
+  },
+  [TowersTypes.ROUTER]: {
     level: TowerLevel.low,
     progress: 0,
   },

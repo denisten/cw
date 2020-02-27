@@ -4,7 +4,6 @@ import {
   nextTutorStep,
   menuClosed,
   menuOpened,
-  turnOffTutorialMode,
 } from '../../effector/app-condition/events';
 import background from './background.png';
 import { ImgWrapper } from '../../UI/img-wrapper';
@@ -78,7 +77,7 @@ export const Menu = () => {
   const handleSaveButtonClick = () => {
     menuClosed();
     if (tutorialCondition === TutorialConditions.SAVE_CITY_NAME_ARROW)
-      turnOffTutorialMode();
+      nextTutorStep();
   };
 
   return (

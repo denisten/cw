@@ -1,15 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
-import map11 from '../../img/map/1.1.png';
-import map12 from '../../img/map/1.2.png';
-import map13 from '../../img/map/1.3.png';
-import map21 from '../../img/map/2.1.png';
-import map22 from '../../img/map/2.2.png';
-import map23 from '../../img/map/2.3.png';
-import map31 from '../../img/map/3.1.png';
-import map32 from '../../img/map/3.2.png';
-import map33 from '../../img/map/3.3.png';
-import { LazyImage } from '@tsareff/lazy-image';
+import road11 from '../../img/roads/1.1.png';
+import road12 from '../../img/roads/1.2.png';
+import road13 from '../../img/roads/1.3.png';
+import road21 from '../../img/roads/2.1.png';
+import road22 from '../../img/roads/2.2.png';
+import road23 from '../../img/roads/2.3.png';
+import road31 from '../../img/roads/3.1.png';
+import road32 from '../../img/roads/3.2.png';
+import road33 from '../../img/roads/3.3.png';
+import tree22 from '../../img/trees/2.2.png';
+import { MapFragment } from '../../UI/map-fragment';
 
 const MapWrapper = styled.div`
   width: 100%;
@@ -53,15 +54,19 @@ type DivStyleType = {
 export const Map: React.FC = () => {
   return (
     <MapWrapper>
-      <LazyImage src={map11} style={styleConfig.img11} />
-      <LazyImage src={map12} style={styleConfig.img12} />
-      <LazyImage src={map13} style={styleConfig.img13} />
-      <LazyImage src={map21} style={styleConfig.img21} />
-      <LazyImage src={map22} style={styleConfig.img22} />
-      <LazyImage src={map23} style={styleConfig.img23} />
-      <LazyImage src={map31} style={styleConfig.img21} />
-      <LazyImage src={map32} style={styleConfig.img22} />
-      <LazyImage src={map33} style={styleConfig.img23} />
+      <MapFragment style={styleConfig.img11} roadImg={road11} />
+      <MapFragment style={styleConfig.img12} roadImg={road12} />
+      <MapFragment style={styleConfig.img13} roadImg={road13} />
+      <MapFragment style={styleConfig.img21} roadImg={road21} />
+      <MapFragment
+        style={styleConfig.img22}
+        roadImg={road22}
+        treeImg={tree22}
+      />
+      <MapFragment style={styleConfig.img23} roadImg={road23} />
+      <MapFragment style={styleConfig.img21} roadImg={road31} />
+      <MapFragment style={styleConfig.img22} roadImg={road32} />
+      <MapFragment style={styleConfig.img23} roadImg={road33} />
     </MapWrapper>
   );
 };

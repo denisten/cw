@@ -32,10 +32,12 @@ export enum TutorialConditions {
   TOWER_ARROW = 2,
   UNLOCK_BUTTON = 3,
   UPGRADE_ARROW = 4,
-  PROFILE_ARROW = 5,
+  MENU_ARROW = 5,
   SETTINGS_ARROW = 6,
   CHANGE_CITY_NAME_ARROW = 7,
   SAVE_CITY_NAME_ARROW = 8,
+  MENU_ARROW_2 = 9,
+  AUTH_ARROW = 10,
 }
 
 const initState = {
@@ -48,7 +50,7 @@ const initState = {
   selectedMenuItem: null,
   upgradingTowerTitle: null,
   isAuthorized: false,
-  tutorialCondition: TutorialConditions.OFF,
+  tutorialCondition: TutorialConditions.DIALOG,
   tutorialTextId: 0,
 };
 

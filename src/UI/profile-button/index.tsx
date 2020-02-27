@@ -1,6 +1,6 @@
 import React from 'react';
 import profileImg from './button_nickname.png';
-import { nextTutorStep, menuOpened } from '../../effector/app-condition/events';
+import { menuOpened, nextTutorStep } from '../../effector/app-condition/events';
 import { ImgWrapper } from '../../UI/img-wrapper';
 import styled from 'styled-components';
 import { TutorialConditions } from '../../effector/app-condition/store';
@@ -56,7 +56,10 @@ export const ProfileButton: React.FC<ProfileButtonProps> = ({
       menuOpened(MenuItems.PROFILE);
       return;
     }
-    if (tutorialCondition === TutorialConditions.PROFILE_ARROW) {
+    if (
+      tutorialCondition === TutorialConditions.MENU_ARROW ||
+      tutorialCondition === TutorialConditions.MENU_ARROW_2
+    ) {
       menuOpened(MenuItems.PROFILE);
       nextTutorStep();
     }

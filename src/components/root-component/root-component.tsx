@@ -6,7 +6,7 @@ import { useStore } from 'effector-react';
 import { AppCondition } from '../../effector/app-condition/store';
 import { Map } from '../map';
 import { Buildings } from '../../buildings';
-import mapTile from '../../img/map/map-tile.png';
+import mapTile from '../../img/roads/map-tile.png';
 import { Menu } from '../profile-modal-window';
 import { TaskButton } from '../../UI/task-button';
 import { useScrollTo } from '../../hooks/useScrollTo';
@@ -14,6 +14,11 @@ import { OnEndScrollHandler } from '../../utils/on-end-scroll-handler';
 import { Bridges } from '../../buildings/bridges';
 import { ProfileButton } from '../../UI/profile-button';
 import { TutorialToolsSelector } from '../../utils/arrows-container';
+
+export enum MapSize {
+  WIDTH = 7680,
+  HEIGHT = 5400,
+}
 
 const ComponentWrapper = styled.div`
   background-image: url("${mapTile}");
@@ -27,8 +32,8 @@ const ComponentWrapper = styled.div`
 
 const MapWrapper = styled.div<{ scaleValue: number }>`
   display: block;
-  width: 7680px;
-  height: 5400px;
+  width: ${MapSize.WIDTH}px;
+  height: ${MapSize.HEIGHT}px;
   position: relative;
   transform: scale(${props => props.scaleValue});
 `;
