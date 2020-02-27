@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import avatarImg from '../../img/avatars/1-1.png';
 import { useStore } from 'effector-react';
 import {
@@ -44,9 +44,8 @@ const InputsWrapper = styled.div`
   align-items: flex-start;
   justify-content: space-around;
   flex-direction: column;
-  height: 54%;
   width: 60%;
-  padding-left: 92px;
+  padding-left: 72px;
   box-sizing: border-box;
 `;
 
@@ -114,6 +113,12 @@ const StyledConfig = {
     content: 'Редактировать',
     fontSize: '25.5px',
   },
+  saveButton: {
+    width: '201px',
+    height: '52px',
+    content: 'Сохранить',
+    fontSize: '28.5px',
+  },
 };
 
 type TitleWrapperProps = {
@@ -127,6 +132,11 @@ type TitleWrapperProps = {
   margin?: string;
 };
 
+type RowWrapperType = {
+  display?: string;
+  paddingLeft?: string;
+};
+
 const NonAuthorizedPanel = styled.div`
   width: 100%;
   height: 100%;
@@ -136,16 +146,21 @@ const NonAuthorizedPanel = styled.div`
   flex-direction: column;
 `;
 
-const RowWrapper = styled.div`
+const RowWrapper = styled.div<RowWrapperType>`
 display: flex;
 align-items: center;
-padding-left: 52px;
 box-sizing: border-box;
+padding-left: ${props => props.paddingLeft || '0px'};
 `
 
 export const Profile = () => {
   const localUserData = useStore(UserDataStore);
   const { isAuthorized } = useStore(AppCondition);
+  const [editState, toggleEditState] = useState(false);
+
+  const toggleInputEdit = () => toggleEditState(!editState);
+
+
   return (
     <ProfileWrapper>
       {isAuthorized ? (
@@ -165,17 +180,18 @@ export const Profile = () => {
             </ProfileHeaderUserData>
           </ProfileHeader> */}
           <UserInfoBlockWrapper>
-            <RowWrapper>
+            <RowWrapper paddingLeft = "50px">
             <TitleWrapper {...StyledConfig.titleWrapperInfo}>
               Информация
             </TitleWrapper>
-            <CustomButton
-            callback={() => handleAuthButtonClick()}
+            {!editState ? <CustomButton
+            callback={() => toggleInputEdit()}
             {...StyledConfig.editButton}
-          />
+          /> : null}
             </RowWrapper>
             <InputsWrapper>
               <DataInput
+                editState = {editState}
                 title="Никнейм"
                 key={2}
                 value={localUserData.name}
@@ -184,6 +200,7 @@ export const Profile = () => {
                 }
               />
               <DataInput
+                editState = {editState}
                 title="Имя помощника"
                 key={3}
                 value={localUserData.surname}
@@ -192,6 +209,7 @@ export const Profile = () => {
                 }
               />
               <DataInput
+                editState = {editState}
                 title="Название города"
                 key={4}
                 value={localUserData.cityName}
@@ -200,6 +218,12 @@ export const Profile = () => {
                 }
               />
             </InputsWrapper>
+            <RowWrapper paddingLeft = "238px">
+            {editState ? <CustomButton
+            callback={() => toggleInputEdit()}
+            {...StyledConfig.saveButton}
+          /> : null}
+            </RowWrapper>
             {/* <TitleWrapper {...StyledConfig.titleWrapperInfo}>
               Аккаунт
             </TitleWrapper>
