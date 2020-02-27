@@ -1,63 +1,54 @@
-import React from 'react';
-import styled, {keyframes} from 'styled-components';
-import toLeftBg from './toLeft.png';
-import toRightBg from './toRight.png';
-
-
-const animation = keyframes`
+import React, { useState } from 'react';
+import styled, { keyframes } from 'styled-components';
+import toLeftBg from './toRight.png';
+import toRightBg from './toLeft.png';
+const animationStart = keyframes`
 0% {
-  left: 25.69%;
+  left: 25.3%;
   top: 45.6%;
+   background: url(${toRightBg}) no-repeat center;
 }
-
-
+99% {
+background: url(${toRightBg}) no-repeat center;
+}
 100% {
-  /* transform: translate( 36.1%, 38.1%); */
-  left: 36.1%;
+  left: 35.8%;
   top: 38.1%;
-  background: url(${toLeftBg}) no-repeat center;
-      background-size: 100% 100%;
+   background: url(${toLeftBg}) no-repeat center;
 }
-`
+`;
 
-const animationBg = keyframes`
-    0% {
-      background: url(${toRightBg}) no-repeat center;
-      background-size: 100% 100%;
-    }
-    50% {
-      background: url(${toRightBg}) no-repeat center;
-      background-size: 100% 100%;
-    }
-    90% {
-      background: url(${toRightBg}) no-repeat center;
-      background-size: 100% 100%;
-    }
-
-    100% {
-      background: url(${toLeftBg}) no-repeat center;
-      background-size: 100% 100%;
-    }
-`
-
-const CarBlock = styled.div`
-  width: 30px;
-  height: 30px;
-  position: absolute;
-  left: 25.69%;
+const animationEnd = keyframes`
+0% {
+  left: 35.8%;
+  top: 38.1%;
+   background: url(${toLeftBg}) no-repeat center;
+}
+99% {
+background: url(${toLeftBg}) no-repeat center;
+}
+100% {
+  left: 25.3%;
   top: 45.6%;
-  background: url(${toRightBg}) no-repeat center;
+   background: url(${toRightBg}) no-repeat center;
+}
+`;
+
+const CarBlock = styled.div<{ flag: boolean }>`
+  width: 57px;
+  height: 50px;
+  position: absolute;
   background-size: 100% 100%;
-  animation-name: ${animation};
   animation-duration: 5s;
-  animation-timing-function: linear;
-  animation-direction: alternate;
-  animation-iteration-count: infinite;
-  /* animation:  4s linear 3s infinite alternate ${animation}; */
+  animation-timing-function: ease-in-out;
+  animation-direction: normal;
+  animation-iteration-count: 1;
+  animation-name: ${props => (props.flag ? animationStart : animationEnd)};
 `;
 
 export const Car = () => {
+  const [animFlag, setAnimFlag] = useState(false);
   return (
-    <CarBlock></CarBlock>
+    <CarBlock flag={animFlag} onAnimationEnd={() => setAnimFlag(!animFlag)} />
   );
 };
