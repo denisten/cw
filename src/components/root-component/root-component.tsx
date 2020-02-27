@@ -6,7 +6,7 @@ import { useStore } from 'effector-react';
 import { AppCondition } from '../../effector/app-condition/store';
 import { Map } from '../map';
 import { Buildings } from '../../buildings';
-import mapTile from '../../img/map/map-tile.png';
+import mapTile from '../../img/roads/map-tile.png';
 import { Menu } from '../profile-modal-window';
 import { TaskButton } from '../../UI/task-button';
 import { useScrollTo } from '../../hooks/useScrollTo';
