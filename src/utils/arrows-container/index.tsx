@@ -55,7 +55,7 @@ export const TutorialToolsSelector: React.FC<ArrowsContainerProps> = ({
           />
         );
       else return <Fragment />;
-    case TutorialConditions.DIALOG:
+    case TutorialConditions.OFF:
       return <TutorialDialog />;
     case TutorialConditions.SAVE_CITY_NAME_ARROW:
       return (
