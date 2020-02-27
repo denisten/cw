@@ -51,7 +51,7 @@ const InputsWrapper = styled.div`
 const ProfileHeader = styled.div`
   display: flex;
   position: absolute;
-  top: 6px;
+  top: -20px;
   left: 34px;
 `;
 
