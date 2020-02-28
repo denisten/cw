@@ -21,15 +21,15 @@ export const carConfig = [
           background: url(${topRightBg}) no-repeat center;
           }
           100% {
-            left: 35.6%;
-            top: 38.1%;
+            left: 36.1%;
+            top: 38%;
              background: url(${bottomLeftBg}) no-repeat center;
           }
          `,
          animationEndParams: `
          0% {
-            left: 35.6%;
-            top: 38.1%;
+            left: 36.1%;
+            top: 38%;
              background: url(${bottomLeftBg}) no-repeat center;
           }
           99% {
@@ -52,8 +52,8 @@ export const carConfig = [
           },
           animationStartParams: `
           0% {
-            left: 35%;
-            top: 38.5%;
+            left: 35.4%;
+            top: 39.2%;
              background: url(${bottomRightBg}) no-repeat center;
           }
           99% {
@@ -61,22 +61,22 @@ export const carConfig = [
           }
           100% {
             left: 42.4%;
-            top: 44.5%;
+            top: 44.3%;
              background: url(${topLeftBg}) no-repeat center;
           }
         `,
         animationEndParams: `
         0% {
-          left: 42.4%;
-          top: 44.5%;
+            left: 42.4%;
+            top: 44.3%;
             background: url(${topLeftBg}) no-repeat center;
         }
         99% {
         background: url(${topLeftBg}) no-repeat center;
         }
         100% {
-          left: 35%;
-          top: 38.5%;
+          left: 35.4%;
+          top: 39.2%;
           background: url(${bottomRightBg}) no-repeat center;
         }
         `,
@@ -91,32 +91,32 @@ export const carConfig = [
           },
           animationStartParams: `
           0% {
-            left: 73.4%;
-            top: 38.5%;
-             background: url(${topRightBg}) no-repeat center;
+            left: 58.4%;
+            top: 48.2%;
+             background: url(${bottomRightBg}) no-repeat center;
           }
           99% {
-          background: url(${topRightBg}) no-repeat center;
+          background: url(${bottomRightBg}) no-repeat center;
           }
           100% {
-            left: 65.4.4%;
-            top: 32.5%;
+            left: 72.6%;
+            top: 58.1%;
              background: url(${topLeftBg}) no-repeat center;
           }
         `,
         animationEndParams: `
         0% {
-          left: 65.4.4%;
-            top: 32.5%;
+          left: 72.6%;
+          top: 58.3%;
             background: url(${topLeftBg}) no-repeat center;
         }
         99% {
         background: url(${topLeftBg}) no-repeat center;
         }
         100% {
-          left: 73.4%;
-          top: 38.5%;
-          background: url(${topRightBg}) no-repeat center;
+          left: 58.1%;
+          top: 48.2%;
+          background: url(${bottomRightBg}) no-repeat center;
         }
         `,
         },
