@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import avatarImg from '../../img/avatars/1-1.png';
 import { useStore } from 'effector-react';
 import {
@@ -181,18 +181,12 @@ margin-bottom: 27px;
 export const Profile = () => {
   const localUserData = useStore(UserDataStore);
   const [editState, toggleEditState] = useState(false);
-  const inpRef = useRef<React.FC>(null);
-  const toggleInputEdit = () => {
-    toggleEditState(!editState);
-     if(inpRef) {
-       console.log(inpRef)
-      }
-    };
+  const toggleInputEdit = () => toggleEditState(!editState);
 
   const { isAuthorized, tutorialCondition } = useStore(AppCondition);
   return (
     <ProfileWrapper>
-      {!isAuthorized ? (
+      {isAuthorized ? (
         <React.Fragment>
           <Billet>
           </Billet>
@@ -222,7 +216,6 @@ export const Profile = () => {
             </RowWrapper>
             <InputsWrapper>
               <DataInput
-                ref={inpRef}
                 editState = {editState}
                 title="Никнейм"
                 key={2}

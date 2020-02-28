@@ -74,7 +74,6 @@ interface DataInputProps extends DataInputWrapperProps {
   fontSize?: number | string;
   editState?: boolean;
   color?: string;
-  ref?: any;
 }
 
 export const DataInput: React.FC<DataInputProps> = ({
@@ -86,7 +85,7 @@ export const DataInput: React.FC<DataInputProps> = ({
   minWidth,
   editState,
   color,
-  ref,
+
   ...styledProps
 }) => {
   // const [editMode, setEditMode] = useState(true);
@@ -107,7 +106,6 @@ export const DataInput: React.FC<DataInputProps> = ({
   };
   return (
     <DataInputWrapper {...styledProps}
-      ref={ref || null}
     >
       <TitleWrapper>{title}</TitleWrapper>
       <div>
