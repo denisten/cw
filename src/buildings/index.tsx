@@ -7,7 +7,6 @@ import {
   TowersTypes,
 } from '../effector/towers-progress/store';
 import { AppCondition } from '../effector/app-condition/store';
-
 export const Buildings = () => {
   const localService = new BuildingsService();
   const localTowersProgressStore = useStore(TowersProgressStore);
