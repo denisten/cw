@@ -5,25 +5,11 @@ import { ImgWrapper } from '../../UI/img-wrapper';
 import styled from 'styled-components';
 import { TutorialConditions } from '../../effector/app-condition/store';
 import { MenuItems } from '../menu-paragraph';
-
-type NickNameWrapperProps = {
-  nickName: string;
-};
+import { NickName } from '../nickname';
 
 type MoneyCounterWrapperProps = {
   money: number;
 };
-
-const NickNameWrapper = styled.span<NickNameWrapperProps>`
-  color: #fff;
-  position: absolute;
-  top: 18%;
-  left: 27%;
-  font-size: 1.5em;
-  &:after {
-    content: "${props => props.nickName}";
-  }
-`;
 
 const MoneyCounterWrapper = styled.span<MoneyCounterWrapperProps>`
     color: #fff;
@@ -66,7 +52,7 @@ export const ProfileButton: React.FC<ProfileButtonProps> = ({
   };
   return (
     <ImgWrapper src={profileImg} callBack={handleClick} {...StyleConfig}>
-      <NickNameWrapper nickName="NickName" />
+      <NickName nickName="NickName" />
       <MoneyCounterWrapper money={228} />
     </ImgWrapper>
   );
