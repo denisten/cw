@@ -37,6 +37,9 @@ export const Car: React.FC<CarConfigureType>  = ({carStyle, animationStartParams
     animation-direction: ${props => props.animationDirection ||  'normal'};
     animation-iteration-count: ${props => props.animationIterationCount ||  1};
     animation-name: ${props => (props.flag ? animationStart : animationEnd)};
+    /* left: 0%;
+    right: 0%;
+    background: red; */
 `;
 
 
