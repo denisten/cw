@@ -59,7 +59,6 @@ export enum divideNumber {
 }
 
 export const RootComponent = (): React.ReactElement => {
-  console.log('object');
   const {
     isExtraTowerInfoModalOpen,
     selectedMenuItem,
