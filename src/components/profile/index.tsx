@@ -62,17 +62,6 @@ const ProfileHeader = styled.div`
 const ProfileHeaderUserData = styled.div`
 `;
 
-const AccountData = styled.div`
-  display: flex;
-  justify-content: inherit;
-  align-items: center;
-  width: 86%;
-`;
-
-const PhoneWrapper = styled.div`
-  margin-top: 4%;
-  width: max-content;
-`;
 
 const StyledConfig = {
   nonAuthorizedAvatar: {
@@ -132,7 +121,15 @@ const StyledConfig = {
     fontSize: '28.5px',
     margin: '115px 0 0 0'
   },
+  userInfoRow: {
+    paddingLeft: '50px',
+    margin: '0 0 30px 0'
+  },
+  inEditModeRow: {
+    paddingLeft: '238px'
+  }
 };
+
 
 type TitleWrapperProps = {
   fontSize: number;
@@ -180,22 +177,21 @@ margin-bottom: 27px;
 
 export const Profile = () => {
   const localUserData = useStore(UserDataStore);
-  const [editState, toggleEditState] = useState(false);
-  const toggleInputEdit = () => toggleEditState(!editState);
+  const [editMode, toggleEditMode] = useState(false);
+  const toggleInputEdit = () => toggleEditMode(!editMode);
 
   const { isAuthorized, tutorialCondition } = useStore(AppCondition);
   return (
     <ProfileWrapper>
       {isAuthorized ? (
         <React.Fragment>
-          <Billet>
-          </Billet>
+          <Billet/>
           <ProfileHeader>
               <img src={avatarImg} {...StyledConfig.avatar} alt="profile" />
               <ProfileHeaderUserData>
                 <DataInput
                   {...StyledConfig.nickNameWrapper}
-                  key={1}
+                  key={localUserData.nickName}
                   value={localUserData.nickName}
                   callBack={value =>
                     editUserData({ key: UserDataStoreKeys.NICKNAME, value })
@@ -205,52 +201,52 @@ export const Profile = () => {
               </ProfileHeaderUserData>
             </ProfileHeader>
           <UserInfoBlockWrapper>
-            <RowWrapper paddingLeft = "50px" margin = "0 0 30px 0">
+            <RowWrapper {...StyledConfig.userInfoRow}>
             <TitleWrapper {...StyledConfig.titleWrapperInfo}>
               Информация
             </TitleWrapper>
-            {!editState ? <CustomButton
+            {!editMode ? <CustomButton
             callback={() => toggleInputEdit()}
             {...StyledConfig.editButton}
           /> : null}
             </RowWrapper>
             <InputsWrapper>
               <DataInput
-                editState = {editState}
+                editMode = {editMode}
                 title="Никнейм"
-                key={2}
+                key={localUserData.name}
                 value={localUserData.name}
                 callBack={value =>
                   editUserData({ key: UserDataStoreKeys.NAME, value })
                 }
               />
               <DataInput
-                editState = {editState}
+                editMode = {editMode}
                 title="Имя помощника"
-                key={3}
+                key={localUserData.surname}
                 value={localUserData.surname}
                 callBack={value =>
                   editUserData({ key: UserDataStoreKeys.SURNAME, value })
                 }
               />
               <DataInput
-                editState = {editState}
+                editMode = {editMode}
                 title="Название города"
-                key={4}
+                key={localUserData.cityName}
                 value={localUserData.cityName}
                 callBack={value =>
                   editUserData({ key: UserDataStoreKeys.CITY_NAME, value })
                 }
               />
             </InputsWrapper>
-            {editState ? <RowWrapper paddingLeft = "238px">
+            {editMode ? <RowWrapper {...StyledConfig.inEditModeRow}>
              <CustomButton
             callback={() => toggleInputEdit()}
             {...StyledConfig.saveButton}
           />
             </RowWrapper>: null}
 
-            {!editState ?<RowWrapper paddingLeft = "238px">
+            {!editMode ?<RowWrapper {...StyledConfig.inEditModeRow}>
              <CustomButton
             callback={() => CookieService.resetToken()}
             {...StyledConfig.exitButton}

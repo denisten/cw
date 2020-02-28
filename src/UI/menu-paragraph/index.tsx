@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import notifyMin from '../../img/notify-icons/notify-min.png';
+import notifyMin from '../../img/notify-icons/notify.png';
 
 type MenuParagraphWrapperProps = {
   content: string;

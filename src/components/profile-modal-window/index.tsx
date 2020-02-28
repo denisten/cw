@@ -5,9 +5,6 @@ import {
   menuClosed,
   menuOpened,
 } from '../../effector/app-condition/events';
-import background from './background.png';
-import { ImgWrapper } from '../../UI/img-wrapper';
-import { SaveButton } from '../../UI/save-button';
 import { MenuItemsComponent } from '../menu-items';
 import { MenuContent } from '../menu-content';
 import { MenuItems } from '../../UI/menu-paragraph';
@@ -87,7 +84,7 @@ export const Menu = () => {
       </HeaderComponent>
       <RowWrapper {...StyledConfig.rowWrapper}>
       <MenuItemsComponent
-        currentNotifysList = {['tasks', 'feedback']} // TODO get real data from somewhere
+        currentNotifysList = {[MenuItems.TASKS, MenuItems.FEEDBACK]} // TODO get real data from somewhere
         selectedMenuItem={selectedMenuItem || MenuItems.PROFILE}
         callBack={menuItemsComponentCallBack}
       />
@@ -99,21 +96,6 @@ export const Menu = () => {
       )}
       <MenuContent content={selectedMenuItem || MenuItems.PROFILE} />
       </RowWrapper>
-      {/* <MenuItemsComponent
-        selectedMenuItem={selectedMenuItem || MenuItems.PROFILE}
-        callBack={menuItemsComponentCallBack}
-      />
-      {tutorialCondition === TutorialConditions.SETTINGS_ARROW ? (
-        <TutorialArrow {...StyledConfig.tutorialArrow} />
-      ) : (
-        <React.Fragment />
-      )}
-      <MenuContent content={selectedMenuItem || MenuItems.PROFILE} />
-      <ExitButton {...StyledConfig.exitButton} callBack={() => menuClosed()} />
-      <SaveButton
-        {...StyledConfig.saveButton}
-        callBack={handleSaveButtonClick}
-      /> */}
     </ColumnWrapper>
   );
 };

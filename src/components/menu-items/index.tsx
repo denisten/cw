@@ -29,6 +29,7 @@ export const MenuItemsComponent: React.FC<MenuItemsComponentProps> = ({
   currentNotifysList,
 }) => {
   const MenuItemsObjectValues = Object.values(MenuItems) as MenuItems[];
+  const checkHaveNotify = (array: Array<string>, el: string) => array.findIndex(elem => elem === el) !== -1;
   return (
     <MenuWrapper>
       {MenuItemsObjectValues.map(el => {
@@ -37,7 +38,7 @@ export const MenuItemsComponent: React.FC<MenuItemsComponentProps> = ({
             key={el}
             menuElement={el}
             isItemSelected={selectedMenuItem === el}
-            haveNotify = {currentNotifysList.findIndex(elem => elem === el) !== -1}
+            haveNotify = {checkHaveNotify(currentNotifysList, el)}
             onClickHandler={() => callBack(el)}
           />
         );

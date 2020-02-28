@@ -12,15 +12,10 @@ const Header = styled.div<HeaderProps>`
 
 
 interface HeaderProps {
-    children?: React.ReactElement[] | React.ReactElement;
     height?: string;
   }
 
 export const HeaderComponent: React.FC<HeaderProps> = ({height, children}) => {
 
-  return (
-    <Header height = {height}>
-        {children}
-    </Header>
-  );
+  return <Header height={height}>{children}</Header>;
 };

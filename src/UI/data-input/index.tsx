@@ -72,7 +72,7 @@ interface DataInputProps extends DataInputWrapperProps {
   minWidth?: number;
   fontWeight?: string;
   fontSize?: number | string;
-  editState?: boolean;
+  editMode?: boolean;
   color?: string;
 }
 
@@ -83,21 +83,18 @@ export const DataInput: React.FC<DataInputProps> = ({
   fontWeight,
   fontSize,
   minWidth,
-  editState,
+  editMode,
   color,
 
   ...styledProps
 }) => {
-  // const [editMode, setEditMode] = useState(true);
   const [content, setContent] = useState(value);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const onBlurHandler = () => {
-    // setEditMode(true);
     callBack(content);
   };
   const onClickHandler = () => {
-    // setEditMode(!editMode);
     setTimeout(() => {
       if (inputRef.current) {
         inputRef.current.focus();
@@ -113,7 +110,7 @@ export const DataInput: React.FC<DataInputProps> = ({
           type="text"
           ref={inputRef}
           value={content}
-          disabled={!editState}
+          disabled={!editMode}
           minWidth={minWidth}
           fontWeight={fontWeight}
           fontSize={fontSize}
@@ -123,7 +120,6 @@ export const DataInput: React.FC<DataInputProps> = ({
           }}
           onBlur={onBlurHandler}
         />
-        {/* <PenImgWrapper src={penImg} alt="pen" onClick={onClickHandler} /> */}
       </div>
     </DataInputWrapper>
   );
