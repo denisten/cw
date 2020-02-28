@@ -177,8 +177,8 @@ margin-bottom: 27px;
 
 export const Profile = () => {
   const localUserData = useStore(UserDataStore);
-  const [editMode, toggleEditMode] = useState(false);
-  const toggleInputEdit = () => toggleEditMode(!editMode);
+  const [editMode, setEditMode] = useState(false);
+  const toggleInputEdit = () => setEditMode(!editMode);
 
   const { isAuthorized, tutorialCondition } = useStore(AppCondition);
   return (

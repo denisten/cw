@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { MenuItems, MenuNavigationElement } from '../../UI/menu-paragraph';
 import background from './background.png';
+import { checkHaveNotify } from '../../utils/check-have-notify';
 
 const MenuWrapper = styled.div`
   width: 406px;
@@ -29,7 +30,6 @@ export const MenuItemsComponent: React.FC<MenuItemsComponentProps> = ({
   currentNotifysList,
 }) => {
   const MenuItemsObjectValues = Object.values(MenuItems) as MenuItems[];
-  const checkHaveNotify = (array: Array<string>, el: string) => array.findIndex(elem => elem === el) !== -1;
   return (
     <MenuWrapper>
       {MenuItemsObjectValues.map(el => {

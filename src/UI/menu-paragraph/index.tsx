@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import notifyMin from '../../img/notify-icons/notify.png';
+import notifyIcon from '../../img/notify-icons/notify.png';
 
 type MenuParagraphWrapperProps = {
   content: string;
@@ -46,7 +46,7 @@ const Notify = styled.div `
     margin-left: 13px;
     width: 23px;
     height: 32px;
-    background: url(${notifyMin}) no-repeat center;
+    background: url(${notifyIcon}) no-repeat center;
     background-size: 100% 100%;
     flex-shrink: 0;
 `

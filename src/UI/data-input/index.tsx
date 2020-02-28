@@ -41,9 +41,6 @@ const TitleWrapper = styled.span`
   padding-left: 20px;
 `;
 
-const PenImgWrapper = styled.img`
-  cursor: pointer;
-`;
 
 type DataInputWrapperProps = {
   top?: number;
@@ -102,8 +99,7 @@ export const DataInput: React.FC<DataInputProps> = ({
     });
   };
   return (
-    <DataInputWrapper {...styledProps}
-    >
+    <DataInputWrapper {...styledProps}>
       <TitleWrapper>{title}</TitleWrapper>
       <div>
         <InputWrapper

@@ -3,12 +3,12 @@ import { MenuItems } from '../../UI/menu-paragraph';
 import { Profile } from '../profile';
 import styled from 'styled-components';
 import { Settings } from '../settings';
-import background from './background.png';
+import menuContentBackground from './background.png';
 
 
 const MenuContentWrapper = styled.div`
   flex: 1;
-  background: url(${background}) no-repeat center;
+  background: url(${menuContentBackground}) no-repeat center;
   background-size: 100% 100%;
 `;
 
