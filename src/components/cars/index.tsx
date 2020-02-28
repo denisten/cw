@@ -38,7 +38,7 @@ export const Car: React.FC<CarConfigureType> = ({ carStyle }) => {
     animationDirection,
     animationIterationCount,
     animationName,
-  } = carStyle;
+  } =  carStyle;
   return (
     <CarBlock
       animationName={animationName}

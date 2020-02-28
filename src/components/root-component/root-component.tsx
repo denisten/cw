@@ -16,6 +16,7 @@ import { ProfileButton } from '../../UI/profile-button';
 import { TutorialToolsSelector } from '../../utils/arrows-container';
 import { Car } from '../cars';
 import { carConfig } from '../cars/carConfig';
+import { Cars } from '../cars/carsArray';
 
 export enum MapSize {
   WIDTH = 7680,
@@ -79,10 +80,6 @@ export const RootComponent = (): React.ReactElement => {
   }, []);
   useScrollTo(scrollNode, scrollCoords, [isExtraTowerInfoModalOpen]);
 
-  const cars = useMemo(
-    () => carConfig.map(car => <Car key={car.id} {...car} />),
-    [carConfig]
-  );
   return (
     <ComponentWrapper id="rootScroll">
       <Menu displayFlag={selectedMenuItem ? true : false} />
@@ -106,7 +103,7 @@ export const RootComponent = (): React.ReactElement => {
             tutorialCondition={tutorialCondition}
             isInsideScrollContainer={true}
           />
-          {cars}
+          <Cars/>
           <Map />
           <Buildings />
           <Bridges showBridges={true} />
