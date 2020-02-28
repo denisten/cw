@@ -32,25 +32,27 @@ export const Car: React.FC<CarConfigureType>  = ({carStyle, animationStartParams
     height: 50px;
     position: absolute;
     background-size: 100% 100%;
-    animation-duration: ${props => props.animDuration ||  '5s'};
-    animation-timing-function: ${props => props.animationTimingFunction ||  'ease-in-out'};
-    animation-direction: ${props => props.animationDirection ||  'normal'};
-    animation-iteration-count: ${props => props.animationIterationCount ||  1};
+    animation-duration: ${props => props.animDuration || '5s'};
+    animation-timing-function: ${props =>
+      props.animationTimingFunction || 'ease-in-out'};
+    animation-direction: ${props => props.animationDirection || 'normal'};
+    animation-iteration-count: ${props => props.animationIterationCount || 1};
     animation-name: ${props => (props.flag ? animationStart : animationEnd)};
     /* left: 0%;
     right: 0%;
     background: red; */
-`;
+  `;
 
 
   return (
     <CarBlock
-    flag={animFlag}
-    animationTimingFunction={animationTimingFunction}
-    animationDirection={animationDirection}
-    animDuration = {animDuration}
-    animationIterationCount={animationIterationCount}
-    onAnimationEnd={() => setAnimFlag(!animFlag)} />
+      flag={animFlag}
+      animationTimingFunction={animationTimingFunction}
+      animationDirection={animationDirection}
+      animDuration={animDuration}
+      animationIterationCount={animationIterationCount}
+      onAnimationEnd={() => setAnimFlag(!animFlag)}
+    />
   );
 };
 
