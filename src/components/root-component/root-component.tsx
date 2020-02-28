@@ -79,10 +79,13 @@ export const RootComponent = (): React.ReactElement => {
   }, []);
   useScrollTo(scrollNode, scrollCoords, [isExtraTowerInfoModalOpen]);
 
-  const cars = useMemo(() => carConfig.map(car => (<Car key = {car.id} {...car}/>)), [carConfig])
+  const cars = useMemo(
+    () => carConfig.map(car => <Car key={car.id} {...car} />),
+    [carConfig]
+  );
   return (
     <ComponentWrapper id="rootScroll">
-      {selectedMenuItem ? <Menu /> : ''}
+      <Menu displayFlag={selectedMenuItem ? true : false} />
       <ProfileButton tutorialCondition={tutorialCondition} />
       <TaskButton />
       <TowerInfo opened={isExtraTowerInfoModalOpen} />

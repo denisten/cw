@@ -53,7 +53,7 @@ const StyledConfig = {
   },
 };
 
-export const Menu = () => {
+export const Menu: React.FC<{ displayFlag: boolean }> = ({ displayFlag }) => {
   const { tutorialCondition, selectedMenuItem } = useStore(AppCondition);
   const menuItemsComponentCallBack = (item: MenuItems) => {
     menuOpened(item);
@@ -70,7 +70,11 @@ export const Menu = () => {
   };
 
   return (
-    <ImgWrapper {...StyledConfig.mainWrapper} src={background}>
+    <ImgWrapper
+      {...StyledConfig.mainWrapper}
+      src={background}
+      displayFlag={displayFlag}
+    >
       <MenuItemsComponent
         selectedMenuItem={selectedMenuItem || MenuItems.PROFILE}
         callBack={menuItemsComponentCallBack}

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import styled, { keyframes } from 'styled-components';
+import React from 'react';
+import styled, { Keyframes } from 'styled-components';
 
 type CarProps = {
   flag?: boolean;
@@ -7,59 +7,45 @@ type CarProps = {
   animationTimingFunction?: string;
   animationDirection?: string;
   animationIterationCount?: number;
+  animationName: Keyframes;
 };
 
 type CarConfigureType = {
   carStyle: CarProps;
-  animationStartParams: string;
-  animationEndParams: string;
 };
 
+const CarBlock = styled.div<CarProps>`
+  width: 57px;
+  height: 50px;
+  position: absolute;
+  background-size: 100% 100%;
+  animation-duration: ${props => props.animDuration || '5s'};
+  animation-timing-function: ${props =>
+    props.animationTimingFunction || 'ease-in-out'};
+  animation-direction: normal;
+  animation-iteration-count: infinite;
+  animation-name: ${props => props.animationName};
+  /* left: 0%;
+    top: 0%;
+    background: red;
+    z-index: 555; */
+`;
 
-
-export const Car: React.FC<CarConfigureType>  = ({carStyle, animationStartParams, animationEndParams}) => {
+export const Car: React.FC<CarConfigureType> = ({ carStyle }) => {
   const {
     animDuration,
     animationTimingFunction,
     animationDirection,
-    animationIterationCount
-  } = carStyle
-  const [animFlag, setAnimFlag] = useState(false);
-  const animationStart = keyframes`${animationStartParams}`;
-  const animationEnd = keyframes`${animationEndParams}`
-  const CarBlock = styled.div<CarProps>`
-    width: 57px;
-    height: 50px;
-    position: absolute;
-    background-size: 100% 100%;
-    animation-duration: ${props => props.animDuration || '5s'};
-    animation-timing-function: ${props =>
-      props.animationTimingFunction || 'ease-in-out'};
-    animation-direction: ${props => props.animationDirection || 'normal'};
-    animation-iteration-count: ${props => props.animationIterationCount || 1};
-    animation-name: ${props => (props.flag ? animationStart : animationEnd)};
-    /* left: 0%;
-    top: 0%;
-    background: red;
-    z-index: 555; */
-  `;
-
-
+    animationIterationCount,
+    animationName,
+  } = carStyle;
   return (
     <CarBlock
-      flag={animFlag}
+      animationName={animationName}
       animationTimingFunction={animationTimingFunction}
       animationDirection={animationDirection}
       animDuration={animDuration}
       animationIterationCount={animationIterationCount}
-      onAnimationEnd={() => setAnimFlag(!animFlag)}
     />
   );
 };
-
-
-
-
-
-
-
