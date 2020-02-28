@@ -11,7 +11,6 @@ import road32 from '../../img/roads/3.2.png';
 import road33 from '../../img/roads/3.3.png';
 import tree22 from '../../img/trees/2.2.png';
 import { MapFragment } from '../../UI/map-fragment';
-import { Car } from '../cars';
 
 const MapWrapper = styled.div`
   width: 100%;
@@ -58,7 +57,6 @@ export const Map: React.FC = () => {
  
   return (
     <MapWrapper>
-      <Car></Car>
       <MapFragment style={styleConfig.img11} roadImg={road11} />
       <MapFragment style={styleConfig.img12} roadImg={road12} />
       <MapFragment style={styleConfig.img13} roadImg={road13} />

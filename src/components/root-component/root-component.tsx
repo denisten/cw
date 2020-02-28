@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
 import ScrollContainer from 'react-indiana-drag-scroll';
 import styled from 'styled-components';
 import { TowerInfo } from '../tower-info';
@@ -14,6 +14,8 @@ import { OnEndScrollHandler } from '../../utils/on-end-scroll-handler';
 import { Bridges } from '../../buildings/bridges';
 import { ProfileButton } from '../../UI/profile-button';
 import { TutorialToolsSelector } from '../../utils/arrows-container';
+import { Car } from '../cars';
+import { carConfig } from '../cars/carConfig';
 
 export enum MapSize {
   WIDTH = 7680,
@@ -76,6 +78,8 @@ export const RootComponent = (): React.ReactElement => {
     if (myRef.current) setScrollNode(myRef.current.container.current);
   }, []);
   useScrollTo(scrollNode, scrollCoords, [isExtraTowerInfoModalOpen]);
+
+  const cars = useMemo(() => carConfig.map(car => (<Car key = {car.id} {...car}/>)), [carConfig])
   return (
     <ComponentWrapper id="rootScroll">
       {selectedMenuItem ? <Menu /> : ''}
@@ -99,6 +103,7 @@ export const RootComponent = (): React.ReactElement => {
             tutorialCondition={tutorialCondition}
             isInsideScrollContainer={true}
           />
+          {cars}
           <Map />
           <Buildings />
           <Bridges showBridges={true} />
