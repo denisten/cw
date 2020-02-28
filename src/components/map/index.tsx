@@ -51,10 +51,7 @@ type DivStyleType = {
   height: string;
 };
 
-
 export const Map: React.FC = () => {
-
- 
   return (
     <MapWrapper>
       <MapFragment style={styleConfig.img11} roadImg={road11} />
