@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useMemo } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ScrollContainer from 'react-indiana-drag-scroll';
 import styled from 'styled-components';
 import { TowerInfo } from '../tower-info';
@@ -14,8 +14,6 @@ import { OnEndScrollHandler } from '../../utils/on-end-scroll-handler';
 import { Bridges } from '../../buildings/bridges';
 import { ProfileButton } from '../../UI/profile-button';
 import { TutorialToolsSelector } from '../../utils/arrows-container';
-import { Car } from '../cars';
-import { carConfig } from '../cars/carConfig';
 import { Cars } from '../cars/carsArray';
 
 export enum MapSize {
