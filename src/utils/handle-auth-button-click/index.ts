@@ -7,5 +7,6 @@ export const handleAuthButtonClick = async () => {
     'height=500,width=550'
   );
   const { url } = await getUrlForAuthorization();
+  if (url === 'Error: API error') return;
   if (authWindow) authWindow.location.href = url;
 };
