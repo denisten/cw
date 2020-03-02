@@ -8,15 +8,13 @@ const ParentDivWrapper = styled.div<ParentDivWrapperProps>`
   left: ${props => props.left}%;
   bottom: ${props => props.bottom}%;
   right: ${props => props.right}%;
-  display: flex;
+  display: ${props => (props.displayFlag ? 'flex' : 'none')};
   flex-direction: column;
   z-index: ${props => props.zIndex};
   transform: translate(${props => props.transformTranslate});
   background-color: 'red';
   width: ${props => props.width};
-
 `;
-
 
 interface ParentDivWrapperProps {
   position?: string;
@@ -28,8 +26,8 @@ interface ParentDivWrapperProps {
   transformTranslate?: string;
   height?: string;
   width?: string;
+  displayFlag?: boolean;
 }
-
 
 export const ColumnWrapper: React.FC<ParentDivWrapperProps> = ({
   position,
@@ -42,6 +40,7 @@ export const ColumnWrapper: React.FC<ParentDivWrapperProps> = ({
   height,
   width,
   children,
+  displayFlag,
   ...props
 }) => {
   return (
@@ -53,8 +52,9 @@ export const ColumnWrapper: React.FC<ParentDivWrapperProps> = ({
       bottom={bottom}
       right={right}
       height={height}
-      width = {width}
+      width={width}
       transformTranslate={transformTranslate}
+      displayFlag={displayFlag}
     >
       {children}
     </ParentDivWrapper>
