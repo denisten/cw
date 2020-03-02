@@ -8,7 +8,7 @@ const ParentDivWrapper = styled.div<ParentDivWrapperProps>`
   left: ${props => props.left}%;
   bottom: ${props => props.bottom}%;
   right: ${props => props.right}%;
-  display: flex;
+  display: ${props => (props.displayFlag ? 'inline-block' : 'none')};
   z-index: ${props => props.zIndex};
   transform: translate(${props => props.transformTranslate});
   &:hover {
@@ -30,6 +30,7 @@ interface ParentDivWrapperProps {
   zIndex?: number;
   transformTranslate?: string;
   height?: string;
+  displayFlag?: boolean;
 }
 
 export interface ImgWrapperProps extends ParentDivWrapperProps {
@@ -38,7 +39,7 @@ export interface ImgWrapperProps extends ParentDivWrapperProps {
   children?: React.ReactElement[] | React.ReactElement;
 }
 
-export const ImgWrapper: React.FC<ImgWrapperProps> = ({
+const ImgWrapperNoMemo: React.FC<ImgWrapperProps> = ({
   callBack,
   position,
   top,
@@ -51,10 +52,12 @@ export const ImgWrapper: React.FC<ImgWrapperProps> = ({
   height,
   hoverFlag = false,
   children,
+  displayFlag = true,
   ...props
 }) => {
   return (
     <ParentDivWrapper
+      displayFlag={displayFlag}
       position={position}
       zIndex={zIndex}
       top={top}
@@ -70,3 +73,5 @@ export const ImgWrapper: React.FC<ImgWrapperProps> = ({
     </ParentDivWrapper>
   );
 };
+
+export const ImgWrapper = React.memo(ImgWrapperNoMemo);

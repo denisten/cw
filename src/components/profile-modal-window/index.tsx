@@ -32,7 +32,7 @@ const StyledConfig = {
     top: 50,
     left: 50,
     transformTranslate: '-50%, -50%',
-    width: '1250px'
+    width: '1250px',
   },
   avatar: {
     height: '13%',
@@ -54,14 +54,14 @@ const StyledConfig = {
   },
   rowWrapper: {
     width: '100%',
-    height: '100%'
+    height: '100%',
   },
   header: {
-    height: '85px'
-  }
+    height: '85px',
+  },
 };
 
-export const Menu = () => {
+export const Menu: React.FC<{ displayFlag: boolean }> = ({ displayFlag }) => {
   const { tutorialCondition, selectedMenuItem } = useStore(AppCondition);
   const menuItemsComponentCallBack = (item: MenuItems) => {
     menuOpened(item);
@@ -78,23 +78,26 @@ export const Menu = () => {
   };
 
   return (
-    <ColumnWrapper {...StyledConfig.mainWrapper}>
+    <ColumnWrapper {...StyledConfig.mainWrapper} displayFlag={displayFlag}>
       <HeaderComponent {...StyledConfig.header}>
-      <ExitButton {...StyledConfig.exitButton} callBack={() => menuClosed()} />
+        <ExitButton
+          {...StyledConfig.exitButton}
+          callBack={() => menuClosed()}
+        />
       </HeaderComponent>
       <RowWrapper {...StyledConfig.rowWrapper}>
-      <MenuItemsComponent
-        currentNotifysList = {[MenuItems.TASKS, MenuItems.FEEDBACK]} // TODO get real data from somewhere
-        selectedMenuItem={selectedMenuItem || MenuItems.PROFILE}
-        callBack={menuItemsComponentCallBack}
-      />
+        <MenuItemsComponent
+          currentNotifysList={[MenuItems.TASKS, MenuItems.FEEDBACK]} // TODO get real data from somewhere
+          selectedMenuItem={selectedMenuItem || MenuItems.PROFILE}
+          callBack={menuItemsComponentCallBack}
+        />
 
-      {tutorialCondition === TutorialConditions.SETTINGS_ARROW ? (
-        <TutorialArrow {...StyledConfig.tutorialArrow} />
-      ) : (
-        <React.Fragment />
-      )}
-      <MenuContent content={selectedMenuItem || MenuItems.PROFILE} />
+        {tutorialCondition === TutorialConditions.SETTINGS_ARROW ? (
+          <TutorialArrow {...StyledConfig.tutorialArrow} />
+        ) : (
+          <React.Fragment />
+        )}
+        <MenuContent content={selectedMenuItem || MenuItems.PROFILE} />
       </RowWrapper>
     </ColumnWrapper>
   );

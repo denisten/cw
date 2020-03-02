@@ -14,6 +14,7 @@ import { OnEndScrollHandler } from '../../utils/on-end-scroll-handler';
 import { Bridges } from '../../buildings/bridges';
 import { ProfileButton } from '../../UI/profile-button';
 import { TutorialToolsSelector } from '../../utils/arrows-container';
+import { Cars } from '../cars/carsArray';
 
 export enum MapSize {
   WIDTH = 7680,
@@ -76,9 +77,10 @@ export const RootComponent = (): React.ReactElement => {
     if (myRef.current) setScrollNode(myRef.current.container.current);
   }, []);
   useScrollTo(scrollNode, scrollCoords, [isExtraTowerInfoModalOpen]);
+
   return (
     <ComponentWrapper id="rootScroll">
-      {selectedMenuItem ? <Menu /> : ''}
+      <Menu displayFlag={selectedMenuItem ? true : false} />
       <ProfileButton tutorialCondition={tutorialCondition} />
       <TaskButton />
       <TowerInfo opened={isExtraTowerInfoModalOpen} />
@@ -99,6 +101,7 @@ export const RootComponent = (): React.ReactElement => {
             tutorialCondition={tutorialCondition}
             isInsideScrollContainer={true}
           />
+          <Cars/>
           <Map />
           <Buildings />
           <Bridges showBridges={true} />
