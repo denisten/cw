@@ -28,13 +28,10 @@ export enum Directions {
 }
 
 export enum RotationDeg {
-  // RIGHT = 0,
-  // BOTTOM = 90,
   BOTTOM = 0,
   LEFT = 90,
-  RIGHT = 270,
-  // LEFT = 180,
   TOP = 180,
+  RIGHT = 270,
 }
 
 type ArrowImgWrapperProps = {

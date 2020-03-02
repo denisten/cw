@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import notifyIcon from '../../img/notify-icons/notify.png';
-import { myFunc } from '../button';
+import { pulseAnimationHOF } from '../../hoc/pulse-anim';
 
 type MenuParagraphWrapperProps = {
   menuElement: MenuItems;
@@ -57,7 +57,7 @@ const MenuParagraphTitleWrapper = styled.div<{
 }>`
   cursor: pointer;
   animation-name: ${props =>
-    props.pulseAnim ? myFunc('159, 169, 176') : 'none'};
+    props.pulseAnim ? pulseAnimationHOF('159, 169, 176') : 'none'};
   animation-fill-mode: both;
   animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;

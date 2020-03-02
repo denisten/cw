@@ -1,19 +1,6 @@
 import React from 'react';
-import styled, { keyframes } from 'styled-components';
-
-export const myFunc = (bcg: string) => {
-  return keyframes`
-  0% {
-    box-shadow: 0 0 0 0 rgba(${bcg}, 0.4);
-  }
-  70% {
-      box-shadow: 0 0 0 20px rgba(${bcg}, 0);
-  }
-  100% {
-      box-shadow: 0 0 0 0 rgba(${bcg}, 0);
-  }
-`;
-};
+import styled from 'styled-components';
+import { pulseAnimationHOF } from '../../hoc/pulse-anim';
 
 const CustomButtonWrapper = styled.div<CustomButtonWrapperProps>`
   position: ${props => props.position};
@@ -32,7 +19,7 @@ const CustomButtonWrapper = styled.div<CustomButtonWrapperProps>`
   margin: ${props => props.margin};
   box-shadow: 1.5px 1.3px 3.4px 0.6px rgba(72, 72, 72, 0.28);
   animation-name: ${props =>
-    props.pulseAnim ? myFunc(props.pulseColor) : 'none'};
+    props.pulseAnim ? pulseAnimationHOF(props.pulseColor) : 'none'};
   animation-fill-mode: both;
   animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;
@@ -61,25 +48,15 @@ type CustomButtonWrapperProps = {
   pulseColor: string;
 };
 
-// type CustomButtonWrapperPropsWithoutPulseProps = Exclude<
-//   CustomButtonWrapperProps,
-//   'pulseAnim' | 'pulseColor'
-// >;
+type CustomButtonWrapperPropsWithoutPulseProps = Omit<
+  CustomButtonWrapperProps,
+  'pulseAnim' | 'pulseColor'
+>;
 
-interface CustomButtonProps {
+interface CustomButtonProps extends CustomButtonWrapperPropsWithoutPulseProps {
   content?: string;
   color?: string;
   callback?: () => void;
-  position?: string;
-  top?: number;
-  left?: number;
-  right?: number;
-  bottom?: number;
-  src?: number;
-  width?: string;
-  height?: string;
-  fontSize?: string;
-  margin?: string;
   pulseAnim?: boolean;
   pulseColor?: string;
 }
