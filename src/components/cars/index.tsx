@@ -2,11 +2,8 @@ import React from 'react';
 import styled, { Keyframes } from 'styled-components';
 
 type CarProps = {
-  flag?: boolean;
   animDuration?: string;
   animationTimingFunction?: string;
-  animationDirection?: string;
-  animationIterationCount?: number;
   animationName: Keyframes;
 };
 
@@ -32,20 +29,12 @@ const CarBlock = styled.div<CarProps>`
 `;
 
 export const Car: React.FC<CarConfigureType> = ({ carStyle }) => {
-  const {
-    animDuration,
-    animationTimingFunction,
-    animationDirection,
-    animationIterationCount,
-    animationName,
-  } =  carStyle;
+  const { animDuration, animationTimingFunction, animationName } = carStyle;
   return (
     <CarBlock
       animationName={animationName}
       animationTimingFunction={animationTimingFunction}
-      animationDirection={animationDirection}
       animDuration={animDuration}
-      animationIterationCount={animationIterationCount}
     />
   );
 };

@@ -5,8 +5,6 @@ export const carConfig = [
     carStyle: {
       animDuration: '9s',
       animationTimingFunction: 'ease-in-out',
-      animationDirection: 'normal',
-      animationIterationCount: 1,
       animationName: animForCar1,
     },
   },
@@ -15,18 +13,14 @@ export const carConfig = [
     carStyle: {
       animDuration: '8s',
       animationTimingFunction: 'ease-in-out',
-      animationDirection: 'normal',
-      animationIterationCount: 1,
       animationName: animForCar2,
     },
   },
   {
     id: 3,
     carStyle: {
-      animDuration: '8s',
+      animDuration: '18s',
       animationTimingFunction: 'ease-in-out',
-      animationDirection: 'normal',
-      animationIterationCount: 1,
       animationName: animForCar3,
     },
   },
