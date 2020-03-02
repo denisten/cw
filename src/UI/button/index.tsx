@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { ZIndexes } from '../../components/root-component/z-indexes-enum';
 
 const CustomButtonWrapper = styled.div<CustomButtonWrapperProps>`
   position: ${props => props.position};
@@ -21,7 +22,7 @@ const CustomButtonWrapper = styled.div<CustomButtonWrapperProps>`
 
 const TitleWrapper = styled.span<{ color?: string }>`
   font-size: 100%;
-  z-index: 1;
+  z-index: ${ZIndexes.uIButton};
   color: ${props => props.color || 'white'};
   position: absolute;
 `;

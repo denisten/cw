@@ -21,20 +21,6 @@ export enum MapSize {
   HEIGHT = 5400,
 }
 
-export enum ZIndexes {
-  roads = 1,
-  cars = 2,
-  decoration = 3,
-  buildingOneLevel = 10,
-  buildingTwoLevel = 11,
-  buildingThreeLevel = 12,
-  buildingFourLevel = 13,
-  uIButton = 20,
-  tutorial = 25,
-  modal = 30,
-  error = 40,
-}
-
 const ComponentWrapper = styled.div`
   background-image: url("${mapTile}");
   background-repeat: repeat;
@@ -64,14 +50,6 @@ const styleConfig = {
     top: 5,
     left: 10,
   },
-  testButton: {
-    zIndex: 100,
-    width: '200px',
-    height: '100px',
-    position: 'absolute',
-    top: 5,
-    left: 10,
-  } as React.CSSProperties,
 };
 
 export enum divideNumber {

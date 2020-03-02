@@ -1,6 +1,7 @@
 import React from 'react';
 import { LazyImage } from '@tsareff/lazy-image';
 import styled from 'styled-components';
+import { ZIndexes } from '../../components/root-component/z-indexes-enum';
 
 const MapFragmentWrapper = styled.div`
   display: flex;
@@ -24,6 +25,7 @@ export const MapFragment: React.FC<MapFragmentProps> = ({
   const treeWrapperStyle = {
     ...style,
     position: 'absolute',
+    zIndex: ZIndexes.decoration,
   } as React.CSSProperties;
   return (
     <MapFragmentWrapper>

@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { ZIndexes } from '../../components/root-component/z-indexes-enum';
 
 const ScaleButtonWrapper = styled.button<ScaleButtonWrapperProps>`
   position: fixed;
@@ -9,7 +10,7 @@ const ScaleButtonWrapper = styled.button<ScaleButtonWrapperProps>`
   right: ${props => props.right}%;
   width: ${props => props.width}%;
   height: ${props => props.height}%;
-  z-index: 10;
+  z-index: ${ZIndexes.uIButton};
 `;
 
 export const ScaleButton: React.FC<ScaleButtonProps> = ({

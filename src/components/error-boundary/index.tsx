@@ -7,7 +7,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useStore } from 'effector-react';
 import { ExitButton } from '../../UI/exit-button';
-import { ZIndexes } from '../root-component/root-component';
+import { ZIndexes } from '../root-component/z-indexes-enum';
 
 const ErrorBody = styled.div`
   width: 600px;
@@ -26,7 +26,7 @@ const OverLay = styled.div<OverlayProps>`
   position: fixed;
   left: 0;
   top: 0;
-  z-index: ${ZIndexes.error};
+  z-index: ${ZIndexes.modal};
 `;
 
 const ErrorText = styled.span`

@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { TutorialConditions } from '../../effector/app-condition/store';
 import { MenuItems } from '../menu-paragraph';
 import { NickName } from '../nickname';
+import { ZIndexes } from '../../components/root-component/z-indexes-enum';
 
 type MoneyCounterWrapperProps = {
   money: number;
@@ -24,7 +25,7 @@ const MoneyCounterWrapper = styled.span<MoneyCounterWrapperProps>`
 
 const StyleConfig = {
   height: '10.1%',
-  zIndex: 10,
+  zIndex: ZIndexes.uIButton,
   top: 3.7,
   left: 3.2,
   hoverFlag: true,

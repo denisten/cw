@@ -5,6 +5,7 @@ import { extraTowerInfoModalClosed } from '../../effector/app-condition/events';
 import { addProgressPoints } from '../../effector/towers-progress/events';
 import { useStore } from 'effector-react';
 import { AppCondition } from '../../effector/app-condition/store';
+import { ZIndexes } from '../root-component/z-indexes-enum';
 
 export type ModalWindowProps = {
   opened?: boolean;
@@ -18,7 +19,7 @@ enum marginRightValues {
 
 export const ModalWindowWrapper = styled.div<ModalWindowProps>`
   position: absolute;
-  z-index: 1;
+  z-index: ${ZIndexes.modal};
   right: 0;
   width: 35%;
   height: 100%;

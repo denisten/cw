@@ -17,6 +17,7 @@ import { Directions, TutorialArrow } from '../../UI/tutorial-arrow';
 import { HeaderComponent } from '../header';
 import { RowWrapper } from '../../UI/row-wrapper';
 import { ColumnWrapper } from '../../UI/column-wrapper';
+import { ZIndexes } from '../root-component/z-indexes-enum';
 
 const StyledConfig = {
   exitButton: {
@@ -27,7 +28,7 @@ const StyledConfig = {
   },
   mainWrapper: {
     height: '820px',
-    zIndex: 20,
+    zIndex: ZIndexes.modal,
     position: 'absolute',
     top: 50,
     left: 50,
