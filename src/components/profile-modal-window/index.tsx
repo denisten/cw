@@ -71,11 +71,6 @@ export const Menu: React.FC<{ displayFlag: boolean }> = ({ displayFlag }) => {
     )
       nextTutorStep();
   };
-  const handleSaveButtonClick = () => {
-    menuClosed();
-    if (tutorialCondition === TutorialConditions.SAVE_CITY_NAME_ARROW)
-      nextTutorStep();
-  };
 
   return (
     <ColumnWrapper {...StyledConfig.mainWrapper} displayFlag={displayFlag}>

@@ -42,15 +42,14 @@ const MenuParagraphWrapper = styled.div<MenuParagraphWrapperProps>`
     }
   }
 `;
-const Notify = styled.div `
-    margin-left: 13px;
-    width: 23px;
-    height: 32px;
-    background: url(${notifyIcon}) no-repeat center;
-    background-size: 100% 100%;
-    flex-shrink: 0;
-`
-
+const Notify = styled.div`
+  margin-left: 13px;
+  width: 23px;
+  height: 32px;
+  background: url(${notifyIcon}) no-repeat center;
+  background-size: 100% 100%;
+  flex-shrink: 0;
+`;
 
 const MenuParagraphTitleWrapper = styled.div`
   cursor: pointer;
@@ -67,14 +66,14 @@ export const MenuNavigationElement: React.FC<MenuParagraphProps> = ({
   menuElement,
   isItemSelected,
   onClickHandler,
-  haveNotify
+  haveNotify,
 }) => {
   return (
     <MenuParagraphWrapper content={menuElement} isItemSelected={isItemSelected}>
       <MenuParagraphTitleWrapper onClick={onClickHandler}>
         {TranslatedMenuItems[menuElement]}
       </MenuParagraphTitleWrapper>
-      {haveNotify ? <Notify/> : null}
+      {haveNotify ? <Notify /> : null}
     </MenuParagraphWrapper>
   );
 };

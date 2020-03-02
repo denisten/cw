@@ -4,14 +4,12 @@ import { ImgWrapperProps } from '../img-wrapper';
 import moneyIcon from './icon_money.png';
 
 const CountWrapper = styled.div`
-
-
   color: #fff;
   display: flex;
   align-items: center;
 
   img {
-    margin: 0 13px 0 20px
+    margin: 0 13px 0 20px;
   }
 
   span {
@@ -24,15 +22,10 @@ interface MoneyWrapWithCount extends ImgWrapperProps {
 }
 type MoneyWrapperProp = Omit<MoneyWrapWithCount, 'src'>;
 
-
 export const MoneyWrapper: React.FC<MoneyWrapperProp> = ({ count }) => {
   return (
     <CountWrapper>
-
-      <img
-        alt="moneyIcon"
-        src={moneyIcon}
-      />
+      <img alt="moneyIcon" src={moneyIcon} />
       <span>{count}</span>
     </CountWrapper>
   );

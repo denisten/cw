@@ -15,6 +15,8 @@ import { Bridges } from '../../buildings/bridges';
 import { ProfileButton } from '../../UI/profile-button';
 import { TutorialToolsSelector } from '../../utils/arrows-container';
 import { Cars } from '../cars/carsArray';
+import { TestStore } from '../../effector/test-store/store';
+import { event1 } from '../../effector/test-store/events';
 
 export enum MapSize {
   WIDTH = 7680,
@@ -50,6 +52,14 @@ const styleConfig = {
     top: 5,
     left: 10,
   },
+  testButton: {
+    zIndex: 100,
+    width: '200px',
+    height: '100px',
+    position: 'absolute',
+    top: 5,
+    left: 10,
+  } as React.CSSProperties,
 };
 
 export enum divideNumber {
@@ -68,6 +78,7 @@ export const RootComponent = (): React.ReactElement => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const myRef: any = useRef<HTMLElement>(null);
   const [cordX, cordY] = focusOn.coords;
+  const { flag, text } = useStore(TestStore);
   const scrollCoords = [
     cordX - window.innerWidth / divideNumber.WIDTH,
     cordY - window.innerHeight / divideNumber.HEIGHT,
@@ -80,7 +91,7 @@ export const RootComponent = (): React.ReactElement => {
 
   return (
     <ComponentWrapper id="rootScroll">
-      <Menu displayFlag={selectedMenuItem ? true : false} />
+      <Menu displayFlag={!!selectedMenuItem} />
       <ProfileButton tutorialCondition={tutorialCondition} />
       <TaskButton />
       <TowerInfo opened={isExtraTowerInfoModalOpen} />
@@ -101,12 +112,21 @@ export const RootComponent = (): React.ReactElement => {
             tutorialCondition={tutorialCondition}
             isInsideScrollContainer={true}
           />
-          <Cars/>
+          <Cars />
           <Map />
           <Buildings />
           <Bridges showBridges={true} />
         </MapWrapper>
       </ScrollContainer>
+
+      <button
+        style={{ ...styleConfig.testButton }}
+        onClick={() => event1({ flag: true, text: 'asdf' })}
+      >
+        {flag}
+        <br />
+        {text}
+      </button>
     </ComponentWrapper>
   );
 };

@@ -1,6 +1,5 @@
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
-import penImg from './pen.png';
 const DataInputWrapper = styled.div<DataInputWrapperProps>`
   width: auto;
   display: flex;
@@ -30,7 +29,7 @@ const InputWrapper = styled.input.attrs(({ value }: InputWrapperProps) => {
   max-width: 250px;
   height: 40px;
   border-radius: 6px;
-  background-color: ${props => props.disabled ? 'inherit': '#dee3e9'};
+  background-color: ${props => (props.disabled ? 'inherit' : '#dee3e9')};
   padding-left: 20px;
 `;
 
@@ -40,7 +39,6 @@ const TitleWrapper = styled.span`
   font-weight: bold;
   padding-left: 20px;
 `;
-
 
 type DataInputWrapperProps = {
   top?: number;
@@ -59,7 +57,6 @@ type InputWrapperProps = {
   fontSize?: number | string;
   heigth?: string;
   color?: string;
-
 };
 
 interface DataInputProps extends DataInputWrapperProps {
@@ -91,13 +88,7 @@ export const DataInput: React.FC<DataInputProps> = ({
   const onBlurHandler = () => {
     callBack(content);
   };
-  const onClickHandler = () => {
-    setTimeout(() => {
-      if (inputRef.current) {
-        inputRef.current.focus();
-      }
-    });
-  };
+
   return (
     <DataInputWrapper {...styledProps}>
       <TitleWrapper>{title}</TitleWrapper>

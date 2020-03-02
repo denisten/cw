@@ -59,9 +59,7 @@ const ProfileHeader = styled.div`
   left: 34px;
 `;
 
-const ProfileHeaderUserData = styled.div`
-`;
-
+const ProfileHeaderUserData = styled.div``;
 
 const StyledConfig = {
   nonAuthorizedAvatar: {
@@ -75,7 +73,7 @@ const StyledConfig = {
   },
   titleWrapperInfo: {
     fontSize: 1.8,
-    margin: '0 30px 0 0'
+    margin: '0 30px 0 0',
   },
   titleWrapperPhone: {
     width: 38,
@@ -85,21 +83,21 @@ const StyledConfig = {
     width: '201px',
     height: '52px',
     content: 'Выйти',
-    fontSize: '28.5px'
+    fontSize: '28.5px',
   },
   enterButton: {
     width: '201px',
     height: '52px',
     content: 'Войти',
     fontSize: '28.5px',
-    margin: '0 0 30px 0'
+    margin: '0 0 30px 0',
   },
   nickNameWrapper: {
     title: '',
     minWidth: 170,
     fontSize: '2',
     color: 'white',
-    margin: '35px 0px 0 0'
+    margin: '35px 0px 0 0',
   },
   editButton: {
     width: '250px',
@@ -112,24 +110,23 @@ const StyledConfig = {
     height: '52px',
     content: 'Сохранить',
     fontSize: '28.5px',
-    margin: '115px 0 0 0'
+    margin: '115px 0 0 0',
   },
   exitButton: {
     width: '201px',
     height: '52px',
     content: 'Выйти',
     fontSize: '28.5px',
-    margin: '115px 0 0 0'
+    margin: '115px 0 0 0',
   },
   userInfoRow: {
     paddingLeft: '50px',
-    margin: '0 0 30px 0'
+    margin: '0 0 30px 0',
   },
   inEditModeRow: {
-    paddingLeft: '238px'
-  }
+    paddingLeft: '238px',
+  },
 };
-
 
 type TitleWrapperProps = {
   fontSize: number;
@@ -158,22 +155,30 @@ const NonAuthorizedPanel = styled.div`
 `;
 
 const RowWrapper = styled.div<RowWrapperType>`
-display: flex;
-align-items: center;
-box-sizing: border-box;
-padding-left: ${props => props.paddingLeft || '0px'};
-margin:${props => props.margin || '0px'};
-min-height: 52px;
-`
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  padding-left: ${props => props.paddingLeft || '0px'};
+  margin: ${props => props.margin || '0px'};
+  min-height: 52px;
+`;
 
 const Billet = styled.div`
-width: 487px;
-height: 123px;
-background-color: #01acc8;
-clip-path: polygon(30% 0%,70% 0%,100% 0,100% 0%,80% 100%,30% 100%,0 100%,0 0);
-margin-bottom: 27px;
-
-`
+  width: 487px;
+  height: 123px;
+  background-color: #01acc8;
+  clip-path: polygon(
+    30% 0%,
+    70% 0%,
+    100% 0,
+    100% 0%,
+    80% 100%,
+    30% 100%,
+    0 100%,
+    0 0
+  );
+  margin-bottom: 27px;
+`;
 
 export const Profile = () => {
   const localUserData = useStore(UserDataStore);
@@ -185,34 +190,36 @@ export const Profile = () => {
     <ProfileWrapper>
       {isAuthorized ? (
         <React.Fragment>
-          <Billet/>
+          <Billet />
           <ProfileHeader>
-              <img src={avatarImg} {...StyledConfig.avatar} alt="profile" />
-              <ProfileHeaderUserData>
-                <DataInput
-                  {...StyledConfig.nickNameWrapper}
-                  key={localUserData.nickName}
-                  value={localUserData.nickName}
-                  callBack={value =>
-                    editUserData({ key: UserDataStoreKeys.NICKNAME, value })
-                  }
-                />
-                <MoneyWrapper count={localUserData.money} />
-              </ProfileHeaderUserData>
-            </ProfileHeader>
+            <img src={avatarImg} {...StyledConfig.avatar} alt="profile" />
+            <ProfileHeaderUserData>
+              <DataInput
+                {...StyledConfig.nickNameWrapper}
+                key={localUserData.nickName}
+                value={localUserData.nickName}
+                callBack={value =>
+                  editUserData({ key: UserDataStoreKeys.NICKNAME, value })
+                }
+              />
+              <MoneyWrapper count={localUserData.money} />
+            </ProfileHeaderUserData>
+          </ProfileHeader>
           <UserInfoBlockWrapper>
             <RowWrapper {...StyledConfig.userInfoRow}>
-            <TitleWrapper {...StyledConfig.titleWrapperInfo}>
-              Информация
-            </TitleWrapper>
-            {!editMode ? <CustomButton
-            callback={() => toggleInputEdit()}
-            {...StyledConfig.editButton}
-          /> : null}
+              <TitleWrapper {...StyledConfig.titleWrapperInfo}>
+                Информация
+              </TitleWrapper>
+              {!editMode ? (
+                <CustomButton
+                  callback={() => toggleInputEdit()}
+                  {...StyledConfig.editButton}
+                />
+              ) : null}
             </RowWrapper>
             <InputsWrapper>
               <DataInput
-                editMode = {editMode}
+                editMode={editMode}
                 title="Никнейм"
                 key={localUserData.name}
                 value={localUserData.name}
@@ -221,7 +228,7 @@ export const Profile = () => {
                 }
               />
               <DataInput
-                editMode = {editMode}
+                editMode={editMode}
                 title="Имя помощника"
                 key={localUserData.surname}
                 value={localUserData.surname}
@@ -230,7 +237,7 @@ export const Profile = () => {
                 }
               />
               <DataInput
-                editMode = {editMode}
+                editMode={editMode}
                 title="Название города"
                 key={localUserData.cityName}
                 value={localUserData.cityName}
@@ -239,20 +246,23 @@ export const Profile = () => {
                 }
               />
             </InputsWrapper>
-            {editMode ? <RowWrapper {...StyledConfig.inEditModeRow}>
-             <CustomButton
-            callback={() => toggleInputEdit()}
-            {...StyledConfig.saveButton}
-          />
-            </RowWrapper>: null}
+            {editMode ? (
+              <RowWrapper {...StyledConfig.inEditModeRow}>
+                <CustomButton
+                  callback={() => toggleInputEdit()}
+                  {...StyledConfig.saveButton}
+                />
+              </RowWrapper>
+            ) : null}
 
-            {!editMode ?<RowWrapper {...StyledConfig.inEditModeRow}>
-             <CustomButton
-            callback={() => CookieService.resetToken()}
-            {...StyledConfig.exitButton}
-          />
-            </RowWrapper> : null}
-
+            {!editMode ? (
+              <RowWrapper {...StyledConfig.inEditModeRow}>
+                <CustomButton
+                  callback={() => CookieService.resetToken()}
+                  {...StyledConfig.exitButton}
+                />
+              </RowWrapper>
+            ) : null}
           </UserInfoBlockWrapper>
         </React.Fragment>
       ) : (

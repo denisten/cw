@@ -8,21 +8,19 @@ const ParentDivWrapper = styled.div<RowWrapperProps>`
   flex-direction: row;
 `;
 
-
 interface RowWrapperProps {
   width?: string;
   height?: string;
 }
 
-
 export const RowWrapper: React.FC<RowWrapperProps> = ({
-         width,
-         height,
-         children,
-       }) => {
-         return (
-           <ParentDivWrapper width={width} height={height}>
-             {children}
-           </ParentDivWrapper>
-         );
-       };
+  width,
+  height,
+  children,
+}) => {
+  return (
+    <ParentDivWrapper width={width} height={height}>
+      {children}
+    </ParentDivWrapper>
+  );
+};
