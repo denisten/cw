@@ -8,3 +8,7 @@ interface Event1props {
 export const dispatchErrorEvent = ErrorBoundary.event<Event1props>(
   'dispatching add error '
 );
+
+export const dispatchClearErrorEvent = ErrorBoundary.event(
+  'dispatching clearError '
+);

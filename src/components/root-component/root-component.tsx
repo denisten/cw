@@ -15,8 +15,6 @@ import { Bridges } from '../../buildings/bridges';
 import { ProfileButton } from '../../UI/profile-button';
 import { TutorialToolsSelector } from '../../utils/arrows-container';
 import { Cars } from '../cars/carsArray';
-import { ErrorBoundaryStore } from '../../effector/error-boundary-store/store';
-import { dispatchErrorEvent } from '../../effector/error-boundary-store/events';
 
 export enum MapSize {
   WIDTH = 7680,
@@ -78,7 +76,6 @@ export const RootComponent = (): React.ReactElement => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const myRef: any = useRef<HTMLElement>(null);
   const [cordX, cordY] = focusOn.coords;
-  const { errorFlag, text } = useStore(ErrorBoundaryStore);
   const scrollCoords = [
     cordX - window.innerWidth / divideNumber.WIDTH,
     cordY - window.innerHeight / divideNumber.HEIGHT,
@@ -118,15 +115,6 @@ export const RootComponent = (): React.ReactElement => {
           <Bridges showBridges={true} />
         </MapWrapper>
       </ScrollContainer>
-
-      <button
-        style={{ ...styleConfig.testButton }}
-        onClick={() => dispatchErrorEvent({ errorFlag: true, text: 'asdf' })}
-      >
-        {errorFlag}
-        <br />
-        {text}
-      </button>
     </ComponentWrapper>
   );
 };

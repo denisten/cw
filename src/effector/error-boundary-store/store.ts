@@ -1,5 +1,5 @@
 import { ErrorBoundary } from './domain';
-import { dispatchErrorEvent } from './events';
+import { dispatchErrorEvent, dispatchClearErrorEvent } from './events';
 
 interface ErrorStoreProps {
   text: string;
@@ -12,10 +12,14 @@ const initStore: ErrorStoreProps = {
 };
 export const ErrorBoundaryStore = ErrorBoundary.store<ErrorStoreProps>(
   initStore
-).on(dispatchErrorEvent, (state, { text, errorFlag }) => {
-  return {
-    ...state,
-    text: text,
-    errorFlag: errorFlag,
-  };
-});
+)
+  .on(dispatchErrorEvent, (state, { text, errorFlag }) => {
+    return {
+      ...state,
+      text: text,
+      errorFlag: errorFlag,
+    };
+  })
+  .on(dispatchClearErrorEvent, state => {
+    return { ...state, errorFlag: false };
+  });
