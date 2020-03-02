@@ -21,6 +21,20 @@ export enum MapSize {
   HEIGHT = 5400,
 }
 
+export enum ZIndexes {
+  roads = 1,
+  cars = 2,
+  decoration = 3,
+  buildingOneLevel = 10,
+  buildingTwoLevel = 11,
+  buildingThreeLevel = 12,
+  buildingFourLevel = 13,
+  uIButton = 20,
+  tutorial = 25,
+  modal = 30,
+  error = 40,
+}
+
 const ComponentWrapper = styled.div`
   background-image: url("${mapTile}");
   background-repeat: repeat;
