@@ -101,7 +101,7 @@ export const RootComponent = (): React.ReactElement => {
             tutorialCondition={tutorialCondition}
             isInsideScrollContainer={true}
           />
-          <Cars/>
+          <Cars />
           <Map />
           <Buildings />
           <Bridges showBridges={true} />
