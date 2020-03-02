@@ -50,7 +50,7 @@ const initState = {
   selectedMenuItem: null,
   upgradingTowerTitle: null,
   isAuthorized: false,
-  tutorialCondition: TutorialConditions.DIALOG,
+  tutorialCondition: TutorialConditions.MENU_ARROW,
   tutorialTextId: 0,
 };
 

@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import notifyIcon from '../../img/notify-icons/notify.png';
+import { myFunc } from '../button';
 
 type MenuParagraphWrapperProps = {
-  content: string;
+  menuElement: MenuItems;
   isItemSelected: boolean;
 };
 
@@ -51,26 +52,39 @@ const Notify = styled.div`
   flex-shrink: 0;
 `;
 
-const MenuParagraphTitleWrapper = styled.div`
+const MenuParagraphTitleWrapper = styled.div<{
+  pulseAnim: boolean;
+}>`
   cursor: pointer;
+  animation-name: ${props =>
+    props.pulseAnim ? myFunc('159, 169, 176') : 'none'};
+  animation-fill-mode: both;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-duration: 0.6s;
 `;
 
-type MenuParagraphProps = {
-  menuElement: MenuItems;
-  isItemSelected: boolean;
+interface MenuParagraphProps extends MenuParagraphWrapperProps {
   onClickHandler: () => void;
   haveNotify: boolean;
-};
+  pulseAnim: boolean;
+}
 
 export const MenuNavigationElement: React.FC<MenuParagraphProps> = ({
   menuElement,
   isItemSelected,
   onClickHandler,
   haveNotify,
+  pulseAnim,
+  ...props
 }) => {
   return (
-    <MenuParagraphWrapper content={menuElement} isItemSelected={isItemSelected}>
-      <MenuParagraphTitleWrapper onClick={onClickHandler}>
+    <MenuParagraphWrapper
+      menuElement={menuElement}
+      isItemSelected={isItemSelected}
+      {...props}
+    >
+      <MenuParagraphTitleWrapper onClick={onClickHandler} pulseAnim={pulseAnim}>
         {TranslatedMenuItems[menuElement]}
       </MenuParagraphTitleWrapper>
       {haveNotify ? <Notify /> : null}

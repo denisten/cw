@@ -59,7 +59,7 @@ const ProfileHeader = styled.div`
   left: 34px;
 `;
 
-const ProfileHeaderUserData = styled.div``;
+export const ProfileHeaderUserData = styled.div``;
 
 const StyledConfig = {
   nonAuthorizedAvatar: {
@@ -91,6 +91,7 @@ const StyledConfig = {
     content: 'Войти',
     fontSize: '28.5px',
     margin: '0 0 30px 0',
+    pulseAnim: false,
   },
   nickNameWrapper: {
     title: '',
@@ -128,7 +129,7 @@ const StyledConfig = {
   },
 };
 
-type TitleWrapperProps = {
+export type TitleWrapperProps = {
   fontSize: number;
   position?: string;
   top?: number;
@@ -154,7 +155,7 @@ const NonAuthorizedPanel = styled.div`
   flex-direction: column;
 `;
 
-const RowWrapper = styled.div<RowWrapperType>`
+export const RowWrapper = styled.div<RowWrapperType>`
   display: flex;
   align-items: center;
   box-sizing: border-box;
@@ -163,7 +164,7 @@ const RowWrapper = styled.div<RowWrapperType>`
   min-height: 52px;
 `;
 
-const Billet = styled.div`
+export const Billet = styled.div`
   width: 487px;
   height: 123px;
   background-color: #01acc8;
@@ -188,7 +189,7 @@ export const Profile = () => {
   const { isAuthorized, tutorialCondition } = useStore(AppCondition);
   return (
     <ProfileWrapper>
-      {isAuthorized ? (
+      {!isAuthorized ? (
         <React.Fragment>
           <Billet />
           <ProfileHeader>

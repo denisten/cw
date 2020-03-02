@@ -1,5 +1,19 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+export const myFunc = (bcg: string) => {
+  return keyframes`
+  0% {
+    box-shadow: 0 0 0 0 rgba(${bcg}, 0.4);
+  }
+  70% {
+      box-shadow: 0 0 0 20px rgba(${bcg}, 0);
+  }
+  100% {
+      box-shadow: 0 0 0 0 rgba(${bcg}, 0);
+  }
+`;
+};
 
 const CustomButtonWrapper = styled.div<CustomButtonWrapperProps>`
   position: ${props => props.position};
@@ -17,6 +31,12 @@ const CustomButtonWrapper = styled.div<CustomButtonWrapperProps>`
   font-size: ${props => props.fontSize};
   margin: ${props => props.margin};
   box-shadow: 1.5px 1.3px 3.4px 0.6px rgba(72, 72, 72, 0.28);
+  animation-name: ${props =>
+    props.pulseAnim ? myFunc(props.pulseColor) : 'none'};
+  animation-fill-mode: both;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-duration: 0.6s;
 `;
 
 const TitleWrapper = styled.span<{ color?: string }>`
@@ -37,22 +57,48 @@ type CustomButtonWrapperProps = {
   height?: string;
   fontSize?: string;
   margin?: string;
+  pulseAnim: boolean;
+  pulseColor: string;
 };
 
-interface CustomButtonProps extends CustomButtonWrapperProps {
+// type CustomButtonWrapperPropsWithoutPulseProps = Exclude<
+//   CustomButtonWrapperProps,
+//   'pulseAnim' | 'pulseColor'
+// >;
+
+interface CustomButtonProps {
   content?: string;
   color?: string;
   callback?: () => void;
+  position?: string;
+  top?: number;
+  left?: number;
+  right?: number;
+  bottom?: number;
+  src?: number;
+  width?: string;
+  height?: string;
+  fontSize?: string;
+  margin?: string;
+  pulseAnim?: boolean;
+  pulseColor?: string;
 }
 
 export const CustomButton: React.FC<CustomButtonProps> = ({
   content,
   color,
   callback,
+  pulseAnim = false,
+  pulseColor = '1, 172, 200',
   ...props
 }) => {
   return (
-    <CustomButtonWrapper onClick={callback} {...props}>
+    <CustomButtonWrapper
+      onClick={callback}
+      pulseAnim={pulseAnim}
+      pulseColor={pulseColor}
+      {...props}
+    >
       <TitleWrapper color={color}>{content}</TitleWrapper>
     </CustomButtonWrapper>
   );

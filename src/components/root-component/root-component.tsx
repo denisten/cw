@@ -80,7 +80,7 @@ export const RootComponent = (): React.ReactElement => {
 
   return (
     <ComponentWrapper id="rootScroll">
-      <Menu displayFlag={selectedMenuItem ? true : false} />
+      <Menu displayFlag={!!selectedMenuItem} />
       <ProfileButton tutorialCondition={tutorialCondition} />
       <TaskButton />
       <TowerInfo opened={isExtraTowerInfoModalOpen} />
