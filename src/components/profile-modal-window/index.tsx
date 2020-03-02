@@ -66,8 +66,10 @@ export const Menu: React.FC<{ displayFlag: boolean }> = ({ displayFlag }) => {
   const menuItemsComponentCallBack = (item: MenuItems) => {
     menuOpened(item);
     if (
-      item === MenuItems.SETTINGS &&
-      tutorialCondition === TutorialConditions.SETTINGS_ARROW
+      (item === MenuItems.SETTINGS &&
+        tutorialCondition === TutorialConditions.SETTINGS_ARROW) ||
+      (item === MenuItems.PROFILE &&
+        tutorialCondition === TutorialConditions.PROFILE_ARROW)
     )
       nextTutorStep();
   };

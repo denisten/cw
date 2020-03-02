@@ -91,7 +91,6 @@ const StyledConfig = {
     content: 'Войти',
     fontSize: '28.5px',
     margin: '0 0 30px 0',
-    pulseAnim: false,
   },
   nickNameWrapper: {
     title: '',
@@ -189,7 +188,7 @@ export const Profile = () => {
   const { isAuthorized, tutorialCondition } = useStore(AppCondition);
   return (
     <ProfileWrapper>
-      {!isAuthorized ? (
+      {isAuthorized ? (
         <React.Fragment>
           <Billet />
           <ProfileHeader>
@@ -274,6 +273,7 @@ export const Profile = () => {
             alt="profile"
           />
           <CustomButton
+            pulseAnim={tutorialCondition === TutorialConditions.AUTH_ARROW}
             callback={() => {
               if (tutorialCondition === TutorialConditions.AUTH_ARROW)
                 turnOffTutorialMode();

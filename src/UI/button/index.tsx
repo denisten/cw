@@ -36,7 +36,7 @@ const CustomButtonWrapper = styled.div<CustomButtonWrapperProps>`
   animation-fill-mode: both;
   animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;
-  animation-duration: 0.6s;
+  animation-duration: 0.8s;
 `;
 
 const TitleWrapper = styled.span<{ color?: string }>`

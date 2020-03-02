@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import avatarImg from '../../img/avatars/1-1.png';
 import { useStore } from 'effector-react';
 import {
-  UserDataStoreKeys,
   UserDataStore,
+  UserDataStoreKeys,
 } from '../../effector/user-data/store';
 import styled from 'styled-components';
 import { DataInput } from '../../UI/data-input';
@@ -16,6 +16,11 @@ import {
   RowWrapper,
   TitleWrapperProps,
 } from '../profile';
+import {
+  AppCondition,
+  TutorialConditions,
+} from '../../effector/app-condition/store';
+import { nextTutorStep } from '../../effector/app-condition/events';
 
 const UserInfoBlockWrapper = styled.div`
   width: 100%;
@@ -74,8 +79,6 @@ const StyledConfig = {
     height: '52px',
     content: 'Редактировать',
     fontSize: '25.5px',
-    pulseAnim: true,
-    pulseColor: '1, 172, 200',
   },
   saveButton: {
     width: '201px',
@@ -83,8 +86,6 @@ const StyledConfig = {
     content: 'Сохранить',
     fontSize: '28.5px',
     margin: '115px 0 0 0',
-    pulseAnim: true,
-    pulseColor: '1, 172, 200',
   },
   userInfoRow: {
     paddingLeft: '50px',
@@ -102,9 +103,17 @@ const ProfileWrapper = styled.div`
 
 export const Settings = () => {
   const localUserData = useStore(UserDataStore);
+  const { tutorialCondition } = useStore(AppCondition);
 
   const [editMode, setEditMode] = useState(false);
-  const toggleInputEdit = () => setEditMode(!editMode);
+  const toggleInputEdit = () => {
+    if (
+      tutorialCondition === TutorialConditions.CHANGE_CITY_NAME_ARROW ||
+      tutorialCondition === TutorialConditions.SAVE_CITY_NAME_ARROW
+    )
+      nextTutorStep();
+    setEditMode(!editMode);
+  };
 
   return (
     <ProfileWrapper>
@@ -130,6 +139,9 @@ export const Settings = () => {
           </TitleWrapper>
           {!editMode ? (
             <CustomButton
+              pulseAnim={
+                tutorialCondition === TutorialConditions.CHANGE_CITY_NAME_ARROW
+              }
               callback={() => toggleInputEdit()}
               {...StyledConfig.editButton}
             />
@@ -167,6 +179,9 @@ export const Settings = () => {
         {editMode ? (
           <RowWrapper {...StyledConfig.inEditModeRow}>
             <CustomButton
+              pulseAnim={
+                tutorialCondition === TutorialConditions.SAVE_CITY_NAME_ARROW
+              }
               callback={() => toggleInputEdit()}
               {...StyledConfig.saveButton}
             />

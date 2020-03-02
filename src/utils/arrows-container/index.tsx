@@ -13,7 +13,6 @@ export const TutorialToolsSelector: React.FC<ArrowsContainerProps> = ({
 }) => {
   switch (tutorialCondition) {
     case TutorialConditions.MENU_ARROW:
-    case TutorialConditions.MENU_ARROW_2:
       if (!isInsideScrollContainer)
         return (
           <TutorialArrow
@@ -24,15 +23,6 @@ export const TutorialToolsSelector: React.FC<ArrowsContainerProps> = ({
           />
         );
       else return <Fragment />;
-    case TutorialConditions.CHANGE_CITY_NAME_ARROW:
-      return (
-        <TutorialArrow
-          top={53}
-          left={67}
-          range={2}
-          direction={Directions.LEFT}
-        />
-      );
     case TutorialConditions.TOWER_ARROW:
       if (isInsideScrollContainer)
         return (
@@ -57,24 +47,6 @@ export const TutorialToolsSelector: React.FC<ArrowsContainerProps> = ({
       else return <Fragment />;
     case TutorialConditions.DIALOG:
       return <TutorialDialog />;
-    case TutorialConditions.SAVE_CITY_NAME_ARROW:
-      return (
-        <TutorialArrow
-          top={70}
-          left={49}
-          range={2}
-          direction={Directions.BOTTOM}
-        />
-      );
-    case TutorialConditions.AUTH_ARROW:
-      return (
-        <TutorialArrow
-          top={57}
-          left={56}
-          range={2}
-          direction={Directions.TOP}
-        />
-      );
     default:
       return <Fragment />;
   }

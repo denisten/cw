@@ -38,8 +38,10 @@ export const MenuItemsComponent: React.FC<MenuItemsComponentProps> = ({
         return (
           <MenuNavigationElement
             pulseAnim={
-              el === MenuItems.SETTINGS &&
-              tutorialCondition === TutorialConditions.SETTINGS_ARROW
+              (el === MenuItems.SETTINGS &&
+                tutorialCondition === TutorialConditions.SETTINGS_ARROW) ||
+              (el === MenuItems.PROFILE &&
+                tutorialCondition === TutorialConditions.PROFILE_ARROW)
             }
             key={el}
             menuElement={el}
