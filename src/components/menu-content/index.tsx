@@ -5,11 +5,10 @@ import styled from 'styled-components';
 import { Settings } from '../settings';
 import menuContentBackground from './background.png';
 
-
 const MenuContentWrapper = styled.div`
   flex: 1;
   background: url(${menuContentBackground}) no-repeat center;
-  background-size: 100% 100%;
+  background-size: cover;
 `;
 
 type MenuContentProps = {
