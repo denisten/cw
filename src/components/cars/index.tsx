@@ -22,10 +22,6 @@ const CarBlock = styled.div<CarProps>`
   animation-direction: normal;
   animation-iteration-count: infinite;
   animation-name: ${props => props.animationName};
-  /* left: 0%;
-    top: 0%;
-    background: red;
-    z-index: 555; */
 `;
 
 export const Car: React.FC<CarConfigureType> = ({ carStyle }) => {
