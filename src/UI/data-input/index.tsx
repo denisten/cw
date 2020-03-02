@@ -3,11 +3,11 @@ import styled from 'styled-components';
 import penImg from './pen.png';
 const DataInputWrapper = styled.div<DataInputWrapperProps>`
   width: auto;
-  height: 25%;
   display: flex;
   justify-content: center;
   align-items: flex-start;
   flex-direction: column;
+  margin: ${props => props.margin};
 `;
 
 const inputWrapperMinWidthCoefficient = 6;
@@ -23,23 +23,24 @@ const InputWrapper = styled.input.attrs(({ value }: InputWrapperProps) => {
   min-width: ${window.innerWidth / inputWrapperMinWidthCoefficient + 'px'};
   border: none;
   outline: none;
-  color: #1b4f75;
+  color: ${props => props.color || '#1b4f75'};
   font-size: ${props => props.fontSize || inputDefaultFontSize}em;
-  background-color: inherit;
   cursor: default;
   font-weight: ${props => props.fontWeight || 'bold'};
+  max-width: 250px;
+  height: 40px;
+  border-radius: 6px;
+  background-color: ${props => props.disabled ? 'inherit': '#dee3e9'};
+  padding-left: 20px;
 `;
 
 const TitleWrapper = styled.span`
   font-size: 1.4em;
   color: #1b4f75;
   font-weight: bold;
-  padding: 0;
+  padding-left: 20px;
 `;
 
-const PenImgWrapper = styled.img`
-  cursor: pointer;
-`;
 
 type DataInputWrapperProps = {
   top?: number;
@@ -55,7 +56,10 @@ type InputWrapperProps = {
   extendFlag?: boolean;
   minWidth?: number;
   fontWeight?: string;
-  fontSize?: number;
+  fontSize?: number | string;
+  heigth?: string;
+  color?: string;
+
 };
 
 interface DataInputProps extends DataInputWrapperProps {
@@ -64,7 +68,9 @@ interface DataInputProps extends DataInputWrapperProps {
   title: string;
   minWidth?: number;
   fontWeight?: string;
-  fontSize?: number;
+  fontSize?: number | string;
+  editMode?: boolean;
+  color?: string;
 }
 
 export const DataInput: React.FC<DataInputProps> = ({
@@ -74,18 +80,18 @@ export const DataInput: React.FC<DataInputProps> = ({
   fontWeight,
   fontSize,
   minWidth,
+  editMode,
+  color,
+
   ...styledProps
 }) => {
-  const [editMode, setEditMode] = useState(true);
   const [content, setContent] = useState(value);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const onBlurHandler = () => {
-    setEditMode(true);
     callBack(content);
   };
   const onClickHandler = () => {
-    setEditMode(!editMode);
     setTimeout(() => {
       if (inputRef.current) {
         inputRef.current.focus();
@@ -100,16 +106,16 @@ export const DataInput: React.FC<DataInputProps> = ({
           type="text"
           ref={inputRef}
           value={content}
-          disabled={editMode}
+          disabled={!editMode}
           minWidth={minWidth}
           fontWeight={fontWeight}
           fontSize={fontSize}
+          color={color}
           onChange={e => {
             setContent(e.target.value);
           }}
           onBlur={onBlurHandler}
         />
-        <PenImgWrapper src={penImg} alt="pen" onClick={onClickHandler} />
       </div>
     </DataInputWrapper>
   );

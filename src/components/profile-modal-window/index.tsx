@@ -5,9 +5,6 @@ import {
   menuClosed,
   menuOpened,
 } from '../../effector/app-condition/events';
-import background from './background.png';
-import { ImgWrapper } from '../../UI/img-wrapper';
-import { SaveButton } from '../../UI/save-button';
 import { MenuItemsComponent } from '../menu-items';
 import { MenuContent } from '../menu-content';
 import { MenuItems } from '../../UI/menu-paragraph';
@@ -17,21 +14,25 @@ import {
   TutorialConditions,
 } from '../../effector/app-condition/store';
 import { Directions, TutorialArrow } from '../../UI/tutorial-arrow';
+import { HeaderComponent } from '../header';
+import { RowWrapper } from '../../UI/row-wrapper';
+import { ColumnWrapper } from '../../UI/column-wrapper';
 
 const StyledConfig = {
   exitButton: {
-    height: '5%',
+    height: '28px',
     top: 1,
     right: 1,
     hoverFlag: true,
   },
   mainWrapper: {
-    height: '70.5%',
+    height: '820px',
     zIndex: 20,
     position: 'absolute',
     top: 50,
     left: 50,
     transformTranslate: '-50%, -50%',
+    width: '1250px',
   },
   avatar: {
     height: '13%',
@@ -50,6 +51,13 @@ const StyledConfig = {
     range: 2,
     top: 20,
     left: 20,
+  },
+  rowWrapper: {
+    width: '100%',
+    height: '100%',
+  },
+  header: {
+    height: '85px',
   },
 };
 
@@ -70,26 +78,27 @@ export const Menu: React.FC<{ displayFlag: boolean }> = ({ displayFlag }) => {
   };
 
   return (
-    <ImgWrapper
-      {...StyledConfig.mainWrapper}
-      src={background}
-      displayFlag={displayFlag}
-    >
-      <MenuItemsComponent
-        selectedMenuItem={selectedMenuItem || MenuItems.PROFILE}
-        callBack={menuItemsComponentCallBack}
-      />
-      {tutorialCondition === TutorialConditions.SETTINGS_ARROW ? (
-        <TutorialArrow {...StyledConfig.tutorialArrow} />
-      ) : (
-        <React.Fragment />
-      )}
-      <MenuContent content={selectedMenuItem || MenuItems.PROFILE} />
-      <ExitButton {...StyledConfig.exitButton} callBack={() => menuClosed()} />
-      <SaveButton
-        {...StyledConfig.saveButton}
-        callBack={handleSaveButtonClick}
-      />
-    </ImgWrapper>
+    <ColumnWrapper {...StyledConfig.mainWrapper} displayFlag={displayFlag}>
+      <HeaderComponent {...StyledConfig.header}>
+        <ExitButton
+          {...StyledConfig.exitButton}
+          callBack={() => menuClosed()}
+        />
+      </HeaderComponent>
+      <RowWrapper {...StyledConfig.rowWrapper}>
+        <MenuItemsComponent
+          currentNotifysList={[MenuItems.TASKS, MenuItems.FEEDBACK]} // TODO get real data from somewhere
+          selectedMenuItem={selectedMenuItem || MenuItems.PROFILE}
+          callBack={menuItemsComponentCallBack}
+        />
+
+        {tutorialCondition === TutorialConditions.SETTINGS_ARROW ? (
+          <TutorialArrow {...StyledConfig.tutorialArrow} />
+        ) : (
+          <React.Fragment />
+        )}
+        <MenuContent content={selectedMenuItem || MenuItems.PROFILE} />
+      </RowWrapper>
+    </ColumnWrapper>
   );
 };

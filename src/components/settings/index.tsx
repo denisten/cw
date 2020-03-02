@@ -33,7 +33,6 @@ const TitleWrapper = styled.div<TitleWrapperProps>`
 const ProfileWrapper = styled.div`
   width: 100%;
   height: 100%;
-  overflow: hidden;
 `;
 const InputsWrapper = styled.div`
   display: flex;

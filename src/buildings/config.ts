@@ -65,6 +65,10 @@ import slotMachineLevel1Img from './slot-machine/1.png';
 import slotMachineLevel1Stroke from './slot-machine/1-stroke.png';
 import routerLevel1Img from './router/1.png';
 import routerLevel1Stroke from './router/1-stroke.png';
+import autoFactoryLevel1Img from './auto-factory/1.png';
+import autoFactoryLevel1Stroke from './auto-factory/1-stroke.png';
+import rtkLevel1Img from './rtk/1.png';
+import rtkLevel1Stroke from './rtk/1-stroke.png';
 
 export class BuildingsService {
   _config: BuildingServiceConfigTypes = {
@@ -729,6 +733,72 @@ export class BuildingsService {
         shadowImg: routerLevel1Stroke,
         areaCoords: '434,188,79,472',
         position: [45, 65],
+      },
+      // TODO: не настоящая картинка
+      [TowerLevel.mid]: {
+        img: bankLevel2Img,
+        width: 579,
+        height: 688,
+        shadowImg: bankLevel2Stroke,
+        areaCoords: '516,39,69,578',
+        position: [23.4, 66.4],
+      },
+      // TODO: не настоящая картинка
+      [TowerLevel.high]: {
+        img: airportLevel3Img,
+        width: 573,
+        height: 449,
+        shadowImg: airportLevel3Stroke,
+        areaCoords: '595,126,90,476',
+        position: [18.9, 28.3],
+      },
+    },
+    [TowersTypes.AUTO_FACTORY]: {
+      info: 'info',
+      title: 'МТС авто',
+      coords: [4293, 3233],
+      zIndex: 2,
+      maxLevel: TowerLevel.low,
+      [TowerLevel.low]: {
+        img: autoFactoryLevel1Img,
+        width: 736,
+        height: 550,
+        shadowImg: autoFactoryLevel1Stroke,
+        areaCoords: '136,196,602,481',
+        position: [52, 48],
+      },
+      // TODO: не настоящая картинка
+      [TowerLevel.mid]: {
+        img: bankLevel2Img,
+        width: 579,
+        height: 688,
+        shadowImg: bankLevel2Stroke,
+        areaCoords: '516,39,69,578',
+        position: [23.4, 66.4],
+      },
+      // TODO: не настоящая картинка
+      [TowerLevel.high]: {
+        img: airportLevel3Img,
+        width: 573,
+        height: 449,
+        shadowImg: airportLevel3Stroke,
+        areaCoords: '595,126,90,476',
+        position: [18.9, 28.3],
+      },
+    },
+    [TowersTypes.RTK]: {
+      info: 'info',
+      title: 'РТК',
+      coords: [5445, 2187],
+      zIndex: 2,
+      maxLevel: TowerLevel.low,
+      [TowerLevel.low]: {
+        img: rtkLevel1Img,
+        width: 530,
+        height: 555,
+        shadowImg: rtkLevel1Stroke,
+        areaCoords: '74,67,456,472',
+        position: [33, 66],
       },
       // TODO: не настоящая картинка
       [TowerLevel.mid]: {
