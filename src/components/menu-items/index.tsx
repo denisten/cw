@@ -1,27 +1,33 @@
 import React from 'react';
 import styled from 'styled-components';
 import { MenuItems, MenuNavigationElement } from '../../UI/menu-paragraph';
+import background from './background.png';
+import { checkHaveNotify } from '../../utils/check-have-notify';
 
 const MenuWrapper = styled.div`
-  width: 20%;
-  height: 60%;
-  position: absolute;
-  left: 5%;
-  top: 7%;
+  width: 406px;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  background: url(${background}) no-repeat center;
+  background-size: 100% 100%;
+  flex-shrink: 0;
+  position: relative;
 `;
+
 
 type MenuItemsComponentProps = {
   selectedMenuItem: MenuItems;
   callBack: (props: MenuItems) => void;
+  currentNotifysList: Array<string>;
 };
 
 export const MenuItemsComponent: React.FC<MenuItemsComponentProps> = ({
   selectedMenuItem,
   callBack,
+  currentNotifysList,
 }) => {
   const MenuItemsObjectValues = Object.values(MenuItems) as MenuItems[];
   return (
@@ -32,6 +38,7 @@ export const MenuItemsComponent: React.FC<MenuItemsComponentProps> = ({
             key={el}
             menuElement={el}
             isItemSelected={selectedMenuItem === el}
+            haveNotify = {checkHaveNotify(currentNotifysList, el)}
             onClickHandler={() => callBack(el)}
           />
         );

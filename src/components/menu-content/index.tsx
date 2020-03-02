@@ -3,13 +3,13 @@ import { MenuItems } from '../../UI/menu-paragraph';
 import { Profile } from '../profile';
 import styled from 'styled-components';
 import { Settings } from '../settings';
+import menuContentBackground from './background.png';
+
 
 const MenuContentWrapper = styled.div`
-  width: 66%;
-  height: 74%;
-  position: absolute;
-  top: 10%;
-  right: 6%;
+  flex: 1;
+  background: url(${menuContentBackground}) no-repeat center;
+  background-size: 100% 100%;
 `;
 
 type MenuContentProps = {

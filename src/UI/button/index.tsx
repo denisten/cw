@@ -10,13 +10,14 @@ const CustomButtonWrapper = styled.div<CustomButtonWrapperProps>`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 5px;
-  box-shadow: 1.1px 1.7px 1.9px 0.1px rgba(26, 120, 169, 0.63);
-  border: solid 1px #00f0ff;
-  background-color: #1a78a9;
-  width: ${props => props.width}%;
-  height: ${props => props.height}%;
+  background-color: #01acc8;
+  width: ${props => props.width};
+  height: ${props => props.height};
   cursor: pointer;
+  font-size: ${props => props.fontSize};
+  margin: ${props => props.margin};
+  box-shadow: 1.5px 1.3px 3.4px 0.6px rgba(72, 72, 72, 0.28);
+
 `;
 
 const TitleWrapper = styled.span<{ color?: string }>`
@@ -33,8 +34,10 @@ type CustomButtonWrapperProps = {
   right?: number;
   bottom?: number;
   src?: number;
-  width?: number;
-  height?: number;
+  width?: string;
+  height?: string;
+  fontSize?: string;
+  margin?: string;
 };
 
 interface CustomButtonProps extends CustomButtonWrapperProps {

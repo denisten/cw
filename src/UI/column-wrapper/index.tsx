@@ -9,16 +9,14 @@ const ParentDivWrapper = styled.div<ParentDivWrapperProps>`
   bottom: ${props => props.bottom}%;
   right: ${props => props.right}%;
   display: flex;
+  flex-direction: column;
   z-index: ${props => props.zIndex};
   transform: translate(${props => props.transformTranslate});
-  &:hover {
-    cursor: ${props => (props.hoverFlag ? 'pointer' : 'auto')};
-  }
+  background-color: 'red';
+  width: ${props => props.width};
+
 `;
 
-const ImgStyledWrapper = styled.img`
-  height: 100%;
-`;
 
 interface ParentDivWrapperProps {
   position?: string;
@@ -26,30 +24,23 @@ interface ParentDivWrapperProps {
   left?: number;
   right?: number;
   bottom?: number;
-  hoverFlag?: boolean;
   zIndex?: number;
   transformTranslate?: string;
   height?: string;
+  width?: string;
 }
 
-export interface ImgWrapperProps extends ParentDivWrapperProps {
-  callBack?: () => void;
-  src: string;
-  children?: React.ReactElement[] | React.ReactElement;
-}
 
-export const ImgWrapper: React.FC<ImgWrapperProps> = ({
-  callBack,
+export const ColumnWrapper: React.FC<ParentDivWrapperProps> = ({
   position,
   top,
   left,
   bottom,
   right,
-  src,
   zIndex,
   transformTranslate,
   height,
-  hoverFlag = false,
+  width,
   children,
   ...props
 }) => {
@@ -61,11 +52,10 @@ export const ImgWrapper: React.FC<ImgWrapperProps> = ({
       left={left}
       bottom={bottom}
       right={right}
-      hoverFlag={hoverFlag}
       height={height}
+      width = {width}
       transformTranslate={transformTranslate}
     >
-      <ImgStyledWrapper {...props} onClick={callBack} src={src} />
       {children}
     </ParentDivWrapper>
   );

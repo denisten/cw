@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import avatarImg from '../../img/avatars/1-1.png';
 import { useStore } from 'effector-react';
 import {
@@ -20,10 +20,8 @@ import { turnOffTutorialMode } from '../../effector/app-condition/events';
 
 const UserInfoBlockWrapper = styled.div`
   width: 100%;
-  height: 72%;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: space-evenly;
 `;
 
@@ -36,76 +34,102 @@ const TitleWrapper = styled.div<TitleWrapperProps>`
   left: ${props => props.left}%;
   bottom: ${props => props.bottom}%;
   right: ${props => props.right}%;
+  margin: ${props => props.margin};
 `;
 
 const ProfileWrapper = styled.div`
   width: 100%;
   height: 100%;
-  overflow: hidden;
+  position: relative;
 `;
 const InputsWrapper = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: space-around;
   flex-direction: column;
-  height: 54%;
   width: 60%;
+  padding-left: 72px;
+  box-sizing: border-box;
 `;
 
 const ProfileHeader = styled.div`
   display: flex;
-  justify-content: center;
-  height: 28%;
+  position: absolute;
+  top: -20px;
+  left: 34px;
 `;
 
 const ProfileHeaderUserData = styled.div`
-  margin-left: 5%;
-  min-width: 27%;
 `;
 
-const AccountData = styled.div`
-  display: flex;
-  justify-content: inherit;
-  align-items: center;
-  width: 86%;
-`;
-
-const PhoneWrapper = styled.div`
-  margin-top: 4%;
-  width: max-content;
-`;
 
 const StyledConfig = {
   nonAuthorizedAvatar: {
-    height: '14%',
+    width: '140px',
+    height: '149px',
     marginBottom: '5%',
   },
   avatar: {
-    height: '80%',
+    height: '133px',
+    border: 'solid 2px #ffffff',
   },
   titleWrapperInfo: {
     fontSize: 1.8,
+    margin: '0 30px 0 0'
   },
   titleWrapperPhone: {
     width: 38,
     fontSize: 1.8,
   },
   button: {
-    width: 19,
-    height: 50,
+    width: '201px',
+    height: '52px',
     content: 'Выйти',
+    fontSize: '28.5px'
   },
   enterButton: {
-    width: 11,
-    height: 7,
+    width: '201px',
+    height: '52px',
     content: 'Войти',
+    fontSize: '28.5px',
+    margin: '0 0 30px 0'
   },
   nickNameWrapper: {
     title: '',
     minWidth: 170,
-    fontSize: 1.8,
+    fontSize: '2',
+    color: 'white',
+    margin: '35px 0px 0 0'
   },
+  editButton: {
+    width: '250px',
+    height: '52px',
+    content: 'Редактировать',
+    fontSize: '25.5px',
+  },
+  saveButton: {
+    width: '201px',
+    height: '52px',
+    content: 'Сохранить',
+    fontSize: '28.5px',
+    margin: '115px 0 0 0'
+  },
+  exitButton: {
+    width: '201px',
+    height: '52px',
+    content: 'Выйти',
+    fontSize: '28.5px',
+    margin: '115px 0 0 0'
+  },
+  userInfoRow: {
+    paddingLeft: '50px',
+    margin: '0 0 30px 0'
+  },
+  inEditModeRow: {
+    paddingLeft: '238px'
+  }
 };
+
 
 type TitleWrapperProps = {
   fontSize: number;
@@ -115,6 +139,13 @@ type TitleWrapperProps = {
   bottom?: number;
   right?: number;
   width?: number;
+  margin?: string;
+};
+
+type RowWrapperType = {
+  display?: string;
+  paddingLeft?: string;
+  margin?: string;
 };
 
 const NonAuthorizedPanel = styled.div`
@@ -126,70 +157,102 @@ const NonAuthorizedPanel = styled.div`
   flex-direction: column;
 `;
 
+const RowWrapper = styled.div<RowWrapperType>`
+display: flex;
+align-items: center;
+box-sizing: border-box;
+padding-left: ${props => props.paddingLeft || '0px'};
+margin:${props => props.margin || '0px'};
+min-height: 52px;
+`
+
+const Billet = styled.div`
+width: 487px;
+height: 123px;
+background-color: #01acc8;
+clip-path: polygon(30% 0%,70% 0%,100% 0,100% 0%,80% 100%,30% 100%,0 100%,0 0);
+margin-bottom: 27px;
+
+`
+
 export const Profile = () => {
   const localUserData = useStore(UserDataStore);
+  const [editMode, setEditMode] = useState(false);
+  const toggleInputEdit = () => setEditMode(!editMode);
+
   const { isAuthorized, tutorialCondition } = useStore(AppCondition);
   return (
     <ProfileWrapper>
       {isAuthorized ? (
         <React.Fragment>
+          <Billet/>
           <ProfileHeader>
-            <img src={avatarImg} {...StyledConfig.avatar} alt="profile" />
-            <ProfileHeaderUserData>
-              <DataInput
-                {...StyledConfig.nickNameWrapper}
-                key={1}
-                value={localUserData.nickName}
-                callBack={value =>
-                  editUserData({ key: UserDataStoreKeys.NICKNAME, value })
-                }
-              />
-              <MoneyWrapper count={localUserData.money} />
-            </ProfileHeaderUserData>
-          </ProfileHeader>
+              <img src={avatarImg} {...StyledConfig.avatar} alt="profile" />
+              <ProfileHeaderUserData>
+                <DataInput
+                  {...StyledConfig.nickNameWrapper}
+                  key={localUserData.nickName}
+                  value={localUserData.nickName}
+                  callBack={value =>
+                    editUserData({ key: UserDataStoreKeys.NICKNAME, value })
+                  }
+                />
+                <MoneyWrapper count={localUserData.money} />
+              </ProfileHeaderUserData>
+            </ProfileHeader>
           <UserInfoBlockWrapper>
+            <RowWrapper {...StyledConfig.userInfoRow}>
             <TitleWrapper {...StyledConfig.titleWrapperInfo}>
               Информация
             </TitleWrapper>
+            {!editMode ? <CustomButton
+            callback={() => toggleInputEdit()}
+            {...StyledConfig.editButton}
+          /> : null}
+            </RowWrapper>
             <InputsWrapper>
               <DataInput
-                title="Имя"
-                key={2}
+                editMode = {editMode}
+                title="Никнейм"
+                key={localUserData.name}
                 value={localUserData.name}
                 callBack={value =>
                   editUserData({ key: UserDataStoreKeys.NAME, value })
                 }
               />
               <DataInput
-                title="Фамилия"
-                key={3}
+                editMode = {editMode}
+                title="Имя помощника"
+                key={localUserData.surname}
                 value={localUserData.surname}
                 callBack={value =>
                   editUserData({ key: UserDataStoreKeys.SURNAME, value })
                 }
               />
               <DataInput
+                editMode = {editMode}
                 title="Название города"
-                key={4}
+                key={localUserData.cityName}
                 value={localUserData.cityName}
                 callBack={value =>
                   editUserData({ key: UserDataStoreKeys.CITY_NAME, value })
                 }
               />
             </InputsWrapper>
-            <TitleWrapper {...StyledConfig.titleWrapperInfo}>
-              Аккаунт
-            </TitleWrapper>
-            <AccountData>
-              <TitleWrapper {...StyledConfig.titleWrapperPhone}>
-                Телефон
-                <PhoneWrapper>{localUserData.phoneNumber}</PhoneWrapper>
-              </TitleWrapper>
-              <CustomButton
-                callback={() => CookieService.resetToken()}
-                {...StyledConfig.button}
-              />
-            </AccountData>
+            {editMode ? <RowWrapper {...StyledConfig.inEditModeRow}>
+             <CustomButton
+            callback={() => toggleInputEdit()}
+            {...StyledConfig.saveButton}
+          />
+            </RowWrapper>: null}
+
+            {!editMode ?<RowWrapper {...StyledConfig.inEditModeRow}>
+             <CustomButton
+            callback={() => CookieService.resetToken()}
+            {...StyledConfig.exitButton}
+          />
+            </RowWrapper> : null}
+
           </UserInfoBlockWrapper>
         </React.Fragment>
       ) : (
