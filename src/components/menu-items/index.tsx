@@ -12,11 +12,10 @@ const MenuWrapper = styled.div`
   justify-content: flex-start;
   align-items: center;
   background: url(${background}) no-repeat center;
-  background-size: 100% 100%;
+  background-size: cover;
   flex-shrink: 0;
   position: relative;
 `;
-
 
 type MenuItemsComponentProps = {
   selectedMenuItem: MenuItems;
@@ -38,7 +37,7 @@ export const MenuItemsComponent: React.FC<MenuItemsComponentProps> = ({
             key={el}
             menuElement={el}
             isItemSelected={selectedMenuItem === el}
-            haveNotify = {checkHaveNotify(currentNotifysList, el)}
+            haveNotify={checkHaveNotify(currentNotifysList, el)}
             onClickHandler={() => callBack(el)}
           />
         );
