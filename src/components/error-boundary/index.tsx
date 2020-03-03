@@ -44,7 +44,7 @@ const StyledConfig = {
   },
 };
 
-export const Errors = () => {
+export const ErrorBoundary = () => {
   const { errorFlag, text } = useStore(ErrorBoundaryStore);
   const closeErrorPopup = () => {
     dispatchClearErrorEvent();

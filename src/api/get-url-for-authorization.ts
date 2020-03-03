@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { errorHandler } from '../utils/error-handler';
+import { errorParsingHOF } from '../utils/error-handler';
 
 interface GetUrlProp {
   data: { url: string };
@@ -10,7 +10,7 @@ export const httpRequestGet = async (url: string): Promise<GetUrlProp> => {
     const response = await axios.get(url);
     return response;
   } catch (error) {
-    errorHandler(error.response.status);
+    errorParsingHOF(error.response.status);
     throw new Error('API Error');
   }
 };
