@@ -17,6 +17,7 @@ import { Directions } from '../../UI/tutorial-arrow';
 import { HeaderComponent } from '../header';
 import { RowWrapper } from '../../UI/row-wrapper';
 import { ColumnWrapper } from '../../UI/column-wrapper';
+import { Overlay } from '../../UI/overlay';
 
 const StyledConfig = {
   exitButton: {
@@ -28,10 +29,6 @@ const StyledConfig = {
   mainWrapper: {
     height: '820px',
     zIndex: 20,
-    position: 'absolute',
-    top: 50,
-    left: 50,
-    transformTranslate: '-50%, -50%',
     width: '1250px',
   },
   avatar: {
@@ -59,6 +56,9 @@ const StyledConfig = {
   header: {
     height: '85px',
   },
+  overlay: {
+    zIndex: 20,
+  },
 };
 
 export const Menu: React.FC<{ displayFlag: boolean }> = ({ displayFlag }) => {
@@ -75,22 +75,24 @@ export const Menu: React.FC<{ displayFlag: boolean }> = ({ displayFlag }) => {
   };
 
   return (
-    <ColumnWrapper {...StyledConfig.mainWrapper} displayFlag={displayFlag}>
-      <HeaderComponent {...StyledConfig.header}>
-        <ExitButton
-          {...StyledConfig.exitButton}
-          callBack={() => menuClosed()}
-        />
-      </HeaderComponent>
-      <RowWrapper {...StyledConfig.rowWrapper}>
-        <MenuItemsComponent
-          tutorialCondition={tutorialCondition}
-          currentNotifysList={[MenuItems.TASKS, MenuItems.FEEDBACK]} // TODO get real data from somewhere
-          selectedMenuItem={selectedMenuItem || MenuItems.PROFILE}
-          callBack={menuItemsComponentCallBack}
-        />
-        <MenuContent content={selectedMenuItem || MenuItems.PROFILE} />
-      </RowWrapper>
-    </ColumnWrapper>
+    <Overlay displayFlag={displayFlag} {...StyledConfig.overlay}>
+      <ColumnWrapper {...StyledConfig.mainWrapper} displayFlag={displayFlag}>
+        <HeaderComponent {...StyledConfig.header}>
+          <ExitButton
+            {...StyledConfig.exitButton}
+            callBack={() => menuClosed()}
+          />
+        </HeaderComponent>
+        <RowWrapper {...StyledConfig.rowWrapper}>
+          <MenuItemsComponent
+            tutorialCondition={tutorialCondition}
+            currentNotifysList={[MenuItems.TASKS, MenuItems.FEEDBACK]} // TODO get real data from somewhere
+            selectedMenuItem={selectedMenuItem || MenuItems.PROFILE}
+            callBack={menuItemsComponentCallBack}
+          />
+          <MenuContent content={selectedMenuItem || MenuItems.PROFILE} />
+        </RowWrapper>
+      </ColumnWrapper>
+    </Overlay>
   );
 };

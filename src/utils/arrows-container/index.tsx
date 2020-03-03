@@ -45,7 +45,7 @@ export const TutorialToolsSelector: React.FC<ArrowsContainerProps> = ({
           />
         );
       else return <Fragment />;
-    case TutorialConditions.DIALOG:
+    case TutorialConditions.OFF:
       return <TutorialDialog />;
     default:
       return <Fragment />;
