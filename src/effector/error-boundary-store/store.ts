@@ -20,6 +20,4 @@ export const ErrorBoundaryStore = ErrorBoundary.store<ErrorStoreProps>(
       errorFlag: errorFlag,
     };
   })
-  .on(dispatchClearErrorEvent, state => {
-    return { ...state, errorFlag: false };
-  });
+  .reset(dispatchClearErrorEvent);

@@ -1,17 +1,24 @@
 import axios from 'axios';
-import { apiRoutes } from './index';
+import { apiRoutes, errorCodes } from './index';
 import { dispatchErrorEvent } from '../effector/error-boundary-store/events';
 
-interface GetUrlProp {
-  url: string;
-}
+type AxiosError = {
+  response: {
+    status: number;
+  };
+};
 
-export const getUrlForAuthorization = async (): Promise<GetUrlProp> => {
-  try {
-    const response = await axios.get(apiRoutes.GET_URL);
-    return response.data;
-  } catch {
-    dispatchErrorEvent({ errorFlag: true, text: 'Cant get authData' });
-    throw new Error('API error'); // TODO: надо позже добавить в стор флажок о наличие ошибок с текстом, и сделать popup с текстом ошибки.
-  }
+export const getUrlForAuthorization = async (): Promise<string> => {
+  let responseString = '';
+  await axios
+    .get(apiRoutes.GET_URL)
+    .then(response => (responseString = response.data.url))
+    .catch((error: AxiosError) => {
+      responseString = 'fail';
+      dispatchErrorEvent({
+        errorFlag: true,
+        text: errorCodes[`CODEERROR_${error.response.status}`],
+      });
+    });
+  return responseString;
 };
