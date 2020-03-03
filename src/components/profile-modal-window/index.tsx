@@ -13,7 +13,7 @@ import {
   AppCondition,
   TutorialConditions,
 } from '../../effector/app-condition/store';
-import { Directions, TutorialArrow } from '../../UI/tutorial-arrow';
+import { Directions } from '../../UI/tutorial-arrow';
 import { HeaderComponent } from '../header';
 import { RowWrapper } from '../../UI/row-wrapper';
 import { ColumnWrapper } from '../../UI/column-wrapper';
@@ -67,8 +67,10 @@ export const Menu: React.FC<{ displayFlag: boolean }> = ({ displayFlag }) => {
   const menuItemsComponentCallBack = (item: MenuItems) => {
     menuOpened(item);
     if (
-      item === MenuItems.SETTINGS &&
-      tutorialCondition === TutorialConditions.SETTINGS_ARROW
+      (item === MenuItems.SETTINGS &&
+        tutorialCondition === TutorialConditions.SETTINGS_ARROW) ||
+      (item === MenuItems.PROFILE &&
+        tutorialCondition === TutorialConditions.PROFILE_ARROW)
     )
       nextTutorStep();
   };
@@ -83,16 +85,11 @@ export const Menu: React.FC<{ displayFlag: boolean }> = ({ displayFlag }) => {
       </HeaderComponent>
       <RowWrapper {...StyledConfig.rowWrapper}>
         <MenuItemsComponent
+          tutorialCondition={tutorialCondition}
           currentNotifysList={[MenuItems.TASKS, MenuItems.FEEDBACK]} // TODO get real data from somewhere
           selectedMenuItem={selectedMenuItem || MenuItems.PROFILE}
           callBack={menuItemsComponentCallBack}
         />
-
-        {tutorialCondition === TutorialConditions.SETTINGS_ARROW ? (
-          <TutorialArrow {...StyledConfig.tutorialArrow} />
-        ) : (
-          <React.Fragment />
-        )}
         <MenuContent content={selectedMenuItem || MenuItems.PROFILE} />
       </RowWrapper>
     </ColumnWrapper>

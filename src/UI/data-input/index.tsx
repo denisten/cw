@@ -88,7 +88,6 @@ export const DataInput: React.FC<DataInputProps> = ({
   const onBlurHandler = () => {
     callBack(content);
   };
-
   return (
     <DataInputWrapper {...styledProps}>
       <TitleWrapper>{title}</TitleWrapper>

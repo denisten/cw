@@ -59,8 +59,6 @@ const ProfileHeader = styled.div`
   left: 34px;
 `;
 
-const ProfileHeaderUserData = styled.div``;
-
 const StyledConfig = {
   nonAuthorizedAvatar: {
     width: '140px',
@@ -128,7 +126,7 @@ const StyledConfig = {
   },
 };
 
-type TitleWrapperProps = {
+export type TitleWrapperProps = {
   fontSize: number;
   position?: string;
   top?: number;
@@ -154,7 +152,7 @@ const NonAuthorizedPanel = styled.div`
   flex-direction: column;
 `;
 
-const RowWrapper = styled.div<RowWrapperType>`
+export const RowWrapper = styled.div<RowWrapperType>`
   display: flex;
   align-items: center;
   box-sizing: border-box;
@@ -163,7 +161,7 @@ const RowWrapper = styled.div<RowWrapperType>`
   min-height: 52px;
 `;
 
-const Billet = styled.div`
+export const Billet = styled.div`
   width: 487px;
   height: 123px;
   background-color: #01acc8;
@@ -193,7 +191,7 @@ export const Profile = () => {
           <Billet />
           <ProfileHeader>
             <img src={avatarImg} {...StyledConfig.avatar} alt="profile" />
-            <ProfileHeaderUserData>
+            <div>
               <DataInput
                 {...StyledConfig.nickNameWrapper}
                 key={localUserData.nickName}
@@ -203,7 +201,7 @@ export const Profile = () => {
                 }
               />
               <MoneyWrapper count={localUserData.money} />
-            </ProfileHeaderUserData>
+            </div>
           </ProfileHeader>
           <UserInfoBlockWrapper>
             <RowWrapper {...StyledConfig.userInfoRow}>
@@ -273,6 +271,7 @@ export const Profile = () => {
             alt="profile"
           />
           <CustomButton
+            pulseAnim={tutorialCondition === TutorialConditions.AUTH_ARROW}
             callback={() => {
               if (tutorialCondition === TutorialConditions.AUTH_ARROW)
                 turnOffTutorialMode();

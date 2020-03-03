@@ -17,7 +17,8 @@ const TutorialDialogWrapper = styled.div`
   display: flex;
   padding-left: 5%;
   box-sizing: border-box;
-  font-size: 1.3em;
+  font-size: 20px;
+  line-height: 24px;
   z-index: ${ZIndexes.TUTORIAL};
 `;
 
@@ -55,7 +56,6 @@ export const CustomButton = styled.div<ButtonProps>`
   align-items: center;
   color: #fff;
   cursor: pointer;
-  font-size: 100%;
   border: 1px solid;
 `;
 

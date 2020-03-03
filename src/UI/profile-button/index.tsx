@@ -43,10 +43,7 @@ export const ProfileButton: React.FC<ProfileButtonProps> = ({
       menuOpened(MenuItems.PROFILE);
       return;
     }
-    if (
-      tutorialCondition === TutorialConditions.MENU_ARROW ||
-      tutorialCondition === TutorialConditions.MENU_ARROW_2
-    ) {
+    if (tutorialCondition === TutorialConditions.MENU_ARROW) {
       menuOpened(MenuItems.PROFILE);
       nextTutorStep();
     }

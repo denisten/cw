@@ -29,10 +29,10 @@ export enum Directions {
 }
 
 export enum RotationDeg {
-  RIGHT = 0,
-  BOTTOM = 90,
-  LEFT = 180,
-  TOP = 270,
+  BOTTOM = 0,
+  LEFT = 90,
+  TOP = 180,
+  RIGHT = 270,
 }
 
 type ArrowImgWrapperProps = {
@@ -74,9 +74,9 @@ const ArrowImgWrapper = styled.img<ArrowImgWrapperProps>`
   right: ${props => props.right}%;
   bottom: ${props => props.bottom}%;
   top: ${props => props.top}%;
-  width: 50px;
-  height: 50px;
-  z-index: ${ZIndexes.TUTORIAL};
+  width: 105px;
+  height: 175px;
+  z-index: 80;
   transform: rotate(${props => detectRotation(props.direction)}deg);
   animation-name: ${props =>
     detectAnimationRotation(props.direction, props.range)};
@@ -85,7 +85,6 @@ const ArrowImgWrapper = styled.img<ArrowImgWrapperProps>`
   animation-timing-function: linear;
   animation-fill-mode: both;
   animation-direction: alternate;
-  border: 4px solid;
 `;
 
 export const TutorialArrow: React.FC<ArrowImgWrapperProps> = props => {

@@ -36,7 +36,7 @@ export enum TutorialConditions {
   SETTINGS_ARROW = 6,
   CHANGE_CITY_NAME_ARROW = 7,
   SAVE_CITY_NAME_ARROW = 8,
-  MENU_ARROW_2 = 9,
+  PROFILE_ARROW = 9,
   AUTH_ARROW = 10,
 }
 
