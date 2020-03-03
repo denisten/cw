@@ -38,8 +38,8 @@ export const TutorialToolsSelector: React.FC<ArrowsContainerProps> = ({
       if (isInsideScrollContainer)
         return (
           <TutorialArrow
-            top={29}
-            left={46.4}
+            top={28}
+            left={45.4}
             range={0.5}
             direction={Directions.RIGHT}
           />

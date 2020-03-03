@@ -59,8 +59,6 @@ const ProfileHeader = styled.div`
   left: 34px;
 `;
 
-export const ProfileHeaderUserData = styled.div``;
-
 const StyledConfig = {
   nonAuthorizedAvatar: {
     width: '140px',
@@ -193,7 +191,7 @@ export const Profile = () => {
           <Billet />
           <ProfileHeader>
             <img src={avatarImg} {...StyledConfig.avatar} alt="profile" />
-            <ProfileHeaderUserData>
+            <div>
               <DataInput
                 {...StyledConfig.nickNameWrapper}
                 key={localUserData.nickName}
@@ -203,7 +201,7 @@ export const Profile = () => {
                 }
               />
               <MoneyWrapper count={localUserData.money} />
-            </ProfileHeaderUserData>
+            </div>
           </ProfileHeader>
           <UserInfoBlockWrapper>
             <RowWrapper {...StyledConfig.userInfoRow}>

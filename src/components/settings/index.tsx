@@ -10,12 +10,7 @@ import { DataInput } from '../../UI/data-input';
 import { editUserData } from '../../effector/user-data/events';
 import { MoneyWrapper } from '../../UI/money-wrapper';
 import { CustomButton } from '../../UI/button';
-import {
-  Billet,
-  ProfileHeaderUserData,
-  RowWrapper,
-  TitleWrapperProps,
-} from '../profile';
+import { Billet, RowWrapper, TitleWrapperProps } from '../profile';
 import {
   AppCondition,
   TutorialConditions,
@@ -120,7 +115,7 @@ export const Settings = () => {
       <Billet />
       <ProfileHeader>
         <img src={avatarImg} {...StyledConfig.avatar} alt="profile" />
-        <ProfileHeaderUserData>
+        <div>
           <DataInput
             {...StyledConfig.nickNameWrapper}
             key={localUserData.nickName}
@@ -130,7 +125,7 @@ export const Settings = () => {
             }
           />
           <MoneyWrapper count={localUserData.money} />
-        </ProfileHeaderUserData>
+        </div>
       </ProfileHeader>
       <UserInfoBlockWrapper>
         <RowWrapper {...StyledConfig.userInfoRow}>
