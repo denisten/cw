@@ -1,5 +1,5 @@
-import { ErrorBoundary } from './domain';
-import { dispatchErrorEvent, resetErrorStore } from './events';
+import { ErrorBoundaryDomain } from './domain';
+import { coughtError, resetErrorStore } from './events';
 
 interface IErrorStore {
   text: string;
@@ -10,8 +10,10 @@ const initStore: IErrorStore = {
   text: '',
   errorFlag: false,
 };
-export const ErrorBoundaryStore = ErrorBoundary.store<IErrorStore>(initStore)
-  .on(dispatchErrorEvent, (state, { text }) => {
+export const ErrorBoundaryStore = ErrorBoundaryDomain.store<IErrorStore>(
+  initStore
+)
+  .on(coughtError, (state, { text }) => {
     return {
       ...state,
       text,

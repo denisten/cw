@@ -1,3 +1,3 @@
 import { createDomain } from 'effector';
 
-export const ErrorBoundary = createDomain();
+export const ErrorBoundaryDomain = createDomain();

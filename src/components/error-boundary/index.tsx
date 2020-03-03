@@ -23,7 +23,7 @@ const OverLay = styled.div<OverlayProps>`
   position: fixed;
   left: 0;
   top: 0;
-  z-index: ${ZIndexes.error};
+  z-index: ${ZIndexes.ERROR};
 `;
 
 const ErrorText = styled.span`

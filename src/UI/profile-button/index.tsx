@@ -25,7 +25,7 @@ const MoneyCounterWrapper = styled.span<MoneyCounterWrapperProps>`
 
 const StyleConfig = {
   height: '10.1%',
-  zIndex: ZIndexes.uIButton,
+  zIndex: ZIndexes.UI_BUTTON,
   top: 3.7,
   left: 3.2,
   hoverFlag: true,

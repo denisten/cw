@@ -28,7 +28,7 @@ const StyledConfig = {
   },
   mainWrapper: {
     height: '820px',
-    zIndex: ZIndexes.modal,
+    zIndex: ZIndexes.MODAL,
     position: 'absolute',
     top: 50,
     left: 50,

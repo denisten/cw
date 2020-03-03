@@ -10,7 +10,7 @@ const ScaleButtonWrapper = styled.button<ScaleButtonWrapperProps>`
   right: ${props => props.right}%;
   width: ${props => props.width}%;
   height: ${props => props.height}%;
-  z-index: ${ZIndexes.uIButton};
+  z-index: ${ZIndexes.UI_BUTTON};
 `;
 
 export const ScaleButton: React.FC<ScaleButtonProps> = ({

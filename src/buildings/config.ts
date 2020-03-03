@@ -77,7 +77,7 @@ export class BuildingsService {
       info: 'info',
       title: 'Тариф минуты',
       coords: [3672, 2036],
-      zIndex: ZIndexes.buildingTwoLevel,
+      zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
       [TowerLevel.low]: {
         img: mainTowerLevel1Img,
@@ -108,7 +108,7 @@ export class BuildingsService {
       info: 'info',
       title: 'МТС музыка',
       coords: [3115, 2455],
-      zIndex: ZIndexes.buildingTwoLevel,
+      zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
       [TowerLevel.low]: {
         img: musicTowerLevel1Img,
@@ -139,7 +139,7 @@ export class BuildingsService {
       info: 'info',
       title: 'МТС Арена',
       coords: [3537, 1408],
-      zIndex: ZIndexes.buildingOneLevel,
+      zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.mid,
       [TowerLevel.low]: {
         // TODO: не настоящая картинка
@@ -172,7 +172,7 @@ export class BuildingsService {
       info: 'info',
       title: 'Молл',
       coords: [4156, 1458],
-      zIndex: ZIndexes.buildingOneLevel,
+      zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
       [TowerLevel.low]: {
         img: mollTowerLevel1Img,
@@ -203,7 +203,7 @@ export class BuildingsService {
       info: 'info',
       title: 'Мой МТС',
       coords: [4095, 1996],
-      zIndex: ZIndexes.buildingTwoLevel,
+      zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
       [TowerLevel.low]: {
         // TODO: не настоящая картинка
@@ -236,7 +236,7 @@ export class BuildingsService {
       info: 'info',
       title: 'Библиотека',
       coords: [2256, 2490],
-      zIndex: ZIndexes.buildingTwoLevel,
+      zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
       [TowerLevel.low]: {
         img: libraryTowerLevel1Img,
@@ -267,7 +267,7 @@ export class BuildingsService {
       info: 'info',
       title: 'Домашний интернет',
       coords: [2688, 1833],
-      zIndex: ZIndexes.buildingThreeLevel,
+      zIndex: ZIndexes.BUILDING_THREE_LEVEL,
       maxLevel: TowerLevel.mid,
       [TowerLevel.low]: {
         // TODO: не настоящая картинка
@@ -300,7 +300,7 @@ export class BuildingsService {
       info: 'info',
       title: 'Тариф ГБ',
       coords: [3867, 1809],
-      zIndex: ZIndexes.buildingOneLevel,
+      zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.mid,
       [TowerLevel.low]: {
         // TODO: не настоящая картинка
@@ -333,7 +333,7 @@ export class BuildingsService {
       info: 'info',
       title: 'Афиша',
       coords: [2964, 1643],
-      zIndex: ZIndexes.buildingOneLevel,
+      zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.mid,
       [TowerLevel.low]: {
         // TODO: не настоящая картинка
@@ -366,7 +366,7 @@ export class BuildingsService {
       info: 'info',
       title: 'Цифровое ТВ',
       coords: [2262, 1726],
-      zIndex: ZIndexes.buildingTwoLevel,
+      zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.mid,
       [TowerLevel.low]: {
         // TODO: не настоящая картинка
@@ -399,7 +399,7 @@ export class BuildingsService {
       info: 'info',
       title: 'Фитнес',
       coords: [2676, 2362],
-      zIndex: ZIndexes.buildingOneLevel,
+      zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
       [TowerLevel.low]: {
         img: stadiumLevel1Img,
@@ -430,7 +430,7 @@ export class BuildingsService {
       info: 'info',
       title: 'Роуминг',
       coords: [2481, 1244],
-      zIndex: ZIndexes.buildingOneLevel,
+      zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
       [TowerLevel.low]: {
         img: airportLevel1Img,
@@ -461,7 +461,7 @@ export class BuildingsService {
       info: 'info',
       title: 'МТС Деньги',
       coords: [5079, 1441],
-      zIndex: ZIndexes.buildingOneLevel,
+      zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.mid,
       // TODO: не настоящая картинка
       [TowerLevel.low]: {
@@ -494,7 +494,7 @@ export class BuildingsService {
       info: 'info',
       title: 'Банк',
       coords: [5404, 1763],
-      zIndex: ZIndexes.buildingOneLevel,
+      zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.mid,
       // TODO: не настоящая картинка
       [TowerLevel.low]: {
@@ -527,7 +527,7 @@ export class BuildingsService {
       info: 'info',
       title: 'WASD',
       coords: [4860, 2526],
-      zIndex: ZIndexes.buildingOneLevel,
+      zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.low,
       [TowerLevel.low]: {
         img: cyberArenaLevel1Img,
@@ -560,7 +560,7 @@ export class BuildingsService {
       info: 'info',
       title: 'Салоный связи',
       coords: [4933, 1921],
-      zIndex: ZIndexes.buildingOneLevel,
+      zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.low,
       [TowerLevel.low]: {
         img: factoryLevel1Img,
@@ -593,7 +593,7 @@ export class BuildingsService {
       info: 'info',
       title: 'Спутниковое TV',
       coords: [2530, 1904],
-      zIndex: ZIndexes.buildingTwoLevel,
+      zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.low,
       [TowerLevel.low]: {
         img: satelliteTvLevel1Img,
@@ -626,7 +626,7 @@ export class BuildingsService {
       info: 'info',
       title: 'Здание партнера',
       coords: [3958, 2773],
-      zIndex: ZIndexes.buildingTwoLevel,
+      zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.low,
       [TowerLevel.low]: {
         img: partnerBlueLevel1Img,
@@ -659,7 +659,7 @@ export class BuildingsService {
       info: 'info',
       title: 'Здание партнера 2',
       coords: [3718, 2932],
-      zIndex: ZIndexes.buildingTwoLevel,
+      zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.low,
       [TowerLevel.low]: {
         img: partnerYellowLevel1Img,
@@ -692,7 +692,7 @@ export class BuildingsService {
       info: 'info',
       title: 'Игротека',
       coords: [4523, 2978],
-      zIndex: ZIndexes.buildingTwoLevel,
+      zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.low,
       [TowerLevel.low]: {
         img: slotMachineLevel1Img,
@@ -725,7 +725,7 @@ export class BuildingsService {
       info: 'info',
       title: 'Роутер',
       coords: [5276, 2832],
-      zIndex: ZIndexes.buildingTwoLevel,
+      zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.low,
       [TowerLevel.low]: {
         img: routerLevel1Img,
@@ -758,7 +758,7 @@ export class BuildingsService {
       info: 'info',
       title: 'МТС авто',
       coords: [4293, 3233],
-      zIndex: ZIndexes.buildingTwoLevel,
+      zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.low,
       [TowerLevel.low]: {
         img: autoFactoryLevel1Img,
@@ -791,7 +791,7 @@ export class BuildingsService {
       info: 'info',
       title: 'РТК',
       coords: [5445, 2187],
-      zIndex: ZIndexes.buildingTwoLevel,
+      zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.low,
       [TowerLevel.low]: {
         img: rtkLevel1Img,

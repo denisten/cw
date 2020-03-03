@@ -25,7 +25,7 @@ export const MapFragment: React.FC<MapFragmentProps> = ({
   const treeWrapperStyle = {
     ...style,
     position: 'absolute',
-    zIndex: ZIndexes.decoration,
+    zIndex: ZIndexes.DECORATION,
   } as React.CSSProperties;
   return (
     <MapFragmentWrapper>

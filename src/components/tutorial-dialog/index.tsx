@@ -18,7 +18,7 @@ const TutorialDialogWrapper = styled.div`
   padding-left: 5%;
   box-sizing: border-box;
   font-size: 1.3em;
-  z-index: ${ZIndexes.tutorial};
+  z-index: ${ZIndexes.TUTORIAL};
 `;
 
 const SupportImgWrapper = styled.img`

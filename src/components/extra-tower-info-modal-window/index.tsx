@@ -19,7 +19,7 @@ enum marginRightValues {
 
 export const ModalWindowWrapper = styled.div<ModalWindowProps>`
   position: absolute;
-  z-index: ${ZIndexes.modal};
+  z-index: ${ZIndexes.MODAL};
   right: 0;
   width: 35%;
   height: 100%;

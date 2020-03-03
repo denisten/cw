@@ -23,7 +23,7 @@ const CarBlock = styled.div<CarProps>`
   animation-direction: normal;
   animation-iteration-count: infinite;
   animation-name: ${props => props.animationName};
-  z-index: ${ZIndexes.cars};
+  z-index: ${ZIndexes.CARS};
 `;
 
 export const Car: React.FC<CarConfigureType> = ({ carStyle }) => {
