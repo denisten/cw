@@ -1,5 +1,5 @@
 import { ErrorBoundaryStore } from '../../effector/error-boundary-store/store';
-import { dispatchClearErrorEvent } from '../../effector/error-boundary-store/events';
+import { resetErrorStore } from '../../effector/error-boundary-store/events';
 import React from 'react';
 import styled from 'styled-components';
 import { useStore } from 'effector-react';
@@ -47,7 +47,7 @@ const StyledConfig = {
 export const ErrorBoundary = () => {
   const { errorFlag, text } = useStore(ErrorBoundaryStore);
   const closeErrorPopup = () => {
-    dispatchClearErrorEvent();
+    resetErrorStore();
   };
   return (
     <>

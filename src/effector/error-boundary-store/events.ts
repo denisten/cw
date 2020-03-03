@@ -1,13 +1,11 @@
 import { ErrorBoundary } from './domain';
 
-interface Event1props {
+interface IErrorPayload {
   text: string;
 }
 
-export const dispatchErrorEvent = ErrorBoundary.event<Event1props>(
+export const dispatchErrorEvent = ErrorBoundary.event<IErrorPayload>(
   'dispatching add error '
 );
 
-export const dispatchClearErrorEvent = ErrorBoundary.event(
-  'dispatching clearError '
-);
+export const resetErrorStore = ErrorBoundary.event('dispatching clearError ');
