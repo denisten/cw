@@ -3,11 +3,6 @@ import styled from 'styled-components';
 import notifyIcon from '../../img/notify-icons/notify.png';
 import { pulseAnimationHOF } from '../../hoc/pulse-anim';
 
-type MenuParagraphWrapperProps = {
-  menuElement: MenuItems;
-  isItemSelected: boolean;
-};
-
 export enum MenuItems {
   PROFILE = 'profile',
   TASKS = 'tasks',
@@ -24,7 +19,7 @@ const TranslatedMenuItems = {
   [MenuItems.DOCUMENTS]: 'Документы и оферта',
 };
 
-const MenuParagraphWrapper = styled.div<MenuParagraphWrapperProps>`
+const MenuParagraphWrapper = styled.div<IMenuParagraphWrapper>`
   height: 80px;
   width: 100%;
   display: flex;
@@ -51,10 +46,7 @@ const Notify = styled.div`
   background-size: 100% 100%;
   flex-shrink: 0;
 `;
-
-const MenuParagraphTitleWrapper = styled.div<{
-  pulseAnim: boolean;
-}>`
+const MenuParagraphTitleWrapper = styled.div<IMenuParagraphTitleWrapper>`
   cursor: pointer;
   animation-name: ${props =>
     props.pulseAnim ? pulseAnimationHOF('159, 169, 176') : 'none'};
@@ -64,13 +56,7 @@ const MenuParagraphTitleWrapper = styled.div<{
   animation-duration: 0.6s;
 `;
 
-interface MenuParagraphProps extends MenuParagraphWrapperProps {
-  onClickHandler: () => void;
-  haveNotify: boolean;
-  pulseAnim: boolean;
-}
-
-export const MenuNavigationElement: React.FC<MenuParagraphProps> = ({
+export const MenuNavigationElement: React.FC<IMenuParagraph> = ({
   menuElement,
   isItemSelected,
   onClickHandler,
@@ -91,3 +77,18 @@ export const MenuNavigationElement: React.FC<MenuParagraphProps> = ({
     </MenuParagraphWrapper>
   );
 };
+
+interface IMenuParagraphTitleWrapper {
+  pulseAnim: boolean;
+}
+
+interface IMenuParagraphWrapper {
+  menuElement: MenuItems;
+  isItemSelected: boolean;
+}
+
+interface IMenuParagraph extends IMenuParagraphWrapper {
+  onClickHandler: () => void;
+  haveNotify: boolean;
+  pulseAnim: boolean;
+}
