@@ -56,7 +56,7 @@ export const ErrorBoundary = () => {
           <ErrorText>{text}</ErrorText>
           <ExitButton
             {...StyledConfig.closeButton}
-            callBack={() => closeErrorPopup()}
+            callBack={closeErrorPopup}
           />
         </ErrorBody>
       </OverLay>
