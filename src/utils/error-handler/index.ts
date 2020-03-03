@@ -3,6 +3,6 @@ import { errorCodes } from './error-codes';
 
 export const errorParsingHOF = (errorCode: number) => {
   coughtError({
-    text: errorCodes[`CODEERROR_${errorCode}`],
+    text: errorCodes[errorCode],
   });
 };

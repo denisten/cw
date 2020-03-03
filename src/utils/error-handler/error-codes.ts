@@ -1,7 +1,7 @@
 type ErrorCodeType = {
-  [key: string]: string;
+  [key: number]: string;
 };
 
 export const errorCodes: ErrorCodeType = {
-  CODEERROR_404: 'Адрес не найден',
+  404: 'Адрес не найден',
 };
