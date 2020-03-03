@@ -1,19 +1,14 @@
 import axios from 'axios';
-import { apiRoutes } from './index';
 import { errorHandler } from '../utils/error-handler';
 
-type Response = {
-  data: {
-    url: string;
-  };
-};
+interface GetUrlProp {
+  url: string;
+}
 
-export const httpRequestGet = async (
-  url: string
-): Promise<Response | Error> => {
+export const httpRequestGet = async (url: string): Promise<GetUrlProp> => {
   try {
     const response = await axios.get(url);
-    return response;
+    return response.data;
   } catch (error) {
     errorHandler(error.response.status);
     throw new Error('API Error');
