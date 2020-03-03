@@ -1,8 +1,5 @@
 import { ErrorBoundaryStore } from '../../effector/error-boundary-store/store';
-import {
-  dispatchErrorEvent,
-  dispatchClearErrorEvent,
-} from '../../effector/error-boundary-store/events';
+import { dispatchClearErrorEvent } from '../../effector/error-boundary-store/events';
 import React from 'react';
 import styled from 'styled-components';
 import { useStore } from 'effector-react';
@@ -63,13 +60,6 @@ export const Errors = () => {
           />
         </ErrorBody>
       </OverLay>
-      <button
-        onClick={() => dispatchErrorEvent({ errorFlag: true, text: 'asdf' })}
-      >
-        {errorFlag}
-        <br />
-        {text}
-      </button>
     </>
   );
 };
