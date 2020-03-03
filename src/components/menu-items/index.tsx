@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { MenuItems, MenuNavigationElement } from '../../UI/menu-paragraph';
 import background from './background.png';
 import { checkHaveNotify } from '../../utils/check-have-notify';
+import { TutorialConditions } from '../../effector/app-condition/store';
 
 const MenuWrapper = styled.div`
   width: 406px;
@@ -21,12 +22,14 @@ type MenuItemsComponentProps = {
   selectedMenuItem: MenuItems;
   callBack: (props: MenuItems) => void;
   currentNotifysList: Array<string>;
+  tutorialCondition: TutorialConditions;
 };
 
 export const MenuItemsComponent: React.FC<MenuItemsComponentProps> = ({
   selectedMenuItem,
   callBack,
   currentNotifysList,
+  tutorialCondition,
 }) => {
   const MenuItemsObjectValues = Object.values(MenuItems) as MenuItems[];
   return (
@@ -34,6 +37,12 @@ export const MenuItemsComponent: React.FC<MenuItemsComponentProps> = ({
       {MenuItemsObjectValues.map(el => {
         return (
           <MenuNavigationElement
+            pulseAnim={
+              (el === MenuItems.SETTINGS &&
+                tutorialCondition === TutorialConditions.SETTINGS_ARROW) ||
+              (el === MenuItems.PROFILE &&
+                tutorialCondition === TutorialConditions.PROFILE_ARROW)
+            }
             key={el}
             menuElement={el}
             isItemSelected={selectedMenuItem === el}

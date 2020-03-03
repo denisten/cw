@@ -1,6 +1,5 @@
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
-import penImg from './pen.png';
 const DataInputWrapper = styled.div<DataInputWrapperProps>`
   width: auto;
   display: flex;
@@ -88,13 +87,6 @@ export const DataInput: React.FC<DataInputProps> = ({
 
   const onBlurHandler = () => {
     callBack(content);
-  };
-  const onClickHandler = () => {
-    setTimeout(() => {
-      if (inputRef.current) {
-        inputRef.current.focus();
-      }
-    });
   };
   return (
     <DataInputWrapper {...styledProps}>

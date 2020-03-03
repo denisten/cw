@@ -1,22 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import avatarImg from '../../img/avatars/1-1.png';
 import { useStore } from 'effector-react';
 import {
-  UserDataStoreKeys,
   UserDataStore,
+  UserDataStoreKeys,
 } from '../../effector/user-data/store';
 import styled from 'styled-components';
 import { DataInput } from '../../UI/data-input';
 import { editUserData } from '../../effector/user-data/events';
+import { MoneyWrapper } from '../../UI/money-wrapper';
+import { CustomButton } from '../../UI/button';
+import { Billet, RowWrapper, TitleWrapperProps } from '../profile';
+import {
+  AppCondition,
+  TutorialConditions,
+} from '../../effector/app-condition/store';
 import { nextTutorStep } from '../../effector/app-condition/events';
 
 const UserInfoBlockWrapper = styled.div`
   width: 100%;
-  height: 72%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
+  justify-content: space-evenly;
 `;
 
 const TitleWrapper = styled.div<TitleWrapperProps>`
@@ -28,87 +33,156 @@ const TitleWrapper = styled.div<TitleWrapperProps>`
   left: ${props => props.left}%;
   bottom: ${props => props.bottom}%;
   right: ${props => props.right}%;
+  margin: ${props => props.margin};
 `;
 
-const ProfileWrapper = styled.div`
-  width: 100%;
-  height: 100%;
-`;
 const InputsWrapper = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: space-around;
   flex-direction: column;
-  height: 54%;
   width: 60%;
+  padding-left: 72px;
+  box-sizing: border-box;
 `;
 
 const ProfileHeader = styled.div`
   display: flex;
-  justify-content: center;
-  height: 28%;
+  position: absolute;
+  top: -20px;
+  left: 34px;
 `;
 
 const StyledConfig = {
   avatar: {
-    height: '80%',
+    height: '133px',
+    border: 'solid 2px #ffffff',
   },
   titleWrapperInfo: {
     fontSize: 1.8,
+    margin: '0 30px 0 0',
+  },
+  nickNameWrapper: {
+    title: '',
+    minWidth: 170,
+    fontSize: '2',
+    color: 'white',
+    margin: '35px 0px 0 0',
+  },
+  editButton: {
+    width: '250px',
+    height: '52px',
+    content: 'Редактировать',
+    fontSize: '25.5px',
+  },
+  saveButton: {
+    width: '201px',
+    height: '52px',
+    content: 'Сохранить',
+    fontSize: '28.5px',
+    margin: '115px 0 0 0',
+  },
+  userInfoRow: {
+    paddingLeft: '50px',
+    margin: '0 0 30px 0',
+  },
+  inEditModeRow: {
+    paddingLeft: '238px',
   },
 };
-
-type TitleWrapperProps = {
-  fontSize: number;
-  position?: string;
-  top?: number;
-  left?: number;
-  bottom?: number;
-  right?: number;
-  width?: number;
-};
+const ProfileWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  position: relative;
+`;
 
 export const Settings = () => {
   const localUserData = useStore(UserDataStore);
+  const { tutorialCondition } = useStore(AppCondition);
+
+  const [editMode, setEditMode] = useState(false);
+  const toggleInputEdit = () => {
+    if (
+      tutorialCondition === TutorialConditions.CHANGE_CITY_NAME_ARROW ||
+      tutorialCondition === TutorialConditions.SAVE_CITY_NAME_ARROW
+    )
+      nextTutorStep();
+    setEditMode(!editMode);
+  };
+
   return (
     <ProfileWrapper>
-      <React.Fragment>
-        <ProfileHeader>
-          <img src={avatarImg} {...StyledConfig.avatar} alt="profile" />
-        </ProfileHeader>
-        <UserInfoBlockWrapper>
+      <Billet />
+      <ProfileHeader>
+        <img src={avatarImg} {...StyledConfig.avatar} alt="profile" />
+        <div>
+          <DataInput
+            {...StyledConfig.nickNameWrapper}
+            key={localUserData.nickName}
+            value={localUserData.nickName}
+            callBack={value =>
+              editUserData({ key: UserDataStoreKeys.NICKNAME, value })
+            }
+          />
+          <MoneyWrapper count={localUserData.money} />
+        </div>
+      </ProfileHeader>
+      <UserInfoBlockWrapper>
+        <RowWrapper {...StyledConfig.userInfoRow}>
           <TitleWrapper {...StyledConfig.titleWrapperInfo}>
             Информация
           </TitleWrapper>
-          <InputsWrapper>
-            <DataInput
-              title="Имя"
-              key={2}
-              value={localUserData.name}
-              callBack={value =>
-                editUserData({ key: UserDataStoreKeys.NAME, value })
+          {!editMode ? (
+            <CustomButton
+              pulseAnim={
+                tutorialCondition === TutorialConditions.CHANGE_CITY_NAME_ARROW
               }
+              callback={() => toggleInputEdit()}
+              {...StyledConfig.editButton}
             />
-            <DataInput
-              title="Фамилия"
-              key={3}
-              value={localUserData.surname}
-              callBack={value =>
-                editUserData({ key: UserDataStoreKeys.SURNAME, value })
+          ) : null}
+        </RowWrapper>
+        <InputsWrapper>
+          <DataInput
+            editMode={editMode}
+            title="Никнейм"
+            key={localUserData.name}
+            value={localUserData.name}
+            callBack={value =>
+              editUserData({ key: UserDataStoreKeys.NAME, value })
+            }
+          />
+          <DataInput
+            editMode={editMode}
+            title="Имя помощника"
+            key={localUserData.surname}
+            value={localUserData.surname}
+            callBack={value =>
+              editUserData({ key: UserDataStoreKeys.SURNAME, value })
+            }
+          />
+          <DataInput
+            editMode={editMode}
+            title="Название города"
+            key={localUserData.cityName}
+            value={localUserData.cityName}
+            callBack={value =>
+              editUserData({ key: UserDataStoreKeys.CITY_NAME, value })
+            }
+          />
+        </InputsWrapper>
+        {editMode ? (
+          <RowWrapper {...StyledConfig.inEditModeRow}>
+            <CustomButton
+              pulseAnim={
+                tutorialCondition === TutorialConditions.SAVE_CITY_NAME_ARROW
               }
+              callback={() => toggleInputEdit()}
+              {...StyledConfig.saveButton}
             />
-            <DataInput
-              title="Название города"
-              key={4}
-              value={localUserData.cityName}
-              callBack={value => {
-                editUserData({ key: UserDataStoreKeys.CITY_NAME, value });
-                nextTutorStep();
-              }}
-            />
-          </InputsWrapper>
-        </UserInfoBlockWrapper>
-      </React.Fragment>
+          </RowWrapper>
+        ) : null}
+      </UserInfoBlockWrapper>
     </ProfileWrapper>
   );
 };

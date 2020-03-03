@@ -12,7 +12,6 @@ const ParentDivWrapper = styled.div<ParentDivWrapperProps>`
   flex-direction: column;
   z-index: ${props => props.zIndex};
   transform: translate(${props => props.transformTranslate});
-  background-color: 'red';
   width: ${props => props.width};
 `;
 
@@ -41,7 +40,6 @@ export const ColumnWrapper: React.FC<ParentDivWrapperProps> = ({
   width,
   children,
   displayFlag,
-  ...props
 }) => {
   return (
     <ParentDivWrapper
