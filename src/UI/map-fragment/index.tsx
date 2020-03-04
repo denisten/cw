@@ -1,22 +1,13 @@
 import React from 'react';
 import { LazyImage } from '@tsareff/lazy-image';
 import styled from 'styled-components';
+import { ZIndexes } from '../../components/root-component/z-indexes-enum';
 
 const MapFragmentWrapper = styled.div`
   display: flex;
 `;
 
-type MapFragmentCSSProps = {
-  width: string;
-  height: string;
-};
-interface MapFragmentProps {
-  roadImg: string;
-  treeImg?: string;
-  style: MapFragmentCSSProps;
-}
-
-export const MapFragment: React.FC<MapFragmentProps> = ({
+export const MapFragment: React.FC<IMapFragment> = ({
   roadImg,
   treeImg,
   style,
@@ -24,6 +15,7 @@ export const MapFragment: React.FC<MapFragmentProps> = ({
   const treeWrapperStyle = {
     ...style,
     position: 'absolute',
+    zIndex: ZIndexes.DECORATION,
   } as React.CSSProperties;
   return (
     <MapFragmentWrapper>
@@ -32,3 +24,13 @@ export const MapFragment: React.FC<MapFragmentProps> = ({
     </MapFragmentWrapper>
   );
 };
+
+interface IMapFragmentCSS {
+  width: string;
+  height: string;
+}
+interface IMapFragment {
+  roadImg: string;
+  treeImg?: string;
+  style: IMapFragmentCSS;
+}

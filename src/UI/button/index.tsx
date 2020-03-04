@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { ZIndexes } from '../../components/root-component/z-indexes-enum';
 import { defaultScaleSize, scaleAnimation } from '../../hoc/scale-anim';
 
 const CustomButtonWrapper = styled.div<ICustomButtonWrapper>`
@@ -30,7 +31,7 @@ const CustomButtonWrapper = styled.div<ICustomButtonWrapper>`
 
 const TitleWrapper = styled.span<{ color?: string }>`
   font-size: 100%;
-  z-index: 1;
+  z-index: ${ZIndexes.UI_BUTTON};
   color: ${props => props.color || 'white'};
   position: absolute;
 `;

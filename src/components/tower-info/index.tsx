@@ -24,6 +24,7 @@ import { BuildingsService } from '../../buildings/config';
 import { Directions } from '../../UI/tutorial-arrow';
 import { BuildingsDescriptionService } from '../../buildings/descriptions';
 import { CustomButton } from '../../UI/button';
+import { ZIndexes } from '../root-component/z-indexes-enum';
 
 export type ModalWindowProps = {
   opened?: boolean;
@@ -43,7 +44,7 @@ export enum TowerInfoContentValues {
 
 export const ModalWindowWrapper = styled.div<ModalWindowProps>`
   position: absolute;
-  z-index: 1;
+  z-index: ${ZIndexes.MODAL};
   right: 0;
   width: 50%;
   height: 100%;

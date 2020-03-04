@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import supportImg from './support.png';
 import { nextTutorStep } from '../../effector/app-condition/events';
+import { ZIndexes } from '../root-component/z-indexes-enum';
 
 type ButtonProps = {
   textGenerating: boolean;
@@ -18,7 +19,7 @@ const TutorialDialogWrapper = styled.div`
   box-sizing: border-box;
   font-size: 25px;
   line-height: 24px;
-  z-index: 80;
+  z-index: ${ZIndexes.TUTORIAL};
 `;
 
 const SupportImgWrapper = styled.img`
