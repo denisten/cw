@@ -145,24 +145,6 @@ export const Settings = () => {
         <InputsWrapper>
           <DataInput
             editMode={editMode}
-            title="Никнейм"
-            key={localUserData.name}
-            value={localUserData.name}
-            callBack={value =>
-              editUserData({ key: UserDataStoreKeys.NAME, value })
-            }
-          />
-          <DataInput
-            editMode={editMode}
-            title="Имя помощника"
-            key={localUserData.surname}
-            value={localUserData.surname}
-            callBack={value =>
-              editUserData({ key: UserDataStoreKeys.SURNAME, value })
-            }
-          />
-          <DataInput
-            editMode={editMode}
             title="Название города"
             key={localUserData.cityName}
             value={localUserData.cityName}
