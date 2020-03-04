@@ -4,8 +4,8 @@ import React from 'react';
 const NickNameWrapper = styled.span`
   color: #076170;
   position: absolute;
-  top: 12%;
-  left: 27%;
+  top: 15%;
+  left: 32%;
   font-size: 28.5px;
 `;
 
