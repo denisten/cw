@@ -62,7 +62,7 @@ export const animForCar2 = keyframes`
 export const animForCar3 = keyframes`
           0% {
             left: 58.4%;
-            top: 47.85%;
+            top: 47.95%;
              background: url(${bottomRightBg}) no-repeat center;
             
           }
@@ -83,8 +83,8 @@ export const animForCar3 = keyframes`
           display: flex;
         }
         100% {
-          left: 58.1%;
-          top: 47.85%;
+          left: 58.4%;
+          top: 47.95%;
           background: url(${bottomRightBg}) no-repeat center;
           
           display: none;
