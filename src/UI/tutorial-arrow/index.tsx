@@ -75,7 +75,7 @@ const ArrowImgWrapper = styled.img<ArrowImgWrapperProps>`
   top: ${props => props.top}%;
   width: 105px;
   height: 175px;
-  z-index: 80;
+  z-index: ${ZIndexes.TUTORIAL};
   transform: rotate(${props => detectRotation(props.direction)}deg);
   animation-name: ${props =>
     detectAnimationRotation(props.direction, props.range)};

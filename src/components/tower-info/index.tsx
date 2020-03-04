@@ -25,6 +25,7 @@ import { Directions } from '../../UI/tutorial-arrow';
 import { BuildingsDescriptionService } from '../../buildings/descriptions';
 import { CustomButton } from '../../UI/button';
 import { ZIndexes } from '../root-component/z-indexes-enum';
+import wrapperBackground from './background.png';
 
 export type ModalWindowProps = {
   opened?: boolean;
@@ -46,9 +47,11 @@ export const ModalWindowWrapper = styled.div<ModalWindowProps>`
   position: absolute;
   z-index: ${ZIndexes.MODAL};
   right: 0;
-  width: 50%;
+  width: 38%;
   height: 100%;
-  background-color: white;
+  background-image: url(${wrapperBackground});
+  background-size: cover;
+  background-repeat: no-repeat;
   padding: 5.5% 0 0 4.5%;
   box-sizing: border-box;
   margin-right: ${props =>
@@ -63,7 +66,7 @@ const ModalWindowContentWrapper = styled.div`
 `;
 const TowerInfoHeader = styled.div`
   width: 100%;
-  height: 20%;
+  height: 13%;
 `;
 
 const HeaderLine = styled.div`
