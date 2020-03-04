@@ -24,7 +24,8 @@ export const TutorialToolsSelector: React.FC<ArrowsContainerProps> = ({
         );
       else return <Fragment />;
     case TutorialConditions.DIALOG:
-      return <TutorialDialog />;
+      if (!isInsideScrollContainer) return <TutorialDialog />;
+      else return <Fragment />;
     default:
       return <Fragment />;
   }

@@ -16,7 +16,7 @@ const TutorialDialogWrapper = styled.div`
   display: flex;
   padding-left: 5%;
   box-sizing: border-box;
-  font-size: 20px;
+  font-size: 25px;
   line-height: 24px;
   z-index: 80;
 `;
@@ -85,7 +85,7 @@ export const TutorialDialog: React.FC = () => {
   const [usedTxt, setUsedTxt] = useState('');
   const [onBoardingState, setOnBoardingState] = useState(0);
   const [textGenerating, setTextGenerating] = useState(false);
-  const title = 'Привет !';
+  const title = 'Привет!';
   const txt = onBoardingTexts[onBoardingState];
   let letterByLetterCallback: number;
   useEffect(() => {

@@ -29,46 +29,46 @@ const ImgStyledWrapper = styled.img`
   height: 100%;
 `;
 
-const ImgWrapperNoMemo: React.FC<ImgWrapperProps> = ({
-  callBack,
-  position,
-  top,
-  left,
-  bottom,
-  right,
-  src,
-  zIndex,
-  transformTranslate,
-  height,
-  hoverFlag = false,
-  children,
-  displayFlag = true,
-  animFlag = false,
-  scaleSize,
-  ...props
-}) => {
-  return (
-    <ParentDivWrapper
-      displayFlag={displayFlag}
-      position={position}
-      zIndex={zIndex}
-      top={top}
-      left={left}
-      bottom={bottom}
-      right={right}
-      hoverFlag={hoverFlag}
-      height={height}
-      transformTranslate={transformTranslate}
-      animFlag={animFlag}
-      scaleSize={scaleSize}
-    >
-      <ImgStyledWrapper {...props} onClick={callBack} src={src} />
-      {children}
-    </ParentDivWrapper>
-  );
-};
-
-export const ImgWrapper = React.memo(ImgWrapperNoMemo);
+export const ImgWrapper = React.memo(
+  ({
+    callBack,
+    position,
+    top,
+    left,
+    bottom,
+    right,
+    src,
+    zIndex,
+    transformTranslate,
+    height,
+    hoverFlag = false,
+    children,
+    displayFlag = true,
+    animFlag = false,
+    scaleSize,
+    ...props
+  }: ImgWrapperProps) => {
+    return (
+      <ParentDivWrapper
+        displayFlag={displayFlag}
+        position={position}
+        zIndex={zIndex}
+        top={top}
+        left={left}
+        bottom={bottom}
+        right={right}
+        hoverFlag={hoverFlag}
+        height={height}
+        transformTranslate={transformTranslate}
+        animFlag={animFlag}
+        scaleSize={scaleSize}
+      >
+        <ImgStyledWrapper {...props} onClick={callBack} src={src} />
+        {children}
+      </ParentDivWrapper>
+    );
+  }
+);
 
 interface ParentDivWrapperProps {
   position?: string;
