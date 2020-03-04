@@ -50,7 +50,11 @@ import moneyVaultLevel2Img from './money-vault/2.png';
 import moneyVaultLevel2Stroke from './money-vault/2-stroke.png';
 import bankLevel2Img from './bank/2.png';
 import bankLevel2Stroke from './bank/2-stroke.png';
+import cyberArenaLevel3Img from './cyber-arena/3.png';
+import cyberArenaLevel2Img from './cyber-arena/2.png';
 import cyberArenaLevel1Img from './cyber-arena/1.png';
+import cyberArenaLevel3Stroke from './cyber-arena/3-stroke.png';
+import cyberArenaLevel2Stroke from './cyber-arena/2-stroke.png';
 import cyberArenaLevel1Stroke from './cyber-arena/1-stroke.png';
 import factoryLevel1Img from './factory/1.png';
 import factoryLevel1Stroke from './factory/1-stroke.png';
@@ -170,7 +174,7 @@ export class BuildingsService {
     },
     [TowersTypes.MOLL]: {
       info: 'info',
-      title: 'Молл',
+      title: 'МТС Кэшбэк',
       coords: [4156, 1458],
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
@@ -184,16 +188,16 @@ export class BuildingsService {
       },
       [TowerLevel.mid]: {
         img: mollTowerLevel2Img,
-        width: 605,
-        height: 466,
+        width: 604,
+        height: 469,
         shadowImg: mollTowerLevel2Stroke,
         areaCoords: '533,74,68,408',
         position: [22.56, 49.95],
       },
       [TowerLevel.high]: {
         img: mollTowerLevel3Img,
-        width: 604,
-        height: 469,
+        width: 605,
+        height: 461,
         shadowImg: mollTowerLevel3Stroke,
         areaCoords: '546,52,56,405',
         position: [22.56, 49.95],
@@ -256,11 +260,11 @@ export class BuildingsService {
       },
       [TowerLevel.high]: {
         img: libraryTowerLevel3Img,
-        width: 530,
-        height: 540,
+        width: 540,
+        height: 504,
         shadowImg: libraryTowerLevel3Stroke,
         areaCoords: '81,86,444,462',
-        position: [40.2, 26],
+        position: [40.7, 26],
       },
     },
     [TowersTypes.OBSERVATORY]: {
@@ -528,32 +532,30 @@ export class BuildingsService {
       title: 'WASD',
       coords: [4860, 2526],
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
-      maxLevel: TowerLevel.low,
+      maxLevel: TowerLevel.high,
       [TowerLevel.low]: {
         img: cyberArenaLevel1Img,
-        width: 765,
-        height: 554,
+        width: 658,
+        height: 443,
         shadowImg: cyberArenaLevel1Stroke,
         areaCoords: '81,57,675,472',
         position: [40.7, 59],
       },
-      // TODO: не настоящая картинка
       [TowerLevel.mid]: {
-        img: bankLevel2Img,
-        width: 579,
-        height: 688,
-        shadowImg: bankLevel2Stroke,
+        img: cyberArenaLevel2Img,
+        width: 697,
+        height: 491,
+        shadowImg: cyberArenaLevel2Stroke,
         areaCoords: '516,39,69,578',
-        position: [23.4, 66.4],
+        position: [40.7, 59],
       },
-      // TODO: не настоящая картинка
       [TowerLevel.high]: {
-        img: airportLevel3Img,
-        width: 573,
-        height: 449,
-        shadowImg: airportLevel3Stroke,
+        img: cyberArenaLevel3Img,
+        width: 765,
+        height: 554,
+        shadowImg: cyberArenaLevel3Stroke,
         areaCoords: '595,126,90,476',
-        position: [18.9, 28.3],
+        position: [40.7, 59],
       },
     },
     [TowersTypes.FACTORY]: {
