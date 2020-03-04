@@ -52,7 +52,7 @@ const initState: TowersProgressStoreType = {
     progress: 0,
   },
   [TowersTypes.LIBRARY]: {
-    level: TowerLevel.high,
+    level: TowerLevel.low,
     progress: 0,
   },
   [TowersTypes.OBSERVATORY]: {
