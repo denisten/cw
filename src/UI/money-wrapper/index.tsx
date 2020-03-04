@@ -17,13 +17,7 @@ const CountWrapper = styled.div<ICountWrapper>`
   }
 `;
 
-interface MoneyWrapWithCount extends ImgWrapperProps {
-  count: number;
-}
 type MoneyWrapperProp = Omit<MoneyWrapWithCount, 'src'>;
-interface ICountWrapper {
-  fontSize?: string;
-}
 
 export const MoneyWrapper: React.FC<MoneyWrapperProp> = ({
   count,
@@ -36,3 +30,10 @@ export const MoneyWrapper: React.FC<MoneyWrapperProp> = ({
     </CountWrapper>
   );
 };
+
+interface ICountWrapper {
+  fontSize?: string;
+}
+interface MoneyWrapWithCount extends ImgWrapperProps {
+  count: number;
+}

@@ -47,8 +47,9 @@ export const ImgWrapper = React.memo(
         hoverFlag={hoverFlag}
         animFlag={animFlag}
         {...props}
+        onClick={callBack}
       >
-        <ImgStyledWrapper onClick={callBack} src={src} />
+        <ImgStyledWrapper src={src} />
         {children}
       </ParentDivWrapper>
     );

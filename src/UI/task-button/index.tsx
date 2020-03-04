@@ -26,10 +26,12 @@ const SpanElem = styled.span`
 
 export const TaskButton = () => {
   return (
-    <div onClick={() => menuOpened(MenuItems.TASKS)}>
-      <ImgWrapper src={taskImg} {...StyleConfig}>
-        <SpanElem>ЗАДАНИЯ</SpanElem>
-      </ImgWrapper>
-    </div>
+    <ImgWrapper
+      src={taskImg}
+      {...StyleConfig}
+      callBack={() => menuOpened(MenuItems.TASKS)}
+    >
+      <SpanElem>ЗАДАНИЯ</SpanElem>
+    </ImgWrapper>
   );
 };
