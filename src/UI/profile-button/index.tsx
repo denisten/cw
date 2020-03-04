@@ -13,8 +13,9 @@ import { MoneyWrapper } from '../money-wrapper';
 
 const MoneyCounterWrapper = styled.div`
   position: absolute;
-  top: 43%;
-  left: 36%;
+  top: 60%;
+
+  left: 24%;
   font-size: 23px;
 `;
 
@@ -26,13 +27,16 @@ const StyleConfig = {
     top: 3.7,
     left: 3.2,
     hoverFlag: true,
-    position: 'relative',
   },
 
   avatar: {
     height: '106px',
     left: -5,
     top: -13,
+  },
+
+  money: {
+    fontSize: '23px',
   },
 };
 
@@ -59,7 +63,7 @@ export const ProfileButton: React.FC<IProfileButton> = ({
       <AvatarWrapper src={userAvatar} {...StyleConfig.avatar} />
       <NickName nickName="NickName" />
       <MoneyCounterWrapper>
-        <MoneyWrapper count={228} />
+        <MoneyWrapper count={228} {...StyleConfig.money} />
       </MoneyCounterWrapper>
     </ImgWrapper>
   );
