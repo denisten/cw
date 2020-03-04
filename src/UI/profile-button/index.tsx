@@ -7,28 +7,37 @@ import { TutorialConditions } from '../../effector/app-condition/store';
 import { MenuItems } from '../menu-paragraph';
 import { NickName } from '../nickname';
 import { ZIndexes } from '../../components/root-component/z-indexes-enum';
+import { AvatarWrapper } from '../avatar-wrapper';
+import userAvatar from './profile-img.png';
+import { MoneyWrapper } from '../money-wrapper';
 
-type MoneyCounterWrapperProps = {
-  money: number;
-};
+const MoneyCounterWrapper = styled.div`
+  position: absolute;
+  top: 60%;
 
-const MoneyCounterWrapper = styled.span<MoneyCounterWrapperProps>`
-    color: #fff;
-    position: absolute;
-    top: 43%;
-    left: 36%;
-    font-size: 1.5em;
-    &:after {
-      content: "${props => props.money}"
-    }
+  left: 24%;
+  font-size: 23px;
 `;
 
 const StyleConfig = {
-  height: '10.1%',
-  zIndex: ZIndexes.UI_BUTTON,
-  top: 3.7,
-  left: 3.2,
-  hoverFlag: true,
+  nickNameButton: {
+    height: '109px',
+    width: '321px',
+    zIndex: ZIndexes.UI_BUTTON,
+    top: 3.7,
+    left: 3.2,
+    hoverFlag: true,
+  },
+
+  avatar: {
+    height: '106px',
+    left: -5,
+    top: -13,
+  },
+
+  money: {
+    fontSize: '23px',
+  },
 };
 
 export const ProfileButton: React.FC<IProfileButton> = ({
@@ -49,10 +58,13 @@ export const ProfileButton: React.FC<IProfileButton> = ({
       src={profileImg}
       callBack={handleClick}
       animFlag={tutorialCondition === TutorialConditions.MENU_ARROW}
-      {...StyleConfig}
+      {...StyleConfig.nickNameButton}
     >
+      <AvatarWrapper src={userAvatar} {...StyleConfig.avatar} />
       <NickName nickName="NickName" />
-      <MoneyCounterWrapper money={228} />
+      <MoneyCounterWrapper>
+        <MoneyWrapper count={228} {...StyleConfig.money} />
+      </MoneyCounterWrapper>
     </ImgWrapper>
   );
 };

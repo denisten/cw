@@ -3,14 +3,26 @@ import { ImgWrapper } from '../img-wrapper';
 import taskImg from './task-img.png';
 import { menuOpened } from '../../effector/app-condition/events';
 import { MenuItems } from '../menu-paragraph';
+import styled from 'styled-components';
 
 const StyleConfig = {
-  height: '5%',
   zIndex: 1,
   top: 5,
   right: 5,
   hoverFlag: true,
+  width: '220px',
+  height: '60px',
 };
+
+const SpanElem = styled.span`
+  font-size: 28.5px;
+  font-weight: bold;
+  color: #146977;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
 
 export const TaskButton = () => {
   return (
@@ -18,6 +30,8 @@ export const TaskButton = () => {
       src={taskImg}
       {...StyleConfig}
       callBack={() => menuOpened(MenuItems.TASKS)}
-    />
+    >
+      <SpanElem>ЗАДАНИЯ</SpanElem>
+    </ImgWrapper>
   );
 };

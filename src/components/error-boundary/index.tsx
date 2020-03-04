@@ -3,28 +3,42 @@ import { resetErrorStore } from '../../effector/error-boundary-store/events';
 import React from 'react';
 import styled from 'styled-components';
 import { useStore } from 'effector-react';
-import { ExitButton } from '../../UI/exit-button';
 import { ZIndexes } from '../root-component/z-indexes-enum';
 import { Overlay } from '../../UI/overlay';
+import background from './background.png';
+import { CustomButton } from '../../UI/button';
 
 const ErrorBody = styled.div`
-  width: 600px;
-  height: 600px;
-  background-color: gray;
+  width: 617px;
+  height: 683px;
+  background: url(${background}) no-repeat center;
+  background-size: 100% 100%;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  padding: 174px 0 104px 0;
+  box-sizing: border-box;
 `;
 
 const ErrorText = styled.span`
-  color: red;
-  font-size: 24px;
+  color: #146977;
+  font-size: 30.5px;
+  font-weight: bold;
+  max-width: 503px;
+  height: 250px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
 `;
 
 const StyledConfig = {
   closeButton: {
-    height: '28px',
-    top: 1,
-    right: 1,
-    hoverFlag: true,
+    width: '200px',
+    height: '51px',
+    content: 'Ок',
+    fontSize: '28.5px',
   },
   overlay: {
     zIndex: ZIndexes.ERROR,
@@ -40,7 +54,11 @@ export const ErrorBoundary = () => {
     <Overlay displayFlag={errorFlag} {...StyledConfig.overlay}>
       <ErrorBody>
         <ErrorText>{text}</ErrorText>
-        <ExitButton {...StyledConfig.closeButton} callBack={closeErrorPopup} />
+
+        <CustomButton
+          callback={closeErrorPopup}
+          {...StyledConfig.closeButton}
+        />
       </ErrorBody>
     </Overlay>
   );

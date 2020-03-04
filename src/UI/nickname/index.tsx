@@ -2,11 +2,11 @@ import styled from 'styled-components';
 import React from 'react';
 
 const NickNameWrapper = styled.span`
-  color: #fff;
+  color: #076170;
   position: absolute;
-  top: 18%;
-  left: 27%;
-  font-size: 1.5em;
+  top: 15%;
+  left: 32%;
+  font-size: 28.5px;
 `;
 
 export const NickName = React.memo(({ nickName }: INickNameWrapper) => {
