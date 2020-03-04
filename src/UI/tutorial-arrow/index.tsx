@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import arrowImg from './arrow.png';
+import { ZIndexes } from '../../components/root-component/z-indexes-enum';
 
 const horizontalMove = (range: number) => keyframes`
   0% {
@@ -75,7 +76,7 @@ const ArrowImgWrapper = styled.img<ArrowImgWrapperProps>`
   top: ${props => props.top}%;
   width: 105px;
   height: 175px;
-  z-index: 80;
+  z-index: ${ZIndexes.TUTORIAL};
   transform: rotate(${props => detectRotation(props.direction)}deg);
   animation-name: ${props =>
     detectAnimationRotation(props.direction, props.range)};

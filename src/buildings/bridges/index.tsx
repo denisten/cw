@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import bridge1 from './1.png';
 import bridge2 from './2.png';
+import bridge3 from './3.png';
 import { LazyImage } from '@tsareff/lazy-image';
+import { ZIndexes } from '../../components/root-component/z-indexes-enum';
 
 const StyledConfig = {
   firstBridge: {
@@ -14,6 +16,12 @@ const StyledConfig = {
     left: '56.7%',
     top: '29.2%',
   } as React.CSSProperties,
+  thirdBridge: {
+    position: 'absolute',
+    left: '54.82%',
+    top: '41.5%',
+    zIndex: ZIndexes.DECORATION,
+  } as React.CSSProperties,
 };
 
 type BridgesProps = {
@@ -22,13 +30,14 @@ type BridgesProps = {
 
 const BridgesImg: React.FC = () => {
   return (
-    <React.Fragment>
+    <Fragment>
       <LazyImage src={bridge1} style={{ ...StyledConfig.firstBridge }} />
       <LazyImage src={bridge2} style={{ ...StyledConfig.secondBridge }} />
-    </React.Fragment>
+      <LazyImage src={bridge3} style={{ ...StyledConfig.thirdBridge }} />
+    </Fragment>
   );
 };
 
 export const Bridges: React.FC<BridgesProps> = ({ showBridges }) => {
-  return <React.Fragment>{showBridges ? <BridgesImg /> : ''}</React.Fragment>;
+  return <Fragment>{showBridges ? <BridgesImg /> : null}</Fragment>;
 };
