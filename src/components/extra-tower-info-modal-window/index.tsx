@@ -5,10 +5,7 @@ import { extraTowerInfoModalClosed } from '../../effector/app-condition/events';
 import { addProgressPoints } from '../../effector/towers-progress/events';
 import { useStore } from 'effector-react';
 import { AppCondition } from '../../effector/app-condition/store';
-
-export type ModalWindowProps = {
-  opened?: boolean;
-};
+import { ZIndexes } from '../root-component/z-indexes-enum';
 
 enum marginRightValues {
   OPENED = 0,
@@ -16,9 +13,9 @@ enum marginRightValues {
   CLOSED = -100,
 }
 
-export const ModalWindowWrapper = styled.div<ModalWindowProps>`
+export const ModalWindowWrapper = styled.div<IModalWindow>`
   position: absolute;
-  z-index: 1;
+  z-index: ${ZIndexes.MODAL};
   right: 0;
   width: 35%;
   height: 100%;
@@ -45,7 +42,7 @@ const StyleConfig = {
   } as React.CSSProperties,
 };
 
-export const ModalWindow: React.FC<ModalWindowProps> = ({ opened }) => {
+export const ModalWindow: React.FC<IModalWindow> = ({ opened }) => {
   const {
     focusOn: { towerTitle },
   } = useStore(AppCondition);
@@ -68,3 +65,6 @@ export const ModalWindow: React.FC<ModalWindowProps> = ({ opened }) => {
     </ModalWindowWrapper>
   );
 };
+export interface IModalWindow {
+  opened?: boolean;
+}

@@ -14,9 +14,9 @@ import {
   AppCondition,
   TutorialConditions,
 } from '../../effector/app-condition/store';
-import { handleAuthButtonClick } from '../../utils/handle-auth-button-click';
 import { CookieService } from '../../sevices/cookies';
 import { turnOffTutorialMode } from '../../effector/app-condition/events';
+import { handleAuthButtonClick } from '../../utils/handle-auth-button-click';
 
 const UserInfoBlockWrapper = styled.div`
   width: 100%;

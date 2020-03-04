@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, { Keyframes } from 'styled-components';
+import { ZIndexes } from '../root-component/z-indexes-enum';
 
 type CarProps = {
   animDuration?: string;
@@ -22,6 +23,7 @@ const CarBlock = styled.div<CarProps>`
   animation-direction: normal;
   animation-iteration-count: infinite;
   animation-name: ${props => props.animationName};
+  z-index: ${ZIndexes.CARS};
 `;
 
 export const Car: React.FC<CarConfigureType> = ({ carStyle }) => {

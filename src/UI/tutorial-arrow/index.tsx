@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import arrowImg from './arrow.png';
+import { ZIndexes } from '../../components/root-component/z-indexes-enum';
 
 const horizontalMove = (range: number) => keyframes`
   0% {
