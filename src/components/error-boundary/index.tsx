@@ -37,17 +37,12 @@ export const ErrorBoundary = () => {
     resetErrorStore();
   };
   return (
-    <>
-      <Overlay displayFlag={errorFlag} {...StyledConfig.overlay}>
-        <ErrorBody>
-          <ErrorText>{text}</ErrorText>
-          <ExitButton
-            {...StyledConfig.closeButton}
-            callBack={closeErrorPopup}
-          />
-        </ErrorBody>
-      </Overlay>
-    </>
+    <Overlay displayFlag={errorFlag} {...StyledConfig.overlay}>
+      <ErrorBody>
+        <ErrorText>{text}</ErrorText>
+        <ExitButton {...StyledConfig.closeButton} callBack={closeErrorPopup} />
+      </ErrorBody>
+    </Overlay>
   );
 };
 interface IOverLay {

@@ -14,16 +14,8 @@ const OverlayWrapper = styled.div<IOverlay>`
   z-index: ${props => props.zIndex || 1};
 `;
 
-export const Overlay: React.FC<IOverlay> = ({
-  displayFlag,
-  zIndex,
-  children,
-}) => {
-  return (
-    <OverlayWrapper displayFlag={displayFlag} zIndex={zIndex}>
-      {children}
-    </OverlayWrapper>
-  );
+export const Overlay: React.FC<IOverlay> = ({ children, ...props }) => {
+  return <OverlayWrapper {...props}>{children}</OverlayWrapper>;
 };
 
 interface IOverlay {
