@@ -13,7 +13,7 @@ const ErrorBody = styled.div`
   position: relative;
 `;
 
-const OverLay = styled.div<OverlayProps>`
+const OverLay = styled.div<IOverLay>`
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.8);
@@ -30,10 +30,6 @@ const ErrorText = styled.span`
   color: red;
   font-size: 24px;
 `;
-
-type OverlayProps = {
-  open: boolean;
-};
 
 const StyledConfig = {
   closeButton: {
@@ -63,3 +59,6 @@ export const ErrorBoundary = () => {
     </>
   );
 };
+interface IOverLay {
+  open: boolean;
+}

@@ -31,11 +31,7 @@ const StyleConfig = {
   hoverFlag: true,
 };
 
-type ProfileButtonProps = {
-  tutorialCondition: TutorialConditions;
-};
-
-export const ProfileButton: React.FC<ProfileButtonProps> = ({
+export const ProfileButton: React.FC<IProfileButton> = ({
   tutorialCondition,
 }) => {
   const handleClick = () => {
@@ -55,3 +51,7 @@ export const ProfileButton: React.FC<ProfileButtonProps> = ({
     </ImgWrapper>
   );
 };
+
+interface IProfileButton {
+  tutorialCondition: TutorialConditions;
+}

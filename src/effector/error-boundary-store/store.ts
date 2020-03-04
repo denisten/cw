@@ -1,11 +1,6 @@
 import { ErrorBoundaryDomain } from './domain';
 import { coughtError, resetErrorStore } from './events';
 
-interface IErrorStore {
-  text: string;
-  errorFlag: boolean;
-}
-
 const initStore: IErrorStore = {
   text: '',
   errorFlag: false,
@@ -21,3 +16,8 @@ export const ErrorBoundaryStore = ErrorBoundaryDomain.store<IErrorStore>(
     };
   })
   .reset(resetErrorStore);
+
+interface IErrorStore {
+  text: string;
+  errorFlag: boolean;
+}

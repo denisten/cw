@@ -3,6 +3,5 @@ import { apiRoutes } from '..';
 
 export const getUrl = async () => {
   const response = await get(apiRoutes.GET_URL);
-  const { url } = response.data;
-  return url;
+  return response.data.url;
 };

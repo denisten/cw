@@ -7,17 +7,13 @@ import { useStore } from 'effector-react';
 import { AppCondition } from '../../effector/app-condition/store';
 import { ZIndexes } from '../root-component/z-indexes-enum';
 
-export type ModalWindowProps = {
-  opened?: boolean;
-};
-
 enum marginRightValues {
   OPENED = 0,
   // eslint-disable-next-line @typescript-eslint/no-magic-numbers
   CLOSED = -100,
 }
 
-export const ModalWindowWrapper = styled.div<ModalWindowProps>`
+export const ModalWindowWrapper = styled.div<IModalWindow>`
   position: absolute;
   z-index: ${ZIndexes.MODAL};
   right: 0;
@@ -46,7 +42,7 @@ const StyleConfig = {
   } as React.CSSProperties,
 };
 
-export const ModalWindow: React.FC<ModalWindowProps> = ({ opened }) => {
+export const ModalWindow: React.FC<IModalWindow> = ({ opened }) => {
   const {
     focusOn: { towerTitle },
   } = useStore(AppCondition);
@@ -69,3 +65,6 @@ export const ModalWindow: React.FC<ModalWindowProps> = ({ opened }) => {
     </ModalWindowWrapper>
   );
 };
+export interface IModalWindow {
+  opened?: boolean;
+}

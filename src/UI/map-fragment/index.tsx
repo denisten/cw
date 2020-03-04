@@ -7,17 +7,7 @@ const MapFragmentWrapper = styled.div`
   display: flex;
 `;
 
-type MapFragmentCSSProps = {
-  width: string;
-  height: string;
-};
-interface MapFragmentProps {
-  roadImg: string;
-  treeImg?: string;
-  style: MapFragmentCSSProps;
-}
-
-export const MapFragment: React.FC<MapFragmentProps> = ({
+export const MapFragment: React.FC<IMapFragment> = ({
   roadImg,
   treeImg,
   style,
@@ -34,3 +24,13 @@ export const MapFragment: React.FC<MapFragmentProps> = ({
     </MapFragmentWrapper>
   );
 };
+
+interface IMapFragmentCSS {
+  width: string;
+  height: string;
+}
+interface IMapFragment {
+  roadImg: string;
+  treeImg?: string;
+  style: IMapFragmentCSS;
+}

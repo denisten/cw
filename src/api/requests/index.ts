@@ -1,2 +1,2 @@
-import { get } from './get/get';
+import { get } from './get';
 export { get };

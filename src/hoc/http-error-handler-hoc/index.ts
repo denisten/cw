@@ -8,7 +8,7 @@ export const withHandlingErrors = async (
     return response;
   } catch (err) {
     errorParsingHOF(err.response.status);
-    throw new Error('asdf');
+    throw new Error('request error');
   }
 };
 

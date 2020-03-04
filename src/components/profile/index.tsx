@@ -16,7 +16,7 @@ import {
 } from '../../effector/app-condition/store';
 import { CookieService } from '../../sevices/cookies';
 import { turnOffTutorialMode } from '../../effector/app-condition/events';
-import { authorization } from '../../api/authorization';
+import { handleAuthButtonClick } from '../../utils/handle-auth-button-click';
 
 const UserInfoBlockWrapper = styled.div`
   width: 100%;
@@ -275,7 +275,7 @@ export const Profile = () => {
             callback={() => {
               if (tutorialCondition === TutorialConditions.AUTH_ARROW)
                 turnOffTutorialMode();
-              authorization();
+              handleAuthButtonClick();
             }}
             {...StyledConfig.enterButton}
           />
