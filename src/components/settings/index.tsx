@@ -134,7 +134,7 @@ export const Settings = () => {
           </TitleWrapper>
           {!editMode ? (
             <CustomButton
-              pulseAnim={
+              animFlag={
                 tutorialCondition === TutorialConditions.CHANGE_CITY_NAME_ARROW
               }
               callback={() => toggleInputEdit()}
@@ -143,24 +143,6 @@ export const Settings = () => {
           ) : null}
         </RowWrapper>
         <InputsWrapper>
-          <DataInput
-            editMode={editMode}
-            title="Никнейм"
-            key={localUserData.name}
-            value={localUserData.name}
-            callBack={value =>
-              editUserData({ key: UserDataStoreKeys.NAME, value })
-            }
-          />
-          <DataInput
-            editMode={editMode}
-            title="Имя помощника"
-            key={localUserData.surname}
-            value={localUserData.surname}
-            callBack={value =>
-              editUserData({ key: UserDataStoreKeys.SURNAME, value })
-            }
-          />
           <DataInput
             editMode={editMode}
             title="Название города"
@@ -174,7 +156,7 @@ export const Settings = () => {
         {editMode ? (
           <RowWrapper {...StyledConfig.inEditModeRow}>
             <CustomButton
-              pulseAnim={
+              animFlag={
                 tutorialCondition === TutorialConditions.SAVE_CITY_NAME_ARROW
               }
               callback={() => toggleInputEdit()}

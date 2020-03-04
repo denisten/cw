@@ -13,9 +13,13 @@ const StyleConfig = {
   hoverFlag: true,
 };
 
-export const UpgradeButton: React.FC<UpgradeButtonProps> = ({ towerTitle }) => {
+export const UpgradeButton: React.FC<UpgradeButtonProps> = ({
+  towerTitle,
+  animFlag = false,
+}) => {
   return (
     <ImgWrapper
+      animFlag={animFlag}
       src={updateImg}
       {...StyleConfig}
       callBack={() => showUpgradeIcon(towerTitle)}
@@ -25,4 +29,5 @@ export const UpgradeButton: React.FC<UpgradeButtonProps> = ({ towerTitle }) => {
 
 type UpgradeButtonProps = {
   towerTitle: TowersTypes;
+  animFlag?: boolean;
 };

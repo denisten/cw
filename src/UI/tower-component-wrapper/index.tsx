@@ -89,10 +89,11 @@ export const TowerWrapper: React.FC<TypeWrapperProps> = ({
       height={height}
     >
       {progress >= maxProgressValue && currentLevel < maxLevel ? (
-        <UpgradeButton towerTitle={towerTitle} />
-      ) : (
-        ''
-      )}
+        <UpgradeButton
+          towerTitle={towerTitle}
+          animFlag={tutorialCondition === TutorialConditions.UPGRADE_ARROW}
+        />
+      ) : null}
       {upgradeFlag ? <Substrate width={width} height={height} /> : ''}
       <LazyImage
         src={tower}
@@ -110,7 +111,7 @@ export const TowerWrapper: React.FC<TypeWrapperProps> = ({
           shape="rect"
         />
       </map>
-      {hoverState ? <img src={shadowImg} alt="shadow" /> : ''}
+      {hoverState ? <img src={shadowImg} alt="shadow" /> : null}
     </TowerStyledWrapper>
   );
 };
