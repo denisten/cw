@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { TutorialConditions } from '../../effector/app-condition/store';
 import { MenuItems } from '../menu-paragraph';
 import { NickName } from '../nickname';
+import { ZIndexes } from '../../components/root-component/z-indexes-enum';
 
 type MoneyCounterWrapperProps = {
   money: number;
@@ -24,17 +25,13 @@ const MoneyCounterWrapper = styled.span<MoneyCounterWrapperProps>`
 
 const StyleConfig = {
   height: '10.1%',
-  zIndex: 10,
+  zIndex: ZIndexes.UI_BUTTON,
   top: 3.7,
   left: 3.2,
   hoverFlag: true,
 };
 
-type ProfileButtonProps = {
-  tutorialCondition: TutorialConditions;
-};
-
-export const ProfileButton: React.FC<ProfileButtonProps> = ({
+export const ProfileButton: React.FC<IProfileButton> = ({
   tutorialCondition,
 }) => {
   const handleClick = () => {
@@ -48,9 +45,18 @@ export const ProfileButton: React.FC<ProfileButtonProps> = ({
     }
   };
   return (
-    <ImgWrapper src={profileImg} callBack={handleClick} {...StyleConfig}>
+    <ImgWrapper
+      src={profileImg}
+      callBack={handleClick}
+      animFlag={tutorialCondition === TutorialConditions.MENU_ARROW}
+      {...StyleConfig}
+    >
       <NickName nickName="NickName" />
       <MoneyCounterWrapper money={228} />
     </ImgWrapper>
   );
 };
+
+interface IProfileButton {
+  tutorialCondition: TutorialConditions;
+}

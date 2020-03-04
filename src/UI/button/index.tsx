@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { pulseAnimationHOF } from '../../hoc/pulse-anim';
+import { ZIndexes } from '../../components/root-component/z-indexes-enum';
+import { defaultScaleSize, scaleAnimation } from '../../hoc/scale-anim';
 
-const CustomButtonWrapper = styled.div<CustomButtonWrapperProps>`
+const CustomButtonWrapper = styled.div<ICustomButtonWrapper>`
   position: ${props => props.position};
   top: ${props => props.top}%;
   left: ${props => props.left}%;
@@ -19,21 +20,43 @@ const CustomButtonWrapper = styled.div<CustomButtonWrapperProps>`
   margin: ${props => props.margin};
   box-shadow: 1.5px 1.3px 3.4px 0.6px rgba(72, 72, 72, 0.28);
   animation-name: ${props =>
-    props.pulseAnim ? pulseAnimationHOF(props.pulseColor) : 'none'};
+    props.animFlag
+      ? scaleAnimation(props.scaleSize || defaultScaleSize)
+      : 'none'};
   animation-fill-mode: both;
   animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;
-  animation-duration: 0.8s;
+  animation-duration: 0.6s;
 `;
 
 const TitleWrapper = styled.span<{ color?: string }>`
   font-size: 100%;
-  z-index: 1;
+  z-index: ${ZIndexes.UI_BUTTON};
   color: ${props => props.color || 'white'};
   position: absolute;
 `;
 
-type CustomButtonWrapperProps = {
+export const CustomButton: React.FC<CustomButtonProps> = ({
+  content,
+  color,
+  callback,
+  animFlag = false,
+  scaleSize,
+  ...props
+}) => {
+  return (
+    <CustomButtonWrapper
+      onClick={callback}
+      animFlag={animFlag}
+      scaleSize={scaleSize}
+      {...props}
+    >
+      <TitleWrapper color={color}>{content}</TitleWrapper>
+    </CustomButtonWrapper>
+  );
+};
+
+interface ICustomButtonWrapper {
   position?: string;
   top?: number;
   left?: number;
@@ -44,39 +67,12 @@ type CustomButtonWrapperProps = {
   height?: string;
   fontSize?: string;
   margin?: string;
-  pulseAnim: boolean;
-  pulseColor: string;
-};
+  animFlag?: boolean;
+  scaleSize?: number;
+}
 
-type CustomButtonWrapperPropsWithoutPulseProps = Omit<
-  CustomButtonWrapperProps,
-  'pulseAnim' | 'pulseColor'
->;
-
-interface CustomButtonProps extends CustomButtonWrapperPropsWithoutPulseProps {
+interface CustomButtonProps extends ICustomButtonWrapper {
   content?: string;
   color?: string;
   callback?: () => void;
-  pulseAnim?: boolean;
-  pulseColor?: string;
 }
-
-export const CustomButton: React.FC<CustomButtonProps> = ({
-  content,
-  color,
-  callback,
-  pulseAnim = false,
-  pulseColor = '1, 172, 200',
-  ...props
-}) => {
-  return (
-    <CustomButtonWrapper
-      onClick={callback}
-      pulseAnim={pulseAnim}
-      pulseColor={pulseColor}
-      {...props}
-    >
-      <TitleWrapper color={color}>{content}</TitleWrapper>
-    </CustomButtonWrapper>
-  );
-};

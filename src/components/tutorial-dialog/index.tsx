@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import supportImg from './support.png';
 import { nextTutorStep } from '../../effector/app-condition/events';
+import { ZIndexes } from '../root-component/z-indexes-enum';
 
 type ButtonProps = {
   textGenerating: boolean;
@@ -16,9 +17,9 @@ const TutorialDialogWrapper = styled.div`
   display: flex;
   padding-left: 5%;
   box-sizing: border-box;
-  font-size: 20px;
+  font-size: 25px;
   line-height: 24px;
-  z-index: 80;
+  z-index: ${ZIndexes.TUTORIAL};
 `;
 
 const SupportImgWrapper = styled.img`
@@ -85,7 +86,7 @@ export const TutorialDialog: React.FC = () => {
   const [usedTxt, setUsedTxt] = useState('');
   const [onBoardingState, setOnBoardingState] = useState(0);
   const [textGenerating, setTextGenerating] = useState(false);
-  const title = 'Привет !';
+  const title = 'Привет!';
   const txt = onBoardingTexts[onBoardingState];
   let letterByLetterCallback: number;
   useEffect(() => {

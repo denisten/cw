@@ -12,17 +12,6 @@ export const TutorialToolsSelector: React.FC<ArrowsContainerProps> = ({
   isInsideScrollContainer,
 }) => {
   switch (tutorialCondition) {
-    case TutorialConditions.MENU_ARROW:
-      if (!isInsideScrollContainer)
-        return (
-          <TutorialArrow
-            top={12}
-            left={4}
-            range={2}
-            direction={Directions.TOP}
-          />
-        );
-      else return <Fragment />;
     case TutorialConditions.TOWER_ARROW:
       if (isInsideScrollContainer)
         return (
@@ -34,19 +23,9 @@ export const TutorialToolsSelector: React.FC<ArrowsContainerProps> = ({
           />
         );
       else return <Fragment />;
-    case TutorialConditions.UPGRADE_ARROW:
-      if (isInsideScrollContainer)
-        return (
-          <TutorialArrow
-            top={28}
-            left={45.4}
-            range={0.5}
-            direction={Directions.RIGHT}
-          />
-        );
+    case TutorialConditions.DIALOG:
+      if (!isInsideScrollContainer) return <TutorialDialog />;
       else return <Fragment />;
-    case TutorialConditions.OFF:
-      return <TutorialDialog />;
     default:
       return <Fragment />;
   }

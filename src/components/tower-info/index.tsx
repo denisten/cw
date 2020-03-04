@@ -21,8 +21,10 @@ import {
   TowersTypes,
 } from '../../effector/towers-progress/store';
 import { BuildingsService } from '../../buildings/config';
-import { Directions, TutorialArrow } from '../../UI/tutorial-arrow';
+import { Directions } from '../../UI/tutorial-arrow';
 import { BuildingsDescriptionService } from '../../buildings/descriptions';
+import { CustomButton } from '../../UI/button';
+import { ZIndexes } from '../root-component/z-indexes-enum';
 
 export type ModalWindowProps = {
   opened?: boolean;
@@ -42,7 +44,7 @@ export enum TowerInfoContentValues {
 
 export const ModalWindowWrapper = styled.div<ModalWindowProps>`
   position: absolute;
-  z-index: 1;
+  z-index: ${ZIndexes.MODAL};
   right: 0;
   width: 50%;
   height: 100%;
@@ -155,6 +157,13 @@ const StyleConfig = {
     top: '46%',
     left: '39.7%',
   },
+  enterButton: {
+    width: '201px',
+    height: '52px',
+    content: 'Раскрыть',
+    fontSize: '28.5px',
+    margin: '30px 0',
+  },
 };
 
 export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
@@ -243,20 +252,14 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
         </TowerInfoMenu>
         <Divider />
         <TowerInfoContent selectedMenu={selectedMenu} text={descriptionText} />
-        <button
-          onClick={() => {
+        <CustomButton
+          animFlag={tutorialCondition === TutorialConditions.UNLOCK_BUTTON}
+          callback={() => {
             nextTutorDescriptionStep();
             addProgressPoints({ points: 35, towerTitle: towerTitle });
           }}
-          {...StyleConfig.descriptionButton}
-        >
-          Раскрыть
-        </button>
-        {tutorialCondition === TutorialConditions.UNLOCK_BUTTON ? (
-          <TutorialArrow {...StyleConfig.tutorialArrow} />
-        ) : (
-          ''
-        )}
+          {...StyleConfig.enterButton}
+        />
       </ModalWindowContentWrapper>
     </ModalWindowWrapper>
   );

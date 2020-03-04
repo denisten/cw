@@ -18,6 +18,7 @@ import { HeaderComponent } from '../header';
 import { RowWrapper } from '../../UI/row-wrapper';
 import { ColumnWrapper } from '../../UI/column-wrapper';
 import { Overlay } from '../../UI/overlay';
+import { ZIndexes } from '../root-component/z-indexes-enum';
 
 const StyledConfig = {
   exitButton: {
@@ -57,7 +58,7 @@ const StyledConfig = {
     height: '85px',
   },
   overlay: {
-    zIndex: 20,
+    zIndex: ZIndexes.MODAL,
   },
 };
 
