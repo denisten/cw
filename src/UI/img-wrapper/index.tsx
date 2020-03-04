@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
-const scaleAnimation = (scaleSize: number) => keyframes`
+export const scaleAnimation = (scaleSize: number) => keyframes`
   from {
     transform: scale(1);
   }
@@ -9,7 +9,7 @@ const scaleAnimation = (scaleSize: number) => keyframes`
   }
 `;
 
-const defaultScaleSize = 1.1;
+export const defaultScaleSize = 1.1;
 const ParentDivWrapper = styled.div<ParentDivWrapperProps>`
   height: ${props => props.height};
   position: ${props => props.position || 'absolute'};

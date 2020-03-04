@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { pulseAnimationHOF } from '../../hoc/pulse-anim';
+import { defaultScaleSize, scaleAnimation } from '../img-wrapper';
 
 const CustomButtonWrapper = styled.div<CustomButtonWrapperProps>`
   position: ${props => props.position};
@@ -19,11 +19,13 @@ const CustomButtonWrapper = styled.div<CustomButtonWrapperProps>`
   margin: ${props => props.margin};
   box-shadow: 1.5px 1.3px 3.4px 0.6px rgba(72, 72, 72, 0.28);
   animation-name: ${props =>
-    props.pulseAnim ? pulseAnimationHOF(props.pulseColor) : 'none'};
+    props.animFlag
+      ? scaleAnimation(props.scaleSize || defaultScaleSize)
+      : 'none'};
   animation-fill-mode: both;
   animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;
-  animation-duration: 0.8s;
+  animation-duration: 0.6s;
 `;
 
 const TitleWrapper = styled.span<{ color?: string }>`
@@ -44,8 +46,8 @@ type CustomButtonWrapperProps = {
   height?: string;
   fontSize?: string;
   margin?: string;
-  pulseAnim: boolean;
-  pulseColor: string;
+  animFlag?: boolean;
+  scaleSize?: number;
 };
 
 type CustomButtonWrapperPropsWithoutPulseProps = Omit<
@@ -57,23 +59,23 @@ interface CustomButtonProps extends CustomButtonWrapperPropsWithoutPulseProps {
   content?: string;
   color?: string;
   callback?: () => void;
-  pulseAnim?: boolean;
-  pulseColor?: string;
+  // animFlag?: boolean;
+  // scaleSize?: number;
 }
 
 export const CustomButton: React.FC<CustomButtonProps> = ({
   content,
   color,
   callback,
-  pulseAnim = false,
-  pulseColor = '1, 172, 200',
+  animFlag = false,
+  scaleSize,
   ...props
 }) => {
   return (
     <CustomButtonWrapper
       onClick={callback}
-      pulseAnim={pulseAnim}
-      pulseColor={pulseColor}
+      animFlag={animFlag}
+      scaleSize={scaleSize}
       {...props}
     >
       <TitleWrapper color={color}>{content}</TitleWrapper>

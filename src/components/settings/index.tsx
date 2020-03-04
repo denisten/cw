@@ -134,7 +134,7 @@ export const Settings = () => {
           </TitleWrapper>
           {!editMode ? (
             <CustomButton
-              pulseAnim={
+              animFlag={
                 tutorialCondition === TutorialConditions.CHANGE_CITY_NAME_ARROW
               }
               callback={() => toggleInputEdit()}
@@ -174,7 +174,7 @@ export const Settings = () => {
         {editMode ? (
           <RowWrapper {...StyledConfig.inEditModeRow}>
             <CustomButton
-              pulseAnim={
+              animFlag={
                 tutorialCondition === TutorialConditions.SAVE_CITY_NAME_ARROW
               }
               callback={() => toggleInputEdit()}

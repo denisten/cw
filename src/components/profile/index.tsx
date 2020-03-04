@@ -271,7 +271,7 @@ export const Profile = () => {
             alt="profile"
           />
           <CustomButton
-            pulseAnim={tutorialCondition === TutorialConditions.AUTH_ARROW}
+            animFlag={tutorialCondition === TutorialConditions.AUTH_ARROW}
             callback={() => {
               if (tutorialCondition === TutorialConditions.AUTH_ARROW)
                 turnOffTutorialMode();
