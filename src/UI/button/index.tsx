@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { defaultScaleSize, scaleAnimation } from '../img-wrapper';
+import { defaultScaleSize, scaleAnimation } from '../../hoc/scale-anim';
 
-const CustomButtonWrapper = styled.div<CustomButtonWrapperProps>`
+const CustomButtonWrapper = styled.div<ICustomButtonWrapper>`
   position: ${props => props.position};
   top: ${props => props.top}%;
   left: ${props => props.left}%;
@@ -35,34 +35,6 @@ const TitleWrapper = styled.span<{ color?: string }>`
   position: absolute;
 `;
 
-type CustomButtonWrapperProps = {
-  position?: string;
-  top?: number;
-  left?: number;
-  right?: number;
-  bottom?: number;
-  src?: number;
-  width?: string;
-  height?: string;
-  fontSize?: string;
-  margin?: string;
-  animFlag?: boolean;
-  scaleSize?: number;
-};
-
-type CustomButtonWrapperPropsWithoutPulseProps = Omit<
-  CustomButtonWrapperProps,
-  'pulseAnim' | 'pulseColor'
->;
-
-interface CustomButtonProps extends CustomButtonWrapperPropsWithoutPulseProps {
-  content?: string;
-  color?: string;
-  callback?: () => void;
-  // animFlag?: boolean;
-  // scaleSize?: number;
-}
-
 export const CustomButton: React.FC<CustomButtonProps> = ({
   content,
   color,
@@ -82,3 +54,24 @@ export const CustomButton: React.FC<CustomButtonProps> = ({
     </CustomButtonWrapper>
   );
 };
+
+interface ICustomButtonWrapper {
+  position?: string;
+  top?: number;
+  left?: number;
+  right?: number;
+  bottom?: number;
+  src?: number;
+  width?: string;
+  height?: string;
+  fontSize?: string;
+  margin?: string;
+  animFlag?: boolean;
+  scaleSize?: number;
+}
+
+interface CustomButtonProps extends ICustomButtonWrapper {
+  content?: string;
+  color?: string;
+  callback?: () => void;
+}

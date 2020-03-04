@@ -1,15 +1,7 @@
 import React from 'react';
-import styled, { keyframes } from 'styled-components';
-export const scaleAnimation = (scaleSize: number) => keyframes`
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(${scaleSize});
-  }
-`;
+import styled from 'styled-components';
+import { defaultScaleSize, scaleAnimation } from '../../hoc/scale-anim';
 
-export const defaultScaleSize = 1.1;
 const ParentDivWrapper = styled.div<ParentDivWrapperProps>`
   height: ${props => props.height};
   position: ${props => props.position || 'absolute'};
