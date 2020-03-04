@@ -12,10 +12,14 @@ const ErrorBody = styled.div`
   width: 617px;
   height: 683px;
   background: url(${background}) no-repeat center;
+  background-size: 100% 100%;
   position: relative;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   flex-direction: column;
+  padding: 174px 0 104px 0;
+  box-sizing: border-box;
 `;
 
 const ErrorText = styled.span`
@@ -23,7 +27,6 @@ const ErrorText = styled.span`
   font-size: 30.5px;
   font-weight: bold;
   max-width: 503px;
-  margin-top: 174px;
   height: 250px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -36,7 +39,6 @@ const StyledConfig = {
     height: '51px',
     content: 'Ок',
     fontSize: '28.5px',
-    margin: '50px 0 0px 0',
   },
   overlay: {
     zIndex: ZIndexes.ERROR,
