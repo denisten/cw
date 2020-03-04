@@ -5,25 +5,13 @@ import styled from 'styled-components';
 import { useStore } from 'effector-react';
 import { ExitButton } from '../../UI/exit-button';
 import { ZIndexes } from '../root-component/z-indexes-enum';
+import { Overlay } from '../../UI/overlay';
 
 const ErrorBody = styled.div`
   width: 600px;
   height: 600px;
   background-color: gray;
   position: relative;
-`;
-
-const OverLay = styled.div<IOverLay>`
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.8);
-  display: ${props => (props.open ? 'flex' : 'none')};
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  left: 0;
-  top: 0;
-  z-index: ${ZIndexes.ERROR};
 `;
 
 const ErrorText = styled.span`
@@ -38,6 +26,9 @@ const StyledConfig = {
     right: 1,
     hoverFlag: true,
   },
+  overlay: {
+    zIndex: ZIndexes.ERROR,
+  },
 };
 
 export const ErrorBoundary = () => {
@@ -46,17 +37,12 @@ export const ErrorBoundary = () => {
     resetErrorStore();
   };
   return (
-    <>
-      <OverLay open={errorFlag}>
-        <ErrorBody>
-          <ErrorText>{text}</ErrorText>
-          <ExitButton
-            {...StyledConfig.closeButton}
-            callBack={closeErrorPopup}
-          />
-        </ErrorBody>
-      </OverLay>
-    </>
+    <Overlay displayFlag={errorFlag} {...StyledConfig.overlay}>
+      <ErrorBody>
+        <ErrorText>{text}</ErrorText>
+        <ExitButton {...StyledConfig.closeButton} callBack={closeErrorPopup} />
+      </ErrorBody>
+    </Overlay>
   );
 };
 interface IOverLay {
