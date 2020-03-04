@@ -48,7 +48,12 @@ export const ProfileButton: React.FC<ProfileButtonProps> = ({
     }
   };
   return (
-    <ImgWrapper src={profileImg} callBack={handleClick} {...StyleConfig}>
+    <ImgWrapper
+      src={profileImg}
+      callBack={handleClick}
+      animFlag={tutorialCondition === TutorialConditions.MENU_ARROW}
+      {...StyleConfig}
+    >
       <NickName nickName="NickName" />
       <MoneyCounterWrapper money={228} />
     </ImgWrapper>

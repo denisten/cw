@@ -1,6 +1,15 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+const scaleAnimation = (scaleSize: number) => keyframes`
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(${scaleSize});
+  }
+`;
 
+const defaultScaleSize = 1.1;
 const ParentDivWrapper = styled.div<ParentDivWrapperProps>`
   height: ${props => props.height};
   position: ${props => props.position || 'absolute'};
@@ -11,6 +20,14 @@ const ParentDivWrapper = styled.div<ParentDivWrapperProps>`
   display: ${props => (props.displayFlag ? 'inline-block' : 'none')};
   z-index: ${props => props.zIndex};
   transform: translate(${props => props.transformTranslate});
+  animation-name: ${props =>
+    props.animFlag
+      ? scaleAnimation(props.scaleSize || defaultScaleSize)
+      : 'none'};
+  animation-fill-mode: both;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-duration: 0.6s;
   &:hover {
     cursor: ${props => (props.hoverFlag ? 'pointer' : 'auto')};
   }
@@ -19,25 +36,6 @@ const ParentDivWrapper = styled.div<ParentDivWrapperProps>`
 const ImgStyledWrapper = styled.img`
   height: 100%;
 `;
-
-interface ParentDivWrapperProps {
-  position?: string;
-  top?: number;
-  left?: number;
-  right?: number;
-  bottom?: number;
-  hoverFlag?: boolean;
-  zIndex?: number;
-  transformTranslate?: string;
-  height?: string;
-  displayFlag?: boolean;
-}
-
-export interface ImgWrapperProps extends ParentDivWrapperProps {
-  callBack?: () => void;
-  src: string;
-  children?: React.ReactElement[] | React.ReactElement;
-}
 
 const ImgWrapperNoMemo: React.FC<ImgWrapperProps> = ({
   callBack,
@@ -53,6 +51,8 @@ const ImgWrapperNoMemo: React.FC<ImgWrapperProps> = ({
   hoverFlag = false,
   children,
   displayFlag = true,
+  animFlag = false,
+  scaleSize,
   ...props
 }) => {
   return (
@@ -67,6 +67,8 @@ const ImgWrapperNoMemo: React.FC<ImgWrapperProps> = ({
       hoverFlag={hoverFlag}
       height={height}
       transformTranslate={transformTranslate}
+      animFlag={animFlag}
+      scaleSize={scaleSize}
     >
       <ImgStyledWrapper {...props} onClick={callBack} src={src} />
       {children}
@@ -75,3 +77,24 @@ const ImgWrapperNoMemo: React.FC<ImgWrapperProps> = ({
 };
 
 export const ImgWrapper = React.memo(ImgWrapperNoMemo);
+
+interface ParentDivWrapperProps {
+  position?: string;
+  top?: number;
+  left?: number;
+  right?: number;
+  bottom?: number;
+  hoverFlag?: boolean;
+  zIndex?: number;
+  transformTranslate?: string;
+  height?: string;
+  displayFlag?: boolean;
+  animFlag?: boolean;
+  scaleSize?: number;
+}
+
+export interface ImgWrapperProps extends ParentDivWrapperProps {
+  callBack?: () => void;
+  src: string;
+  children?: React.ReactElement[] | React.ReactElement;
+}
