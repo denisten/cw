@@ -32,38 +32,21 @@ const ImgStyledWrapper = styled.img`
 export const ImgWrapper = React.memo(
   ({
     callBack,
-    position,
-    top,
-    left,
-    bottom,
-    right,
     src,
-    zIndex,
-    transformTranslate,
-    height,
-    hoverFlag = false,
     children,
+    hoverFlag = false,
     displayFlag = true,
     animFlag = false,
-    scaleSize,
     ...props
   }: ImgWrapperProps) => {
     return (
       <ParentDivWrapper
         displayFlag={displayFlag}
-        position={position}
-        zIndex={zIndex}
-        top={top}
-        left={left}
-        bottom={bottom}
-        right={right}
         hoverFlag={hoverFlag}
-        height={height}
-        transformTranslate={transformTranslate}
         animFlag={animFlag}
-        scaleSize={scaleSize}
+        {...props}
       >
-        <ImgStyledWrapper {...props} onClick={callBack} src={src} />
+        <ImgStyledWrapper onClick={callBack} src={src} />
         {children}
       </ParentDivWrapper>
     );
