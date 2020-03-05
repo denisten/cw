@@ -11,11 +11,11 @@ const StyleConfig = {
   right: 5,
   hoverFlag: true,
   width: '220px',
-  height: '60px',
+  height: '5%',
 };
 
 const SpanElem = styled.span`
-  font-size: 28.5px;
+  font-size: 1.6em;
   font-weight: bold;
   color: #146977;
   position: absolute;
