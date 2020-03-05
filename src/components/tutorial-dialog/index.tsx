@@ -93,7 +93,7 @@ export const TutorialDialog: React.FC = () => {
     setUsedTxt('');
     clearTimeout(letterByLetterCallback);
     setTextGenerating(true);
-    const timeOut = setTimeout(() => {
+    const timeoutBetweenDialogMessages = setTimeout(() => {
       for (let i = 0; i < txt.length; i++) {
         letterByLetterCallback = setTimeout(() => {
           setUsedTxt(state => (state += txt[i]));
@@ -104,7 +104,7 @@ export const TutorialDialog: React.FC = () => {
       }
     }, delayBetweenDialogMessages);
     return () => {
-      clearTimeout(timeOut);
+      clearTimeout(timeoutBetweenDialogMessages);
       clearTimeout(letterByLetterCallback);
     };
   }, [onBoardingState]);

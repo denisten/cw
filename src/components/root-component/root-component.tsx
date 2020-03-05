@@ -78,7 +78,7 @@ export const RootComponent = (): React.ReactElement => {
     if (myRef.current) setScrollNode(myRef.current.container.current);
   }, []);
   useScrollTo(scrollNode, scrollCoords, [isExtraTowerInfoModalOpen]);
-  useCheckDisableTutorial();
+  useCheckDisableTutorial([]);
 
   return (
     <ComponentWrapper id="rootScroll">
