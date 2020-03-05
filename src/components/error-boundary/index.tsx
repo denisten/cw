@@ -7,8 +7,6 @@ import { ZIndexes } from '../root-component/z-indexes-enum';
 import { Overlay } from '../../UI/overlay';
 import background from './background.png';
 import { CustomButton } from '../../UI/button';
-import { useLocation } from 'react-router';
-import { turnOffTutorialMode } from '../../effector/app-condition/events';
 
 const ErrorBody = styled.div`
   width: 617px;
@@ -53,9 +51,6 @@ export const ErrorBoundary = () => {
     resetErrorStore();
   };
 
-  const historyLog = useLocation();
-  if (historyLog.search.replace('?', '') === 'disableTutorial')
-    turnOffTutorialMode();
   return (
     <Overlay displayFlag={errorFlag} {...StyledConfig.overlay}>
       <ErrorBody>
