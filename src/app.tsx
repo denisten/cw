@@ -5,6 +5,7 @@ import history from './history';
 import { AuthLandingPage } from './components/auth-landing-page';
 import { GlobalStyle } from './global-style';
 import { ErrorBoundary } from './components/error-boundary';
+
 export enum Routes {
   MAIN = '/',
   AUTH_LANDING_PAGE = '/auth-callback',

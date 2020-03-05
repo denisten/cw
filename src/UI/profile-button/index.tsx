@@ -13,16 +13,15 @@ import { MoneyWrapper } from '../money-wrapper';
 
 const MoneyCounterWrapper = styled.div`
   position: absolute;
-  top: 60%;
+  top: 62%;
 
   left: 24%;
-  font-size: 23px;
+  font-size: 1.4em;
 `;
 
 const StyleConfig = {
   nickNameButton: {
-    height: '109px',
-    width: '321px',
+    height: '9%',
     zIndex: ZIndexes.UI_BUTTON,
     top: 3.7,
     left: 3.2,
@@ -30,13 +29,13 @@ const StyleConfig = {
   },
 
   avatar: {
-    height: '106px',
+    height: '100%',
     left: -5,
     top: -13,
   },
 
   money: {
-    fontSize: '23px',
+    fontSize: '1em',
   },
 };
 

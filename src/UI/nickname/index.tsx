@@ -6,7 +6,7 @@ const NickNameWrapper = styled.span`
   position: absolute;
   top: 15%;
   left: 32%;
-  font-size: 28.5px;
+  font-size: 1.8em;
 `;
 
 export const NickName = React.memo(({ nickName }: INickNameWrapper) => {

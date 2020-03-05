@@ -50,6 +50,7 @@ export const ErrorBoundary = () => {
   const closeErrorPopup = () => {
     resetErrorStore();
   };
+
   return (
     <Overlay displayFlag={errorFlag} {...StyledConfig.overlay}>
       <ErrorBody>
