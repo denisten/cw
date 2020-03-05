@@ -5,7 +5,7 @@ import history from './history';
 import { AuthLandingPage } from './components/auth-landing-page';
 import { GlobalStyle } from './global-style';
 import { ErrorBoundary } from './components/error-boundary';
-import { SkipTutorial } from './components/skip-tutorial';
+
 export enum Routes {
   MAIN = '/',
   AUTH_LANDING_PAGE = '/auth-callback',
@@ -14,7 +14,6 @@ export enum Routes {
 export const App = () => {
   return (
     <Router history={history}>
-      <SkipTutorial />
       <ErrorBoundary />
       <GlobalStyle />
       <Switch>

@@ -15,6 +15,7 @@ import { Bridges } from '../../buildings/bridges';
 import { ProfileButton } from '../../UI/profile-button';
 import { TutorialToolsSelector } from '../../utils/arrows-container';
 import { Cars } from '../cars/carsArray';
+import { useCheckDisableTutorial } from '../../hooks/useCheckDisableTutorial';
 
 export enum MapSize {
   WIDTH = 7680,
@@ -77,6 +78,7 @@ export const RootComponent = (): React.ReactElement => {
     if (myRef.current) setScrollNode(myRef.current.container.current);
   }, []);
   useScrollTo(scrollNode, scrollCoords, [isExtraTowerInfoModalOpen]);
+  useCheckDisableTutorial();
 
   return (
     <ComponentWrapper id="rootScroll">
