@@ -53,7 +53,7 @@ export const ErrorBoundary = () => {
 
   return (
     <ErrorWrapper errorFlag={errorFlag} text={text} {...StyledConfig.overlay}>
-      {networkStatus === 'online' ? (
+      {networkStatus === NetworkStatuses.ONLINE ? (
         <CustomButton
           callback={closeErrorPopup}
           {...StyledConfig.closeButton}
