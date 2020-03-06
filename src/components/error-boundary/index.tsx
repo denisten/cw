@@ -22,33 +22,38 @@ const StyledConfig = {
   },
 };
 
+enum NetworkStatuses {
+  ONLINE = 'online',
+  OFFLINE = 'offline',
+}
+
 export const ErrorBoundary = () => {
   const { errorFlag, text } = useStore(ErrorBoundaryStore);
-  const [offlineState, setOfflineState] = useState(false);
+  const [networkStatus, setNetworkStatus] = useState(NetworkStatuses.ONLINE);
   const closeErrorPopup = () => {
     resetErrorStore();
   };
 
-  const offline = () => {
-    setOfflineState(true);
+  const setNetworkStatusOffline = () => {
+    setNetworkStatus(NetworkStatuses.OFFLINE);
     coughtError({
       text: errorCodes[0],
     });
   };
 
-  const online = () => {
-    setOfflineState(false);
+  const setNetworkStatusOnline = () => {
+    setNetworkStatus(NetworkStatuses.ONLINE);
     resetErrorStore();
   };
 
   useEffect(() => {
-    window.addEventListener('offline', offline);
-    window.addEventListener('online', online);
+    window.addEventListener('offline', setNetworkStatusOffline);
+    window.addEventListener('online', setNetworkStatusOnline);
   }, []);
 
   return (
     <ErrorWrapper errorFlag={errorFlag} text={text} {...StyledConfig.overlay}>
-      {!offlineState ? (
+      {networkStatus === 'online' ? (
         <CustomButton
           callback={closeErrorPopup}
           {...StyledConfig.closeButton}
