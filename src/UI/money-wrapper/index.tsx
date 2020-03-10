@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { ImgWrapperProps } from '../img-wrapper';
 import moneyIcon from './icon_money.png';
 
-const CountWrapper = styled.div`
+const CountWrapper = styled.div<ICountWrapper>`
   color: #fff;
   display: flex;
   align-items: center;
@@ -13,20 +13,27 @@ const CountWrapper = styled.div`
   }
 
   span {
-    font-size: 28px;
+    font-size: ${props => props.fontSize || '28px'};
   }
 `;
 
-interface MoneyWrapWithCount extends ImgWrapperProps {
-  count: number;
-}
 type MoneyWrapperProp = Omit<MoneyWrapWithCount, 'src'>;
 
-export const MoneyWrapper: React.FC<MoneyWrapperProp> = ({ count }) => {
+export const MoneyWrapper: React.FC<MoneyWrapperProp> = ({
+  count,
+  ...props
+}) => {
   return (
-    <CountWrapper>
+    <CountWrapper {...props}>
       <img alt="moneyIcon" src={moneyIcon} />
       <span>{count}</span>
     </CountWrapper>
   );
 };
+
+interface ICountWrapper {
+  fontSize?: string;
+}
+interface MoneyWrapWithCount extends ImgWrapperProps {
+  count: number;
+}

@@ -1,50 +1,64 @@
 import { ErrorBoundaryStore } from '../../effector/error-boundary-store/store';
-import { resetErrorStore } from '../../effector/error-boundary-store/events';
-import React from 'react';
-import styled from 'styled-components';
+import {
+  resetErrorStore,
+  coughtError,
+} from '../../effector/error-boundary-store/events';
+import React, { useEffect, useState } from 'react';
 import { useStore } from 'effector-react';
-import { ExitButton } from '../../UI/exit-button';
 import { ZIndexes } from '../root-component/z-indexes-enum';
-import { Overlay } from '../../UI/overlay';
-
-const ErrorBody = styled.div`
-  width: 600px;
-  height: 600px;
-  background-color: gray;
-  position: relative;
-`;
-
-const ErrorText = styled.span`
-  color: red;
-  font-size: 24px;
-`;
+import { CustomButton } from '../../UI/button';
+import { ErrorWrapper } from './error-wrapper';
+import { errorCodes } from '../../utils/error-handler';
 
 const StyledConfig = {
   closeButton: {
-    height: '28px',
-    top: 1,
-    right: 1,
-    hoverFlag: true,
+    width: '200px',
+    height: '51px',
+    content: 'Ок',
+    fontSize: '28.5px',
   },
   overlay: {
     zIndex: ZIndexes.ERROR,
   },
 };
 
+enum NetworkStatuses {
+  ONLINE = 'online',
+  OFFLINE = 'offline',
+}
+
 export const ErrorBoundary = () => {
   const { errorFlag, text } = useStore(ErrorBoundaryStore);
+  const [networkStatus, setNetworkStatus] = useState(NetworkStatuses.ONLINE);
   const closeErrorPopup = () => {
     resetErrorStore();
   };
+
+  const setNetworkStatusOffline = () => {
+    setNetworkStatus(NetworkStatuses.OFFLINE);
+    coughtError({
+      text: errorCodes[0],
+    });
+  };
+
+  const setNetworkStatusOnline = () => {
+    setNetworkStatus(NetworkStatuses.ONLINE);
+    resetErrorStore();
+  };
+
+  useEffect(() => {
+    window.addEventListener('offline', setNetworkStatusOffline);
+    window.addEventListener('online', setNetworkStatusOnline);
+  }, []);
+
   return (
-    <Overlay displayFlag={errorFlag} {...StyledConfig.overlay}>
-      <ErrorBody>
-        <ErrorText>{text}</ErrorText>
-        <ExitButton {...StyledConfig.closeButton} callBack={closeErrorPopup} />
-      </ErrorBody>
-    </Overlay>
+    <ErrorWrapper errorFlag={errorFlag} text={text} {...StyledConfig.overlay}>
+      {networkStatus === NetworkStatuses.ONLINE ? (
+        <CustomButton
+          callback={closeErrorPopup}
+          {...StyledConfig.closeButton}
+        />
+      ) : null}
+    </ErrorWrapper>
   );
 };
-interface IOverLay {
-  open: boolean;
-}

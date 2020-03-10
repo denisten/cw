@@ -27,6 +27,7 @@ const ParentDivWrapper = styled.div<ParentDivWrapperProps>`
 
 const ImgStyledWrapper = styled.img`
   height: 100%;
+  width: 100%;
 `;
 
 export const ImgWrapper = React.memo(
@@ -45,8 +46,9 @@ export const ImgWrapper = React.memo(
         hoverFlag={hoverFlag}
         animFlag={animFlag}
         {...props}
+        onClick={callBack}
       >
-        <ImgStyledWrapper onClick={callBack} src={src} />
+        <ImgStyledWrapper src={src} />
         {children}
       </ParentDivWrapper>
     );
