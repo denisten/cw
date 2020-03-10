@@ -32,6 +32,8 @@ import tariffTowerLevel2Img from './tariff/2.png';
 import tariffTowerLevel2Stroke from './tariff/2-stroke.png';
 import theaterTowerLevel2Img from './theater/2.png';
 import theaterTowerLevel2Stroke from './theater/2-stroke.png';
+import theaterTowerLevel3Img from './theater/3.png';
+import theaterTowerLevel3Stroke from './theater/3-stroke.png';
 import TVTowerLevel2Stroke from './TV/2-stroke.png';
 import TVTowerLevel2Img from './TV/2.png';
 import stadiumLevel1Img from './stadium/1.png';
@@ -338,7 +340,7 @@ export class BuildingsService {
       title: 'Афиша',
       coords: [2964, 1643],
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
-      maxLevel: TowerLevel.mid,
+      maxLevel: TowerLevel.high,
       [TowerLevel.low]: {
         // TODO: не настоящая картинка
         img: musicTowerLevel1Img,
@@ -357,13 +359,12 @@ export class BuildingsService {
         position: [25.5, 35.3],
       },
       [TowerLevel.high]: {
-        // TODO: не настоящая картинка
-        img: eggTowerLevel3Img,
-        width: 384,
-        height: 531,
-        shadowImg: eggTowerLevel3Stroke,
-        areaCoords: '320,441,50,45',
-        position: [31.5, 50.9],
+        img: theaterTowerLevel3Img,
+        width: 679,
+        height: 459,
+        shadowImg: theaterTowerLevel3Stroke,
+        areaCoords: '46,41,639,415',
+        position: [25.8, 34.6],
       },
     },
     [TowersTypes.TV]: {
