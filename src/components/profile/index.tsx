@@ -20,47 +20,6 @@ import { handleAuthButtonClick } from '../../utils/handle-auth-button-click';
 import { logout } from '../../api';
 import { updateUserData } from '../../api/update-user-data';
 
-const UserInfoBlockWrapper = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-`;
-
-const TitleWrapper = styled.div<TitleWrapperProps>`
-  font-size: ${props => props.fontSize}em;
-  color: #1b4f75;
-  font-weight: bold;
-  position: ${props => props.position || 'static'};
-  top: ${props => props.top}%;
-  left: ${props => props.left}%;
-  bottom: ${props => props.bottom}%;
-  right: ${props => props.right}%;
-  margin: ${props => props.margin};
-`;
-
-const ProfileWrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  position: relative;
-`;
-const InputsWrapper = styled.div`
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-around;
-  flex-direction: column;
-  width: 60%;
-  padding-left: 72px;
-  box-sizing: border-box;
-`;
-
-const ProfileHeader = styled.div`
-  display: flex;
-  position: absolute;
-  top: -20px;
-  left: 34px;
-`;
-
 const StyledConfig = {
   nonAuthorizedAvatar: {
     width: '140px',
@@ -128,22 +87,46 @@ const StyledConfig = {
   },
 };
 
-export type TitleWrapperProps = {
-  fontSize: number;
-  position?: string;
-  top?: number;
-  left?: number;
-  bottom?: number;
-  right?: number;
-  width?: number;
-  margin?: string;
-};
+const UserInfoBlockWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+`;
 
-type RowWrapperType = {
-  display?: string;
-  paddingLeft?: string;
-  margin?: string;
-};
+const TitleWrapper = styled.div<ITitleWrapper>`
+  font-size: ${props => props.fontSize}em;
+  color: #1b4f75;
+  font-weight: bold;
+  position: ${props => props.position || 'static'};
+  top: ${props => props.top}%;
+  left: ${props => props.left}%;
+  bottom: ${props => props.bottom}%;
+  right: ${props => props.right}%;
+  margin: ${props => props.margin};
+`;
+
+const ProfileWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  position: relative;
+`;
+const InputsWrapper = styled.div`
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-around;
+  flex-direction: column;
+  width: 60%;
+  padding-left: 72px;
+  box-sizing: border-box;
+`;
+
+const ProfileHeader = styled.div`
+  display: flex;
+  position: absolute;
+  top: -20px;
+  left: 34px;
+`;
 
 const NonAuthorizedPanel = styled.div`
   width: 100%;
@@ -154,7 +137,7 @@ const NonAuthorizedPanel = styled.div`
   flex-direction: column;
 `;
 
-export const RowWrapper = styled.div<RowWrapperType>`
+export const RowWrapper = styled.div<IRowWrapper>`
   display: flex;
   align-items: center;
   box-sizing: border-box;
@@ -180,6 +163,8 @@ export const Billet = styled.div`
   margin-bottom: 27px;
 `;
 
+const NickNameWrapper = styled.div``;
+
 export const Profile = () => {
   const { name, assistantName, worldName, money } = useStore(UserDataStore);
   const [editMode, setEditMode] = useState(false);
@@ -192,21 +177,21 @@ export const Profile = () => {
   }, [isAuthorized]);
   return (
     <ProfileWrapper>
-      {isAuthorized ? (
+      {!isAuthorized ? (
         <React.Fragment>
           <Billet />
           <ProfileHeader>
             <img src={avatarImg} {...StyledConfig.avatar} alt="profile" />
             <div>
-              <DataInput
-                {...StyledConfig.nickNameWrapper}
-                key={1}
-                value={name}
-                callBack={value =>
-                  editUserData({ key: UserDataStoreKeys.NAME, value })
-                }
-              />
-              <p>{name}</p>
+              {/*<DataInput*/}
+              {/*  {...StyledConfig.nickNameWrapper}*/}
+              {/*  key={1}*/}
+              {/*  value={name}*/}
+              {/*  callBack={value =>*/}
+              {/*    editUserData({ key: UserDataStoreKeys.NAME, value })*/}
+              {/*  }*/}
+              {/*/>*/}
+              <p>{name}NickName</p>
               <MoneyWrapper count={money} />
             </div>
           </ProfileHeader>
@@ -297,3 +282,20 @@ export const Profile = () => {
     </ProfileWrapper>
   );
 };
+
+export interface ITitleWrapper {
+  fontSize: number;
+  position?: string;
+  top?: number;
+  left?: number;
+  bottom?: number;
+  right?: number;
+  width?: number;
+  margin?: string;
+}
+
+interface IRowWrapper {
+  display?: string;
+  paddingLeft?: string;
+  margin?: string;
+}

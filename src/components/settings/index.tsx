@@ -10,7 +10,7 @@ import { DataInput } from '../../UI/data-input';
 import { editUserData } from '../../effector/user-data/events';
 import { MoneyWrapper } from '../../UI/money-wrapper';
 import { CustomButton } from '../../UI/button';
-import { Billet, RowWrapper, TitleWrapperProps } from '../profile';
+import { Billet, RowWrapper, ITitleWrapper } from '../profile';
 import {
   AppCondition,
   TutorialConditions,
@@ -24,7 +24,7 @@ const UserInfoBlockWrapper = styled.div`
   justify-content: space-evenly;
 `;
 
-const TitleWrapper = styled.div<TitleWrapperProps>`
+const TitleWrapper = styled.div<ITitleWrapper>`
   font-size: ${props => props.fontSize}em;
   color: #1b4f75;
   font-weight: bold;
