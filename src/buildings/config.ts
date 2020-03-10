@@ -50,8 +50,12 @@ import airportLevel2Stroke from './airport/2-stroke.png';
 import airportLevel3Stroke from './airport/3-stroke.png';
 import moneyVaultLevel2Img from './money-vault/2.png';
 import moneyVaultLevel2Stroke from './money-vault/2-stroke.png';
+import bankLevel1Img from './bank/1.png';
+import bankLevel1Stroke from './bank/1-stroke.png';
 import bankLevel2Img from './bank/2.png';
 import bankLevel2Stroke from './bank/2-stroke.png';
+import bankLevel3Img from './bank/3.png';
+import bankLevel3Stroke from './bank/3-stroke.png';
 import cyberArenaLevel3Img from './cyber-arena/3.png';
 import cyberArenaLevel2Img from './cyber-arena/2.png';
 import cyberArenaLevel1Img from './cyber-arena/1.png';
@@ -500,32 +504,30 @@ export class BuildingsService {
       title: 'Банк',
       coords: [5404, 1763],
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
-      maxLevel: TowerLevel.mid,
-      // TODO: не настоящая картинка
+      maxLevel: TowerLevel.high,
       [TowerLevel.low]: {
-        img: airportLevel1Img,
-        width: 572,
-        height: 398,
-        shadowImg: airportLevel1Stroke,
-        areaCoords: '510,47,70,345',
-        position: [20, 28.5],
+        img: bankLevel1Img,
+        width: 532,
+        height: 461,
+        shadowImg: bankLevel1Stroke,
+        areaCoords: '50,62,482,408',
+        position: [27, 66.5],
       },
       [TowerLevel.mid]: {
         img: bankLevel2Img,
-        width: 579,
-        height: 688,
+        width: 584,
+        height: 593,
         shadowImg: bankLevel2Stroke,
-        areaCoords: '516,39,69,578',
-        position: [23, 66.4],
+        areaCoords: '47,52,536,541',
+        position: [24.9, 66.3],
       },
-      // TODO: не настоящая картинка
       [TowerLevel.high]: {
-        img: airportLevel3Img,
-        width: 573,
-        height: 449,
-        shadowImg: airportLevel3Stroke,
-        areaCoords: '595,126,90,476',
-        position: [18.9, 28.3],
+        img: bankLevel3Img,
+        width: 585,
+        height: 593,
+        shadowImg: bankLevel3Stroke,
+        areaCoords: '50,47,545,545',
+        position: [24.9, 66.3],
       },
     },
     [TowersTypes.CYBER_ARENA]: {

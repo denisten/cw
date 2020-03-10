@@ -84,7 +84,7 @@ const initState: TowersProgressStoreType = {
     progress: 0,
   },
   [TowersTypes.BANK]: {
-    level: TowerLevel.mid,
+    level: TowerLevel.low,
     progress: 0,
   },
   [TowersTypes.CYBER_ARENA]: {
