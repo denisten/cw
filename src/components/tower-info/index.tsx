@@ -144,9 +144,9 @@ const Divider = styled.div`
 
 const StyleConfig = {
   exitButton: {
-    height: '3%',
-    top: 1,
-    left: 1,
+    height: '4%',
+    top: 0,
+    left: 0,
     hoverFlag: true,
   },
   tutorialArrow: {
