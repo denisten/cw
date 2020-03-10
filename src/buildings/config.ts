@@ -32,6 +32,8 @@ import tariffTowerLevel2Img from './tariff/2.png';
 import tariffTowerLevel2Stroke from './tariff/2-stroke.png';
 import theaterTowerLevel2Img from './theater/2.png';
 import theaterTowerLevel2Stroke from './theater/2-stroke.png';
+import theaterTowerLevel3Img from './theater/3.png';
+import theaterTowerLevel3Stroke from './theater/3-stroke.png';
 import TVTowerLevel2Stroke from './TV/2-stroke.png';
 import TVTowerLevel2Img from './TV/2.png';
 import stadiumLevel1Img from './stadium/1.png';
@@ -48,8 +50,12 @@ import airportLevel2Stroke from './airport/2-stroke.png';
 import airportLevel3Stroke from './airport/3-stroke.png';
 import moneyVaultLevel2Img from './money-vault/2.png';
 import moneyVaultLevel2Stroke from './money-vault/2-stroke.png';
+import bankLevel1Img from './bank/1.png';
+import bankLevel1Stroke from './bank/1-stroke.png';
 import bankLevel2Img from './bank/2.png';
 import bankLevel2Stroke from './bank/2-stroke.png';
+import bankLevel3Img from './bank/3.png';
+import bankLevel3Stroke from './bank/3-stroke.png';
 import cyberArenaLevel3Img from './cyber-arena/3.png';
 import cyberArenaLevel2Img from './cyber-arena/2.png';
 import cyberArenaLevel1Img from './cyber-arena/1.png';
@@ -71,6 +77,10 @@ import routerLevel1Img from './router/1.png';
 import routerLevel1Stroke from './router/1-stroke.png';
 import autoFactoryLevel1Img from './auto-factory/1.png';
 import autoFactoryLevel1Stroke from './auto-factory/1-stroke.png';
+import autoFactoryLevel2Img from './auto-factory/2.png';
+import autoFactoryLevel2Stroke from './auto-factory/2-stroke.png';
+import autoFactoryLevel3Img from './auto-factory/3.png';
+import autoFactoryLevel3Stroke from './auto-factory/3-stroke.png';
 import rtkLevel1Img from './rtk/1.png';
 import rtkLevel1Stroke from './rtk/1-stroke.png';
 import { ZIndexes } from '../components/root-component/z-indexes-enum';
@@ -338,7 +348,7 @@ export class BuildingsService {
       title: 'Афиша',
       coords: [2964, 1643],
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
-      maxLevel: TowerLevel.mid,
+      maxLevel: TowerLevel.high,
       [TowerLevel.low]: {
         // TODO: не настоящая картинка
         img: musicTowerLevel1Img,
@@ -357,13 +367,12 @@ export class BuildingsService {
         position: [25.5, 35.3],
       },
       [TowerLevel.high]: {
-        // TODO: не настоящая картинка
-        img: eggTowerLevel3Img,
-        width: 384,
-        height: 531,
-        shadowImg: eggTowerLevel3Stroke,
-        areaCoords: '320,441,50,45',
-        position: [31.5, 50.9],
+        img: theaterTowerLevel3Img,
+        width: 679,
+        height: 459,
+        shadowImg: theaterTowerLevel3Stroke,
+        areaCoords: '46,41,639,415',
+        position: [25.8, 34.6],
       },
     },
     [TowersTypes.TV]: {
@@ -499,32 +508,30 @@ export class BuildingsService {
       title: 'Банк',
       coords: [5404, 1763],
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
-      maxLevel: TowerLevel.mid,
-      // TODO: не настоящая картинка
+      maxLevel: TowerLevel.high,
       [TowerLevel.low]: {
-        img: airportLevel1Img,
-        width: 572,
-        height: 398,
-        shadowImg: airportLevel1Stroke,
-        areaCoords: '510,47,70,345',
-        position: [20, 28.5],
+        img: bankLevel1Img,
+        width: 532,
+        height: 461,
+        shadowImg: bankLevel1Stroke,
+        areaCoords: '50,62,482,408',
+        position: [27, 66.5],
       },
       [TowerLevel.mid]: {
         img: bankLevel2Img,
-        width: 579,
-        height: 688,
+        width: 584,
+        height: 593,
         shadowImg: bankLevel2Stroke,
-        areaCoords: '516,39,69,578',
-        position: [23, 66.4],
+        areaCoords: '47,52,536,541',
+        position: [24.9, 66.3],
       },
-      // TODO: не настоящая картинка
       [TowerLevel.high]: {
-        img: airportLevel3Img,
-        width: 573,
-        height: 449,
-        shadowImg: airportLevel3Stroke,
-        areaCoords: '595,126,90,476',
-        position: [18.9, 28.3],
+        img: bankLevel3Img,
+        width: 585,
+        height: 593,
+        shadowImg: bankLevel3Stroke,
+        areaCoords: '50,47,545,545',
+        position: [24.9, 66.3],
       },
     },
     [TowersTypes.CYBER_ARENA]: {
@@ -560,7 +567,7 @@ export class BuildingsService {
     },
     [TowersTypes.FACTORY]: {
       info: 'info',
-      title: 'Салоный связи',
+      title: 'Салон связи',
       coords: [4933, 1921],
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.low,
@@ -761,32 +768,30 @@ export class BuildingsService {
       title: 'МТС авто',
       coords: [4293, 3233],
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
-      maxLevel: TowerLevel.low,
+      maxLevel: TowerLevel.high,
       [TowerLevel.low]: {
         img: autoFactoryLevel1Img,
+        width: 662,
+        height: 499,
+        shadowImg: autoFactoryLevel1Stroke,
+        areaCoords: '49,143,613,448',
+        position: [50.7, 49],
+      },
+      [TowerLevel.mid]: {
+        img: autoFactoryLevel2Img,
+        width: 737,
+        height: 550,
+        shadowImg: autoFactoryLevel2Stroke,
+        areaCoords: '41,59,688,498',
+        position: [50.5, 48.4],
+      },
+      [TowerLevel.high]: {
+        img: autoFactoryLevel3Img,
         width: 736,
         height: 550,
-        shadowImg: autoFactoryLevel1Stroke,
-        areaCoords: '136,196,602,481',
-        position: [52, 48],
-      },
-      // TODO: не настоящая картинка
-      [TowerLevel.mid]: {
-        img: bankLevel2Img,
-        width: 579,
-        height: 688,
-        shadowImg: bankLevel2Stroke,
-        areaCoords: '516,39,69,578',
-        position: [23.4, 66.4],
-      },
-      // TODO: не настоящая картинка
-      [TowerLevel.high]: {
-        img: airportLevel3Img,
-        width: 573,
-        height: 449,
-        shadowImg: airportLevel3Stroke,
-        areaCoords: '595,126,90,476',
-        position: [18.9, 28.3],
+        shadowImg: autoFactoryLevel3Stroke,
+        areaCoords: '51,55,682,499',
+        position: [50.5, 48.4],
       },
     },
     [TowersTypes.RTK]: {
