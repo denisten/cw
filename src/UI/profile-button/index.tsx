@@ -1,6 +1,10 @@
 import React from 'react';
 import profileImg from './button_nickname.png';
-import { menuOpened, nextTutorStep } from '../../effector/app-condition/events';
+import {
+  menuOpened,
+  nextTutorStep,
+  extraTowerInfoModalClosed,
+} from '../../effector/app-condition/events';
 import { ImgWrapper } from '../../UI/img-wrapper';
 import styled from 'styled-components';
 import { TutorialConditions } from '../../effector/app-condition/store';
@@ -45,10 +49,12 @@ export const ProfileButton: React.FC<IProfileButton> = ({
   const handleClick = () => {
     if (!tutorialCondition) {
       menuOpened(MenuItems.PROFILE);
+      extraTowerInfoModalClosed();
       return;
     }
     if (tutorialCondition === TutorialConditions.MENU_ARROW) {
       menuOpened(MenuItems.PROFILE);
+      extraTowerInfoModalClosed();
       nextTutorStep();
     }
   };
