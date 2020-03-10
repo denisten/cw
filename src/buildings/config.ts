@@ -77,6 +77,10 @@ import routerLevel1Img from './router/1.png';
 import routerLevel1Stroke from './router/1-stroke.png';
 import autoFactoryLevel1Img from './auto-factory/1.png';
 import autoFactoryLevel1Stroke from './auto-factory/1-stroke.png';
+import autoFactoryLevel2Img from './auto-factory/2.png';
+import autoFactoryLevel2Stroke from './auto-factory/2-stroke.png';
+import autoFactoryLevel3Img from './auto-factory/3.png';
+import autoFactoryLevel3Stroke from './auto-factory/3-stroke.png';
 import rtkLevel1Img from './rtk/1.png';
 import rtkLevel1Stroke from './rtk/1-stroke.png';
 import { ZIndexes } from '../components/root-component/z-indexes-enum';
@@ -563,7 +567,7 @@ export class BuildingsService {
     },
     [TowersTypes.FACTORY]: {
       info: 'info',
-      title: 'Салоный связи',
+      title: 'Салон связи',
       coords: [4933, 1921],
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.low,
@@ -764,32 +768,30 @@ export class BuildingsService {
       title: 'МТС авто',
       coords: [4293, 3233],
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
-      maxLevel: TowerLevel.low,
+      maxLevel: TowerLevel.high,
       [TowerLevel.low]: {
         img: autoFactoryLevel1Img,
+        width: 662,
+        height: 499,
+        shadowImg: autoFactoryLevel1Stroke,
+        areaCoords: '49,143,613,448',
+        position: [50.7, 49],
+      },
+      [TowerLevel.mid]: {
+        img: autoFactoryLevel2Img,
+        width: 737,
+        height: 550,
+        shadowImg: autoFactoryLevel2Stroke,
+        areaCoords: '41,59,688,498',
+        position: [50.5, 48.4],
+      },
+      [TowerLevel.high]: {
+        img: autoFactoryLevel3Img,
         width: 736,
         height: 550,
-        shadowImg: autoFactoryLevel1Stroke,
-        areaCoords: '136,196,602,481',
-        position: [52, 48],
-      },
-      // TODO: не настоящая картинка
-      [TowerLevel.mid]: {
-        img: bankLevel2Img,
-        width: 579,
-        height: 688,
-        shadowImg: bankLevel2Stroke,
-        areaCoords: '516,39,69,578',
-        position: [23.4, 66.4],
-      },
-      // TODO: не настоящая картинка
-      [TowerLevel.high]: {
-        img: airportLevel3Img,
-        width: 573,
-        height: 449,
-        shadowImg: airportLevel3Stroke,
-        areaCoords: '595,126,90,476',
-        position: [18.9, 28.3],
+        shadowImg: autoFactoryLevel3Stroke,
+        areaCoords: '51,55,682,499',
+        position: [50.5, 48.4],
       },
     },
     [TowersTypes.RTK]: {
