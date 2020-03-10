@@ -1,21 +1,13 @@
 import { errorParsingHOF } from '../../utils/error-handler';
+import { AxiosResponse } from 'axios';
 
-export const withHandlingErrors = async (
-  request: () => Promise<IwithHandlingErrors>
-) => {
+export const withHandlingErrors = <T>(
+  request: () => Promise<AxiosResponse<T>>
+): Promise<AxiosResponse<T>> => {
   try {
-    const response = await request();
-    return response;
+    return request();
   } catch (err) {
     errorParsingHOF(err.response.status);
     throw new Error('request error');
   }
 };
-
-interface IwithHandlingErrors {
-  data: {
-    url?: string;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    data?: any;
-  };
-}

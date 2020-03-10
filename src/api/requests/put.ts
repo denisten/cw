@@ -1,10 +1,10 @@
 import axios, { AxiosResponse } from 'axios';
 import { withHandlingErrors } from '../../hoc/http-error-handler-hoc';
 
-export const get = <T>(url: string) => {
+export const put = <T, Y = {}>(url: string, data: Y | unknown = {}) => {
   return withHandlingErrors(
     (): Promise<AxiosResponse<T>> => {
-      return axios.get(url);
+      return axios.put(url, data);
     }
   );
 };

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 const DataInputWrapper = styled.div<IDataInputWrapper>`
   width: auto;
@@ -54,6 +54,9 @@ export const DataInput: React.FC<IDataInput> = ({
 }) => {
   const [content, setContent] = useState(value);
   const inputRef = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    setContent(value);
+  }, [value]);
   const onBlurHandler = () => {
     callBack(content);
   };

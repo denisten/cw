@@ -118,10 +118,10 @@ export const Settings = () => {
         <div>
           <DataInput
             {...StyledConfig.nickNameWrapper}
-            key={localUserData.nickName}
-            value={localUserData.nickName}
+            key={localUserData.name}
+            value={localUserData.name}
             callBack={value =>
-              editUserData({ key: UserDataStoreKeys.NICKNAME, value })
+              editUserData({ key: UserDataStoreKeys.NAME, value })
             }
           />
           <MoneyWrapper count={localUserData.money} />
@@ -146,10 +146,10 @@ export const Settings = () => {
           <DataInput
             editMode={editMode}
             title="Название города"
-            key={localUserData.cityName}
-            value={localUserData.cityName}
+            key={localUserData.worldName}
+            value={localUserData.worldName}
             callBack={value =>
-              editUserData({ key: UserDataStoreKeys.CITY_NAME, value })
+              editUserData({ key: UserDataStoreKeys.WORLD_NAME, value })
             }
           />
         </InputsWrapper>

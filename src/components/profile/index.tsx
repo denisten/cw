@@ -8,7 +8,7 @@ import {
 import styled from 'styled-components';
 import { MoneyWrapper } from '../../UI/money-wrapper';
 import { DataInput } from '../../UI/data-input';
-import { editUserData } from '../../effector/user-data/events';
+import { editUserData, fetchUserData } from '../../effector/user-data/events';
 import { CustomButton } from '../../UI/button';
 import {
   AppCondition,
@@ -17,7 +17,8 @@ import {
 import { CookieService } from '../../sevices/cookies';
 import { turnOffTutorialMode } from '../../effector/app-condition/events';
 import { handleAuthButtonClick } from '../../utils/handle-auth-button-click';
-import { fetchUserData } from '../../utils/fetch-user-data';
+import { logout } from '../../api';
+import { updateUserData } from '../../api/update-user-data';
 
 const UserInfoBlockWrapper = styled.div`
   width: 100%;
@@ -180,13 +181,13 @@ export const Billet = styled.div`
 `;
 
 export const Profile = () => {
-  const { nickName, supportName, cityName, money } = useStore(UserDataStore);
+  const { name, assistantName, worldName, money } = useStore(UserDataStore);
   const [editMode, setEditMode] = useState(false);
   const toggleInputEdit = () => setEditMode(!editMode);
   const { isAuthorized, tutorialCondition } = useStore(AppCondition);
   useEffect(() => {
     if (isAuthorized) {
-      fetchUserData();
+      fetchUserData('');
     }
   }, [isAuthorized]);
   return (
@@ -200,12 +201,12 @@ export const Profile = () => {
               <DataInput
                 {...StyledConfig.nickNameWrapper}
                 key={1}
-                value={nickName}
+                value={name}
                 callBack={value =>
-                  editUserData({ key: UserDataStoreKeys.NICKNAME, value })
+                  editUserData({ key: UserDataStoreKeys.NAME, value })
                 }
               />
-              <p>{nickName}</p>
+              <p>{name}</p>
               <MoneyWrapper count={money} />
             </div>
           </ProfileHeader>
@@ -226,34 +227,37 @@ export const Profile = () => {
                 editMode={editMode}
                 title="Никнейм"
                 key="Никнейм"
-                value={nickName}
+                value={name}
                 callBack={value =>
-                  editUserData({ key: UserDataStoreKeys.NICKNAME, value })
+                  editUserData({ key: UserDataStoreKeys.NAME, value })
                 }
               />
               <DataInput
                 editMode={editMode}
                 title="Имя помощника"
                 key="Имя помощника"
-                value={supportName}
+                value={assistantName}
                 callBack={value =>
-                  editUserData({ key: UserDataStoreKeys.SUPPORT_NAME, value })
+                  editUserData({ key: UserDataStoreKeys.ASSISTANT_NAME, value })
                 }
               />
               <DataInput
                 editMode={editMode}
                 title="Название города"
                 key="Название города"
-                value={cityName}
+                value={worldName}
                 callBack={value =>
-                  editUserData({ key: UserDataStoreKeys.CITY_NAME, value })
+                  editUserData({ key: UserDataStoreKeys.WORLD_NAME, value })
                 }
               />
             </InputsWrapper>
             {editMode ? (
               <RowWrapper {...StyledConfig.inEditModeRow}>
                 <CustomButton
-                  callback={() => toggleInputEdit()}
+                  callback={() => {
+                    toggleInputEdit();
+                    updateUserData({ name, assistantName, worldName });
+                  }}
                   {...StyledConfig.saveButton}
                 />
               </RowWrapper>
@@ -262,7 +266,10 @@ export const Profile = () => {
             {!editMode ? (
               <RowWrapper {...StyledConfig.inEditModeRow}>
                 <CustomButton
-                  callback={() => CookieService.resetToken()}
+                  callback={() => {
+                    CookieService.resetToken();
+                    logout();
+                  }}
                   {...StyledConfig.exitButton}
                 />
               </RowWrapper>
