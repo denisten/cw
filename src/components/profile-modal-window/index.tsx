@@ -22,9 +22,9 @@ import { ZIndexes } from '../root-component/z-indexes-enum';
 
 const StyledConfig = {
   exitButton: {
-    height: '28px',
-    top: 1,
-    right: 1,
+    height: '70%',
+    top: 0,
+    right: -2,
     hoverFlag: true,
   },
   mainWrapper: {

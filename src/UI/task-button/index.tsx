@@ -15,7 +15,7 @@ const StyleConfig = {
 };
 
 const SpanElem = styled.span`
-  font-size: 1.8vh;
+  font-size: 1.05vw;
   font-weight: bold;
   color: #146977;
   position: absolute;

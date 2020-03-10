@@ -14,9 +14,7 @@ import { MoneyWrapper } from '../money-wrapper';
 const MoneyCounterWrapper = styled.div`
   position: absolute;
   top: 62%;
-
-  left: 24%;
-  font-size: 1.4em;
+  left: 28%;
 `;
 
 const StyleConfig = {
