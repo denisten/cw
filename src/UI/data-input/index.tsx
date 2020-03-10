@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
-const DataInputWrapper = styled.div<DataInputWrapperProps>`
+const DataInputWrapper = styled.div<IDataInputWrapper>`
   width: auto;
   display: flex;
   justify-content: center;
@@ -13,12 +13,12 @@ const inputWrapperMinWidthCoefficient = 6;
 const inputDefaultFontSize = 1.4;
 const extraWidthPerLetter = 13;
 
-const InputWrapper = styled.input.attrs(({ value }: InputWrapperProps) => {
+const InputWrapper = styled.input.attrs(({ value }: IInputWrapper) => {
   if (value)
     return {
       style: { width: value.toString().length * extraWidthPerLetter + 'px' },
     };
-})<InputWrapperProps>`
+})<IInputWrapper>`
   min-width: ${window.innerWidth / inputWrapperMinWidthCoefficient + 'px'};
   border: none;
   outline: none;
@@ -40,37 +40,7 @@ const TitleWrapper = styled.span`
   padding-left: 20px;
 `;
 
-type DataInputWrapperProps = {
-  top?: number;
-  bottom?: number;
-  left?: number;
-  right?: number;
-  padding?: string;
-  margin?: string;
-};
-
-type InputWrapperProps = {
-  value: string;
-  extendFlag?: boolean;
-  minWidth?: number;
-  fontWeight?: string;
-  fontSize?: number | string;
-  heigth?: string;
-  color?: string;
-};
-
-interface DataInputProps extends DataInputWrapperProps {
-  value: string;
-  callBack: (name: string) => void;
-  title: string;
-  minWidth?: number;
-  fontWeight?: string;
-  fontSize?: number | string;
-  editMode?: boolean;
-  color?: string;
-}
-
-export const DataInput: React.FC<DataInputProps> = ({
+export const DataInput: React.FC<IDataInput> = ({
   value,
   callBack,
   title,
@@ -84,7 +54,6 @@ export const DataInput: React.FC<DataInputProps> = ({
 }) => {
   const [content, setContent] = useState(value);
   const inputRef = useRef<HTMLInputElement>(null);
-
   const onBlurHandler = () => {
     callBack(content);
   };
@@ -110,3 +79,32 @@ export const DataInput: React.FC<DataInputProps> = ({
     </DataInputWrapper>
   );
 };
+
+interface IDataInputWrapper {
+  top?: number;
+  bottom?: number;
+  left?: number;
+  right?: number;
+  padding?: string;
+  margin?: string;
+}
+
+interface IInputWrapper {
+  value: string;
+  extendFlag?: boolean;
+  minWidth?: number;
+  fontWeight?: string;
+  fontSize?: number | string;
+  color?: string;
+}
+
+interface IDataInput extends IDataInputWrapper {
+  value: string;
+  callBack: (name: string) => void;
+  title: string;
+  minWidth?: number;
+  fontWeight?: string;
+  fontSize?: number | string;
+  editMode?: boolean;
+  color?: string;
+}

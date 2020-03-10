@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import avatarImg from '../../img/avatars/1-1.png';
 import { useStore } from 'effector-react';
 import {
@@ -17,6 +17,7 @@ import {
 import { CookieService } from '../../sevices/cookies';
 import { turnOffTutorialMode } from '../../effector/app-condition/events';
 import { handleAuthButtonClick } from '../../utils/handle-auth-button-click';
+import { fetchUserData } from '../../utils/fetch-user-data';
 
 const UserInfoBlockWrapper = styled.div`
   width: 100%;
@@ -179,11 +180,15 @@ export const Billet = styled.div`
 `;
 
 export const Profile = () => {
-  const localUserData = useStore(UserDataStore);
+  const { nickName, supportName, cityName, money } = useStore(UserDataStore);
   const [editMode, setEditMode] = useState(false);
   const toggleInputEdit = () => setEditMode(!editMode);
-
   const { isAuthorized, tutorialCondition } = useStore(AppCondition);
+  useEffect(() => {
+    if (isAuthorized) {
+      fetchUserData();
+    }
+  }, [isAuthorized]);
   return (
     <ProfileWrapper>
       {isAuthorized ? (
@@ -194,13 +199,14 @@ export const Profile = () => {
             <div>
               <DataInput
                 {...StyledConfig.nickNameWrapper}
-                key={localUserData.nickName}
-                value={localUserData.nickName}
+                key={1}
+                value={nickName}
                 callBack={value =>
                   editUserData({ key: UserDataStoreKeys.NICKNAME, value })
                 }
               />
-              <MoneyWrapper count={localUserData.money} />
+              <p>{nickName}</p>
+              <MoneyWrapper count={money} />
             </div>
           </ProfileHeader>
           <UserInfoBlockWrapper>
@@ -219,26 +225,26 @@ export const Profile = () => {
               <DataInput
                 editMode={editMode}
                 title="Никнейм"
-                key={localUserData.name}
-                value={localUserData.name}
+                key="Никнейм"
+                value={nickName}
                 callBack={value =>
-                  editUserData({ key: UserDataStoreKeys.NAME, value })
+                  editUserData({ key: UserDataStoreKeys.NICKNAME, value })
                 }
               />
               <DataInput
                 editMode={editMode}
                 title="Имя помощника"
-                key={localUserData.surname}
-                value={localUserData.surname}
+                key="Имя помощника"
+                value={supportName}
                 callBack={value =>
-                  editUserData({ key: UserDataStoreKeys.SURNAME, value })
+                  editUserData({ key: UserDataStoreKeys.SUPPORT_NAME, value })
                 }
               />
               <DataInput
                 editMode={editMode}
                 title="Название города"
-                key={localUserData.cityName}
-                value={localUserData.cityName}
+                key="Название города"
+                value={cityName}
                 callBack={value =>
                   editUserData({ key: UserDataStoreKeys.CITY_NAME, value })
                 }

@@ -1,8 +1,7 @@
 import React from 'react';
 import { ImgWrapper } from '../img-wrapper';
 import taskImg from './task-img.png';
-import { menuOpened } from '../../effector/app-condition/events';
-import { MenuItems } from '../menu-paragraph';
+import { getProfile } from '../../api';
 
 const StyleConfig = {
   height: '5%',
@@ -14,10 +13,6 @@ const StyleConfig = {
 
 export const TaskButton = () => {
   return (
-    <ImgWrapper
-      src={taskImg}
-      {...StyleConfig}
-      callBack={() => menuOpened(MenuItems.TASKS)}
-    />
+    <ImgWrapper src={taskImg} {...StyleConfig} callBack={() => getProfile()} />
   );
 };

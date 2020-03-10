@@ -1,9 +1,21 @@
 import { UserDataDomain } from './domain';
 import { UserDataStoreKeys } from './store';
 
-export const editUserData = UserDataDomain.event<editUserDataType>();
+export const editUserData = UserDataDomain.event<IEditUserData>();
+export const saveUserDataAfterAuth = UserDataDomain.event<
+  ISaveUserDataFromBackend
+>();
+export const saveUserDataFromBackend = UserDataDomain.event<
+  ISaveUserDataFromBackend
+>();
 
-type editUserDataType = {
+interface IEditUserData {
   key: UserDataStoreKeys;
   value: string;
-};
+}
+
+export interface ISaveUserDataFromBackend {
+  nickName: string;
+  supportName: string;
+  cityName: string;
+}
