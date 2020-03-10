@@ -5,6 +5,7 @@ import { TowersTypes } from '../../effector/towers-progress/store';
 import { showUpgradeIcon } from '../../effector/app-condition/events';
 const StyleConfig = {
   height: '50px',
+  width: '50px',
   zIndex: 20,
   top: 0,
   left: 50,
