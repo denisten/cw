@@ -10,12 +10,12 @@ const StyleConfig = {
   top: 5,
   right: 5,
   hoverFlag: true,
-  width: '220px',
-  height: '5%',
+  width: '10vw',
+  height: '5vh',
 };
 
 const SpanElem = styled.span`
-  font-size: 1.6em;
+  font-size: 1.8vh;
   font-weight: bold;
   color: #146977;
   position: absolute;

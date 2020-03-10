@@ -10,6 +10,7 @@ const CountWrapper = styled.div<ICountWrapper>`
 
   img {
     margin: 0 13px 0 20px;
+    width: 1vw;
   }
 
   span {

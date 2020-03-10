@@ -21,7 +21,8 @@ const MoneyCounterWrapper = styled.div`
 
 const StyleConfig = {
   nickNameButton: {
-    height: '9%',
+    height: '8vh',
+    width: '15vw',
     zIndex: ZIndexes.UI_BUTTON,
     top: 3.7,
     left: 3.2,
@@ -32,10 +33,11 @@ const StyleConfig = {
     height: '100%',
     left: -5,
     top: -13,
+    width: '35%',
   },
 
   money: {
-    fontSize: '1em',
+    fontSize: '1.6vh',
   },
 };
 
