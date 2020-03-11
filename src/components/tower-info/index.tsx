@@ -222,6 +222,8 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
     TowerInfoContentValues.DESCRIPTION
   );
 
+  const [allTowerText, setAllTowerText] = useState('');
+
   useEffect(() => {
     if (
       LocalTowerProgressStore[towerTitle].progress >= maxProgressValue &&
@@ -234,6 +236,25 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
   const handleClick = () => {
     if (towerTitle) {
       showUpgradeIcon(towerTitle);
+    }
+  };
+
+  const selectTutorialNextStep = () => {
+    if (selectedMenu === TowerInfoContentValues.DESCRIPTION && !allTowerText) {
+      // setSelectMenu(TowerInfoContentValues.CHAT);
+      setAllTowerText(
+        localDescriptionService.getAllDescriptionCurrentTowerText()
+      ); // get all text
+    } else if (
+      selectedMenu === TowerInfoContentValues.DESCRIPTION &&
+      allTowerText !== ''
+    ) {
+      setSelectMenu(TowerInfoContentValues.CHAT);
+    } else if (
+      selectedMenu === TowerInfoContentValues.CHAT &&
+      allTowerText !== ''
+    ) {
+      setSelectMenu(TowerInfoContentValues.TASK);
     }
   };
   return (
@@ -295,12 +316,16 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
             Задания
           </TowerInfoMenuElement>
         </TowerInfoMenu>
-        <TowerInfoContent selectedMenu={selectedMenu} text={descriptionText} />
+        <TowerInfoContent
+          selectedMenu={selectedMenu}
+          text={!allTowerText ? descriptionText : allTowerText}
+        />
         <CustomButton
           animFlag={tutorialCondition === TutorialConditions.UNLOCK_BUTTON}
           callback={() => {
             nextTutorDescriptionStep();
             addProgressPoints({ points: 33.34, towerTitle: towerTitle });
+            selectTutorialNextStep();
           }}
           {...StyleConfig.enterButton}
         />
