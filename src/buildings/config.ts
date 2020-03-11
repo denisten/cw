@@ -356,7 +356,7 @@ export class BuildingsService {
         height: 2,
         shadowImg: musicTowerLevel1Stroke,
         areaCoords: '128,57,418,291',
-        position: [42.2, 36.9],
+        position: [42.2, 36.85],
       },
       [TowerLevel.mid]: {
         img: theaterTowerLevel2Img,
