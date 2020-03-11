@@ -63,7 +63,7 @@ const initState: TowersProgressStoreType = {
     progress: 0,
   },
   [TowersTypes.THEATER]: {
-    level: TowerLevel.mid,
+    level: TowerLevel.high,
     progress: 0,
   },
   [TowersTypes.TV]: {

@@ -348,7 +348,7 @@ export class BuildingsService {
       title: 'Афиша',
       coords: [2964, 1643],
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
-      maxLevel: TowerLevel.high,
+      maxLevel: TowerLevel.mid,
       [TowerLevel.low]: {
         // TODO: не настоящая картинка
         img: musicTowerLevel1Img,
