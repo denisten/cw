@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { useStore } from 'effector-react';
 import { TowersProgressStore } from '../../effector/towers-progress/store';
 import { planeConfig } from './plane-config';
-import { Plane } from '../../buildings/airport/plane';
+import { Plane } from './plane';
 
 export const Planes = () => {
   const airportLevelStoreLevel = useStore(TowersProgressStore).airport.level;

@@ -1,41 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useStore } from 'effector-react';
-import { TowersProgressStore } from '../../../effector/towers-progress/store';
-import planeLevel0 from './plane_v_1.png';
-import planeLevel1 from './plane_v_2.png';
-import planeLevel2 from './plane_v_3.png';
+import { IPlaneItem } from '../../../components/planes/plane-config';
+import { ZIndexes } from '../../../components/root-component/z-indexes-enum';
 
-const switchPlaneBackground = (planeLevel: number) => {
-  if (planeLevel === 0) {
-    return planeLevel0;
-  } else if (planeLevel === 1) {
-    return planeLevel1;
-  } else {
-    return planeLevel2;
-  }
-};
-
-const PlaneBody = styled.div<IPlaneBody>`
-  width: 107px;
-  height: 71px;
-  background-color: red;
+const PlaneBody = styled.div<IPlaneItem>`
+  width: ${props => props.width};
+  height: ${props => props.height};
   position: absolute;
   top: ${props => props.top};
   left: ${props => props.left};
-  background: url(${props => switchPlaneBackground(props.planeLevel)}) no-repeat
-    center;
+  background: url(${props => props.backgroundImage}) no-repeat center;
   background-size: 100% 100%;
-  z-index: 100;
+  z-index: ${ZIndexes.UI_BUTTON};
 `;
 
 export const Plane = ({ ...props }) => {
-  const airportLevelStore = useStore(TowersProgressStore).airport.level;
-  return <PlaneBody {...props} planeLevel={airportLevelStore} />;
+  return <PlaneBody {...props} />;
 };
-
-interface IPlaneBody {
-  planeLevel: number;
-  top?: string;
-  left?: string;
-}
