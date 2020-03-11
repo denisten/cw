@@ -32,7 +32,7 @@ const CustomButtonWrapper = styled.div<ICustomButtonWrapper>`
 const TitleWrapper = styled.span<{ color?: string }>`
   font-size: 100%;
   z-index: ${ZIndexes.UI_BUTTON};
-  color: ${props => props.color || 'white'};
+  color: ${props => props.color || '#02adc9'};
   position: absolute;
 `;
 

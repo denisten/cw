@@ -66,7 +66,9 @@ export const ModalWindowWrapper = styled.div<ModalWindowProps>`
 
 const ModalWindowContentWrapper = styled.div`
   height: 100%;
-  width: 80%;
+  width: 100%;
+  padding-right: 36px;
+  box-sizing: border-box;
 `;
 const TowerInfoHeader = styled.div`
   width: 100%;
@@ -117,6 +119,7 @@ const UpgradeButton = styled.div<{ canUpgrade?: boolean }>`
   color: #fff;
   cursor: ${props => (props.canUpgrade ? 'pointer' : 'default')};
   font-size: 100%;
+  pointer-events: ${props => (props.canUpgrade ? 'auto' : 'none')};
 `;
 
 const HeaderLineElement = styled.div<{ width?: number }>`
