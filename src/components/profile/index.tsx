@@ -163,7 +163,15 @@ export const Billet = styled.div`
   margin-bottom: 27px;
 `;
 
-const NickNameWrapper = styled.div``;
+export const ProfileHeaderDataWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 2.2vh;
+  margin: 0 10%;
+`;
 
 export const Profile = () => {
   const { name, assistantName, worldName, money } = useStore(UserDataStore);
@@ -177,23 +185,15 @@ export const Profile = () => {
   }, [isAuthorized]);
   return (
     <ProfileWrapper>
-      {!isAuthorized ? (
+      {isAuthorized ? (
         <React.Fragment>
           <Billet />
           <ProfileHeader>
             <img src={avatarImg} {...StyledConfig.avatar} alt="profile" />
-            <div>
-              {/*<DataInput*/}
-              {/*  {...StyledConfig.nickNameWrapper}*/}
-              {/*  key={1}*/}
-              {/*  value={name}*/}
-              {/*  callBack={value =>*/}
-              {/*    editUserData({ key: UserDataStoreKeys.NAME, value })*/}
-              {/*  }*/}
-              {/*/>*/}
-              <p>{name}NickName</p>
+            <ProfileHeaderDataWrapper>
+              <p>{name}</p>
               <MoneyWrapper count={money} />
-            </div>
+            </ProfileHeaderDataWrapper>
           </ProfileHeader>
           <UserInfoBlockWrapper>
             <RowWrapper {...StyledConfig.userInfoRow}>

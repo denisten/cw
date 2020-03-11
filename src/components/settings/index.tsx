@@ -10,7 +10,12 @@ import { DataInput } from '../../UI/data-input';
 import { editUserData } from '../../effector/user-data/events';
 import { MoneyWrapper } from '../../UI/money-wrapper';
 import { CustomButton } from '../../UI/button';
-import { Billet, RowWrapper, ITitleWrapper } from '../profile';
+import {
+  Billet,
+  RowWrapper,
+  ITitleWrapper,
+  ProfileHeaderDataWrapper,
+} from '../profile';
 import {
   AppCondition,
   TutorialConditions,
@@ -97,7 +102,7 @@ const ProfileWrapper = styled.div`
 `;
 
 export const Settings = () => {
-  const localUserData = useStore(UserDataStore);
+  const { worldName, money } = useStore(UserDataStore);
   const { tutorialCondition } = useStore(AppCondition);
 
   const [editMode, setEditMode] = useState(false);
@@ -115,17 +120,10 @@ export const Settings = () => {
       <Billet />
       <ProfileHeader>
         <img src={avatarImg} {...StyledConfig.avatar} alt="profile" />
-        <div>
-          <DataInput
-            {...StyledConfig.nickNameWrapper}
-            key={localUserData.name}
-            value={localUserData.name}
-            callBack={value =>
-              editUserData({ key: UserDataStoreKeys.NAME, value })
-            }
-          />
-          <MoneyWrapper count={localUserData.money} />
-        </div>
+        <ProfileHeaderDataWrapper>
+          <p>{name}</p>
+          <MoneyWrapper count={money} />
+        </ProfileHeaderDataWrapper>
       </ProfileHeader>
       <UserInfoBlockWrapper>
         <RowWrapper {...StyledConfig.userInfoRow}>
@@ -146,8 +144,8 @@ export const Settings = () => {
           <DataInput
             editMode={editMode}
             title="Название города"
-            key={localUserData.worldName}
-            value={localUserData.worldName}
+            key={worldName}
+            value={worldName}
             callBack={value =>
               editUserData({ key: UserDataStoreKeys.WORLD_NAME, value })
             }

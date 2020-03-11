@@ -1,7 +1,7 @@
 import React from 'react';
 import profileImg from './button_nickname.png';
 import { menuOpened, nextTutorStep } from '../../effector/app-condition/events';
-import { ImgWrapper } from '../../UI/img-wrapper';
+import { ImgWrapper } from '../img-wrapper';
 import styled from 'styled-components';
 import { TutorialConditions } from '../../effector/app-condition/store';
 import { MenuItems } from '../menu-paragraph';
@@ -36,6 +36,7 @@ const StyleConfig = {
 
   money: {
     fontSize: '1em',
+    margin: '0 13px 0 20px',
   },
 };
 
