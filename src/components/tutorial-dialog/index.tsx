@@ -3,23 +3,26 @@ import styled from 'styled-components';
 import supportImg from './support.png';
 import { nextTutorStep } from '../../effector/app-condition/events';
 import { ZIndexes } from '../root-component/z-indexes-enum';
+import tutorialBackground from './tutorial-background.svg';
 
 type ButtonProps = {
   textGenerating: boolean;
 };
 
 const TutorialDialogWrapper = styled.div`
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 37.8%;
-  background-color: #fff;
+  width: 88.1%;
+  height: 100%;
+  background-image: url(${tutorialBackground});
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
   display: flex;
   padding-left: 5%;
-  box-sizing: border-box;
+  //box-sizing: border-box;
   font-size: 25px;
   line-height: 24px;
-  z-index: ${ZIndexes.TUTORIAL};
+  margin: 0 auto;
+  border: 5px solid mediumpurple;
 `;
 
 const SupportImgWrapper = styled.img`
@@ -28,20 +31,22 @@ const SupportImgWrapper = styled.img`
   margin-right: 3.8%;
   width: auto;
   height: 100%;
+  border: 4px solid green;
 `;
 
 const TextWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  border: 4px solid red;
 `;
 
 const TutorialDialogTitle = styled.span`
-  margin: 2% 0;
+  margin: 18% 0 3.4% 4%;
 `;
 
 const TutorialDialogText = styled.span`
-  font-family: SFProDisplay;
+  font-weight: normal;
   width: 84%;
   min-height: 40%;
 `;
@@ -68,6 +73,14 @@ const ButtonWrapper = styled.div`
   box-sizing: border-box;
 `;
 
+const MainWrapper = styled.div`
+  width: 100%;
+  height: 36.5%;
+  position: absolute;
+  bottom: 3.3%;
+  z-index: ${ZIndexes.TUTORIAL};
+`;
+
 const onBoardingTexts = [
   'Этот мир – твое отражение! Заходи чаще, выполняй задания, собирай валюту и ты увидишь прогресс!',
   'Мир будет прекрасен! Но надо постараться. Впереди еще куча дел. Кстати, за каждое выполненное задание ты получишь валюту. Не забывай ее собирать!',
@@ -82,6 +95,7 @@ const buttonContents = [
 
 const delayBetweenDialogMessages = 600;
 const delayBetweenLetterAppearing = 12;
+
 export const TutorialDialog: React.FC = () => {
   const [usedTxt, setUsedTxt] = useState('');
   const [onBoardingState, setOnBoardingState] = useState(0);
@@ -117,17 +131,19 @@ export const TutorialDialog: React.FC = () => {
     }
   };
   return (
-    <TutorialDialogWrapper>
-      <SupportImgWrapper src={supportImg} />
-      <TextWrapper>
-        <TutorialDialogTitle>{title}</TutorialDialogTitle>
-        <TutorialDialogText>{usedTxt}</TutorialDialogText>
-        <ButtonWrapper>
-          <CustomButton textGenerating={textGenerating} onClick={handleClick}>
-            {buttonContents[onBoardingState]}
-          </CustomButton>
-        </ButtonWrapper>
-      </TextWrapper>
-    </TutorialDialogWrapper>
+    <MainWrapper>
+      <TutorialDialogWrapper>
+        <SupportImgWrapper src={supportImg} />
+        <TextWrapper>
+          <TutorialDialogTitle>{title}</TutorialDialogTitle>
+          <TutorialDialogText>{usedTxt}</TutorialDialogText>
+          <ButtonWrapper>
+            <CustomButton textGenerating={textGenerating} onClick={handleClick}>
+              {buttonContents[onBoardingState]}
+            </CustomButton>
+          </ButtonWrapper>
+        </TextWrapper>
+      </TutorialDialogWrapper>
+    </MainWrapper>
   );
 };
