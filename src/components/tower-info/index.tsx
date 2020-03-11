@@ -28,6 +28,7 @@ import { CustomButton } from '../../UI/button';
 import { ZIndexes } from '../root-component/z-indexes-enum';
 import wrapperBackground from './background.svg';
 import { RowWrapper } from '../../UI/row-wrapper/index';
+import { MoneyWrapper } from '../../UI/money-wrapper';
 
 export type ModalWindowProps = {
   opened?: boolean;
@@ -70,23 +71,38 @@ const ModalWindowContentWrapper = styled.div`
 `;
 const TowerInfoHeader = styled.div`
   width: 100%;
-  height: 13%;
+  height: 16%;
 `;
 
 const HeaderLine = styled.div`
   width: 100%;
-  height: 40%;
   display: flex;
   margin-top: 24px;
   justify-content: space-between;
 `;
 
 const Title = styled.div`
-  font-size: 2em;
-  font-weight: 900;
+  font-size: 32px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
   line-height: 1;
-  color: #000000;
-  margin-bottom: 3.3%;
+  letter-spacing: -0.5px;
+  color: #001424;
+`;
+
+const MainText = styled.span`
+  font-size: 16px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.5;
+  letter-spacing: normal;
+  color: #001424;
+
+  + div {
+    margin-top: 4px;
+  }
 `;
 
 const UpgradeButton = styled.div<{ canUpgrade?: boolean }>`
@@ -111,11 +127,7 @@ const HeaderLineElement = styled.div<{ width?: number }>`
   justify-content: center;
   align-items: flex-start;
   flex-direction: column;
-  font-size: 85%;
   font-family: SFProDisplay;
-  font-weight: 600;
-  line-height: 1.5;
-  color: #000000;
 `;
 
 const TowerInfoMenu = styled.div`
@@ -178,6 +190,12 @@ const StyleConfig = {
     width: '100%',
     height: '40px',
     justifyContent: 'space-between',
+  },
+  money: {
+    fontSize: '20px',
+    margin: '0px 13px 0 0px',
+    color: 'black',
+    fontWeight: 'bold',
   },
 };
 
@@ -242,18 +260,19 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
 
           <HeaderLine>
             <HeaderLineElement>
-              Уровень эволюции
+              <MainText>Уровень эволюции</MainText>
+
               <ProgressBar
                 progress={LocalTowerProgressStore[towerTitle].progress}
               />
             </HeaderLineElement>
 
-            <HeaderLineElement width={36}>
-              <span>Еженедельный доход</span>
-              <span>
-                300
-                <img src={shape} alt="money" />
-              </span>
+            <HeaderLineElement>
+              <MainText>Еженедельный доход</MainText>
+
+              <RowWrapper>
+                <MoneyWrapper count={228} {...StyleConfig.money} />
+              </RowWrapper>
             </HeaderLineElement>
           </HeaderLine>
         </TowerInfoHeader>

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { ImgWrapperProps } from '../img-wrapper';
-import moneyIcon from './icon_money.png';
+import coin from './coin.svg';
 
 const CountWrapper = styled.div<ICountWrapper>`
   color: #fff;
@@ -10,11 +10,14 @@ const CountWrapper = styled.div<ICountWrapper>`
 
   img {
     margin: ${props => props.margin || '0 13px 0 0'};
-    width: 1vw;
+    width: 1.2vw;
+    max-width: 28px;
   }
 
   span {
     font-size: ${props => props.fontSize || '28px'};
+    color: ${props => props.color || 'white'};
+    font-weight: ${props => props.fontWeight || 'normal'};
   }
 `;
 
@@ -26,7 +29,7 @@ export const MoneyWrapper: React.FC<MoneyWrapperProp> = ({
 }) => {
   return (
     <CountWrapper {...props}>
-      <img alt="moneyIcon" src={moneyIcon} />
+      <img alt="moneyIcon" src={coin} />
       <span>{count}</span>
     </CountWrapper>
   );
@@ -35,6 +38,7 @@ export const MoneyWrapper: React.FC<MoneyWrapperProp> = ({
 interface ICountWrapper {
   fontSize?: string;
   margin?: string;
+  fontWeight?: string;
 }
 interface MoneyWrapWithCount extends ImgWrapperProps {
   count: number;
