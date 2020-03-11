@@ -25,7 +25,7 @@ import { Directions } from '../../UI/tutorial-arrow';
 import { BuildingsDescriptionService } from '../../buildings/descriptions';
 import { CustomButton } from '../../UI/button';
 import { ZIndexes } from '../root-component/z-indexes-enum';
-import wrapperBackground from './background.png';
+import wrapperBackground from './background.svg';
 
 export type ModalWindowProps = {
   opened?: boolean;
@@ -145,8 +145,8 @@ const Divider = styled.div`
 const StyleConfig = {
   exitButton: {
     height: '4%',
-    top: 0,
-    left: 0,
+    top: 2,
+    left: 92,
     hoverFlag: true,
   },
   tutorialArrow: {
