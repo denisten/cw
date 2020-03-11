@@ -16,7 +16,7 @@ import { ProfileButton } from '../../UI/profile-button';
 import { TutorialToolsSelector } from '../../utils/arrows-container';
 import { Cars } from '../cars/carsArray';
 import { useCheckDisableTutorial } from '../../hooks/useCheckDisableTutorial';
-import { Plane } from '../../buildings/airport/plane';
+import { Planes } from '../planes';
 
 export enum MapSize {
   WIDTH = 7680,
@@ -51,15 +51,6 @@ const styleConfig = {
     height: '5%',
     top: 5,
     left: 10,
-  },
-
-  planeOne: {
-    top: '25.9%',
-    left: '34.3%',
-  },
-  planeTwo: {
-    top: '24.5%',
-    left: '36.3%',
   },
 };
 
@@ -113,8 +104,7 @@ export const RootComponent = (): React.ReactElement => {
             tutorialCondition={tutorialCondition}
             isInsideScrollContainer={true}
           />
-          <Plane {...styleConfig.planeOne} />
-          <Plane {...styleConfig.planeTwo} />
+          <Planes />
           <Cars />
           <Map />
           <Buildings />
