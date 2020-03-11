@@ -16,7 +16,6 @@ import {
 } from '../../effector/app-condition/store';
 import { ProgressBar } from '../../UI/progress-bar';
 import { TowerInfoContent } from '../tower-info-content';
-import shape from './shape.png';
 import {
   TowersProgressStore,
   TowersTypes,
@@ -135,6 +134,8 @@ const TowerInfoMenu = styled.div`
   justify-content: flex-start;
   align-items: center;
   width: 100%;
+  border-bottom: 1px solid #e2e5eb;
+  margin-bottom: 28px;
 `;
 
 const TowerInfoMenuElement = styled.div<{ selected: boolean }>`
@@ -143,22 +144,14 @@ const TowerInfoMenuElement = styled.div<{ selected: boolean }>`
   cursor: pointer;
   z-index: 2;
   margin-right: 10%;
-  color: #${props => (props.selected ? '000000' : '999999')};
+  color: #${props => (props.selected ? '001424' : '6e7782')};
+  font-size: 20px;
   :after {
     content: '';
     display: block;
-    margin-top: 2%;
-    border-bottom: 3px solid #${props => (props.selected ? 'ff2d2d' : 'e8e8e8')};
+    margin-top: 8px;
+    border-bottom: 3px solid #${props => (props.selected ? '08b0cc' : 'none')};
   }
-`;
-
-const Divider = styled.div`
-  width: 100%;
-  height: 3px;
-  background-color: #e8e8e8;
-  position: relative;
-  top: -0.3%;
-  margin: 0 0 3.5% 0;
 `;
 
 const StyleConfig = {
@@ -180,11 +173,14 @@ const StyleConfig = {
     left: '39.7%',
   },
   enterButton: {
-    width: '201px',
-    height: '52px',
-    content: 'Раскрыть',
-    fontSize: '28.5px',
+    width: '122px',
+    height: '40px',
+    content: 'Далее',
+    fontSize: '16px',
     margin: '30px 0',
+    color: '#02adc9',
+    position: 'absolute',
+    bottom: 10,
   },
   rowWrapper: {
     width: '100%',
@@ -296,7 +292,6 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
             Задания
           </TowerInfoMenuElement>
         </TowerInfoMenu>
-        <Divider />
         <TowerInfoContent selectedMenu={selectedMenu} text={descriptionText} />
         <CustomButton
           animFlag={tutorialCondition === TutorialConditions.UNLOCK_BUTTON}
