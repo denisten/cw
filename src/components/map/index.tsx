@@ -10,6 +10,7 @@ import road31 from '../../img/roads/3.1.png';
 import road32 from '../../img/roads/3.2.png';
 import road33 from '../../img/roads/3.3.png';
 import tree22 from '../../img/trees/2.2.png';
+import banner22 from '../../img/banners/2.2.png';
 import { MapFragment } from '../../UI/map-fragment';
 
 const MapWrapper = styled.div`
@@ -62,6 +63,7 @@ export const Map: React.FC = () => {
         style={styleConfig.img22}
         roadImg={road22}
         treeImg={tree22}
+        bannerImg={banner22}
       />
       <MapFragment style={styleConfig.img23} roadImg={road23} />
       <MapFragment style={styleConfig.img21} roadImg={road31} />
