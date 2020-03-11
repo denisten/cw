@@ -10,6 +10,7 @@ const CountWrapper = styled.div<ICountWrapper>`
 
   img {
     margin: ${props => props.margin || '0 13px 0 0'};
+    width: 1vw;
   }
 
   span {

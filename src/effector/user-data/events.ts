@@ -9,6 +9,7 @@ export const fetchUserData = UserDataDomain.effect('fetch after auth', {
     return await getProfile();
   },
 });
+
 interface IEditUserData {
   key: UserDataStoreKeys;
   value: string;

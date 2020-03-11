@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import avatarImg from '../../img/avatars/1-1.png';
 import { useStore } from 'effector-react';
 import {
@@ -8,7 +8,7 @@ import {
 import styled from 'styled-components';
 import { MoneyWrapper } from '../../UI/money-wrapper';
 import { DataInput } from '../../UI/data-input';
-import { editUserData, fetchUserData } from '../../effector/user-data/events';
+import { editUserData } from '../../effector/user-data/events';
 import { CustomButton } from '../../UI/button';
 import {
   AppCondition,
@@ -176,13 +176,8 @@ export const ProfileHeaderDataWrapper = styled.div`
 export const Profile = () => {
   const { name, assistantName, worldName, money } = useStore(UserDataStore);
   const [editMode, setEditMode] = useState(false);
-  const toggleInputEdit = () => setEditMode(!editMode);
   const { isAuthorized, tutorialCondition } = useStore(AppCondition);
-  useEffect(() => {
-    if (isAuthorized) {
-      fetchUserData('');
-    }
-  }, [isAuthorized]);
+  const toggleInputEdit = () => setEditMode(!editMode);
   return (
     <ProfileWrapper>
       {isAuthorized ? (

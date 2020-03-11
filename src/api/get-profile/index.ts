@@ -3,7 +3,7 @@ import { apiRoutes } from '..';
 
 export const getProfile = async () => {
   const response = await get<{ data: IGetProfile }>(apiRoutes.GET_PROFILE);
-  return response.data;
+  return response.data.data;
 };
 
 export interface IGetProfile {

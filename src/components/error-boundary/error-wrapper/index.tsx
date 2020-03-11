@@ -20,11 +20,10 @@ const ErrorText = styled.span`
   color: #146977;
   font-size: 30.5px;
   font-weight: bold;
-  max-width: 503px;
+  max-width: 506px;
   height: 250px;
   overflow: hidden;
   text-overflow: ellipsis;
-  word-break: break-all;
 `;
 
 export const ErrorWrapper: React.FC<IErrorWrapper> = ({

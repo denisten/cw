@@ -102,7 +102,7 @@ const ProfileWrapper = styled.div`
 `;
 
 export const Settings = () => {
-  const { worldName, money } = useStore(UserDataStore);
+  const { worldName, money, name } = useStore(UserDataStore);
   const { tutorialCondition } = useStore(AppCondition);
 
   const [editMode, setEditMode] = useState(false);

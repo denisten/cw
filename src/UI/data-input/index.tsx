@@ -41,7 +41,7 @@ const TitleWrapper = styled.span`
 `;
 
 export const DataInput: React.FC<IDataInput> = ({
-  value,
+  value = '',
   callBack,
   title,
   fontWeight,

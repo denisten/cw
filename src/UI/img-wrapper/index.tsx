@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { defaultScaleSize, scaleAnimation } from '../../hoc/scale-anim';
 
 const ParentDivWrapper = styled.div<ParentDivWrapperProps>`
+  width: ${props => props.width};
   height: ${props => props.height};
   position: ${props => props.position || 'absolute'};
   top: ${props => props.top}%;
@@ -68,6 +69,7 @@ interface ParentDivWrapperProps {
   displayFlag?: boolean;
   animFlag?: boolean;
   scaleSize?: number;
+  width?: string;
 }
 
 export interface ImgWrapperProps extends ParentDivWrapperProps {

@@ -32,9 +32,14 @@ export const UserDataStore = UserDataDomain.store<UserDataStoreType>(initState)
     ...state,
     [key]: value,
   }))
-  .on(fetchUserData.done, (state, { result: { data } }) => ({
-    ...state,
-    ...data,
-  }));
+  .on(
+    fetchUserData.done,
+    (state, { result: { worldName = '', assistantName = '', name = '' } }) => ({
+      ...state,
+      worldName,
+      assistantName,
+      name,
+    })
+  );
 
 UserDataStore.watch(userDataStoreLocalStorage);

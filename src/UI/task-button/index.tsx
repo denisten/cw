@@ -1,7 +1,6 @@
 import React from 'react';
 import { ImgWrapper } from '../img-wrapper';
 import taskImg from './task-img.png';
-import { getProfile } from '../../api';
 import { menuOpened } from '../../effector/app-condition/events';
 import { MenuItems } from '../menu-paragraph';
 import styled from 'styled-components';
@@ -11,12 +10,12 @@ const StyleConfig = {
   top: 5,
   right: 5,
   hoverFlag: true,
-  width: '220px',
-  height: '5%',
+  width: '10vw',
+  height: '5vh',
 };
 
 const SpanElem = styled.span`
-  font-size: 1.6em;
+  font-size: 1.05vw;
   font-weight: bold;
   color: #146977;
   position: absolute;
@@ -32,7 +31,6 @@ export const TaskButton = () => {
       {...StyleConfig}
       callBack={() => {
         menuOpened(MenuItems.TASKS);
-        getProfile();
       }}
     >
       <SpanElem>ЗАДАНИЯ</SpanElem>

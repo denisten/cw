@@ -1,6 +1,10 @@
 import React from 'react';
 import profileImg from './button_nickname.png';
-import { menuOpened, nextTutorStep } from '../../effector/app-condition/events';
+import {
+  menuOpened,
+  nextTutorStep,
+  extraTowerInfoModalClosed,
+} from '../../effector/app-condition/events';
 import { ImgWrapper } from '../img-wrapper';
 import styled from 'styled-components';
 import { TutorialConditions } from '../../effector/app-condition/store';
@@ -14,14 +18,13 @@ import { MoneyWrapper } from '../money-wrapper';
 const MoneyCounterWrapper = styled.div`
   position: absolute;
   top: 62%;
-
-  left: 24%;
-  font-size: 1.4em;
+  left: 28%;
 `;
 
 const StyleConfig = {
   nickNameButton: {
-    height: '9%',
+    height: '8vh',
+    width: '15vw',
     zIndex: ZIndexes.UI_BUTTON,
     top: 3.7,
     left: 3.2,
@@ -32,10 +35,11 @@ const StyleConfig = {
     height: '100%',
     left: -5,
     top: -13,
+    width: '35%',
   },
 
   money: {
-    fontSize: '1em',
+    fontSize: '1.6vh',
     margin: '0 13px 0 20px',
   },
 };
@@ -46,10 +50,12 @@ export const ProfileButton: React.FC<IProfileButton> = ({
   const handleClick = () => {
     if (!tutorialCondition) {
       menuOpened(MenuItems.PROFILE);
+      extraTowerInfoModalClosed();
       return;
     }
     if (tutorialCondition === TutorialConditions.MENU_ARROW) {
       menuOpened(MenuItems.PROFILE);
+      extraTowerInfoModalClosed();
       nextTutorStep();
     }
   };
