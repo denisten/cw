@@ -53,7 +53,6 @@ const StyledConfig = {
   },
   nickNameWrapper: {
     title: '',
-    minWidth: 170,
     fontSize: '2',
     color: 'white',
     margin: '35px 0px 0 0',
@@ -173,7 +172,7 @@ export const ProfileHeaderDataWrapper = styled.div`
   margin: 0 10%;
 `;
 
-export const Profile = () => {
+export const Profile = React.memo(() => {
   const { name, assistantName, worldName, money } = useStore(UserDataStore);
   const [editMode, setEditMode] = useState(false);
   const { isAuthorized, tutorialCondition } = useStore(AppCondition);
@@ -276,7 +275,7 @@ export const Profile = () => {
       )}
     </ProfileWrapper>
   );
-};
+});
 
 export interface ITitleWrapper {
   fontSize: number;

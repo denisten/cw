@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
+
 const DataInputWrapper = styled.div<IDataInputWrapper>`
   width: auto;
   display: flex;
@@ -9,17 +10,9 @@ const DataInputWrapper = styled.div<IDataInputWrapper>`
   margin: ${props => props.margin};
 `;
 
-const inputWrapperMinWidthCoefficient = 6;
 const inputDefaultFontSize = 1.4;
-const extraWidthPerLetter = 13;
 
-const InputWrapper = styled.input.attrs(({ value }: IInputWrapper) => {
-  if (value)
-    return {
-      style: { width: value.toString().length * extraWidthPerLetter + 'px' },
-    };
-})<IInputWrapper>`
-  min-width: ${window.innerWidth / inputWrapperMinWidthCoefficient + 'px'};
+const InputWrapper = styled.input<IInputWrapper>`
   border: none;
   outline: none;
   color: ${props => props.color || '#1b4f75'};
@@ -41,12 +34,11 @@ const TitleWrapper = styled.span`
 `;
 
 export const DataInput: React.FC<IDataInput> = ({
-  value = '',
+  value,
   callBack,
   title,
   fontWeight,
   fontSize,
-  minWidth,
   editMode,
   color,
 
@@ -67,9 +59,8 @@ export const DataInput: React.FC<IDataInput> = ({
         <InputWrapper
           type="text"
           ref={inputRef}
-          value={content}
+          value={content || ''}
           disabled={!editMode}
-          minWidth={minWidth}
           fontWeight={fontWeight}
           fontSize={fontSize}
           color={color}
@@ -93,9 +84,7 @@ interface IDataInputWrapper {
 }
 
 interface IInputWrapper {
-  value: string;
   extendFlag?: boolean;
-  minWidth?: number;
   fontWeight?: string;
   fontSize?: number | string;
   color?: string;
@@ -105,7 +94,6 @@ interface IDataInput extends IDataInputWrapper {
   value: string;
   callBack: (name: string) => void;
   title: string;
-  minWidth?: number;
   fontWeight?: string;
   fontSize?: number | string;
   editMode?: boolean;
