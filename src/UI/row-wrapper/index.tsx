@@ -6,21 +6,18 @@ const ParentDivWrapper = styled.div<RowWrapperProps>`
   width: ${props => props.width};
   display: flex;
   flex-direction: row;
+  justify-content: ${props => props.justifyContent};
 `;
 
 interface RowWrapperProps {
   width?: string;
   height?: string;
+  justifyContent?: string;
 }
 
 export const RowWrapper: React.FC<RowWrapperProps> = ({
-  width,
-  height,
   children,
+  ...props
 }) => {
-  return (
-    <ParentDivWrapper width={width} height={height}>
-      {children}
-    </ParentDivWrapper>
-  );
+  return <ParentDivWrapper {...props}>{children}</ParentDivWrapper>;
 };

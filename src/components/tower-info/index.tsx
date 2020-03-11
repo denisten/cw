@@ -26,6 +26,7 @@ import { BuildingsDescriptionService } from '../../buildings/descriptions';
 import { CustomButton } from '../../UI/button';
 import { ZIndexes } from '../root-component/z-indexes-enum';
 import wrapperBackground from './background.svg';
+import { RowWrapper } from '../../UI/row-wrapper/index';
 
 export type ModalWindowProps = {
   opened?: boolean;
@@ -52,7 +53,7 @@ export const ModalWindowWrapper = styled.div<ModalWindowProps>`
   background-image: url(${wrapperBackground});
   background-size: cover;
   background-repeat: no-repeat;
-  padding: 5.5% 0 0 4.5%;
+  padding: 7% 0 0 3%;
   box-sizing: border-box;
   margin-right: ${props =>
     !props.opened ? marginRightValues.CLOSED : marginRightValues.OPENED}%;
@@ -73,6 +74,8 @@ const HeaderLine = styled.div`
   width: 100%;
   height: 40%;
   display: flex;
+  margin-top: 24px;
+  justify-content: space-between;
 `;
 
 const Title = styled.div`
@@ -84,10 +87,12 @@ const Title = styled.div`
 `;
 
 const UpgradeButton = styled.div`
-  width: 100%;
-  height: 62%;
+  width: auto;
+  height: 40px;
+  padding: 0 14px;
+  box-sizing: border-box;
   border-radius: 8px;
-  background-color: #5ee220;
+  background-color: #e2e5eb;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -96,14 +101,13 @@ const UpgradeButton = styled.div`
   font-size: 100%;
 `;
 
-const HeaderLineElement = styled.div<{ width: number }>`
+const HeaderLineElement = styled.div<{ width?: number }>`
   width: ${props => props.width}%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: flex-start;
   flex-direction: column;
-  padding: 0 3%;
   font-size: 85%;
   font-family: SFProDisplay;
   font-weight: 600;
@@ -167,6 +171,11 @@ const StyleConfig = {
     fontSize: '28.5px',
     margin: '30px 0',
   },
+  rowWrapper: {
+    width: '100%',
+    height: '40px',
+    justifyContent: 'space-between',
+  },
 };
 
 export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
@@ -212,9 +221,13 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
           callBack={() => extraTowerInfoModalClosed()}
         />
         <TowerInfoHeader>
-          <Title>{title}</Title>
+          <RowWrapper {...StyleConfig.rowWrapper}>
+            <Title>{title}</Title>
+            <UpgradeButton onClick={handleClick}>Улучшить</UpgradeButton>
+          </RowWrapper>
+
           <HeaderLine>
-            <HeaderLineElement width={36}>
+            <HeaderLineElement>
               Уровень эволюции
               <ProgressBar
                 progress={LocalTowerProgressStore[towerTitle].progress}
@@ -227,9 +240,6 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
                 300
                 <img src={shape} alt="money" />
               </span>
-            </HeaderLineElement>
-            <HeaderLineElement width={28}>
-              <UpgradeButton onClick={handleClick}>Улучшить</UpgradeButton>
             </HeaderLineElement>
           </HeaderLine>
         </TowerInfoHeader>
@@ -259,7 +269,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
           animFlag={tutorialCondition === TutorialConditions.UNLOCK_BUTTON}
           callback={() => {
             nextTutorDescriptionStep();
-            addProgressPoints({ points: 35, towerTitle: towerTitle });
+            addProgressPoints({ points: 33.34, towerTitle: towerTitle });
           }}
           {...StyleConfig.enterButton}
         />
