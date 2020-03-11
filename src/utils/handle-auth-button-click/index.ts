@@ -8,7 +8,7 @@ export const handleAuthButtonClick = async () => {
   );
   try {
     const url = await getUrl();
-    if (authWindow) authWindow.location.href = url;
+    if (authWindow && url) authWindow.location.href = url;
   } catch (error) {
     authWindow?.close();
   }

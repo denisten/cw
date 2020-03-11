@@ -9,7 +9,7 @@ const CountWrapper = styled.div<ICountWrapper>`
   align-items: center;
 
   img {
-    margin: 0 13px 0 20px;
+    margin: ${props => props.margin || '0 13px 0 0'};
     width: 1vw;
   }
 
@@ -34,6 +34,7 @@ export const MoneyWrapper: React.FC<MoneyWrapperProp> = ({
 
 interface ICountWrapper {
   fontSize?: string;
+  margin?: string;
 }
 interface MoneyWrapWithCount extends ImgWrapperProps {
   count: number;

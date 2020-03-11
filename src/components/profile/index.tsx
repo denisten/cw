@@ -17,47 +17,8 @@ import {
 import { CookieService } from '../../sevices/cookies';
 import { turnOffTutorialMode } from '../../effector/app-condition/events';
 import { handleAuthButtonClick } from '../../utils/handle-auth-button-click';
-
-const UserInfoBlockWrapper = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-`;
-
-const TitleWrapper = styled.div<TitleWrapperProps>`
-  font-size: ${props => props.fontSize}em;
-  color: #1b4f75;
-  font-weight: bold;
-  position: ${props => props.position || 'static'};
-  top: ${props => props.top}%;
-  left: ${props => props.left}%;
-  bottom: ${props => props.bottom}%;
-  right: ${props => props.right}%;
-  margin: ${props => props.margin};
-`;
-
-const ProfileWrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  position: relative;
-`;
-const InputsWrapper = styled.div`
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-around;
-  flex-direction: column;
-  width: 60%;
-  padding-left: 72px;
-  box-sizing: border-box;
-`;
-
-const ProfileHeader = styled.div`
-  display: flex;
-  position: absolute;
-  top: -20px;
-  left: 34px;
-`;
+import { logout } from '../../api';
+import { updateUserData } from '../../api/update-user-data';
 
 const StyledConfig = {
   nonAuthorizedAvatar: {
@@ -92,7 +53,6 @@ const StyledConfig = {
   },
   nickNameWrapper: {
     title: '',
-    minWidth: 170,
     fontSize: '2',
     color: 'white',
     margin: '35px 0px 0 0',
@@ -126,22 +86,46 @@ const StyledConfig = {
   },
 };
 
-export type TitleWrapperProps = {
-  fontSize: number;
-  position?: string;
-  top?: number;
-  left?: number;
-  bottom?: number;
-  right?: number;
-  width?: number;
-  margin?: string;
-};
+const UserInfoBlockWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+`;
 
-type RowWrapperType = {
-  display?: string;
-  paddingLeft?: string;
-  margin?: string;
-};
+const TitleWrapper = styled.div<ITitleWrapper>`
+  font-size: ${props => props.fontSize}em;
+  color: #1b4f75;
+  font-weight: bold;
+  position: ${props => props.position || 'static'};
+  top: ${props => props.top}%;
+  left: ${props => props.left}%;
+  bottom: ${props => props.bottom}%;
+  right: ${props => props.right}%;
+  margin: ${props => props.margin};
+`;
+
+const ProfileWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  position: relative;
+`;
+const InputsWrapper = styled.div`
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-around;
+  flex-direction: column;
+  width: 60%;
+  padding-left: 72px;
+  box-sizing: border-box;
+`;
+
+const ProfileHeader = styled.div`
+  display: flex;
+  position: absolute;
+  top: -20px;
+  left: 34px;
+`;
 
 const NonAuthorizedPanel = styled.div`
   width: 100%;
@@ -152,7 +136,7 @@ const NonAuthorizedPanel = styled.div`
   flex-direction: column;
 `;
 
-export const RowWrapper = styled.div<RowWrapperType>`
+export const RowWrapper = styled.div<IRowWrapper>`
   display: flex;
   align-items: center;
   box-sizing: border-box;
@@ -178,12 +162,21 @@ export const Billet = styled.div`
   margin-bottom: 27px;
 `;
 
-export const Profile = () => {
-  const localUserData = useStore(UserDataStore);
-  const [editMode, setEditMode] = useState(false);
-  const toggleInputEdit = () => setEditMode(!editMode);
+export const ProfileHeaderDataWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 2.2vh;
+  margin: 0 10%;
+`;
 
+export const Profile = React.memo(() => {
+  const { name, assistantName, worldName, money } = useStore(UserDataStore);
+  const [editMode, setEditMode] = useState(false);
   const { isAuthorized, tutorialCondition } = useStore(AppCondition);
+  const toggleInputEdit = () => setEditMode(!editMode);
   return (
     <ProfileWrapper>
       {isAuthorized ? (
@@ -191,17 +184,10 @@ export const Profile = () => {
           <Billet />
           <ProfileHeader>
             <img src={avatarImg} {...StyledConfig.avatar} alt="profile" />
-            <div>
-              <DataInput
-                {...StyledConfig.nickNameWrapper}
-                key={localUserData.nickName}
-                value={localUserData.nickName}
-                callBack={value =>
-                  editUserData({ key: UserDataStoreKeys.NICKNAME, value })
-                }
-              />
-              <MoneyWrapper count={localUserData.money} />
-            </div>
+            <ProfileHeaderDataWrapper>
+              <p>{name}</p>
+              <MoneyWrapper count={money} />
+            </ProfileHeaderDataWrapper>
           </ProfileHeader>
           <UserInfoBlockWrapper>
             <RowWrapper {...StyledConfig.userInfoRow}>
@@ -219,8 +205,8 @@ export const Profile = () => {
               <DataInput
                 editMode={editMode}
                 title="Никнейм"
-                key={localUserData.name}
-                value={localUserData.name}
+                key="Никнейм"
+                value={name}
                 callBack={value =>
                   editUserData({ key: UserDataStoreKeys.NAME, value })
                 }
@@ -228,26 +214,29 @@ export const Profile = () => {
               <DataInput
                 editMode={editMode}
                 title="Имя помощника"
-                key={localUserData.surname}
-                value={localUserData.surname}
+                key="Имя помощника"
+                value={assistantName}
                 callBack={value =>
-                  editUserData({ key: UserDataStoreKeys.SURNAME, value })
+                  editUserData({ key: UserDataStoreKeys.ASSISTANT_NAME, value })
                 }
               />
               <DataInput
                 editMode={editMode}
                 title="Название города"
-                key={localUserData.cityName}
-                value={localUserData.cityName}
+                key="Название города"
+                value={worldName}
                 callBack={value =>
-                  editUserData({ key: UserDataStoreKeys.CITY_NAME, value })
+                  editUserData({ key: UserDataStoreKeys.WORLD_NAME, value })
                 }
               />
             </InputsWrapper>
             {editMode ? (
               <RowWrapper {...StyledConfig.inEditModeRow}>
                 <CustomButton
-                  callback={() => toggleInputEdit()}
+                  callback={() => {
+                    toggleInputEdit();
+                    updateUserData({ name, assistantName, worldName });
+                  }}
                   {...StyledConfig.saveButton}
                 />
               </RowWrapper>
@@ -256,7 +245,10 @@ export const Profile = () => {
             {!editMode ? (
               <RowWrapper {...StyledConfig.inEditModeRow}>
                 <CustomButton
-                  callback={() => CookieService.resetToken()}
+                  callback={() => {
+                    CookieService.resetToken();
+                    logout();
+                  }}
                   {...StyledConfig.exitButton}
                 />
               </RowWrapper>
@@ -283,4 +275,21 @@ export const Profile = () => {
       )}
     </ProfileWrapper>
   );
-};
+});
+
+export interface ITitleWrapper {
+  fontSize: number;
+  position?: string;
+  top?: number;
+  left?: number;
+  bottom?: number;
+  right?: number;
+  width?: number;
+  margin?: string;
+}
+
+interface IRowWrapper {
+  display?: string;
+  paddingLeft?: string;
+  margin?: string;
+}

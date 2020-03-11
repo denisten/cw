@@ -1,36 +1,45 @@
 import { UserDataDomain } from './domain';
-import { editUserData } from './events';
+import { editUserData, fetchUserData, saveUserDataAfterAuth } from './events';
+import connectLocalStorage from 'effector-localstorage/sync';
 
 export enum UserDataStoreKeys {
-  NICKNAME = 'nickName',
   NAME = 'name',
-  SURNAME = 'surname',
-  CITY_NAME = 'cityName',
-  PHONE_NUMBER = 'phoneNumber',
+  WORLD_NAME = 'worldName',
+  ASSISTANT_NAME = 'assistantName',
   MONEY = 'money',
 }
 
 export type UserDataStoreType = {
-  [UserDataStoreKeys.NICKNAME]: string;
   [UserDataStoreKeys.NAME]: string;
-  [UserDataStoreKeys.SURNAME]: string;
-  [UserDataStoreKeys.CITY_NAME]: string;
-  [UserDataStoreKeys.PHONE_NUMBER]: string;
+  [UserDataStoreKeys.WORLD_NAME]: string;
+  [UserDataStoreKeys.ASSISTANT_NAME]: string;
   [UserDataStoreKeys.MONEY]: number;
 };
 
 const initState: UserDataStoreType = {
-  [UserDataStoreKeys.NICKNAME]: 'NameName',
-  [UserDataStoreKeys.NAME]: 'Init name',
-  [UserDataStoreKeys.SURNAME]: 'Иванов',
-  [UserDataStoreKeys.CITY_NAME]: 'LA',
-  [UserDataStoreKeys.PHONE_NUMBER]: '8-800-555-35-35',
-  [UserDataStoreKeys.MONEY]: 2900,
+  [UserDataStoreKeys.NAME]: '',
+  [UserDataStoreKeys.WORLD_NAME]: '',
+  [UserDataStoreKeys.ASSISTANT_NAME]: '',
+  [UserDataStoreKeys.MONEY]: 113,
 };
 
-export const UserDataStore = UserDataDomain.store<UserDataStoreType>(
-  initState
-).on(editUserData, (state, { key, value }) => ({
-  ...state,
-  [key]: value,
-}));
+const userDataStoreLocalStorage = connectLocalStorage('UserData').onChange(
+  saveUserDataAfterAuth
+);
+
+export const UserDataStore = UserDataDomain.store<UserDataStoreType>(initState)
+  .on(editUserData, (state, { key, value }) => ({
+    ...state,
+    [key]: value,
+  }))
+  .on(
+    fetchUserData.done,
+    (state, { result: { worldName = '', assistantName = '', name = '' } }) => ({
+      ...state,
+      worldName,
+      assistantName,
+      name,
+    })
+  );
+
+UserDataStore.watch(userDataStoreLocalStorage);
