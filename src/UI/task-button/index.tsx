@@ -29,7 +29,9 @@ export const TaskButton = () => {
     <ImgWrapper
       src={taskImg}
       {...StyleConfig}
-      callBack={() => menuOpened(MenuItems.TASKS)}
+      callBack={() => {
+        menuOpened(MenuItems.TASKS);
+      }}
     >
       <SpanElem>ЗАДАНИЯ</SpanElem>
     </ImgWrapper>

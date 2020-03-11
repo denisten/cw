@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Router, Switch } from 'react-router';
 import { RootComponent } from './components/root-component/root-component';
 import history from './history';
 import { AuthLandingPage } from './components/auth-landing-page';
 import { GlobalStyle } from './global-style';
 import { ErrorBoundary } from './components/error-boundary';
+import { fetchUserData } from './effector/user-data/events';
+import { useStore } from 'effector-react';
+import { AppCondition } from './effector/app-condition/store';
 
 export enum Routes {
   MAIN = '/',
@@ -12,6 +15,12 @@ export enum Routes {
 }
 
 export const App = () => {
+  const { isAuthorized } = useStore(AppCondition);
+  useEffect(() => {
+    if (isAuthorized) {
+      fetchUserData('');
+    }
+  }, [isAuthorized]);
   return (
     <Router history={history}>
       <ErrorBoundary />

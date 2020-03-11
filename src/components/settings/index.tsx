@@ -10,7 +10,12 @@ import { DataInput } from '../../UI/data-input';
 import { editUserData } from '../../effector/user-data/events';
 import { MoneyWrapper } from '../../UI/money-wrapper';
 import { CustomButton } from '../../UI/button';
-import { Billet, RowWrapper, TitleWrapperProps } from '../profile';
+import {
+  Billet,
+  RowWrapper,
+  ITitleWrapper,
+  ProfileHeaderDataWrapper,
+} from '../profile';
 import {
   AppCondition,
   TutorialConditions,
@@ -24,7 +29,7 @@ const UserInfoBlockWrapper = styled.div`
   justify-content: space-evenly;
 `;
 
-const TitleWrapper = styled.div<TitleWrapperProps>`
+const TitleWrapper = styled.div<ITitleWrapper>`
   font-size: ${props => props.fontSize}em;
   color: #1b4f75;
   font-weight: bold;
@@ -97,7 +102,7 @@ const ProfileWrapper = styled.div`
 `;
 
 export const Settings = () => {
-  const localUserData = useStore(UserDataStore);
+  const { worldName, money, name } = useStore(UserDataStore);
   const { tutorialCondition } = useStore(AppCondition);
 
   const [editMode, setEditMode] = useState(false);
@@ -115,17 +120,10 @@ export const Settings = () => {
       <Billet />
       <ProfileHeader>
         <img src={avatarImg} {...StyledConfig.avatar} alt="profile" />
-        <div>
-          <DataInput
-            {...StyledConfig.nickNameWrapper}
-            key={localUserData.nickName}
-            value={localUserData.nickName}
-            callBack={value =>
-              editUserData({ key: UserDataStoreKeys.NICKNAME, value })
-            }
-          />
-          <MoneyWrapper count={localUserData.money} />
-        </div>
+        <ProfileHeaderDataWrapper>
+          <p>{name}</p>
+          <MoneyWrapper count={money} />
+        </ProfileHeaderDataWrapper>
       </ProfileHeader>
       <UserInfoBlockWrapper>
         <RowWrapper {...StyledConfig.userInfoRow}>
@@ -146,10 +144,10 @@ export const Settings = () => {
           <DataInput
             editMode={editMode}
             title="Название города"
-            key={localUserData.cityName}
-            value={localUserData.cityName}
+            key={worldName}
+            value={worldName}
             callBack={value =>
-              editUserData({ key: UserDataStoreKeys.CITY_NAME, value })
+              editUserData({ key: UserDataStoreKeys.WORLD_NAME, value })
             }
           />
         </InputsWrapper>

@@ -1,6 +1,7 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-const DataInputWrapper = styled.div<DataInputWrapperProps>`
+
+const DataInputWrapper = styled.div<IDataInputWrapper>`
   width: auto;
   display: flex;
   justify-content: center;
@@ -9,17 +10,9 @@ const DataInputWrapper = styled.div<DataInputWrapperProps>`
   margin: ${props => props.margin};
 `;
 
-const inputWrapperMinWidthCoefficient = 6;
 const inputDefaultFontSize = 1.4;
-const extraWidthPerLetter = 13;
 
-const InputWrapper = styled.input.attrs(({ value }: InputWrapperProps) => {
-  if (value)
-    return {
-      style: { width: value.toString().length * extraWidthPerLetter + 'px' },
-    };
-})<InputWrapperProps>`
-  min-width: ${window.innerWidth / inputWrapperMinWidthCoefficient + 'px'};
+const InputWrapper = styled.input<IInputWrapper>`
   border: none;
   outline: none;
   color: ${props => props.color || '#1b4f75'};
@@ -40,43 +33,12 @@ const TitleWrapper = styled.span`
   padding-left: 20px;
 `;
 
-type DataInputWrapperProps = {
-  top?: number;
-  bottom?: number;
-  left?: number;
-  right?: number;
-  padding?: string;
-  margin?: string;
-};
-
-type InputWrapperProps = {
-  value: string;
-  extendFlag?: boolean;
-  minWidth?: number;
-  fontWeight?: string;
-  fontSize?: number | string;
-  heigth?: string;
-  color?: string;
-};
-
-interface DataInputProps extends DataInputWrapperProps {
-  value: string;
-  callBack: (name: string) => void;
-  title: string;
-  minWidth?: number;
-  fontWeight?: string;
-  fontSize?: number | string;
-  editMode?: boolean;
-  color?: string;
-}
-
-export const DataInput: React.FC<DataInputProps> = ({
+export const DataInput: React.FC<IDataInput> = ({
   value,
   callBack,
   title,
   fontWeight,
   fontSize,
-  minWidth,
   editMode,
   color,
 
@@ -84,7 +46,9 @@ export const DataInput: React.FC<DataInputProps> = ({
 }) => {
   const [content, setContent] = useState(value);
   const inputRef = useRef<HTMLInputElement>(null);
-
+  useEffect(() => {
+    setContent(value);
+  }, [value]);
   const onBlurHandler = () => {
     callBack(content);
   };
@@ -95,9 +59,8 @@ export const DataInput: React.FC<DataInputProps> = ({
         <InputWrapper
           type="text"
           ref={inputRef}
-          value={content}
+          value={content || ''}
           disabled={!editMode}
-          minWidth={minWidth}
           fontWeight={fontWeight}
           fontSize={fontSize}
           color={color}
@@ -110,3 +73,29 @@ export const DataInput: React.FC<DataInputProps> = ({
     </DataInputWrapper>
   );
 };
+
+interface IDataInputWrapper {
+  top?: number;
+  bottom?: number;
+  left?: number;
+  right?: number;
+  padding?: string;
+  margin?: string;
+}
+
+interface IInputWrapper {
+  extendFlag?: boolean;
+  fontWeight?: string;
+  fontSize?: number | string;
+  color?: string;
+}
+
+interface IDataInput extends IDataInputWrapper {
+  value: string;
+  callBack: (name: string) => void;
+  title: string;
+  fontWeight?: string;
+  fontSize?: number | string;
+  editMode?: boolean;
+  color?: string;
+}
