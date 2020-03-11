@@ -21,7 +21,6 @@ export enum TowersTypes {
   MONEY_VAULT = 'moneyVault',
   BANK = 'bank',
   CYBER_ARENA = 'cyberArena',
-  FACTORY = 'factory',
   SATELLITETV = 'satelliteTv',
   PARTNER_BLUE = 'partnerBlue',
   PARTNER_YELLOW = 'partnerYellow',
@@ -64,7 +63,7 @@ const initState: TowersProgressStoreType = {
     progress: 0,
   },
   [TowersTypes.THEATER]: {
-    level: TowerLevel.mid,
+    level: TowerLevel.high,
     progress: 0,
   },
   [TowersTypes.TV]: {
@@ -91,10 +90,7 @@ const initState: TowersProgressStoreType = {
     level: TowerLevel.low,
     progress: 0,
   },
-  [TowersTypes.FACTORY]: {
-    level: TowerLevel.low,
-    progress: 0,
-  },
+
   [TowersTypes.SATELLITETV]: {
     level: TowerLevel.low,
     progress: 0,
