@@ -5,6 +5,7 @@ import {
   extraTowerInfoModalClosed,
   nextTutorDescriptionStep,
   nextTutorStep,
+  showUpgradeIcon,
 } from '../../effector/app-condition/events';
 import { addProgressPoints } from '../../effector/towers-progress/events';
 import { useStore } from 'effector-react';
@@ -43,6 +44,8 @@ export enum TowerInfoContentValues {
   CHAT = 'chat',
   DESCRIPTION = 'description',
 }
+
+const MAXLEVEL = 100;
 
 export const ModalWindowWrapper = styled.div<ModalWindowProps>`
   position: absolute;
@@ -86,18 +89,18 @@ const Title = styled.div`
   margin-bottom: 3.3%;
 `;
 
-const UpgradeButton = styled.div`
+const UpgradeButton = styled.div<{ canUpgrade?: boolean }>`
   width: auto;
   height: 40px;
-  padding: 0 14px;
+  padding: 0 20px;
   box-sizing: border-box;
   border-radius: 8px;
-  background-color: #e2e5eb;
+  background-color: ${props => (props.canUpgrade ? '#02adc9' : '#e2e5eb')};
   display: flex;
   justify-content: center;
   align-items: center;
   color: #fff;
-  cursor: pointer;
+  cursor: ${props => (props.canUpgrade ? 'pointer' : 'default')};
   font-size: 100%;
 `;
 
@@ -193,7 +196,11 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
     towerTitle,
     tutorialTextId
   );
-  const { title } = localBuildingService.getConfigForTower(towerTitle);
+  const { title, maxLevel } = localBuildingService.getConfigForTower(
+    towerTitle
+  );
+  const level = useStore(TowersProgressStore)[towerTitle].level;
+
   const [selectedMenu, setSelectMenu] = useState(
     TowerInfoContentValues.DESCRIPTION
   );
@@ -209,10 +216,9 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
 
   const handleClick = () => {
     if (towerTitle) {
-      addProgressPoints({ points: 20, towerTitle });
+      showUpgradeIcon(towerTitle);
     }
   };
-
   return (
     <ModalWindowWrapper opened={opened}>
       <ModalWindowContentWrapper>
@@ -223,7 +229,15 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
         <TowerInfoHeader>
           <RowWrapper {...StyleConfig.rowWrapper}>
             <Title>{title}</Title>
-            <UpgradeButton onClick={handleClick}>Улучшить</UpgradeButton>
+            <UpgradeButton
+              canUpgrade={
+                LocalTowerProgressStore[towerTitle].progress >= MAXLEVEL &&
+                level < maxLevel
+              }
+              onClick={handleClick}
+            >
+              Улучшить
+            </UpgradeButton>
           </RowWrapper>
 
           <HeaderLine>
