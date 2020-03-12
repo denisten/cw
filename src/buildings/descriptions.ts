@@ -123,7 +123,7 @@ export class BuildingsDescriptionService {
     return this._description[tower][id];
   };
 
-  getAllDescriptionCurrentTowerText = (
+  getAllDescriptionForCurrentTower = (
     tower: TowersTypes = TowersTypes.MAIN_TOWER
   ) => {
     const secondAndOtherStringArray = this._description[tower].filter(

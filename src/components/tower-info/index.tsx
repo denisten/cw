@@ -28,6 +28,7 @@ import { ZIndexes } from '../root-component/z-indexes-enum';
 import wrapperBackground from './background.svg';
 import { RowWrapper } from '../../UI/row-wrapper/index';
 import { MoneyWrapper } from '../../UI/money-wrapper';
+import { pulseAnimationHOF } from '../../hoc/pulse-anim';
 
 export type ModalWindowProps = {
   opened?: boolean;
@@ -106,7 +107,7 @@ const MainText = styled.span`
   }
 `;
 
-const UpgradeButton = styled.div<{ canUpgrade?: boolean }>`
+const UpgradeButton = styled.div<{ canUpgrade?: boolean; pulseAnim?: boolean }>`
   width: auto;
   height: 40px;
   padding: 0 20px;
@@ -120,6 +121,13 @@ const UpgradeButton = styled.div<{ canUpgrade?: boolean }>`
   cursor: ${props => (props.canUpgrade ? 'pointer' : 'default')};
   font-size: 100%;
   pointer-events: ${props => (props.canUpgrade ? 'auto' : 'none')};
+
+  animation-name: ${props =>
+    props.pulseAnim ? pulseAnimationHOF('159, 169, 176') : 'none'};
+  animation-fill-mode: both;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-duration: 0.6s;
 `;
 
 const HeaderLineElement = styled.div<{ width?: number }>`
@@ -221,9 +229,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
   const [selectedMenu, setSelectMenu] = useState(
     TowerInfoContentValues.DESCRIPTION
   );
-
   const [allTowerText, setAllTowerText] = useState('');
-
   useEffect(() => {
     if (
       LocalTowerProgressStore[towerTitle].progress >= maxProgressValue &&
@@ -239,16 +245,26 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
     }
   };
 
-  const selectTutorialNextStep = () => {
-    if (selectedMenu === TowerInfoContentValues.DESCRIPTION && !allTowerText) {
-      // setSelectMenu(TowerInfoContentValues.CHAT);
+  const nextTowerTutorialStep = () => {
+    if (selectedMenu !== TowerInfoContentValues.DESCRIPTION && !allTowerText) {
+      // * если в режиме туториала мы не в описании а на чате например
+      setSelectMenu(TowerInfoContentValues.DESCRIPTION);
       setAllTowerText(
-        localDescriptionService.getAllDescriptionCurrentTowerText()
+        localDescriptionService.getAllDescriptionForCurrentTower()
+      ); // get all text
+    } else if (
+      // * если мы в описании но текст весь не раскрыт, раскрываем
+      selectedMenu === TowerInfoContentValues.DESCRIPTION &&
+      !allTowerText
+    ) {
+      setAllTowerText(
+        localDescriptionService.getAllDescriptionForCurrentTower()
       ); // get all text
     } else if (
       selectedMenu === TowerInfoContentValues.DESCRIPTION &&
       allTowerText !== ''
     ) {
+      // * если открыт весь текст и нажали на далее => идём в чат и так далее
       setSelectMenu(TowerInfoContentValues.CHAT);
     } else if (
       selectedMenu === TowerInfoContentValues.CHAT &&
@@ -273,6 +289,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
                 level < maxLevel
               }
               onClick={handleClick}
+              pulseAnim={tutorialCondition === TutorialConditions.UPGRADE_ARROW}
             >
               Улучшить
             </UpgradeButton>
@@ -320,15 +337,17 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
           selectedMenu={selectedMenu}
           text={!allTowerText ? descriptionText : allTowerText}
         />
-        <CustomButton
-          animFlag={tutorialCondition === TutorialConditions.UNLOCK_BUTTON}
-          callback={() => {
-            nextTutorDescriptionStep();
-            addProgressPoints({ points: 33.34, towerTitle: towerTitle });
-            selectTutorialNextStep();
-          }}
-          {...StyleConfig.enterButton}
-        />
+        {tutorialCondition !== 4 ? (
+          <CustomButton
+            animFlag={tutorialCondition === TutorialConditions.UNLOCK_BUTTON}
+            callback={() => {
+              nextTutorDescriptionStep();
+              addProgressPoints({ points: 33.34, towerTitle: towerTitle });
+              nextTowerTutorialStep();
+            }}
+            {...StyleConfig.enterButton}
+          />
+        ) : null}
       </ModalWindowContentWrapper>
     </ModalWindowWrapper>
   );
