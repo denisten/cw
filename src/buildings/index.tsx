@@ -7,13 +7,13 @@ import {
   TowersTypes,
 } from '../effector/towers-progress/store';
 import { AppCondition } from '../effector/app-condition/store';
+import { TutorialStore } from '../effector/tutorial-store/store';
 export const Buildings = () => {
   const localService = new BuildingsService();
   const localTowersProgressStore = useStore(TowersProgressStore);
   const towersKeys = Object.keys(localTowersProgressStore) as TowersTypes[];
-  const { focusOn, upgradingTowerTitle, tutorialCondition } = useStore(
-    AppCondition
-  );
+  const { focusOn, upgradingTowerTitle } = useStore(AppCondition);
+  const { tutorialCondition } = useStore(TutorialStore);
   return (
     <Fragment>
       {towersKeys.map(towerTitle => {

@@ -1,24 +1,22 @@
 import React from 'react';
 import { ExitButton } from '../../UI/exit-button';
-import {
-  nextTutorStep,
-  menuClosed,
-  menuOpened,
-} from '../../effector/app-condition/events';
+import { menuClosed, menuOpened } from '../../effector/app-condition/events';
 import { MenuItemsComponent } from '../menu-items';
 import { MenuContent } from '../menu-content';
 import { MenuItems } from '../../UI/menu-paragraph';
 import { useStore } from 'effector-react';
-import {
-  AppCondition,
-  TutorialConditions,
-} from '../../effector/app-condition/store';
+import { AppCondition } from '../../effector/app-condition/store';
 import { Directions } from '../../UI/tutorial-arrow';
 import { HeaderComponent } from '../header';
 import { RowWrapper } from '../../UI/row-wrapper';
 import { ColumnWrapper } from '../../UI/column-wrapper';
 import { Overlay } from '../../UI/overlay';
 import { ZIndexes } from '../root-component/z-indexes-enum';
+import {
+  TutorialConditions,
+  TutorialStore,
+} from '../../effector/tutorial-store/store';
+import { nextTutorStep } from '../../effector/tutorial-store/events';
 
 const StyledConfig = {
   exitButton: {
@@ -63,14 +61,14 @@ const StyledConfig = {
 };
 
 export const Menu: React.FC<{ displayFlag: boolean }> = ({ displayFlag }) => {
-  const { tutorialCondition, selectedMenuItem } = useStore(AppCondition);
+  const { selectedMenuItem } = useStore(AppCondition);
+
+  const { tutorialCondition } = useStore(TutorialStore);
   const menuItemsComponentCallBack = (item: MenuItems) => {
     menuOpened(item);
     if (
-      (item === MenuItems.SETTINGS &&
-        tutorialCondition === TutorialConditions.SETTINGS_ARROW) ||
-      (item === MenuItems.PROFILE &&
-        tutorialCondition === TutorialConditions.PROFILE_ARROW)
+      item === MenuItems.SETTINGS &&
+      tutorialCondition === TutorialConditions.PULSE_SETTINGS_CHANGE_CITY_NAME
     )
       nextTutorStep();
   };

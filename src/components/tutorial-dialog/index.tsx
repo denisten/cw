@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import supportImg from './support.png';
-import { nextTutorStep } from '../../effector/app-condition/events';
 import { ZIndexes } from '../root-component/z-indexes-enum';
 import tutorialBackground from './tutorial-background.svg';
-
-type ButtonProps = {
-  textGenerating: boolean;
-};
+import {
+  nextTutorStep,
+  turnOffTutorialMode,
+} from '../../effector/tutorial-store/events';
+import { useStore } from 'effector-react';
+import { TutorialStore } from '../../effector/tutorial-store/store';
+import { ExitButton } from '../../UI/exit-button';
+import { TutorialDialogTextsService } from './dialog-messages-service';
 
 const TutorialDialogWrapper = styled.div`
   width: 88.1%;
@@ -15,61 +18,83 @@ const TutorialDialogWrapper = styled.div`
   background-image: url(${tutorialBackground});
   background-position: center;
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover;
   display: flex;
-  padding-left: 5%;
-  //box-sizing: border-box;
+  padding-left: 3%;
+  box-sizing: border-box;
   font-size: 25px;
   line-height: 24px;
   margin: 0 auto;
-  border: 5px solid mediumpurple;
+  position: relative;
 `;
 
 const SupportImgWrapper = styled.img`
   position: relative;
-  bottom: 18%;
-  margin-right: 3.8%;
+  margin-right: 3%;
   width: auto;
   height: 100%;
-  border: 4px solid green;
 `;
 
 const TextWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  border: 4px solid red;
+  padding-top: 3%;
+  padding-right: 2%;
+  flex-grow: 1;
 `;
 
 const TutorialDialogTitle = styled.span`
-  margin: 18% 0 3.4% 4%;
+  font-family: MTSSansBold, sans-serif;
+  font-size: 3.6vh;
+  font-weight: 900;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.25;
+  letter-spacing: -0.5px;
+  color: #01acc8;
+  margin-bottom: 2%;
 `;
 
 const TutorialDialogText = styled.span`
+  font-size: 2vh;
   font-weight: normal;
-  width: 84%;
-  min-height: 40%;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.3;
+  letter-spacing: normal;
+  color: #001424;
 `;
 
-export const CustomButton = styled.div<ButtonProps>`
-  width: 35%;
-  height: 50%;
-  border-radius: 8px;
-  background-color: #5ee220;
+const CustomButton = styled.div<ICustomButton>`
+  width: 20vw;
+  height: 7vh;
   display: ${props => (props.textGenerating ? 'none' : 'flex')};
   justify-content: center;
   align-items: center;
   color: #fff;
   cursor: pointer;
-  border: 1px solid;
+  margin-right: 2%;
+  border-radius: 2px;
+  box-shadow: 1px 1px 4px 0 #bbc1c7, inset 0 1px 3px 0 rgba(255, 255, 255, 0.5);
+  background-color: #02acc8;
+`;
+
+const BackButton = styled(CustomButton)<ICustomButton>`
+  border: solid 2px #e2e5eb;
+  box-sizing: border-box;
+  background-color: #f4f4f4;
+  display: ${props => (props.textGenerating ? 'none' : 'flex')};
+  color: #e2e5eb;
 `;
 
 const ButtonWrapper = styled.div`
-  width: 100%;
-  height: 40%;
+  height: 100%;
   display: flex;
+  align-items: flex-end;
   justify-content: flex-end;
-  padding: 0 15%;
+  padding-bottom: 6%;
+  padding-right: 4%;
   box-sizing: border-box;
 `;
 
@@ -81,38 +106,44 @@ const MainWrapper = styled.div`
   z-index: ${ZIndexes.TUTORIAL};
 `;
 
-const onBoardingTexts = [
-  'Этот мир – твое отражение! Заходи чаще, выполняй задания, собирай валюту и ты увидишь прогресс!',
-  'Мир будет прекрасен! Но надо постараться. Впереди еще куча дел. Кстати, за каждое выполненное задание ты получишь валюту. Не забывай ее собирать!',
-  'Каждый день тебя ждет что-то новенькое. Выбирай любое задание и вперед!',
-];
-
-const buttonContents = [
-  'Ого! Как это сделать?',
-  'Как это работает?',
-  'Ну давай посмотрим!',
-];
-
 const delayBetweenDialogMessages = 600;
 const delayBetweenLetterAppearing = 12;
 
+const styleConfig = {
+  exitButton: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    height: '3em',
+    width: '3em',
+  },
+};
+
 export const TutorialDialog: React.FC = () => {
-  const [usedTxt, setUsedTxt] = useState('');
-  const [onBoardingState, setOnBoardingState] = useState(0);
-  const [textGenerating, setTextGenerating] = useState(false);
-  const title = 'Привет!';
-  const txt = onBoardingTexts[onBoardingState];
+  const [printedText, setPrintedText] = useState('');
+  const [dialogStep, setDialogStep] = useState(0);
+  const [isPrinting, setIsPrinting] = useState(false);
+  const { tutorialCondition } = useStore(TutorialStore);
+
+  const {
+    messages,
+    buttonContent,
+    titles,
+  } = TutorialDialogTextsService.getCurrentText(tutorialCondition);
+
+  const currentMessage = messages[dialogStep];
   let letterByLetterCallback: number;
+
   useEffect(() => {
-    setUsedTxt('');
+    setPrintedText('');
     clearTimeout(letterByLetterCallback);
-    setTextGenerating(true);
+    setIsPrinting(true);
     const timeoutBetweenDialogMessages = setTimeout(() => {
-      for (let i = 0; i < txt.length; i++) {
+      for (let i = 0; i < currentMessage.length; i++) {
         letterByLetterCallback = setTimeout(() => {
-          setUsedTxt(state => (state += txt[i]));
-          if (i + 1 === txt.length) {
-            setTextGenerating(false);
+          setPrintedText(state => (state += currentMessage[i]));
+          if (i + 1 === currentMessage.length) {
+            setIsPrinting(false);
           }
         }, delayBetweenLetterAppearing * i);
       }
@@ -121,25 +152,46 @@ export const TutorialDialog: React.FC = () => {
       clearTimeout(timeoutBetweenDialogMessages);
       clearTimeout(letterByLetterCallback);
     };
-  }, [onBoardingState]);
+  }, [dialogStep]);
+
+  const handleExitButtonClick = () => {
+    turnOffTutorialMode();
+  };
 
   const handleClick = () => {
-    if (!textGenerating) {
-      if (onBoardingTexts.length !== onBoardingState + 1)
-        setOnBoardingState(onBoardingState + 1);
-      else nextTutorStep();
+    if (!isPrinting) {
+      if (messages.length !== dialogStep + 1) {
+        setDialogStep(dialogStep + 1);
+      } else {
+        nextTutorStep();
+      }
     }
   };
+
+  const handleBackButtonClick = () => {
+    if (dialogStep) setDialogStep(dialogStep - 1);
+  };
+
   return (
     <MainWrapper>
       <TutorialDialogWrapper>
+        <ExitButton
+          callBack={handleExitButtonClick}
+          {...styleConfig.exitButton}
+        />
         <SupportImgWrapper src={supportImg} />
         <TextWrapper>
-          <TutorialDialogTitle>{title}</TutorialDialogTitle>
-          <TutorialDialogText>{usedTxt}</TutorialDialogText>
+          <TutorialDialogTitle>{titles[dialogStep]}</TutorialDialogTitle>
+          <TutorialDialogText>{printedText}</TutorialDialogText>
           <ButtonWrapper>
-            <CustomButton textGenerating={textGenerating} onClick={handleClick}>
-              {buttonContents[onBoardingState]}
+            <BackButton
+              textGenerating={isPrinting}
+              onClick={handleBackButtonClick}
+            >
+              Назад
+            </BackButton>
+            <CustomButton textGenerating={isPrinting} onClick={handleClick}>
+              {buttonContent[dialogStep]}
             </CustomButton>
           </ButtonWrapper>
         </TextWrapper>
@@ -147,3 +199,7 @@ export const TutorialDialog: React.FC = () => {
     </MainWrapper>
   );
 };
+
+interface ICustomButton {
+  textGenerating: boolean;
+}

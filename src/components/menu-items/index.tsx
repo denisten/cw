@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { MenuItems, MenuNavigationElement } from '../../UI/menu-paragraph';
 import background from './background.png';
 import { checkHaveNotify } from '../../utils/check-have-notify';
-import { TutorialConditions } from '../../effector/app-condition/store';
+import { TutorialConditions } from '../../effector/tutorial-store/store';
 
 const MenuWrapper = styled.div`
   width: 406px;
@@ -38,10 +38,9 @@ export const MenuItemsComponent: React.FC<MenuItemsComponentProps> = ({
         return (
           <MenuNavigationElement
             pulseAnim={
-              (el === MenuItems.SETTINGS &&
-                tutorialCondition === TutorialConditions.SETTINGS_ARROW) ||
-              (el === MenuItems.PROFILE &&
-                tutorialCondition === TutorialConditions.PROFILE_ARROW)
+              el === MenuItems.SETTINGS &&
+              tutorialCondition ===
+                TutorialConditions.PULSE_SETTINGS_CHANGE_CITY_NAME
             }
             key={el}
             menuElement={el}

@@ -29,8 +29,4 @@ export const updateFocusOnValue = AppDomain.event<number[]>();
 export const showUpgradeIcon = AppDomain.event<TowersTypes>();
 export const editIsAuthorizedFlag = AppDomain.event<boolean>();
 
-export const nextTutorStep = AppDomain.event();
-export const turnOffTutorialMode = AppDomain.event();
-export const nextTutorDescriptionStep = AppDomain.event();
-
 export const setAuthValue = AppDomain.event<AppConditionType>();

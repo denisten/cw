@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { turnOffTutorialMode } from '../../effector/app-condition/events';
 import { useLocation } from 'react-router';
+import { turnOffTutorialMode } from '../../effector/tutorial-store/events';
 enum hashValues {
   DISABLE_TUTORIAL = 'disableTutorial',
 }
