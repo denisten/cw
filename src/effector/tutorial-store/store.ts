@@ -5,23 +5,8 @@ import {
   turnOffTutorialMode,
 } from './events';
 
-// export enum TutorialConditions {
-//   OFF = 0,
-//   DIALOG = 1,
-//   MENU_BUTTON_PULSING = 2,
-//   SETTINGS_BUTTON_PULSING = 3,
-//   CHANGE_CITY_NAME_PULSING = 4,
-//   SAVE_CITY_NAME_BUTTON_PULSING = 5,
-//   DIALOG2 = 6,
-//   TOWER_ARROW = 7,
-//   UNLOCK_BUTTON = 8,
-//   UPGRADE_ICON = 9,
-//   PROFILE_BUTTON_PULSING = 10,
-//   AUTH_BUTTON_PULSING = 11,
-// }
-
 export enum TutorialConditions {
-  OFF = 'OFF',
+  OFF = 0,
   DIALOG_HELLO = 'DIALOG_HELLO',
   PULSE_MENU_CHANGE_CITY_NAME = 'PULSE_MENU_CHANGE_CITY_NAME',
   PULSE_SETTINGS_CHANGE_CITY_NAME = 'PULSE_SETTINGS_CHANGE_CITY_NAME',
