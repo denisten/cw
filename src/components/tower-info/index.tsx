@@ -26,6 +26,7 @@ import { BuildingsDescriptionService } from '../../buildings/descriptions';
 import { CustomButton } from '../../UI/button';
 import { ZIndexes } from '../root-component/z-indexes-enum';
 import wrapperBackground from './background.svg';
+import headerBackground from './header.svg';
 import { RowWrapper } from '../../UI/row-wrapper/index';
 import { MoneyWrapper } from '../../UI/money-wrapper';
 import { pulseAnimationHOF } from '../../hoc/pulse-anim';
@@ -52,28 +53,57 @@ export const ModalWindowWrapper = styled.div<ModalWindowProps>`
   position: absolute;
   z-index: ${ZIndexes.MODAL};
   right: 0;
-  width: 38%;
+  width: 491px;
   height: 100%;
-  background-image: url(${wrapperBackground});
-  background-size: cover;
-  background-repeat: no-repeat;
-  padding: 7% 0 0 3%;
+
+  /* padding: 7% 0 0 3%; */
   box-sizing: border-box;
   margin-right: ${props =>
     !props.opened ? marginRightValues.CLOSED : marginRightValues.OPENED}%;
   transition-duration: 0.5s;
   transition-property: margin-right;
+  display: flex;
+  flex-direction: column;
+
+  @media (max-resolution: 0.8dppx) {
+    width: 36%;
+  }
 `;
 
 const ModalWindowContentWrapper = styled.div`
   height: 100%;
   width: 100%;
-  padding-right: 36px;
+  padding: 40px;
   box-sizing: border-box;
+
+  background-image: url(${wrapperBackground});
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+
+  @media (max-resolution: 0.8dppx) {
+    padding: 3vh;
+  }
+`;
+
+const ModalWindowHeader = styled.div`
+  width: 100%;
+  height: 55px;
+  background: url(${headerBackground}) no-repeat center;
+  background-size: 100% 100%;
+  flex-shrink: 0;
+  position: relative;
+
+  @media (max-resolution: 0.8dppx) {
+    height: 5vh;
+  }
 `;
 const TowerInfoHeader = styled.div`
   width: 100%;
-  height: 16%;
+  margin-bottom: 40px;
+
+  @media (max-resolution: 0.8dppx) {
+    margin-bottom: 2vh;
+  }
 `;
 
 const HeaderLine = styled.div`
@@ -91,6 +121,10 @@ const Title = styled.div`
   line-height: 1;
   letter-spacing: -0.5px;
   color: #001424;
+
+  @media (max-resolution: 0.8dppx) {
+    font-size: 2.5vh;
+  }
 `;
 
 const MainText = styled.span`
@@ -104,6 +138,10 @@ const MainText = styled.span`
 
   + div {
     margin-top: 4px;
+  }
+
+  @media (max-resolution: 0.8dppx) {
+    font-size: 1.5vh;
   }
 `;
 
@@ -128,6 +166,12 @@ const UpgradeButton = styled.div<{ canUpgrade?: boolean; pulseAnim?: boolean }>`
   animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;
   animation-duration: 0.6s;
+
+  @media (max-resolution: 0.8dppx) {
+    font-size: 1.5vh;
+    height: 3vh;
+    padding: 0 1.4vh;
+  }
 `;
 
 const HeaderLineElement = styled.div<{ width?: number }>`
@@ -163,13 +207,17 @@ const TowerInfoMenuElement = styled.div<{ selected: boolean }>`
     margin-top: 8px;
     border-bottom: 3px solid #${props => (props.selected ? '08b0cc' : 'none')};
   }
+
+  @media (max-resolution: 0.8dppx) {
+    font-size: 1.5vh;
+  }
 `;
 
 const StyleConfig = {
   exitButton: {
-    height: '4%',
-    top: 2,
-    left: 92,
+    height: '50%',
+    top: 25,
+    left: 90,
     hoverFlag: true,
   },
   tutorialArrow: {
@@ -186,16 +234,15 @@ const StyleConfig = {
   enterButton: {
     width: '122px',
     height: '40px',
-    content: 'Далее',
+    content: 'Что дальше?',
     fontSize: '16px',
     margin: '30px 0',
     color: '#02adc9',
     position: 'absolute',
-    bottom: 10,
+    bottom: 12,
   },
   rowWrapper: {
     width: '100%',
-    height: '40px',
     justifyContent: 'space-between',
   },
   money: {
@@ -275,11 +322,13 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
   };
   return (
     <ModalWindowWrapper opened={opened}>
-      <ModalWindowContentWrapper>
+      <ModalWindowHeader>
         <ExitButton
           {...StyleConfig.exitButton}
           callBack={() => extraTowerInfoModalClosed()}
         />
+      </ModalWindowHeader>
+      <ModalWindowContentWrapper>
         <TowerInfoHeader>
           <RowWrapper {...StyleConfig.rowWrapper}>
             <Title>{title}</Title>

@@ -10,14 +10,17 @@ const CountWrapper = styled.div<ICountWrapper>`
 
   img {
     margin: ${props => props.margin || '0 13px 0 0'};
-    width: 1.2vw;
-    max-width: 28px;
+    height: 1.8vh;
   }
 
   span {
     font-size: ${props => props.fontSize || '28px'};
     color: ${props => props.color || 'white'};
     font-weight: ${props => props.fontWeight || 'normal'};
+
+    @media (max-resolution: 0.8dppx) {
+      font-size: 1.1vw;
+    }
   }
 `;
 

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg preserveAspectRatio="none" width="486px" height="57px" viewBox="0 0 486 57" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 58 (84663) - https://sketch.com -->
+    <title>Combined Shape</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M484.058105,1 L484.058,56 L1,56 L1,53.7250977 L27.5541992,27.1708984 L90.6098633,27.1708984 L116.780762,1 L484.058105,1 Z" id="path-1"></path>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <mask id="mask-2" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+        <use id="Combined-Shape" stroke="#FFFFFF" stroke-width="2" fill="#02ADC9" xlink:href="#path-1"></use>
+    </g>
+</svg>

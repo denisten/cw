@@ -30,6 +30,11 @@ const ProgressBarWrapper = styled.div`
     top: 0;
     left: 66%;
   }
+
+  @media (max-resolution: 0.8dppx) {
+    height: 2vh;
+    width: 11vw;
+  }
 `;
 
 const ProgressBarGreenLine = styled.div<ProgressBarProps>`

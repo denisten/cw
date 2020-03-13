@@ -27,18 +27,19 @@ const CustomButtonWrapper = styled.div<ICustomButtonWrapper>`
   animation-duration: 0.6s;
   border-radius: 2px;
   border: solid 2px #02adc9;
-`;
-
-const TitleWrapper = styled.span<{ color?: string }>`
-  font-size: 100%;
-  z-index: ${ZIndexes.UI_BUTTON};
+  white-space: nowrap;
   color: ${props => props.color || '#02adc9'};
-  position: absolute;
+
+  @media (max-resolution: 0.8dppx) {
+    height: auto;
+    width: auto;
+    font-size: 1.5vh;
+    padding: 0.8vh 1.2vw;
+  }
 `;
 
 export const CustomButton: React.FC<CustomButtonProps> = ({
   content,
-  color,
   callback,
   animFlag = false,
   scaleSize,
@@ -51,7 +52,7 @@ export const CustomButton: React.FC<CustomButtonProps> = ({
       scaleSize={scaleSize}
       {...props}
     >
-      <TitleWrapper color={color}>{content}</TitleWrapper>
+      {content}
     </CustomButtonWrapper>
   );
 };
