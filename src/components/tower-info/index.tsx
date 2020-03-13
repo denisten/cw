@@ -192,9 +192,8 @@ const UpgradeButton = styled.div<{ canUpgrade?: boolean; pulseAnim?: boolean }>`
 
 const HeaderLineElement = styled.div<{ width?: number; marginLeft?: string }>`
   width: ${props => props.width}%;
-  height: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: flex-start;
   flex-direction: column;
   margin-left: ${props => props.marginLeft};
