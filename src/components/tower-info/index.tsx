@@ -35,6 +35,7 @@ import {
   nextTutorDescriptionStep,
   nextTutorStep,
 } from '../../effector/tutorial-store/events';
+import { UserDataStore } from '../../effector/user-data/store';
 
 export type ModalWindowProps = {
   opened?: boolean;
@@ -295,6 +296,12 @@ const StyleConfig = {
     color: 'black',
     fontWeight: 'bold',
   },
+  firstHeaderLine: {
+    paddingBottom: '4px',
+  },
+  secondHeaderLine: {
+    marginLeft: '10%',
+  },
 };
 
 export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
@@ -314,12 +321,12 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
   const { title, maxLevel } = localBuildingService.getConfigForTower(
     towerTitle
   );
-  const level = useStore(TowersProgressStore)[towerTitle].level;
+  const { level } = useStore(TowersProgressStore)[towerTitle];
 
   const [selectedMenu, setSelectMenu] = useState(
     TowerInfoContentValues.DESCRIPTION
   );
-  const [allTowerText, setAllTowerText] = useState('');
+  const [fullTowerDescription, setAllTowerText] = useState('');
   useEffect(() => {
     if (
       LocalTowerProgressStore[towerTitle].progress >= maxProgressValue &&
@@ -337,7 +344,10 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
   };
 
   const nextTowerTutorialStep = () => {
-    if (selectedMenu !== TowerInfoContentValues.DESCRIPTION && !allTowerText) {
+    if (
+      selectedMenu !== TowerInfoContentValues.DESCRIPTION &&
+      !fullTowerDescription
+    ) {
       // * если в режиме туториала мы не в описании а на чате например
       setSelectMenu(TowerInfoContentValues.DESCRIPTION);
       setAllTowerText(
@@ -346,24 +356,28 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
     } else if (
       // * если мы в описании но текст весь не раскрыт, раскрываем
       selectedMenu === TowerInfoContentValues.DESCRIPTION &&
-      !allTowerText
+      !fullTowerDescription
     ) {
       setAllTowerText(
         localDescriptionService.getAllDescriptionForCurrentTower()
       ); // get all text
     } else if (
       selectedMenu === TowerInfoContentValues.DESCRIPTION &&
-      allTowerText !== ''
+      fullTowerDescription !== ''
     ) {
       // * если открыт весь текст и нажали на далее => идём в чат и так далее
       setSelectMenu(TowerInfoContentValues.CHAT);
     } else if (
       selectedMenu === TowerInfoContentValues.CHAT &&
-      allTowerText !== ''
+      fullTowerDescription !== ''
     ) {
       setSelectMenu(TowerInfoContentValues.TASK);
     }
+
+    nextTutorDescriptionStep();
+    addProgressPoints({ points: 33.34, towerTitle: towerTitle });
   };
+  const { money } = useStore(UserDataStore);
   return (
     <ModalWindowWrapper opened={opened}>
       <ModalWindowHeader>
@@ -392,7 +406,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
           </RowWrapper>
 
           <HeaderLine>
-            <HeaderLineElement paddingBottom={'3px'}>
+            <HeaderLineElement {...StyleConfig.firstHeaderLine}>
               <MainText>Уровень эволюции</MainText>
 
               <ProgressBar
@@ -400,11 +414,11 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
               />
             </HeaderLineElement>
 
-            <HeaderLineElement marginLeft={'10%'}>
+            <HeaderLineElement {...StyleConfig.secondHeaderLine}>
               <MainText>Еженедельный доход</MainText>
 
               <RowWrapper>
-                <MoneyWrapper count={228} {...StyleConfig.money} />
+                <MoneyWrapper count={money} {...StyleConfig.money} />
               </RowWrapper>
             </HeaderLineElement>
           </HeaderLine>
@@ -432,7 +446,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
 
         <TowerInfoContent
           selectedMenu={selectedMenu}
-          text={!allTowerText ? descriptionText : allTowerText}
+          text={!fullTowerDescription ? descriptionText : fullTowerDescription}
         />
 
         {!tutorialCondition ||
@@ -441,11 +455,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
             animFlag={
               tutorialCondition === TutorialConditions.NEXT_BUTTON_TOWER_INFO
             }
-            callback={() => {
-              nextTutorDescriptionStep();
-              addProgressPoints({ points: 33.34, towerTitle: towerTitle });
-              nextTowerTutorialStep();
-            }}
+            callback={() => nextTowerTutorialStep()}
             {...StyleConfig.enterButton}
           />
         ) : null}

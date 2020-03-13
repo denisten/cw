@@ -14,6 +14,8 @@ import userAvatar from './profile-img.png';
 import { MoneyWrapper } from '../money-wrapper';
 import { TutorialConditions } from '../../effector/tutorial-store/store';
 import { nextTutorStep } from '../../effector/tutorial-store/events';
+import { UserDataStore } from '../../effector/user-data/store';
+import { useStore } from 'effector-react';
 
 const MoneyCounterWrapper = styled.div`
   position: absolute;
@@ -62,6 +64,7 @@ export const ProfileButton: React.FC<IProfileButton> = ({
       nextTutorStep();
     }
   };
+  const { money } = useStore(UserDataStore);
   return (
     <ImgWrapper
       src={profileImg}
@@ -75,7 +78,7 @@ export const ProfileButton: React.FC<IProfileButton> = ({
       <AvatarWrapper src={userAvatar} {...StyleConfig.avatar} />
       <NickName nickName="NickName" />
       <MoneyCounterWrapper>
-        <MoneyWrapper count={228} {...StyleConfig.money} />
+        <MoneyWrapper count={money} {...StyleConfig.money} />
       </MoneyCounterWrapper>
     </ImgWrapper>
   );
