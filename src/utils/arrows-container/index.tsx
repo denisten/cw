@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
-import { TutorialConditions } from '../../effector/app-condition/store';
 import { Directions, TutorialArrow } from '../../UI/tutorial-arrow';
 import { TutorialDialog } from '../../components/tutorial-dialog';
+import { TutorialConditions } from '../../effector/tutorial-store/store';
 
 type ArrowsContainerProps = {
   tutorialCondition: TutorialConditions;
@@ -12,7 +12,7 @@ export const TutorialToolsSelector: React.FC<ArrowsContainerProps> = ({
   isInsideScrollContainer,
 }) => {
   switch (tutorialCondition) {
-    case TutorialConditions.TOWER_ARROW:
+    case TutorialConditions.ARROW_TOWER_INFO:
       if (isInsideScrollContainer)
         return (
           <TutorialArrow
@@ -23,7 +23,9 @@ export const TutorialToolsSelector: React.FC<ArrowsContainerProps> = ({
           />
         );
       else return <Fragment />;
-    case TutorialConditions.DIALOG:
+    case TutorialConditions.DIALOG_HELLO:
+    case TutorialConditions.DIALOG_CONFIRM_CITY_NAME:
+    case TutorialConditions.DIALOG_AUTH:
       if (!isInsideScrollContainer) return <TutorialDialog />;
       else return <Fragment />;
     default:

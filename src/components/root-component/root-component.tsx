@@ -17,6 +17,7 @@ import { TutorialToolsSelector } from '../../utils/arrows-container';
 import { Cars } from '../cars/carsArray';
 import { useCheckDisableTutorial } from '../../hooks/useCheckDisableTutorial';
 import { Planes } from '../planes';
+import { TutorialStore } from '../../effector/tutorial-store/store';
 
 export enum MapSize {
   WIDTH = 7680,
@@ -65,8 +66,9 @@ export const RootComponent = (): React.ReactElement => {
     selectedMenuItem,
     scaleValue,
     focusOn,
-    tutorialCondition,
   } = useStore(AppCondition);
+
+  const { tutorialCondition } = useStore(TutorialStore);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const myRef: any = useRef<HTMLElement>(null);
   const [cordX, cordY] = focusOn.coords;
@@ -93,11 +95,11 @@ export const RootComponent = (): React.ReactElement => {
       />
       <ScrollContainer
         ref={myRef}
-        style={styleConfig.ScrollContainerStyle}
         nativeMobileScroll={false}
         onEndScroll={(...args) => {
           OnEndScrollHandler(args.slice(0, 2));
         }}
+        style={styleConfig.ScrollContainerStyle}
       >
         <MapWrapper scaleValue={scaleValue}>
           <TutorialToolsSelector

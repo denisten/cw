@@ -27,7 +27,7 @@ const MenuParagraphWrapper = styled.div<IMenuParagraphWrapper>`
   align-items: center;
   font-size: 30.5px;
   color: #${props => (props.isItemSelected ? 'ffffff' : '9fa9b0')};
-  font-weight: ${props => (props.isItemSelected ? 'bold' : 'normal')};
+  font-weight: bold;
   background-color: ${props => (props.isItemSelected ? '#768c9b' : 'none')};
   padding-left: 80px;
   box-sizing: border-box;

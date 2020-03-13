@@ -10,15 +10,16 @@ import { MoneyWrapper } from '../../UI/money-wrapper';
 import { DataInput } from '../../UI/data-input';
 import { editUserData } from '../../effector/user-data/events';
 import { CustomButton } from '../../UI/button';
-import {
-  AppCondition,
-  TutorialConditions,
-} from '../../effector/app-condition/store';
+import { AppCondition } from '../../effector/app-condition/store';
 import { CookieService } from '../../sevices/cookies';
-import { turnOffTutorialMode } from '../../effector/app-condition/events';
 import { handleAuthButtonClick } from '../../utils/handle-auth-button-click';
 import { logout } from '../../api';
 import { updateUserData } from '../../api/update-user-data';
+import {
+  TutorialConditions,
+  TutorialStore,
+} from '../../effector/tutorial-store/store';
+import { turnOffTutorialMode } from '../../effector/tutorial-store/events';
 
 const StyledConfig = {
   nonAuthorizedAvatar: {
@@ -175,7 +176,8 @@ export const ProfileHeaderDataWrapper = styled.div`
 export const Profile = React.memo(() => {
   const { name, assistantName, worldName, money } = useStore(UserDataStore);
   const [editMode, setEditMode] = useState(false);
-  const { isAuthorized, tutorialCondition } = useStore(AppCondition);
+  const { isAuthorized } = useStore(AppCondition);
+  const { tutorialCondition } = useStore(TutorialStore);
   const toggleInputEdit = () => setEditMode(!editMode);
   return (
     <ProfileWrapper>
@@ -263,9 +265,11 @@ export const Profile = React.memo(() => {
             alt="profile"
           />
           <CustomButton
-            animFlag={tutorialCondition === TutorialConditions.AUTH_ARROW}
+            animFlag={
+              tutorialCondition === TutorialConditions.PULSE_AUTH_BUTTON
+            }
             callback={() => {
-              if (tutorialCondition === TutorialConditions.AUTH_ARROW)
+              if (tutorialCondition === TutorialConditions.PULSE_AUTH_BUTTON)
                 turnOffTutorialMode();
               handleAuthButtonClick();
             }}

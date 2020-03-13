@@ -5,7 +5,7 @@ import { ZIndexes } from '../../components/root-component/z-indexes-enum';
 
 const flyingAnim = keyframes`
   to {
-    transform: translateY(0.7%);
+    transform: translateY(0.3%);
   }
 `;
 

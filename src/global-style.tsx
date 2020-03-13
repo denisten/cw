@@ -1,14 +1,34 @@
 import { createGlobalStyle } from 'styled-components';
-import openSans from './fonts/OpenSans-Bold.ttf';
+import MTSSansRegular from './fonts/MTSSans-Regular.ttf';
+import MTSSansBold from './fonts/MTSSans-Bold.ttf';
+import MTSSansBlack from './fonts/MTSSans-Black.ttf';
+import MTSSansMedium from './fonts/MTSSans-Medium.ttf';
+import MTSSansUltraWide from './fonts/MTSSans-UltraWide.ttf';
 
 export const GlobalStyle = createGlobalStyle`
     @font-face {
-    font-family: "OpenSans";
-    src: url("${openSans}") format("truetype");
+    font-family: "MTSSansRegular";
+    src: url("${MTSSansRegular}") format("truetype");
+    }
+    @font-face {
+      font-family: "MTSSansBold";
+      src: url("${MTSSansBold}") format("truetype");
+    }
+    @font-face {
+      font-family: "MTSSansBlack";
+     src: url("${MTSSansBlack}") format("truetype");
+    }
+    @font-face {
+      font-family: "MTSSansMedium";
+     src: url("${MTSSansMedium}") format("truetype");
+    }
+    @font-face {
+      font-family: "MTSSansUltraWide";
+     src: url("${MTSSansUltraWide}") format("truetype");
     }
     body {
       margin: 0;
       padding: 0;
-      font-family: "OpenSans";
+      font-family: "MTSSansRegular";
     }
 `;

@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import {
-  extraTowerInfoModalOpened,
-  nextTutorStep,
-} from '../../effector/app-condition/events';
+import { extraTowerInfoModalOpened } from '../../effector/app-condition/events';
 import { LazyImage } from '@tsareff/lazy-image';
 import { TowerLevel, TowersTypes } from '../../effector/towers-progress/store';
 import { UpgradeButton } from '../update-button';
 import { Substrate } from '../substrate';
 import { upgradeTower } from '../../effector/towers-progress/events';
-import {
-  maxProgressValue,
-  TutorialConditions,
-} from '../../effector/app-condition/store';
+import { maxProgressValue } from '../../effector/app-condition/store';
+import { TutorialConditions } from '../../effector/tutorial-store/store';
+import { nextTutorStep } from '../../effector/tutorial-store/events';
 
 const TowerStyledWrapper = styled.div<TowerStyledWrapperProps>`
   display: block;
@@ -60,7 +56,7 @@ export const TowerWrapper: React.FC<TypeWrapperProps> = ({
   const handleClick = () => {
     if (
       !tutorialCondition ||
-      tutorialCondition === TutorialConditions.TOWER_ARROW
+      tutorialCondition === TutorialConditions.ARROW_TOWER_INFO
     ) {
       extraTowerInfoModalOpened({
         coords: towerCoords,
@@ -91,7 +87,9 @@ export const TowerWrapper: React.FC<TypeWrapperProps> = ({
       {progress >= maxProgressValue && currentLevel < maxLevel ? (
         <UpgradeButton
           towerTitle={towerTitle}
-          animFlag={tutorialCondition === TutorialConditions.UPGRADE_ARROW}
+          animFlag={
+            tutorialCondition === TutorialConditions.UPGRADE_BUTTON_TOWER_INFO
+          }
         />
       ) : null}
       {upgradeFlag ? <Substrate width={width} height={height} /> : ''}

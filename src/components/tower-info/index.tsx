@@ -3,8 +3,6 @@ import styled from 'styled-components';
 import { ExitButton } from '../../UI/exit-button';
 import {
   extraTowerInfoModalClosed,
-  nextTutorDescriptionStep,
-  nextTutorStep,
   showUpgradeIcon,
 } from '../../effector/app-condition/events';
 import { addProgressPoints } from '../../effector/towers-progress/events';
@@ -12,7 +10,6 @@ import { useStore } from 'effector-react';
 import {
   AppCondition,
   maxProgressValue,
-  TutorialConditions,
 } from '../../effector/app-condition/store';
 import { ProgressBar } from '../../UI/progress-bar';
 import { TowerInfoContent } from '../tower-info-content';
@@ -30,6 +27,14 @@ import headerBackground from './header.svg';
 import { RowWrapper } from '../../UI/row-wrapper/index';
 import { MoneyWrapper } from '../../UI/money-wrapper';
 import { pulseAnimationHOF } from '../../hoc/pulse-anim';
+import {
+  TutorialConditions,
+  TutorialStore,
+} from '../../effector/tutorial-store/store';
+import {
+  nextTutorDescriptionStep,
+  nextTutorStep,
+} from '../../effector/tutorial-store/events';
 
 export type ModalWindowProps = {
   opened?: boolean;
@@ -256,10 +261,9 @@ const StyleConfig = {
 export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
   const {
       focusOn: { towerTitle: notVerifiedTowerTitle },
-      tutorialTextId,
-      tutorialCondition,
     } = useStore(AppCondition),
     LocalTowerProgressStore = useStore(TowersProgressStore);
+  const { tutorialCondition, tutorialTextId } = useStore(TutorialStore);
   const towerTitle: TowersTypes =
     notVerifiedTowerTitle || TowersTypes.MAIN_TOWER;
   const localBuildingService = new BuildingsService(),
@@ -289,6 +293,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
   const handleClick = () => {
     if (towerTitle) {
       showUpgradeIcon(towerTitle);
+      extraTowerInfoModalClosed();
     }
   };
 
@@ -338,7 +343,10 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
                 level < maxLevel
               }
               onClick={handleClick}
-              pulseAnim={tutorialCondition === TutorialConditions.UPGRADE_ARROW}
+              pulseAnim={
+                tutorialCondition ===
+                TutorialConditions.UPGRADE_BUTTON_TOWER_INFO
+              }
             >
               Улучшить
             </UpgradeButton>
@@ -382,13 +390,18 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
             Задания
           </TowerInfoMenuElement>
         </TowerInfoMenu>
+
         <TowerInfoContent
           selectedMenu={selectedMenu}
           text={!allTowerText ? descriptionText : allTowerText}
         />
-        {tutorialCondition !== 4 ? (
+
+        {!tutorialCondition ||
+        tutorialCondition === TutorialConditions.NEXT_BUTTON_TOWER_INFO ? (
           <CustomButton
-            animFlag={tutorialCondition === TutorialConditions.UNLOCK_BUTTON}
+            animFlag={
+              tutorialCondition === TutorialConditions.NEXT_BUTTON_TOWER_INFO
+            }
             callback={() => {
               nextTutorDescriptionStep();
               addProgressPoints({ points: 33.34, towerTitle: towerTitle });
