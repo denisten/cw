@@ -221,19 +221,25 @@ const TowerInfoMenuElement = styled.div<{ selected: boolean }>`
   font-family: 'MTSSansRegular';
   position: relative;
   padding-bottom: 8px;
+
   :after {
     content: '';
     display: block;
     position: absolute;
     left: 0;
     bottom: 0;
-    width: 100%;
-    background-color: ${props => (props.selected ? '#08b0cc' : 'none')};
+    width: 0%;
+    background-color: #08b0cc;
     height: 3px;
     animation-name: ${props => (props.selected ? LineGrown : null)};
     animation-fill-mode: both;
     animation-timing-function: linear;
-    animation-duration: 0.3s;
+    animation-duration: 0.5s;
+    transition: 0.5s;
+  }
+
+  &:hover::after {
+    width: 100%;
   }
 
   @media (max-resolution: 0.8dppx) {
