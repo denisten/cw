@@ -17,6 +17,8 @@ const CountWrapper = styled.div<ICountWrapper>`
     font-size: ${props => props.fontSize || '28px'};
     color: ${props => props.color || 'white'};
     font-weight: ${props => props.fontWeight || 'normal'};
+    font-family: 'MTSSansBold';
+    margin-top: 3px;
 
     @media (max-resolution: 0.8dppx) {
       font-size: 1.1vw;

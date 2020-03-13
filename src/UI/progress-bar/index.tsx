@@ -42,7 +42,7 @@ const ProgressBarGreenLine = styled.div<ProgressBarProps>`
   height: 100%;
   background-image: linear-gradient(to left, #64e2ff, #02adc9);
   transition-property: width;
-  transition-duration: 0.4s;
+  transition-duration: 0.6s;
   transition-timing-function: ease-in-out;
 `;
 

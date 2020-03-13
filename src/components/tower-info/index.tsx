@@ -58,8 +58,8 @@ export const ModalWindowWrapper = styled.div<ModalWindowProps>`
   position: absolute;
   z-index: ${ZIndexes.MODAL};
   right: 0;
-  width: 491px;
-  height: 100%;
+  width: 484px;
+  height: 80%;
 
   /* padding: 7% 0 0 3%; */
   box-sizing: border-box;
@@ -123,9 +123,10 @@ const Title = styled.div`
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
-  line-height: 1;
+  line-height: 1.25;
   letter-spacing: -0.5px;
   color: #001424;
+  font-family: 'MTSSansUltraWide', serif;
 
   @media (max-resolution: 0.8dppx) {
     font-size: 2.5vh;
@@ -162,9 +163,9 @@ const UpgradeButton = styled.div<{ canUpgrade?: boolean; pulseAnim?: boolean }>`
   align-items: center;
   color: #fff;
   cursor: ${props => (props.canUpgrade ? 'pointer' : 'default')};
-  font-size: 100%;
+  font-size: 16px;
   pointer-events: ${props => (props.canUpgrade ? 'auto' : 'none')};
-
+  font-family: 'MTSSansBold', 'regular';
   animation-name: ${props =>
     props.pulseAnim ? pulseAnimationHOF('159, 169, 176') : 'none'};
   animation-fill-mode: both;
@@ -186,7 +187,6 @@ const HeaderLineElement = styled.div<{ width?: number }>`
   justify-content: center;
   align-items: flex-start;
   flex-direction: column;
-  font-family: SFProDisplay;
 `;
 
 const TowerInfoMenu = styled.div`
@@ -206,6 +206,8 @@ const TowerInfoMenuElement = styled.div<{ selected: boolean }>`
   margin-right: 10%;
   color: #${props => (props.selected ? '001424' : '6e7782')};
   font-size: 20px;
+  font-weight: ${props => (props.selected ? '500' : 'normal')};
+  font-family: 'MTSSansMedium';
   :after {
     content: '';
     display: block;

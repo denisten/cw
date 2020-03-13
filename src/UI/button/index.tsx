@@ -29,6 +29,9 @@ const CustomButtonWrapper = styled.div<ICustomButtonWrapper>`
   border: solid 2px #02adc9;
   white-space: nowrap;
   color: ${props => props.color || '#02adc9'};
+  font-family: 'MTSSansBold';
+  z-index: ${ZIndexes.UI_BUTTON};
+  max-height: 720px;
 
   @media (max-resolution: 0.8dppx) {
     height: auto;
