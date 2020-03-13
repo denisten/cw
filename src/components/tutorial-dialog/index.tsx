@@ -13,8 +13,6 @@ import { ExitButton } from '../../UI/exit-button';
 import { TutorialDialogTextsService } from './dialog-messages-service';
 
 const TutorialDialogWrapper = styled.div`
-  //width: 88.1%;
-  //height: 100%;
   width: 1128px;
   height: 263px;
   background-image: url(${tutorialBackground});
@@ -68,7 +66,7 @@ const TutorialDialogText = styled.span`
   color: #001424;
   padding-right: 1%;
   box-sizing: border-box;
-  ыmargin-bottom: 20px;
+  margin-bottom: 20px;
 `;
 
 const CustomButton = styled.div<ICustomButton>`
@@ -79,7 +77,6 @@ const CustomButton = styled.div<ICustomButton>`
   align-items: center;
   color: #fff;
   cursor: pointer;
-  //margin-right: 76px;
   border-radius: 2px;
   box-shadow: 1px 1px 4px 0 #bbc1c7, inset 0 1px 3px 0 rgba(255, 255, 255, 0.5);
   background-color: #02acc8;
@@ -102,10 +99,8 @@ const ButtonWrapper = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: flex-end;
-  //padding-bottom: 6%;
-  //padding-right: 4%;
   box-sizing: border-box;
-  font-family: MTSSansBold;
+  font-family: MTSSansBold, serif;
 `;
 
 const MainWrapper = styled.div`
