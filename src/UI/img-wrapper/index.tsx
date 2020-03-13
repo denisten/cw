@@ -20,7 +20,7 @@ const ParentDivWrapper = styled.div<ParentDivWrapperProps>`
   animation-fill-mode: both;
   animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;
-  animation-duration: 0.6s;
+  animation-duration: 1s;
   &:hover {
     cursor: ${props => (props.hoverFlag ? 'pointer' : 'auto')};
   }
