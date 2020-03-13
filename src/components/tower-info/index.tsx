@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { ExitButton } from '../../UI/exit-button';
 import {
   extraTowerInfoModalClosed,
@@ -199,6 +199,16 @@ const TowerInfoMenu = styled.div`
   margin-bottom: 28px;
 `;
 
+const LineGrown = keyframes`
+from {
+    width: 0%;
+}
+
+to {
+  width: 100%;
+}
+`;
+
 const TowerInfoMenuElement = styled.div<{ selected: boolean }>`
   height: 100%;
   text-align: center;
@@ -209,11 +219,21 @@ const TowerInfoMenuElement = styled.div<{ selected: boolean }>`
   font-size: 20px;
   font-weight: ${props => (props.selected ? '500' : 'normal')};
   font-family: 'MTSSansRegular';
+  position: relative;
+  padding-bottom: 8px;
   :after {
     content: '';
     display: block;
-    margin-top: 8px;
-    border-bottom: 3px solid #${props => (props.selected ? '08b0cc' : 'none')};
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: ${props => (props.selected ? '#08b0cc' : 'none')};
+    height: 3px;
+    animation-name: ${props => (props.selected ? LineGrown : null)};
+    animation-fill-mode: both;
+    animation-timing-function: linear;
+    animation-duration: 0.3s;
   }
 
   @media (max-resolution: 0.8dppx) {
