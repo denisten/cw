@@ -25,7 +25,6 @@ export const toggleExtraTowerInfoModal = AppDomain.event<number[]>(
 export const menuOpened = AppDomain.event<MenuItems>();
 export const menuClosed = AppDomain.event();
 export const updateScaleValue = AppDomain.event<ScaleValues>();
-export const updateFocusOnValue = AppDomain.event<number[]>();
 export const showUpgradeIcon = AppDomain.event<TowersTypes>();
 export const editIsAuthorizedFlag = AppDomain.event<boolean>();
 
