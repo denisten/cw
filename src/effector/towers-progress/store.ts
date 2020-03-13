@@ -71,7 +71,7 @@ const initState: TowersProgressStoreType = {
     progress: 0,
   },
   [TowersTypes.STADIUM]: {
-    level: TowerLevel.low,
+    level: TowerLevel.mid,
     progress: 0,
   },
   [TowersTypes.AIRPORT]: {

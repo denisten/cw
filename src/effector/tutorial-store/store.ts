@@ -38,8 +38,8 @@ const TutorialSteps = [
 ];
 
 const initState = {
-  tutorialCondition: TutorialConditions.DIALOG_HELLO,
-  tutorialConditionIdx: 1,
+  tutorialCondition: TutorialConditions.OFF,
+  tutorialConditionIdx: 0,
   tutorialTextId: 0,
 };
 

@@ -16,7 +16,7 @@ class TutorialDialogTextsService {
         'Но сначала назови свой мир!',
       ],
       titles: ['Привет!', 'Привет!', 'Привет!'],
-      buttonContent: ['Ого! Как это сделать?', 'Хочу попробовать!', 'Назвать'],
+      buttonContent: ['Как это работает?', 'Хочу попробовать!', 'Назвать'],
     },
     [TutorialConditions.DIALOG_CONFIRM_CITY_NAME]: {
       messages: [

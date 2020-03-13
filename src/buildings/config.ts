@@ -62,8 +62,6 @@ import cyberArenaLevel1Img from './cyber-arena/1.png';
 import cyberArenaLevel3Stroke from './cyber-arena/3-stroke.png';
 import cyberArenaLevel2Stroke from './cyber-arena/2-stroke.png';
 import cyberArenaLevel1Stroke from './cyber-arena/1-stroke.png';
-import factoryLevel1Img from './factory/1.png';
-import factoryLevel1Stroke from './factory/1-stroke.png';
 import { TowerLevel, TowersTypes } from '../effector/towers-progress/store';
 import satelliteTvLevel1Img from './satellite-tv/1.png';
 import satelliteTvLevel1Stroke from './satellite-tv/1-stroke.png';
@@ -194,7 +192,7 @@ export class BuildingsService {
         height: 425,
         shadowImg: mollTowerLevel1Stroke,
         areaCoords: '531,63,75,378',
-        position: [23.3, 50],
+        position: [23.1, 49.9],
       },
       [TowerLevel.mid]: {
         img: mollTowerLevel2Img,
@@ -202,7 +200,7 @@ export class BuildingsService {
         height: 469,
         shadowImg: mollTowerLevel2Stroke,
         areaCoords: '533,74,68,408',
-        position: [22.56, 49.95],
+        position: [22.3, 49.9],
       },
       [TowerLevel.high]: {
         img: mollTowerLevel3Img,
@@ -210,7 +208,7 @@ export class BuildingsService {
         height: 461,
         shadowImg: mollTowerLevel3Stroke,
         areaCoords: '546,52,56,405',
-        position: [22.56, 49.95],
+        position: [22.36, 49.89],
       },
     },
     [TowersTypes.EGG]: {
@@ -258,7 +256,7 @@ export class BuildingsService {
         height: 426,
         shadowImg: libraryTowerLevel1Stroke,
         areaCoords: '88,97,430,332',
-        position: [42.5, 25.7],
+        position: [42.29, 25.98],
       },
       [TowerLevel.mid]: {
         img: libraryTowerLevel2Img,
@@ -266,7 +264,7 @@ export class BuildingsService {
         height: 446,
         shadowImg: libraryTowerLevel2Stroke,
         areaCoords: '77,54,448,366',
-        position: [42, 25.7],
+        position: [41.9, 25.95],
       },
       [TowerLevel.high]: {
         img: libraryTowerLevel3Img,
@@ -274,7 +272,7 @@ export class BuildingsService {
         height: 504,
         shadowImg: libraryTowerLevel3Stroke,
         areaCoords: '81,86,444,462',
-        position: [40.7, 26],
+        position: [40.9, 25.92],
       },
     },
     [TowersTypes.OBSERVATORY]: {
@@ -420,7 +418,7 @@ export class BuildingsService {
         height: 391,
         shadowImg: stadiumLevel1Stroke,
         areaCoords: '27,39,524,355',
-        position: [39.5, 30.7],
+        position: [40.4, 30.8],
       },
       [TowerLevel.mid]: {
         img: stadiumLevel2Img,
@@ -451,7 +449,7 @@ export class BuildingsService {
         height: 398,
         shadowImg: airportLevel1Stroke,
         areaCoords: '510,47,70,345',
-        position: [20, 28.5],
+        position: [19.9, 29.3],
       },
       [TowerLevel.mid]: {
         img: airportLevel2Img,
@@ -459,7 +457,7 @@ export class BuildingsService {
         height: 406,
         shadowImg: airportLevel2Stroke,
         areaCoords: '595,126,90,476',
-        position: [19.7, 28.4],
+        position: [19.7, 29.4],
       },
       [TowerLevel.high]: {
         img: airportLevel3Img,
@@ -467,7 +465,7 @@ export class BuildingsService {
         height: 449,
         shadowImg: airportLevel3Stroke,
         areaCoords: '595,126,90,476',
-        position: [18.9, 28.3],
+        position: [18.9, 29.4],
       },
     },
     [TowersTypes.MONEY_VAULT]: {

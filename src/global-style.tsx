@@ -7,15 +7,28 @@ import MTSSansUltraWide from './fonts/MTSSans-UltraWide.ttf';
 
 export const GlobalStyle = createGlobalStyle`
     @font-face {
+    font-family: "MTSSansRegular";
     src: url("${MTSSansRegular}") format("truetype");
-    src: url("${MTSSansBold}") format("truetype");
-    src: url("${MTSSansBlack}") format("truetype");
-    src: url("${MTSSansMedium}") format("truetype");
-    src: url("${MTSSansUltraWide}") format("truetype");
+    }
+    @font-face {
+      font-family: "MTSSansBold";
+      src: url("${MTSSansBold}") format("truetype");
+    }
+    @font-face {
+      font-family: "MTSSansBlack";
+     src: url("${MTSSansBlack}") format("truetype");
+    }
+    @font-face {
+      font-family: "MTSSansMedium";
+     src: url("${MTSSansMedium}") format("truetype");
+    }
+    @font-face {
+      font-family: "MTSSansUltraWide";
+     src: url("${MTSSansUltraWide}") format("truetype");
     }
     body {
       margin: 0;
       padding: 0;
-      font-family: "MTSSansBlack",sans-serif;
+      font-family: "MTSSansRegular";
     }
 `;

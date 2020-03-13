@@ -13,8 +13,10 @@ import { ExitButton } from '../../UI/exit-button';
 import { TutorialDialogTextsService } from './dialog-messages-service';
 
 const TutorialDialogWrapper = styled.div`
-  width: 88.1%;
-  height: 100%;
+  //width: 88.1%;
+  //height: 100%;
+  width: 1128px;
+  height: 263px;
   background-image: url(${tutorialBackground});
   background-position: center;
   background-repeat: no-repeat;
@@ -38,46 +40,51 @@ const SupportImgWrapper = styled.img`
 const TextWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
-  padding-top: 3%;
-  padding-right: 2%;
+  width: 50%;
+  padding-top: 43px;
+  padding-right: 76px;
   flex-grow: 1;
 `;
 
 const TutorialDialogTitle = styled.span`
-  font-family: MTSSansBold, sans-serif;
-  font-size: 3.6vh;
-  font-weight: 900;
+  font-family: MTSSansBlack, sans-serif;
+  font-size: 32px;
+  font-weight: bold;
   font-stretch: normal;
   font-style: normal;
   line-height: 1.25;
   letter-spacing: -0.5px;
   color: #01acc8;
-  margin-bottom: 2%;
+  margin-bottom: 8px;
 `;
 
 const TutorialDialogText = styled.span`
-  font-size: 2vh;
+  font-size: 20px;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
-  line-height: 1.3;
+  line-height: 28px;
   letter-spacing: normal;
   color: #001424;
+  padding-right: 1%;
+  box-sizing: border-box;
+  ыmargin-bottom: 20px;
 `;
 
 const CustomButton = styled.div<ICustomButton>`
-  width: 20vw;
-  height: 7vh;
+  width: 232px;
+  height: 50px;
   display: ${props => (props.textGenerating ? 'none' : 'flex')};
   justify-content: center;
   align-items: center;
   color: #fff;
   cursor: pointer;
-  margin-right: 2%;
+  //margin-right: 76px;
   border-radius: 2px;
   box-shadow: 1px 1px 4px 0 #bbc1c7, inset 0 1px 3px 0 rgba(255, 255, 255, 0.5);
   background-color: #02acc8;
+  font-size: 20px;
+  font-weight: bold;
 `;
 
 const BackButton = styled(CustomButton)<ICustomButton>`
@@ -85,25 +92,30 @@ const BackButton = styled(CustomButton)<ICustomButton>`
   box-sizing: border-box;
   background-color: #f4f4f4;
   display: ${props => (props.textGenerating ? 'none' : 'flex')};
+  box-shadow: none;
   color: #e2e5eb;
+  margin-right: 24px;
 `;
 
 const ButtonWrapper = styled.div`
   height: 100%;
   display: flex;
-  align-items: flex-end;
+  align-items: flex-start;
   justify-content: flex-end;
-  padding-bottom: 6%;
-  padding-right: 4%;
+  //padding-bottom: 6%;
+  //padding-right: 4%;
   box-sizing: border-box;
+  font-family: MTSSansBold;
 `;
 
 const MainWrapper = styled.div`
   width: 100%;
   height: 36.5%;
   position: absolute;
-  bottom: 3.3%;
+  bottom: 0;
   z-index: ${ZIndexes.TUTORIAL};
+  display: flex;
+  align-items: center;
 `;
 
 const delayBetweenDialogMessages = 600;
@@ -112,10 +124,10 @@ const delayBetweenLetterAppearing = 12;
 const styleConfig = {
   exitButton: {
     position: 'absolute',
-    top: 0,
+    top: 4,
     right: 0,
-    height: '3em',
-    width: '3em',
+    height: '50px',
+    width: '50px',
   },
 };
 

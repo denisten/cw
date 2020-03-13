@@ -30,7 +30,7 @@ const ComponentWrapper = styled.div`
   background-size: auto;
   width: 100vw;
   height: 100vh;
-  overflow: hidden;
+  //overflow: hidden;
   position: relative;
 `;
 
@@ -95,11 +95,11 @@ export const RootComponent = (): React.ReactElement => {
       />
       <ScrollContainer
         ref={myRef}
-        style={styleConfig.ScrollContainerStyle}
         nativeMobileScroll={false}
         onEndScroll={(...args) => {
           OnEndScrollHandler(args.slice(0, 2));
         }}
+        style={styleConfig.ScrollContainerStyle}
       >
         <MapWrapper scaleValue={scaleValue}>
           <TutorialToolsSelector
