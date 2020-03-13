@@ -190,13 +190,18 @@ const UpgradeButton = styled.div<{ canUpgrade?: boolean; pulseAnim?: boolean }>`
   }
 `;
 
-const HeaderLineElement = styled.div<{ width?: number; marginLeft?: string }>`
+const HeaderLineElement = styled.div<{
+  width?: number;
+  marginLeft?: string;
+  paddingBottom?: string;
+}>`
   width: ${props => props.width}%;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   flex-direction: column;
   margin-left: ${props => props.marginLeft};
+  padding-bottom: ${props => props.paddingBottom};
 `;
 
 const TowerInfoMenu = styled.div`
@@ -387,7 +392,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
           </RowWrapper>
 
           <HeaderLine>
-            <HeaderLineElement>
+            <HeaderLineElement paddingBottom={'3px'}>
               <MainText>Уровень эволюции</MainText>
 
               <ProgressBar

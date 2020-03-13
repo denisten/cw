@@ -10,7 +10,11 @@ const CountWrapper = styled.div<ICountWrapper>`
 
   img {
     margin: ${props => props.margin || '0 13px 0 0'};
-    height: 1.8vh;
+    height: 27px;
+
+    @media (max-resolution: 0.8dppx) {
+      height: 1.8vh;
+    }
   }
 
   span {
@@ -18,6 +22,7 @@ const CountWrapper = styled.div<ICountWrapper>`
     color: ${props => props.color || 'white'};
     font-weight: ${props => props.fontWeight || 'normal'};
     font-family: 'MTSSansBold';
+    line-height: 1;
 
     @media (max-resolution: 0.8dppx) {
       font-size: 1.1vw;
