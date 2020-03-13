@@ -33,19 +33,6 @@ const CustomButtonWrapper = styled.div<ICustomButtonWrapper>`
   animation-duration: 1s;
 `;
 
-const TitleWrapper = styled.span<{ color?: string }>`
-  font-size: 100%;
-  z-index: ${ZIndexes.UI_BUTTON};
-  max-height: 720px;
-
-  @media (max-resolution: 0.8dppx) {
-    height: auto;
-    width: auto;
-    font-size: 1.5vh;
-    padding: 0.8vh 1.2vw;
-  }
-`;
-
 export const CustomButton: React.FC<CustomButtonProps> = ({
   content,
   callback,
