@@ -4,9 +4,12 @@ export const scaleAnimation = (scaleSize: number) => keyframes`
   from {
     transform: scale(1);
   }
-  to {
+  50% {
     transform: scale(${scaleSize});
+  }
+  to {
+    transform: scale(1);
   }
 `;
 
-export const defaultScaleSize = 1.1;
+export const defaultScaleSize = 1.05;
