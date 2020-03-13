@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { ExitButton } from '../../UI/exit-button';
-import {
-  extraTowerInfoModalClosed,
-  nextTutorDescriptionStep,
-  nextTutorStep,
-} from '../../effector/app-condition/events';
+import { extraTowerInfoModalClosed } from '../../effector/app-condition/events';
 import { addProgressPoints } from '../../effector/towers-progress/events';
 import { useStore } from 'effector-react';
 import {
   AppCondition,
   maxProgressValue,
-  TutorialConditions,
 } from '../../effector/app-condition/store';
 import { ProgressBar } from '../../UI/progress-bar';
 import { TowerInfoContent } from '../tower-info-content';
@@ -26,6 +21,14 @@ import { BuildingsDescriptionService } from '../../buildings/descriptions';
 import { CustomButton } from '../../UI/button';
 import { ZIndexes } from '../root-component/z-indexes-enum';
 import wrapperBackground from './background.png';
+import {
+  TutorialConditions,
+  TutorialStore,
+} from '../../effector/tutorial-store/store';
+import {
+  nextTutorDescriptionStep,
+  nextTutorStep,
+} from '../../effector/tutorial-store/events';
 
 export type ModalWindowProps = {
   opened?: boolean;
@@ -172,10 +175,9 @@ const StyleConfig = {
 export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
   const {
       focusOn: { towerTitle: notVerifiedTowerTitle },
-      tutorialTextId,
-      tutorialCondition,
     } = useStore(AppCondition),
     LocalTowerProgressStore = useStore(TowersProgressStore);
+  const { tutorialCondition, tutorialTextId } = useStore(TutorialStore);
   const towerTitle: TowersTypes =
     notVerifiedTowerTitle || TowersTypes.MAIN_TOWER;
   const localBuildingService = new BuildingsService(),
@@ -256,7 +258,9 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
         <Divider />
         <TowerInfoContent selectedMenu={selectedMenu} text={descriptionText} />
         <CustomButton
-          animFlag={tutorialCondition === TutorialConditions.UNLOCK_BUTTON}
+          animFlag={
+            tutorialCondition === TutorialConditions.NEXT_BUTTON_TOWER_INFO
+          }
           callback={() => {
             nextTutorDescriptionStep();
             addProgressPoints({ points: 35, towerTitle: towerTitle });

@@ -11,9 +11,6 @@ import {
   ExtraTowerInfoModalOpenedProps,
   showUpgradeIcon,
   editIsAuthorizedFlag,
-  nextTutorStep,
-  nextTutorDescriptionStep,
-  turnOffTutorialMode,
   setAuthValue,
 } from './events';
 import { TowersTypes } from '../towers-progress/store';
@@ -26,20 +23,6 @@ const initFocusXCord = 3693,
 
 const initScaleValue = 1;
 
-export enum TutorialConditions {
-  OFF = 0,
-  DIALOG = 1,
-  TOWER_ARROW = 2,
-  UNLOCK_BUTTON = 3,
-  UPGRADE_ARROW = 4,
-  MENU_ARROW = 5,
-  SETTINGS_ARROW = 6,
-  CHANGE_CITY_NAME_ARROW = 7,
-  SAVE_CITY_NAME_ARROW = 8,
-  PROFILE_ARROW = 9,
-  AUTH_ARROW = 10,
-}
-
 const initState = {
   isExtraTowerInfoModalOpen: false,
   scaleValue: initScaleValue,
@@ -50,8 +33,6 @@ const initState = {
   selectedMenuItem: null,
   upgradingTowerTitle: null,
   isAuthorized: false,
-  tutorialCondition: TutorialConditions.DIALOG,
-  tutorialTextId: 0,
 };
 
 const appConditionLocalStorage = connectLocalStorage('AppCondition').onChange(
@@ -109,18 +90,6 @@ export const AppCondition = AppDomain.store<AppConditionType>(initState)
     ...state,
     isAuthorized: payload,
   }))
-  .on(nextTutorStep, state => ({
-    ...state,
-    tutorialCondition: state.tutorialCondition + 1,
-  }))
-  .on(nextTutorDescriptionStep, state => ({
-    ...state,
-    tutorialTextId: state.tutorialTextId + 1,
-  }))
-  .on(turnOffTutorialMode, state => ({
-    ...state,
-    tutorialCondition: TutorialConditions.OFF,
-  }))
   .on(setAuthValue, (state, { isAuthorized }) => ({ ...state, isAuthorized }));
 
 AppCondition.watch(appConditionLocalStorage);
@@ -132,6 +101,4 @@ export type AppConditionType = {
   scaleValue: ScaleValues;
   upgradingTowerTitle: TowersTypes | null;
   isAuthorized: boolean;
-  tutorialCondition: TutorialConditions;
-  tutorialTextId: number;
 };

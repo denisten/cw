@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const ParentDivWrapper = styled.div<ParentDivWrapperProps>`
+const ParentDivWrapper = styled.div<IColumnWrapper>`
   height: ${props => props.height};
   position: ${props => props.position || 'absolute'};
   top: ${props => props.top}%;
@@ -15,7 +15,14 @@ const ParentDivWrapper = styled.div<ParentDivWrapperProps>`
   width: ${props => props.width};
 `;
 
-interface ParentDivWrapperProps {
+export const ColumnWrapper: React.FC<IColumnWrapper> = ({
+  children,
+  ...props
+}) => {
+  return <ParentDivWrapper {...props}>{children}</ParentDivWrapper>;
+};
+
+interface IColumnWrapper {
   position?: string;
   top?: number;
   left?: number;
@@ -27,34 +34,3 @@ interface ParentDivWrapperProps {
   width?: string;
   displayFlag?: boolean;
 }
-
-export const ColumnWrapper: React.FC<ParentDivWrapperProps> = ({
-  position,
-  top,
-  left,
-  bottom,
-  right,
-  zIndex,
-  transformTranslate,
-  height,
-  width,
-  children,
-  displayFlag,
-}) => {
-  return (
-    <ParentDivWrapper
-      position={position}
-      zIndex={zIndex}
-      top={top}
-      left={left}
-      bottom={bottom}
-      right={right}
-      height={height}
-      width={width}
-      transformTranslate={transformTranslate}
-      displayFlag={displayFlag}
-    >
-      {children}
-    </ParentDivWrapper>
-  );
-};

@@ -2,18 +2,18 @@ import React from 'react';
 import profileImg from './button_nickname.png';
 import {
   menuOpened,
-  nextTutorStep,
   extraTowerInfoModalClosed,
 } from '../../effector/app-condition/events';
 import { ImgWrapper } from '../img-wrapper';
 import styled from 'styled-components';
-import { TutorialConditions } from '../../effector/app-condition/store';
 import { MenuItems } from '../menu-paragraph';
 import { NickName } from '../nickname';
 import { ZIndexes } from '../../components/root-component/z-indexes-enum';
 import { AvatarWrapper } from '../avatar-wrapper';
 import userAvatar from './profile-img.png';
 import { MoneyWrapper } from '../money-wrapper';
+import { TutorialConditions } from '../../effector/tutorial-store/store';
+import { nextTutorStep } from '../../effector/tutorial-store/events';
 
 const MoneyCounterWrapper = styled.div`
   position: absolute;
@@ -53,7 +53,10 @@ export const ProfileButton: React.FC<IProfileButton> = ({
       extraTowerInfoModalClosed();
       return;
     }
-    if (tutorialCondition === TutorialConditions.MENU_ARROW) {
+    if (
+      tutorialCondition === TutorialConditions.PULSE_MENU_CHANGE_CITY_NAME ||
+      tutorialCondition === TutorialConditions.PULSE_MENU_AUTH
+    ) {
       menuOpened(MenuItems.PROFILE);
       extraTowerInfoModalClosed();
       nextTutorStep();
@@ -63,7 +66,10 @@ export const ProfileButton: React.FC<IProfileButton> = ({
     <ImgWrapper
       src={profileImg}
       callBack={handleClick}
-      animFlag={tutorialCondition === TutorialConditions.MENU_ARROW}
+      animFlag={
+        tutorialCondition === TutorialConditions.PULSE_MENU_CHANGE_CITY_NAME ||
+        tutorialCondition === TutorialConditions.PULSE_MENU_AUTH
+      }
       {...StyleConfig.nickNameButton}
     >
       <AvatarWrapper src={userAvatar} {...StyleConfig.avatar} />

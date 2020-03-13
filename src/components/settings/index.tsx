@@ -17,10 +17,11 @@ import {
   ProfileHeaderDataWrapper,
 } from '../profile';
 import {
-  AppCondition,
   TutorialConditions,
-} from '../../effector/app-condition/store';
-import { nextTutorStep } from '../../effector/app-condition/events';
+  TutorialStore,
+} from '../../effector/tutorial-store/store';
+import { nextTutorStep } from '../../effector/tutorial-store/events';
+import { menuClosed } from '../../effector/app-condition/events';
 
 const UserInfoBlockWrapper = styled.div`
   width: 100%;
@@ -95,6 +96,7 @@ const StyledConfig = {
     paddingLeft: '238px',
   },
 };
+
 const ProfileWrapper = styled.div`
   width: 100%;
   height: 100%;
@@ -103,13 +105,13 @@ const ProfileWrapper = styled.div`
 
 export const Settings = () => {
   const { worldName, money, name } = useStore(UserDataStore);
-  const { tutorialCondition } = useStore(AppCondition);
+  const { tutorialCondition } = useStore(TutorialStore);
 
   const [editMode, setEditMode] = useState(false);
   const toggleInputEdit = () => {
     if (
-      tutorialCondition === TutorialConditions.CHANGE_CITY_NAME_ARROW ||
-      tutorialCondition === TutorialConditions.SAVE_CITY_NAME_ARROW
+      tutorialCondition === TutorialConditions.PULSE_EDIT_CHANGE_CITY_NAME ||
+      tutorialCondition === TutorialConditions.PULSE_SAVE_CHANGE_CITY_NAME
     )
       nextTutorStep();
     setEditMode(!editMode);
@@ -133,7 +135,8 @@ export const Settings = () => {
           {!editMode ? (
             <CustomButton
               animFlag={
-                tutorialCondition === TutorialConditions.CHANGE_CITY_NAME_ARROW
+                tutorialCondition ===
+                TutorialConditions.PULSE_EDIT_CHANGE_CITY_NAME
               }
               callback={() => toggleInputEdit()}
               {...StyledConfig.editButton}
@@ -155,9 +158,13 @@ export const Settings = () => {
           <RowWrapper {...StyledConfig.inEditModeRow}>
             <CustomButton
               animFlag={
-                tutorialCondition === TutorialConditions.SAVE_CITY_NAME_ARROW
+                tutorialCondition ===
+                TutorialConditions.PULSE_SAVE_CHANGE_CITY_NAME
               }
-              callback={() => toggleInputEdit()}
+              callback={() => {
+                toggleInputEdit();
+                menuClosed();
+              }}
               {...StyledConfig.saveButton}
             />
           </RowWrapper>
