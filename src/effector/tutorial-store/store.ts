@@ -38,8 +38,8 @@ const TutorialSteps = [
 ];
 
 const initState = {
-  tutorialCondition: TutorialConditions.PULSE_MENU_CHANGE_CITY_NAME,
-  tutorialConditionIdx: 2,
+  tutorialCondition: TutorialConditions.DIALOG_HELLO,
+  tutorialConditionIdx: 1,
   tutorialTextId: 0,
 };
 
