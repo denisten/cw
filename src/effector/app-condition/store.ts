@@ -7,7 +7,6 @@ import {
   ScaleValues,
   menuOpened,
   menuClosed,
-  updateFocusOnValue,
   ExtraTowerInfoModalOpenedProps,
   showUpgradeIcon,
   editIsAuthorizedFlag,
@@ -73,10 +72,6 @@ export const AppCondition = AppDomain.store<AppConditionType>(initState)
   .on(menuClosed, state => ({
     ...state,
     selectedMenuItem: null,
-  }))
-  .on(updateFocusOnValue, (state, payload) => ({
-    ...state,
-    focusOn: { ...state.focusOn, coords: payload },
   }))
   .on(showUpgradeIcon, (state, payload) => ({
     ...state,
