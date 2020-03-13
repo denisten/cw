@@ -60,7 +60,8 @@ export const ModalWindowWrapper = styled.div<ModalWindowProps>`
   right: 0;
   width: 484px;
   height: 80%;
-
+  top: 50%;
+  transform: translate(0%, -50%);
   /* padding: 7% 0 0 3%; */
   box-sizing: border-box;
   margin-right: ${props =>
@@ -156,7 +157,7 @@ const UpgradeButton = styled.div<{ canUpgrade?: boolean; pulseAnim?: boolean }>`
   height: 40px;
   padding: 0 20px;
   box-sizing: border-box;
-  border-radius: 8px;
+  border-radius: 2px;
   background-color: ${props => (props.canUpgrade ? '#02adc9' : '#e2e5eb')};
   display: flex;
   justify-content: center;
@@ -207,7 +208,7 @@ const TowerInfoMenuElement = styled.div<{ selected: boolean }>`
   color: #${props => (props.selected ? '001424' : '6e7782')};
   font-size: 20px;
   font-weight: ${props => (props.selected ? '500' : 'normal')};
-  font-family: 'MTSSansMedium';
+  font-family: 'MTSSansRegular';
   :after {
     content: '';
     display: block;

@@ -6,11 +6,12 @@ const ProgressBarWrapper = styled.div`
   display: flex;
   height: 20px;
   width: 180px;
-  border: 1px solid;
+  border: 1px solid none;
   border-radius: 100px;
   overflow: hidden;
   justify-content: flex-start;
   background-color: #e2e5eb;
+  border: 1px solid none;
 
   &::before {
     position: absolute;
