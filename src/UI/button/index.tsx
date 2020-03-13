@@ -30,6 +30,11 @@ const CustomButtonWrapper = styled.div<ICustomButtonWrapper>`
   white-space: nowrap;
   color: ${props => props.color || '#02adc9'};
   font-family: 'MTSSansBold';
+  animation-duration: 1s;
+`;
+
+const TitleWrapper = styled.span<{ color?: string }>`
+  font-size: 100%;
   z-index: ${ZIndexes.UI_BUTTON};
   max-height: 720px;
 
