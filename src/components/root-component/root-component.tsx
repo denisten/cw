@@ -9,7 +9,6 @@ import mapTile from '../../img/roads/map-tile.png';
 import { Menu } from '../profile-modal-window';
 import { TaskButton } from '../../UI/task-button';
 import { useScrollTo } from '../../hooks/useScrollTo';
-import { OnEndScrollHandler } from '../../utils/on-end-scroll-handler';
 import { Bridges } from '../../buildings/bridges';
 import { ProfileButton } from '../../UI/profile-button';
 import { TutorialToolsSelector } from '../../utils/arrows-container';
@@ -74,12 +73,7 @@ export const RootComponent = (): React.ReactElement => {
         tutorialCondition={tutorialCondition}
         isInsideScrollContainer={false}
       />
-      <ScrollContainer
-        onMountCallback={setScrollNode}
-        onEndScrollCallback={args => OnEndScrollHandler(args)}
-        onStartScrollCallback={() => OnEndScrollHandler([0, 0])}
-        onScrollCallback={() => OnEndScrollHandler([0, 0])}
-      >
+      <ScrollContainer onMountCallback={setScrollNode}>
         <MapWrapper scaleValue={scaleValue}>
           <TutorialToolsSelector
             tutorialCondition={tutorialCondition}
