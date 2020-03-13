@@ -57,12 +57,10 @@ const MAXLEVEL = 100;
 export const ModalWindowWrapper = styled.div<ModalWindowProps>`
   position: absolute;
   z-index: ${ZIndexes.MODAL};
-  right: 0;
-  width: 484px;
-  height: 80%;
-  top: 50%;
-  transform: translate(0%, -50%);
-  /* padding: 7% 0 0 3%; */
+  right: -3px;
+  width: 36%;
+  height: 90%;
+  top: 5%;
   box-sizing: border-box;
   margin-right: ${props =>
     !props.opened ? marginRightValues.CLOSED : marginRightValues.OPENED}%;
@@ -73,6 +71,18 @@ export const ModalWindowWrapper = styled.div<ModalWindowProps>`
 
   @media (max-resolution: 0.8dppx) {
     width: 36%;
+    height: 80%;
+  }
+
+  @media screen and (max-width: 1440px) {
+    height: 100%;
+    top: 0%;
+  }
+
+  @media screen and (max-width: 1280px) {
+    height: 100%;
+    top: 0%;
+    width: 45%;
   }
 `;
 
@@ -116,7 +126,6 @@ const HeaderLine = styled.div`
   width: 100%;
   display: flex;
   margin-top: 24px;
-  justify-content: space-between;
 `;
 
 const Title = styled.div`
@@ -181,13 +190,14 @@ const UpgradeButton = styled.div<{ canUpgrade?: boolean; pulseAnim?: boolean }>`
   }
 `;
 
-const HeaderLineElement = styled.div<{ width?: number }>`
+const HeaderLineElement = styled.div<{ width?: number; marginLeft?: string }>`
   width: ${props => props.width}%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: flex-start;
   flex-direction: column;
+  margin-left: ${props => props.marginLeft};
 `;
 
 const TowerInfoMenu = styled.div`
@@ -217,8 +227,8 @@ const TowerInfoMenuElement = styled.div<{ selected: boolean }>`
   margin-right: 10%;
   color: #${props => (props.selected ? '001424' : '6e7782')};
   font-size: 20px;
-  font-weight: ${props => (props.selected ? '500' : 'normal')};
-  font-family: 'MTSSansRegular';
+  font-family: ${props =>
+    props.selected ? 'MTSSansMedium' : 'MTSSansRegular'};
   position: relative;
   padding-bottom: 8px;
 
@@ -236,10 +246,6 @@ const TowerInfoMenuElement = styled.div<{ selected: boolean }>`
     animation-timing-function: linear;
     animation-duration: 0.5s;
     transition: 0.5s;
-  }
-
-  &:hover::after {
-    width: 100%;
   }
 
   @media (max-resolution: 0.8dppx) {
@@ -273,7 +279,7 @@ const StyleConfig = {
     margin: '30px 0',
     color: '#02adc9',
     position: 'absolute',
-    bottom: 12,
+    bottom: 10,
   },
   rowWrapper: {
     width: '100%',
@@ -390,7 +396,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
               />
             </HeaderLineElement>
 
-            <HeaderLineElement>
+            <HeaderLineElement marginLeft={'10%'}>
               <MainText>Еженедельный доход</MainText>
 
               <RowWrapper>
