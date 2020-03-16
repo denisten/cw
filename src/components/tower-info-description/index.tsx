@@ -18,15 +18,12 @@ const TowerInfoDescriptionWrapper = styled.div`
 `;
 
 type TowerInfoDescriptionProps = {
-  text: Array<string> | string;
+  text: Array<string>;
 };
 
 export const TowerInfoDescription: React.FC<TowerInfoDescriptionProps> = ({
   text,
 }) => {
-  const spanElems =
-    typeof text === 'object' && text.length > 0
-      ? text.map((elem, ind) => <span key={ind}>{elem}</span>)
-      : text;
+  const spanElems = text.map((elem, ind) => <span key={ind}>{elem}</span>);
   return <TowerInfoDescriptionWrapper>{spanElems}</TowerInfoDescriptionWrapper>;
 };

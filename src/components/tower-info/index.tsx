@@ -461,7 +461,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
           text={
             tutorialCondition &&
             towerTutorialStep === TowerTutorialSteps.DESCRIPTION_DONT_OPENED
-              ? descriptionText[0]
+              ? [descriptionText[0]]
               : descriptionText
           }
         />
