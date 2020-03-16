@@ -5,8 +5,7 @@ import { carConfig } from '../carConfig';
 export const Cars = () => (
   <>
     {carConfig.map(car => {
-      const carElem = useMemo(() => <Car key={car.id} {...car} />, [car]);
-      return carElem;
+      return useMemo(() => <Car key={car.id} {...car} />, [car]);
     })}
   </>
 );
