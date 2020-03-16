@@ -244,7 +244,7 @@ const TowerInfoMenuElement = styled.div<{ selected: boolean }>`
   font-family: ${props =>
     props.selected ? 'MTSSansMedium' : 'MTSSansRegular'};
   position: relative;
-  padding-bottom: 8px;
+  padding-bottom: 12px;
 
   :after {
     content: '';
