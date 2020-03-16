@@ -27,6 +27,7 @@ export enum TowersTypes {
   ROUTER = 'router',
   AUTO_FACTORY = 'autoFactory',
   RTK = 'rtk',
+  PARTNER_BANK = 'partnerBank',
 }
 const initState: TowersProgressStoreType = {
   [TowersTypes.MAIN_TOWER]: {
@@ -112,6 +113,10 @@ const initState: TowersProgressStoreType = {
   },
   [TowersTypes.RTK]: {
     level: TowerLevel.low,
+    progress: 0,
+  },
+  [TowersTypes.PARTNER_BANK]: {
+    level: TowerLevel.mid,
     progress: 0,
   },
 };

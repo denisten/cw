@@ -38,7 +38,7 @@ const TutorialSteps = [
 ];
 
 const initState = {
-  tutorialCondition: TutorialConditions.DIALOG_HELLO,
+  tutorialCondition: TutorialConditions.OFF,
   tutorialConditionIdx: 0,
   tutorialTextId: 0,
 };
