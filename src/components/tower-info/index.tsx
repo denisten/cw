@@ -314,10 +314,21 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
     notVerifiedTowerTitle || TowersTypes.MAIN_TOWER;
   const localBuildingService = new BuildingsService(),
     localDescriptionService = new BuildingsDescriptionService();
-  const descriptionText = localDescriptionService.getDescriptionForCurrentTower(
-    towerTitle,
-    tutorialTextId
-  );
+  let descriptionText = '';
+
+  if (!tutorialCondition) {
+    //  вне туториала просто показываем полный текст
+    descriptionText = localDescriptionService.getAllDescriptionForCurrentTower(
+      towerTitle
+    );
+  } else {
+    // в туториале показываем 1 абзац текста, потом по кнопке далее накидываем к нему ещё текст
+    descriptionText = localDescriptionService.getDescriptionForCurrentTower(
+      towerTitle,
+      tutorialTextId
+    );
+  }
+
   const { title, maxLevel } = localBuildingService.getConfigForTower(
     towerTitle
   );
@@ -351,7 +362,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
       // * если в режиме туториала мы не в описании а на чате например
       setSelectMenu(TowerInfoContentValues.DESCRIPTION);
       setAllTowerText(
-        localDescriptionService.getAllDescriptionForCurrentTower()
+        localDescriptionService.getAllDescriptionForCurrentTower(towerTitle)
       ); // get all text
     } else if (
       // * если мы в описании но текст весь не раскрыт, раскрываем
@@ -359,7 +370,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
       !fullTowerDescription
     ) {
       setAllTowerText(
-        localDescriptionService.getAllDescriptionForCurrentTower()
+        localDescriptionService.getAllDescriptionForCurrentTower(towerTitle)
       ); // get all text
     } else if (
       selectedMenu === TowerInfoContentValues.DESCRIPTION &&
