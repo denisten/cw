@@ -455,9 +455,6 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
 
         <TowerInfoContent
           selectedMenu={selectedMenu}
-          // в зависимости от того включен ли туториал и на каком мы шаге
-          // показывает либо только первый отрывок текста (нулевой индекс)
-          // либо весь, если туториал пройден и текст открыт
           text={
             tutorialCondition &&
             towerTutorialStep === TowerTutorialSteps.DESCRIPTION_DONT_OPENED
