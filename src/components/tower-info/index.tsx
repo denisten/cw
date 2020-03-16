@@ -53,6 +53,13 @@ export enum TowerInfoContentValues {
   DESCRIPTION = 'description',
 }
 
+enum TowerTutorialSteps {
+  DESCRIPTION_DONT_OPENED = 0,
+  DESCRIPTION_OPENED = 1,
+  CHAT_OPENED = 2,
+  TASKS_OPENED = 3,
+}
+
 const MAXLEVEL = 100;
 
 export const ModalWindowWrapper = styled.div<ModalWindowProps>`
@@ -309,15 +316,15 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
       focusOn: { towerTitle: notVerifiedTowerTitle },
     } = useStore(AppCondition),
     LocalTowerProgressStore = useStore(TowersProgressStore);
-  const { tutorialCondition, tutorialTextId } = useStore(TutorialStore);
+  const { tutorialCondition } = useStore(TutorialStore);
   const towerTitle: TowersTypes =
     notVerifiedTowerTitle || TowersTypes.MAIN_TOWER;
   const localBuildingService = new BuildingsService(),
     localDescriptionService = new BuildingsDescriptionService();
-  const descriptionText = localDescriptionService.getDescriptionForCurrentTower(
-    towerTitle,
-    tutorialTextId
+  const descriptionText: Array<string> = localDescriptionService.getAllDescriptionForCurrentTower(
+    towerTitle
   );
+
   const { title, maxLevel } = localBuildingService.getConfigForTower(
     towerTitle
   );
@@ -326,7 +333,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
   const [selectedMenu, setSelectMenu] = useState(
     TowerInfoContentValues.DESCRIPTION
   );
-  const [fullTowerDescription, setAllTowerText] = useState('');
+  const [towerTutorialStep, setTowerTutorialStep] = useState(0);
   useEffect(() => {
     if (
       LocalTowerProgressStore[towerTitle].progress >= maxProgressValue &&
@@ -343,40 +350,42 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
     }
   };
 
-  const nextTowerTutorialStep = () => {
-    if (
-      selectedMenu !== TowerInfoContentValues.DESCRIPTION &&
-      !fullTowerDescription
-    ) {
-      // * если в режиме туториала мы не в описании а на чате например
-      setSelectMenu(TowerInfoContentValues.DESCRIPTION);
-      setAllTowerText(
-        localDescriptionService.getAllDescriptionForCurrentTower()
-      ); // get all text
-    } else if (
-      // * если мы в описании но текст весь не раскрыт, раскрываем
-      selectedMenu === TowerInfoContentValues.DESCRIPTION &&
-      !fullTowerDescription
-    ) {
-      setAllTowerText(
-        localDescriptionService.getAllDescriptionForCurrentTower()
-      ); // get all text
-    } else if (
-      selectedMenu === TowerInfoContentValues.DESCRIPTION &&
-      fullTowerDescription
-    ) {
-      // * если открыт весь текст и нажали на далее => идём в чат и так далее
-      setSelectMenu(TowerInfoContentValues.CHAT);
-    } else if (
-      selectedMenu === TowerInfoContentValues.CHAT &&
-      fullTowerDescription
-    ) {
-      setSelectMenu(TowerInfoContentValues.TASK);
-    }
-
+  const grownLineAndNextStep = () => {
     nextTutorDescriptionStep();
     addProgressPoints({ points: 33.34, towerTitle: towerTitle });
   };
+
+  const showDescription = () => {
+    setSelectMenu(TowerInfoContentValues.DESCRIPTION);
+    setTowerTutorialStep(TowerTutorialSteps.DESCRIPTION_OPENED);
+    grownLineAndNextStep();
+  };
+
+  const showChat = () => {
+    setSelectMenu(TowerInfoContentValues.CHAT);
+    setTowerTutorialStep(TowerTutorialSteps.CHAT_OPENED);
+    grownLineAndNextStep();
+  };
+
+  const showTasks = () => {
+    setSelectMenu(TowerInfoContentValues.TASK);
+    setTowerTutorialStep(TowerTutorialSteps.TASKS_OPENED);
+    grownLineAndNextStep();
+  };
+  const nextTowerTutorialStep = () => {
+    if (!tutorialCondition) {
+      addProgressPoints({ points: 33.34, towerTitle: towerTitle });
+    } else if (
+      towerTutorialStep === TowerTutorialSteps.DESCRIPTION_DONT_OPENED
+    ) {
+      showDescription();
+    } else if (towerTutorialStep === TowerTutorialSteps.DESCRIPTION_OPENED) {
+      showChat();
+    } else if (towerTutorialStep === TowerTutorialSteps.CHAT_OPENED) {
+      showTasks();
+    }
+  };
+
   const { money } = useStore(UserDataStore);
   return (
     <ModalWindowWrapper opened={opened}>
@@ -446,7 +455,12 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
 
         <TowerInfoContent
           selectedMenu={selectedMenu}
-          text={fullTowerDescription || descriptionText}
+          text={
+            tutorialCondition &&
+            towerTutorialStep === TowerTutorialSteps.DESCRIPTION_DONT_OPENED
+              ? [descriptionText[0]]
+              : descriptionText
+          }
         />
 
         {!tutorialCondition ||
