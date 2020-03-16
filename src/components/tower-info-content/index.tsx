@@ -6,7 +6,7 @@ import { TowerInfoTask } from '../tower-info-task';
 
 type TowerInfoContentProps = {
   selectedMenu: TowerInfoContentValues;
-  text: string;
+  text: Array<string> | string;
 };
 
 export const TowerInfoContent: React.FC<TowerInfoContentProps> = ({

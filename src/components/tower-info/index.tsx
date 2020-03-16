@@ -53,6 +53,13 @@ export enum TowerInfoContentValues {
   DESCRIPTION = 'description',
 }
 
+enum TowerTutorialSteps {
+  DESCRIPTION_DONT_OPENED = 0,
+  DESCRIPTION_OPENED = 1,
+  CHAT_OPENED = 2,
+  TASKS_OPENED = 3,
+}
+
 const MAXLEVEL = 100;
 
 export const ModalWindowWrapper = styled.div<ModalWindowProps>`
@@ -309,25 +316,14 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
       focusOn: { towerTitle: notVerifiedTowerTitle },
     } = useStore(AppCondition),
     LocalTowerProgressStore = useStore(TowersProgressStore);
-  const { tutorialCondition, tutorialTextId } = useStore(TutorialStore);
+  const { tutorialCondition } = useStore(TutorialStore);
   const towerTitle: TowersTypes =
     notVerifiedTowerTitle || TowersTypes.MAIN_TOWER;
   const localBuildingService = new BuildingsService(),
     localDescriptionService = new BuildingsDescriptionService();
-  let descriptionText = '';
-
-  if (!tutorialCondition) {
-    //  вне туториала просто показываем полный текст
-    descriptionText = localDescriptionService.getAllDescriptionForCurrentTower(
-      towerTitle
-    );
-  } else {
-    // в туториале показываем 1 абзац текста, потом по кнопке далее накидываем к нему ещё текст
-    descriptionText = localDescriptionService.getDescriptionForCurrentTower(
-      towerTitle,
-      tutorialTextId
-    );
-  }
+  const descriptionText: Array<string> = localDescriptionService.getAllDescriptionForCurrentTower(
+    towerTitle
+  );
 
   const { title, maxLevel } = localBuildingService.getConfigForTower(
     towerTitle
@@ -337,7 +333,8 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
   const [selectedMenu, setSelectMenu] = useState(
     TowerInfoContentValues.DESCRIPTION
   );
-  const [fullTowerDescription, setAllTowerText] = useState('');
+  const [firstPartTowerText, setFirstPartTowerText] = useState('');
+  const [towerTutorialStep, setTowerTutorialStep] = useState(0);
   useEffect(() => {
     if (
       LocalTowerProgressStore[towerTitle].progress >= maxProgressValue &&
@@ -347,6 +344,14 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
     }
   }, [LocalTowerProgressStore[towerTitle].progress]);
 
+  useEffect(() => {
+    if (tutorialCondition) {
+      setFirstPartTowerText(
+        localDescriptionService.getFirstDescriptionForCurrentTower(towerTitle)
+      );
+    }
+  }, []);
+
   const handleClick = () => {
     if (towerTitle) {
       showUpgradeIcon(towerTitle);
@@ -354,40 +359,48 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
     }
   };
 
+  const showDescription = () => {
+    setFirstPartTowerText(''); // get all text
+    setTowerTutorialStep(TowerTutorialSteps.DESCRIPTION_OPENED);
+    nextTutorDescriptionStep();
+  };
+
+  const showChat = () => {
+    setSelectMenu(TowerInfoContentValues.CHAT);
+    setTowerTutorialStep(TowerTutorialSteps.CHAT_OPENED);
+    nextTutorDescriptionStep();
+  };
+
+  const showTasks = () => {
+    setSelectMenu(TowerInfoContentValues.TASK);
+    setTowerTutorialStep(TowerTutorialSteps.TASKS_OPENED);
+    nextTutorDescriptionStep();
+  };
   const nextTowerTutorialStep = () => {
-    if (
+    if (!tutorialCondition) {
+      addProgressPoints({ points: 33.34, towerTitle: towerTitle });
+    } else if (
       selectedMenu !== TowerInfoContentValues.DESCRIPTION &&
-      !fullTowerDescription
+      towerTutorialStep === TowerTutorialSteps.DESCRIPTION_DONT_OPENED
     ) {
-      // * если в режиме туториала мы не в описании а на чате например
+      // * если в режиме туториала мы не в описании а на чате например => переходим в описание и разворачиваем текст
       setSelectMenu(TowerInfoContentValues.DESCRIPTION);
-      setAllTowerText(
-        localDescriptionService.getAllDescriptionForCurrentTower(towerTitle)
-      ); // get all text
+      showDescription();
     } else if (
       // * если мы в описании но текст весь не раскрыт, раскрываем
       selectedMenu === TowerInfoContentValues.DESCRIPTION &&
-      !fullTowerDescription
+      towerTutorialStep === TowerTutorialSteps.DESCRIPTION_DONT_OPENED
     ) {
-      setAllTowerText(
-        localDescriptionService.getAllDescriptionForCurrentTower(towerTitle)
-      ); // get all text
-    } else if (
-      selectedMenu === TowerInfoContentValues.DESCRIPTION &&
-      fullTowerDescription
-    ) {
+      showDescription();
+    } else if (towerTutorialStep === TowerTutorialSteps.DESCRIPTION_OPENED) {
       // * если открыт весь текст и нажали на далее => идём в чат и так далее
-      setSelectMenu(TowerInfoContentValues.CHAT);
-    } else if (
-      selectedMenu === TowerInfoContentValues.CHAT &&
-      fullTowerDescription
-    ) {
-      setSelectMenu(TowerInfoContentValues.TASK);
+      showChat();
+    } else if (towerTutorialStep === TowerTutorialSteps.CHAT_OPENED) {
+      showTasks();
     }
-
-    nextTutorDescriptionStep();
     addProgressPoints({ points: 33.34, towerTitle: towerTitle });
   };
+
   const { money } = useStore(UserDataStore);
   return (
     <ModalWindowWrapper opened={opened}>
@@ -457,7 +470,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
 
         <TowerInfoContent
           selectedMenu={selectedMenu}
-          text={fullTowerDescription || descriptionText}
+          text={firstPartTowerText || descriptionText}
         />
 
         {!tutorialCondition ||

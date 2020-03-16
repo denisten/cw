@@ -8,6 +8,8 @@ const TowerInfoDescriptionWrapper = styled.div`
   height: 300px;
   overflow: hidden;
   padding-right: 80px;
+  display: flex;
+  flex-direction: column;
 
   @media (max-resolution: 0.8dppx) {
     font-size: 1.5vh;
@@ -15,11 +17,15 @@ const TowerInfoDescriptionWrapper = styled.div`
 `;
 
 type TowerInfoDescriptionProps = {
-  text: string;
+  text: Array<string> | string;
 };
 
 export const TowerInfoDescription: React.FC<TowerInfoDescriptionProps> = ({
   text,
 }) => {
-  return <TowerInfoDescriptionWrapper>{text}</TowerInfoDescriptionWrapper>;
+  const spanElems =
+    typeof text === 'object' && text.length > 0
+      ? text.map((elem, ind) => <span key={ind}>{elem}</span>)
+      : text;
+  return <TowerInfoDescriptionWrapper>{spanElems}</TowerInfoDescriptionWrapper>;
 };

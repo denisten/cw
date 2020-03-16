@@ -127,6 +127,9 @@ export class BuildingsDescriptionService {
   };
 
   getAllDescriptionForCurrentTower = (tower: TowersTypes) => {
-    return this._description[tower].join();
+    return this._description[tower];
+  };
+  getFirstDescriptionForCurrentTower = (tower: TowersTypes) => {
+    return this._description[tower][0];
   };
 }
