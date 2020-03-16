@@ -4,28 +4,47 @@ import styled from 'styled-components';
 const ProgressBarWrapper = styled.div`
   position: relative;
   display: flex;
-  height: 30%;
-  width: 100%;
-  border: 1px solid;
-  border-radius: 4px;
+  height: 20px;
+  width: 180px;
+  border: 1px solid none;
+  border-radius: 100px;
   overflow: hidden;
   justify-content: flex-start;
+  background-color: #e2e5eb;
+  border: 1px solid none;
+
+  &::before {
+    position: absolute;
+    width: 3px;
+    height: 100%;
+    background-color: white;
+    content: '';
+    top: 0;
+    left: 33%;
+  }
+  &::after {
+    position: absolute;
+    width: 3px;
+    height: 100%;
+    background-color: white;
+    content: '';
+    top: 0;
+    left: 66%;
+  }
+
+  @media (max-resolution: 0.8dppx) {
+    height: 2vh;
+    width: 11vw;
+  }
 `;
 
 const ProgressBarGreenLine = styled.div<ProgressBarProps>`
   width: ${props => props.progress}%;
   height: 100%;
-  background-color: #5ee220;
+  background-image: linear-gradient(to left, #64e2ff, #02adc9);
   transition-property: width;
-  transition-duration: 0.4s;
+  transition-duration: 0.5s;
   transition-timing-function: ease-in-out;
-`;
-
-const ProgressSpanWrapper = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 `;
 
 type ProgressBarProps = {
@@ -36,7 +55,6 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({ progress }) => {
   return (
     <ProgressBarWrapper>
       <ProgressBarGreenLine progress={progress} />
-      <ProgressSpanWrapper>{progress}%</ProgressSpanWrapper>
     </ProgressBarWrapper>
   );
 };

@@ -122,4 +122,13 @@ export class BuildingsDescriptionService {
   ) => {
     return this._description[tower][id];
   };
+
+  getAllDescriptionForCurrentTower = (
+    tower: TowersTypes = TowersTypes.MAIN_TOWER
+  ) => {
+    const secondAndOtherStringArray = this._description[tower].filter(
+      (_, index) => index !== 0
+    );
+    return secondAndOtherStringArray.join();
+  };
 }

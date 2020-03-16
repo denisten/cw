@@ -87,7 +87,7 @@ export class BuildingsService {
   _config: BuildingServiceConfigTypes = {
     [TowersTypes.MAIN_TOWER]: {
       info: 'info',
-      title: 'Тариф минуты',
+      title: 'Мой тариф',
       coords: [3672, 2036],
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,

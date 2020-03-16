@@ -1,5 +1,5 @@
 import React from 'react';
-import exitImg from './exit.png';
+import exitImg from './close.svg';
 import { ImgWrapper, ImgWrapperProps } from '../img-wrapper';
 
 type ExitButtonProps = Omit<ImgWrapperProps, 'src'>;

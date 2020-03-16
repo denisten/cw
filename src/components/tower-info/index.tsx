@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { ExitButton } from '../../UI/exit-button';
-import { extraTowerInfoModalClosed } from '../../effector/app-condition/events';
+import {
+  extraTowerInfoModalClosed,
+  showUpgradeIcon,
+} from '../../effector/app-condition/events';
 import { addProgressPoints } from '../../effector/towers-progress/events';
 import { useStore } from 'effector-react';
 import {
@@ -10,7 +13,6 @@ import {
 } from '../../effector/app-condition/store';
 import { ProgressBar } from '../../UI/progress-bar';
 import { TowerInfoContent } from '../tower-info-content';
-import shape from './shape.png';
 import {
   TowersProgressStore,
   TowersTypes,
@@ -20,7 +22,11 @@ import { Directions } from '../../UI/tutorial-arrow';
 import { BuildingsDescriptionService } from '../../buildings/descriptions';
 import { CustomButton } from '../../UI/button';
 import { ZIndexes } from '../root-component/z-indexes-enum';
-import wrapperBackground from './background.png';
+import wrapperBackground from './background.svg';
+import headerBackground from './header.svg';
+import { RowWrapper } from '../../UI/row-wrapper/index';
+import { MoneyWrapper } from '../../UI/money-wrapper';
+import { pulseAnimationHOF } from '../../hoc/pulse-anim';
 import {
   TutorialConditions,
   TutorialStore,
@@ -29,6 +35,7 @@ import {
   nextTutorDescriptionStep,
   nextTutorStep,
 } from '../../effector/tutorial-store/events';
+import { UserDataStore } from '../../effector/user-data/store';
 
 export type ModalWindowProps = {
   opened?: boolean;
@@ -46,72 +53,156 @@ export enum TowerInfoContentValues {
   DESCRIPTION = 'description',
 }
 
+const MAXLEVEL = 100;
+
 export const ModalWindowWrapper = styled.div<ModalWindowProps>`
   position: absolute;
   z-index: ${ZIndexes.MODAL};
-  right: 0;
-  width: 38%;
-  height: 100%;
-  background-image: url(${wrapperBackground});
-  background-size: cover;
-  background-repeat: no-repeat;
-  padding: 5.5% 0 0 4.5%;
+  right: -3px;
+  width: 36%;
+  height: 90%;
+  top: 5%;
   box-sizing: border-box;
   margin-right: ${props =>
     !props.opened ? marginRightValues.CLOSED : marginRightValues.OPENED}%;
   transition-duration: 0.5s;
   transition-property: margin-right;
+  display: flex;
+  flex-direction: column;
+
+  @media (max-resolution: 0.8dppx) {
+    width: 36%;
+    height: 80%;
+  }
+
+  @media screen and (max-width: 1440px) {
+    height: 100%;
+    top: 0%;
+  }
+
+  @media screen and (max-width: 1280px) {
+    height: 100%;
+    top: 0%;
+    width: 45%;
+  }
 `;
 
 const ModalWindowContentWrapper = styled.div`
   height: 100%;
-  width: 80%;
+  width: 100%;
+  padding: 40px;
+  box-sizing: border-box;
+
+  background-image: url(${wrapperBackground});
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+
+  @media (max-resolution: 0.8dppx) {
+    padding: 3vh;
+  }
+`;
+
+const ModalWindowHeader = styled.div`
+  width: 100%;
+  height: 55px;
+  background: url(${headerBackground}) no-repeat center;
+  background-size: 100% 100%;
+  flex-shrink: 0;
+  position: relative;
+
+  @media (max-resolution: 0.8dppx) {
+    height: 5vh;
+  }
 `;
 const TowerInfoHeader = styled.div`
   width: 100%;
-  height: 13%;
+  margin-bottom: 40px;
+
+  @media (max-resolution: 0.8dppx) {
+    margin-bottom: 2vh;
+  }
 `;
 
 const HeaderLine = styled.div`
   width: 100%;
-  height: 40%;
   display: flex;
+  margin-top: 24px;
 `;
 
 const Title = styled.div`
-  font-size: 2em;
-  font-weight: 900;
-  line-height: 1;
-  color: #000000;
-  margin-bottom: 3.3%;
+  font-size: 32px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.25;
+  letter-spacing: -0.5px;
+  color: #001424;
+  font-family: 'MTSSansUltraWide', serif;
+
+  @media (max-resolution: 0.8dppx) {
+    font-size: 2.5vh;
+  }
 `;
 
-const UpgradeButton = styled.div`
-  width: 100%;
-  height: 62%;
-  border-radius: 8px;
-  background-color: #5ee220;
+const MainText = styled.span`
+  font-size: 16px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.5;
+  letter-spacing: normal;
+  color: #001424;
+
+  + div {
+    margin-top: 4px;
+  }
+
+  @media (max-resolution: 0.8dppx) {
+    font-size: 1.5vh;
+  }
+`;
+
+const UpgradeButton = styled.div<{ canUpgrade?: boolean; pulseAnim?: boolean }>`
+  width: auto;
+  height: 40px;
+  padding: 0 20px;
+  box-sizing: border-box;
+  border-radius: 2px;
+  background-color: ${props => (props.canUpgrade ? '#02adc9' : '#e2e5eb')};
   display: flex;
   justify-content: center;
   align-items: center;
   color: #fff;
-  cursor: pointer;
-  font-size: 100%;
+  cursor: ${props => (props.canUpgrade ? 'pointer' : 'default')};
+  font-size: 16px;
+  pointer-events: ${props => (props.canUpgrade ? 'auto' : 'none')};
+  font-family: 'MTSSansBold', 'regular';
+  animation-name: ${props =>
+    props.pulseAnim ? pulseAnimationHOF('159, 169, 176') : 'none'};
+  animation-fill-mode: both;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-duration: 0.6s;
+
+  @media (max-resolution: 0.8dppx) {
+    font-size: 1.5vh;
+    height: 3vh;
+    padding: 0 1.4vh;
+  }
 `;
 
-const HeaderLineElement = styled.div<{ width: number }>`
+const HeaderLineElement = styled.div<{
+  width?: number;
+  marginLeft?: string;
+  paddingBottom?: string;
+}>`
   width: ${props => props.width}%;
-  height: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: flex-start;
   flex-direction: column;
-  padding: 0 3%;
-  font-size: 85%;
-  font-family: SFProDisplay;
-  font-weight: 600;
-  line-height: 1.5;
-  color: #000000;
+  margin-left: ${props => props.marginLeft};
+  padding-bottom: ${props => props.paddingBottom};
 `;
 
 const TowerInfoMenu = styled.div`
@@ -119,6 +210,18 @@ const TowerInfoMenu = styled.div`
   justify-content: flex-start;
   align-items: center;
   width: 100%;
+  border-bottom: 1px solid #e2e5eb;
+  margin-bottom: 28px;
+`;
+
+const LineGrown = keyframes`
+from {
+    width: 0%;
+}
+
+to {
+  width: 100%;
+}
 `;
 
 const TowerInfoMenuElement = styled.div<{ selected: boolean }>`
@@ -127,29 +230,39 @@ const TowerInfoMenuElement = styled.div<{ selected: boolean }>`
   cursor: pointer;
   z-index: 2;
   margin-right: 10%;
-  color: #${props => (props.selected ? '000000' : '999999')};
+  color: #${props => (props.selected ? '001424' : '6e7782')};
+  font-size: 20px;
+  font-family: ${props =>
+    props.selected ? 'MTSSansMedium' : 'MTSSansRegular'};
+  position: relative;
+  padding-bottom: 8px;
+
   :after {
     content: '';
     display: block;
-    margin-top: 2%;
-    border-bottom: 3px solid #${props => (props.selected ? 'ff2d2d' : 'e8e8e8')};
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0%;
+    background-color: #08b0cc;
+    height: 3px;
+    animation-name: ${props => (props.selected ? LineGrown : null)};
+    animation-fill-mode: both;
+    animation-timing-function: linear;
+    animation-duration: 0.5s;
+    transition: 0.5s;
   }
-`;
 
-const Divider = styled.div`
-  width: 100%;
-  height: 3px;
-  background-color: #e8e8e8;
-  position: relative;
-  top: -0.3%;
-  margin: 0 0 3.5% 0;
+  @media (max-resolution: 0.8dppx) {
+    font-size: 1.5vh;
+  }
 `;
 
 const StyleConfig = {
   exitButton: {
-    height: '4%',
-    top: 0,
-    left: 0,
+    height: '50%',
+    top: 25,
+    left: 90,
     hoverFlag: true,
   },
   tutorialArrow: {
@@ -164,11 +277,30 @@ const StyleConfig = {
     left: '39.7%',
   },
   enterButton: {
-    width: '201px',
-    height: '52px',
-    content: 'Раскрыть',
-    fontSize: '28.5px',
+    width: '122px',
+    height: '40px',
+    content: 'Что дальше?',
+    fontSize: '16px',
     margin: '30px 0',
+    color: '#02adc9',
+    position: 'absolute',
+    bottom: 10,
+  },
+  rowWrapper: {
+    width: '100%',
+    justifyContent: 'space-between',
+  },
+  money: {
+    fontSize: '20px',
+    margin: '0px 13px 0 0px',
+    color: 'black',
+    fontWeight: 'bold',
+  },
+  firstHeaderLine: {
+    paddingBottom: '4px',
+  },
+  secondHeaderLine: {
+    marginLeft: '10%',
   },
 };
 
@@ -186,11 +318,15 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
     towerTitle,
     tutorialTextId
   );
-  const { title } = localBuildingService.getConfigForTower(towerTitle);
+  const { title, maxLevel } = localBuildingService.getConfigForTower(
+    towerTitle
+  );
+  const { level } = useStore(TowersProgressStore)[towerTitle];
+
   const [selectedMenu, setSelectMenu] = useState(
     TowerInfoContentValues.DESCRIPTION
   );
-
+  const [fullTowerDescription, setAllTowerText] = useState('');
   useEffect(() => {
     if (
       LocalTowerProgressStore[towerTitle].progress >= maxProgressValue &&
@@ -202,36 +338,88 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
 
   const handleClick = () => {
     if (towerTitle) {
-      addProgressPoints({ points: 20, towerTitle });
+      showUpgradeIcon(towerTitle);
+      extraTowerInfoModalClosed();
     }
   };
 
+  const nextTowerTutorialStep = () => {
+    if (
+      selectedMenu !== TowerInfoContentValues.DESCRIPTION &&
+      !fullTowerDescription
+    ) {
+      // * если в режиме туториала мы не в описании а на чате например
+      setSelectMenu(TowerInfoContentValues.DESCRIPTION);
+      setAllTowerText(
+        localDescriptionService.getAllDescriptionForCurrentTower()
+      ); // get all text
+    } else if (
+      // * если мы в описании но текст весь не раскрыт, раскрываем
+      selectedMenu === TowerInfoContentValues.DESCRIPTION &&
+      !fullTowerDescription
+    ) {
+      setAllTowerText(
+        localDescriptionService.getAllDescriptionForCurrentTower()
+      ); // get all text
+    } else if (
+      selectedMenu === TowerInfoContentValues.DESCRIPTION &&
+      fullTowerDescription
+    ) {
+      // * если открыт весь текст и нажали на далее => идём в чат и так далее
+      setSelectMenu(TowerInfoContentValues.CHAT);
+    } else if (
+      selectedMenu === TowerInfoContentValues.CHAT &&
+      fullTowerDescription
+    ) {
+      setSelectMenu(TowerInfoContentValues.TASK);
+    }
+
+    nextTutorDescriptionStep();
+    addProgressPoints({ points: 33.34, towerTitle: towerTitle });
+  };
+  const { money } = useStore(UserDataStore);
   return (
     <ModalWindowWrapper opened={opened}>
-      <ModalWindowContentWrapper>
+      <ModalWindowHeader>
         <ExitButton
           {...StyleConfig.exitButton}
           callBack={() => extraTowerInfoModalClosed()}
         />
+      </ModalWindowHeader>
+      <ModalWindowContentWrapper>
         <TowerInfoHeader>
-          <Title>{title}</Title>
+          <RowWrapper {...StyleConfig.rowWrapper}>
+            <Title>{title}</Title>
+            <UpgradeButton
+              canUpgrade={
+                LocalTowerProgressStore[towerTitle].progress >= MAXLEVEL &&
+                level < maxLevel
+              }
+              onClick={handleClick}
+              pulseAnim={
+                tutorialCondition ===
+                TutorialConditions.UPGRADE_BUTTON_TOWER_INFO
+              }
+            >
+              Улучшить
+            </UpgradeButton>
+          </RowWrapper>
+
           <HeaderLine>
-            <HeaderLineElement width={36}>
-              Уровень эволюции
+            <HeaderLineElement {...StyleConfig.firstHeaderLine}>
+              <MainText>Уровень эволюции</MainText>
+
               <ProgressBar
                 progress={LocalTowerProgressStore[towerTitle].progress}
               />
             </HeaderLineElement>
 
-            <HeaderLineElement width={36}>
-              <span>Еженедельный доход</span>
-              <span>
-                300
-                <img src={shape} alt="money" />
-              </span>
-            </HeaderLineElement>
-            <HeaderLineElement width={28}>
-              <UpgradeButton onClick={handleClick}>Улучшить</UpgradeButton>
+            <HeaderLineElement {...StyleConfig.secondHeaderLine}>
+              <MainText>Еженедельный доход</MainText>
+
+              <RowWrapper>
+                <MoneyWrapper count={money} {...StyleConfig.money} />
+              </RowWrapper>
             </HeaderLineElement>
           </HeaderLine>
         </TowerInfoHeader>
@@ -255,18 +443,22 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
             Задания
           </TowerInfoMenuElement>
         </TowerInfoMenu>
-        <Divider />
-        <TowerInfoContent selectedMenu={selectedMenu} text={descriptionText} />
-        <CustomButton
-          animFlag={
-            tutorialCondition === TutorialConditions.NEXT_BUTTON_TOWER_INFO
-          }
-          callback={() => {
-            nextTutorDescriptionStep();
-            addProgressPoints({ points: 35, towerTitle: towerTitle });
-          }}
-          {...StyleConfig.enterButton}
+
+        <TowerInfoContent
+          selectedMenu={selectedMenu}
+          text={fullTowerDescription || descriptionText}
         />
+
+        {!tutorialCondition ||
+        tutorialCondition === TutorialConditions.NEXT_BUTTON_TOWER_INFO ? (
+          <CustomButton
+            animFlag={
+              tutorialCondition === TutorialConditions.NEXT_BUTTON_TOWER_INFO
+            }
+            callback={() => nextTowerTutorialStep()}
+            {...StyleConfig.enterButton}
+          />
+        ) : null}
       </ModalWindowContentWrapper>
     </ModalWindowWrapper>
   );
