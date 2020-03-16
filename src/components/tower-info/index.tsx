@@ -37,6 +37,7 @@ import {
 } from '../../effector/tutorial-store/events';
 import { UserDataStore } from '../../effector/user-data/store';
 import { useMoveTo } from '../../hooks/useMoveTo';
+import { MoveDivider } from '../../UI/move-divider';
 
 export type ModalWindowProps = {
   opened?: boolean;
@@ -220,25 +221,6 @@ const TowerInfoMenu = styled.div`
   width: 100%;
   /* border-bottom: 1px solid #e2e5eb; */
   margin-bottom: 28px;
-`;
-
-const DividerWrapper = styled.div`
-  display: flex;
-  width: 100%;
-  height: 3px;
-  background-color: #e2e5eb;
-  position: absolute;
-  bottom: 0;
-`;
-
-const MoveDivider = styled.div<{ left: number; width: number }>`
-  position: absolute;
-  top: 0;
-  left: ${props => props.left + 'px'};
-  height: 100%;
-  width: ${props => props.width + 'px'};
-  background-color: #08b0cc;
-  transition: all 0.6s ease;
 `;
 
 const LineGrown = keyframes`
@@ -482,9 +464,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
             >
               Задания
             </TowerInfoMenuElement>
-            <DividerWrapper>
-              <MoveDivider width={width} left={left}></MoveDivider>
-            </DividerWrapper>
+            <MoveDivider width={width} left={left} />
           </RowWrapper>
         </TowerInfoMenu>
 
