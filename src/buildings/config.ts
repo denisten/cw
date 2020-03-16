@@ -48,8 +48,6 @@ import airportLevel3Img from './airport/3.png';
 import airportLevel1Stroke from './airport/1-stroke.png';
 import airportLevel2Stroke from './airport/2-stroke.png';
 import airportLevel3Stroke from './airport/3-stroke.png';
-import moneyVaultLevel2Img from './money-vault/2.png';
-import moneyVaultLevel2Stroke from './money-vault/2-stroke.png';
 import bankLevel1Img from './bank/1.png';
 import bankLevel1Stroke from './bank/1-stroke.png';
 import bankLevel2Img from './bank/2.png';
@@ -468,43 +466,10 @@ export class BuildingsService {
         position: [18.9, 29.4],
       },
     },
-    [TowersTypes.MONEY_VAULT]: {
-      info: 'info',
-      title: 'МТС Деньги',
-      coords: [5079, 1441],
-      zIndex: ZIndexes.BUILDING_ONE_LEVEL,
-      maxLevel: TowerLevel.mid,
-      // TODO: не настоящая картинка
-      [TowerLevel.low]: {
-        img: airportLevel1Img,
-        width: 572,
-        height: 398,
-        shadowImg: airportLevel1Stroke,
-        areaCoords: '510,47,70,345',
-        position: [20, 28.5],
-      },
-      [TowerLevel.mid]: {
-        img: moneyVaultLevel2Img,
-        width: 584,
-        height: 606,
-        shadowImg: moneyVaultLevel2Stroke,
-        areaCoords: '103,107,483,511',
-        position: [20.4, 61.4],
-      },
-      [TowerLevel.high]: {
-        // TODO: не настоящая картинка
-        img: airportLevel3Img,
-        width: 573,
-        height: 449,
-        shadowImg: airportLevel3Stroke,
-        areaCoords: '595,126,90,476',
-        position: [18.9, 28.3],
-      },
-    },
     [TowersTypes.BANK]: {
       info: 'info',
       title: 'Банк',
-      coords: [5404, 1763],
+      coords: [5045, 1559],
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
       [TowerLevel.low]: {
@@ -513,7 +478,7 @@ export class BuildingsService {
         height: 461,
         shadowImg: bankLevel1Stroke,
         areaCoords: '50,62,482,408',
-        position: [27, 66.5],
+        position: [22.9, 61.8],
       },
       [TowerLevel.mid]: {
         img: bankLevel2Img,
@@ -521,7 +486,7 @@ export class BuildingsService {
         height: 593,
         shadowImg: bankLevel2Stroke,
         areaCoords: '47,52,536,541',
-        position: [24.9, 66.3],
+        position: [20.5, 61.4],
       },
       [TowerLevel.high]: {
         img: bankLevel3Img,
@@ -529,7 +494,7 @@ export class BuildingsService {
         height: 593,
         shadowImg: bankLevel3Stroke,
         areaCoords: '50,47,545,545',
-        position: [24.9, 66.3],
+        position: [20.5, 61.4],
       },
     },
     [TowersTypes.CYBER_ARENA]: {
@@ -765,7 +730,7 @@ export class BuildingsService {
     [TowersTypes.RTK]: {
       info: 'info',
       title: 'РТК',
-      coords: [5445, 2187],
+      coords: [5392, 1788],
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.low,
       [TowerLevel.low]: {
@@ -774,7 +739,7 @@ export class BuildingsService {
         height: 555,
         shadowImg: rtkLevel1Stroke,
         areaCoords: '74,67,456,472',
-        position: [33, 66],
+        position: [25, 66.8],
       },
       // TODO: не настоящая картинка
       [TowerLevel.mid]: {
