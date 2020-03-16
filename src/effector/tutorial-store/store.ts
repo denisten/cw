@@ -39,7 +39,7 @@ const TutorialSteps = [
 
 const initState = {
   tutorialCondition: TutorialConditions.DIALOG_HELLO,
-  tutorialConditionIdx: 0,
+  tutorialConditionIdx: 1,
   tutorialTextId: 0,
 };
 
