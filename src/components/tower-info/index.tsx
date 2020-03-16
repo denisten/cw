@@ -345,7 +345,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
   }, [LocalTowerProgressStore[towerTitle].progress]);
 
   useEffect(() => {
-    if (tutorialCondition) {
+    if (tutorialCondition && tutorialCondition !== 'DIALOG_HELLO') {
       setFirstPartTowerText(
         localDescriptionService.getFirstDescriptionForCurrentTower(towerTitle)
       );
@@ -359,22 +359,27 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
     }
   };
 
+  const grownLineAndNextStep = () => {
+    nextTutorDescriptionStep();
+    addProgressPoints({ points: 33.34, towerTitle: towerTitle });
+  };
+
   const showDescription = () => {
     setFirstPartTowerText(''); // get all text
     setTowerTutorialStep(TowerTutorialSteps.DESCRIPTION_OPENED);
-    nextTutorDescriptionStep();
+    grownLineAndNextStep();
   };
 
   const showChat = () => {
     setSelectMenu(TowerInfoContentValues.CHAT);
     setTowerTutorialStep(TowerTutorialSteps.CHAT_OPENED);
-    nextTutorDescriptionStep();
+    grownLineAndNextStep();
   };
 
   const showTasks = () => {
     setSelectMenu(TowerInfoContentValues.TASK);
     setTowerTutorialStep(TowerTutorialSteps.TASKS_OPENED);
-    nextTutorDescriptionStep();
+    grownLineAndNextStep();
   };
   const nextTowerTutorialStep = () => {
     if (!tutorialCondition) {
@@ -398,7 +403,6 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
     } else if (towerTutorialStep === TowerTutorialSteps.CHAT_OPENED) {
       showTasks();
     }
-    addProgressPoints({ points: 33.34, towerTitle: towerTitle });
   };
 
   const { money } = useStore(UserDataStore);
