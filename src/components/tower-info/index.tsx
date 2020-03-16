@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { ExitButton } from '../../UI/exit-button';
 import {
@@ -36,6 +36,7 @@ import {
   nextTutorStep,
 } from '../../effector/tutorial-store/events';
 import { UserDataStore } from '../../effector/user-data/store';
+import { useMoveTo } from '../../hooks/useMoveTo';
 
 export type ModalWindowProps = {
   opened?: boolean;
@@ -215,10 +216,29 @@ const HeaderLineElement = styled.div<{
 const TowerInfoMenu = styled.div`
   display: flex;
   justify-content: flex-start;
-  align-items: center;
+  flex-direction: column;
   width: 100%;
-  border-bottom: 1px solid #e2e5eb;
+  /* border-bottom: 1px solid #e2e5eb; */
   margin-bottom: 28px;
+`;
+
+const DividerWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  height: 3px;
+  background-color: #e2e5eb;
+  position: absolute;
+  bottom: 0;
+`;
+
+const MoveDivider = styled.div<{ left: number; width: number }>`
+  position: absolute;
+  top: 0;
+  left: ${props => props.left + 'px'};
+  height: 100%;
+  width: ${props => props.width + 'px'};
+  background-color: #08b0cc;
+  transition: all 0.6s ease;
 `;
 
 const LineGrown = keyframes`
@@ -251,7 +271,7 @@ const TowerInfoMenuElement = styled.div<{ selected: boolean }>`
     left: 0;
     bottom: 0;
     width: 0%;
-    background-color: #08b0cc;
+    /* background-color: #08b0cc; */
     height: 3px;
     animation-name: ${props => (props.selected ? LineGrown : null)};
     animation-fill-mode: both;
@@ -387,6 +407,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
   };
 
   const { money } = useStore(UserDataStore);
+  const { left, width, handleMouseClick } = useMoveTo();
   return (
     <ModalWindowWrapper opened={opened}>
       <ModalWindowHeader>
@@ -433,24 +454,38 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
           </HeaderLine>
         </TowerInfoHeader>
         <TowerInfoMenu>
-          <TowerInfoMenuElement
-            selected={selectedMenu === TowerInfoContentValues.DESCRIPTION}
-            onClick={() => setSelectMenu(TowerInfoContentValues.DESCRIPTION)}
-          >
-            Описание
-          </TowerInfoMenuElement>
-          <TowerInfoMenuElement
-            selected={selectedMenu === TowerInfoContentValues.CHAT}
-            onClick={() => setSelectMenu(TowerInfoContentValues.CHAT)}
-          >
-            Чат
-          </TowerInfoMenuElement>
-          <TowerInfoMenuElement
-            selected={selectedMenu === TowerInfoContentValues.TASK}
-            onClick={() => setSelectMenu(TowerInfoContentValues.TASK)}
-          >
-            Задания
-          </TowerInfoMenuElement>
+          <RowWrapper>
+            <TowerInfoMenuElement
+              selected={selectedMenu === TowerInfoContentValues.DESCRIPTION}
+              onClick={e => {
+                setSelectMenu(TowerInfoContentValues.DESCRIPTION);
+                handleMouseClick(e);
+              }}
+            >
+              Описание
+            </TowerInfoMenuElement>
+            <TowerInfoMenuElement
+              selected={selectedMenu === TowerInfoContentValues.CHAT}
+              onClick={e => {
+                setSelectMenu(TowerInfoContentValues.CHAT);
+                handleMouseClick(e);
+              }}
+            >
+              Чат
+            </TowerInfoMenuElement>
+            <TowerInfoMenuElement
+              selected={selectedMenu === TowerInfoContentValues.TASK}
+              onClick={e => {
+                setSelectMenu(TowerInfoContentValues.TASK);
+                handleMouseClick(e);
+              }}
+            >
+              Задания
+            </TowerInfoMenuElement>
+            <DividerWrapper>
+              <MoveDivider width={width} left={left}></MoveDivider>
+            </DividerWrapper>
+          </RowWrapper>
         </TowerInfoMenu>
 
         <TowerInfoContent

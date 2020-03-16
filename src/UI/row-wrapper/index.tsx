@@ -7,6 +7,7 @@ const ParentDivWrapper = styled.div<RowWrapperProps>`
   display: flex;
   flex-direction: row;
   justify-content: ${props => props.justifyContent};
+  position: relative;
 `;
 
 interface RowWrapperProps {
