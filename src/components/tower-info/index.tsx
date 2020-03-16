@@ -363,13 +363,13 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
       ); // get all text
     } else if (
       selectedMenu === TowerInfoContentValues.DESCRIPTION &&
-      fullTowerDescription !== ''
+      fullTowerDescription
     ) {
       // * если открыт весь текст и нажали на далее => идём в чат и так далее
       setSelectMenu(TowerInfoContentValues.CHAT);
     } else if (
       selectedMenu === TowerInfoContentValues.CHAT &&
-      fullTowerDescription !== ''
+      fullTowerDescription
     ) {
       setSelectMenu(TowerInfoContentValues.TASK);
     }
