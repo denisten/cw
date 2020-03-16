@@ -33,6 +33,7 @@ const SupportImgWrapper = styled.img`
   margin-right: 3%;
   width: auto;
   height: 100%;
+  bottom: 12px;
 `;
 
 const TextWrapper = styled.div`
@@ -84,13 +85,13 @@ const CustomButton = styled.div<ICustomButton>`
   font-weight: bold;
 `;
 
-const BackButton = styled(CustomButton)<ICustomButton>`
-  border: solid 2px #e2e5eb;
+const BackButton = styled(CustomButton)<IBackButton>`
+  border: solid 2px #${props => (props.borderFlag ? '02acc8' : 'e2e5eb')};
   box-sizing: border-box;
   background-color: #f4f4f4;
   display: ${props => (props.textGenerating ? 'none' : 'flex')};
   box-shadow: none;
-  color: #e2e5eb;
+  color: #${props => (props.borderFlag ? '02acc8' : 'e2e5eb')};
   margin-right: 24px;
 `;
 
@@ -192,6 +193,7 @@ export const TutorialDialog: React.FC = () => {
           <TutorialDialogText>{printedText}</TutorialDialogText>
           <ButtonWrapper>
             <BackButton
+              borderFlag={!!dialogStep}
               textGenerating={isPrinting}
               onClick={handleBackButtonClick}
             >
@@ -209,4 +211,8 @@ export const TutorialDialog: React.FC = () => {
 
 interface ICustomButton {
   textGenerating: boolean;
+}
+
+interface IBackButton extends ICustomButton {
+  borderFlag: boolean;
 }
