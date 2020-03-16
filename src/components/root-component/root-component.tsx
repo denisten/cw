@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { TowerInfo } from '../tower-info';
 import { useStore } from 'effector-react';
@@ -17,6 +17,7 @@ import { useCheckDisableTutorial } from '../../hooks/useCheckDisableTutorial';
 import { Planes } from '../planes';
 import { TutorialStore } from '../../effector/tutorial-store/store';
 import { ScrollContainer } from '../scroll-container';
+import { coordsLogger } from '../../utils/coords-logger';
 export enum MapSize {
   WIDTH = 7680,
   HEIGHT = 5400,
@@ -60,6 +61,7 @@ export const RootComponent = (): React.ReactElement => {
     cordY - window.innerHeight / divideNumber.HEIGHT,
   ];
   const [scrollNode, setScrollNode] = useState(null);
+  const myRef = useRef<HTMLDivElement>(null);
   useScrollTo(scrollNode, scrollCoords, [isExtraTowerInfoModalOpen]);
   useCheckDisableTutorial([]);
 
@@ -74,7 +76,13 @@ export const RootComponent = (): React.ReactElement => {
         isInsideScrollContainer={false}
       />
       <ScrollContainer onMountCallback={setScrollNode}>
-        <MapWrapper scaleValue={scaleValue}>
+        <MapWrapper
+          scaleValue={scaleValue}
+          onClick={e => {
+            if (myRef.current) coordsLogger(e, myRef.current);
+          }}
+          ref={myRef}
+        >
           <TutorialToolsSelector
             tutorialCondition={tutorialCondition}
             isInsideScrollContainer={true}
