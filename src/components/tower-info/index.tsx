@@ -356,6 +356,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
   };
 
   const showDescription = () => {
+    setSelectMenu(TowerInfoContentValues.DESCRIPTION);
     setTowerTutorialStep(TowerTutorialSteps.DESCRIPTION_OPENED);
     grownLineAndNextStep();
   };
@@ -375,20 +376,10 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
     if (!tutorialCondition) {
       addProgressPoints({ points: 33.34, towerTitle: towerTitle });
     } else if (
-      selectedMenu !== TowerInfoContentValues.DESCRIPTION &&
-      towerTutorialStep === TowerTutorialSteps.DESCRIPTION_DONT_OPENED
-    ) {
-      // * если в режиме туториала мы не в описании а на чате например => переходим в описание и разворачиваем текст
-      setSelectMenu(TowerInfoContentValues.DESCRIPTION);
-      showDescription();
-    } else if (
-      // * если мы в описании но текст весь не раскрыт, раскрываем
-      selectedMenu === TowerInfoContentValues.DESCRIPTION &&
       towerTutorialStep === TowerTutorialSteps.DESCRIPTION_DONT_OPENED
     ) {
       showDescription();
     } else if (towerTutorialStep === TowerTutorialSteps.DESCRIPTION_OPENED) {
-      // * если открыт весь текст и нажали на далее => идём в чат и так далее
       showChat();
     } else if (towerTutorialStep === TowerTutorialSteps.CHAT_OPENED) {
       showTasks();
@@ -465,7 +456,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
         <TowerInfoContent
           selectedMenu={selectedMenu}
           // в зависимости от того включен ли туториал и на каком мы шаге
-          // показывает либо только первый отрывок текст (нулевой индекс)
+          // показывает либо только первый отрывок текста (нулевой индекс)
           // либо весь, если туториал пройден и текст открыт
           text={
             tutorialCondition &&

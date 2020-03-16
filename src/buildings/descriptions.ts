@@ -4,7 +4,9 @@ type BuildingsDescriptionType = Record<TowersTypes, string[]>;
 export class BuildingsDescriptionService {
   readonly _description: BuildingsDescriptionType = {
     [TowersTypes.MAIN_TOWER]: [
-      'Офис МТС, который всегда под рукой - это к нам! Мой МТС - приложение, где можно управлять услугами, пополнять счет себе и другим абонентам МТС, подключать дополнительный опции: минуты, Интернет, SMS. Теперь не обязательно звонить оператору, используйте приложение, тем более, что оно абсолютно бесплатное!',
+      'Офис МТС, который всегда под рукой - это к нам!',
+      'Мой МТС - приложение, где можно управлять услугами, пополнять счет себе и другим абонентам МТС, подключать дополнительный опции: минуты, Интернет, SMS.',
+      'Теперь не обязательно звонить оператору, используйте приложение, тем более, что оно абсолютно бесплатное!',
     ],
 
     [TowersTypes.CYBER_ARENA]: [
@@ -137,17 +139,7 @@ export class BuildingsDescriptionService {
     ],
   };
 
-  getDescriptionForCurrentTower = (
-    tower: TowersTypes = TowersTypes.MAIN_TOWER,
-    id: number
-  ) => {
-    return this._description[tower][id];
-  };
-
   getAllDescriptionForCurrentTower = (tower: TowersTypes) => {
     return this._description[tower];
-  };
-  getFirstDescriptionForCurrentTower = (tower: TowersTypes) => {
-    return this._description[tower][0];
   };
 }
