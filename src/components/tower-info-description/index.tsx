@@ -10,6 +10,7 @@ const TowerInfoDescriptionWrapper = styled.div`
   padding-right: 80px;
   display: flex;
   flex-direction: column;
+  overflow: auto;
 
   @media (max-resolution: 0.8dppx) {
     font-size: 1.5vh;

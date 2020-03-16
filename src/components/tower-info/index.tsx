@@ -333,7 +333,6 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
   const [selectedMenu, setSelectMenu] = useState(
     TowerInfoContentValues.DESCRIPTION
   );
-  const [firstPartTowerText, setFirstPartTowerText] = useState('');
   const [towerTutorialStep, setTowerTutorialStep] = useState(0);
   useEffect(() => {
     if (
@@ -343,14 +342,6 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
       nextTutorStep();
     }
   }, [LocalTowerProgressStore[towerTitle].progress]);
-
-  useEffect(() => {
-    if (tutorialCondition && tutorialCondition !== 'DIALOG_HELLO') {
-      setFirstPartTowerText(
-        localDescriptionService.getFirstDescriptionForCurrentTower(towerTitle)
-      );
-    }
-  }, []);
 
   const handleClick = () => {
     if (towerTitle) {
@@ -365,7 +356,6 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
   };
 
   const showDescription = () => {
-    setFirstPartTowerText(''); // get all text
     setTowerTutorialStep(TowerTutorialSteps.DESCRIPTION_OPENED);
     grownLineAndNextStep();
   };
@@ -474,7 +464,15 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
 
         <TowerInfoContent
           selectedMenu={selectedMenu}
-          text={firstPartTowerText || descriptionText}
+          // в зависимости от того включен ли туториал и на каком мы шаге
+          // показывает либо только первый отрывок текст (нулевой индекс)
+          // либо весь, если туториал пройден и текст открыт
+          text={
+            tutorialCondition &&
+            towerTutorialStep === TowerTutorialSteps.DESCRIPTION_DONT_OPENED
+              ? descriptionText[0]
+              : descriptionText
+          }
         />
 
         {!tutorialCondition ||
