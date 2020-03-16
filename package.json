@@ -29,7 +29,6 @@
     "@types/react-router": "^5.1.4",
     "axios": "^0.19.1",
     "core-js": "^3.6.1",
-    "debounce": "^1.2.0",
     "dragscroll": "0.0.8",
     "effector": "^20.9.1",
     "effector-localstorage": "^0.5.1",

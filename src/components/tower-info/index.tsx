@@ -446,7 +446,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
 
         <TowerInfoContent
           selectedMenu={selectedMenu}
-          text={!fullTowerDescription ? descriptionText : fullTowerDescription}
+          text={fullTowerDescription || descriptionText}
         />
 
         {!tutorialCondition ||
