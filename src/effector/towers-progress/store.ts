@@ -18,7 +18,6 @@ export enum TowersTypes {
   TV = 'tv',
   STADIUM = 'stadium',
   AIRPORT = 'airport',
-  MONEY_VAULT = 'moneyVault',
   BANK = 'bank',
   CYBER_ARENA = 'cyberArena',
   SATELLITETV = 'satelliteTv',
@@ -28,6 +27,7 @@ export enum TowersTypes {
   ROUTER = 'router',
   AUTO_FACTORY = 'autoFactory',
   RTK = 'rtk',
+  PARTNER_BANK = 'partnerBank',
 }
 const initState: TowersProgressStoreType = {
   [TowersTypes.MAIN_TOWER]: {
@@ -78,10 +78,6 @@ const initState: TowersProgressStoreType = {
     level: TowerLevel.low,
     progress: 0,
   },
-  [TowersTypes.MONEY_VAULT]: {
-    level: TowerLevel.mid,
-    progress: 0,
-  },
   [TowersTypes.BANK]: {
     level: TowerLevel.low,
     progress: 0,
@@ -117,6 +113,10 @@ const initState: TowersProgressStoreType = {
   },
   [TowersTypes.RTK]: {
     level: TowerLevel.low,
+    progress: 0,
+  },
+  [TowersTypes.PARTNER_BANK]: {
+    level: TowerLevel.mid,
     progress: 0,
   },
 };

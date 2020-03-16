@@ -144,7 +144,7 @@ const Title = styled.div`
   line-height: 1.25;
   letter-spacing: -0.5px;
   color: #001424;
-  font-family: 'MTSSansUltraWide', serif;
+  font-family: 'MTSSansUltraWide';
 
   @media (max-resolution: 0.8dppx) {
     font-size: 2.5vh;
@@ -284,7 +284,7 @@ const StyleConfig = {
     left: '39.7%',
   },
   enterButton: {
-    width: '122px',
+    width: '160px',
     height: '40px',
     content: 'Что дальше?',
     fontSize: '16px',
