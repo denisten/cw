@@ -61,7 +61,7 @@ export const RootComponent = (): React.ReactElement => {
     cordY - window.innerHeight / divideNumber.HEIGHT,
   ];
   const [scrollNode, setScrollNode] = useState(null);
-  const myRef = useRef<HTMLDivElement>(null);
+  const mapWrapperRef = useRef<HTMLDivElement>(null);
   useScrollTo(scrollNode, scrollCoords, [isExtraTowerInfoModalOpen]);
   useCheckDisableTutorial([]);
 
@@ -79,9 +79,9 @@ export const RootComponent = (): React.ReactElement => {
         <MapWrapper
           scaleValue={scaleValue}
           onClick={e => {
-            if (myRef.current) coordsLogger(e, myRef.current);
+            if (mapWrapperRef.current) coordsLogger(e, mapWrapperRef.current);
           }}
-          ref={myRef}
+          ref={mapWrapperRef}
         >
           <TutorialToolsSelector
             tutorialCondition={tutorialCondition}
