@@ -6,6 +6,8 @@ type CarProps = {
   animDuration?: string;
   animationTimingFunction?: string;
   animationName: Keyframes;
+  top?: string;
+  left?: string;
 };
 
 type CarConfigureType = {
@@ -24,12 +26,20 @@ const CarBlock = styled.div<CarProps>`
   animation-iteration-count: infinite;
   animation-name: ${props => props.animationName};
   z-index: ${ZIndexes.CARS};
+  top: ${props => props.top};
+  left: ${props => props.left};
 `;
 
 export const Car: React.FC<CarConfigureType> = ({ carStyle }) => {
-  const { animDuration, animationTimingFunction, animationName } = carStyle;
+  const {
+    animDuration,
+    animationTimingFunction,
+    animationName,
+    ...props
+  } = carStyle;
   return (
     <CarBlock
+      {...props}
       animationName={animationName}
       animationTimingFunction={animationTimingFunction}
       animDuration={animDuration}

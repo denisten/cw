@@ -6,6 +6,8 @@ export const carConfig = [
       animDuration: '9s',
       animationTimingFunction: 'ease-in-out',
       animationName: animForCar1,
+      left: '25.5%',
+      top: '45.1%',
     },
   },
   {
@@ -14,6 +16,8 @@ export const carConfig = [
       animDuration: '8s',
       animationTimingFunction: 'ease-in-out',
       animationName: animForCar2,
+      left: '35.4%',
+      top: '39.1%',
     },
   },
   {
@@ -22,6 +26,8 @@ export const carConfig = [
       animDuration: '18s',
       animationTimingFunction: 'ease-in-out',
       animationName: animForCar3,
+      left: '58.4%',
+      top: '47.95%',
     },
   },
 ];
