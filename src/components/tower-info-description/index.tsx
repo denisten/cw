@@ -24,6 +24,11 @@ type TowerInfoDescriptionProps = {
 export const TowerInfoDescription: React.FC<TowerInfoDescriptionProps> = ({
   text,
 }) => {
-  const spanElems = text.map((elem, ind) => <span key={ind}>{elem}</span>);
-  return <TowerInfoDescriptionWrapper>{spanElems}</TowerInfoDescriptionWrapper>;
+  return (
+    <TowerInfoDescriptionWrapper>
+      {text.map((elem, ind) => (
+        <span key={ind}>{elem}</span>
+      ))}
+    </TowerInfoDescriptionWrapper>
+  );
 };
