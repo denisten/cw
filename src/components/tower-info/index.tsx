@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import styled, { keyframes } from 'styled-components';
+import React, { useEffect, useState, useMemo, createRef } from 'react';
+import styled from 'styled-components';
 import { ExitButton } from '../../UI/exit-button';
 import {
   extraTowerInfoModalClosed,
@@ -36,6 +36,8 @@ import {
   nextTutorStep,
 } from '../../effector/tutorial-store/events';
 import { UserDataStore } from '../../effector/user-data/store';
+import { useMoveTo } from '../../hooks/useMoveTo';
+import { MoveDivider } from '../../UI/move-divider';
 
 export type ModalWindowProps = {
   opened?: boolean;
@@ -61,6 +63,7 @@ enum TowerTutorialSteps {
 }
 
 const MAXLEVEL = 100;
+const FIRST_ELEM_WIDTH = 92;
 
 export const ModalWindowWrapper = styled.div<ModalWindowProps>`
   position: absolute;
@@ -215,23 +218,14 @@ const HeaderLineElement = styled.div<{
 const TowerInfoMenu = styled.div`
   display: flex;
   justify-content: flex-start;
-  align-items: center;
+  flex-direction: column;
   width: 100%;
-  border-bottom: 1px solid #e2e5eb;
   margin-bottom: 28px;
 `;
 
-const LineGrown = keyframes`
-from {
-    width: 0%;
-}
-
-to {
-  width: 100%;
-}
-`;
-
-const TowerInfoMenuElement = styled.div<{ selected: boolean }>`
+const TowerInfoMenuElement = styled.div<{
+  selected: boolean;
+}>`
   height: 100%;
   text-align: center;
   cursor: pointer;
@@ -242,23 +236,7 @@ const TowerInfoMenuElement = styled.div<{ selected: boolean }>`
   font-family: ${props =>
     props.selected ? 'MTSSansMedium' : 'MTSSansRegular'};
   position: relative;
-  padding-bottom: 8px;
-
-  :after {
-    content: '';
-    display: block;
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 0%;
-    background-color: #08b0cc;
-    height: 3px;
-    animation-name: ${props => (props.selected ? LineGrown : null)};
-    animation-fill-mode: both;
-    animation-timing-function: linear;
-    animation-duration: 0.5s;
-    transition: 0.5s;
-  }
+  padding-bottom: 12px;
 
   @media (max-resolution: 0.8dppx) {
     font-size: 1.5vh;
@@ -349,6 +327,21 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
       extraTowerInfoModalClosed();
     }
   };
+  const {
+    left,
+    width,
+    handleMouseClick,
+    hLeft,
+    hWidth,
+    hovered,
+    handleMouseOver,
+    handleMouseOut,
+  } = useMoveTo(FIRST_ELEM_WIDTH);
+
+  const refsCollection: Array<React.RefObject<HTMLDivElement>> = useMemo(
+    () => Array.from({ length: 3 }).map(() => createRef()),
+    []
+  );
 
   const grownLineAndNextStep = () => {
     nextTutorDescriptionStep();
@@ -365,12 +358,14 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
     setSelectMenu(TowerInfoContentValues.CHAT);
     setTowerTutorialStep(TowerTutorialSteps.CHAT_OPENED);
     grownLineAndNextStep();
+    handleMouseClick(refsCollection[1].current);
   };
 
   const showTasks = () => {
     setSelectMenu(TowerInfoContentValues.TASK);
     setTowerTutorialStep(TowerTutorialSteps.TASKS_OPENED);
     grownLineAndNextStep();
+    handleMouseClick(refsCollection[2].current);
   };
   const nextTowerTutorialStep = () => {
     if (!tutorialCondition) {
@@ -385,8 +380,8 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
       showTasks();
     }
   };
-
   const { money } = useStore(UserDataStore);
+
   return (
     <ModalWindowWrapper opened={opened}>
       <ModalWindowHeader>
@@ -433,24 +428,45 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
           </HeaderLine>
         </TowerInfoHeader>
         <TowerInfoMenu>
-          <TowerInfoMenuElement
-            selected={selectedMenu === TowerInfoContentValues.DESCRIPTION}
-            onClick={() => setSelectMenu(TowerInfoContentValues.DESCRIPTION)}
-          >
-            Описание
-          </TowerInfoMenuElement>
-          <TowerInfoMenuElement
-            selected={selectedMenu === TowerInfoContentValues.CHAT}
-            onClick={() => setSelectMenu(TowerInfoContentValues.CHAT)}
-          >
-            Чат
-          </TowerInfoMenuElement>
-          <TowerInfoMenuElement
-            selected={selectedMenu === TowerInfoContentValues.TASK}
-            onClick={() => setSelectMenu(TowerInfoContentValues.TASK)}
-          >
-            Задания
-          </TowerInfoMenuElement>
+          <RowWrapper onMouseOut={() => handleMouseOut()}>
+            <TowerInfoMenuElement
+              selected={selectedMenu === TowerInfoContentValues.DESCRIPTION}
+              onClick={(e: React.MouseEvent<HTMLDivElement>) => {
+                setSelectMenu(TowerInfoContentValues.DESCRIPTION);
+                handleMouseClick(e.currentTarget);
+              }}
+              onMouseOver={handleMouseOver}
+              ref={refsCollection[0]}
+            >
+              Описание
+            </TowerInfoMenuElement>
+            <TowerInfoMenuElement
+              selected={selectedMenu === TowerInfoContentValues.CHAT}
+              onClick={(e: React.MouseEvent<HTMLDivElement>) => {
+                setSelectMenu(TowerInfoContentValues.CHAT);
+                handleMouseClick(e.currentTarget);
+              }}
+              onMouseOver={handleMouseOver}
+              ref={refsCollection[1]}
+            >
+              Чат
+            </TowerInfoMenuElement>
+            <TowerInfoMenuElement
+              selected={selectedMenu === TowerInfoContentValues.TASK}
+              onClick={(e: React.MouseEvent<HTMLDivElement>) => {
+                setSelectMenu(TowerInfoContentValues.TASK);
+                handleMouseClick(e.currentTarget);
+              }}
+              onMouseOver={handleMouseOver}
+              ref={refsCollection[2]}
+            >
+              Задания
+            </TowerInfoMenuElement>
+            <MoveDivider
+              width={hovered ? hWidth : width}
+              left={hovered ? hLeft : left}
+            />
+          </RowWrapper>
         </TowerInfoMenu>
 
         <TowerInfoContent
