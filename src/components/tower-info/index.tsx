@@ -268,8 +268,7 @@ const StyleConfig = {
     fontSize: '16px',
     margin: '30px 0',
     color: '#02adc9',
-    position: 'absolute',
-    bottom: 10,
+    position: 'relative',
   },
   rowWrapper: {
     width: '100%',
