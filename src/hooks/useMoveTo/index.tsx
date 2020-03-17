@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 export const useMoveTo = () => {
-  const [state, setState] = useState({ left: 0, width: 91.5 });
+  const [state, setState] = useState({ left: 0, width: 0 });
   const handleMouseClick = (e: React.MouseEvent) => {
     e.persist();
     const target = e.target as HTMLDivElement;

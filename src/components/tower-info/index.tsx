@@ -233,7 +233,10 @@ to {
 }
 `;
 
-const TowerInfoMenuElement = styled.div<{ selected: boolean }>`
+const TowerInfoMenuElement = styled.div<{
+  selected: boolean;
+  activeFirstElem?: boolean;
+}>`
   height: 100%;
   text-align: center;
   cursor: pointer;
@@ -253,13 +256,9 @@ const TowerInfoMenuElement = styled.div<{ selected: boolean }>`
     left: 0;
     bottom: 0;
     width: 0%;
-    /* background-color: #08b0cc; */
+    background-color: ${props => (props.activeFirstElem ? '#08b0cc' : 'none')};
     height: 3px;
-    animation-name: ${props => (props.selected ? LineGrown : null)};
-    animation-fill-mode: both;
-    animation-timing-function: linear;
-    animation-duration: 0.5s;
-    transition: 0.5s;
+    width: 100%;
   }
 
   @media (max-resolution: 0.8dppx) {
@@ -439,6 +438,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
           <RowWrapper>
             <TowerInfoMenuElement
               selected={selectedMenu === TowerInfoContentValues.DESCRIPTION}
+              activeFirstElem={width === 0}
               onClick={e => {
                 setSelectMenu(TowerInfoContentValues.DESCRIPTION);
                 handleMouseClick(e);
