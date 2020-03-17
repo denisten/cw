@@ -8,9 +8,9 @@ export const useMoveTo = (initWidth: number) => {
     hWidth: 0,
     hovered: false,
   });
-
-  const handleMouseClick = (e: React.MouseEvent) => {
-    const target = e.target as HTMLDivElement;
+  // * передаю элемент DOMa, так как в туториал-моде по клику далее необходимо двигать полосочку
+  const handleMouseClick = (target: HTMLDivElement | null) => {
+    if (!target) return;
     setState(state => ({
       ...state,
       left: target.offsetLeft,

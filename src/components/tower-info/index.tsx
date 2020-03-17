@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo, createRef } from 'react';
 import styled from 'styled-components';
 import { ExitButton } from '../../UI/exit-button';
 import {
@@ -328,6 +328,21 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
       extraTowerInfoModalClosed();
     }
   };
+  const {
+    left,
+    width,
+    handleMouseClick,
+    hLeft,
+    hWidth,
+    hovered,
+    handleMouseOver,
+    handleMouseOut,
+  } = useMoveTo(FIRSTELEMWIDTH);
+
+  const refsCollection: Array<React.RefObject<HTMLDivElement>> = useMemo(
+    () => Array.from({ length: 3 }).map(() => createRef()),
+    []
+  );
 
   const grownLineAndNextStep = () => {
     nextTutorDescriptionStep();
@@ -344,12 +359,14 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
     setSelectMenu(TowerInfoContentValues.CHAT);
     setTowerTutorialStep(TowerTutorialSteps.CHAT_OPENED);
     grownLineAndNextStep();
+    handleMouseClick(refsCollection[1].current);
   };
 
   const showTasks = () => {
     setSelectMenu(TowerInfoContentValues.TASK);
     setTowerTutorialStep(TowerTutorialSteps.TASKS_OPENED);
     grownLineAndNextStep();
+    handleMouseClick(refsCollection[2].current);
   };
   const nextTowerTutorialStep = () => {
     if (!tutorialCondition) {
@@ -365,16 +382,6 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
     }
   };
   const { money } = useStore(UserDataStore);
-  const {
-    left,
-    width,
-    handleMouseClick,
-    hLeft,
-    hWidth,
-    hovered,
-    handleMouseOver,
-    handleMouseOut,
-  } = useMoveTo(FIRSTELEMWIDTH);
 
   return (
     <ModalWindowWrapper opened={opened}>
@@ -425,37 +432,40 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
           <RowWrapper onMouseOut={() => handleMouseOut()}>
             <TowerInfoMenuElement
               selected={selectedMenu === TowerInfoContentValues.DESCRIPTION}
-              onClick={e => {
+              onClick={(e: React.MouseEvent<HTMLDivElement>) => {
                 setSelectMenu(TowerInfoContentValues.DESCRIPTION);
-                handleMouseClick(e);
+                handleMouseClick(e.currentTarget);
               }}
               onMouseOver={e => {
                 handleMouseOver(e);
               }}
+              ref={refsCollection[0]}
             >
               Описание
             </TowerInfoMenuElement>
             <TowerInfoMenuElement
               selected={selectedMenu === TowerInfoContentValues.CHAT}
-              onClick={e => {
+              onClick={(e: React.MouseEvent<HTMLDivElement>) => {
                 setSelectMenu(TowerInfoContentValues.CHAT);
-                handleMouseClick(e);
+                handleMouseClick(e.currentTarget);
               }}
               onMouseOver={e => {
                 handleMouseOver(e);
               }}
+              ref={refsCollection[1]}
             >
               Чат
             </TowerInfoMenuElement>
             <TowerInfoMenuElement
               selected={selectedMenu === TowerInfoContentValues.TASK}
-              onClick={e => {
+              onClick={(e: React.MouseEvent<HTMLDivElement>) => {
                 setSelectMenu(TowerInfoContentValues.TASK);
-                handleMouseClick(e);
+                handleMouseClick(e.currentTarget);
               }}
               onMouseOver={e => {
                 handleMouseOver(e);
               }}
+              ref={refsCollection[2]}
             >
               Задания
             </TowerInfoMenuElement>
