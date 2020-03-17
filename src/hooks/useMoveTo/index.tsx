@@ -8,7 +8,6 @@ export const useMoveTo = (initWidth: number) => {
     hWidth: 0,
     hovered: false,
   });
-  // * передаю элемент DOMa, так как в туториал-моде по клику далее необходимо двигать полосочку
   const handleMouseClick = (target: HTMLDivElement | null) => {
     if (!target) return;
     setState(state => ({

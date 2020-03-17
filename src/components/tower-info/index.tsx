@@ -435,9 +435,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
                 setSelectMenu(TowerInfoContentValues.DESCRIPTION);
                 handleMouseClick(e.currentTarget);
               }}
-              onMouseOver={e => {
-                handleMouseOver(e);
-              }}
+              onMouseOver={handleMouseOver}
               ref={refsCollection[0]}
             >
               Описание
@@ -448,9 +446,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
                 setSelectMenu(TowerInfoContentValues.CHAT);
                 handleMouseClick(e.currentTarget);
               }}
-              onMouseOver={e => {
-                handleMouseOver(e);
-              }}
+              onMouseOver={handleMouseOver}
               ref={refsCollection[1]}
             >
               Чат
@@ -461,9 +457,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
                 setSelectMenu(TowerInfoContentValues.TASK);
                 handleMouseClick(e.currentTarget);
               }}
-              onMouseOver={e => {
-                handleMouseOver(e);
-              }}
+              onMouseOver={handleMouseOver}
               ref={refsCollection[2]}
             >
               Задания
