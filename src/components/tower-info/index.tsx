@@ -235,7 +235,6 @@ to {
 
 const TowerInfoMenuElement = styled.div<{
   selected: boolean;
-  activeFirstElem?: boolean;
 }>`
   height: 100%;
   text-align: center;
@@ -248,18 +247,6 @@ const TowerInfoMenuElement = styled.div<{
     props.selected ? 'MTSSansMedium' : 'MTSSansRegular'};
   position: relative;
   padding-bottom: 12px;
-
-  :after {
-    content: '';
-    display: block;
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 0%;
-    background-color: ${props => (props.activeFirstElem ? '#08b0cc' : 'none')};
-    height: 3px;
-    width: 100%;
-  }
 
   @media (max-resolution: 0.8dppx) {
     font-size: 1.5vh;
@@ -386,9 +373,18 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
       showTasks();
     }
   };
-
+  const firstLineElem = useRef<HTMLDivElement>(null);
   const { money } = useStore(UserDataStore);
-  const { left, width, handleMouseClick } = useMoveTo();
+  const {
+    left,
+    width,
+    handleMouseClick,
+    hLeft,
+    hWidth,
+    handleMouseOver,
+    handleMouseOut,
+  } = useMoveTo(firstLineElem.current ? firstLineElem.current.offsetWidth : 0);
+
   return (
     <ModalWindowWrapper opened={opened}>
       <ModalWindowHeader>
@@ -438,11 +434,15 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
           <RowWrapper>
             <TowerInfoMenuElement
               selected={selectedMenu === TowerInfoContentValues.DESCRIPTION}
-              activeFirstElem={width === 0}
               onClick={e => {
                 setSelectMenu(TowerInfoContentValues.DESCRIPTION);
                 handleMouseClick(e);
               }}
+              onMouseOver={e => {
+                handleMouseOver(e);
+              }}
+              onMouseOut={() => handleMouseOut()}
+              ref={firstLineElem}
             >
               Описание
             </TowerInfoMenuElement>
@@ -452,6 +452,10 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
                 setSelectMenu(TowerInfoContentValues.CHAT);
                 handleMouseClick(e);
               }}
+              onMouseOver={e => {
+                handleMouseOver(e);
+              }}
+              onMouseOut={() => handleMouseOut()}
             >
               Чат
             </TowerInfoMenuElement>
@@ -461,10 +465,17 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
                 setSelectMenu(TowerInfoContentValues.TASK);
                 handleMouseClick(e);
               }}
+              onMouseOver={e => {
+                handleMouseOver(e);
+              }}
+              onMouseOut={() => handleMouseOut()}
             >
               Задания
             </TowerInfoMenuElement>
-            <MoveDivider width={width} left={left} />
+            <MoveDivider
+              width={hWidth !== -1 ? hWidth : width}
+              left={hLeft !== -1 ? hLeft : left}
+            />
           </RowWrapper>
         </TowerInfoMenu>
 
