@@ -63,6 +63,7 @@ enum TowerTutorialSteps {
 }
 
 const MAXLEVEL = 100;
+const FIRSTELEMWIDTH = 92;
 
 export const ModalWindowWrapper = styled.div<ModalWindowProps>`
   position: absolute;
@@ -223,16 +224,6 @@ const TowerInfoMenu = styled.div`
   margin-bottom: 28px;
 `;
 
-const LineGrown = keyframes`
-from {
-    width: 0%;
-}
-
-to {
-  width: 100%;
-}
-`;
-
 const TowerInfoMenuElement = styled.div<{
   selected: boolean;
 }>`
@@ -383,7 +374,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
     hovered,
     handleMouseOver,
     handleMouseOut,
-  } = useMoveTo(92);
+  } = useMoveTo(FIRSTELEMWIDTH);
 
   return (
     <ModalWindowWrapper opened={opened}>
