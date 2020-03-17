@@ -17,7 +17,7 @@ const Mover = styled.div<IMoveDivider>`
   height: 100%;
   width: ${props => props.width + 'px'};
   background-color: #08b0cc;
-  transition: all 0.8s ease-in-out;
+  transition: all 0.8s ease;
 `;
 
 export const MoveDivider: React.FC<IMoveDivider> = ({ ...props }) => {

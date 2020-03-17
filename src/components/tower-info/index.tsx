@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useRef } from 'react';
-import styled, { keyframes } from 'styled-components';
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 import { ExitButton } from '../../UI/exit-button';
 import {
   extraTowerInfoModalClosed,
