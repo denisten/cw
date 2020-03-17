@@ -1,21 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 export const useMoveTo = (initWidth: number) => {
   const [state, setState] = useState({
     left: 0,
-    width: 0,
-    hLeft: -1,
-    hWidth: -1,
+    width: initWidth,
+    hLeft: 0,
+    hWidth: 0,
+    hovered: false,
   });
-  useEffect(() => {
-    setState(state => ({
-      ...state,
-      width: initWidth,
-    }));
-  }, [initWidth]);
+
   const handleMouseClick = (e: React.MouseEvent) => {
     const target = e.target as HTMLDivElement;
-    e.persist();
     setState(state => ({
       ...state,
       left: target.offsetLeft,
@@ -24,18 +19,17 @@ export const useMoveTo = (initWidth: number) => {
   };
   const handleMouseOver = (e: React.MouseEvent) => {
     const target = e.target as HTMLDivElement;
-    e.persist();
     setState(state => ({
       ...state,
       hLeft: target.offsetLeft,
       hWidth: target.offsetWidth,
+      hovered: true,
     }));
   };
   const handleMouseOut = () => {
     setState(state => ({
       ...state,
-      hLeft: -1,
-      hWidth: -1,
+      hovered: false,
     }));
   };
   return {
@@ -43,6 +37,7 @@ export const useMoveTo = (initWidth: number) => {
     width: state.width,
     hLeft: state.hLeft,
     hWidth: state.hWidth,
+    hovered: state.hovered,
     handleMouseOver,
     handleMouseOut,
     handleMouseClick,

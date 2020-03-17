@@ -373,7 +373,6 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
       showTasks();
     }
   };
-  const firstLineElem = useRef<HTMLDivElement>(null);
   const { money } = useStore(UserDataStore);
   const {
     left,
@@ -381,9 +380,10 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
     handleMouseClick,
     hLeft,
     hWidth,
+    hovered,
     handleMouseOver,
     handleMouseOut,
-  } = useMoveTo(firstLineElem.current ? firstLineElem.current.offsetWidth : 0);
+  } = useMoveTo(92);
 
   return (
     <ModalWindowWrapper opened={opened}>
@@ -431,7 +431,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
           </HeaderLine>
         </TowerInfoHeader>
         <TowerInfoMenu>
-          <RowWrapper>
+          <RowWrapper onMouseOut={() => handleMouseOut()}>
             <TowerInfoMenuElement
               selected={selectedMenu === TowerInfoContentValues.DESCRIPTION}
               onClick={e => {
@@ -441,8 +441,6 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
               onMouseOver={e => {
                 handleMouseOver(e);
               }}
-              onMouseOut={() => handleMouseOut()}
-              ref={firstLineElem}
             >
               Описание
             </TowerInfoMenuElement>
@@ -455,7 +453,6 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
               onMouseOver={e => {
                 handleMouseOver(e);
               }}
-              onMouseOut={() => handleMouseOut()}
             >
               Чат
             </TowerInfoMenuElement>
@@ -468,13 +465,12 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
               onMouseOver={e => {
                 handleMouseOver(e);
               }}
-              onMouseOut={() => handleMouseOut()}
             >
               Задания
             </TowerInfoMenuElement>
             <MoveDivider
-              width={hWidth !== -1 ? hWidth : width}
-              left={hLeft !== -1 ? hLeft : left}
+              width={hovered ? hWidth : width}
+              left={hovered ? hLeft : left}
             />
           </RowWrapper>
         </TowerInfoMenu>

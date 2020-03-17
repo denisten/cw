@@ -14,6 +14,7 @@ interface RowWrapperProps {
   width?: string;
   height?: string;
   justifyContent?: string;
+  onMouseOut?: () => void;
 }
 
 export const RowWrapper: React.FC<RowWrapperProps> = ({
