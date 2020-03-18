@@ -88,12 +88,12 @@ export const ModalWindowWrapper = styled.div<ModalWindowProps>`
   @media screen and (max-width: 1440px) {
     height: 100%;
     top: 0%;
+    width: 492px;
   }
 
   @media screen and (max-width: 1280px) {
     height: 100%;
     top: 0%;
-    width: 45%;
   }
 `;
 
@@ -220,7 +220,7 @@ const TowerInfoMenu = styled.div`
   justify-content: flex-start;
   flex-direction: column;
   width: 100%;
-  margin-bottom: 28px;
+  margin-bottom: 24px;
 `;
 
 const TowerInfoMenuElement = styled.div<{
@@ -237,6 +237,11 @@ const TowerInfoMenuElement = styled.div<{
     props.selected ? 'MTSSansMedium' : 'MTSSansRegular'};
   position: relative;
   padding-bottom: 12px;
+  transition: all 0.8s ease;
+
+  &:hover {
+    color: black;
+  }
 
   @media (max-resolution: 0.8dppx) {
     font-size: 1.5vh;
@@ -268,8 +273,7 @@ const StyleConfig = {
     fontSize: '16px',
     margin: '30px 0',
     color: '#02adc9',
-    position: 'absolute',
-    bottom: 10,
+    position: 'relative',
   },
   rowWrapper: {
     width: '100%',

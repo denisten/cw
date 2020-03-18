@@ -31,4 +31,19 @@ export const GlobalStyle = createGlobalStyle`
       padding: 0;
       font-family: "MTSSansRegular";
     }
+
+
+    ::-webkit-scrollbar {
+  background-color: none; /* or add it to the track */
+  width: 6px;
+}
+
+  ::-webkit-scrollbar-thumb {
+      background: #bbc1c7;
+      border-radius: 4px;
+      &:hover {
+        background: black;
+      }
+  }
+
 `;
