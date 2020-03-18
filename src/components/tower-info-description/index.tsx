@@ -66,7 +66,8 @@ export const TowerInfoDescription: React.FC<TowerInfoDescriptionProps> = ({
   return (
     <TowerInfoDescriptionWrapper
       fullView={
-        tutorialCondition === TutorialConditions.UPGRADE_BUTTON_TOWER_INFO
+        tutorialCondition === TutorialConditions.UPGRADE_BUTTON_TOWER_INFO ||
+        !tutorialCondition
       }
     >
       <TowerInfoDescriptionScrollContainer>

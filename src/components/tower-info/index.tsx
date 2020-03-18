@@ -88,12 +88,12 @@ export const ModalWindowWrapper = styled.div<ModalWindowProps>`
   @media screen and (max-width: 1440px) {
     height: 100%;
     top: 0%;
+    width: 492px;
   }
 
   @media screen and (max-width: 1280px) {
     height: 100%;
     top: 0%;
-    width: 45%;
   }
 `;
 
