@@ -19,6 +19,15 @@ const TowerInfoDescriptionWrapper = styled.div<{ fullView?: boolean }>`
     font-size: 1.5vh;
   }
 
+  span {
+    width: 90%;
+    word-break: break-word;
+
+    @media screen and (max-width: 1440px) {
+      width: 380px;
+    }
+  }
+
   span:last-child {
     z-index: 3;
   }
@@ -52,7 +61,11 @@ const TowerInfoDescriptionScrollContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  overflow: auto;
+  overflow: hidden;
+
+  &:hover {
+    overflow: auto;
+  }
 `;
 
 type TowerInfoDescriptionProps = {

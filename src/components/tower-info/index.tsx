@@ -220,7 +220,7 @@ const TowerInfoMenu = styled.div`
   justify-content: flex-start;
   flex-direction: column;
   width: 100%;
-  margin-bottom: 28px;
+  margin-bottom: 24px;
 `;
 
 const TowerInfoMenuElement = styled.div<{
