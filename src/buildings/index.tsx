@@ -38,6 +38,7 @@ export const Buildings = () => {
                 areaCoords={currentTower.areaCoords}
                 shadowImg={currentTower.shadowImg}
                 tower={currentTower.img}
+                tutorialTower={data.tutorialTower}
               />
             </Fragment>
           );
