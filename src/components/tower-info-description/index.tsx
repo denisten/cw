@@ -61,11 +61,7 @@ const TowerInfoDescriptionScrollContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
-
-  &:hover {
-    overflow: auto;
-  }
+  overflow: auto;
 `;
 
 type TowerInfoDescriptionProps = {
