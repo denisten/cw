@@ -237,6 +237,11 @@ const TowerInfoMenuElement = styled.div<{
     props.selected ? 'MTSSansMedium' : 'MTSSansRegular'};
   position: relative;
   padding-bottom: 12px;
+  transition: all 0.8s ease;
+
+  &:hover {
+    color: black;
+  }
 
   @media (max-resolution: 0.8dppx) {
     font-size: 1.5vh;
