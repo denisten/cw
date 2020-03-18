@@ -3,6 +3,7 @@ import {
   nextTutorDescriptionStep,
   nextTutorStep,
   turnOffTutorialMode,
+  pauseTutorialMode,
 } from './events';
 
 export enum TutorialConditions {
@@ -41,6 +42,7 @@ const initState = {
   tutorialCondition: TutorialConditions.DIALOG_HELLO,
   tutorialConditionIdx: 1,
   tutorialTextId: 0,
+  tutorialPause: false,
 };
 
 export const TutorialStore = TutorialDomain.store<ITutorialStore>(initState)
@@ -48,6 +50,7 @@ export const TutorialStore = TutorialDomain.store<ITutorialStore>(initState)
     ...state,
     tutorialConditionIdx: state.tutorialConditionIdx + 1,
     tutorialCondition: TutorialSteps[state.tutorialConditionIdx + 1],
+    tutorialPause: false,
   }))
   .on(nextTutorDescriptionStep, state => ({
     ...state,
@@ -57,10 +60,15 @@ export const TutorialStore = TutorialDomain.store<ITutorialStore>(initState)
     ...state,
     tutorialCondition: TutorialConditions.OFF,
     tutorialConditionIdx: 0,
+  }))
+  .on(pauseTutorialMode, state => ({
+    ...state,
+    tutorialPause: true,
   }));
 
 interface ITutorialStore {
   tutorialCondition: TutorialConditions;
   tutorialConditionIdx: number;
   tutorialTextId: number;
+  tutorialPause: boolean;
 }
