@@ -97,7 +97,7 @@ export class BuildingsService {
         height: 687,
         shadowImg: mainTowerLevel1Stroke,
         areaCoords: '84,168,299,576',
-        position: [29.5, 45.4],
+        position: [29.3, 45.4],
       },
       [TowerLevel.mid]: {
         img: mainTowerLevel2Img,
@@ -105,7 +105,7 @@ export class BuildingsService {
         height: 744,
         shadowImg: mainTowerLevel2Stroke,
         areaCoords: '84,121,301,659',
-        position: [28.5, 45.4],
+        position: [28.3, 45.4],
       },
       [TowerLevel.high]: {
         img: mainTowerLevel3Img,
@@ -113,7 +113,7 @@ export class BuildingsService {
         height: 761,
         shadowImg: mainTowerLevel3Stroke,
         areaCoords: '298,157,87,662',
-        position: [28.13, 45.4],
+        position: [28, 45.4],
       },
     },
     [TowersTypes.MUSIC]: {
