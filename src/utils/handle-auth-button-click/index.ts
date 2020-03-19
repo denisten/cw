@@ -1,10 +1,14 @@
 import { getUrl } from '../../api/get-url';
 
 export const handleAuthButtonClick = async () => {
+  const width = 550;
+  const height = 500;
+  const left = window.innerWidth / 2 - width / 2;
+  const top = window.innerHeight / 2 - height / 2;
   const authWindow = window.open(
     undefined,
     'window_auth',
-    'height=500,width=550'
+    `height=${height},width=${width},left=${left}, top=${top}`
   );
   try {
     const url = await getUrl();
