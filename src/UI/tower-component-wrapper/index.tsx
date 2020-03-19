@@ -7,8 +7,12 @@ import { UpgradeButton } from '../update-button';
 import { Substrate } from '../substrate';
 import { upgradeTower } from '../../effector/towers-progress/events';
 import { maxProgressValue } from '../../effector/app-condition/store';
-import { TutorialConditions } from '../../effector/tutorial-store/store';
+import {
+  TutorialConditions,
+  TutorialStore,
+} from '../../effector/tutorial-store/store';
 import { nextTutorStep } from '../../effector/tutorial-store/events';
+import { useStore } from 'effector-react';
 
 const TowerStyledWrapper = styled.div<TowerStyledWrapperProps>`
   display: block;
@@ -39,6 +43,8 @@ export const TowerWrapper: React.FC<TypeWrapperProps> = ({
   focusOnTowerTitle,
   progress,
   upgradeFlag,
+  tutorialTower,
+  tutorialPause,
 }): React.ReactElement => {
   const [posX, posY] = position;
   const [hoverState, setHoverState] = useState(false);
@@ -55,14 +61,19 @@ export const TowerWrapper: React.FC<TypeWrapperProps> = ({
 
   const handleClick = () => {
     if (
-      !tutorialCondition ||
-      tutorialCondition === TutorialConditions.ARROW_TOWER_INFO
+      tutorialCondition === TutorialConditions.ARROW_TOWER_INFO &&
+      tutorialTower
     ) {
       extraTowerInfoModalOpened({
         coords: towerCoords,
         towerTitle,
       });
-      if (tutorialCondition) nextTutorStep();
+      nextTutorStep();
+    } else if (!tutorialCondition || tutorialPause) {
+      extraTowerInfoModalOpened({
+        coords: towerCoords,
+        towerTitle,
+      });
     }
   };
 
@@ -130,6 +141,8 @@ type TypeWrapperProps = {
   focusOnTowerTitle: TowersTypes | null;
   progress: number;
   upgradeFlag: boolean;
+  tutorialTower?: boolean;
+  tutorialPause?: boolean;
 };
 
 type TowerStyledWrapperProps = {

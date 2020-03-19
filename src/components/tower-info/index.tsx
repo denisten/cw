@@ -34,6 +34,7 @@ import {
 import {
   nextTutorDescriptionStep,
   nextTutorStep,
+  pauseTutorialMode,
 } from '../../effector/tutorial-store/events';
 import { UserDataStore } from '../../effector/user-data/store';
 import { useMoveTo } from '../../hooks/useMoveTo';
@@ -306,9 +307,11 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
     towerTitle
   );
 
-  const { title, maxLevel } = localBuildingService.getConfigForTower(
-    towerTitle
-  );
+  const {
+    title,
+    maxLevel,
+    tutorialTower,
+  } = localBuildingService.getConfigForTower(towerTitle);
   const { level } = useStore(TowersProgressStore)[towerTitle];
 
   const [selectedMenu, setSelectMenu] = useState(
@@ -390,7 +393,12 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
       <ModalWindowHeader>
         <ExitButton
           {...StyleConfig.exitButton}
-          callBack={() => extraTowerInfoModalClosed()}
+          callBack={() => {
+            if (tutorialCondition) {
+              pauseTutorialMode();
+            }
+            extraTowerInfoModalClosed();
+          }}
         />
       </ModalWindowHeader>
       <ModalWindowContentWrapper>
@@ -483,7 +491,8 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
         />
 
         {!tutorialCondition ||
-        tutorialCondition === TutorialConditions.NEXT_BUTTON_TOWER_INFO ? (
+        (tutorialCondition === TutorialConditions.NEXT_BUTTON_TOWER_INFO &&
+          tutorialTower) ? (
           <CustomButton
             animFlag={
               tutorialCondition === TutorialConditions.NEXT_BUTTON_TOWER_INFO

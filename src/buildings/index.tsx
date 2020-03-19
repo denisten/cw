@@ -13,7 +13,7 @@ export const Buildings = () => {
   const localTowersProgressStore = useStore(TowersProgressStore);
   const towersKeys = Object.keys(localTowersProgressStore) as TowersTypes[];
   const { focusOn, upgradingTowerTitle } = useStore(AppCondition);
-  const { tutorialCondition } = useStore(TutorialStore);
+  const { tutorialCondition, tutorialPause } = useStore(TutorialStore);
   return (
     <Fragment>
       {towersKeys.map(towerTitle => {
@@ -24,6 +24,7 @@ export const Buildings = () => {
             <Fragment key={towerTitle}>
               <TowerWrapper
                 tutorialCondition={tutorialCondition}
+                tutorialPause={tutorialPause}
                 upgradeFlag={upgradingTowerTitle === towerTitle}
                 maxLevel={data.maxLevel}
                 currentLevel={localTowersProgressStore[towerTitle].level}
@@ -38,6 +39,7 @@ export const Buildings = () => {
                 areaCoords={currentTower.areaCoords}
                 shadowImg={currentTower.shadowImg}
                 tower={currentTower.img}
+                tutorialTower={data.tutorialTower}
               />
             </Fragment>
           );
