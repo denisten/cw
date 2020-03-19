@@ -20,8 +20,8 @@ import { nextTutorStep } from '../../effector/tutorial-store/events';
 
 const StyledConfig = {
   exitButton: {
-    top: 0,
-    right: -2,
+    top: '0%',
+    right: '-2%',
     hoverFlag: true,
   },
   mainWrapper: {
@@ -31,21 +31,21 @@ const StyledConfig = {
   },
   avatar: {
     height: '13%',
-    top: 4.7,
-    left: 36.8,
+    top: '4.7%',
+    left: '36.8%',
   },
   saveButton: {
     height: '7%',
-    bottom: 0,
-    left: 50,
+    bottom: '0%',
+    left: '50%',
     transformTranslate: '-50%, -50%',
     hoverFlag: true,
   },
   tutorialArrow: {
     direction: Directions.LEFT,
     range: 2,
-    top: 20,
-    left: 20,
+    top: '20%',
+    left: '20%',
   },
   rowWrapper: {
     width: '100%',

@@ -7,8 +7,8 @@ import styled from 'styled-components';
 
 const StyleConfig = {
   zIndex: 1,
-  top: 5,
-  right: 5,
+  top: '5%',
+  right: '5%',
   hoverFlag: true,
   width: '10vw',
   height: '5vh',

@@ -251,15 +251,15 @@ const TowerInfoMenuElement = styled.div<{
 
 const StyleConfig = {
   exitButton: {
-    top: 25,
-    left: 90,
+    top: '25%',
+    left: '90%',
     hoverFlag: true,
   },
   tutorialArrow: {
     direction: Directions.TOP,
     range: 2,
-    top: 48,
-    left: 40,
+    top: '48%',
+    left: '40%',
   },
   descriptionButton: {
     position: 'absolute',

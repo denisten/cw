@@ -6,10 +6,10 @@ const ParentDivWrapper = styled.div<ParentDivWrapperProps>`
   width: ${props => props.width};
   height: ${props => props.height};
   position: ${props => props.position || 'absolute'};
-  top: ${props => props.top}%;
-  left: ${props => props.left}%;
-  bottom: ${props => props.bottom}%;
-  right: ${props => props.right}%;
+  top: ${props => props.top};
+  left: ${props => props.left};
+  bottom: ${props => props.bottom};
+  right: ${props => props.right};
   display: ${props => (props.displayFlag ? 'inline-block' : 'none')};
   z-index: ${props => props.zIndex};
   transform: translate(${props => props.transformTranslate});
@@ -58,10 +58,10 @@ export const ImgWrapper = React.memo(
 
 interface ParentDivWrapperProps {
   position?: string;
-  top?: number;
-  left?: number;
-  right?: number;
-  bottom?: number;
+  top?: string;
+  left?: string;
+  right?: string;
+  bottom?: string;
   hoverFlag?: boolean;
   zIndex?: number;
   transformTranslate?: string;
