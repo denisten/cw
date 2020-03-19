@@ -44,6 +44,7 @@ export const TowerWrapper: React.FC<TypeWrapperProps> = ({
   progress,
   upgradeFlag,
   tutorialTower,
+  tutorialPause,
 }): React.ReactElement => {
   const [posX, posY] = position;
   const [hoverState, setHoverState] = useState(false);
@@ -57,8 +58,6 @@ export const TowerWrapper: React.FC<TypeWrapperProps> = ({
     if (!(focusOnTowerTitle && focusOnTowerTitle === towerTitle))
       setHoverState(false);
   };
-
-  const { tutorialPause } = useStore(TutorialStore);
 
   const handleClick = () => {
     if (
@@ -143,6 +142,7 @@ type TypeWrapperProps = {
   progress: number;
   upgradeFlag: boolean;
   tutorialTower?: boolean;
+  tutorialPause?: boolean;
 };
 
 type TowerStyledWrapperProps = {
