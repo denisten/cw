@@ -29,6 +29,7 @@ const CustomButtonWrapper = styled.div<ICustomButtonWrapper>`
   color: ${props => props.color || '#02adc9'};
   font-family: 'MTSSansBold';
   animation-duration: 1s;
+
   .normal {
     width: 200px;
     height: 44px;
@@ -52,6 +53,7 @@ export const CustomButton: React.FC<CustomButtonProps> = ({
   animFlag = false,
   scaleSize,
   displayFlag = true,
+  className,
   ...props
 }) => {
   return (
@@ -60,6 +62,7 @@ export const CustomButton: React.FC<CustomButtonProps> = ({
       animFlag={animFlag}
       scaleSize={scaleSize}
       displayFlag={displayFlag}
+      className={className}
       {...props}
     >
       {content}
