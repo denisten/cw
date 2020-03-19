@@ -87,7 +87,7 @@ export class BuildingsService {
   _config: BuildingServiceConfigTypes = {
     [TowersTypes.MAIN_TOWER]: {
       info: 'info',
-      title: 'Мой тариф',
+      title: 'Тариф Минуты',
       coords: [3672, 2036],
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
@@ -344,7 +344,7 @@ export class BuildingsService {
     },
     [TowersTypes.THEATER]: {
       info: 'info',
-      title: 'Афиша',
+      title: 'МТС Афиша',
       coords: [2964, 1643],
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.mid,
@@ -409,7 +409,7 @@ export class BuildingsService {
     },
     [TowersTypes.STADIUM]: {
       info: 'info',
-      title: 'Фитнес',
+      title: 'МТС Фитнес',
       coords: [2676, 2362],
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
