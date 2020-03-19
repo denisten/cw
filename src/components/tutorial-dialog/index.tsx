@@ -11,6 +11,7 @@ import { useStore } from 'effector-react';
 import { TutorialStore } from '../../effector/tutorial-store/store';
 import { ExitButton } from '../../UI/exit-button';
 import { TutorialDialogTextsService } from './dialog-messages-service';
+import { CustomButton } from '../../UI/button';
 
 const TutorialDialogWrapper = styled.div`
   width: 1128px;
@@ -70,30 +71,30 @@ const TutorialDialogText = styled.span`
   margin-bottom: 20px;
 `;
 
-const CustomButton = styled.div<ICustomButton>`
-  width: 232px;
-  height: 50px;
-  display: ${props => (props.textGenerating ? 'none' : 'flex')};
-  justify-content: center;
-  align-items: center;
-  color: #fff;
-  cursor: pointer;
-  border-radius: 2px;
-  box-shadow: 1px 1px 4px 0 #bbc1c7, inset 0 1px 3px 0 rgba(255, 255, 255, 0.5);
-  background-color: #02acc8;
-  font-size: 20px;
-  font-weight: bold;
-`;
+// const CustomButton = styled.div<ICustomButton>`
+//   width: 232px;
+//   height: 50px;
+//   display: ${props => (props.textGenerating ? 'none' : 'flex')};
+//   justify-content: center;
+//   align-items: center;
+//   color: #fff;
+//   cursor: pointer;
+//   border-radius: 2px;
+//   box-shadow: 1px 1px 4px 0 #bbc1c7, inset 0 1px 3px 0 rgba(255, 255, 255, 0.5);
+//   background-color: #02acc8;
+//   font-size: 20px;
+//   font-weight: bold;
+// `;
 
-const BackButton = styled(CustomButton)<IBackButton>`
-  border: solid 2px #${props => (props.borderFlag ? '02acc8' : 'e2e5eb')};
-  box-sizing: border-box;
-  background-color: #f4f4f4;
-  display: ${props => (props.textGenerating ? 'none' : 'flex')};
-  box-shadow: none;
-  color: #${props => (props.borderFlag ? '02acc8' : 'e2e5eb')};
-  margin-right: 24px;
-`;
+// const BackButton = styled(CustomButton)<IBackButton>`
+//   border: solid 2px #${props => (props.borderFlag ? '02acc8' : 'e2e5eb')};
+//   box-sizing: border-box;
+//   background-color: #f4f4f4;
+//   display: ${props => (props.textGenerating ? 'none' : 'flex')};
+//   box-shadow: none;
+//   color: #${props => (props.borderFlag ? '02acc8' : 'e2e5eb')};
+//   margin-right: 24px;
+// `;
 
 const ButtonWrapper = styled.div`
   height: 100%;
@@ -192,16 +193,18 @@ export const TutorialDialog: React.FC = () => {
           <TutorialDialogTitle>{titles[dialogStep]}</TutorialDialogTitle>
           <TutorialDialogText>{printedText}</TutorialDialogText>
           <ButtonWrapper>
-            <BackButton
-              borderFlag={!!dialogStep}
-              textGenerating={isPrinting}
-              onClick={handleBackButtonClick}
-            >
-              Назад
-            </BackButton>
-            <CustomButton textGenerating={isPrinting} onClick={handleClick}>
-              {buttonContent[dialogStep]}
-            </CustomButton>
+            <CustomButton
+              // borderFlag={!!dialogStep}
+              displayFlag={!isPrinting}
+              callback={handleBackButtonClick}
+              content="Назад"
+            />
+            <CustomButton
+              displayFlag={!isPrinting}
+              callback={handleClick}
+              content={buttonContent[dialogStep]}
+              className="normal"
+            />
           </ButtonWrapper>
         </TextWrapper>
       </TutorialDialogWrapper>

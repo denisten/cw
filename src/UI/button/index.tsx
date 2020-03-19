@@ -3,18 +3,18 @@ import styled from 'styled-components';
 import { defaultScaleSize, scaleAnimation } from '../../hoc/scale-anim';
 
 const CustomButtonWrapper = styled.div<ICustomButtonWrapper>`
+  display: ${props => (props.displayFlag ? 'flex' : 'none')};
   position: ${props => props.position};
   top: ${props => props.top}%;
   left: ${props => props.left}%;
   right: ${props => props.right}%;
   bottom: ${props => props.bottom}%;
-  display: flex;
   justify-content: center;
   align-items: center;
-  width: ${props => props.width};
-  height: ${props => props.height};
+  width: ${props => props.width || '200px'};
+  height: ${props => props.height || '44px'};
   cursor: pointer;
-  font-size: ${props => props.fontSize};
+  font-size: ${props => props.fontSize || '16px'};
   margin: ${props => props.margin};
   animation-name: ${props =>
     props.animFlag
@@ -29,6 +29,21 @@ const CustomButtonWrapper = styled.div<ICustomButtonWrapper>`
   color: ${props => props.color || '#02adc9'};
   font-family: 'MTSSansBold';
   animation-duration: 1s;
+  .normal {
+    width: 200px;
+    height: 44px;
+    border-radius: 2px;
+    box-shadow: 1px 1px 4px 0 #bbc1c7,
+      inset 0 1px 3px 0 rgba(255, 255, 255, 0.5);
+    background-color: #02acc8;
+  }
+
+  .disabled {
+    width: ${props => props.width || '200px'};
+    height: ${props => props.height || '44px'};
+    border-radius: 2px;
+    background-color: #e2e5eb;
+  }
 `;
 
 export const CustomButton: React.FC<CustomButtonProps> = ({
@@ -36,6 +51,7 @@ export const CustomButton: React.FC<CustomButtonProps> = ({
   callback,
   animFlag = false,
   scaleSize,
+  displayFlag = true,
   ...props
 }) => {
   return (
@@ -43,6 +59,7 @@ export const CustomButton: React.FC<CustomButtonProps> = ({
       onClick={callback}
       animFlag={animFlag}
       scaleSize={scaleSize}
+      displayFlag={displayFlag}
       {...props}
     >
       {content}
@@ -63,10 +80,12 @@ interface ICustomButtonWrapper {
   margin?: string;
   animFlag?: boolean;
   scaleSize?: number;
+  displayFlag?: boolean;
 }
 
 interface CustomButtonProps extends ICustomButtonWrapper {
   content?: string;
   color?: string;
   callback?: () => void;
+  className?: string;
 }
