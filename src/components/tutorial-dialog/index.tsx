@@ -122,8 +122,6 @@ const styleConfig = {
     position: 'absolute',
     top: 4,
     right: 0,
-    height: '50px',
-    width: '50px',
   },
 };
 

@@ -20,7 +20,6 @@ import { nextTutorStep } from '../../effector/tutorial-store/events';
 
 const StyledConfig = {
   exitButton: {
-    height: '70%',
     top: 0,
     right: -2,
     hoverFlag: true,

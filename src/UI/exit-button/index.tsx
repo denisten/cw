@@ -8,5 +8,13 @@ export const ExitButton: React.FC<ExitButtonProps> = ({
   callBack,
   ...props
 }) => {
-  return <ImgWrapper callBack={callBack} src={exitImg} {...props} />;
+  return (
+    <ImgWrapper
+      callBack={callBack}
+      src={exitImg}
+      {...props}
+      height="28px"
+      width="28px"
+    />
+  );
 };

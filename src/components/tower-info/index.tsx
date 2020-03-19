@@ -250,7 +250,6 @@ const TowerInfoMenuElement = styled.div<{
 
 const StyleConfig = {
   exitButton: {
-    height: '50%',
     top: 25,
     left: 90,
     hoverFlag: true,
