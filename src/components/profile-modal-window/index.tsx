@@ -16,7 +16,10 @@ import {
   TutorialConditions,
   TutorialStore,
 } from '../../effector/tutorial-store/store';
-import { nextTutorStep } from '../../effector/tutorial-store/events';
+import {
+  nextTutorStep,
+  pauseTutorialMode,
+} from '../../effector/tutorial-store/events';
 
 const StyledConfig = {
   exitButton: {
@@ -78,7 +81,12 @@ export const Menu: React.FC<{ displayFlag: boolean }> = ({ displayFlag }) => {
         <HeaderComponent {...StyledConfig.header}>
           <ExitButton
             {...StyledConfig.exitButton}
-            callBack={() => menuClosed()}
+            callBack={() => {
+              if (tutorialCondition) {
+                pauseTutorialMode();
+              }
+              menuClosed();
+            }}
           />
         </HeaderComponent>
         <RowWrapper {...StyledConfig.rowWrapper}>

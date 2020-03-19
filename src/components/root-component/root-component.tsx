@@ -54,7 +54,7 @@ export const RootComponent = (): React.ReactElement => {
     focusOn,
   } = useStore(AppCondition);
 
-  const { tutorialCondition } = useStore(TutorialStore);
+  const { tutorialCondition, tutorialPause } = useStore(TutorialStore);
   const [cordX, cordY] = focusOn.coords;
   const scrollCoords = [
     cordX - window.innerWidth / divideNumber.WIDTH,
@@ -68,7 +68,10 @@ export const RootComponent = (): React.ReactElement => {
   return (
     <ComponentWrapper id="rootScroll">
       <Menu displayFlag={!!selectedMenuItem} />
-      <ProfileButton tutorialCondition={tutorialCondition} />
+      <ProfileButton
+        tutorialCondition={tutorialCondition}
+        tutorialPause={tutorialPause}
+      />
       <TaskButton />
       <TowerInfo opened={isExtraTowerInfoModalOpen} />
       <TutorialToolsSelector

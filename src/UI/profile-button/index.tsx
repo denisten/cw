@@ -48,9 +48,10 @@ const StyleConfig = {
 
 export const ProfileButton: React.FC<IProfileButton> = ({
   tutorialCondition,
+  tutorialPause,
 }) => {
   const handleClick = () => {
-    if (!tutorialCondition) {
+    if (!tutorialCondition || tutorialPause) {
       menuOpened(MenuItems.PROFILE);
       extraTowerInfoModalClosed();
       return;
@@ -86,4 +87,5 @@ export const ProfileButton: React.FC<IProfileButton> = ({
 
 interface IProfileButton {
   tutorialCondition: TutorialConditions;
+  tutorialPause?: boolean;
 }
