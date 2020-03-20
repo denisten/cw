@@ -33,7 +33,7 @@ const CoinsWrapper = styled.div`
   line-height: 1.33;
   letter-spacing: normal;
   color: #ffffff;
-  padding: 16px 0 0 96px;
+  padding: 16px 0 0 100px;
   box-sizing: border-box;
   display: flex;
 `;
@@ -41,7 +41,7 @@ const CoinsWrapper = styled.div`
 const NickNameWrapper = styled.div<INickNameWrapper>`
   background-image: url(${nameBackground});
   background-size: 100%;
-  padding: 12px 0 0 20px;
+  padding: 12px 0 0 32px;
   width: 312px;
   height: 61px;
   z-index: 2;
