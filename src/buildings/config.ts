@@ -10,14 +10,22 @@ import musicTowerLevel2Img from './music/2.png';
 import musicTowerLevel2Stroke from './music/2-stroke.png';
 import musicTowerLevel3Img from './music/3.png';
 import musicTowerLevel3Stroke from './music/3-stroke.png';
+import arenaTowerLevel1Img from './arena/1.png';
+import arenaTowerLevel1Stroke from './arena/1-stroke.png';
 import arenaTowerLevel2Img from './arena/2.png';
 import arenaTowerLevel2Stroke from './arena/2-stroke.png';
+import arenaTowerLevel3Img from './arena/3.png';
+import arenaTowerLevel3Stroke from './arena/3-stroke.png';
 import mollTowerLevel1Img from './moll/1.png';
 import mollTowerLevel2Img from './moll/2.png';
 import mollTowerLevel3Img from './moll/3.png';
 import mollTowerLevel1Stroke from './moll/1-stroke.png';
 import mollTowerLevel2Stroke from './moll/2-stroke.png';
 import mollTowerLevel3Stroke from './moll/3-stroke.png';
+import eggTowerLevel1Img from './egg/1.png';
+import eggTowerLevel1Stroke from './egg/1-stroke.png';
+import eggTowerLevel2Img from './egg/2.png';
+import eggTowerLevel2Stroke from './egg/2-stroke.png';
 import eggTowerLevel3Img from './egg/3.png';
 import eggTowerLevel3Stroke from './egg/3-stroke.png';
 import libraryTowerLevel1Img from './library/1.png';
@@ -34,8 +42,12 @@ import theaterTowerLevel2Img from './theater/2.png';
 import theaterTowerLevel2Stroke from './theater/2-stroke.png';
 import theaterTowerLevel3Img from './theater/3.png';
 import theaterTowerLevel3Stroke from './theater/3-stroke.png';
+import TVTowerLevel1Stroke from './TV/1-stroke.png';
+import TVTowerLevel1Img from './TV/1.png';
 import TVTowerLevel2Stroke from './TV/2-stroke.png';
 import TVTowerLevel2Img from './TV/2.png';
+import TVTowerLevel3Stroke from './TV/3-stroke.png';
+import TVTowerLevel3Img from './TV/3.png';
 import stadiumLevel1Img from './stadium/1.png';
 import stadiumLevel2Img from './stadium/2.png';
 import stadiumLevel3Img from './stadium/3.png';
@@ -155,32 +167,30 @@ export class BuildingsService {
       title: 'МТС Арена',
       coords: [3537, 1408],
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
-      maxLevel: TowerLevel.mid,
+      maxLevel: TowerLevel.high,
       [TowerLevel.low]: {
-        // TODO: не настоящая картинка
-        img: musicTowerLevel1Img,
-        width: 1,
-        height: 2,
-        shadowImg: musicTowerLevel1Stroke,
-        areaCoords: '128,57,418,291',
-        position: [42.2, 36.9],
+        img: arenaTowerLevel1Img,
+        width: 566,
+        height: 371,
+        shadowImg: arenaTowerLevel1Stroke,
+        areaCoords: '48,47,514,314',
+        position: [23.3, 42],
       },
       [TowerLevel.mid]: {
         img: arenaTowerLevel2Img,
-        width: 650,
-        height: 422,
+        width: 640,
+        height: 425,
         shadowImg: arenaTowerLevel2Stroke,
-        areaCoords: '590,60,64,365',
-        position: [22.3, 41.5],
+        areaCoords: '52,47,583,372',
+        position: [22.3, 41.3],
       },
       [TowerLevel.high]: {
-        // TODO: не настоящая картинка
-        img: musicTowerLevel3Img,
-        width: 1,
-        height: 2,
-        shadowImg: musicTowerLevel3Stroke,
-        areaCoords: '84,118,319,659',
-        position: [40.8, 37.4],
+        img: arenaTowerLevel3Img,
+        width: 699,
+        height: 466,
+        shadowImg: arenaTowerLevel3Stroke,
+        areaCoords: '44,53,649,413',
+        position: [21.78, 41.3],
       },
     },
     [TowersTypes.MOLL]: {
@@ -221,30 +231,28 @@ export class BuildingsService {
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
       [TowerLevel.low]: {
-        // TODO: не настоящая картинка
-        img: musicTowerLevel1Img,
-        width: 1,
-        height: 2,
-        shadowImg: musicTowerLevel1Stroke,
-        areaCoords: '128,57,418,291',
-        position: [42.2, 36.9],
+        img: eggTowerLevel1Img,
+        width: 331,
+        height: 398,
+        shadowImg: eggTowerLevel1Stroke,
+        areaCoords: '44,45,285,351',
+        position: [34.1, 51.3],
       },
       [TowerLevel.mid]: {
-        // TODO: не настоящая картинка
-        img: mollTowerLevel2Img,
-        width: 604,
-        height: 468,
-        shadowImg: mollTowerLevel2Stroke,
-        areaCoords: '74,380,544,63',
-        position: [22, 39.9],
+        img: eggTowerLevel2Img,
+        width: 347,
+        height: 478,
+        shadowImg: eggTowerLevel2Stroke,
+        areaCoords: '45,45,295,432',
+        position: [32.6, 51.3],
       },
       [TowerLevel.high]: {
         img: eggTowerLevel3Img,
         width: 384,
         height: 531,
         shadowImg: eggTowerLevel3Stroke,
-        areaCoords: '320,441,50,45',
-        position: [31.5, 50.9],
+        areaCoords: '43,36,322,483',
+        position: [31.6, 51.1],
       },
     },
     [TowersTypes.LIBRARY]: {
@@ -381,32 +389,30 @@ export class BuildingsService {
       title: 'Цифровое ТВ',
       coords: [2262, 1726],
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
-      maxLevel: TowerLevel.mid,
+      maxLevel: TowerLevel.high,
       [TowerLevel.low]: {
-        // TODO: не настоящая картинка
-        img: musicTowerLevel1Img,
-        width: 1,
-        height: 2,
-        shadowImg: musicTowerLevel1Stroke,
-        areaCoords: '93,286,362,1006',
-        position: [42.2, 36.9],
+        img: TVTowerLevel1Img,
+        width: 486,
+        height: 842,
+        shadowImg: TVTowerLevel1Stroke,
+        areaCoords: '49,52,434,789',
+        position: [25.74, 26.35],
       },
       [TowerLevel.mid]: {
         img: TVTowerLevel2Img,
         width: 474,
-        height: 1058,
+        height: 987,
         shadowImg: TVTowerLevel2Stroke,
-        areaCoords: '365,1006,120,255',
-        position: [21.6, 26.42],
+        areaCoords: '48,45,430,940',
+        position: [22.9, 26.42],
       },
       [TowerLevel.high]: {
-        // TODO: не настоящая картинка
-        img: eggTowerLevel3Img,
-        width: 384,
-        height: 531,
-        shadowImg: eggTowerLevel3Stroke,
-        areaCoords: '320,441,50,45',
-        position: [31.5, 50.9],
+        img: TVTowerLevel3Img,
+        width: 474,
+        height: 1058,
+        shadowImg: TVTowerLevel3Stroke,
+        areaCoords: '48,44,428,1016',
+        position: [21.6, 26.42],
       },
     },
     [TowersTypes.STADIUM]: {

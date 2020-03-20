@@ -40,7 +40,7 @@ const initState: TowersProgressStoreType = {
     progress: 0,
   },
   [TowersTypes.ARENA]: {
-    level: TowerLevel.mid,
+    level: TowerLevel.low,
     progress: 0,
   },
   [TowersTypes.MOLL]: {
@@ -48,7 +48,7 @@ const initState: TowersProgressStoreType = {
     progress: 0,
   },
   [TowersTypes.EGG]: {
-    level: TowerLevel.high,
+    level: TowerLevel.low,
     progress: 0,
   },
   [TowersTypes.LIBRARY]: {
@@ -68,7 +68,7 @@ const initState: TowersProgressStoreType = {
     progress: 0,
   },
   [TowersTypes.TV]: {
-    level: TowerLevel.mid,
+    level: TowerLevel.low,
     progress: 0,
   },
   [TowersTypes.STADIUM]: {
