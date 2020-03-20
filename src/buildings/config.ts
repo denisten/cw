@@ -93,13 +93,15 @@ import rtkLevel1Img from './rtk/1.png';
 import rtkLevel1Stroke from './rtk/1-stroke.png';
 import partnerBankLevel2Img from './partners-build/partner-bank/2.png';
 import partnerBankLevel2Stroke from './partners-build/partner-bank/2-stroke.png';
+import marvinLevel1Img from './marvin/1.png';
+import marvinLevel1Stroke from './marvin/1-stroke.png';
 import { ZIndexes } from '../components/root-component/z-indexes-enum';
 
 export class BuildingsService {
   _config: BuildingServiceConfigTypes = {
     [TowersTypes.MAIN_TOWER]: {
       info: 'info',
-      title: 'Тариф Минуты',
+      title: 'Сотовая связь',
       coords: [3672, 2036],
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
@@ -286,7 +288,7 @@ export class BuildingsService {
     },
     [TowersTypes.OBSERVATORY]: {
       info: 'info',
-      title: 'Обсерватория',
+      title: 'Здание партнера',
       coords: [2688, 1833],
       zIndex: ZIndexes.BUILDING_THREE_LEVEL,
       maxLevel: TowerLevel.mid,
@@ -319,7 +321,7 @@ export class BuildingsService {
     },
     [TowersTypes.TARIFF]: {
       info: 'info',
-      title: 'Тариф ГБ',
+      title: 'Мой тариф',
       coords: [3867, 1809],
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.mid,
@@ -783,6 +785,39 @@ export class BuildingsService {
         areaCoords: '74,67,456,472',
         position: [30, 66.8],
       },
+      [TowerLevel.mid]: {
+        img: partnerBankLevel2Img,
+        width: 579,
+        height: 688,
+        shadowImg: partnerBankLevel2Stroke,
+        areaCoords: '60,45,513,572',
+        position: [42.3, 48],
+      },
+      // TODO: не настоящая картинка
+      [TowerLevel.high]: {
+        img: airportLevel3Img,
+        width: 573,
+        height: 449,
+        shadowImg: airportLevel3Stroke,
+        areaCoords: '595,126,90,476',
+        position: [18.9, 28.3],
+      },
+    },
+    [TowersTypes.MARVIN]: {
+      info: 'info',
+      title: 'Колонка Марвин',
+      coords: [4416, 2950],
+      zIndex: ZIndexes.BUILDING_ONE_LEVEL,
+      maxLevel: TowerLevel.low,
+      [TowerLevel.low]: {
+        img: marvinLevel1Img,
+        width: 378,
+        height: 452,
+        shadowImg: marvinLevel1Stroke,
+        areaCoords: '275,54,94,368',
+        position: [48, 54.8],
+      },
+      // TODO: не настоящая картинка
       [TowerLevel.mid]: {
         img: partnerBankLevel2Img,
         width: 579,

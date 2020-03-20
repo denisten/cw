@@ -28,6 +28,7 @@ export enum TowersTypes {
   AUTO_FACTORY = 'autoFactory',
   RTK = 'rtk',
   PARTNER_BANK = 'partnerBank',
+  MARVIN = 'marvin',
 }
 const initState: TowersProgressStoreType = {
   [TowersTypes.MAIN_TOWER]: {
@@ -117,6 +118,10 @@ const initState: TowersProgressStoreType = {
   },
   [TowersTypes.PARTNER_BANK]: {
     level: TowerLevel.mid,
+    progress: 0,
+  },
+  [TowersTypes.MARVIN]: {
+    level: TowerLevel.low,
     progress: 0,
   },
 };

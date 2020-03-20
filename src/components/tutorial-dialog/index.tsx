@@ -81,7 +81,7 @@ const CustomButton = styled.div<ICustomButton>`
   border-radius: 2px;
   box-shadow: 1px 1px 4px 0 #bbc1c7, inset 0 1px 3px 0 rgba(255, 255, 255, 0.5);
   background-color: #02acc8;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: bold;
 `;
 
