@@ -231,7 +231,7 @@ const TowerInfoMenuElement = styled.div<{
   text-align: center;
   cursor: pointer;
   z-index: 2;
-  margin-right: 10%;
+  margin-right: 40px;
   color: #${props => (props.selected ? '001424' : '6e7782')};
   font-size: 20px;
   font-family: ${props =>
@@ -244,9 +244,9 @@ const TowerInfoMenuElement = styled.div<{
     color: black;
   }
 
-  @media (max-resolution: 0.8dppx) {
-    font-size: 1.5vh;
-  }
+  // @media (max-resolution: 0.8dppx) {
+  //   font-size: 1.5vh;
+  // }
 `;
 
 const StyleConfig = {
