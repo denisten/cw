@@ -33,7 +33,7 @@ const CoinsWrapper = styled.div`
   line-height: 1.33;
   letter-spacing: normal;
   color: #ffffff;
-  padding: 16px 0 0 100px;
+  padding: 16px 0 0 92px;
   box-sizing: border-box;
   display: flex;
 `;
