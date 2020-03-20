@@ -33,7 +33,7 @@ const CoinsWrapper = styled.div`
   line-height: 1.33;
   letter-spacing: normal;
   color: #ffffff;
-  padding: 16px 0 0 92px;
+  padding: 16px 0 0 96px;
   box-sizing: border-box;
   display: flex;
 `;
@@ -50,10 +50,6 @@ const NickNameWrapper = styled.div<INickNameWrapper>`
   justify-content: center;
   align-items: center;
   font-size: 32px;
-  font-weight: bold;
-  font-stretch: normal;
-  font-style: normal;
-  font-family: "MTSSansBold"; 
   line-height: 1;
   letter-spacing: normal;
   color: #0290a7;
@@ -76,6 +72,10 @@ const ProfileButtonWrapper = styled.div<IProfileButtonWrapper>`
   animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;
   animation-duration: 1s;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  font-family: 'MTSSansBold';
 `;
 
 const StyleConfig = {
