@@ -42,8 +42,12 @@ import theaterTowerLevel2Img from './theater/2.png';
 import theaterTowerLevel2Stroke from './theater/2-stroke.png';
 import theaterTowerLevel3Img from './theater/3.png';
 import theaterTowerLevel3Stroke from './theater/3-stroke.png';
+import TVTowerLevel1Stroke from './TV/1-stroke.png';
+import TVTowerLevel1Img from './TV/1.png';
 import TVTowerLevel2Stroke from './TV/2-stroke.png';
 import TVTowerLevel2Img from './TV/2.png';
+import TVTowerLevel3Stroke from './TV/3-stroke.png';
+import TVTowerLevel3Img from './TV/3.png';
 import stadiumLevel1Img from './stadium/1.png';
 import stadiumLevel2Img from './stadium/2.png';
 import stadiumLevel3Img from './stadium/3.png';
@@ -383,32 +387,30 @@ export class BuildingsService {
       title: 'Цифровое ТВ',
       coords: [2262, 1726],
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
-      maxLevel: TowerLevel.mid,
+      maxLevel: TowerLevel.high,
       [TowerLevel.low]: {
-        // TODO: не настоящая картинка
-        img: musicTowerLevel1Img,
-        width: 1,
-        height: 2,
-        shadowImg: musicTowerLevel1Stroke,
-        areaCoords: '93,286,362,1006',
-        position: [42.2, 36.9],
+        img: TVTowerLevel1Img,
+        width: 486,
+        height: 842,
+        shadowImg: TVTowerLevel1Stroke,
+        areaCoords: '49,52,434,789',
+        position: [25.74, 26.35],
       },
       [TowerLevel.mid]: {
         img: TVTowerLevel2Img,
         width: 474,
-        height: 1058,
+        height: 987,
         shadowImg: TVTowerLevel2Stroke,
-        areaCoords: '365,1006,120,255',
-        position: [21.6, 26.42],
+        areaCoords: '48,45,430,940',
+        position: [22.9, 26.42],
       },
       [TowerLevel.high]: {
-        // TODO: не настоящая картинка
-        img: eggTowerLevel3Img,
-        width: 384,
-        height: 531,
-        shadowImg: eggTowerLevel3Stroke,
-        areaCoords: '320,441,50,45',
-        position: [31.5, 50.9],
+        img: TVTowerLevel3Img,
+        width: 474,
+        height: 1058,
+        shadowImg: TVTowerLevel3Stroke,
+        areaCoords: '48,44,428,1016',
+        position: [21.6, 26.42],
       },
     },
     [TowersTypes.STADIUM]: {
