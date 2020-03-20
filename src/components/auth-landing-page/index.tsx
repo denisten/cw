@@ -1,13 +1,12 @@
 import { useEffect } from 'react';
 import {
   editIsAuthorizedFlag,
-  cancellAuthorization,
+  setCancellAuthorizationStatus,
 } from '../../effector/app-condition/events';
 
 const delayBeforeAuthWindowClose = 100;
 enum authStatuses {
   SUCCESS = 'success',
-  ACCESS_DENIED = 'access_denied',
 }
 
 export const AuthLandingPage = () => {
@@ -18,8 +17,8 @@ export const AuthLandingPage = () => {
 
     if (state === authStatuses.SUCCESS) {
       editIsAuthorizedFlag(true);
-    } else if (state === authStatuses.ACCESS_DENIED) {
-      cancellAuthorization(true);
+    } else if (state) {
+      setCancellAuthorizationStatus(state.replace('_', ''));
     }
     setTimeout(() => {
       window.close();

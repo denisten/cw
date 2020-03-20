@@ -8,7 +8,7 @@ import { ErrorBoundary } from './components/error-boundary';
 import { fetchUserData } from './effector/user-data/events';
 import { useStore } from 'effector-react';
 import { AppCondition } from './effector/app-condition/store';
-import { errorParsingHOF } from './utils/error-handler';
+import { errorStringsParsingHOF } from './utils/error-handler';
 
 export enum Routes {
   MAIN = '/',
@@ -16,17 +16,17 @@ export enum Routes {
 }
 
 export const App = () => {
-  const { isAuthorized, authCancelled } = useStore(AppCondition);
+  const { isAuthorized, authCancelledStatus } = useStore(AppCondition);
   useEffect(() => {
     if (isAuthorized) {
       fetchUserData('');
     }
   }, [isAuthorized]);
   useEffect(() => {
-    if (authCancelled) {
-      errorParsingHOF(1);
+    if (authCancelledStatus) {
+      errorStringsParsingHOF(authCancelledStatus);
     }
-  }, [authCancelled]);
+  }, [authCancelledStatus]);
   return (
     <Router history={history}>
       <ErrorBoundary />

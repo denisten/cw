@@ -1,4 +1,4 @@
-import { errorParsingHOF } from '../../utils/error-handler';
+import { errorCodesParsingHOF } from '../../utils/error-handler';
 import { AxiosResponse } from 'axios';
 
 export const withHandlingErrors = async <T>(
@@ -7,7 +7,7 @@ export const withHandlingErrors = async <T>(
   try {
     return await request();
   } catch (err) {
-    errorParsingHOF(err.response.status);
+    errorCodesParsingHOF(err.response.status);
     throw new Error('request error');
   }
 };

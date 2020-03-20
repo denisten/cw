@@ -27,5 +27,5 @@ export const menuClosed = AppDomain.event();
 export const updateScaleValue = AppDomain.event<ScaleValues>();
 export const showUpgradeIcon = AppDomain.event<TowersTypes>();
 export const editIsAuthorizedFlag = AppDomain.event<boolean>();
-export const cancellAuthorization = AppDomain.event<boolean>();
+export const setCancellAuthorizationStatus = AppDomain.event<string>();
 export const setAuthValue = AppDomain.event<AppConditionType>();
