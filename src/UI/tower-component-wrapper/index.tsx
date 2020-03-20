@@ -7,12 +7,8 @@ import { UpgradeButton } from '../update-button';
 import { Substrate } from '../substrate';
 import { upgradeTower } from '../../effector/towers-progress/events';
 import { maxProgressValue } from '../../effector/app-condition/store';
-import {
-  TutorialConditions,
-  TutorialStore,
-} from '../../effector/tutorial-store/store';
+import { TutorialConditions } from '../../effector/tutorial-store/store';
 import { nextTutorStep } from '../../effector/tutorial-store/events';
-import { useStore } from 'effector-react';
 
 const TowerStyledWrapper = styled.div<TowerStyledWrapperProps>`
   display: block;

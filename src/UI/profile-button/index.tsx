@@ -21,7 +21,7 @@ const CoinsWrapper = styled.div`
   background-image: url(${coinsBackground});
   background-size: 100%;
   width: 280px;
-  height: 50px;
+  height: 64px;
   position: relative;
   top: -11px;
   left: 3px;
@@ -82,7 +82,7 @@ const StyleConfig = {
   coins: {
     marginRight: '8px',
     position: 'relative',
-    bottom: '4px',
+    bottom: '8px',
   } as React.CSSProperties,
 };
 
