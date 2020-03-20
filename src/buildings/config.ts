@@ -278,7 +278,7 @@ export class BuildingsService {
     },
     [TowersTypes.OBSERVATORY]: {
       info: 'info',
-      title: 'Домашний интернет',
+      title: 'Обсерватория',
       coords: [2688, 1833],
       zIndex: ZIndexes.BUILDING_THREE_LEVEL,
       maxLevel: TowerLevel.mid,
