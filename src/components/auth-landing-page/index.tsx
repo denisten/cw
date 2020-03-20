@@ -12,9 +12,7 @@ enum authStatuses {
 export const AuthLandingPage = () => {
   useEffect(() => {
     const locationSearch = window.location.search;
-    const search = new URLSearchParams(locationSearch);
-    const state = search.get('state');
-
+    const state = new URLSearchParams(locationSearch).get('state');
     if (state === authStatuses.SUCCESS) {
       editIsAuthorizedFlag(true);
     } else if (state) {
