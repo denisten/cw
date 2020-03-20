@@ -16,13 +16,15 @@ import {
   TutorialConditions,
   TutorialStore,
 } from '../../effector/tutorial-store/store';
-import { nextTutorStep } from '../../effector/tutorial-store/events';
+import {
+  nextTutorStep,
+  pauseTutorialMode,
+} from '../../effector/tutorial-store/events';
 
 const StyledConfig = {
   exitButton: {
-    height: '70%',
-    top: 0,
-    right: -2,
+    top: '0%',
+    right: '-2%',
     hoverFlag: true,
   },
   mainWrapper: {
@@ -32,21 +34,21 @@ const StyledConfig = {
   },
   avatar: {
     height: '13%',
-    top: 4.7,
-    left: 36.8,
+    top: '4.7%',
+    left: '36.8%',
   },
   saveButton: {
     height: '7%',
-    bottom: 0,
-    left: 50,
+    bottom: '0%',
+    left: '50%',
     transformTranslate: '-50%, -50%',
     hoverFlag: true,
   },
   tutorialArrow: {
     direction: Directions.LEFT,
     range: 2,
-    top: 20,
-    left: 20,
+    top: '20%',
+    left: '20%',
   },
   rowWrapper: {
     width: '100%',
@@ -79,7 +81,12 @@ export const Menu: React.FC<{ displayFlag: boolean }> = ({ displayFlag }) => {
         <HeaderComponent {...StyledConfig.header}>
           <ExitButton
             {...StyledConfig.exitButton}
-            callBack={() => menuClosed()}
+            callBack={() => {
+              if (tutorialCondition) {
+                pauseTutorialMode();
+              }
+              menuClosed();
+            }}
           />
         </HeaderComponent>
         <RowWrapper {...StyledConfig.rowWrapper}>

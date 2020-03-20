@@ -27,17 +27,11 @@ services:
             - '6379:6379'
         container_name: cwmts_redis
     frontend:
-        working_dir: "/app"
-        entrypoint: "./docker/app/webpack/entrypoint.sh"
-        image: node:alpine
+        image: ${FRONTEND_IMAGE}
         container_name: cwmts_frontend
         restart: always
-        user: "${DOCKER_USER_ID}:${DOCKER_GROUP_ID}"
         ports:
             - "5000:5000"
-        volumes:
-            - "./:/app"
-
 
     #MySQL Service
     db:

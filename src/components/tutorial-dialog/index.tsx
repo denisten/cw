@@ -121,10 +121,8 @@ const delayBetweenLetterAppearing = 12;
 const styleConfig = {
   exitButton: {
     position: 'absolute',
-    top: 4,
-    right: 0,
-    height: '50px',
-    width: '50px',
+    top: '4%',
+    right: '0%',
   },
 };
 
