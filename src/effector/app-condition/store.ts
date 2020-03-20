@@ -11,6 +11,7 @@ import {
   showUpgradeIcon,
   editIsAuthorizedFlag,
   setAuthValue,
+  cancellAuthorization,
 } from './events';
 import { TowersTypes } from '../towers-progress/store';
 import { upgradeTower } from '../towers-progress/events';
@@ -32,6 +33,7 @@ const initState = {
   selectedMenuItem: null,
   upgradingTowerTitle: null,
   isAuthorized: false,
+  authCancelled: false,
 };
 
 const appConditionLocalStorage = connectLocalStorage('AppCondition').onChange(
@@ -85,7 +87,15 @@ export const AppCondition = AppDomain.store<AppConditionType>(initState)
     ...state,
     isAuthorized: payload,
   }))
-  .on(setAuthValue, (state, { isAuthorized }) => ({ ...state, isAuthorized }));
+  .on(cancellAuthorization, (state, payload) => ({
+    ...state,
+    authCancelled: payload,
+  }))
+  .on(setAuthValue, (state, { isAuthorized, authCancelled }) => ({
+    ...state,
+    isAuthorized,
+    authCancelled,
+  }));
 
 AppCondition.watch(appConditionLocalStorage);
 
@@ -96,4 +106,5 @@ export type AppConditionType = {
   scaleValue: ScaleValues;
   upgradingTowerTitle: TowersTypes | null;
   isAuthorized: boolean;
+  authCancelled: boolean;
 };
