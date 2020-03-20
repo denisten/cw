@@ -5,12 +5,26 @@ export const errorCodes: IErrorCode = {
   0: 'Нет соединения с интернетом',
 };
 
-export const errorParsingHOF = (errorCode: number) => {
+export const errorStrings: IErrorStrings = {
+  accessdenied: 'Доступ не предоставлен',
+};
+
+export const errorCodesParsingHOF = (errorCode: number) => {
   coughtError({
     text: errorCodes[errorCode],
   });
 };
 
+export const errorStringsParsingHOF = (errorString: string) => {
+  coughtError({
+    text: errorStrings[errorString],
+  });
+};
+
 interface IErrorCode {
   [key: number]: string;
+}
+
+interface IErrorStrings {
+  [key: string]: string;
 }

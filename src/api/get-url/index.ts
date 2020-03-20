@@ -3,9 +3,11 @@ import { apiRoutes } from '..';
 
 export const getUrl = async () => {
   const response = await get<IGetUrl>(apiRoutes.GET_URL);
-  return response.data.url;
+  return response.data.data.url;
 };
 
 interface IGetUrl {
-  url: string;
+  data: {
+    url: string;
+  };
 }
