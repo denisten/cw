@@ -5,6 +5,10 @@ import {
 } from '../../effector/app-condition/events';
 
 const delayBeforeAuthWindowClose = 100;
+enum authStatuses {
+  SUCCESS = 'success',
+  ACCESS_DENIED = 'access_denied',
+}
 
 export const AuthLandingPage = () => {
   useEffect(() => {
@@ -12,9 +16,9 @@ export const AuthLandingPage = () => {
     const search = new URLSearchParams(locationSearch);
     const state = search.get('state');
 
-    if (state === 'success') {
+    if (state === authStatuses.SUCCESS) {
       editIsAuthorizedFlag(true);
-    } else if (state === 'access_denied') {
+    } else if (state === authStatuses.ACCESS_DENIED) {
       cancellAuthorization(true);
     }
     setTimeout(() => {
