@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import {
   editIsAuthorizedFlag,
-  setCancellAuthorizationStatus,
+  setCancelAuthorizationStatus,
 } from '../../effector/app-condition/events';
 
 const delayBeforeAuthWindowClose = 100;
@@ -16,7 +16,7 @@ export const AuthLandingPage = () => {
     if (state === authStatuses.SUCCESS) {
       editIsAuthorizedFlag(true);
     } else if (state) {
-      setCancellAuthorizationStatus(state.replace('_', ''));
+      setCancelAuthorizationStatus(state.replace('_', ''));
     }
     setTimeout(() => {
       window.close();

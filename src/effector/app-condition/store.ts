@@ -11,7 +11,7 @@ import {
   showUpgradeIcon,
   editIsAuthorizedFlag,
   setAuthValue,
-  setCancellAuthorizationStatus,
+  setCancelAuthorizationStatus,
 } from './events';
 import { TowersTypes } from '../towers-progress/store';
 import { upgradeTower } from '../towers-progress/events';
@@ -87,7 +87,7 @@ export const AppCondition = AppDomain.store<AppConditionType>(initState)
     ...state,
     isAuthorized: payload,
   }))
-  .on(setCancellAuthorizationStatus, (state, payload) => ({
+  .on(setCancelAuthorizationStatus, (state, payload) => ({
     ...state,
     authCancelledStatus: payload,
   }))

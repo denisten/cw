@@ -9,7 +9,7 @@ import { ZIndexes } from '../root-component/z-indexes-enum';
 import { CustomButton } from '../../UI/button';
 import { ErrorWrapper } from './error-wrapper';
 import { errorCodes } from '../../utils/error-handler';
-import { setCancellAuthorizationStatus } from '../../effector/app-condition/events';
+import { setCancelAuthorizationStatus } from '../../effector/app-condition/events';
 
 const StyledConfig = {
   closeButton: {
@@ -33,7 +33,7 @@ export const ErrorBoundary = () => {
   const [networkStatus, setNetworkStatus] = useState(NetworkStatuses.ONLINE);
   const closeErrorPopup = () => {
     resetErrorStore();
-    setCancellAuthorizationStatus('');
+    setCancelAuthorizationStatus('');
   };
 
   const setNetworkStatusOffline = () => {
