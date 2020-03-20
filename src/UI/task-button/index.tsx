@@ -7,21 +7,27 @@ import styled from 'styled-components';
 
 const StyleConfig = {
   zIndex: 1,
-  top: '5%',
-  right: '5%',
+  top: '32px',
+  right: '36px',
   hoverFlag: true,
-  width: '10vw',
-  height: '5vh',
+  width: '240px',
+  height: '80px',
 };
 
 const SpanElem = styled.span`
-  font-size: 1.05vw;
   font-weight: bold;
-  color: #146977;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  font-family: MTSSansBold;
+  font-size: 28px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.14;
+  letter-spacing: normal;
+  color: #0290a7;
 `;
 
 export const TaskButton = () => {
