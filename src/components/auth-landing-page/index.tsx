@@ -1,15 +1,22 @@
 import { useEffect } from 'react';
-import { authCookieKey, CookieService } from '../../sevices/cookies';
-import { editIsAuthorizedFlag } from '../../effector/app-condition/events';
+import {
+  editIsAuthorizedFlag,
+  setCancelAuthorizationStatus,
+} from '../../effector/app-condition/events';
 
-const delayBeforeAuthWindowClose = 1000;
+const delayBeforeAuthWindowClose = 100;
+enum authStatuses {
+  SUCCESS = 'success',
+}
 
 export const AuthLandingPage = () => {
   useEffect(() => {
-    const cookie = CookieService.idToken;
-    if (cookie) {
-      localStorage.setItem(authCookieKey, cookie);
+    const locationSearch = window.location.search;
+    const state = new URLSearchParams(locationSearch).get('state');
+    if (state === authStatuses.SUCCESS) {
       editIsAuthorizedFlag(true);
+    } else if (state) {
+      setCancelAuthorizationStatus(state.replace('_', ''));
     }
     setTimeout(() => {
       window.close();
