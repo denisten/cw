@@ -10,8 +10,12 @@ import musicTowerLevel2Img from './music/2.png';
 import musicTowerLevel2Stroke from './music/2-stroke.png';
 import musicTowerLevel3Img from './music/3.png';
 import musicTowerLevel3Stroke from './music/3-stroke.png';
+import arenaTowerLevel1Img from './arena/1.png';
+import arenaTowerLevel1Stroke from './arena/1-stroke.png';
 import arenaTowerLevel2Img from './arena/2.png';
 import arenaTowerLevel2Stroke from './arena/2-stroke.png';
+import arenaTowerLevel3Img from './arena/3.png';
+import arenaTowerLevel3Stroke from './arena/3-stroke.png';
 import mollTowerLevel1Img from './moll/1.png';
 import mollTowerLevel2Img from './moll/2.png';
 import mollTowerLevel3Img from './moll/3.png';
@@ -157,32 +161,30 @@ export class BuildingsService {
       title: 'МТС Арена',
       coords: [3537, 1408],
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
-      maxLevel: TowerLevel.mid,
+      maxLevel: TowerLevel.high,
       [TowerLevel.low]: {
-        // TODO: не настоящая картинка
-        img: musicTowerLevel1Img,
-        width: 1,
-        height: 2,
-        shadowImg: musicTowerLevel1Stroke,
-        areaCoords: '128,57,418,291',
-        position: [42.2, 36.9],
+        img: arenaTowerLevel1Img,
+        width: 566,
+        height: 371,
+        shadowImg: arenaTowerLevel1Stroke,
+        areaCoords: '48,47,514,314',
+        position: [23.3, 42],
       },
       [TowerLevel.mid]: {
         img: arenaTowerLevel2Img,
-        width: 650,
-        height: 422,
+        width: 640,
+        height: 425,
         shadowImg: arenaTowerLevel2Stroke,
-        areaCoords: '590,60,64,365',
-        position: [22.3, 41.5],
+        areaCoords: '52,47,583,372',
+        position: [22.3, 41.3],
       },
       [TowerLevel.high]: {
-        // TODO: не настоящая картинка
-        img: musicTowerLevel3Img,
-        width: 1,
-        height: 2,
-        shadowImg: musicTowerLevel3Stroke,
-        areaCoords: '84,118,319,659',
-        position: [40.8, 37.4],
+        img: arenaTowerLevel3Img,
+        width: 699,
+        height: 466,
+        shadowImg: arenaTowerLevel3Stroke,
+        areaCoords: '44,53,649,413',
+        position: [21.78, 41.3],
       },
     },
     [TowersTypes.MOLL]: {

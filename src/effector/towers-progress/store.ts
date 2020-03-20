@@ -39,7 +39,7 @@ const initState: TowersProgressStoreType = {
     progress: 0,
   },
   [TowersTypes.ARENA]: {
-    level: TowerLevel.mid,
+    level: TowerLevel.low,
     progress: 0,
   },
   [TowersTypes.MOLL]: {
