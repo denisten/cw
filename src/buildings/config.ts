@@ -18,6 +18,10 @@ import mollTowerLevel3Img from './moll/3.png';
 import mollTowerLevel1Stroke from './moll/1-stroke.png';
 import mollTowerLevel2Stroke from './moll/2-stroke.png';
 import mollTowerLevel3Stroke from './moll/3-stroke.png';
+import eggTowerLevel1Img from './egg/1.png';
+import eggTowerLevel1Stroke from './egg/1-stroke.png';
+import eggTowerLevel2Img from './egg/2.png';
+import eggTowerLevel2Stroke from './egg/2-stroke.png';
 import eggTowerLevel3Img from './egg/3.png';
 import eggTowerLevel3Stroke from './egg/3-stroke.png';
 import libraryTowerLevel1Img from './library/1.png';
@@ -219,30 +223,28 @@ export class BuildingsService {
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
       [TowerLevel.low]: {
-        // TODO: не настоящая картинка
-        img: musicTowerLevel1Img,
-        width: 1,
-        height: 2,
-        shadowImg: musicTowerLevel1Stroke,
-        areaCoords: '128,57,418,291',
-        position: [42.2, 36.9],
+        img: eggTowerLevel1Img,
+        width: 331,
+        height: 398,
+        shadowImg: eggTowerLevel1Stroke,
+        areaCoords: '44,45,285,351',
+        position: [34.1, 51.3],
       },
       [TowerLevel.mid]: {
-        // TODO: не настоящая картинка
-        img: mollTowerLevel2Img,
-        width: 604,
-        height: 468,
-        shadowImg: mollTowerLevel2Stroke,
-        areaCoords: '74,380,544,63',
-        position: [22, 39.9],
+        img: eggTowerLevel2Img,
+        width: 347,
+        height: 478,
+        shadowImg: eggTowerLevel2Stroke,
+        areaCoords: '45,45,295,432',
+        position: [32.6, 51.3],
       },
       [TowerLevel.high]: {
         img: eggTowerLevel3Img,
         width: 384,
         height: 531,
         shadowImg: eggTowerLevel3Stroke,
-        areaCoords: '320,441,50,45',
-        position: [31.5, 50.9],
+        areaCoords: '43,36,322,483',
+        position: [31.6, 51.1],
       },
     },
     [TowersTypes.LIBRARY]: {
