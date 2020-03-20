@@ -26,7 +26,7 @@ const SpanElem = styled.span`
   font-stretch: normal;
   font-style: normal;
   line-height: 1.14;
-  letter-spacing: normal;
+  letter-spacing: -0.5px;
   color: #0290a7;
 `;
 
