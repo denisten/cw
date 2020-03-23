@@ -1,7 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 
 export const useMoveTo = (initWidth: number) => {
-  const moveElem = useRef<HTMLDivElement | null>(null);
   const [state, setState] = useState({
     left: 0,
     width: initWidth,
@@ -9,7 +8,6 @@ export const useMoveTo = (initWidth: number) => {
     hWidth: 0,
     hovered: false,
   });
-
   const handleMouseClick = (target: HTMLDivElement | null) => {
     if (!target) return;
     setState(state => ({
@@ -17,25 +15,7 @@ export const useMoveTo = (initWidth: number) => {
       left: target.offsetLeft,
       width: target.offsetWidth,
     }));
-
-    moveElem.current = target;
   };
-
-  const setNewMoveDataInResize = () => {
-    if (moveElem.current) {
-      setTimeout(() => {
-        handleMouseClick(moveElem.current);
-      }, 1000);
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener('resize', setNewMoveDataInResize);
-    return () => {
-      window.removeEventListener('resize', setNewMoveDataInResize);
-    };
-  }, []);
-
   const handleMouseOver = (e: React.MouseEvent) => {
     const target = e.target as HTMLDivElement;
     setState(state => ({
