@@ -9,6 +9,7 @@ import { fetchUserData } from './effector/user-data/events';
 import { useStore } from 'effector-react';
 import { AppCondition } from './effector/app-condition/store';
 import { errorStringsParsingHOF } from './utils/error-handler';
+import { turnOffTutorialMode } from './effector/tutorial-store/events';
 
 export enum Routes {
   MAIN = '/',
@@ -20,6 +21,7 @@ export const App = () => {
   useEffect(() => {
     if (isAuthorized) {
       fetchUserData('');
+      turnOffTutorialMode();
     }
   }, [isAuthorized]);
   useEffect(() => {

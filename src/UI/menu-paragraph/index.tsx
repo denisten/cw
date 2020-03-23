@@ -31,6 +31,8 @@ const MenuParagraphWrapper = styled.div<IMenuParagraphWrapper>`
   background-color: ${props => (props.isItemSelected ? '#768c9b' : 'none')};
   padding-left: 80px;
   box-sizing: border-box;
+  opacity: ${props => (props.availableForClick ? '1' : '0.3')};
+  pointer-events: ${props => (props.availableForClick ? 'auto' : 'none')};
 
   p {
     &:hover {
@@ -63,15 +65,17 @@ export const MenuNavigationElement: React.FC<IMenuParagraph> = ({
   onClickHandler,
   haveNotify,
   pulseAnim,
+  availableForClick,
   ...props
 }) => {
   return (
     <MenuParagraphWrapper
+      availableForClick={availableForClick}
       menuElement={menuElement}
       isItemSelected={isItemSelected}
       {...props}
     >
-      <MenuParagraphTitleWrapper onClick={onClickHandler} pulseAnim={pulseAnim}>
+      <MenuParagraphTitleWrapper onClick={onClickHandler}>
         {TranslatedMenuItems[menuElement]}
       </MenuParagraphTitleWrapper>
       {haveNotify ? <Notify /> : null}
@@ -80,16 +84,18 @@ export const MenuNavigationElement: React.FC<IMenuParagraph> = ({
 };
 
 interface IMenuParagraphTitleWrapper {
-  pulseAnim: boolean;
+  pulseAnim?: boolean;
 }
 
 interface IMenuParagraphWrapper {
   menuElement: MenuItems;
   isItemSelected: boolean;
+  availableForClick?: boolean;
 }
 
 interface IMenuParagraph extends IMenuParagraphWrapper {
   onClickHandler: () => void;
   haveNotify: boolean;
-  pulseAnim: boolean;
+  pulseAnim?: boolean;
+  availableForClick?: boolean;
 }

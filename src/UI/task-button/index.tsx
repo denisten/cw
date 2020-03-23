@@ -4,6 +4,8 @@ import taskImg from './task-img.png';
 import { menuOpened } from '../../effector/app-condition/events';
 import { MenuItems } from '../menu-paragraph';
 import styled from 'styled-components';
+import { useStore } from 'effector-react';
+import { TutorialStore } from '../../effector/tutorial-store/store';
 
 const StyleConfig = {
   zIndex: 1,
@@ -31,12 +33,13 @@ const SpanElem = styled.span`
 `;
 
 export const TaskButton = () => {
+  const { tutorialCondition } = useStore(TutorialStore);
   return (
     <ImgWrapper
       src={taskImg}
       {...StyleConfig}
       callBack={() => {
-        menuOpened(MenuItems.TASKS);
+        !tutorialCondition && menuOpened(MenuItems.TASKS);
       }}
     >
       <SpanElem>ЗАДАНИЯ</SpanElem>

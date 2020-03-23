@@ -32,17 +32,29 @@ export const MenuItemsComponent: React.FC<MenuItemsComponentProps> = ({
   tutorialCondition,
 }) => {
   const MenuItemsObjectValues = Object.values(MenuItems) as MenuItems[];
+
+  const checkAvailableForClickElem = (elem: string) => {
+    if (!tutorialCondition) return true;
+    else if (
+      elem === MenuItems.SETTINGS &&
+      (tutorialCondition === TutorialConditions.PULSE_EDIT_CHANGE_CITY_NAME ||
+        tutorialCondition === TutorialConditions.PULSE_SAVE_CHANGE_CITY_NAME)
+    ) {
+      return true;
+    } else if (
+      elem === MenuItems.PROFILE &&
+      tutorialCondition === TutorialConditions.PULSE_AUTH_BUTTON
+    ) {
+      return true;
+    }
+  };
   return (
     <MenuWrapper>
       {MenuItemsObjectValues.map(el => {
         return (
           <MenuNavigationElement
-            pulseAnim={
-              el === MenuItems.SETTINGS &&
-              tutorialCondition ===
-                TutorialConditions.PULSE_SETTINGS_CHANGE_CITY_NAME
-            }
             key={el}
+            availableForClick={checkAvailableForClickElem(el)}
             menuElement={el}
             isItemSelected={selectedMenuItem === el}
             haveNotify={checkHaveNotify(currentNotifysList, el)}
