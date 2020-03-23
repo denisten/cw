@@ -318,14 +318,6 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
     TowerInfoContentValues.DESCRIPTION
   );
   const [towerTutorialStep, setTowerTutorialStep] = useState(0);
-  useEffect(() => {
-    if (
-      LocalTowerProgressStore[towerTitle].progress >= maxProgressValue &&
-      tutorialCondition
-    ) {
-      nextTutorStep();
-    }
-  }, [LocalTowerProgressStore[towerTitle].progress]);
 
   const handleClick = () => {
     if (towerTitle) {
@@ -384,6 +376,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
       showChat();
     } else if (towerTutorialStep === TowerTutorialSteps.CHAT_OPENED) {
       showTasks();
+      nextTutorStep();
     }
   };
   const { money } = useStore(UserDataStore);
