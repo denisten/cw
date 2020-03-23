@@ -388,7 +388,7 @@ export class BuildingsService {
       info: 'info',
       title: 'Цифровое ТВ',
       coords: [2262, 1726],
-      zIndex: ZIndexes.BUILDING_TWO_LEVEL,
+      zIndex: ZIndexes.BUILDING_THREE_LEVEL,
       maxLevel: TowerLevel.high,
       [TowerLevel.low]: {
         img: TVTowerLevel1Img,
