@@ -8,9 +8,13 @@ import {
   turnOffTutorialMode,
 } from '../../effector/tutorial-store/events';
 import { useStore } from 'effector-react';
-import { TutorialStore } from '../../effector/tutorial-store/store';
+import {
+  TutorialConditions,
+  TutorialStore,
+} from '../../effector/tutorial-store/store';
 import { ExitButton } from '../../UI/exit-button';
 import { TutorialDialogTextsService } from './dialog-messages-service';
+import { UserDataStore } from '../../effector/user-data/store';
 
 const TutorialDialogWrapper = styled.div`
   width: 1128px;
@@ -68,6 +72,17 @@ const TutorialDialogText = styled.span`
   padding-right: 1%;
   box-sizing: border-box;
   margin-bottom: 20px;
+`;
+
+const WorldNameWrapper = styled.span`
+  color: #01acc8;
+  font-size: 20px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.4;
+  letter-spacing: normal;
+  font-family: MTSSansBold;
 `;
 
 const CustomButton = styled.div<ICustomButton>`
@@ -130,6 +145,7 @@ export const TutorialDialog: React.FC = () => {
   const [dialogStep, setDialogStep] = useState(0);
   const [isPrinting, setIsPrinting] = useState(false);
   const { tutorialCondition } = useStore(TutorialStore);
+  const { worldName } = useStore(UserDataStore);
 
   const {
     messages,
@@ -177,7 +193,6 @@ export const TutorialDialog: React.FC = () => {
   const handleBackButtonClick = () => {
     if (dialogStep) setDialogStep(dialogStep - 1);
   };
-
   return (
     <MainWrapper>
       <TutorialDialogWrapper>
@@ -188,7 +203,14 @@ export const TutorialDialog: React.FC = () => {
         <SupportImgWrapper src={supportImg} />
         <TextWrapper>
           <TutorialDialogTitle>{titles[dialogStep]}</TutorialDialogTitle>
-          <TutorialDialogText>{printedText}</TutorialDialogText>
+          <TutorialDialogText>
+            <WorldNameWrapper>
+              {tutorialCondition === TutorialConditions.DIALOG_CONFIRM_CITY_NAME
+                ? worldName
+                : ''}
+            </WorldNameWrapper>
+            {printedText}
+          </TutorialDialogText>
           <ButtonWrapper>
             <BackButton
               borderFlag={!!dialogStep}
