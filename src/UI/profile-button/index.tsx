@@ -88,18 +88,19 @@ const StyleConfig = {
 
 export const ProfileButton: React.FC<IProfileButton> = ({
   tutorialCondition,
-  tutorialPause,
 }) => {
   const handleClick = () => {
-    if (!tutorialCondition || tutorialPause) {
+    if (!tutorialCondition) {
       menuOpened(MenuItems.PROFILE);
       extraTowerInfoModalClosed();
       return;
-    }
-    if (
-      tutorialCondition === TutorialConditions.PULSE_MENU_CHANGE_CITY_NAME ||
-      tutorialCondition === TutorialConditions.PULSE_MENU_AUTH
+    } else if (
+      tutorialCondition === TutorialConditions.PULSE_MENU_CHANGE_CITY_NAME
     ) {
+      menuOpened(MenuItems.SETTINGS);
+      extraTowerInfoModalClosed();
+      nextTutorStep();
+    } else if (tutorialCondition === TutorialConditions.PULSE_MENU_AUTH) {
       menuOpened(MenuItems.PROFILE);
       extraTowerInfoModalClosed();
       nextTutorStep();
