@@ -321,7 +321,7 @@ export class BuildingsService {
     },
     [TowersTypes.TARIFF]: {
       info: 'info',
-      title: 'Мой тариф',
+      title: 'Мобильный интернет',
       coords: [3867, 1809],
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.mid,

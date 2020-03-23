@@ -1,5 +1,4 @@
 import { TutorialConditions } from '../../effector/tutorial-store/store';
-import { modifyTutorialData } from '../../utils/modify-tutorial-data';
 
 export enum TutorialDialogsValues {
   DIALOG_HELLO = 'DIALOG_HELLO',
@@ -11,8 +10,8 @@ class TutorialDialogTextsService {
   private readonly _tutorialContentData: ITutorialContentData = {
     [TutorialConditions.DIALOG_HELLO]: {
       messages: [
-        'Этот мир – твое отражение! Тебя ждут интересные миссии, выполняя которые ты построишь персональную вселенную.',
-        'Мир будет прекрасен! Но надо постараться. Впереди еще куча дел. Кстати, за каждое выполненное задание ты получишь валюту. Не забывай ее собирать!',
+        'Этот мир – станет твоим отражением! Тебя ждут интересные миссии, выполняя которые ты построишь персональную вселенную.',
+        'Выполняй задания, получай виртуальную валюту и улучшай здания.',
         'Но сначала назови свой мир!',
       ],
       titles: ['Привет!', 'Привет!', 'Привет!'],
@@ -20,23 +19,23 @@ class TutorialDialogTextsService {
     },
     [TutorialConditions.DIALOG_CONFIRM_CITY_NAME]: {
       messages: [
-        ' будет отличным местом! Но нет предела совершенству. первая миссия - чтобы улучшить здание, исследуй все корпуса.',
+        ' будет отличным местом! Заходи и делай свой мир лучше каждый день.',
       ],
-      titles: ['Начать миссию!'],
+      titles: ['Класс!'],
       buttonContent: ['Начать миссию!'],
     },
     [TutorialConditions.DIALOG_AUTH]: {
       messages: [
         'Чтобы сохранить твои достижения и приумножить будущие успехи нажми кнопку "Вперед" и следуй дальшейшим инструкциям.',
       ],
-      titles: ['Начать миссию!'],
+      titles: ['Отличная работа!'],
       buttonContent: ['Вперед'],
     },
   };
 
   getCurrentText(condition: TutorialConditions): IDialogData {
     const content = (condition as unknown) as TutorialDialogsValues;
-    return modifyTutorialData(this._tutorialContentData[content], condition);
+    return this._tutorialContentData[content];
   }
 }
 const instance = new TutorialDialogTextsService();
