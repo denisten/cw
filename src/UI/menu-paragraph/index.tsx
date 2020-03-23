@@ -64,7 +64,7 @@ export const MenuNavigationElement: React.FC<IMenuParagraph> = ({
   isItemSelected,
   onClickHandler,
   haveNotify,
-  pulseAnim,
+  pulseAnim = false,
   availableForClick,
   ...props
 }) => {
@@ -75,7 +75,7 @@ export const MenuNavigationElement: React.FC<IMenuParagraph> = ({
       isItemSelected={isItemSelected}
       {...props}
     >
-      <MenuParagraphTitleWrapper onClick={onClickHandler}>
+      <MenuParagraphTitleWrapper pulseAnim={pulseAnim} onClick={onClickHandler}>
         {TranslatedMenuItems[menuElement]}
       </MenuParagraphTitleWrapper>
       {haveNotify ? <Notify /> : null}

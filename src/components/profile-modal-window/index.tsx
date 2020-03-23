@@ -72,9 +72,8 @@ export const Menu: React.FC<{ displayFlag: boolean }> = ({ displayFlag }) => {
             <ExitButton
               {...StyledConfig.exitButton}
               callBack={() => {
-                if (tutorialCondition) {
-                  pauseTutorialMode();
-                }
+                pauseTutorialMode();
+
                 menuClosed();
               }}
             />
