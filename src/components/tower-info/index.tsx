@@ -244,9 +244,9 @@ const TowerInfoMenuElement = styled.div<{
     color: black;
   }
 
-  @media (max-resolution: 0.8dppx) {
-    font-size: 1.5vh;
-  }
+  // @media (max-resolution: 0.8dppx) {
+  //   font-size: 1.5vh;
+  // }
 `;
 
 const StyleConfig = {
