@@ -264,17 +264,20 @@ export const Profile = React.memo(() => {
             style={{ ...StyledConfig.nonAuthorizedAvatar }}
             alt="profile"
           />
-          <CustomButton
-            animFlag={
-              tutorialCondition === TutorialConditions.PULSE_AUTH_BUTTON
-            }
-            callback={() => {
-              if (tutorialCondition === TutorialConditions.PULSE_AUTH_BUTTON)
-                turnOffTutorialMode();
-              handleAuthButtonClick();
-            }}
-            {...StyledConfig.enterButton}
-          />
+          {!tutorialCondition ||
+          tutorialCondition === TutorialConditions.PULSE_AUTH_BUTTON ? (
+            <CustomButton
+              animFlag={
+                tutorialCondition === TutorialConditions.PULSE_AUTH_BUTTON
+              }
+              callback={() => {
+                if (tutorialCondition === TutorialConditions.PULSE_AUTH_BUTTON)
+                  turnOffTutorialMode();
+                handleAuthButtonClick();
+              }}
+              {...StyledConfig.enterButton}
+            />
+          ) : null}
         </NonAuthorizedPanel>
       )}
     </ProfileWrapper>
