@@ -11,6 +11,8 @@ import { useStore } from 'effector-react';
 import { TutorialStore } from '../../effector/tutorial-store/store';
 import { ExitButton } from '../../UI/exit-button';
 import { TutorialDialogTextsService } from './dialog-messages-service';
+import { Sprite } from '../sprite';
+import supportSprite from '../../img/assistant/assistant.png';
 
 const TutorialDialogWrapper = styled.div`
   width: 1128px;
@@ -184,6 +186,16 @@ export const TutorialDialog: React.FC = () => {
         <ExitButton
           callBack={handleExitButtonClick}
           {...styleConfig.exitButton}
+        />
+        <Sprite
+          img={supportSprite}
+          fullImgWidth={9968}
+          fullImgHeight={1060}
+          canvasWidth={300}
+          canvasHeight={400}
+          numberOfFramesX={34}
+          numberOfFramesY={3}
+          ticksPerFrame={1}
         />
         <SupportImgWrapper src={supportImg} />
         <TextWrapper>
