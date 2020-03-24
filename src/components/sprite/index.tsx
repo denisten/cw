@@ -13,7 +13,7 @@ export const Sprite = memo((props: ISprite) => {
     ticksPerFrame,
   } = props;
 
-  const myRef = useRef<HTMLCanvasElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   let tickCount = 0,
     frameIndexX = 0,
@@ -82,7 +82,7 @@ export const Sprite = memo((props: ISprite) => {
     start();
   }, []);
 
-  return <canvas width={canvasWidth} height={canvasHeight} ref={myRef} />;
+  return <canvas width={canvasWidth} height={canvasHeight} ref={canvasRef} />;
 });
 
 interface ISprite {
