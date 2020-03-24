@@ -41,7 +41,7 @@ export const Sprite = memo((props: ISprite) => {
   };
 
   const render = () => {
-    const container = myRef.current;
+    const container = canvasRef.current;
     if (container) {
       const ctx = container.getContext('2d');
       if (ctx) {

@@ -139,6 +139,15 @@ const styleConfig = {
     top: '4%',
     right: '0%',
   },
+  sprite: {
+    fullImgWidth: 2240,
+    fullImgHeight: 2736,
+    canvasWidth: 224,
+    canvasHeight: 304,
+    numberOfFramesX: 10,
+    numberOfFramesY: 9,
+    ticksPerFrame: 2,
+  },
 };
 
 export const TutorialDialog: React.FC = () => {
@@ -202,16 +211,7 @@ export const TutorialDialog: React.FC = () => {
           {...styleConfig.exitButton}
         />
         <SupportSpriteWrapper>
-          <Sprite
-            img={supportSprite}
-            fullImgWidth={2240}
-            fullImgHeight={2736}
-            canvasWidth={224}
-            canvasHeight={304}
-            numberOfFramesX={10}
-            numberOfFramesY={9}
-            ticksPerFrame={2}
-          />
+          <Sprite img={supportSprite} {...styleConfig.sprite} />
         </SupportSpriteWrapper>
         <TextWrapper>
           <TutorialDialogTitle>{titles[dialogStep]}</TutorialDialogTitle>
