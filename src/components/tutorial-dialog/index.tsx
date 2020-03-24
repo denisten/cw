@@ -162,6 +162,7 @@ export const TutorialDialog: React.FC = () => {
     buttonContent,
     titles,
     reload,
+    action,
   } = TutorialDialogTextsService.getCurrentText(tutorialCondition);
 
   const currentMessage = messages[dialogStep];
@@ -193,6 +194,9 @@ export const TutorialDialog: React.FC = () => {
 
   const handleClick = () => {
     if (!isPrinting) {
+      if (action && action.step === dialogStep) {
+        action.callBack();
+      }
       if (messages.length !== dialogStep + 1) {
         setDialogStep(dialogStep + 1);
       } else {
