@@ -33,7 +33,7 @@ const TutorialDialogWrapper = styled.div`
   position: relative;
 `;
 
-const SupportImgWrapper = styled.div`
+const SupportSpriteWrapper = styled.div`
   position: relative;
   margin-right: 3%;
   width: auto;
@@ -201,7 +201,7 @@ export const TutorialDialog: React.FC = () => {
           callBack={handleExitButtonClick}
           {...styleConfig.exitButton}
         />
-        <SupportImgWrapper>
+        <SupportSpriteWrapper>
           <Sprite
             img={supportSprite}
             fullImgWidth={2240}
@@ -212,7 +212,7 @@ export const TutorialDialog: React.FC = () => {
             numberOfFramesY={9}
             ticksPerFrame={2}
           />
-        </SupportImgWrapper>
+        </SupportSpriteWrapper>
         <TextWrapper>
           <TutorialDialogTitle>{titles[dialogStep]}</TutorialDialogTitle>
           <TutorialDialogText>
