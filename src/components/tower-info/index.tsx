@@ -39,6 +39,7 @@ import {
 import { UserDataStore } from '../../effector/user-data/store';
 import { useMoveTo } from '../../hooks/useMoveTo';
 import { MoveDivider } from '../../UI/move-divider';
+import { device } from '../../UI/media';
 
 export type ModalWindowProps = {
   opened?: boolean;
@@ -108,6 +109,10 @@ const ModalWindowContentWrapper = styled.div`
   background-size: 100% 100%;
   background-repeat: no-repeat;
 
+  @media ${device.laptopS} {
+    padding: 20px;
+  }
+
   @media (max-resolution: 0.8dppx) {
     padding: 3vh;
   }
@@ -131,6 +136,10 @@ const TowerInfoHeader = styled.div`
 
   @media (max-resolution: 0.8dppx) {
     margin-bottom: 2vh;
+  }
+
+  @media ${device.laptopS} {
+    margin-bottom: 30px;
   }
 `;
 
@@ -271,7 +280,6 @@ const StyleConfig = {
     height: '40px',
     content: 'Что дальше?',
     fontSize: '16px',
-    margin: '30px 0',
     color: '#02adc9',
     position: 'relative',
   },
