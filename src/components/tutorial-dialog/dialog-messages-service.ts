@@ -1,4 +1,5 @@
 import { TutorialConditions } from '../../effector/tutorial-store/store';
+import { openMainTower } from '../../utils/open-main-tower';
 
 export enum TutorialDialogsValues {
   DIALOG_HELLO = 'DIALOG_HELLO',
@@ -30,6 +31,7 @@ class TutorialDialogTextsService {
       messages: ['Первая миссия – исследуй здание, чтобы улучшить его.'],
       titles: ['За работу…'],
       buttonContent: ['Начать миссию!'],
+      action: { step: 0, callBack: openMainTower },
     },
 
     [TutorialConditions.DIALOG_AUTH]: {
@@ -56,4 +58,5 @@ export interface IDialogData {
   titles: string[];
   buttonContent: string[];
   reload?: boolean;
+  action?: { step: number; callBack: () => void };
 }

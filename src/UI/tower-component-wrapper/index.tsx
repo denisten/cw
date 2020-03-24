@@ -81,10 +81,6 @@ export const TowerWrapper = memo(
         tutorialCondition === TutorialConditions.ARROW_TOWER_INFO &&
         tutorialTower
       ) {
-        extraTowerInfoModalOpened({
-          coords: towerCoords,
-          towerTitle,
-        });
         nextTutorStep();
       } else if (!tutorialCondition || tutorialPause) {
         extraTowerInfoModalOpened({
@@ -157,7 +153,9 @@ export const TowerWrapper = memo(
             shape="rect"
           />
         </map>
-        {hoverState ? <img src={shadowImg} alt="shadow" /> : null}
+        {hoverState || focusOnTowerTitle === towerTitle ? (
+          <img src={shadowImg} alt="shadow" />
+        ) : null}
       </TowerStyledWrapper>
     );
   }
