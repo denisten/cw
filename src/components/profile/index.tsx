@@ -275,8 +275,8 @@ export const Profile = React.memo(() => {
                   tutorialCondition === TutorialConditions.PULSE_AUTH_BUTTON
                 ) {
                   turnOffTutorialMode();
-                  handleAuthButtonClick();
                 }
+                handleAuthButtonClick();
               }}
               {...StyledConfig.enterButton}
             />
