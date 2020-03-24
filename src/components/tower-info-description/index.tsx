@@ -5,6 +5,7 @@ import {
   TutorialStore,
   TutorialConditions,
 } from '../../effector/tutorial-store/store';
+import { device } from '../../UI/media';
 
 const TowerInfoDescriptionWrapper = styled.div<{ fullView?: boolean }>`
   color: #001424;
@@ -14,9 +15,15 @@ const TowerInfoDescriptionWrapper = styled.div<{ fullView?: boolean }>`
   position: relative;
   font-family: 'MTSSansRegular';
   letter-spacing: 0;
+  margin-bottom: 30px;
 
   @media (max-resolution: 0.8dppx) {
     font-size: 1.5vh;
+  }
+
+  @media ${device.laptopS} {
+    height: 280px;
+    margin-bottom: 15px;
   }
 
   span {
