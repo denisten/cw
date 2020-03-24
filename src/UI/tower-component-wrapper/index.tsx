@@ -130,7 +130,9 @@ export const TowerWrapper: React.FC<TypeWrapperProps> = ({
           shape="rect"
         />
       </map>
-      {hoverState ? <img src={shadowImg} alt="shadow" /> : null}
+      {hoverState || focusOnTowerTitle === towerTitle ? (
+        <img src={shadowImg} alt="shadow" />
+      ) : null}
     </TowerStyledWrapper>
   );
 };
