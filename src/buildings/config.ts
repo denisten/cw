@@ -841,6 +841,10 @@ export class BuildingsService {
   getConfigForTower = (towerId: TowersTypes) => {
     return this._config[towerId];
   };
+
+  getMainTowerConfig = () => {
+    return this._config[TowersTypes.MAIN_TOWER];
+  };
 }
 
 type BuildingServiceConfigTypes = Record<

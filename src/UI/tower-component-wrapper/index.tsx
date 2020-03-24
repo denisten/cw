@@ -63,10 +63,6 @@ export const TowerWrapper: React.FC<TypeWrapperProps> = ({
       tutorialCondition === TutorialConditions.ARROW_TOWER_INFO &&
       tutorialTower
     ) {
-      extraTowerInfoModalOpened({
-        coords: towerCoords,
-        towerTitle,
-      });
       nextTutorStep();
     } else if (!tutorialCondition || tutorialPause) {
       extraTowerInfoModalOpened({
