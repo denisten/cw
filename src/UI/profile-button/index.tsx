@@ -106,7 +106,7 @@ export const ProfileButton: React.FC<IProfileButton> = ({
       nextTutorStep();
     }
   };
-  const { money } = useStore(UserDataStore);
+  const { money, name } = useStore(UserDataStore);
   return (
     <ProfileButtonWrapper
       onClick={handleClick}
@@ -115,7 +115,7 @@ export const ProfileButton: React.FC<IProfileButton> = ({
         tutorialCondition === TutorialConditions.PULSE_MENU_AUTH
       }
     >
-      <NickNameWrapper content="Nickname" />
+      <NickNameWrapper content={name || 'Nickname'} />
       <CoinsWrapper>
         <img src={coins} alt="coins" style={StyleConfig.coins} />
         {money}
