@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import supportImg from './support.png';
 import { ZIndexes } from '../root-component/z-indexes-enum';
 import tutorialBackground from './tutorial-background.svg';
 import {
@@ -14,6 +13,8 @@ import {
 } from '../../effector/tutorial-store/store';
 import { ExitButton } from '../../UI/exit-button';
 import { TutorialDialogTextsService } from './dialog-messages-service';
+import { Sprite } from '../sprite';
+import supportSprite from '../../img/assistant/assistant.png';
 import { UserDataStore } from '../../effector/user-data/store';
 
 const TutorialDialogWrapper = styled.div`
@@ -32,12 +33,12 @@ const TutorialDialogWrapper = styled.div`
   position: relative;
 `;
 
-const SupportImgWrapper = styled.img`
+const SupportSpriteWrapper = styled.div`
   position: relative;
   margin-right: 3%;
   width: auto;
   height: 100%;
-  bottom: 12px;
+  bottom: 56px;
 `;
 
 const TextWrapper = styled.div`
@@ -138,6 +139,15 @@ const styleConfig = {
     top: '4%',
     right: '0%',
   },
+  sprite: {
+    fullImgWidth: 2240,
+    fullImgHeight: 2736,
+    canvasWidth: 224,
+    canvasHeight: 304,
+    numberOfFramesX: 10,
+    numberOfFramesY: 9,
+    ticksPerFrame: 2,
+  },
 };
 
 export const TutorialDialog: React.FC = () => {
@@ -200,7 +210,9 @@ export const TutorialDialog: React.FC = () => {
           callBack={handleExitButtonClick}
           {...styleConfig.exitButton}
         />
-        <SupportImgWrapper src={supportImg} />
+        <SupportSpriteWrapper>
+          <Sprite img={supportSprite} {...styleConfig.sprite} />
+        </SupportSpriteWrapper>
         <TextWrapper>
           <TutorialDialogTitle>{titles[dialogStep]}</TutorialDialogTitle>
           <TutorialDialogText>
