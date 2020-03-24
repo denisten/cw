@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo, createRef } from 'react';
+import React, { useState, useMemo, createRef } from 'react';
 import styled from 'styled-components';
 import { ExitButton } from '../../UI/exit-button';
 import {
@@ -7,10 +7,7 @@ import {
 } from '../../effector/app-condition/events';
 import { addProgressPoints } from '../../effector/towers-progress/events';
 import { useStore } from 'effector-react';
-import {
-  AppCondition,
-  maxProgressValue,
-} from '../../effector/app-condition/store';
+import { AppCondition } from '../../effector/app-condition/store';
 import { ProgressBar } from '../../UI/progress-bar';
 import { TowerInfoContent } from '../tower-info-content';
 import {
@@ -24,7 +21,7 @@ import { CustomButton } from '../../UI/button';
 import { ZIndexes } from '../root-component/z-indexes-enum';
 import wrapperBackground from './background.svg';
 import headerBackground from './header.svg';
-import { RowWrapper } from '../../UI/row-wrapper/index';
+import { RowWrapper } from '../../UI/row-wrapper';
 import { MoneyWrapper } from '../../UI/money-wrapper';
 import { pulseAnimationHOF } from '../../hoc/pulse-anim';
 import {
@@ -318,14 +315,6 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
     TowerInfoContentValues.DESCRIPTION
   );
   const [towerTutorialStep, setTowerTutorialStep] = useState(0);
-  useEffect(() => {
-    if (
-      LocalTowerProgressStore[towerTitle].progress >= maxProgressValue &&
-      tutorialCondition
-    ) {
-      nextTutorStep();
-    }
-  }, [LocalTowerProgressStore[towerTitle].progress]);
 
   const handleClick = () => {
     if (towerTitle) {
@@ -384,6 +373,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
       showChat();
     } else if (towerTutorialStep === TowerTutorialSteps.CHAT_OPENED) {
       showTasks();
+      nextTutorStep();
     }
   };
   const { money } = useStore(UserDataStore);

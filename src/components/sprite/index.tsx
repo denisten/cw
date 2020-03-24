@@ -19,22 +19,6 @@ export const Sprite = memo((props: ISprite) => {
     frameIndexX = 0,
     frameIndexY = 0;
 
-  const start = () => {
-    let loop = () => {
-      update();
-      render();
-
-      window.requestAnimationFrame(loop);
-    };
-
-    window.requestAnimationFrame(loop);
-  };
-
-  useEffect(() => {
-    imgInstanse.src = img;
-    start();
-  }, []);
-
   const update = () => {
     tickCount++;
     if (tickCount > ticksPerFrame) {
@@ -81,6 +65,22 @@ export const Sprite = memo((props: ISprite) => {
       }
     }
   };
+
+  const start = () => {
+    const loop = () => {
+      update();
+      render();
+
+      window.requestAnimationFrame(loop);
+    };
+
+    window.requestAnimationFrame(loop);
+  };
+
+  useEffect(() => {
+    imgInstanse.src = img;
+    start();
+  }, []);
 
   return <canvas width={canvasWidth} height={canvasHeight} ref={myRef} />;
 });

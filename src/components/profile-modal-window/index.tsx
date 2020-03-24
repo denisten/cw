@@ -12,14 +12,8 @@ import { RowWrapper } from '../../UI/row-wrapper';
 import { ColumnWrapper } from '../../UI/column-wrapper';
 import { Overlay } from '../../UI/overlay';
 import { ZIndexes } from '../root-component/z-indexes-enum';
-import {
-  TutorialConditions,
-  TutorialStore,
-} from '../../effector/tutorial-store/store';
-import {
-  nextTutorStep,
-  pauseTutorialMode,
-} from '../../effector/tutorial-store/events';
+import { TutorialStore } from '../../effector/tutorial-store/store';
+import { pauseTutorialMode } from '../../effector/tutorial-store/events';
 
 const StyledConfig = {
   exitButton: {
@@ -68,26 +62,22 @@ export const Menu: React.FC<{ displayFlag: boolean }> = ({ displayFlag }) => {
   const { tutorialCondition } = useStore(TutorialStore);
   const menuItemsComponentCallBack = (item: MenuItems) => {
     menuOpened(item);
-    if (
-      item === MenuItems.SETTINGS &&
-      tutorialCondition === TutorialConditions.PULSE_SETTINGS_CHANGE_CITY_NAME
-    )
-      nextTutorStep();
   };
 
   return (
     <Overlay displayFlag={displayFlag} {...StyledConfig.overlay}>
       <ColumnWrapper {...StyledConfig.mainWrapper} displayFlag={displayFlag}>
         <HeaderComponent {...StyledConfig.header}>
-          <ExitButton
-            {...StyledConfig.exitButton}
-            callBack={() => {
-              if (tutorialCondition) {
+          {!tutorialCondition ? (
+            <ExitButton
+              {...StyledConfig.exitButton}
+              callBack={() => {
                 pauseTutorialMode();
-              }
-              menuClosed();
-            }}
-          />
+
+                menuClosed();
+              }}
+            />
+          ) : null}
         </HeaderComponent>
         <RowWrapper {...StyledConfig.rowWrapper}>
           <MenuItemsComponent
