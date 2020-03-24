@@ -1,5 +1,6 @@
 import React, { memo, useEffect, useRef } from 'react';
 const imgInstanse = new Image();
+
 export const Sprite = memo((props: ISprite) => {
   const {
     fullImgHeight,
@@ -11,10 +12,23 @@ export const Sprite = memo((props: ISprite) => {
     numberOfFramesY,
     ticksPerFrame,
   } = props;
+
   const myRef = useRef<HTMLCanvasElement>(null);
+
   let tickCount = 0,
     frameIndexX = 0,
     frameIndexY = 0;
+
+  const start = () => {
+    let loop = () => {
+      update();
+      render();
+
+      window.requestAnimationFrame(loop);
+    };
+
+    window.requestAnimationFrame(loop);
+  };
 
   useEffect(() => {
     imgInstanse.src = img;
@@ -50,10 +64,8 @@ export const Sprite = memo((props: ISprite) => {
         ctx.clearRect(
           0,
           0,
-          canvasHeight,
-          canvasWidth
-          // fullImgHeight / numberOfFramesX,
-          // fullImgHeight / numberOfFramesY
+          fullImgHeight / numberOfFramesX,
+          fullImgHeight / numberOfFramesY
         );
         ctx.drawImage(
           imgInstanse,
@@ -68,17 +80,6 @@ export const Sprite = memo((props: ISprite) => {
         );
       }
     }
-  };
-
-  const start = () => {
-    let loop = () => {
-      update();
-      render();
-
-      window.requestAnimationFrame(loop);
-    };
-
-    window.requestAnimationFrame(loop);
   };
 
   return <canvas width={canvasWidth} height={canvasHeight} ref={myRef} />;
