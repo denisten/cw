@@ -22,6 +22,7 @@ const TowerStyledWrapper = styled.div<TowerStyledWrapperProps>`
 `;
 
 const upgradeTowerDelay = 1500;
+const minDifBetweenMouseEvents = 120;
 
 export const TowerWrapper: React.FC<TypeWrapperProps> = ({
   position,
@@ -43,6 +44,8 @@ export const TowerWrapper: React.FC<TypeWrapperProps> = ({
   tutorialPause,
 }): React.ReactElement => {
   const [posX, posY] = position;
+  let mouseDownDate: number = +new Date(0),
+    mouseUpDate: number = +new Date(0);
   const [hoverState, setHoverState] = useState(false);
   const StyledConfig = {
     width: `${width}px`,
@@ -71,6 +74,20 @@ export const TowerWrapper: React.FC<TypeWrapperProps> = ({
         towerTitle,
       });
     }
+  };
+
+  const handleMouseDown = () => {
+    mouseDownDate = +new Date();
+  };
+
+  const handleMouseUp = () => {
+    mouseUpDate = +new Date();
+    const diff = mouseUpDate - mouseDownDate;
+    if (diff < minDifBetweenMouseEvents) {
+      handleClick();
+    }
+    mouseDownDate = +new Date(0);
+    mouseUpDate = +new Date(0);
   };
 
   useEffect(() => mouseOverHandle(), [focusOnTowerTitle]);
@@ -109,7 +126,8 @@ export const TowerWrapper: React.FC<TypeWrapperProps> = ({
       <map name={tower}>
         <area
           alt="area"
-          onClick={handleClick}
+          onMouseDown={handleMouseDown}
+          onMouseUp={handleMouseUp}
           onMouseOver={() => setHoverState(true)}
           onMouseOut={mouseOverHandle}
           coords={areaCoords}
