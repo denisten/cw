@@ -2,7 +2,10 @@ import React from 'react';
 import { ImgWrapper } from '../img-wrapper';
 import updateImg from './update-img.png';
 import { TowersTypes } from '../../effector/towers-progress/store';
-import { showUpgradeIcon } from '../../effector/app-condition/events';
+import {
+  extraTowerInfoModalClosed,
+  showUpgradeIcon,
+} from '../../effector/app-condition/events';
 const StyleConfig = {
   height: '50px',
   width: '50px',
@@ -23,7 +26,10 @@ export const UpgradeButton: React.FC<UpgradeButtonProps> = ({
       animFlag={animFlag}
       src={updateImg}
       {...StyleConfig}
-      callBack={() => showUpgradeIcon(towerTitle)}
+      callBack={() => {
+        showUpgradeIcon(towerTitle);
+        extraTowerInfoModalClosed();
+      }}
     />
   );
 };

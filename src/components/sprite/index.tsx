@@ -92,8 +92,7 @@ export const Sprite = memo((props: ISprite) => {
         requestCallback = window.requestAnimationFrame(loop);
     };
 
-    if (!isAnimationStopped)
-      requestCallback = window.requestAnimationFrame(loop);
+    requestCallback = window.requestAnimationFrame(loop);
   };
 
   useEffect(() => {
