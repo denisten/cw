@@ -144,6 +144,10 @@ const HeaderLine = styled.div`
   width: 100%;
   display: flex;
   margin-top: 24px;
+
+  @media ${device.laptopS} {
+    margin-top: 12px;
+  }
 `;
 
 const Title = styled.div`
@@ -158,6 +162,10 @@ const Title = styled.div`
 
   @media (max-resolution: 0.8dppx) {
     font-size: 2.5vh;
+  }
+
+  @media ${device.laptopS} {
+    font-size: 28px;
   }
 `;
 
