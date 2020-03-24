@@ -133,7 +133,7 @@ export class BuildingsService {
     },
     [TowersTypes.MUSIC]: {
       info: 'info',
-      title: 'МТС музыка',
+      title: 'МТС Музыка',
       coords: [3115, 2455],
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
@@ -164,7 +164,7 @@ export class BuildingsService {
     },
     [TowersTypes.ARENA]: {
       info: 'info',
-      title: 'МТС Арена',
+      title: 'МТС Live Arena',
       coords: [3537, 1408],
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
@@ -195,7 +195,7 @@ export class BuildingsService {
     },
     [TowersTypes.MOLL]: {
       info: 'info',
-      title: 'МТС Кэшбэк',
+      title: 'МТС Cashback',
       coords: [4156, 1458],
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
@@ -257,7 +257,7 @@ export class BuildingsService {
     },
     [TowersTypes.LIBRARY]: {
       info: 'info',
-      title: 'Библиотека',
+      title: 'МТС Библиотека',
       coords: [2256, 2490],
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
@@ -479,7 +479,7 @@ export class BuildingsService {
     },
     [TowersTypes.BANK]: {
       info: 'info',
-      title: 'Банк',
+      title: 'МТС Банк',
       coords: [5045, 1559],
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
@@ -510,7 +510,7 @@ export class BuildingsService {
     },
     [TowersTypes.CYBER_ARENA]: {
       info: 'info',
-      title: 'WASD',
+      title: 'WASD.tv',
       coords: [4912, 2593],
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
@@ -542,7 +542,7 @@ export class BuildingsService {
 
     [TowersTypes.AUTO_FACTORY]: {
       info: 'info',
-      title: 'МТС авто',
+      title: 'МТС Авто',
       coords: [5007, 1993],
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
@@ -574,7 +574,7 @@ export class BuildingsService {
 
     [TowersTypes.SATELLITETV]: {
       info: 'info',
-      title: 'Спутниковое TV',
+      title: 'Спутниковое ТВ',
       coords: [2530, 1904],
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.low,
@@ -673,7 +673,7 @@ export class BuildingsService {
     },
     [TowersTypes.SLOT_MACHINE]: {
       info: 'info',
-      title: 'Игротека',
+      title: 'МТС Игротека',
       coords: [5415, 2871],
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.low,
@@ -706,7 +706,7 @@ export class BuildingsService {
     },
     [TowersTypes.ROUTER]: {
       info: 'info',
-      title: 'Роутер',
+      title: 'Домашний интернет',
       coords: [2572, 2828],
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.low,
@@ -739,7 +739,7 @@ export class BuildingsService {
     },
     [TowersTypes.RTK]: {
       info: 'info',
-      title: 'РТК',
+      title: 'Салон-магазин МТС',
       coords: [5392, 1788],
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.low,
