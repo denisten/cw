@@ -117,7 +117,7 @@ const ButtonWrapper = styled.div`
   align-items: flex-start;
   justify-content: flex-end;
   box-sizing: border-box;
-  font-family: MTSSansBold, serif;
+  font-family: MTSSansMedium, serif;
 `;
 
 const MainWrapper = styled.div`
