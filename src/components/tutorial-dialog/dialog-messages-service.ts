@@ -4,13 +4,14 @@ export enum TutorialDialogsValues {
   DIALOG_HELLO = 'DIALOG_HELLO',
   DIALOG_CONFIRM_CITY_NAME = 'DIALOG_CONFIRM_CITY_NAME',
   DIALOG_AUTH = 'DIALOG_AUTH',
+  DIALOG_START_MISSION = 'DIALOG_START_MISSION',
 }
 
 class TutorialDialogTextsService {
   private readonly _tutorialContentData: ITutorialContentData = {
     [TutorialConditions.DIALOG_HELLO]: {
       messages: [
-        'Этот мир – станет твоим отражением! Тебя ждут интересные миссии, выполняя которые ты построишь персональную вселенную.',
+        'Этот мир станет твоим отражением! Тебя ждут интересные миссии, выполняя которые ты построишь персональную вселенную.',
         'Выполняй задания, получай виртуальную валюту и улучшай здания.',
         'Но сначала назови свой мир!',
       ],
@@ -22,8 +23,15 @@ class TutorialDialogTextsService {
         ' будет отличным местом! Заходи и делай свой мир лучше каждый день.',
       ],
       titles: ['Класс!'],
+      buttonContent: ['Здорово'],
+      reload: true,
+    },
+    [TutorialConditions.DIALOG_START_MISSION]: {
+      messages: ['Первая миссия – исследуй здание, чтобы улучшить его.'],
+      titles: ['За работу…'],
       buttonContent: ['Начать миссию!'],
     },
+
     [TutorialConditions.DIALOG_AUTH]: {
       messages: [
         'Чтобы сохранить твои достижения и приумножить будущие успехи нажми кнопку "Вперед" и следуй дальшейшим инструкциям.',
@@ -47,4 +55,5 @@ export interface IDialogData {
   messages: string[];
   titles: string[];
   buttonContent: string[];
+  reload?: boolean;
 }

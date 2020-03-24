@@ -161,6 +161,7 @@ export const TutorialDialog: React.FC = () => {
     messages,
     buttonContent,
     titles,
+    reload,
   } = TutorialDialogTextsService.getCurrentText(tutorialCondition);
 
   const currentMessage = messages[dialogStep];
@@ -184,7 +185,7 @@ export const TutorialDialog: React.FC = () => {
       clearTimeout(timeoutBetweenDialogMessages);
       clearTimeout(letterByLetterCallback);
     };
-  }, [dialogStep]);
+  }, [dialogStep, reload]);
 
   const handleExitButtonClick = () => {
     turnOffTutorialMode();
