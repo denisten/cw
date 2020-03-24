@@ -10,7 +10,7 @@ class TutorialDialogTextsService {
   private readonly _tutorialContentData: ITutorialContentData = {
     [TutorialConditions.DIALOG_HELLO]: {
       messages: [
-        'Этот мир – станет твоим отражением! Тебя ждут интересные миссии, выполняя которые ты построишь персональную вселенную.',
+        'Этот мир станет твоим отражением! Тебя ждут интересные миссии, выполняя которые ты построишь персональную вселенную.',
         'Выполняй задания, получай виртуальную валюту и улучшай здания.',
         'Но сначала назови свой мир!',
       ],
@@ -20,9 +20,10 @@ class TutorialDialogTextsService {
     [TutorialConditions.DIALOG_CONFIRM_CITY_NAME]: {
       messages: [
         ' будет отличным местом! Заходи и делай свой мир лучше каждый день.',
+        'Первая миссия – исследуй здание, чтобы улучшить его.',
       ],
-      titles: ['Класс!'],
-      buttonContent: ['Начать миссию!'],
+      titles: ['Класс!', 'За работу…'],
+      buttonContent: ['Здорово', 'Начать миссию!'],
     },
     [TutorialConditions.DIALOG_AUTH]: {
       messages: [
