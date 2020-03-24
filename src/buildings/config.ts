@@ -133,7 +133,7 @@ export class BuildingsService {
     },
     [TowersTypes.MUSIC]: {
       info: 'info',
-      title: 'МТС Музыка',
+      title: 'МТС Music',
       coords: [3115, 2455],
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
