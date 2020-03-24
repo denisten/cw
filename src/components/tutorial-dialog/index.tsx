@@ -140,8 +140,6 @@ const styleConfig = {
     right: '0%',
   },
   sprite: {
-    fullImgWidth: 2240,
-    fullImgHeight: 2736,
     canvasWidth: 224,
     canvasHeight: 304,
     numberOfFramesX: 10,

@@ -10,4 +10,5 @@ export enum ZIndexes {
   TUTORIAL = 25,
   MODAL = 30,
   ERROR = 40,
+  UPGRADE_TOWER_ANIMATION_CANVAS = 50,
 }
