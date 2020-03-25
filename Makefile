@@ -16,6 +16,8 @@ push:
 restart: down up
 show-logs:
 	docker-compose logs -f frontend
+start: up
+stop: down
 
 dev:
 	docker-compose pull reverse_proxy backend_app backend_webserver

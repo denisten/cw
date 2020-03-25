@@ -36,7 +36,9 @@ services:
         ports:
             - "5000:5000"
         volumes:
-            - "./:/app"
+            - "./:/app:delegated"
+            - "./public/:/app/public/:cached"
+            - "./node_modules/:/app/node_modules/:cached"
 
 
     #MySQL Service
