@@ -36,8 +36,12 @@ import libraryTowerLevel2Stroke from './library/2-stroke.png';
 import libraryTowerLevel3Stroke from './library/3-stroke.png';
 import observatoryTowerLevel2Img from './observatory/2.png';
 import observatoryTowerLevel2Stroke from './observatory/2-stroke.png';
+import tariffTowerLevel1Img from './tariff/1.png';
+import tariffTowerLevel1Stroke from './tariff/1-stroke.png';
 import tariffTowerLevel2Img from './tariff/2.png';
 import tariffTowerLevel2Stroke from './tariff/2-stroke.png';
+import tariffTowerLevel3Img from './tariff/3.png';
+import tariffTowerLevel3Stroke from './tariff/3-stroke.png';
 import theaterTowerLevel2Img from './theater/2.png';
 import theaterTowerLevel2Stroke from './theater/2-stroke.png';
 import theaterTowerLevel3Img from './theater/3.png';
@@ -328,32 +332,30 @@ export class BuildingsService {
       title: 'Мобильный интернет',
       coords: [3867, 1809],
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
-      maxLevel: TowerLevel.mid,
+      maxLevel: TowerLevel.high,
       [TowerLevel.low]: {
-        // TODO: не настоящая картинка
-        img: musicTowerLevel1Img,
-        width: 1,
-        height: 2,
-        shadowImg: musicTowerLevel1Stroke,
-        areaCoords: '128,57,418,291',
-        position: [42.2, 36.9],
+        img: tariffTowerLevel1Img,
+        width: 329,
+        height: 559,
+        shadowImg: tariffTowerLevel1Stroke,
+        areaCoords: '51,53,276,505',
+        position: [28.2, 48.2],
       },
       [TowerLevel.mid]: {
         img: tariffTowerLevel2Img,
-        width: 330,
-        height: 635,
+        width: 316,
+        height: 599,
         shadowImg: tariffTowerLevel2Stroke,
-        areaCoords: '55,92,284,570',
-        position: [27, 48.2],
+        areaCoords: '44,39,272,550',
+        position: [27.4, 48.2],
       },
       [TowerLevel.high]: {
-        // TODO: не настоящая картинка
-        img: eggTowerLevel3Img,
-        width: 384,
-        height: 531,
-        shadowImg: eggTowerLevel3Stroke,
-        areaCoords: '320,441,50,45',
-        position: [31.5, 50.9],
+        img: tariffTowerLevel3Img,
+        width: 330,
+        height: 635,
+        shadowImg: tariffTowerLevel3Stroke,
+        areaCoords: '55,92,284,570',
+        position: [26.7, 48],
       },
     },
     [TowersTypes.THEATER]: {
