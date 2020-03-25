@@ -85,6 +85,6 @@ module.exports = {
     disableHostCheck: true,
     watchOptions: {
       ignored: /node_modules/,
-    }
+    },
   },
 };
