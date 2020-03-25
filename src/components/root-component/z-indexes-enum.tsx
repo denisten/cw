@@ -8,6 +8,7 @@ export enum ZIndexes {
   BUILDING_FOUR_LEVEL = 13,
   UI_BUTTON = 20,
   TUTORIAL = 25,
+  UPGRADE_TOWER_ANIMATION_CANVAS = 26,
   MODAL = 30,
   ERROR = 40,
 }
