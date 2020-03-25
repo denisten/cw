@@ -1,24 +1,34 @@
-import React, { memo, useEffect, useRef } from 'react';
-const imgInstanse = new Image();
+import React, { Fragment, memo, useEffect, useRef, useState } from 'react';
 
 export const Sprite = memo((props: ISprite) => {
   const {
-    fullImgHeight,
     canvasHeight,
-    fullImgWidth,
     canvasWidth,
     img,
     numberOfFramesX,
     numberOfFramesY,
     ticksPerFrame,
+    style,
+    infinity = true,
+    onAnimationEnd,
   } = props;
 
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const imgInstance = new Image();
 
-  let tickCount = 0,
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [displayFlag, setDisplayFlag] = useState(true);
+  let requestCallback: number;
+  let isAnimationStopped = false;
+  let fullImgWidth = 0,
+    fullImgHeight = 0,
+    tickCount = 0,
     frameIndexX = 0,
     frameIndexY = 0;
 
+  const unsubscribe = () => {
+    window.cancelAnimationFrame(requestCallback);
+    isAnimationStopped = true;
+  };
   const update = () => {
     tickCount++;
     if (tickCount > ticksPerFrame) {
@@ -33,8 +43,16 @@ export const Sprite = memo((props: ISprite) => {
           frameIndexY++;
           frameIndexX = 0;
         } else {
-          frameIndexY = 0;
-          frameIndexX = 0;
+          if (infinity) {
+            frameIndexY = 0;
+            frameIndexX = 0;
+          } else {
+            setDisplayFlag(false);
+            if (onAnimationEnd) {
+              onAnimationEnd();
+            }
+            unsubscribe();
+          }
         }
       }
     }
@@ -52,15 +70,15 @@ export const Sprite = memo((props: ISprite) => {
           fullImgHeight / numberOfFramesY
         );
         ctx.drawImage(
-          imgInstanse,
+          imgInstance,
           (fullImgWidth / numberOfFramesX) * frameIndexX,
           (fullImgHeight / numberOfFramesY) * frameIndexY,
           fullImgWidth / numberOfFramesX,
           fullImgHeight / numberOfFramesY,
           0,
           0,
-          fullImgWidth / numberOfFramesX,
-          fullImgHeight / numberOfFramesY
+          canvasWidth,
+          canvasHeight
         );
       }
     }
@@ -70,28 +88,45 @@ export const Sprite = memo((props: ISprite) => {
     const loop = () => {
       update();
       render();
-
-      window.requestAnimationFrame(loop);
+      if (!isAnimationStopped)
+        requestCallback = window.requestAnimationFrame(loop);
     };
 
-    window.requestAnimationFrame(loop);
+    requestCallback = window.requestAnimationFrame(loop);
   };
 
   useEffect(() => {
-    imgInstanse.src = img;
+    imgInstance.src = img;
+    imgInstance.onload = () => {
+      fullImgHeight = imgInstance.naturalHeight;
+      fullImgWidth = imgInstance.naturalWidth;
+    };
     start();
+    return () => unsubscribe();
   }, []);
 
-  return <canvas width={canvasWidth} height={canvasHeight} ref={canvasRef} />;
+  return (
+    <Fragment>
+      {displayFlag ? (
+        <canvas
+          width={canvasWidth}
+          height={canvasHeight}
+          ref={canvasRef}
+          style={style}
+        />
+      ) : null}
+    </Fragment>
+  );
 });
 
 interface ISprite {
   canvasWidth: number;
-  fullImgWidth: number;
   canvasHeight: number;
-  fullImgHeight: number;
   img: string;
   numberOfFramesX: number;
   numberOfFramesY: number;
   ticksPerFrame: number;
+  style?: React.CSSProperties;
+  infinity?: boolean;
+  onAnimationEnd?: () => void;
 }

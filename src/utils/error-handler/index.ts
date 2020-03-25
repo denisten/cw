@@ -6,7 +6,7 @@ export const errorCodes: IErrorCode = {
 };
 
 export const errorStrings: IErrorStrings = {
-  accessdenied: 'Доступ не предоставлен',
+  failure: 'Доступ не предоставлен',
 };
 
 export const errorCodesParsingHOF = (errorCode: number) => {
