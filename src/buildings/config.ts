@@ -81,6 +81,10 @@ import partnerYellowLevel1Img from './partners-build/partner-yellow/1.png';
 import partnerYellowLevel1Stroke from './partners-build/partner-yellow/1-stroke.png';
 import slotMachineLevel1Img from './slot-machine/1.png';
 import slotMachineLevel1Stroke from './slot-machine/1-stroke.png';
+import slotMachineLevel2Img from './slot-machine/2.png';
+import slotMachineLevel2Stroke from './slot-machine/2-stroke.png';
+import slotMachineLevel3Img from './slot-machine/3.png';
+import slotMachineLevel3Stroke from './slot-machine/3-stroke.png';
 import routerLevel1Img from './router/1.png';
 import routerLevel1Stroke from './router/1-stroke.png';
 import autoFactoryLevel1Img from './auto-factory/1.png';
@@ -676,32 +680,30 @@ export class BuildingsService {
       title: 'МТС Игротека',
       coords: [5415, 2871],
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
-      maxLevel: TowerLevel.low,
+      maxLevel: TowerLevel.high,
       [TowerLevel.low]: {
         img: slotMachineLevel1Img,
         width: 451,
-        height: 604,
+        height: 458,
         shadowImg: slotMachineLevel1Stroke,
         areaCoords: '392,148,101,545',
-        position: [43.6, 66.7],
+        position: [46, 67],
       },
-      // TODO: не настоящая картинка
       [TowerLevel.mid]: {
-        img: bankLevel2Img,
-        width: 579,
-        height: 688,
-        shadowImg: bankLevel2Stroke,
-        areaCoords: '516,39,69,578',
-        position: [23.4, 66.4],
+        img: slotMachineLevel2Img,
+        width: 451,
+        height: 507,
+        shadowImg: slotMachineLevel2Stroke,
+        areaCoords: '49,38,394,458',
+        position: [45.1, 67.1],
       },
-      // TODO: не настоящая картинка
       [TowerLevel.high]: {
-        img: airportLevel3Img,
-        width: 573,
-        height: 449,
-        shadowImg: airportLevel3Stroke,
-        areaCoords: '595,126,90,476',
-        position: [18.9, 28.3],
+        img: slotMachineLevel3Img,
+        width: 451,
+        height: 604,
+        shadowImg: slotMachineLevel3Stroke,
+        areaCoords: '53,43,399,558',
+        position: [43.3, 66.99],
       },
     },
     [TowersTypes.ROUTER]: {
