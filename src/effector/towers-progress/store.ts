@@ -29,6 +29,7 @@ export enum TowersTypes {
   RTK = 'rtk',
   PARTNER_BANK = 'partnerBank',
   MARVIN = 'marvin',
+  CLOUD = 'cloud',
 }
 const initState: TowersProgressStoreType = {
   [TowersTypes.MAIN_TOWER]: {
@@ -60,7 +61,7 @@ const initState: TowersProgressStoreType = {
     progress: 0,
   },
   [TowersTypes.TARIFF]: {
-    level: TowerLevel.mid,
+    level: TowerLevel.low,
     progress: 0,
   },
   [TowersTypes.THEATER]: {
@@ -121,6 +122,10 @@ const initState: TowersProgressStoreType = {
     progress: 0,
   },
   [TowersTypes.MARVIN]: {
+    level: TowerLevel.low,
+    progress: 0,
+  },
+  [TowersTypes.CLOUD]: {
     level: TowerLevel.low,
     progress: 0,
   },

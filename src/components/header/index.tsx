@@ -6,7 +6,7 @@ const Header = styled.div<HeaderProps>`
   width: 100%;
   height: ${props => props.height || '85px'};
   background: url(${background}) no-repeat center;
-  background-size: cover;
+  background-size: 100% 100%;
   position: relative;
 `;
 
