@@ -16,6 +16,7 @@ import { TutorialDialogTextsService } from './dialog-messages-service';
 import { Sprite } from '../sprite';
 import supportSprite from '../../img/assistant/assistant.png';
 import { UserDataStore } from '../../effector/user-data/store';
+import { ButtonClassNames, Button } from '../../UI/button';
 
 const TutorialDialogWrapper = styled.div`
   width: 1128px;
@@ -86,7 +87,7 @@ const WorldNameWrapper = styled.span`
   font-family: MTSSansBold;
 `;
 
-const CustomButton = styled.div<ICustomButton>`
+const CustomButton1 = styled.div<ICustomButton>`
   width: 232px;
   height: 50px;
   display: ${props => (props.textGenerating ? 'none' : 'flex')};
@@ -101,7 +102,7 @@ const CustomButton = styled.div<ICustomButton>`
   font-weight: bold;
 `;
 
-const BackButton = styled(CustomButton)<IBackButton>`
+const BackButton = styled(CustomButton1)<IBackButton>`
   border: solid 2px #${props => (props.borderFlag ? '02acc8' : 'e2e5eb')};
   box-sizing: border-box;
   background-color: #f4f4f4;
@@ -227,16 +228,23 @@ export const TutorialDialog: React.FC = () => {
             {printedText}
           </TutorialDialogText>
           <ButtonWrapper>
-            <BackButton
-              borderFlag={!!dialogStep}
-              textGenerating={isPrinting}
-              onClick={handleBackButtonClick}
-            >
-              Назад
-            </BackButton>
-            <CustomButton textGenerating={isPrinting} onClick={handleClick}>
-              {buttonContent[dialogStep]}
-            </CustomButton>
+            <Button
+              className={
+                !dialogStep
+                  ? ButtonClassNames.OUTLINE_DISABLED
+                  : ButtonClassNames.OUTLINE_NORMAL
+              }
+              displayFlag={!isPrinting}
+              callback={handleBackButtonClick}
+              content="Назад"
+              style={{ marginRight: '23px' }}
+            />
+            <Button
+              displayFlag={!isPrinting}
+              callback={handleClick}
+              className={ButtonClassNames.OUTLINE_NORMAL}
+              content={buttonContent[dialogStep]}
+            />
           </ButtonWrapper>
         </TextWrapper>
       </TutorialDialogWrapper>

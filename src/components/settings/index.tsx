@@ -9,7 +9,7 @@ import styled from 'styled-components';
 import { DataInput } from '../../UI/data-input';
 import { editUserData } from '../../effector/user-data/events';
 import { MoneyWrapper } from '../../UI/money-wrapper';
-import { CustomButton } from '../../UI/button';
+import { ButtonClassNames, Button } from '../../UI/button';
 import {
   Billet,
   RowWrapper,
@@ -76,14 +76,14 @@ const StyledConfig = {
     margin: '35px 0px 0 0',
   },
   editButton: {
-    width: '250px',
-    height: '52px',
+    width: 250,
+    height: 52,
     content: 'Редактировать',
     fontSize: '25.5px',
   },
   saveButton: {
-    width: '201px',
-    height: '52px',
+    width: 201,
+    height: 52,
     content: 'Сохранить',
     fontSize: '28.5px',
     margin: '115px 0 0 0',
@@ -133,7 +133,8 @@ export const Settings = () => {
             Информация
           </TitleWrapper>
           {!editMode ? (
-            <CustomButton
+            <Button
+              className={ButtonClassNames.OUTLINE_NORMAL}
               animFlag={
                 tutorialCondition ===
                 TutorialConditions.PULSE_EDIT_CHANGE_CITY_NAME
@@ -156,7 +157,8 @@ export const Settings = () => {
         </InputsWrapper>
         {editMode ? (
           <RowWrapper {...StyledConfig.inEditModeRow}>
-            <CustomButton
+            <Button
+              className={ButtonClassNames.OUTLINE_NORMAL}
               animFlag={
                 tutorialCondition ===
                 TutorialConditions.PULSE_SAVE_CHANGE_CITY_NAME

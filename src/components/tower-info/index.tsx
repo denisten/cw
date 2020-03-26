@@ -17,7 +17,7 @@ import {
 import { BuildingsService } from '../../buildings/config';
 import { Directions } from '../../UI/tutorial-arrow';
 import { BuildingsDescriptionService } from '../../buildings/descriptions';
-import { CustomButton } from '../../UI/button';
+import { ButtonClassNames, Button } from '../../UI/button';
 import { ZIndexes } from '../root-component/z-indexes-enum';
 import wrapperBackground from './background.svg';
 import headerBackground from './header.svg';
@@ -101,7 +101,6 @@ const ModalWindowContentWrapper = styled.div`
   width: 100%;
   padding: 40px;
   box-sizing: border-box;
-
   background-image: url(${wrapperBackground});
   background-size: 100% 100%;
   background-repeat: no-repeat;
@@ -258,9 +257,9 @@ const TowerInfoMenuElement = styled.div<{
     color: black;
   }
 
-  // @media (max-resolution: 0.8dppx) {
-  //   font-size: 1.5vh;
-  // }
+  @media (max-resolution: 0.8dppx) {
+    font-size: 1.5vh;
+  }
 `;
 
 const StyleConfig = {
@@ -281,12 +280,11 @@ const StyleConfig = {
     left: '39.7%',
   },
   enterButton: {
-    width: '160px',
-    height: '40px',
+    width: 160,
+    height: 40,
     content: 'Что дальше?',
-    fontSize: '16px',
-    color: '#02adc9',
-    position: 'relative',
+    // color: '#02adc9',
+    // position: 'relative',
   },
   rowWrapper: {
     width: '100%',
@@ -499,14 +497,17 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
         {!tutorialCondition ||
         (tutorialCondition === TutorialConditions.NEXT_BUTTON_TOWER_INFO &&
           tutorialTower) ? (
-          <CustomButton
+          // <div style={{ border: '5px solid green', width: 160, height: 44 }}>
+          <Button
+            className={ButtonClassNames.OUTLINE_NORMAL}
             animFlag={
               tutorialCondition === TutorialConditions.NEXT_BUTTON_TOWER_INFO
             }
             callback={() => nextTowerTutorialStep()}
             {...StyleConfig.enterButton}
           />
-        ) : null}
+        ) : // </div>
+        null}
       </ModalWindowContentWrapper>
     </ModalWindowWrapper>
   );
