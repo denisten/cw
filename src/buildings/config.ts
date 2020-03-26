@@ -103,6 +103,12 @@ import partnerBankLevel2Img from './partners-build/partner-bank/2.png';
 import partnerBankLevel2Stroke from './partners-build/partner-bank/2-stroke.png';
 import marvinLevel1Img from './marvin/1.png';
 import marvinLevel1Stroke from './marvin/1-stroke.png';
+import cloudLevel1Img from './cloud/1.png';
+import cloudLevel1Stroke from './cloud/1-stroke.png';
+import cloudLevel2Img from './cloud/2.png';
+import cloudLevel2Stroke from './cloud/2-stroke.png';
+import cloudLevel3Img from './cloud/3.png';
+import cloudLevel3Stroke from './cloud/3-stroke.png';
 import { ZIndexes } from '../components/root-component/z-indexes-enum';
 
 export class BuildingsService {
@@ -838,6 +844,37 @@ export class BuildingsService {
         shadowImg: airportLevel3Stroke,
         areaCoords: '595,126,90,476',
         position: [18.9, 28.3],
+      },
+    },
+    [TowersTypes.CLOUD]: {
+      info: 'info',
+      title: 'Вторая память',
+      coords: [4476.5, 3052.75],
+      zIndex: ZIndexes.BUILDING_TWO_LEVEL,
+      maxLevel: TowerLevel.high,
+      [TowerLevel.low]: {
+        img: cloudLevel1Img,
+        width: 367,
+        height: 413,
+        shadowImg: cloudLevel1Stroke,
+        areaCoords: '47,42,323,366',
+        position: [50, 58],
+      },
+      [TowerLevel.mid]: {
+        img: cloudLevel2Img,
+        width: 367,
+        height: 443,
+        shadowImg: cloudLevel2Stroke,
+        areaCoords: '37,41,329,397',
+        position: [49.4, 58],
+      },
+      [TowerLevel.high]: {
+        img: cloudLevel3Img,
+        width: 367,
+        height: 488,
+        shadowImg: cloudLevel3Stroke,
+        areaCoords: '42,34,321,445',
+        position: [48.6, 58],
       },
     },
   };

@@ -8,7 +8,7 @@ import menuContentBackground from './background.png';
 const MenuContentWrapper = styled.div`
   flex: 1;
   background: url(${menuContentBackground}) no-repeat center;
-  background-size: cover;
+  background-size: 100% 100%;
 `;
 
 type MenuContentProps = {
