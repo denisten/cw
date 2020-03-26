@@ -14,6 +14,8 @@ import { Overlay } from '../../UI/overlay';
 import { ZIndexes } from '../root-component/z-indexes-enum';
 import { TutorialStore } from '../../effector/tutorial-store/store';
 import { pauseTutorialMode } from '../../effector/tutorial-store/events';
+import styled from 'styled-components';
+import { device } from '../../UI/media';
 
 const StyledConfig = {
   exitButton: {
@@ -56,6 +58,13 @@ const StyledConfig = {
   },
 };
 
+const ExpandedColumnWrapper = styled(ColumnWrapper)`
+  @media ${device.laptopL} {
+    height: 90%;
+    width: 90%;
+  }
+`;
+
 export const Menu: React.FC<{ displayFlag: boolean }> = ({ displayFlag }) => {
   const { selectedMenuItem } = useStore(AppCondition);
 
@@ -66,7 +75,10 @@ export const Menu: React.FC<{ displayFlag: boolean }> = ({ displayFlag }) => {
 
   return (
     <Overlay displayFlag={displayFlag} {...StyledConfig.overlay}>
-      <ColumnWrapper {...StyledConfig.mainWrapper} displayFlag={displayFlag}>
+      <ExpandedColumnWrapper
+        {...StyledConfig.mainWrapper}
+        displayFlag={displayFlag}
+      >
         <HeaderComponent {...StyledConfig.header}>
           {!tutorialCondition ? (
             <ExitButton
@@ -88,7 +100,7 @@ export const Menu: React.FC<{ displayFlag: boolean }> = ({ displayFlag }) => {
           />
           <MenuContent content={selectedMenuItem || MenuItems.PROFILE} />
         </RowWrapper>
-      </ColumnWrapper>
+      </ExpandedColumnWrapper>
     </Overlay>
   );
 };
