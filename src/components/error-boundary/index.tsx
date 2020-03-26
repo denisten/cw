@@ -16,7 +16,7 @@ const StyledConfig = {
     width: 200,
     height: 51,
     content: 'Ок',
-    fontSize: '28.5px',
+    fontSize: 28.5,
   },
   overlay: {
     zIndex: ZIndexes.ERROR,

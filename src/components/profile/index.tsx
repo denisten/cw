@@ -43,13 +43,13 @@ const StyledConfig = {
     width: '201px',
     height: '52px',
     content: 'Выйти',
-    fontSize: '28.5px',
+    fontSize: 28.5,
   },
   enterButton: {
     width: 201,
     height: 52,
     content: 'Войти',
-    fontSize: '28.5px',
+    fontSize: 28.5,
     margin: '0 0 30px 0',
   },
   nickNameWrapper: {
@@ -62,20 +62,20 @@ const StyledConfig = {
     width: 250,
     height: 52,
     content: 'Редактировать',
-    fontSize: '25.5px',
+    fontSize: 25.5,
   },
   saveButton: {
     width: 201,
     height: 52,
     content: 'Сохранить',
-    fontSize: '28.5px',
+    fontSize: 28.5,
     margin: '115px 0 0 0',
   },
   exitButton: {
     width: 201,
     height: 52,
     content: 'Выйти',
-    fontSize: '28.5px',
+    fontSize: 28.5,
     margin: '115px 0 0 0',
   },
   userInfoRow: {
@@ -181,7 +181,7 @@ export const Profile = React.memo(() => {
   const toggleInputEdit = () => setEditMode(!editMode);
   return (
     <ProfileWrapper>
-      {isAuthorized ? (
+      {!isAuthorized ? (
         <React.Fragment>
           <Billet />
           <ProfileHeader>

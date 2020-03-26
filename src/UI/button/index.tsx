@@ -22,6 +22,8 @@ const rippleAnimation = keyframes`
   }
 `;
 
+const doubleBorderWidth = 4;
+
 const Ripple = styled.div<IRipple>`
   width: 0;
   height: 0;
@@ -91,15 +93,15 @@ const ButtonWrapper = styled.div<IButtonWrapper>`
   }
 
   .${ButtonClassNames.OUTLINE_DISABLED} {
-    width: ${props => props.width - 4}px;
-    height: ${props => props.height - 4}px;
+    width: ${props => props.width - doubleBorderWidth}px;
+    height: ${props => props.height - doubleBorderWidth}px;
     color: #e2e5eb;
     border: solid 2px #e2e5eb;
   }
 
   .${ButtonClassNames.OUTLINE_NORMAL} {
-    width: ${props => props.width - 4}px;
-    height: ${props => props.height - 4}px;
+    width: ${props => props.width - doubleBorderWidth}px;
+    height: ${props => props.height - doubleBorderWidth}px;
     border: solid 2px #02acc8;
     color: #${props => (props.isHover ? 'ffffff' : '02acc8')};
     box-shadow: ${props =>
@@ -117,13 +119,14 @@ const CustomButtonWrapper = styled.div<ICustomButtonWrapper>`
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  font-size: 16px;
+  font-size: ${props => props.fontSize}px;
   border-radius: 2px;
   white-space: nowrap;
 `;
 
 const defaultButtonWidth = 200,
-  defaultButtonHeight = 44;
+  defaultButtonHeight = 44,
+  defaultFontSize = 16;
 
 export const Button: React.FC<IButton> = ({
   content,
@@ -135,6 +138,7 @@ export const Button: React.FC<IButton> = ({
   style,
   width = defaultButtonWidth,
   height = defaultButtonHeight,
+  fontSize = defaultFontSize,
   ...props
 }) => {
   const [clickPos, setClickPos] = useState({ top: 0, left: 0 });
@@ -183,7 +187,11 @@ export const Button: React.FC<IButton> = ({
         animationPlayState={animationPlayState}
         onAnimationEnd={handleAnimationEnd}
       />
-      <CustomButtonWrapper displayFlag={displayFlag} className={className}>
+      <CustomButtonWrapper
+        displayFlag={displayFlag}
+        className={className}
+        fontSize={fontSize}
+      >
         {content}
       </CustomButtonWrapper>
     </ButtonWrapper>
@@ -196,6 +204,7 @@ interface ICustomButtonWrapper {
   scaleSize?: number;
   className: string;
   displayFlag?: boolean;
+  fontSize?: number;
 }
 
 interface IButton extends ICustomButtonWrapper {
@@ -205,6 +214,7 @@ interface IButton extends ICustomButtonWrapper {
   style?: React.CSSProperties;
   height?: number;
   width?: number;
+  margin?: string;
 }
 
 interface IRipple {

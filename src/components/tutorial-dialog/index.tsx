@@ -17,6 +17,7 @@ import { Sprite } from '../sprite';
 import supportSprite from '../../img/assistant/assistant.png';
 import { UserDataStore } from '../../effector/user-data/store';
 import { ButtonClassNames, Button } from '../../UI/button';
+import { Span, StyledSpan } from '../../UI/span';
 
 const TutorialDialogWrapper = styled.div`
   width: 1128px;
@@ -51,65 +52,12 @@ const TextWrapper = styled.div`
   flex-grow: 1;
 `;
 
-const TutorialDialogTitle = styled.span`
-  font-family: MTSSansBlack, sans-serif;
-  font-size: 32px;
-  font-weight: bold;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.25;
-  letter-spacing: -0.5px;
-  color: #01acc8;
-  margin-bottom: 8px;
-`;
-
-const TutorialDialogText = styled.span`
-  font-size: 20px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
+const TutorialDialogText = styled(StyledSpan)`
   line-height: 28px;
-  letter-spacing: normal;
   color: #001424;
   padding-right: 1%;
   box-sizing: border-box;
   margin-bottom: 20px;
-`;
-
-const WorldNameWrapper = styled.span`
-  color: #01acc8;
-  font-size: 20px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.4;
-  letter-spacing: normal;
-  font-family: MTSSansBold;
-`;
-
-const CustomButton1 = styled.div<ICustomButton>`
-  width: 232px;
-  height: 50px;
-  display: ${props => (props.textGenerating ? 'none' : 'flex')};
-  justify-content: center;
-  align-items: center;
-  color: #fff;
-  cursor: pointer;
-  border-radius: 2px;
-  box-shadow: 1px 1px 4px 0 #bbc1c7, inset 0 1px 3px 0 rgba(255, 255, 255, 0.5);
-  background-color: #02acc8;
-  font-size: 16px;
-  font-weight: bold;
-`;
-
-const BackButton = styled(CustomButton1)<IBackButton>`
-  border: solid 2px #${props => (props.borderFlag ? '02acc8' : 'e2e5eb')};
-  box-sizing: border-box;
-  background-color: #f4f4f4;
-  display: ${props => (props.textGenerating ? 'none' : 'flex')};
-  box-shadow: none;
-  color: #${props => (props.borderFlag ? '02acc8' : 'e2e5eb')};
-  margin-right: 24px;
 `;
 
 const ButtonWrapper = styled.div`
@@ -146,6 +94,23 @@ const styleConfig = {
     numberOfFramesX: 10,
     numberOfFramesY: 9,
     ticksPerFrame: 2,
+  },
+  backButton: {
+    width: 252,
+    height: 50,
+    margin: '0 23px 0 0',
+  },
+  forwardButton: {
+    width: 252,
+    height: 50,
+  },
+  tutorialDialogTitle: {
+    fontFamily: 'MTSSansBlack',
+    fontSize: 32,
+    fontWeight: 'bold',
+    lineHeight: 1.25,
+    letterSpacing: '-0.5px',
+    margin: '0 0 8px 0',
   },
 };
 
@@ -218,13 +183,19 @@ export const TutorialDialog: React.FC = () => {
           <Sprite img={supportSprite} {...styleConfig.sprite} />
         </SupportSpriteWrapper>
         <TextWrapper>
-          <TutorialDialogTitle>{titles[dialogStep]}</TutorialDialogTitle>
+          <Span
+            {...styleConfig.tutorialDialogTitle}
+            content={titles[dialogStep]}
+          />
           <TutorialDialogText>
-            <WorldNameWrapper>
-              {tutorialCondition === TutorialConditions.DIALOG_CONFIRM_CITY_NAME
-                ? worldName
-                : ''}
-            </WorldNameWrapper>
+            <Span
+              content={
+                tutorialCondition ===
+                TutorialConditions.DIALOG_CONFIRM_CITY_NAME
+                  ? worldName
+                  : ''
+              }
+            />
             {printedText}
           </TutorialDialogText>
           <ButtonWrapper>
@@ -237,13 +208,14 @@ export const TutorialDialog: React.FC = () => {
               displayFlag={!isPrinting}
               callback={handleBackButtonClick}
               content="Назад"
-              style={{ marginRight: '23px' }}
+              {...styleConfig.backButton}
             />
             <Button
               displayFlag={!isPrinting}
               callback={handleClick}
               className={ButtonClassNames.NORMAL}
               content={buttonContent[dialogStep]}
+              {...styleConfig.forwardButton}
             />
           </ButtonWrapper>
         </TextWrapper>
@@ -251,11 +223,3 @@ export const TutorialDialog: React.FC = () => {
     </MainWrapper>
   );
 };
-
-interface ICustomButton {
-  textGenerating: boolean;
-}
-
-interface IBackButton extends ICustomButton {
-  borderFlag: boolean;
-}

@@ -497,7 +497,6 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
         {!tutorialCondition ||
         (tutorialCondition === TutorialConditions.NEXT_BUTTON_TOWER_INFO &&
           tutorialTower) ? (
-          // <div style={{ border: '5px solid green', width: 160, height: 44 }}>
           <Button
             className={ButtonClassNames.OUTLINE_NORMAL}
             animFlag={
@@ -506,8 +505,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
             callback={() => nextTowerTutorialStep()}
             {...StyleConfig.enterButton}
           />
-        ) : // </div>
-        null}
+        ) : null}
       </ModalWindowContentWrapper>
     </ModalWindowWrapper>
   );
