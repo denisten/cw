@@ -181,7 +181,7 @@ export const Profile = React.memo(() => {
   const toggleInputEdit = () => setEditMode(!editMode);
   return (
     <ProfileWrapper>
-      {!isAuthorized ? (
+      {isAuthorized ? (
         <React.Fragment>
           <Billet />
           <ProfileHeader>

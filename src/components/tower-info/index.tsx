@@ -283,8 +283,6 @@ const StyleConfig = {
     width: 160,
     height: 40,
     content: 'Что дальше?',
-    // color: '#02adc9',
-    // position: 'relative',
   },
   rowWrapper: {
     width: '100%',
