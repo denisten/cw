@@ -41,8 +41,8 @@ const Ripple = styled.div<IRipple>`
 `;
 
 const ButtonWrapper = styled.div<IButtonWrapper>`
-  width: fit-content;
-  height: fit-content;
+  width: ${props => props.width}px;
+  height: ${props => props.height}px;
   display: ${props => (props.displayFlag ? 'flex' : 'none')};
   position: ${props => props.position || 'relative'};
   top: ${props => props.top}%;

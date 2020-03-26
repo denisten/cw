@@ -242,7 +242,7 @@ export const TutorialDialog: React.FC = () => {
             <Button
               displayFlag={!isPrinting}
               callback={handleClick}
-              className={ButtonClassNames.OUTLINE_NORMAL}
+              className={ButtonClassNames.NORMAL}
               content={buttonContent[dialogStep]}
             />
           </ButtonWrapper>
