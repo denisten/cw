@@ -9,7 +9,7 @@ import styled from 'styled-components';
 import { MoneyWrapper } from '../../UI/money-wrapper';
 import { DataInput } from '../../UI/data-input';
 import { editUserData } from '../../effector/user-data/events';
-import { CustomButton } from '../../UI/button';
+import { ButtonClassNames, Button } from '../../UI/button';
 import { AppCondition } from '../../effector/app-condition/store';
 import { CookieService } from '../../sevices/cookies';
 import { handleAuthButtonClick } from '../../utils/handle-auth-button-click';
@@ -43,13 +43,13 @@ const StyledConfig = {
     width: '201px',
     height: '52px',
     content: 'Выйти',
-    fontSize: '28.5px',
+    fontSize: 28.5,
   },
   enterButton: {
-    width: '201px',
-    height: '52px',
+    width: 201,
+    height: 52,
     content: 'Войти',
-    fontSize: '28.5px',
+    fontSize: 28.5,
     margin: '0 0 30px 0',
   },
   nickNameWrapper: {
@@ -59,23 +59,23 @@ const StyledConfig = {
     margin: '35px 0px 0 0',
   },
   editButton: {
-    width: '250px',
-    height: '52px',
+    width: 250,
+    height: 52,
     content: 'Редактировать',
-    fontSize: '25.5px',
+    fontSize: 25.5,
   },
   saveButton: {
-    width: '201px',
-    height: '52px',
+    width: 201,
+    height: 52,
     content: 'Сохранить',
-    fontSize: '28.5px',
+    fontSize: 28.5,
     margin: '115px 0 0 0',
   },
   exitButton: {
-    width: '201px',
-    height: '52px',
+    width: 201,
+    height: 52,
     content: 'Выйти',
-    fontSize: '28.5px',
+    fontSize: 28.5,
     margin: '115px 0 0 0',
   },
   userInfoRow: {
@@ -197,7 +197,8 @@ export const Profile = React.memo(() => {
                 Информация
               </TitleWrapper>
               {!editMode ? (
-                <CustomButton
+                <Button
+                  className={ButtonClassNames.OUTLINE_NORMAL}
                   callback={() => toggleInputEdit()}
                   {...StyledConfig.editButton}
                 />
@@ -234,7 +235,8 @@ export const Profile = React.memo(() => {
             </InputsWrapper>
             {editMode ? (
               <RowWrapper {...StyledConfig.inEditModeRow}>
-                <CustomButton
+                <Button
+                  className={ButtonClassNames.OUTLINE_NORMAL}
                   callback={() => {
                     toggleInputEdit();
                     updateUserData({ name, assistantName, worldName });
@@ -246,7 +248,8 @@ export const Profile = React.memo(() => {
 
             {!editMode ? (
               <RowWrapper {...StyledConfig.inEditModeRow}>
-                <CustomButton
+                <Button
+                  className={ButtonClassNames.OUTLINE_NORMAL}
                   callback={() => {
                     CookieService.resetToken();
                     logout();
@@ -266,10 +269,11 @@ export const Profile = React.memo(() => {
           />
           {!tutorialCondition ||
           tutorialCondition === TutorialConditions.PULSE_AUTH_BUTTON ? (
-            <CustomButton
+            <Button
               animFlag={
                 tutorialCondition === TutorialConditions.PULSE_AUTH_BUTTON
               }
+              className={ButtonClassNames.OUTLINE_NORMAL}
               callback={() => {
                 if (
                   tutorialCondition === TutorialConditions.PULSE_AUTH_BUTTON

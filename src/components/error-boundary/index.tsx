@@ -6,17 +6,17 @@ import {
 import React, { useEffect, useState } from 'react';
 import { useStore } from 'effector-react';
 import { ZIndexes } from '../root-component/z-indexes-enum';
-import { CustomButton } from '../../UI/button';
+import { ButtonClassNames, Button } from '../../UI/button';
 import { ErrorWrapper } from './error-wrapper';
 import { errorCodes } from '../../utils/error-handler';
 import { setCancelAuthorizationStatus } from '../../effector/app-condition/events';
 
 const StyledConfig = {
   closeButton: {
-    width: '200px',
-    height: '51px',
+    width: 200,
+    height: 51,
     content: 'Ок',
-    fontSize: '28.5px',
+    fontSize: 28.5,
   },
   overlay: {
     zIndex: ZIndexes.ERROR,
@@ -56,7 +56,8 @@ export const ErrorBoundary = () => {
   return (
     <ErrorWrapper errorFlag={errorFlag} text={text} {...StyledConfig.overlay}>
       {networkStatus === NetworkStatuses.ONLINE ? (
-        <CustomButton
+        <Button
+          className={ButtonClassNames.OUTLINE_NORMAL}
           callback={closeErrorPopup}
           {...StyledConfig.closeButton}
         />
