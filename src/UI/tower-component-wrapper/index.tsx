@@ -164,7 +164,6 @@ export const TowerWrapper = memo(
 );
 
 interface ITowerWrapper {
-  towerCoords: number[];
   position: number[];
   tutorialCondition: TutorialConditions;
   maxLevel: TowerLevel;

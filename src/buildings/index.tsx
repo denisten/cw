@@ -33,7 +33,6 @@ export const Buildings: React.FC<IBuildings> = ({ parentDiv }) => {
                 focusOnTowerTitle={focusOn.towerTitle}
                 towerTitle={towerTitle}
                 zIndex={data.zIndex}
-                towerCoords={data.coords}
                 width={currentTower.width}
                 height={currentTower.height}
                 position={currentTower.position}

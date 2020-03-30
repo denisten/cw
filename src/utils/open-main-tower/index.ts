@@ -1,12 +1,11 @@
-import { BuildingsService } from '../../buildings/config';
 import { extraTowerInfoModalOpened } from '../../effector/app-condition/events';
 import { TowersTypes } from '../../effector/towers-progress/store';
+const X = 3672;
+const Y = 2036;
 
 export const openMainTower = () => {
-  const localService = new BuildingsService();
-  const { coords } = localService.getConfigForTower(TowersTypes.MAIN_TOWER);
   extraTowerInfoModalOpened({
-    coords: coords,
+    coords: [X, Y],
     towerTitle: TowersTypes.MAIN_TOWER,
   });
 };
