@@ -49,7 +49,6 @@ export const TowerWrapper = memo(
     tower,
     height,
     width,
-    towerCoords,
     zIndex,
     towerTitle,
     focusOnTowerTitle,
@@ -57,6 +56,7 @@ export const TowerWrapper = memo(
     upgradeFlag,
     tutorialTower,
     tutorialPause,
+    parentDiv,
   }: ITowerWrapper): React.ReactElement => {
     const [posX, posY] = position;
 
@@ -76,15 +76,17 @@ export const TowerWrapper = memo(
         setHoverState(false);
     };
 
-    const handleClick = () => {
+    const handleClick = (e: React.MouseEvent) => {
       if (
         tutorialCondition === TutorialConditions.ARROW_TOWER_INFO &&
         tutorialTower
       ) {
         nextTutorStep();
       } else if (!tutorialCondition || tutorialPause) {
+        if (!parentDiv) return;
+        const { x, y } = parentDiv.getBoundingClientRect();
         extraTowerInfoModalOpened({
-          coords: towerCoords,
+          coords: [Math.abs(x) + e.clientX, Math.abs(y) + e.clientY],
           towerTitle,
         });
       }
@@ -94,11 +96,11 @@ export const TowerWrapper = memo(
       mouseDownDate = +new Date();
     };
 
-    const handleMouseUp = () => {
+    const handleMouseUp = (e: React.MouseEvent) => {
       mouseUpDate = +new Date();
       const diff = mouseUpDate - mouseDownDate;
       if (diff < minDifBetweenMouseEvents) {
-        handleClick();
+        handleClick(e);
       }
       mouseDownDate = +new Date(0);
       mouseUpDate = +new Date(0);
@@ -179,6 +181,7 @@ interface ITowerWrapper {
   upgradeFlag: boolean;
   tutorialTower?: boolean;
   tutorialPause?: boolean;
+  parentDiv?: HTMLDivElement | null;
 }
 
 interface ITowerStyledWrapper {

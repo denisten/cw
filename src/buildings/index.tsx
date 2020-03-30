@@ -8,7 +8,7 @@ import {
 } from '../effector/towers-progress/store';
 import { AppCondition } from '../effector/app-condition/store';
 import { TutorialStore } from '../effector/tutorial-store/store';
-export const Buildings = () => {
+export const Buildings: React.FC<IBuildings> = ({ parentDiv }) => {
   const localService = new BuildingsService();
   const localTowersProgressStore = useStore(TowersProgressStore);
   const towersKeys = Object.keys(localTowersProgressStore) as TowersTypes[];
@@ -23,6 +23,7 @@ export const Buildings = () => {
           return (
             <Fragment key={towerTitle}>
               <TowerWrapper
+                parentDiv={parentDiv}
                 tutorialCondition={tutorialCondition}
                 tutorialPause={tutorialPause}
                 upgradeFlag={upgradingTowerTitle === towerTitle}
@@ -48,3 +49,7 @@ export const Buildings = () => {
     </Fragment>
   );
 };
+
+interface IBuildings {
+  parentDiv?: HTMLDivElement | null;
+}
