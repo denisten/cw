@@ -115,7 +115,3 @@ export const RootComponent = (): React.ReactElement => {
     </ComponentWrapper>
   );
 };
-
-interface IscaleValues {
-  [key: string]: number;
-}
