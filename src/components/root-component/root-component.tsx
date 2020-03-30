@@ -70,10 +70,10 @@ export const RootComponent = (): React.ReactElement => {
   useCheckDisableTutorial([]);
 
   const mapScale = (e: React.WheelEvent) => {
-    if (e.deltaY > 0 && scaleValue + ScaleValues.SCALE_STEP < 2) {
+    if (e.deltaY < 0 && scaleValue + ScaleValues.SCALE_STEP < 2) {
       updateScaleValue(ScaleValues.SCALE_STEP);
     } else if (
-      e.deltaY < 0 &&
+      e.deltaY > 0 &&
       scaleValue - ScaleValues.SCALE_STEP > ScaleValues.MIN_SCALE
     ) {
       updateScaleValue(-ScaleValues.SCALE_STEP);
