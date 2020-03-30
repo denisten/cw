@@ -18,6 +18,10 @@ import { Planes } from '../planes';
 import { TutorialStore } from '../../effector/tutorial-store/store';
 import { ScrollContainer } from '../scroll-container';
 import { coordsLogger } from '../../utils/coords-logger';
+import {
+  updateScaleValue,
+  ScaleValues,
+} from '../../effector/app-condition/events';
 export enum MapSize {
   WIDTH = 7680,
   HEIGHT = 5400,
@@ -65,8 +69,19 @@ export const RootComponent = (): React.ReactElement => {
   useScrollTo(scrollNode, scrollCoords, [isExtraTowerInfoModalOpen]);
   useCheckDisableTutorial([]);
 
+  const mapScale = (e: React.WheelEvent) => {
+    if (e.deltaY > 0 && scaleValue + ScaleValues.SCALE_STEP < 2) {
+      updateScaleValue(ScaleValues.SCALE_STEP);
+    } else if (
+      e.deltaY < 0 &&
+      scaleValue - ScaleValues.SCALE_STEP > ScaleValues.MIN_SCALE
+    ) {
+      updateScaleValue(-ScaleValues.SCALE_STEP);
+    }
+  };
+
   return (
-    <ComponentWrapper id="rootScroll">
+    <ComponentWrapper id="rootScroll" onWheel={mapScale}>
       <Menu displayFlag={!!selectedMenuItem} />
       <ProfileButton
         tutorialCondition={tutorialCondition}
@@ -100,3 +115,7 @@ export const RootComponent = (): React.ReactElement => {
     </ComponentWrapper>
   );
 };
+
+interface IscaleValues {
+  [key: string]: number;
+}
