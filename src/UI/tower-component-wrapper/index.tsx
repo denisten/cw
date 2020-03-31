@@ -6,11 +6,15 @@ import { TowerLevel, TowersTypes } from '../../effector/towers-progress/store';
 import { UpgradeButton } from '../update-button';
 import upgradeTowerImg from '../../img/tower-updrade/thin-tower.png';
 import { upgradeTower } from '../../effector/towers-progress/events';
-import { maxProgressValue } from '../../effector/app-condition/store';
+import {
+  maxProgressValue,
+  AppCondition,
+} from '../../effector/app-condition/store';
 import { TutorialConditions } from '../../effector/tutorial-store/store';
 import { nextTutorStep } from '../../effector/tutorial-store/events';
 import { Sprite } from '../../components/sprite';
 import { ZIndexes } from '../../components/root-component/z-indexes-enum';
+import { useStore } from 'effector-react';
 
 const TowerStyledWrapper = styled.div<ITowerStyledWrapper>`
   display: flex;
@@ -76,6 +80,8 @@ export const TowerWrapper = memo(
         setHoverState(false);
     };
 
+    const { scaleValue } = useStore(AppCondition);
+
     const handleClick = (e: React.MouseEvent) => {
       if (
         tutorialCondition === TutorialConditions.ARROW_TOWER_INFO &&
@@ -86,7 +92,10 @@ export const TowerWrapper = memo(
         if (!parentDiv) return;
         const { x, y } = parentDiv.getBoundingClientRect();
         extraTowerInfoModalOpened({
-          coords: [Math.abs(x) + e.clientX, Math.abs(y) + e.clientY],
+          coords: [
+            (Math.abs(x) + e.clientX) / scaleValue,
+            (Math.abs(y) + e.clientY) / scaleValue,
+          ],
           towerTitle,
         });
       }
