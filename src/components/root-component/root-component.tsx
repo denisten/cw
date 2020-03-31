@@ -72,12 +72,12 @@ export const RootComponent = (): React.ReactElement => {
   const mapScale = (e: React.WheelEvent) => {
     if (
       e.deltaY < 0 &&
-      scaleValue + ScaleValues.SCALE_STEP < ScaleValues.MAX_SCALE
+      scaleValue + ScaleValues.SCALE_STEP <= ScaleValues.MAX_SCALE
     ) {
       updateScaleValue(ScaleValues.SCALE_STEP);
     } else if (
       e.deltaY > 0 &&
-      scaleValue - ScaleValues.SCALE_STEP > ScaleValues.MIN_SCALE
+      scaleValue - ScaleValues.SCALE_STEP >= ScaleValues.MIN_SCALE
     ) {
       updateScaleValue(-ScaleValues.SCALE_STEP);
     }

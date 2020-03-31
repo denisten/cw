@@ -64,7 +64,7 @@ export const AppCondition = AppDomain.store<AppConditionType>(initState)
     if (state.scaleValue === payload) localScaleValue = initScaleValue;
     return {
       ...state,
-      scaleValue: state.scaleValue + localScaleValue,
+      scaleValue: Number((state.scaleValue + localScaleValue).toFixed(2)),
     };
   })
   .on(menuOpened, (state, payload) => ({
