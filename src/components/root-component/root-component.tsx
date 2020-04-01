@@ -84,7 +84,7 @@ export const RootComponent = (): React.ReactElement => {
   };
 
   return (
-    <ComponentWrapper id="rootScroll" onWheel={mapScale}>
+    <ComponentWrapper id="rootScroll">
       <Menu displayFlag={!!selectedMenuItem} />
       <ProfileButton
         tutorialCondition={tutorialCondition}
@@ -98,6 +98,7 @@ export const RootComponent = (): React.ReactElement => {
       />
       <ScrollContainer onMountCallback={setScrollNode}>
         <MapWrapper
+          onWheel={mapScale}
           scaleValue={scaleValue}
           onClick={e => {
             if (mapWrapperRef.current) coordsLogger(e, mapWrapperRef.current);
