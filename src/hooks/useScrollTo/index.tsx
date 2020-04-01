@@ -7,7 +7,7 @@ export const useScrollTo = (
   dependency: (string | number | boolean)[]
 ) => {
   const arrayRef = useRef<number[] | null>(null);
-  const arrayDiff = (arrayOne: number[], arrayTwo: number[]) => {
+  const checkArrayDifference = (arrayOne: number[], arrayTwo: number[]) => {
     return arrayOne
       .filter(i => !arrayTwo.includes(i))
       .concat(arrayTwo.filter(i => !arrayOne.includes(i)));
@@ -25,7 +25,7 @@ export const useScrollTo = (
     } else if (
       arrayRef.current !== null &&
       node &&
-      arrayDiff(arrayRef.current, scrollCoords).length !== 0
+      checkArrayDifference(arrayRef.current, scrollCoords).length !== 0
     ) {
       // значения в scrollCoords изменились
       scrollToPosition();
