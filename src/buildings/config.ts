@@ -116,7 +116,6 @@ export class BuildingsService {
     [TowersTypes.MAIN_TOWER]: {
       info: 'info',
       title: 'Сотовая связь',
-      coords: [3672, 2036],
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
       tutorialTower: true,
@@ -148,7 +147,6 @@ export class BuildingsService {
     [TowersTypes.MUSIC]: {
       info: 'info',
       title: 'МТС Music',
-      coords: [3115, 2455],
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
       [TowerLevel.low]: {
@@ -179,7 +177,6 @@ export class BuildingsService {
     [TowersTypes.ARENA]: {
       info: 'info',
       title: 'МТС Live Arena',
-      coords: [3537, 1408],
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
       [TowerLevel.low]: {
@@ -210,7 +207,6 @@ export class BuildingsService {
     [TowersTypes.MOLL]: {
       info: 'info',
       title: 'МТС Cashback',
-      coords: [4156, 1458],
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
       [TowerLevel.low]: {
@@ -241,7 +237,6 @@ export class BuildingsService {
     [TowersTypes.EGG]: {
       info: 'info',
       title: 'Мой МТС',
-      coords: [4095, 1996],
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
       [TowerLevel.low]: {
@@ -272,7 +267,6 @@ export class BuildingsService {
     [TowersTypes.LIBRARY]: {
       info: 'info',
       title: 'МТС Библиотека',
-      coords: [2256, 2490],
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
       [TowerLevel.low]: {
@@ -303,7 +297,6 @@ export class BuildingsService {
     [TowersTypes.OBSERVATORY]: {
       info: 'info',
       title: 'Здание партнера',
-      coords: [2688, 1833],
       zIndex: ZIndexes.BUILDING_THREE_LEVEL,
       maxLevel: TowerLevel.mid,
       [TowerLevel.low]: {
@@ -336,7 +329,6 @@ export class BuildingsService {
     [TowersTypes.TARIFF]: {
       info: 'info',
       title: 'Мобильный интернет',
-      coords: [3867, 1809],
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
       [TowerLevel.low]: {
@@ -367,7 +359,6 @@ export class BuildingsService {
     [TowersTypes.THEATER]: {
       info: 'info',
       title: 'МТС Афиша',
-      coords: [2964, 1643],
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.mid,
       [TowerLevel.low]: {
@@ -399,7 +390,6 @@ export class BuildingsService {
     [TowersTypes.TV]: {
       info: 'info',
       title: 'Цифровое ТВ',
-      coords: [2262, 1726],
       zIndex: ZIndexes.BUILDING_THREE_LEVEL,
       maxLevel: TowerLevel.high,
       [TowerLevel.low]: {
@@ -430,7 +420,6 @@ export class BuildingsService {
     [TowersTypes.STADIUM]: {
       info: 'info',
       title: 'МТС Фитнес',
-      coords: [2676, 2362],
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
       [TowerLevel.low]: {
@@ -461,7 +450,6 @@ export class BuildingsService {
     [TowersTypes.AIRPORT]: {
       info: 'info',
       title: 'Роуминг',
-      coords: [2481, 1244],
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
       [TowerLevel.low]: {
@@ -492,7 +480,6 @@ export class BuildingsService {
     [TowersTypes.BANK]: {
       info: 'info',
       title: 'МТС Банк',
-      coords: [5045, 1559],
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
       [TowerLevel.low]: {
@@ -523,7 +510,6 @@ export class BuildingsService {
     [TowersTypes.CYBER_ARENA]: {
       info: 'info',
       title: 'WASD.tv',
-      coords: [4912, 2593],
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
       [TowerLevel.low]: {
@@ -555,7 +541,6 @@ export class BuildingsService {
     [TowersTypes.AUTO_FACTORY]: {
       info: 'info',
       title: 'МТС Авто',
-      coords: [5007, 1993],
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
       [TowerLevel.low]: {
@@ -587,7 +572,6 @@ export class BuildingsService {
     [TowersTypes.SATELLITETV]: {
       info: 'info',
       title: 'Спутниковое ТВ',
-      coords: [2530, 1904],
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.low,
       [TowerLevel.low]: {
@@ -620,7 +604,6 @@ export class BuildingsService {
     [TowersTypes.PARTNER_BLUE]: {
       info: 'info',
       title: 'Здание партнера',
-      coords: [3476, 2918],
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.low,
       [TowerLevel.low]: {
@@ -653,7 +636,6 @@ export class BuildingsService {
     [TowersTypes.PARTNER_YELLOW]: {
       info: 'info',
       title: 'Здание партнера 2',
-      coords: [3253, 3163],
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.low,
       [TowerLevel.low]: {
@@ -686,7 +668,6 @@ export class BuildingsService {
     [TowersTypes.SLOT_MACHINE]: {
       info: 'info',
       title: 'МТС Игротека',
-      coords: [5415, 2871],
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
       [TowerLevel.low]: {
@@ -717,7 +698,6 @@ export class BuildingsService {
     [TowersTypes.ROUTER]: {
       info: 'info',
       title: 'Домашний интернет',
-      coords: [2572, 2828],
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.low,
       [TowerLevel.low]: {
@@ -750,7 +730,6 @@ export class BuildingsService {
     [TowersTypes.RTK]: {
       info: 'info',
       title: 'Салон-магазин МТС',
-      coords: [5392, 1788],
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.low,
       [TowerLevel.low]: {
@@ -783,7 +762,6 @@ export class BuildingsService {
     [TowersTypes.PARTNER_BANK]: {
       info: 'info',
       title: 'Партнерское здание',
-      coords: [4036, 2797],
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.low,
       // TODO: не настоящая картинка
@@ -816,7 +794,6 @@ export class BuildingsService {
     [TowersTypes.MARVIN]: {
       info: 'info',
       title: 'Колонка Марвин',
-      coords: [4416, 2950],
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.low,
       [TowerLevel.low]: {
@@ -849,7 +826,6 @@ export class BuildingsService {
     [TowersTypes.CLOUD]: {
       info: 'info',
       title: 'Вторая память',
-      coords: [4476.5, 3052.75],
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
       [TowerLevel.low]: {
@@ -892,7 +868,6 @@ type BuildingServiceConfigTypes = Record<
 type CurrentTowerServiceConfigTypes = {
   info: string;
   title: string;
-  coords: number[];
   zIndex: number;
   maxLevel: TowerLevel;
   tutorialTower?: boolean;

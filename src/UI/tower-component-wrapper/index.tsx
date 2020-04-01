@@ -184,6 +184,7 @@ interface ITowerWrapper {
   upgradeFlag: boolean;
   tutorialTower?: boolean;
   tutorialPause?: boolean;
+  scaleValue: number;
 }
 
 interface ITowerStyledWrapper {

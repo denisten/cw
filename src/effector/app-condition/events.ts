@@ -4,8 +4,9 @@ import { MenuItems } from '../../UI/menu-paragraph';
 import { AppConditionType } from './store';
 
 export enum ScaleValues {
-  HALF = 0.5,
-  ORIGIN = 1,
+  SCALE_STEP = 0.1,
+  MAX_SCALE = 1.5,
+  MIN_SCALE = 0.5,
 }
 
 export const extraTowerInfoModalOpen = AppDomain.event<TowersTypes | null>(
