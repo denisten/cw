@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { checkArrayDifference } from '../../utils/check-array-difference';
 
 export const useScrollTo = (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -7,13 +8,6 @@ export const useScrollTo = (
   dependency: (string | number | boolean)[]
 ) => {
   const arrayRef = useRef<number[] | null>(null);
-  const checkArrayDifference = (arrayOne: number[], arrayTwo: number[]) => {
-    return (
-      arrayOne
-        .filter(i => !arrayTwo.includes(i))
-        .concat(arrayTwo.filter(i => !arrayOne.includes(i))).length !== 0
-    );
-  };
 
   const scrollToPosition = () => {
     node.style.scrollBehavior = 'smooth';

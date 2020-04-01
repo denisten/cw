@@ -69,7 +69,7 @@ export const RootComponent = (): React.ReactElement => {
   useScrollTo(scrollNode, scrollCoords, [isExtraTowerInfoModalOpen]);
   useCheckDisableTutorial([]);
 
-  const mapScale = (e: React.WheelEvent) => {
+  const wheelHandler = (e: React.WheelEvent) => {
     if (
       e.deltaY < 0 &&
       scaleValue + ScaleValues.SCALE_STEP <= ScaleValues.MAX_SCALE
@@ -98,7 +98,7 @@ export const RootComponent = (): React.ReactElement => {
       />
       <ScrollContainer onMountCallback={setScrollNode}>
         <MapWrapper
-          onWheel={mapScale}
+          onWheel={wheelHandler}
           scaleValue={scaleValue}
           onClick={e => {
             if (mapWrapperRef.current) coordsLogger(e, mapWrapperRef.current);
