@@ -1,5 +1,5 @@
 import { TowersProgressDomain } from './domain';
-import { addProgressPoints, upgradeTower } from './events';
+import { addProgressPoints, addRefForTower, upgradeTower } from './events';
 import { RefObject } from 'react';
 export enum TowerLevel {
   low = 0,
@@ -173,7 +173,14 @@ export const TowersProgressStore = TowersProgressDomain.store<
         progress: 0,
       },
     };
-  });
+  })
+  .on(addRefForTower, (state, { tower, ref }) => ({
+    ...state,
+    [tower]: {
+      ...state[tower],
+      ref,
+    },
+  }));
 
 type TowerData = {
   level: TowerLevel;

@@ -19,6 +19,7 @@ import { ScrollContainer } from '../scroll-container';
 import { coordsLogger } from '../../utils/coords-logger';
 import { scrollToCurrentTower } from '../../utils/scroll-to-current-tower';
 import { TowersProgressStore } from '../../effector/towers-progress/store';
+
 export enum MapSize {
   WIDTH = 7680,
   HEIGHT = 5400,
@@ -51,11 +52,10 @@ export const RootComponent = (): React.ReactElement => {
   const { ref } = useStore(TowersProgressStore).mainTower;
   const mapWrapperRef = useRef<HTMLDivElement>(null);
   useCheckDisableTutorial([]);
-
   useEffect(() => {
     scrollToCurrentTower(ref);
-    // console.log('it worked');
-  }, []);
+  }, [ref]);
+
   return (
     <ComponentWrapper id="rootScroll">
       <Menu displayFlag={!!selectedMenuItem} />

@@ -18,8 +18,6 @@ import { upgradeTower } from '../towers-progress/events';
 import { MenuItems } from '../../UI/menu-paragraph';
 import connectLocalStorage from 'effector-localstorage/sync';
 export const maxProgressValue = 100;
-// const initFocusXCord = 3693,
-//   initFocusYCord = 1949;
 
 const initScaleValue = 0.5;
 

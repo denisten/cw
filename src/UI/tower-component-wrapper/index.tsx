@@ -5,7 +5,10 @@ import { LazyImage } from '@tsareff/lazy-image';
 import { TowerLevel, TowersTypes } from '../../effector/towers-progress/store';
 import { UpgradeButton } from '../update-button';
 import upgradeTowerImg from '../../img/tower-updrade/thin-tower.png';
-import { upgradeTower } from '../../effector/towers-progress/events';
+import {
+  addRefForTower,
+  upgradeTower,
+} from '../../effector/towers-progress/events';
 import { maxProgressValue } from '../../effector/app-condition/store';
 import { TutorialConditions } from '../../effector/tutorial-store/store';
 import { nextTutorStep } from '../../effector/tutorial-store/events';
@@ -111,6 +114,9 @@ export const TowerWrapper = memo(
     };
 
     useEffect(() => mouseOverHandle(), [focusOnTowerTitle]);
+    useEffect(() => {
+      addRefForTower({ ref: myRef, tower: towerTitle });
+    }, []);
     return (
       <TowerStyledWrapper
         posX={posX}
