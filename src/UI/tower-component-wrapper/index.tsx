@@ -1,16 +1,20 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import { extraTowerInfoModalOpened } from '../../effector/app-condition/events';
+import { extraTowerInfoModalOpen } from '../../effector/app-condition/events';
 import { LazyImage } from '@tsareff/lazy-image';
 import { TowerLevel, TowersTypes } from '../../effector/towers-progress/store';
 import { UpgradeButton } from '../update-button';
 import upgradeTowerImg from '../../img/tower-updrade/thin-tower.png';
-import { upgradeTower } from '../../effector/towers-progress/events';
+import {
+  addRefForTower,
+  upgradeTower,
+} from '../../effector/towers-progress/events';
 import { maxProgressValue } from '../../effector/app-condition/store';
 import { TutorialConditions } from '../../effector/tutorial-store/store';
 import { nextTutorStep } from '../../effector/tutorial-store/events';
 import { Sprite } from '../../components/sprite';
 import { ZIndexes } from '../../components/root-component/z-indexes-enum';
+import { scrollToCurrentTower } from '../../utils/scroll-to-current-tower';
 
 const TowerStyledWrapper = styled.div<ITowerStyledWrapper>`
   display: flex;
@@ -49,7 +53,6 @@ export const TowerWrapper = memo(
     tower,
     height,
     width,
-    towerCoords,
     zIndex,
     towerTitle,
     focusOnTowerTitle,
@@ -64,7 +67,7 @@ export const TowerWrapper = memo(
       mouseUpDate: number = +new Date(0);
 
     const [hoverState, setHoverState] = useState(false);
-
+    const towerRef = useRef<HTMLDivElement>(null);
     const TowerStyleConfig = {
       width: `${width}px`,
       height: `${height}px`,
@@ -83,10 +86,9 @@ export const TowerWrapper = memo(
       ) {
         nextTutorStep();
       } else if (!tutorialCondition || tutorialPause) {
-        extraTowerInfoModalOpened({
-          coords: towerCoords,
-          towerTitle,
-        });
+        scrollToCurrentTower(towerRef);
+
+        extraTowerInfoModalOpen(towerTitle);
       }
     };
 
@@ -110,6 +112,9 @@ export const TowerWrapper = memo(
     };
 
     useEffect(() => mouseOverHandle(), [focusOnTowerTitle]);
+    useEffect(() => {
+      addRefForTower({ ref: towerRef, tower: towerTitle });
+    }, []);
     return (
       <TowerStyledWrapper
         posX={posX}
@@ -117,6 +122,7 @@ export const TowerWrapper = memo(
         zIndex={zIndex}
         width={width}
         height={height}
+        ref={towerRef}
       >
         {progress >= maxProgressValue && currentLevel < maxLevel ? (
           <UpgradeButton
@@ -162,7 +168,6 @@ export const TowerWrapper = memo(
 );
 
 interface ITowerWrapper {
-  towerCoords: number[];
   position: number[];
   tutorialCondition: TutorialConditions;
   maxLevel: TowerLevel;

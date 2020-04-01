@@ -29,10 +29,9 @@ export const Buildings = () => {
                 maxLevel={data.maxLevel}
                 currentLevel={localTowersProgressStore[towerTitle].level}
                 progress={localTowersProgressStore[towerTitle].progress}
-                focusOnTowerTitle={focusOn.towerTitle}
+                focusOnTowerTitle={focusOn}
                 towerTitle={towerTitle}
                 zIndex={data.zIndex}
-                towerCoords={data.coords}
                 width={currentTower.width}
                 height={currentTower.height}
                 position={currentTower.position}

@@ -1,12 +1,12 @@
-import { BuildingsService } from '../../buildings/config';
-import { extraTowerInfoModalOpened } from '../../effector/app-condition/events';
-import { TowersTypes } from '../../effector/towers-progress/store';
+import { extraTowerInfoModalOpen } from '../../effector/app-condition/events';
+import {
+  TowersProgressStore,
+  TowersTypes,
+} from '../../effector/towers-progress/store';
+import { scrollToCurrentTower } from '../scroll-to-current-tower';
 
 export const openMainTower = () => {
-  const localService = new BuildingsService();
-  const { coords } = localService.getConfigForTower(TowersTypes.MAIN_TOWER);
-  extraTowerInfoModalOpened({
-    coords: coords,
-    towerTitle: TowersTypes.MAIN_TOWER,
-  });
+  const { ref } = TowersProgressStore.getState().mainTower;
+  scrollToCurrentTower(ref);
+  extraTowerInfoModalOpen(TowersTypes.MAIN_TOWER);
 };
