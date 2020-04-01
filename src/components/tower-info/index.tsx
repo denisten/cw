@@ -303,9 +303,7 @@ const StyleConfig = {
 };
 
 export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
-  const {
-      focusOn: { towerTitle: notVerifiedTowerTitle },
-    } = useStore(AppCondition),
+  const { focusOn: notVerifiedTowerTitle } = useStore(AppCondition),
     LocalTowerProgressStore = useStore(TowersProgressStore);
   const { tutorialCondition } = useStore(TutorialStore);
   const towerTitle: TowersTypes =

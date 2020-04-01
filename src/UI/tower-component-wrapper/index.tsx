@@ -1,16 +1,20 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import { extraTowerInfoModalOpened } from '../../effector/app-condition/events';
+import { extraTowerInfoModalOpen } from '../../effector/app-condition/events';
 import { LazyImage } from '@tsareff/lazy-image';
 import { TowerLevel, TowersTypes } from '../../effector/towers-progress/store';
 import { UpgradeButton } from '../update-button';
 import upgradeTowerImg from '../../img/tower-updrade/thin-tower.png';
-import { upgradeTower } from '../../effector/towers-progress/events';
+import {
+  addRefForTower,
+  upgradeTower,
+} from '../../effector/towers-progress/events';
 import { maxProgressValue } from '../../effector/app-condition/store';
 import { TutorialConditions } from '../../effector/tutorial-store/store';
 import { nextTutorStep } from '../../effector/tutorial-store/events';
 import { Sprite } from '../../components/sprite';
 import { ZIndexes } from '../../components/root-component/z-indexes-enum';
+import { scrollToCurrentTower } from '../../utils/scroll-to-current-tower';
 
 const TowerStyledWrapper = styled.div<ITowerStyledWrapper>`
   display: flex;
@@ -56,8 +60,6 @@ export const TowerWrapper = memo(
     upgradeFlag,
     tutorialTower,
     tutorialPause,
-    parentDiv,
-    scaleValue,
   }: ITowerWrapper): React.ReactElement => {
     const [posX, posY] = position;
 
@@ -65,7 +67,7 @@ export const TowerWrapper = memo(
       mouseUpDate: number = +new Date(0);
 
     const [hoverState, setHoverState] = useState(false);
-
+    const towerRef = useRef<HTMLDivElement>(null);
     const TowerStyleConfig = {
       width: `${width}px`,
       height: `${height}px`,
@@ -77,22 +79,16 @@ export const TowerWrapper = memo(
         setHoverState(false);
     };
 
-    const handleClick = (e: React.MouseEvent) => {
+    const handleClick = () => {
       if (
         tutorialCondition === TutorialConditions.ARROW_TOWER_INFO &&
         tutorialTower
       ) {
         nextTutorStep();
       } else if (!tutorialCondition || tutorialPause) {
-        if (!parentDiv) return;
-        const { x, y } = parentDiv.getBoundingClientRect();
-        extraTowerInfoModalOpened({
-          coords: [
-            (Math.abs(x) + e.clientX) / scaleValue,
-            (Math.abs(y) + e.clientY) / scaleValue,
-          ],
-          towerTitle,
-        });
+        scrollToCurrentTower(towerRef);
+
+        extraTowerInfoModalOpen(towerTitle);
       }
     };
 
@@ -100,11 +96,11 @@ export const TowerWrapper = memo(
       mouseDownDate = +new Date();
     };
 
-    const handleMouseUp = (e: React.MouseEvent) => {
+    const handleMouseUp = () => {
       mouseUpDate = +new Date();
       const diff = mouseUpDate - mouseDownDate;
       if (diff < minDifBetweenMouseEvents) {
-        handleClick(e);
+        handleClick();
       }
       mouseDownDate = +new Date(0);
       mouseUpDate = +new Date(0);
@@ -116,6 +112,9 @@ export const TowerWrapper = memo(
     };
 
     useEffect(() => mouseOverHandle(), [focusOnTowerTitle]);
+    useEffect(() => {
+      addRefForTower({ ref: towerRef, tower: towerTitle });
+    }, []);
     return (
       <TowerStyledWrapper
         posX={posX}
@@ -123,6 +122,7 @@ export const TowerWrapper = memo(
         zIndex={zIndex}
         width={width}
         height={height}
+        ref={towerRef}
       >
         {progress >= maxProgressValue && currentLevel < maxLevel ? (
           <UpgradeButton

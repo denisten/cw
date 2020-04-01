@@ -19,8 +19,8 @@ export const Sprite = memo((props: ISprite) => {
   const [displayFlag, setDisplayFlag] = useState(true);
   let requestCallback: number;
   let isAnimationStopped = false;
-  let fullImgWidth = 0,
-    fullImgHeight = 0,
+  let fullImgWidth = 1,
+    fullImgHeight = 1,
     tickCount = 0,
     frameIndexX = 0,
     frameIndexY = 0;

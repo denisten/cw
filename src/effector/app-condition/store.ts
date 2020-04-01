@@ -1,13 +1,12 @@
 import { AppDomain } from './domain';
 import {
   extraTowerInfoModalClosed,
-  extraTowerInfoModalOpened,
+  extraTowerInfoModalOpen,
   toggleExtraTowerInfoModal,
   updateScaleValue,
   ScaleValues,
   menuOpened,
   menuClosed,
-  ExtraTowerInfoModalOpenedProps,
   showUpgradeIcon,
   editIsAuthorizedFlag,
   setAuthValue,
@@ -18,18 +17,13 @@ import { upgradeTower } from '../towers-progress/events';
 import { MenuItems } from '../../UI/menu-paragraph';
 import connectLocalStorage from 'effector-localstorage/sync';
 export const maxProgressValue = 100;
-const initFocusXCord = 3693,
-  initFocusYCord = 1949;
 
 const initScaleValue = 1;
 
 const initState = {
   isExtraTowerInfoModalOpen: false,
   scaleValue: initScaleValue,
-  focusOn: {
-    coords: [initFocusXCord, initFocusYCord],
-    towerTitle: null,
-  },
+  focusOn: null,
   selectedMenuItem: null,
   upgradingTowerTitle: null,
   isAuthorized: false,
@@ -41,7 +35,7 @@ const appConditionLocalStorage = connectLocalStorage('AppCondition').onChange(
 );
 
 export const AppCondition = AppDomain.store<AppConditionType>(initState)
-  .on(extraTowerInfoModalOpened, (state, payload) => ({
+  .on(extraTowerInfoModalOpen, (state, payload) => ({
     ...state,
     isExtraTowerInfoModalOpen: true,
     focusOn: payload,
@@ -49,15 +43,11 @@ export const AppCondition = AppDomain.store<AppConditionType>(initState)
   .on(extraTowerInfoModalClosed, state => ({
     ...state,
     isExtraTowerInfoModalOpen: false,
-    focusOn: {
-      ...state.focusOn,
-      towerTitle: null,
-    },
+    focusOn: null,
   }))
-  .on(toggleExtraTowerInfoModal, (state, payload) => ({
+  .on(toggleExtraTowerInfoModal, state => ({
     ...state,
     isExtraTowerInfoModalOpen: !state.isExtraTowerInfoModalOpen,
-    focusOn: { ...state.focusOn, coords: payload },
   }))
   .on(updateScaleValue, (state, payload) => {
     let localScaleValue = payload;
@@ -102,7 +92,7 @@ AppCondition.watch(appConditionLocalStorage);
 export type AppConditionType = {
   isExtraTowerInfoModalOpen: boolean;
   selectedMenuItem: MenuItems | null;
-  focusOn: ExtraTowerInfoModalOpenedProps;
+  focusOn: TowersTypes | null;
   scaleValue: ScaleValues;
   upgradingTowerTitle: TowersTypes | null;
   isAuthorized: boolean;

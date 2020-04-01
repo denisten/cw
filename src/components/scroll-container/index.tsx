@@ -8,24 +8,15 @@ const ScrollContainerWrapper = styled.div`
   overflow: hidden;
 `;
 
-export const ScrollContainer: React.FC<IScrollContainer> = React.memo(
-  ({ children, onMountCallback }) => {
-    const myRef = useRef<HTMLDivElement>(null);
-    useEffect(() => {
-      dragscroll.reset();
-      if (myRef.current) {
-        onMountCallback(myRef.current);
-      }
-    }, []);
+export const ScrollContainer: React.FC = React.memo(({ children }) => {
+  const myRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    dragscroll.reset();
+  }, []);
 
-    return (
-      <ScrollContainerWrapper className="dragscroll" ref={myRef}>
-        {children}
-      </ScrollContainerWrapper>
-    );
-  }
-);
-
-interface IScrollContainer {
-  onMountCallback: Function;
-}
+  return (
+    <ScrollContainerWrapper className="dragscroll" ref={myRef}>
+      {children}
+    </ScrollContainerWrapper>
+  );
+});

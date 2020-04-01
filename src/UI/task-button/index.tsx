@@ -1,7 +1,10 @@
 import React from 'react';
 import { ImgWrapper } from '../img-wrapper';
 import taskImg from './task-img.png';
-import { menuOpened } from '../../effector/app-condition/events';
+import {
+  menuOpened,
+  extraTowerInfoModalClosed,
+} from '../../effector/app-condition/events';
 import { MenuItems } from '../menu-paragraph';
 import styled from 'styled-components';
 import { useStore } from 'effector-react';
@@ -39,7 +42,10 @@ export const TaskButton = () => {
       src={taskImg}
       {...StyleConfig}
       callBack={() => {
-        !tutorialCondition && menuOpened(MenuItems.TASKS);
+        if (!tutorialCondition) {
+          extraTowerInfoModalClosed();
+          menuOpened(MenuItems.TASKS);
+        }
       }}
     >
       <SpanElem>ЗАДАНИЯ</SpanElem>

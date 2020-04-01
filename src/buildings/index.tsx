@@ -30,7 +30,7 @@ export const Buildings: React.FC<IBuildings> = ({ parentDiv }) => {
                 maxLevel={data.maxLevel}
                 currentLevel={localTowersProgressStore[towerTitle].level}
                 progress={localTowersProgressStore[towerTitle].progress}
-                focusOnTowerTitle={focusOn.towerTitle}
+                focusOnTowerTitle={focusOn}
                 towerTitle={towerTitle}
                 zIndex={data.zIndex}
                 width={currentTower.width}

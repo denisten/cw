@@ -1,11 +1,12 @@
-import { extraTowerInfoModalOpened } from '../../effector/app-condition/events';
-import { TowersTypes } from '../../effector/towers-progress/store';
-const initCoordX = 3672;
-const initCoordY = 2036;
+import { extraTowerInfoModalOpen } from '../../effector/app-condition/events';
+import {
+  TowersProgressStore,
+  TowersTypes,
+} from '../../effector/towers-progress/store';
+import { scrollToCurrentTower } from '../scroll-to-current-tower';
 
 export const openMainTower = () => {
-  extraTowerInfoModalOpened({
-    coords: [initCoordX, initCoordY],
-    towerTitle: TowersTypes.MAIN_TOWER,
-  });
+  const { ref } = TowersProgressStore.getState().mainTower;
+  scrollToCurrentTower(ref);
+  extraTowerInfoModalOpen(TowersTypes.MAIN_TOWER);
 };

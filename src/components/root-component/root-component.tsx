@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { TowerInfo } from '../tower-info';
 import { useStore } from 'effector-react';
@@ -8,7 +8,6 @@ import { Buildings } from '../../buildings';
 import mapTile from '../../img/roads/map-tile.png';
 import { Menu } from '../profile-modal-window';
 import { TaskButton } from '../../UI/task-button';
-import { useScrollTo } from '../../hooks/useScrollTo';
 import { Bridges } from '../../buildings/bridges';
 import { ProfileButton } from '../../UI/profile-button';
 import { TutorialToolsSelector } from '../../utils/arrows-container';
@@ -22,6 +21,9 @@ import {
   updateScaleValue,
   ScaleValues,
 } from '../../effector/app-condition/events';
+import { scrollToCurrentTower } from '../../utils/scroll-to-current-tower';
+import { TowersProgressStore } from '../../effector/towers-progress/store';
+
 export enum MapSize {
   WIDTH = 7680,
   HEIGHT = 5400,
@@ -45,29 +47,18 @@ const MapWrapper = styled.div<{ scaleValue: number }>`
   transform: scale(${props => props.scaleValue});
 `;
 
-export enum divideNumber {
-  WIDTH = 2.5,
-  HEIGHT = 1.8,
-}
-
 export const RootComponent = (): React.ReactElement => {
-  const {
-    isExtraTowerInfoModalOpen,
-    selectedMenuItem,
-    scaleValue,
-    focusOn,
-  } = useStore(AppCondition);
+  const { isExtraTowerInfoModalOpen, selectedMenuItem, scaleValue } = useStore(
+    AppCondition
+  );
 
   const { tutorialCondition, tutorialPause } = useStore(TutorialStore);
-  const [cordX, cordY] = focusOn.coords;
-  const scrollCoords = [
-    cordX - window.innerWidth / divideNumber.WIDTH,
-    cordY - window.innerHeight / divideNumber.HEIGHT,
-  ];
-  const [scrollNode, setScrollNode] = useState(null);
+  const { ref } = useStore(TowersProgressStore).mainTower;
   const mapWrapperRef = useRef<HTMLDivElement>(null);
-  useScrollTo(scrollNode, scrollCoords, [isExtraTowerInfoModalOpen]);
   useCheckDisableTutorial([]);
+  useEffect(() => {
+    scrollToCurrentTower(ref);
+  }, [ref]);
 
   const wheelHandler = (e: React.WheelEvent) => {
     if (
@@ -96,7 +87,7 @@ export const RootComponent = (): React.ReactElement => {
         tutorialCondition={tutorialCondition}
         isInsideScrollContainer={false}
       />
-      <ScrollContainer onMountCallback={setScrollNode}>
+      <ScrollContainer>
         <MapWrapper
           onWheel={wheelHandler}
           scaleValue={scaleValue}
