@@ -103,7 +103,7 @@ export const RootComponent = (): React.ReactElement => {
           <Planes />
           <Cars />
           <Map />
-          <Buildings parentDiv={mapWrapperRef.current} />
+          <Buildings />
           <Bridges showBridges={true} />
         </MapWrapper>
       </ScrollContainer>

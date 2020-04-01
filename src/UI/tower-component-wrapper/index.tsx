@@ -184,7 +184,6 @@ interface ITowerWrapper {
   upgradeFlag: boolean;
   tutorialTower?: boolean;
   tutorialPause?: boolean;
-  parentDiv?: HTMLDivElement | null;
   scaleValue: number;
 }
 
