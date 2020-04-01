@@ -37,6 +37,8 @@ const StyledConfig = {
     } as React.CSSProperties,
   },
 };
+
+const maxMouseMoveFaultAfterClick = 20;
 export const TowerWrapper = memo(
   ({
     position,
@@ -98,7 +100,7 @@ export const TowerWrapper = memo(
     };
 
     const handleMouseUp = () => {
-      if (mouseDownFlag && mouseMoveFlag < 20) {
+      if (mouseDownFlag && mouseMoveFlag < maxMouseMoveFaultAfterClick) {
         handleClick();
         mouseMoveFlag = 0;
       }
