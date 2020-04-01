@@ -1,13 +1,12 @@
 import { AppDomain } from './domain';
 import {
   extraTowerInfoModalClosed,
-  userSelectedTower,
+  extraTowerInfoModalOpen,
   toggleExtraTowerInfoModal,
   updateScaleValue,
   ScaleValues,
   menuOpened,
   menuClosed,
-  IUserSelectedTower,
   showUpgradeIcon,
   editIsAuthorizedFlag,
   setAuthValue,
@@ -24,9 +23,7 @@ const initScaleValue = 0.5;
 const initState = {
   isExtraTowerInfoModalOpen: false,
   scaleValue: initScaleValue,
-  focusOn: {
-    towerTitle: null,
-  },
+  focusOn: null,
   selectedMenuItem: null,
   upgradingTowerTitle: null,
   isAuthorized: false,
@@ -38,7 +35,7 @@ const appConditionLocalStorage = connectLocalStorage('AppCondition').onChange(
 );
 
 export const AppCondition = AppDomain.store<AppConditionType>(initState)
-  .on(userSelectedTower, (state, payload) => ({
+  .on(extraTowerInfoModalOpen, (state, payload) => ({
     ...state,
     isExtraTowerInfoModalOpen: true,
     focusOn: payload,
@@ -46,15 +43,11 @@ export const AppCondition = AppDomain.store<AppConditionType>(initState)
   .on(extraTowerInfoModalClosed, state => ({
     ...state,
     isExtraTowerInfoModalOpen: false,
-    focusOn: {
-      ...state.focusOn,
-      towerTitle: null,
-    },
+    focusOn: null,
   }))
-  .on(toggleExtraTowerInfoModal, (state, payload) => ({
+  .on(toggleExtraTowerInfoModal, state => ({
     ...state,
     isExtraTowerInfoModalOpen: !state.isExtraTowerInfoModalOpen,
-    focusOn: { ...state.focusOn, coords: payload },
   }))
   .on(updateScaleValue, (state, payload) => {
     let localScaleValue = payload;
@@ -99,7 +92,7 @@ AppCondition.watch(appConditionLocalStorage);
 export type AppConditionType = {
   isExtraTowerInfoModalOpen: boolean;
   selectedMenuItem: MenuItems | null;
-  focusOn: IUserSelectedTower;
+  focusOn: TowersTypes | null;
   scaleValue: ScaleValues;
   upgradingTowerTitle: TowersTypes | null;
   isAuthorized: boolean;

@@ -1,6 +1,6 @@
 import React, { memo, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import { userSelectedTower } from '../../effector/app-condition/events';
+import { extraTowerInfoModalOpen } from '../../effector/app-condition/events';
 import { LazyImage } from '@tsareff/lazy-image';
 import { TowerLevel, TowersTypes } from '../../effector/towers-progress/store';
 import { UpgradeButton } from '../update-button';
@@ -67,7 +67,7 @@ export const TowerWrapper = memo(
       mouseUpDate: number = +new Date(0);
 
     const [hoverState, setHoverState] = useState(false);
-    const myRef = useRef<HTMLDivElement>(null);
+    const towerRef = useRef<HTMLDivElement>(null);
     const TowerStyleConfig = {
       width: `${width}px`,
       height: `${height}px`,
@@ -86,11 +86,9 @@ export const TowerWrapper = memo(
       ) {
         nextTutorStep();
       } else if (!tutorialCondition || tutorialPause) {
-        scrollToCurrentTower(myRef);
+        scrollToCurrentTower(towerRef);
 
-        userSelectedTower({
-          towerTitle,
-        });
+        extraTowerInfoModalOpen(towerTitle);
       }
     };
 
@@ -115,7 +113,7 @@ export const TowerWrapper = memo(
 
     useEffect(() => mouseOverHandle(), [focusOnTowerTitle]);
     useEffect(() => {
-      addRefForTower({ ref: myRef, tower: towerTitle });
+      addRefForTower({ ref: towerRef, tower: towerTitle });
     }, []);
     return (
       <TowerStyledWrapper
@@ -124,7 +122,7 @@ export const TowerWrapper = memo(
         zIndex={zIndex}
         width={width}
         height={height}
-        ref={myRef}
+        ref={towerRef}
       >
         {progress >= maxProgressValue && currentLevel < maxLevel ? (
           <UpgradeButton

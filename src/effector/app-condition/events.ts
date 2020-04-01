@@ -8,7 +8,7 @@ export enum ScaleValues {
   ORIGIN = 1,
 }
 
-export const userSelectedTower = AppDomain.event<IUserSelectedTower>(
+export const extraTowerInfoModalOpen = AppDomain.event<TowersTypes | null>(
   'User clicked to view extra info about building'
 );
 export const extraTowerInfoModalClosed = AppDomain.event(
