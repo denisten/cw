@@ -18,7 +18,7 @@ import { MenuItems } from '../../UI/menu-paragraph';
 import connectLocalStorage from 'effector-localstorage/sync';
 export const maxProgressValue = 100;
 
-const initScaleValue = 0.5;
+const initScaleValue = 1;
 
 const initState = {
   isExtraTowerInfoModalOpen: false,
