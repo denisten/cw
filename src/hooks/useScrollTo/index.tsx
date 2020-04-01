@@ -8,26 +8,28 @@ export const useScrollTo = (
 ) => {
   const arrayRef = useRef<number[] | null>(null);
   const checkArrayDifference = (arrayOne: number[], arrayTwo: number[]) => {
-    return arrayOne
-      .filter(i => !arrayTwo.includes(i))
-      .concat(arrayTwo.filter(i => !arrayOne.includes(i)));
+    return (
+      arrayOne
+        .filter(i => !arrayTwo.includes(i))
+        .concat(arrayTwo.filter(i => !arrayOne.includes(i))).length !== 0
+    );
   };
+
   const scrollToPosition = () => {
     node.style.scrollBehavior = 'smooth';
     node.scrollTo(...scrollCoords);
     node.style.scrollBehavior = '';
     arrayRef.current = scrollCoords;
   };
+
   useEffect(() => {
-    if (arrayRef.current === null && node) {
-      // first start
+    if (!arrayRef.current && node) {
       scrollToPosition();
     } else if (
-      arrayRef.current !== null &&
+      arrayRef.current &&
       node &&
-      checkArrayDifference(arrayRef.current, scrollCoords).length !== 0
+      checkArrayDifference(arrayRef.current, scrollCoords)
     ) {
-      // значения в scrollCoords изменились
       scrollToPosition();
     }
   }, [...dependency, node, scrollCoords]);

@@ -6,15 +6,11 @@ import { TowerLevel, TowersTypes } from '../../effector/towers-progress/store';
 import { UpgradeButton } from '../update-button';
 import upgradeTowerImg from '../../img/tower-updrade/thin-tower.png';
 import { upgradeTower } from '../../effector/towers-progress/events';
-import {
-  maxProgressValue,
-  AppCondition,
-} from '../../effector/app-condition/store';
+import { maxProgressValue } from '../../effector/app-condition/store';
 import { TutorialConditions } from '../../effector/tutorial-store/store';
 import { nextTutorStep } from '../../effector/tutorial-store/events';
 import { Sprite } from '../../components/sprite';
 import { ZIndexes } from '../../components/root-component/z-indexes-enum';
-import { useStore } from 'effector-react';
 
 const TowerStyledWrapper = styled.div<ITowerStyledWrapper>`
   display: flex;
@@ -61,6 +57,7 @@ export const TowerWrapper = memo(
     tutorialTower,
     tutorialPause,
     parentDiv,
+    scaleValue,
   }: ITowerWrapper): React.ReactElement => {
     const [posX, posY] = position;
 
@@ -79,8 +76,6 @@ export const TowerWrapper = memo(
       if (!(focusOnTowerTitle && focusOnTowerTitle === towerTitle))
         setHoverState(false);
     };
-
-    const { scaleValue } = useStore(AppCondition);
 
     const handleClick = (e: React.MouseEvent) => {
       if (
@@ -190,6 +185,7 @@ interface ITowerWrapper {
   tutorialTower?: boolean;
   tutorialPause?: boolean;
   parentDiv?: HTMLDivElement | null;
+  scaleValue: number;
 }
 
 interface ITowerStyledWrapper {
