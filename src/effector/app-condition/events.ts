@@ -8,14 +8,9 @@ export enum ScaleValues {
   ORIGIN = 1,
 }
 
-export type ExtraTowerInfoModalOpenedProps = {
-  coords: number[];
-  towerTitle: TowersTypes | null;
-};
-
-export const extraTowerInfoModalOpened = AppDomain.event<
-  ExtraTowerInfoModalOpenedProps
->('User clicked to view extra info about building');
+export const userSelectedTower = AppDomain.event<IUserSelectedTower>(
+  'User clicked to view extra info about building'
+);
 export const extraTowerInfoModalClosed = AppDomain.event(
   'User clicked to close extra info about building'
 );
@@ -29,3 +24,7 @@ export const showUpgradeIcon = AppDomain.event<TowersTypes>();
 export const editIsAuthorizedFlag = AppDomain.event<boolean>();
 export const setCancelAuthorizationStatus = AppDomain.event<string>();
 export const setAuthValue = AppDomain.event<AppConditionType>();
+
+export interface IUserSelectedTower {
+  towerTitle: TowersTypes | null;
+}

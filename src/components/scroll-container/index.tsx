@@ -13,8 +13,8 @@ export const ScrollContainer: React.FC<IScrollContainer> = React.memo(
     const myRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
       dragscroll.reset();
-      if (myRef.current) {
-        onMountCallback(myRef.current);
+      if (myRef.current && onMountCallback) {
+        onMountCallback();
       }
     }, []);
 
@@ -27,5 +27,5 @@ export const ScrollContainer: React.FC<IScrollContainer> = React.memo(
 );
 
 interface IScrollContainer {
-  onMountCallback: Function;
+  onMountCallback?: Function;
 }

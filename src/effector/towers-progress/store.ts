@@ -1,5 +1,6 @@
 import { TowersProgressDomain } from './domain';
 import { addProgressPoints, upgradeTower } from './events';
+import { RefObject } from 'react';
 export enum TowerLevel {
   low = 0,
   mid = 1,
@@ -35,99 +36,123 @@ const initState: TowersProgressStoreType = {
   [TowersTypes.MAIN_TOWER]: {
     level: TowerLevel.low,
     progress: 0,
+    ref: null,
   },
   [TowersTypes.MUSIC]: {
     level: TowerLevel.low,
     progress: 0,
+    ref: null,
   },
   [TowersTypes.ARENA]: {
     level: TowerLevel.low,
     progress: 0,
+    ref: null,
   },
   [TowersTypes.MOLL]: {
     level: TowerLevel.low,
     progress: 0,
+    ref: null,
   },
   [TowersTypes.EGG]: {
     level: TowerLevel.low,
     progress: 0,
+    ref: null,
   },
   [TowersTypes.LIBRARY]: {
     level: TowerLevel.low,
     progress: 0,
+    ref: null,
   },
   [TowersTypes.OBSERVATORY]: {
     level: TowerLevel.mid,
     progress: 0,
+    ref: null,
   },
   [TowersTypes.TARIFF]: {
     level: TowerLevel.low,
     progress: 0,
+    ref: null,
   },
   [TowersTypes.THEATER]: {
     level: TowerLevel.high,
     progress: 0,
+    ref: null,
   },
   [TowersTypes.TV]: {
     level: TowerLevel.low,
     progress: 0,
+    ref: null,
   },
   [TowersTypes.STADIUM]: {
     level: TowerLevel.low,
     progress: 0,
+    ref: null,
   },
   [TowersTypes.AIRPORT]: {
     level: TowerLevel.low,
     progress: 0,
+    ref: null,
   },
   [TowersTypes.BANK]: {
     level: TowerLevel.low,
     progress: 0,
+    ref: null,
   },
   [TowersTypes.CYBER_ARENA]: {
     level: TowerLevel.low,
     progress: 0,
+    ref: null,
   },
 
   [TowersTypes.SATELLITETV]: {
     level: TowerLevel.low,
     progress: 0,
+    ref: null,
   },
   [TowersTypes.PARTNER_BLUE]: {
     level: TowerLevel.low,
     progress: 0,
+    ref: null,
   },
   [TowersTypes.PARTNER_YELLOW]: {
     level: TowerLevel.low,
     progress: 0,
+    ref: null,
   },
   [TowersTypes.SLOT_MACHINE]: {
     level: TowerLevel.low,
     progress: 0,
+    ref: null,
   },
   [TowersTypes.ROUTER]: {
     level: TowerLevel.low,
     progress: 0,
+    ref: null,
   },
   [TowersTypes.AUTO_FACTORY]: {
     level: TowerLevel.low,
     progress: 0,
+    ref: null,
   },
   [TowersTypes.RTK]: {
     level: TowerLevel.low,
     progress: 0,
+    ref: null,
   },
   [TowersTypes.PARTNER_BANK]: {
     level: TowerLevel.mid,
     progress: 0,
+    ref: null,
   },
   [TowersTypes.MARVIN]: {
     level: TowerLevel.low,
     progress: 0,
+    ref: null,
   },
   [TowersTypes.CLOUD]: {
     level: TowerLevel.low,
     progress: 0,
+    ref: null,
   },
 };
 export const TowersProgressStore = TowersProgressDomain.store<
@@ -153,6 +178,7 @@ export const TowersProgressStore = TowersProgressDomain.store<
 type TowerData = {
   level: TowerLevel;
   progress: number;
+  ref?: RefObject<HTMLDivElement> | null;
 };
 
 type TowersProgressStoreType = Record<TowersTypes, TowerData>;

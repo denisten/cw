@@ -1,13 +1,13 @@
 import { AppDomain } from './domain';
 import {
   extraTowerInfoModalClosed,
-  extraTowerInfoModalOpened,
+  userSelectedTower,
   toggleExtraTowerInfoModal,
   updateScaleValue,
   ScaleValues,
   menuOpened,
   menuClosed,
-  ExtraTowerInfoModalOpenedProps,
+  IUserSelectedTower,
   showUpgradeIcon,
   editIsAuthorizedFlag,
   setAuthValue,
@@ -18,16 +18,15 @@ import { upgradeTower } from '../towers-progress/events';
 import { MenuItems } from '../../UI/menu-paragraph';
 import connectLocalStorage from 'effector-localstorage/sync';
 export const maxProgressValue = 100;
-const initFocusXCord = 3693,
-  initFocusYCord = 1949;
+// const initFocusXCord = 3693,
+//   initFocusYCord = 1949;
 
-const initScaleValue = 1;
+const initScaleValue = 0.5;
 
 const initState = {
   isExtraTowerInfoModalOpen: false,
   scaleValue: initScaleValue,
   focusOn: {
-    coords: [initFocusXCord, initFocusYCord],
     towerTitle: null,
   },
   selectedMenuItem: null,
@@ -41,7 +40,7 @@ const appConditionLocalStorage = connectLocalStorage('AppCondition').onChange(
 );
 
 export const AppCondition = AppDomain.store<AppConditionType>(initState)
-  .on(extraTowerInfoModalOpened, (state, payload) => ({
+  .on(userSelectedTower, (state, payload) => ({
     ...state,
     isExtraTowerInfoModalOpen: true,
     focusOn: payload,
@@ -102,7 +101,7 @@ AppCondition.watch(appConditionLocalStorage);
 export type AppConditionType = {
   isExtraTowerInfoModalOpen: boolean;
   selectedMenuItem: MenuItems | null;
-  focusOn: ExtraTowerInfoModalOpenedProps;
+  focusOn: IUserSelectedTower;
   scaleValue: ScaleValues;
   upgradingTowerTitle: TowersTypes | null;
   isAuthorized: boolean;

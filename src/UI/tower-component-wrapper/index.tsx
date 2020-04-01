@@ -1,6 +1,6 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import { extraTowerInfoModalOpened } from '../../effector/app-condition/events';
+import { userSelectedTower } from '../../effector/app-condition/events';
 import { LazyImage } from '@tsareff/lazy-image';
 import { TowerLevel, TowersTypes } from '../../effector/towers-progress/store';
 import { UpgradeButton } from '../update-button';
@@ -11,6 +11,7 @@ import { TutorialConditions } from '../../effector/tutorial-store/store';
 import { nextTutorStep } from '../../effector/tutorial-store/events';
 import { Sprite } from '../../components/sprite';
 import { ZIndexes } from '../../components/root-component/z-indexes-enum';
+import { scrollToCurrentTower } from '../../utils/scroll-to-current-tower';
 
 const TowerStyledWrapper = styled.div<ITowerStyledWrapper>`
   display: flex;
@@ -49,7 +50,6 @@ export const TowerWrapper = memo(
     tower,
     height,
     width,
-    towerCoords,
     zIndex,
     towerTitle,
     focusOnTowerTitle,
@@ -64,7 +64,7 @@ export const TowerWrapper = memo(
       mouseUpDate: number = +new Date(0);
 
     const [hoverState, setHoverState] = useState(false);
-
+    const myRef = useRef<HTMLDivElement>(null);
     const TowerStyleConfig = {
       width: `${width}px`,
       height: `${height}px`,
@@ -83,8 +83,9 @@ export const TowerWrapper = memo(
       ) {
         nextTutorStep();
       } else if (!tutorialCondition || tutorialPause) {
-        extraTowerInfoModalOpened({
-          coords: towerCoords,
+        scrollToCurrentTower(myRef);
+
+        userSelectedTower({
           towerTitle,
         });
       }
@@ -117,6 +118,7 @@ export const TowerWrapper = memo(
         zIndex={zIndex}
         width={width}
         height={height}
+        ref={myRef}
       >
         {progress >= maxProgressValue && currentLevel < maxLevel ? (
           <UpgradeButton
@@ -162,7 +164,6 @@ export const TowerWrapper = memo(
 );
 
 interface ITowerWrapper {
-  towerCoords: number[];
   position: number[];
   tutorialCondition: TutorialConditions;
   maxLevel: TowerLevel;
