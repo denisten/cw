@@ -52,7 +52,7 @@ const ButtonWrapper = styled.div<IButtonWrapper>`
   right: ${props => props.right}%;
   bottom: ${props => props.bottom}%;
   margin: ${props => props.margin};
-  font-family: MTSSans, serif;
+  font-family: MTSSansMedium, serif;
   font-size: 16px;
   font-weight: bold;
   font-stretch: normal;
