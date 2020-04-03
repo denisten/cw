@@ -146,6 +146,11 @@ const Button = styled.div`
   margin: 0 12px 12px 0;
   color: white;
   cursor: pointer;
+  transition: 0.4s;
+
+  &:hover {
+    box-shadow: 0 3px 6px 0 #bbc1c7;
+  }
 `;
 
 const ButtonBody = styled.div`
