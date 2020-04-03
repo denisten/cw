@@ -16,6 +16,7 @@ const TowerInfoDescriptionWrapper = styled.div<{ fullView?: boolean }>`
   font-family: 'MTSSansRegular';
   letter-spacing: 0;
   margin-bottom: 30px;
+  margin-top: 40px;
 
   @media (max-resolution: 0.8dppx) {
     font-size: 1.5vh;
