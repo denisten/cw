@@ -11,6 +11,7 @@ const ChatWrapper = styled.div<{ foolSize: boolean }>`
   overflow: auto;
   border-bottom: solid 1px #e2e5eb;
   position: relative;
+  max-height: 460px;
 
   &::before {
     content: '';
