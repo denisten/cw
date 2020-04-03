@@ -87,7 +87,7 @@ export const ModalWindowWrapper = styled.div<ModalWindowProps>`
   @media screen and (max-width: 1440px) {
     height: 100%;
     top: 0%;
-    width: 492px;
+    width: 547px;
   }
 
   @media screen and (max-width: 1280px) {
@@ -104,6 +104,8 @@ const ModalWindowContentWrapper = styled.div`
   background-image: url(${wrapperBackground});
   background-size: 100% 100%;
   background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
 `;
 
 const ModalWindowHeader = styled.div`
@@ -121,6 +123,7 @@ const ModalWindowHeader = styled.div`
 const TowerInfoHeader = styled.div`
   width: 100%;
   margin-bottom: 40px;
+  flex-shrink: 0;
 
   @media (max-resolution: 0.8dppx) {
     margin-bottom: 2vh;
@@ -222,6 +225,7 @@ const TowerInfoMenu = styled.div`
   justify-content: flex-start;
   flex-direction: column;
   width: 100%;
+  flex-shrink: 0;
 `;
 
 const TowerInfoMenuElement = styled.div<{
@@ -270,6 +274,7 @@ const StyleConfig = {
     width: 160,
     height: 40,
     content: 'Что дальше?',
+    margin: '0 0 40px 0',
   },
   rowWrapper: {
     width: '100%',

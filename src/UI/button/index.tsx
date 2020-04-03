@@ -43,6 +43,7 @@ const Ripple = styled.div<IRipple>`
 `;
 
 const ButtonWrapper = styled.div<IButtonWrapper>`
+  flex-shrink: 0;
   width: ${props => props.width}px;
   height: ${props => props.height}px;
   display: ${props => (props.displayFlag ? 'flex' : 'none')};

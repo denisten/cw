@@ -158,6 +158,7 @@ const ButtonBody = styled.div`
   display: flex;
   flex-wrap: wrap;
   width: 100%;
+  flex-shrink: 0;
 `;
 
 export const TowerInfoChat = () => {
@@ -173,9 +174,13 @@ export const TowerInfoChat = () => {
     // do somethink
   };
 
+  const chatWheelHandler = (e: React.WheelEvent) => {
+    console.log(e.deltaY);
+  };
+
   return (
     <>
-      <ChatWrapper>
+      <ChatWrapper onWheel={chatWheelHandler}>
         {ChatConfig.messages.map(item => (
           <MessageRow key={item.id} type={item.type}>
             <Avatar src={setAvatar(item.type)}></Avatar>
