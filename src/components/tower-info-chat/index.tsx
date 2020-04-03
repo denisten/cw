@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import whiteCorner from './corner-white.svg';
 import bCorner from './corner-b.svg';
+import { setHideTowerInfo } from '../../effector/app-condition/events';
 
-const ChatWrapper = styled.div`
+const ChatWrapper = styled.div<{ foolSize: boolean }>`
   width: 100%;
-  height: 344px;
+  height: ${props => (props.foolSize ? 'auto' : '344px')};
   box-sizing: border-box;
   overflow: auto;
   border-bottom: solid 1px #e2e5eb;
@@ -130,6 +131,50 @@ const ChatConfig: IChatConfig = {
       text: 'Дай мне книжечку',
       type: 'user',
     },
+    {
+      id: 7,
+      text: 'Привет, я библиотекарь',
+      type: 'system',
+      botName: 'Библиотекарь',
+    },
+    {
+      id: 8,
+      text: 'Дай мне книжечку',
+      type: 'user',
+    },
+    {
+      id: 9,
+      text: 'Привет, я библиотекарь',
+      type: 'system',
+      botName: 'Библиотекарь',
+    },
+    {
+      id: 10,
+      text: 'Дай мне книжечку',
+      type: 'user',
+    },
+    {
+      id: 11,
+      text: 'Привет, я библиотекарь',
+      type: 'system',
+      botName: 'Библиотекарь',
+    },
+    {
+      id: 12,
+      text: 'Дай мне книжечку',
+      type: 'user',
+    },
+    {
+      id: 13,
+      text: 'Привет, я библиотекарь',
+      type: 'system',
+      botName: 'Библиотекарь',
+    },
+    {
+      id: 14,
+      text: 'Дай мне книжечку',
+      type: 'user',
+    },
   ],
   buttons: [
     { title: 'Ничего себе, расскажи подробнее!', answerId: 12 },
@@ -161,7 +206,9 @@ const ButtonBody = styled.div`
   flex-shrink: 0;
 `;
 
-export const TowerInfoChat = () => {
+const START_HIDE_POS = 200;
+
+export const TowerInfoChat: React.FC<ITowerInfoChat> = ({ hideContent }) => {
   const setAvatar = (messageType: string) => {
     if (messageType === 'system') {
       return ChatConfig.systemBotAvatar;
@@ -170,17 +217,35 @@ export const TowerInfoChat = () => {
     }
   };
 
-  const sendAnswerId = (id: number) => {
-    // do somethink
+  const chatContainer = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    return () => {
+      setHideTowerInfo(false);
+    };
+  }, []);
+
+  const sendAnswerId = () => {
+    // do somethink id
   };
 
-  const chatWheelHandler = (e: React.WheelEvent) => {
-    console.log(e.deltaY);
+  const chatWheelHandler = () => {
+    if (chatContainer.current) {
+      if (chatContainer.current.scrollTop > START_HIDE_POS && !hideContent) {
+        setHideTowerInfo(true);
+      } else if (chatContainer.current.scrollTop === 0 && hideContent) {
+        setHideTowerInfo(false);
+      }
+    }
   };
 
   return (
     <>
-      <ChatWrapper onWheel={chatWheelHandler}>
+      <ChatWrapper
+        onScroll={chatWheelHandler}
+        foolSize={hideContent}
+        ref={chatContainer}
+      >
         {ChatConfig.messages.map(item => (
           <MessageRow key={item.id} type={item.type}>
             <Avatar src={setAvatar(item.type)}></Avatar>
@@ -193,10 +258,7 @@ export const TowerInfoChat = () => {
       </ChatWrapper>
       <ButtonBody>
         {ChatConfig.buttons.map(button => (
-          <Button
-            key={button.answerId}
-            onClick={() => sendAnswerId(button.answerId)}
-          >
+          <Button key={button.answerId} onClick={() => sendAnswerId()}>
             {button.title}
           </Button>
         ))}
@@ -210,4 +272,8 @@ interface IChatConfig {
   userAvatar?: string;
   messages: { id: number; text: string; type: string; botName?: string }[];
   buttons: { title: string; answerId: number }[];
+}
+
+interface ITowerInfoChat {
+  hideContent: boolean;
 }

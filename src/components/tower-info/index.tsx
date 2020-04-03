@@ -134,9 +134,9 @@ const TowerInfoHeader = styled.div`
   }
 `;
 
-const HeaderLine = styled.div`
+const HeaderLine = styled.div<{ hide: boolean }>`
   width: 100%;
-  display: flex;
+  display: ${props => (props.hide ? 'none' : 'flex')};
   margin-top: 30px;
 `;
 
@@ -274,11 +274,11 @@ const StyleConfig = {
     width: 160,
     height: 40,
     content: 'Что дальше?',
-    margin: '0 0 40px 0',
   },
   rowWrapper: {
     width: '100%',
     justifyContent: 'space-between',
+    alignItems: 'center',
   },
   money: {
     fontSize: '20px',
@@ -295,7 +295,9 @@ const StyleConfig = {
 };
 
 export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
-  const { focusOn: notVerifiedTowerTitle } = useStore(AppCondition),
+  const { focusOn: notVerifiedTowerTitle, hideTowerInfo } = useStore(
+      AppCondition
+    ),
     LocalTowerProgressStore = useStore(TowersProgressStore);
   const { tutorialCondition } = useStore(TutorialStore);
   const towerTitle: TowersTypes =
@@ -397,22 +399,28 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
         <TowerInfoHeader>
           <RowWrapper {...StyleConfig.rowWrapper}>
             <Title>{title}</Title>
-            <UpgradeButton
-              canUpgrade={
-                LocalTowerProgressStore[towerTitle].progress >= MAXLEVEL &&
-                level < maxLevel
-              }
-              onClick={handleClick}
-              pulseAnim={
-                tutorialCondition ===
-                TutorialConditions.UPGRADE_BUTTON_TOWER_INFO
-              }
-            >
-              Улучшить
-            </UpgradeButton>
+            {hideTowerInfo ? (
+              <ProgressBar
+                progress={LocalTowerProgressStore[towerTitle].progress}
+              />
+            ) : (
+              <UpgradeButton
+                canUpgrade={
+                  LocalTowerProgressStore[towerTitle].progress >= MAXLEVEL &&
+                  level < maxLevel
+                }
+                onClick={handleClick}
+                pulseAnim={
+                  tutorialCondition ===
+                  TutorialConditions.UPGRADE_BUTTON_TOWER_INFO
+                }
+              >
+                Улучшить
+              </UpgradeButton>
+            )}
           </RowWrapper>
 
-          <HeaderLine>
+          <HeaderLine hide={hideTowerInfo}>
             <HeaderLineElement {...StyleConfig.firstHeaderLine}>
               <MainText>Уровень эволюции</MainText>
 
@@ -480,6 +488,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
               ? [descriptionText[0]]
               : descriptionText
           }
+          hideContent={hideTowerInfo}
         />
 
         {!tutorialCondition ||
