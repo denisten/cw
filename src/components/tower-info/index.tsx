@@ -104,14 +104,6 @@ const ModalWindowContentWrapper = styled.div`
   background-image: url(${wrapperBackground});
   background-size: 100% 100%;
   background-repeat: no-repeat;
-
-  @media ${device.laptopS} {
-    padding: 20px;
-  }
-
-  @media (max-resolution: 0.8dppx) {
-    padding: 3vh;
-  }
 `;
 
 const ModalWindowHeader = styled.div`
@@ -142,11 +134,7 @@ const TowerInfoHeader = styled.div`
 const HeaderLine = styled.div`
   width: 100%;
   display: flex;
-  margin-top: 24px;
-
-  @media ${device.laptopS} {
-    margin-top: 12px;
-  }
+  margin-top: 30px;
 `;
 
 const Title = styled.div`
