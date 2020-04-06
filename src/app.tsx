@@ -27,6 +27,19 @@ export const App = () => {
       errorStringsParsingHOF(authCancelledStatus);
     }
   }, [authCancelledStatus]);
+
+  const wheelPreventDefault = (e: WheelEvent) => {
+    if (e.ctrlKey) {
+      e.preventDefault();
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('wheel', wheelPreventDefault, { passive: false });
+    return () => {
+      window.removeEventListener('wheel', wheelPreventDefault);
+    };
+  }, []);
   return (
     <Router history={history}>
       <ErrorBoundary />
