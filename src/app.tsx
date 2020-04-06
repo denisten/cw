@@ -15,8 +15,10 @@ export enum Routes {
   AUTH_LANDING_PAGE = '/auth-callback',
 }
 
-const PLUSKEYCODE = 61;
-const MINUSKEYCODE = 173;
+enum EventCodes {
+  PLUS = 61,
+  MINUS = 173,
+}
 
 export const App = () => {
   const { isAuthorized, authCancelledStatus } = useStore(AppCondition);
@@ -40,7 +42,7 @@ export const App = () => {
   const keyDownPreventDefault = (e: KeyboardEvent) => {
     if (
       e.ctrlKey &&
-      (e.keyCode === PLUSKEYCODE || e.keyCode === MINUSKEYCODE)
+      (e.keyCode === EventCodes.PLUS || e.keyCode === EventCodes.MINUS)
     ) {
       e.preventDefault();
     }
