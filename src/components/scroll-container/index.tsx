@@ -6,6 +6,7 @@ const ScrollContainerWrapper = styled.div`
   height: 100%;
   width: 100%;
   overflow: hidden;
+  user-select: none;
 `;
 
 export const ScrollContainer: React.FC = React.memo(({ children }) => {

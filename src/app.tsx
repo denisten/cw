@@ -18,6 +18,8 @@ export enum Routes {
 enum EventCodes {
   PLUS = 61,
   MINUS = 173,
+  STRING_PLUS = '=',
+  STRING_MINUS = '-',
 }
 
 export const App = () => {
@@ -42,7 +44,10 @@ export const App = () => {
   const keyDownPreventDefault = (e: KeyboardEvent) => {
     if (
       e.ctrlKey &&
-      (e.keyCode === EventCodes.PLUS || e.keyCode === EventCodes.MINUS)
+      (e.keyCode === EventCodes.PLUS ||
+        e.keyCode === EventCodes.MINUS ||
+        e.key === EventCodes.STRING_MINUS ||
+        e.key === EventCodes.STRING_PLUS)
     ) {
       e.preventDefault();
     }
