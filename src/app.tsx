@@ -15,6 +15,11 @@ export enum Routes {
   AUTH_LANDING_PAGE = '/auth-callback',
 }
 
+enum EventCodes {
+  PLUS = 61,
+  MINUS = 173,
+}
+
 export const App = () => {
   const { isAuthorized, authCancelledStatus } = useStore(AppCondition);
   useEffect(() => {
@@ -27,6 +32,32 @@ export const App = () => {
       errorStringsParsingHOF(authCancelledStatus);
     }
   }, [authCancelledStatus]);
+
+  const wheelPreventDefault = (e: WheelEvent) => {
+    if (e.ctrlKey) {
+      e.preventDefault();
+    }
+  };
+
+  const keyDownPreventDefault = (e: KeyboardEvent) => {
+    if (
+      e.ctrlKey &&
+      (e.keyCode === EventCodes.PLUS || e.keyCode === EventCodes.MINUS)
+    ) {
+      e.preventDefault();
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('wheel', wheelPreventDefault, { passive: false });
+    window.addEventListener('keydown', keyDownPreventDefault, {
+      passive: false,
+    });
+    return () => {
+      window.removeEventListener('wheel', wheelPreventDefault);
+      window.removeEventListener('keydown', keyDownPreventDefault);
+    };
+  }, []);
   return (
     <Router history={history}>
       <ErrorBoundary />
