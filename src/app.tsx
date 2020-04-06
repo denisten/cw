@@ -15,6 +15,9 @@ export enum Routes {
   AUTH_LANDING_PAGE = '/auth-callback',
 }
 
+const PLUSKEYCODE = 61;
+const MINUSKEYCODE = 173;
+
 export const App = () => {
   const { isAuthorized, authCancelledStatus } = useStore(AppCondition);
   useEffect(() => {
@@ -34,10 +37,23 @@ export const App = () => {
     }
   };
 
+  const keyDownPreventDefault = (e: KeyboardEvent) => {
+    if (
+      e.ctrlKey &&
+      (e.keyCode === PLUSKEYCODE || e.keyCode === MINUSKEYCODE)
+    ) {
+      e.preventDefault();
+    }
+  };
+
   useEffect(() => {
     window.addEventListener('wheel', wheelPreventDefault, { passive: false });
+    window.addEventListener('keydown', keyDownPreventDefault, {
+      passive: false,
+    });
     return () => {
       window.removeEventListener('wheel', wheelPreventDefault);
+      window.removeEventListener('keydown', keyDownPreventDefault);
     };
   }, []);
   return (
