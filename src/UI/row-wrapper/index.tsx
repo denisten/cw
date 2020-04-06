@@ -8,12 +8,14 @@ const ParentDivWrapper = styled.div<RowWrapperProps>`
   flex-direction: row;
   justify-content: ${props => props.justifyContent};
   position: relative;
+  align-items: ${props => props.alignItems};
 `;
 
 interface RowWrapperProps {
   width?: string;
   height?: string;
   justifyContent?: string;
+  alignItems?: string;
   onMouseOut?: () => void;
 }
 

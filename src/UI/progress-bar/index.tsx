@@ -7,11 +7,16 @@ const ProgressBarWrapper = styled.div`
   height: 20px;
   width: 180px;
   border: 1px solid none;
-  border-radius: 100px;
   overflow: hidden;
   justify-content: flex-start;
-  background-color: #e2e5eb;
+  background-color: #d6f0f4;
   border: 1px solid none;
+
+  transform: skew(-45deg);
+
+  border-radius: 8px;
+
+  box-shadow: inset 0 0 2px 0 rgba(32, 189, 218, 0.18);
 
   &::before {
     position: absolute;
@@ -31,17 +36,21 @@ const ProgressBarWrapper = styled.div`
     top: 0;
     left: 66%;
   }
-
-  @media (max-resolution: 0.8dppx) {
-    height: 2vh;
-    width: 11vw;
-  }
 `;
 
 const ProgressBarGreenLine = styled.div<ProgressBarProps>`
   width: ${props => props.progress}%;
   height: 100%;
-  background-image: linear-gradient(to left, #64e2ff, #02adc9);
+
+  box-shadow: inset 0 1px 3px 0 rgba(255, 255, 255, 0.5);
+
+  background-image: linear-gradient(
+    to bottom,
+    #5adcf9,
+    #43d0ed 40%,
+    #3acbe8 44%,
+    #5edffc
+  );
   transition-property: width;
   transition-duration: 0.5s;
   transition-timing-function: ease-in-out;

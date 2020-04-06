@@ -87,7 +87,7 @@ export const ModalWindowWrapper = styled.div<ModalWindowProps>`
   @media screen and (max-width: 1440px) {
     height: 100%;
     top: 0%;
-    width: 492px;
+    width: 547px;
   }
 
   @media screen and (max-width: 1280px) {
@@ -99,19 +99,13 @@ export const ModalWindowWrapper = styled.div<ModalWindowProps>`
 const ModalWindowContentWrapper = styled.div`
   height: 100%;
   width: 100%;
-  padding: 40px;
+  padding: 40px 32px 40px 40px;
   box-sizing: border-box;
   background-image: url(${wrapperBackground});
   background-size: 100% 100%;
   background-repeat: no-repeat;
-
-  @media ${device.laptopS} {
-    padding: 20px;
-  }
-
-  @media (max-resolution: 0.8dppx) {
-    padding: 3vh;
-  }
+  display: flex;
+  flex-direction: column;
 `;
 
 const ModalWindowHeader = styled.div`
@@ -128,7 +122,8 @@ const ModalWindowHeader = styled.div`
 `;
 const TowerInfoHeader = styled.div`
   width: 100%;
-  margin-bottom: 40px;
+  margin-bottom: 32px;
+  flex-shrink: 0;
 
   @media (max-resolution: 0.8dppx) {
     margin-bottom: 2vh;
@@ -139,18 +134,14 @@ const TowerInfoHeader = styled.div`
   }
 `;
 
-const HeaderLine = styled.div`
+const HeaderLine = styled.div<{ sizeContent: boolean }>`
   width: 100%;
-  display: flex;
-  margin-top: 24px;
-
-  @media ${device.laptopS} {
-    margin-top: 12px;
-  }
+  display: ${props => (props.sizeContent ? 'none' : 'flex')};
+  margin-top: ${props => (props.sizeContent ? '20px' : '32px')};
 `;
 
-const Title = styled.div`
-  font-size: 32px;
+const Title = styled.div<{ sizeContent: boolean }>`
+  font-size: ${props => (props.sizeContent ? '24px' : '32px')};
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -158,14 +149,6 @@ const Title = styled.div`
   letter-spacing: -0.5px;
   color: #001424;
   font-family: 'MTSSansUltraWide';
-
-  @media (max-resolution: 0.8dppx) {
-    font-size: 2.5vh;
-  }
-
-  @media ${device.laptopS} {
-    font-size: 28px;
-  }
 `;
 
 const MainText = styled.span`
@@ -234,7 +217,7 @@ const TowerInfoMenu = styled.div`
   justify-content: flex-start;
   flex-direction: column;
   width: 100%;
-  margin-bottom: 24px;
+  flex-shrink: 0;
 `;
 
 const TowerInfoMenuElement = styled.div<{
@@ -287,6 +270,7 @@ const StyleConfig = {
   rowWrapper: {
     width: '100%',
     justifyContent: 'space-between',
+    alignItems: 'center',
   },
   money: {
     fontSize: '20px',
@@ -303,7 +287,9 @@ const StyleConfig = {
 };
 
 export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
-  const { focusOn: notVerifiedTowerTitle } = useStore(AppCondition),
+  const { focusOn: notVerifiedTowerTitle, hideTowerInfo } = useStore(
+      AppCondition
+    ),
     LocalTowerProgressStore = useStore(TowersProgressStore);
   const { tutorialCondition } = useStore(TutorialStore);
   const towerTitle: TowersTypes =
@@ -404,23 +390,29 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
       <ModalWindowContentWrapper>
         <TowerInfoHeader>
           <RowWrapper {...StyleConfig.rowWrapper}>
-            <Title>{title}</Title>
-            <UpgradeButton
-              canUpgrade={
-                LocalTowerProgressStore[towerTitle].progress >= MAXLEVEL &&
-                level < maxLevel
-              }
-              onClick={handleClick}
-              pulseAnim={
-                tutorialCondition ===
-                TutorialConditions.UPGRADE_BUTTON_TOWER_INFO
-              }
-            >
-              Улучшить
-            </UpgradeButton>
+            <Title sizeContent={hideTowerInfo}>{title}</Title>
+            {hideTowerInfo ? (
+              <ProgressBar
+                progress={LocalTowerProgressStore[towerTitle].progress}
+              />
+            ) : (
+              <UpgradeButton
+                canUpgrade={
+                  LocalTowerProgressStore[towerTitle].progress >= MAXLEVEL &&
+                  level < maxLevel
+                }
+                onClick={handleClick}
+                pulseAnim={
+                  tutorialCondition ===
+                  TutorialConditions.UPGRADE_BUTTON_TOWER_INFO
+                }
+              >
+                Улучшить
+              </UpgradeButton>
+            )}
           </RowWrapper>
 
-          <HeaderLine>
+          <HeaderLine sizeContent={hideTowerInfo}>
             <HeaderLineElement {...StyleConfig.firstHeaderLine}>
               <MainText>Уровень эволюции</MainText>
 
@@ -488,6 +480,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
               ? [descriptionText[0]]
               : descriptionText
           }
+          hideContent={hideTowerInfo}
         />
 
         {!tutorialCondition ||

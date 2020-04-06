@@ -7,15 +7,17 @@ import { TowerInfoTask } from '../tower-info-task';
 type TowerInfoContentProps = {
   selectedMenu: TowerInfoContentValues;
   text: Array<string>;
+  hideContent: boolean;
 };
 
 export const TowerInfoContent: React.FC<TowerInfoContentProps> = ({
   selectedMenu = TowerInfoContentValues.DESCRIPTION,
   text,
+  hideContent,
 }) => {
   switch (selectedMenu) {
     case TowerInfoContentValues.CHAT:
-      return <TowerInfoChat />;
+      return <TowerInfoChat hideContent={hideContent} />;
     case TowerInfoContentValues.DESCRIPTION:
       return <TowerInfoDescription text={text} />;
     default:
