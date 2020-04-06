@@ -28,7 +28,6 @@ const TowerStyledWrapper = styled.div<ITowerStyledWrapper>`
   align-items: flex-end;
 `;
 
-const minDifBetweenMouseEvents = 120;
 const StyledConfig = {
   sprite: {
     ticksPerFrame: 2,
@@ -42,6 +41,8 @@ const StyledConfig = {
     } as React.CSSProperties,
   },
 };
+
+const maxMouseMoveFaultAfterClick = 20;
 export const TowerWrapper = memo(
   ({
     position,
@@ -62,10 +63,8 @@ export const TowerWrapper = memo(
     tutorialPause,
   }: ITowerWrapper): React.ReactElement => {
     const [posX, posY] = position;
-
-    let mouseDownDate: number = +new Date(0),
-      mouseUpDate: number = +new Date(0);
-
+    let mouseDownFlag = false,
+      mouseMoveFlag = 0;
     const [hoverState, setHoverState] = useState(false);
     const towerRef = useRef<HTMLDivElement>(null);
     const TowerStyleConfig = {
@@ -93,17 +92,20 @@ export const TowerWrapper = memo(
     };
 
     const handleMouseDown = () => {
-      mouseDownDate = +new Date();
+      mouseDownFlag = true;
+    };
+
+    const handleMouseMove = () => {
+      if (mouseDownFlag) {
+        mouseMoveFlag += 1;
+      }
     };
 
     const handleMouseUp = () => {
-      mouseUpDate = +new Date();
-      const diff = mouseUpDate - mouseDownDate;
-      if (diff < minDifBetweenMouseEvents) {
+      if (mouseDownFlag && mouseMoveFlag < maxMouseMoveFaultAfterClick) {
         handleClick();
+        mouseMoveFlag = 0;
       }
-      mouseDownDate = +new Date(0);
-      mouseUpDate = +new Date(0);
     };
 
     const handleOnAnimationEnd = () => {
@@ -155,6 +157,7 @@ export const TowerWrapper = memo(
             onMouseUp={handleMouseUp}
             onMouseOver={() => setHoverState(true)}
             onMouseOut={mouseOverHandle}
+            onMouseMove={handleMouseMove}
             coords={areaCoords}
             shape="rect"
           />
