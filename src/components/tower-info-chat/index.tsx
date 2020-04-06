@@ -4,6 +4,12 @@ import styled from 'styled-components';
 import { setHideTowerInfo } from '../../effector/app-condition/events';
 import { Bubble } from '../../UI/bubble';
 import { ChatButtons } from '../../UI/chat-buttons';
+import { ChatAvatar } from '../../UI/chat-avatar';
+
+export enum MessageType {
+  SYSTEM = 'system',
+  USER = 'user',
+}
 
 const ChatWrapper = styled.div<{ foolSize: boolean }>`
   width: 100%;
@@ -30,16 +36,10 @@ const ChatWrapper = styled.div<{ foolSize: boolean }>`
 const MessageRow = styled.div<{ type?: string }>`
   display: flex;
   height: auto;
-  flex-direction: ${props => (props.type === 'system' ? 'row' : 'row-reverse')};
+  flex-direction: ${props =>
+    props.type === MessageType.SYSTEM ? 'row' : 'row-reverse'};
   align-items: flex-end;
   margin-bottom: 24px;
-`;
-
-const Avatar = styled.img`
-  width: 51px;
-  height: 51px;
-  border-radius: 50%;
-  background: red;
 `;
 
 const ChatConfig: IChatConfig = {
@@ -135,14 +135,6 @@ const ChatConfig: IChatConfig = {
 const START_HIDE_POS = 200;
 
 export const TowerInfoChat: React.FC<ITowerInfoChat> = ({ hideContent }) => {
-  const setAvatar = (messageType: string) => {
-    if (messageType === 'system') {
-      return ChatConfig.systemBotAvatar;
-    } else {
-      return ChatConfig.userAvatar;
-    }
-  };
-
   const chatContainer = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -174,7 +166,11 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({ hideContent }) => {
       >
         {ChatConfig.messages.map(item => (
           <MessageRow key={item.id} type={item.type}>
-            <Avatar src={setAvatar(item.type)}></Avatar>
+            <ChatAvatar
+              type={item.type}
+              systemBotAvatar={ChatConfig.systemBotAvatar}
+              userAvatar={ChatConfig.userAvatar}
+            />
             <Bubble type={item.type} text={item.text} botName={item.botName} />
           </MessageRow>
         ))}
