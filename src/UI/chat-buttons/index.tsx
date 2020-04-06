@@ -31,7 +31,7 @@ export const ChatButtons: React.FC<IChatButtons> = ({
   return (
     <ButtonBody>
       {buttonsCollection.map(button => (
-        <Button key={button.answerId} onClick={() => callback()}>
+        <Button key={button.answerId} onClick={callback}>
           {button.title}
         </Button>
       ))}

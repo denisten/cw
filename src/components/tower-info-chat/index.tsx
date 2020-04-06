@@ -186,10 +186,17 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({ hideContent }) => {
 interface IChatConfig {
   systemBotAvatar?: string;
   userAvatar?: string;
-  messages: { id: number; text: string; type: string; botName?: string }[];
+  messages: Imessages[];
   buttons: { title: string; answerId: number }[];
 }
 
 interface ITowerInfoChat {
   hideContent: boolean;
+}
+
+interface Imessages {
+  id: number;
+  text: string;
+  type: string;
+  botName?: string;
 }
