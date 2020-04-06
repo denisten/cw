@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import { setHideTowerInfo } from '../../effector/app-condition/events';
 import { Bubble } from '../../UI/bubble';
+import { ChatButtons } from '../../UI/chat-buttons';
 
 const ChatWrapper = styled.div<{ foolSize: boolean }>`
   width: 100%;
@@ -131,29 +132,6 @@ const ChatConfig: IChatConfig = {
   ],
 };
 
-const Button = styled.div`
-  border-radius: 4px;
-  box-shadow: 0 1px 3px 0 #bbc1c7;
-  background-color: #04b5d2;
-  padding: 4px 16px;
-  margin: 0 12px 12px 0;
-  color: white;
-  cursor: pointer;
-  transition: 0.4s;
-
-  &:hover {
-    box-shadow: 0 3px 6px 0 #bbc1c7;
-  }
-`;
-
-const ButtonBody = styled.div`
-  margin-top: 20px;
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
-  flex-shrink: 0;
-`;
-
 const START_HIDE_POS = 200;
 
 export const TowerInfoChat: React.FC<ITowerInfoChat> = ({ hideContent }) => {
@@ -201,13 +179,10 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({ hideContent }) => {
           </MessageRow>
         ))}
       </ChatWrapper>
-      <ButtonBody>
-        {ChatConfig.buttons.map(button => (
-          <Button key={button.answerId} onClick={() => sendAnswerId()}>
-            {button.title}
-          </Button>
-        ))}
-      </ButtonBody>
+      <ChatButtons
+        buttonsCollection={ChatConfig.buttons}
+        callback={sendAnswerId}
+      />
     </>
   );
 };
