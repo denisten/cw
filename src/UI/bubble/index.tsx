@@ -14,6 +14,7 @@ const BubbleBody = styled.div<{ type?: string }>`
   flex-direction: column;
   box-shadow: 0 4px 11px 0 #e2e5eb;
   position: relative;
+  max-width: 323px;
 
   span {
     font-family: MTSSans;
