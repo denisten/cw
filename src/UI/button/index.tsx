@@ -53,7 +53,7 @@ const ButtonWrapper = styled.div<IButtonWrapper>`
   right: ${props => props.right}%;
   bottom: ${props => props.bottom}%;
   margin: ${props => props.margin};
-  font-family: MTSSans, serif;
+  font-family: MTSSansBold;
   font-size: 16px;
   font-weight: bold;
   font-stretch: normal;
@@ -77,15 +77,15 @@ const ButtonWrapper = styled.div<IButtonWrapper>`
       case ButtonClassNames.NORMAL:
         return props.isHover ? '0 6px 12px 0 #bbc1c7' : '1px 1px 4px 0 #bbc1c7';
       case ButtonClassNames.OUTLINE_NORMAL:
-        return props.isHover ? '0 6px 12px 0 #bbc1c7' : 'none';
+        return 'none';
     }
   }};
   .${ButtonClassNames.NORMAL} {
     border-radius: 2px;
     box-shadow: ${props =>
-        props.isHover ? '0 6px 12px 0 #bbc1c7' : '1px 1px 4px 0 #bbc1c7'},
+        props.isHover ? '0 3px 8px 0 #bbc1c7' : '1px 1px 4px 0 #bbc1c7'},
       inset 0 1px 3px 0 rgba(255, 255, 255, 0.5);
-    background-color: #${props => (props.isHover ? '0193aa' : '02acc8')};
+    background-color: #${props => (props.isHover ? '129eb5' : '02acc8')};
   }
 
   .${ButtonClassNames.DISABLED} {
@@ -105,11 +105,8 @@ const ButtonWrapper = styled.div<IButtonWrapper>`
     height: ${props => props.height - doubleBorderWidth}px;
     border: solid 2px #02acc8;
     color: #${props => (props.isHover ? 'ffffff' : '02acc8')};
-    box-shadow: ${props =>
-      props.isHover
-        ? '0 6px 12px 0 #bbc1c7, inset 0 1px 3px 0 rgba(255, 255, 255, 0.5)'
-        : ''};
-    background-color: #${props => (props.isHover ? '0193aa' : '')};
+    box-shadow: none;
+    background-color: #${props => (props.isHover ? '129eb5' : '')};
   }
 `;
 
