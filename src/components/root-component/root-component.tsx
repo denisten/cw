@@ -23,6 +23,7 @@ import {
 } from '../../effector/app-condition/events';
 import { scrollToCurrentTower } from '../../utils/scroll-to-current-tower';
 import { TowersProgressStore } from '../../effector/towers-progress/store';
+import { ZoomInOut } from '../../UI/zoom-in-out-buttons';
 
 export enum MapSize {
   WIDTH = 7680,
@@ -81,6 +82,7 @@ export const RootComponent = (): React.ReactElement => {
         tutorialCondition={tutorialCondition}
         tutorialPause={tutorialPause}
       />
+      <ZoomInOut scaleValue={scaleValue}></ZoomInOut>
       <TaskButton />
       <TowerInfo opened={isExtraTowerInfoModalOpen} />
       <TutorialToolsSelector
