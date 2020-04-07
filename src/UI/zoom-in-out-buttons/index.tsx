@@ -16,9 +16,7 @@ const ButtonContainer = styled.div`
   right: 26px;
   z-index: 1;
   padding: 12px 0;
-  align-items: center;
   box-sizing: border-box;
-  justify-content: space-between;
   transform: translateY(-50%);
   user-select: none;
   background-size: cover;
