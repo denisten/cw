@@ -1,73 +1,158 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="52" height="51" viewBox="0 0 52 51">
-    <defs>
-        <filter id="prefix__b" width="173.4%" height="173.4%" x="-36.7%" y="-28.8%" filterUnits="objectBoundingBox">
-            <feOffset dy="4" in="SourceAlpha" result="shadowOffsetOuter1"/>
-            <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="5.5"/>
-            <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0.88627451 0 0 0 0 0.898039216 0 0 0 0 0.921568627 0 0 0 1 0"/>
-        </filter>
-        <filter id="prefix__h" width="201.6%" height="113.9%" x="-50.8%" y="-6.9%" filterUnits="objectBoundingBox">
-            <feGaussianBlur in="SourceGraphic" stdDeviation=".4"/>
-        </filter>
-        <filter id="prefix__j" width="398.4%" height="113%" x="-149.2%" y="-6.5%" filterUnits="objectBoundingBox">
-            <feGaussianBlur in="SourceGraphic" stdDeviation=".4"/>
-        </filter>
-        <filter id="prefix__l" width="201.6%" height="113.9%" x="-50.8%" y="-6.9%" filterUnits="objectBoundingBox">
-            <feGaussianBlur in="SourceGraphic" stdDeviation=".4"/>
-        </filter>
-        <filter id="prefix__n" width="398.4%" height="113%" x="-149.2%" y="-6.5%" filterUnits="objectBoundingBox">
-            <feGaussianBlur in="SourceGraphic" stdDeviation=".4"/>
-        </filter>
-        <circle id="prefix__a" cx="25.2" cy="25.2" r="25.2"/>
-        <circle id="prefix__g" cx="4.725" cy="4.725" r="4.725"/>
-        <circle id="prefix__k" cx="4.725" cy="4.725" r="4.725"/>
-        <rect id="prefix__e" width="28.35" height="27.3" x=".263" y=".525" rx="13.6"/>
-        <path id="prefix__d" d="M7.996 0h20.233c4.416 0 7.996 3.58 7.996 7.996v2.04c0 4.407-3.566 7.983-7.973 7.996l-20.234.058C3.603 18.102.013 14.533 0 10.117V7.996C0 3.58 3.58 0 7.996 0z"/>
-    </defs>
-    <g fill="none" fill-rule="evenodd" transform="translate(.6)">
-        <mask id="prefix__c" fill="#fff">
-            <use xlink:href="#prefix__a"/>
-        </mask>
-        <use fill="#000" filter="url(#prefix__b)" xlink:href="#prefix__a"/>
-        <use fill="#DE350C" xlink:href="#prefix__a"/>
-        <rect width="28.35" height="29.137" x="11.025" y="9.45" fill="#BBC1C7" mask="url(#prefix__c)" rx="14.175"/>
-        <rect width="15.75" height="29.137" x="17.325" y="4.725" fill="#BBC1C7" mask="url(#prefix__c)" rx="5.6"/>
-        <g mask="url(#prefix__c)">
-            <g transform="translate(7.875 14.175)">
-                <g>
-                    <g transform="translate(0 25.2)">
-                        <use fill="#202D3D" xlink:href="#prefix__d"/>
-                    </g>
-                    <circle cx="17.325" cy="27.563" r="7.088" fill="#F7C6A4"/>
-                    <circle cx="3.15" cy="15.225" r="3.15" fill="#F7C6A4"/>
-                    <circle cx="32.025" cy="15.225" r="3.15" fill="#F7C6A4"/>
-                    <g transform="translate(2.888 .263)">
-                        <mask id="prefix__f" fill="#fff">
-                            <use xlink:href="#prefix__e"/>
-                        </mask>
-                        <use fill="#FFD4B6" xlink:href="#prefix__e"/>
-                        <path fill="#F7C6A4" d="M14.438 -1.837H30.188000000000002V31.238000000000003H14.438z" mask="url(#prefix__f)"/>
-                    </g>
-                    <path stroke="#ECAF85" stroke-linecap="round" stroke-width="1.6" d="M12.6 19.688c1.265 1.575 2.86 2.362 4.784 2.362 1.925 0 3.48-.788 4.666-2.363"/>
-                </g>
-                <rect width="2.362" height="3.938" x="11.025" y="11.025" fill="#202D3D" rx="1.181"/>
-                <path fill="#202D3D" d="M2.362 11.025H32.287V13.387H2.362z"/>
-                <g transform="translate(5.513 7.088)">
-                    <mask id="prefix__i" fill="#fff">
-                        <use xlink:href="#prefix__g"/>
-                    </mask>
-                    <circle cx="4.725" cy="4.725" r="5.125" stroke="#202D3D" stroke-width=".8"/>
-                    <path fill="#FFF" d="M4.554 -2.928L6.916 -2.928 6.916 14.397 4.554 14.397z" filter="url(#prefix__h)" mask="url(#prefix__i)" opacity=".887" transform="rotate(45 5.735 5.735)"/>
-                    <path fill="#FFF" d="M2.43 -4.204L3.218 -3.091 3.218 14.234 2.43 14.234z" filter="url(#prefix__j)" mask="url(#prefix__i)" opacity=".887" transform="scale(-1 1) rotate(-45 0 11.832)"/>
-                </g>
-                <g transform="translate(19.688 7.088)">
-                    <mask id="prefix__m" fill="#fff">
-                        <use xlink:href="#prefix__k"/>
-                    </mask>
-                    <circle cx="4.725" cy="4.725" r="5.125" stroke="#202D3D" stroke-width=".8"/>
-                    <path fill="#FFF" d="M4.554 -2.928L6.916 -2.928 6.916 14.397 4.554 14.397z" filter="url(#prefix__l)" mask="url(#prefix__m)" opacity=".887" transform="rotate(45 5.735 5.735)"/>
-                    <path fill="#FFF" d="M2.43 -4.204L3.218 -3.091 3.218 14.234 2.43 14.234z" filter="url(#prefix__n)" mask="url(#prefix__m)" opacity=".887" transform="scale(-1 1) rotate(-45 0 11.832)"/>
-                </g>
-            </g>
-        </g>
-    </g>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 23.0.6, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 52 51" style="enable-background:new 0 0 52 51;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill-rule:evenodd;clip-rule:evenodd;}
+	.st1{fill-rule:evenodd;clip-rule:evenodd;fill:#DE350C;}
+	.st2{filter:url(#Adobe_OpacityMaskFilter);}
+	.st3{fill-rule:evenodd;clip-rule:evenodd;fill:#FFFFFF;}
+	.st4{mask:url(#prefix__c_1_);fill-rule:evenodd;clip-rule:evenodd;fill:#BBC1C7;}
+	.st5{filter:url(#Adobe_OpacityMaskFilter_1_);}
+	.st6{mask:url(#prefix__c_2_);fill-rule:evenodd;clip-rule:evenodd;fill:#BBC1C7;}
+	.st7{filter:url(#Adobe_OpacityMaskFilter_2_);}
+	.st8{mask:url(#prefix__c_3_);}
+	.st9{fill-rule:evenodd;clip-rule:evenodd;fill:#202D3D;}
+	.st10{fill-rule:evenodd;clip-rule:evenodd;fill:#F7C6A4;}
+	.st11{fill-rule:evenodd;clip-rule:evenodd;fill:#FFD4B6;}
+	.st12{filter:url(#Adobe_OpacityMaskFilter_3_);}
+	.st13{mask:url(#prefix__f_1_);fill-rule:evenodd;clip-rule:evenodd;fill:#F7C6A4;}
+	.st14{fill:none;stroke:#ECAF85;stroke-width:1.6;stroke-linecap:round;}
+	.st15{fill:#E2E5EB;stroke:#202D3D;stroke-width:0.8;}
+	.st16{filter:url(#Adobe_OpacityMaskFilter_4_);}
+	.st17{opacity:0.887;mask:url(#prefix__i_1_);fill-rule:evenodd;clip-rule:evenodd;fill:#FFFFFF;enable-background:new    ;}
+	.st18{filter:url(#Adobe_OpacityMaskFilter_5_);}
+	.st19{opacity:0.887;mask:url(#prefix__i_2_);fill-rule:evenodd;clip-rule:evenodd;fill:#FFFFFF;enable-background:new    ;}
+	.st20{filter:url(#Adobe_OpacityMaskFilter_6_);}
+	.st21{opacity:0.887;mask:url(#prefix__m_1_);fill-rule:evenodd;clip-rule:evenodd;fill:#FFFFFF;enable-background:new    ;}
+	.st22{filter:url(#Adobe_OpacityMaskFilter_7_);}
+	.st23{opacity:0.887;mask:url(#prefix__m_2_);fill-rule:evenodd;clip-rule:evenodd;fill:#FFFFFF;enable-background:new    ;}
+</style>
+<g transform="translate(.6)">
+	<g>
+		<circle class="st0" cx="25.2" cy="25.2" r="25.2"/>
+	</g>
+	<g>
+		<circle class="st1" cx="25.2" cy="25.2" r="25.2"/>
+	</g>
+	<defs>
+		<filter id="Adobe_OpacityMaskFilter" filterUnits="userSpaceOnUse" x="11" y="9.4" width="28.4" height="29.1">
+			<feColorMatrix  type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0"/>
+		</filter>
+	</defs>
+	<mask maskUnits="userSpaceOnUse" x="11" y="9.4" width="28.4" height="29.1" id="prefix__c_1_">
+		<g class="st2">
+			<circle id="prefix__a_1_" class="st3" cx="25.2" cy="25.2" r="25.2"/>
+		</g>
+	</mask>
+	<path class="st4" d="M25.2,9.4L25.2,9.4c7.8,0,14.2,6.3,14.2,14.2v0.8c0,7.8-6.3,14.2-14.2,14.2l0,0c-7.8,0-14.2-6.3-14.2-14.2
+		v-0.8C11,15.8,17.4,9.4,25.2,9.4z"/>
+	<defs>
+		<filter id="Adobe_OpacityMaskFilter_1_" filterUnits="userSpaceOnUse" x="17.3" y="4.7" width="15.8" height="29.1">
+			<feColorMatrix  type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0"/>
+		</filter>
+	</defs>
+	<mask maskUnits="userSpaceOnUse" x="17.3" y="4.7" width="15.8" height="29.1" id="prefix__c_2_">
+		<g class="st5">
+			<circle id="prefix__a_2_" class="st3" cx="25.2" cy="25.2" r="25.2"/>
+		</g>
+	</mask>
+	<path class="st6" d="M22.9,4.7h4.5c3.1,0,5.6,2.5,5.6,5.6v17.9c0,3.1-2.5,5.6-5.6,5.6h-4.5c-3.1,0-5.6-2.5-5.6-5.6V10.3
+		C17.3,7.2,19.8,4.7,22.9,4.7z"/>
+	<defs>
+		<filter id="Adobe_OpacityMaskFilter_2_" filterUnits="userSpaceOnUse" x="7.9" y="12.6" width="36.2" height="44.9">
+			<feColorMatrix  type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0"/>
+		</filter>
+	</defs>
+	<mask maskUnits="userSpaceOnUse" x="7.9" y="12.6" width="36.2" height="44.9" id="prefix__c_3_">
+		<g class="st7">
+			<circle id="prefix__a_3_" class="st3" cx="25.2" cy="25.2" r="25.2"/>
+		</g>
+	</mask>
+	<g class="st8">
+		<g transform="translate(7.875 14.175)">
+			<g>
+				<g transform="translate(0 25.2)">
+					<g>
+						<path id="prefix__d" class="st9" d="M8,0h20.2c4.4,0,8,3.6,8,8v2c0,4.4-3.6,8-8,8L8,18.1c-4.4,0-8-3.6-8-8V8C0,3.6,3.6,0,8,0z
+							"/>
+					</g>
+				</g>
+				<circle class="st10" cx="17.3" cy="27.6" r="7.1"/>
+				<circle class="st10" cx="3.2" cy="15.2" r="3.1"/>
+				<circle class="st10" cx="32" cy="15.2" r="3.2"/>
+				<g transform="translate(2.888 .263)">
+					<g>
+						<path class="st11" d="M13.9,0.5H15c7.5,0,13.6,6.1,13.6,13.6v0.1c0,7.5-6.1,13.6-13.6,13.6h-1.1c-7.5,0-13.6-6.1-13.6-13.6
+							v-0.1C0.3,6.6,6.4,0.5,13.9,0.5z"/>
+					</g>
+					<defs>
+						<filter id="Adobe_OpacityMaskFilter_3_" filterUnits="userSpaceOnUse" x="14.4" y="-1.8" width="15.8" height="33.1">
+							<feColorMatrix  type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0"/>
+						</filter>
+					</defs>
+					<mask maskUnits="userSpaceOnUse" x="14.4" y="-1.8" width="15.8" height="33.1" id="prefix__f_1_">
+						<g class="st12">
+							<path id="prefix__e_1_" class="st3" d="M13.9,0.5H15c7.5,0,13.6,6.1,13.6,13.6v0.1c0,7.5-6.1,13.6-13.6,13.6h-1.1
+								c-7.5,0-13.6-6.1-13.6-13.6v-0.1C0.3,6.6,6.4,0.5,13.9,0.5z"/>
+						</g>
+					</mask>
+					<path class="st13" d="M14.4-1.8h15.8v33.1H14.4V-1.8z"/>
+				</g>
+				<path class="st14" d="M12.6,19.7c1.3,1.6,2.9,2.4,4.8,2.4c1.9,0,3.5-0.8,4.7-2.4"/>
+			</g>
+			<path class="st9" d="M2.4,11h29.9v2.4H2.4V11z"/>
+			<g transform="translate(5.513 7.088)">
+				<circle class="st15" cx="4.7" cy="4.7" r="5.1"/>
+				<defs>
+					<filter id="Adobe_OpacityMaskFilter_4_" filterUnits="userSpaceOnUse" x="-1.2" y="-1.2" width="13.9" height="13.9">
+						<feColorMatrix  type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0"/>
+					</filter>
+				</defs>
+				<mask maskUnits="userSpaceOnUse" x="-1.2" y="-1.2" width="13.9" height="13.9" id="prefix__i_1_">
+					<g class="st16">
+						<circle id="prefix__g_1_" class="st3" cx="4.7" cy="4.7" r="4.7"/>
+					</g>
+				</mask>
+				<path class="st17" d="M11-1.2l1.7,1.7L0.4,12.7L-1.2,11L11-1.2z"/>
+				<defs>
+					<filter id="Adobe_OpacityMaskFilter_5_" filterUnits="userSpaceOnUse" x="-4" y="-1.2" width="13.6" height="13">
+						<feColorMatrix  type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0"/>
+					</filter>
+				</defs>
+				<mask maskUnits="userSpaceOnUse" x="-4" y="-1.2" width="13.6" height="13" id="prefix__i_2_">
+					<g class="st18">
+						<circle id="prefix__g_2_" class="st3" cx="4.7" cy="4.7" r="4.7"/>
+					</g>
+				</mask>
+				<path class="st19" d="M9.6-1.2L8.3-1L-4,11.3l0.6,0.6L9.6-1.2z"/>
+			</g>
+			<g transform="translate(19.688 7.088)">
+				<circle class="st15" cx="4.7" cy="4.7" r="5.1"/>
+				<defs>
+					<filter id="Adobe_OpacityMaskFilter_6_" filterUnits="userSpaceOnUse" x="-1.2" y="-1.2" width="13.9" height="13.9">
+						<feColorMatrix  type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0"/>
+					</filter>
+				</defs>
+				<mask maskUnits="userSpaceOnUse" x="-1.2" y="-1.2" width="13.9" height="13.9" id="prefix__m_1_">
+					<g class="st20">
+						<circle id="prefix__k_1_" class="st3" cx="4.7" cy="4.7" r="4.7"/>
+					</g>
+				</mask>
+				<path class="st21" d="M11-1.2l1.7,1.7L0.4,12.7L-1.2,11L11-1.2z"/>
+				<defs>
+					<filter id="Adobe_OpacityMaskFilter_7_" filterUnits="userSpaceOnUse" x="-4" y="-1.2" width="13.6" height="13">
+						<feColorMatrix  type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0"/>
+					</filter>
+				</defs>
+				<mask maskUnits="userSpaceOnUse" x="-4" y="-1.2" width="13.6" height="13" id="prefix__m_2_">
+					<g class="st22">
+						<circle id="prefix__k_2_" class="st3" cx="4.7" cy="4.7" r="4.7"/>
+					</g>
+				</mask>
+				<path class="st23" d="M9.6-1.2L8.3-1L-4,11.3l0.6,0.6L9.6-1.2z"/>
+			</g>
+		</g>
+	</g>
+</g>
 </svg>
