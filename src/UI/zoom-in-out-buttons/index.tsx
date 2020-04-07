@@ -43,8 +43,8 @@ export const ZoomInOutButtons: React.FC<IZoomInOutButtons> = ({
 }) => {
   return (
     <ButtonContainer>
-      <i onClick={() => zoomInOut(-1, scaleValue)}></i>
-      <i onClick={() => zoomInOut(1, scaleValue)}></i>
+      <i onClick={() => zoomInOut(-1, scaleValue)} />
+      <i onClick={() => zoomInOut(1, scaleValue)} />
     </ButtonContainer>
   );
 };

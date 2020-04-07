@@ -69,7 +69,7 @@ export const RootComponent = (): React.ReactElement => {
         tutorialCondition={tutorialCondition}
         tutorialPause={tutorialPause}
       />
-      <ZoomInOutButtons scaleValue={scaleValue}></ZoomInOutButtons>
+      <ZoomInOutButtons scaleValue={scaleValue} />
       <TaskButton />
       <TowerInfo opened={isExtraTowerInfoModalOpen} />
       <TutorialToolsSelector
