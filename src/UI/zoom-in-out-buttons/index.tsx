@@ -15,7 +15,7 @@ const ButtonContainer = styled.div`
   top: 50%;
   right: 26px;
   z-index: 1;
-  padding: 26px 0;
+  padding: 12px 0;
   align-items: center;
   box-sizing: border-box;
   justify-content: space-between;
@@ -24,17 +24,18 @@ const ButtonContainer = styled.div`
   background-size: cover;
 
   i {
-    width: 14px;
+    width: 100%;
+    height: 50%;
     display: block;
     cursor: pointer;
 
     &:first-child {
-      height: 14px;
       background: url(${plus}) no-repeat center;
+      background-size: 14px 14px;
     }
     &:last-child {
-      height: 4px;
       background: url(${minus}) no-repeat center;
+      background-size: 14px 4px;
     }
   }
 `;
