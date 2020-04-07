@@ -3,34 +3,25 @@ import styled from 'styled-components';
 import { zoomInOut } from '../../utils/zoomInOut';
 import plus from './plus.svg';
 import minus from './minus.svg';
+import body from './zoom.png';
 
 const ButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 44px;
-  height: 80px;
-  box-shadow: 0 0 10px 0 rgba(26, 29, 34, 0.6);
-  border: solid 2px #ffffff;
-  background-image: linear-gradient(to bottom, #fdfdfd 37%, #f2f2f2);
-  clip-path: polygon(
-    80% 0,
-    100% 10%,
-    100% 60%,
-    100% 100%,
-    20% 100%,
-    0 90%,
-    0 0
-  );
+  width: 66px;
+  height: 102px;
+  background: url(${body}) no-repeat center;
   position: fixed;
   top: 50%;
-  right: 36px;
+  right: 26px;
   z-index: 1;
-  padding: 14px 0 18px 0;
+  padding: 26px 0;
   align-items: center;
   box-sizing: border-box;
   justify-content: space-between;
   transform: translateY(-50%);
   user-select: none;
+  background-size: cover;
 
   i {
     width: 14px;
