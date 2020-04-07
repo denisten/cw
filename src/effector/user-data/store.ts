@@ -7,6 +7,7 @@ export enum UserDataStoreKeys {
   WORLD_NAME = 'worldName',
   ASSISTANT_NAME = 'assistantName',
   MONEY = 'money',
+  COINS = 'coins',
 }
 
 export type UserDataStoreType = {
@@ -14,13 +15,15 @@ export type UserDataStoreType = {
   [UserDataStoreKeys.WORLD_NAME]: string;
   [UserDataStoreKeys.ASSISTANT_NAME]: string;
   [UserDataStoreKeys.MONEY]: number;
+  [UserDataStoreKeys.COINS]: number;
 };
 
 const initState: UserDataStoreType = {
   [UserDataStoreKeys.NAME]: '',
   [UserDataStoreKeys.WORLD_NAME]: '',
   [UserDataStoreKeys.ASSISTANT_NAME]: '',
-  [UserDataStoreKeys.MONEY]: 113,
+  [UserDataStoreKeys.MONEY]: 200000,
+  [UserDataStoreKeys.COINS]: 300000,
 };
 
 const userDataStoreLocalStorage = connectLocalStorage('UserData').onChange(

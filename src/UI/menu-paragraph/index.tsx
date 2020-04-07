@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import notifyIcon from '../../img/notify-icons/notify.png';
 import { pulseAnimationHOF } from '../../hoc/pulse-anim';
+import { MTSSans } from '../../fonts';
 
 export enum MenuItems {
   PROFILE = 'profile',
@@ -19,21 +20,31 @@ const TranslatedMenuItems = {
   [MenuItems.DOCUMENTS]: 'Документы и оферта',
 };
 
+const notSelectedItemFontWeight = 500;
+
 const MenuParagraphWrapper = styled.div<IMenuParagraphWrapper>`
-  height: 80px;
-  width: 100%;
+  height: 56px;
+  width: 92%;
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  font-size: 30.5px;
-  color: #${props => (props.isItemSelected ? 'ffffff' : '9fa9b0')};
-  font-weight: bold;
-  background-color: ${props => (props.isItemSelected ? '#768c9b' : 'none')};
-  padding-left: 80px;
+  font-size: 20px;
+  color: #fff;
+  font-family: ${props =>
+    props.isItemSelected ? MTSSans.MEDIUM : MTSSans.REGULAR};
+  font-weight: ${props =>
+    props.isItemSelected ? notSelectedItemFontWeight : 'normal'};
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+  background-color: ${props =>
+    props.isItemSelected ? 'rgba(255, 255, 255, 0.15)' : 'none'};
+  padding-left: 48px;
   box-sizing: border-box;
   opacity: ${props => (props.availableForClick ? '1' : '0.3')};
   pointer-events: ${props => (props.availableForClick ? 'auto' : 'none')};
-
+  //border: 3px solid red;
   p {
     &:hover {
       cursor: pointer;

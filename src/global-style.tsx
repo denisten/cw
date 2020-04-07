@@ -4,6 +4,7 @@ import MTSSansBold from './fonts/MTSSans-Bold.ttf';
 import MTSSansBlack from './fonts/MTSSans-Black.ttf';
 import MTSSansMedium from './fonts/MTSSans-Medium.ttf';
 import MTSSansUltraWide from './fonts/MTSSans-UltraWide.ttf';
+import { MTSSans } from './fonts';
 
 export const GlobalStyle = createGlobalStyle`
     @font-face {
@@ -29,7 +30,7 @@ export const GlobalStyle = createGlobalStyle`
     body {
       margin: 0;
       padding: 0;
-      font-family: "MTSSansRegular";
+      font-family: ${MTSSans.REGULAR};
     }
 
 

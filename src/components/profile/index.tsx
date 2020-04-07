@@ -12,21 +12,12 @@ import { editUserData } from '../../effector/user-data/events';
 import { ButtonClassNames, Button } from '../../UI/button';
 import { AppCondition } from '../../effector/app-condition/store';
 import { CookieService } from '../../sevices/cookies';
-import { handleAuthButtonClick } from '../../utils/handle-auth-button-click';
 import { logout } from '../../api';
 import { updateUserData } from '../../api/update-user-data';
-import {
-  TutorialConditions,
-  TutorialStore,
-} from '../../effector/tutorial-store/store';
-import { turnOffTutorialMode } from '../../effector/tutorial-store/events';
+import { TutorialStore } from '../../effector/tutorial-store/store';
+import { NotAuthorizedProfile } from './not-authorized';
 
 const StyledConfig = {
-  nonAuthorizedAvatar: {
-    width: '140px',
-    height: '149px',
-    marginBottom: '5%',
-  },
   avatar: {
     height: '133px',
     border: 'solid 2px #ffffff',
@@ -44,13 +35,6 @@ const StyledConfig = {
     height: '52px',
     content: 'Выйти',
     fontSize: 28.5,
-  },
-  enterButton: {
-    width: 201,
-    height: 52,
-    content: 'Войти',
-    fontSize: 28.5,
-    margin: '0 0 30px 0',
   },
   nickNameWrapper: {
     title: '',
@@ -126,15 +110,6 @@ const ProfileHeader = styled.div`
   position: absolute;
   top: -20px;
   left: 34px;
-`;
-
-const NonAuthorizedPanel = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
 `;
 
 export const RowWrapper = styled.div<IRowWrapper>`
@@ -261,31 +236,7 @@ export const Profile = React.memo(() => {
           </UserInfoBlockWrapper>
         </React.Fragment>
       ) : (
-        <NonAuthorizedPanel>
-          <img
-            src={avatarImg}
-            style={{ ...StyledConfig.nonAuthorizedAvatar }}
-            alt="profile"
-          />
-          {!tutorialCondition ||
-          tutorialCondition === TutorialConditions.PULSE_AUTH_BUTTON ? (
-            <Button
-              animFlag={
-                tutorialCondition === TutorialConditions.PULSE_AUTH_BUTTON
-              }
-              className={ButtonClassNames.OUTLINE_NORMAL}
-              callback={() => {
-                if (
-                  tutorialCondition === TutorialConditions.PULSE_AUTH_BUTTON
-                ) {
-                  turnOffTutorialMode();
-                }
-                handleAuthButtonClick();
-              }}
-              {...StyledConfig.enterButton}
-            />
-          ) : null}
-        </NonAuthorizedPanel>
+        <NotAuthorizedProfile />
       )}
     </ProfileWrapper>
   );

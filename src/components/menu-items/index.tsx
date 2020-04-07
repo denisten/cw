@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import { MenuItems, MenuNavigationElement } from '../../UI/menu-paragraph';
-import background from './background.png';
+import background from './background.svg';
 import { checkHaveNotify } from '../../utils/check-have-notify';
 import { TutorialConditions } from '../../effector/tutorial-store/store';
 
 const MenuWrapper = styled.div`
-  width: 406px;
+  width: 290px;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -16,6 +16,11 @@ const MenuWrapper = styled.div`
   background-size: cover;
   flex-shrink: 0;
   position: relative;
+  left: 14px;
+  top: 2px;
+  padding-top: 36px;
+  box-sizing: border-box;
+  overflow: hidden;
 `;
 
 type MenuItemsComponentProps = {

@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { ImgWrapperProps } from '../img-wrapper';
 import coin from './coin.svg';
+import { MTSSans } from '../../fonts';
 
 const CountWrapper = styled.div<ICountWrapper>`
   color: #fff;
@@ -21,7 +22,7 @@ const CountWrapper = styled.div<ICountWrapper>`
     font-size: ${props => props.fontSize || '28px'};
     color: ${props => props.color || 'white'};
     font-weight: ${props => props.fontWeight || 'normal'};
-    font-family: 'MTSSansBold';
+    font-family: ${MTSSans.BOLD};
     line-height: 1;
 
     @media (max-resolution: 0.8dppx) {
