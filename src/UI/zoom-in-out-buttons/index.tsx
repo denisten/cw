@@ -1,9 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {
-  ScaleValues,
-  updateScaleValue,
-} from '../../effector/app-condition/events';
+import { zoomInOut } from '../../utils/zoomInOut';
 
 const ButtonContainer = styled.div`
   display: flex;
@@ -17,28 +14,17 @@ const ButtonContainer = styled.div`
   z-index: 1;
 `;
 
-export const ZoomInOut: React.FC<IZoomInOut> = ({ scaleValue }) => {
-  const zoomInOutHandler = (zoomStep: number) => {
-    if (
-      zoomStep > 0 &&
-      scaleValue + ScaleValues.SCALE_STEP <= ScaleValues.MAX_SCALE
-    ) {
-      updateScaleValue(ScaleValues.SCALE_STEP);
-    } else if (
-      zoomStep < 0 &&
-      scaleValue - ScaleValues.SCALE_STEP >= ScaleValues.MIN_SCALE
-    ) {
-      updateScaleValue(-ScaleValues.SCALE_STEP);
-    }
-  };
+export const ZoomInOutButtons: React.FC<IZoomInOutButtons> = ({
+  scaleValue,
+}) => {
   return (
     <ButtonContainer>
-      <span onClick={() => zoomInOutHandler(1)}>+</span>
-      <span onClick={() => zoomInOutHandler(-1)}>-</span>
+      <span onClick={() => zoomInOut(-1, scaleValue)}>+</span>
+      <span onClick={() => zoomInOut(1, scaleValue)}>-</span>
     </ButtonContainer>
   );
 };
 
-interface IZoomInOut {
+interface IZoomInOutButtons {
   scaleValue: number;
 }

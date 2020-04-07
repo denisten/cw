@@ -17,13 +17,10 @@ import { Planes } from '../planes';
 import { TutorialStore } from '../../effector/tutorial-store/store';
 import { ScrollContainer } from '../scroll-container';
 import { coordsLogger } from '../../utils/coords-logger';
-import {
-  updateScaleValue,
-  ScaleValues,
-} from '../../effector/app-condition/events';
 import { scrollToCurrentTower } from '../../utils/scroll-to-current-tower';
 import { TowersProgressStore } from '../../effector/towers-progress/store';
-import { ZoomInOut } from '../../UI/zoom-in-out-buttons';
+import { ZoomInOutButtons } from '../../UI/zoom-in-out-buttons';
+import { zoomInOut } from '../../utils/zoomInOut';
 
 export enum MapSize {
   WIDTH = 7680,
@@ -62,17 +59,7 @@ export const RootComponent = (): React.ReactElement => {
   }, [ref]);
 
   const wheelHandler = (e: React.WheelEvent) => {
-    if (
-      e.deltaY < 0 &&
-      scaleValue + ScaleValues.SCALE_STEP <= ScaleValues.MAX_SCALE
-    ) {
-      updateScaleValue(ScaleValues.SCALE_STEP);
-    } else if (
-      e.deltaY > 0 &&
-      scaleValue - ScaleValues.SCALE_STEP >= ScaleValues.MIN_SCALE
-    ) {
-      updateScaleValue(-ScaleValues.SCALE_STEP);
-    }
+    zoomInOut(e.deltaY, scaleValue);
   };
 
   return (
@@ -82,7 +69,7 @@ export const RootComponent = (): React.ReactElement => {
         tutorialCondition={tutorialCondition}
         tutorialPause={tutorialPause}
       />
-      <ZoomInOut scaleValue={scaleValue}></ZoomInOut>
+      <ZoomInOutButtons scaleValue={scaleValue}></ZoomInOutButtons>
       <TaskButton />
       <TowerInfo opened={isExtraTowerInfoModalOpen} />
       <TutorialToolsSelector
