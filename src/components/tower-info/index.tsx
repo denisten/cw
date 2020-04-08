@@ -1,5 +1,5 @@
 import React, { useState, useMemo, createRef } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { ExitButton } from '../../UI/exit-button';
 import {
   extraTowerInfoModalClosed,
@@ -134,10 +134,42 @@ const TowerInfoHeader = styled.div`
   }
 `;
 
+const hideBlock = keyframes`
+0% {
+  height: 55px;
+  margin-top: 32px;
+}
+100% {
+  height: 0px;
+  margin-top: 20px;
+}
+`;
+
+const showBlock = keyframes`
+0% {
+  height: 0px;
+  margin-top: 20px;
+}
+100% {
+  height: 55px;
+  margin-top: 32px;
+}
+`;
+
 const HeaderLine = styled.div<{ sizeContent: boolean }>`
   width: 100%;
-  display: ${props => (props.sizeContent ? 'none' : 'flex')};
-  margin-top: ${props => (props.sizeContent ? '20px' : '32px')};
+  display: flex;
+  margin-top: 32px;
+  overflow: hidden;
+
+  &.animHide {
+    animation: ${hideBlock} 0.5s;
+    animation-fill-mode: forwards;
+  }
+  &.initAnimState {
+    animation: ${showBlock} 0.5s;
+    animation-fill-mode: forwards;
+  }
 `;
 
 const Title = styled.div<{ sizeContent: boolean }>`
@@ -412,7 +444,10 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
             )}
           </RowWrapper>
 
-          <HeaderLine sizeContent={hideTowerInfo}>
+          <HeaderLine
+            sizeContent={hideTowerInfo}
+            className={hideTowerInfo ? 'animHide' : 'initAnimState'}
+          >
             <HeaderLineElement {...StyleConfig.firstHeaderLine}>
               <MainText>Уровень эволюции</MainText>
 
