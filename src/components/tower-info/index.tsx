@@ -1,5 +1,5 @@
 import React, { useState, useMemo, createRef } from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import { ExitButton } from '../../UI/exit-button';
 import {
   extraTowerInfoModalClosed,
@@ -37,6 +37,7 @@ import { UserDataStore } from '../../effector/user-data/store';
 import { useMoveTo } from '../../hooks/useMoveTo';
 import { MoveDivider } from '../../UI/move-divider';
 import { device } from '../../UI/media';
+import { hideBlock, showBlock } from './keyframes';
 
 export type ModalWindowProps = {
   opened?: boolean;
@@ -134,37 +135,14 @@ const TowerInfoHeader = styled.div`
   }
 `;
 
-const hideBlock = keyframes`
-0% {
-  height: 55px;
-  margin-top: 32px;
-}
-100% {
-  height: 0px;
-  margin-top: 20px;
-}
-`;
-
-const showBlock = keyframes`
-0% {
-  height: 0px;
-  margin-top: 20px;
-}
-100% {
-  height: 55px;
-  margin-top: 32px;
-}
-`;
-
 const HeaderLine = styled.div<{ sizeContent: boolean }>`
   width: 100%;
   display: flex;
   margin-top: 32px;
-  overflow: hidden;
 
   &.animHide {
     animation: ${hideBlock} 0.5s;
-    animation-fill-mode: forwards;
+    animation-fill-mode: both;
   }
   &.initAnimState {
     animation: ${showBlock} 0.5s;
