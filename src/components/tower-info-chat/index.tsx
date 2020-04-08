@@ -20,6 +20,7 @@ const ChatWrapper = styled.div<{ foolSize: boolean }>`
   position: relative;
   max-height: 460px;
   transition: 0.5s;
+  padding-right: 14px;
 
   &::before {
     content: '';
