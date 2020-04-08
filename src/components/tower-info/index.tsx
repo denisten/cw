@@ -37,7 +37,6 @@ import { UserDataStore } from '../../effector/user-data/store';
 import { useMoveTo } from '../../hooks/useMoveTo';
 import { MoveDivider } from '../../UI/move-divider';
 import { device } from '../../UI/media';
-import { hideBlock, showBlock } from './keyframes';
 
 export type ModalWindowProps = {
   opened?: boolean;
@@ -138,16 +137,10 @@ const TowerInfoHeader = styled.div`
 const HeaderLine = styled.div<{ sizeContent: boolean }>`
   width: 100%;
   display: flex;
-  margin-top: 32px;
-
-  &.animHide {
-    animation: ${hideBlock} 0.5s;
-    animation-fill-mode: both;
-  }
-  &.initAnimState {
-    animation: ${showBlock} 0.5s;
-    animation-fill-mode: forwards;
-  }
+  margin-top: ${props => (props.sizeContent ? '24px' : '32px')};
+  height: ${props => (props.sizeContent ? '0px' : '55px')};
+  overflow: ${props => (props.sizeContent ? 'hidden' : 'inherit')};
+  transition: 0.5s;
 `;
 
 const Title = styled.div<{ sizeContent: boolean }>`
@@ -422,10 +415,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
             )}
           </RowWrapper>
 
-          <HeaderLine
-            sizeContent={hideTowerInfo}
-            className={hideTowerInfo ? 'animHide' : 'initAnimState'}
-          >
+          <HeaderLine sizeContent={hideTowerInfo}>
             <HeaderLineElement {...StyleConfig.firstHeaderLine}>
               <MainText>Уровень эволюции</MainText>
 
