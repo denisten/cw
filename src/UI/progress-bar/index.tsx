@@ -5,17 +5,14 @@ const ProgressBarWrapper = styled.div`
   position: relative;
   display: flex;
   height: 20px;
-  width: 180px;
+  width: 188px;
   border: 1px solid none;
   overflow: hidden;
   justify-content: flex-start;
   background-color: #d6f0f4;
   border: 1px solid none;
-
-  transform: skew(-45deg);
-
+  transform: skew(-32deg);
   border-radius: 8px;
-
   box-shadow: inset 0 0 2px 0 rgba(32, 189, 218, 0.18);
 
   &::before {

@@ -136,8 +136,11 @@ const TowerInfoHeader = styled.div`
 
 const HeaderLine = styled.div<{ sizeContent: boolean }>`
   width: 100%;
-  display: ${props => (props.sizeContent ? 'none' : 'flex')};
-  margin-top: ${props => (props.sizeContent ? '20px' : '32px')};
+  display: flex;
+  margin-top: ${props => (props.sizeContent ? '24px' : '32px')};
+  height: ${props => (props.sizeContent ? '0px' : '55px')};
+  overflow: ${props => (props.sizeContent ? 'hidden' : 'inherit')};
+  transition: 0.5s;
 `;
 
 const Title = styled.div<{ sizeContent: boolean }>`
