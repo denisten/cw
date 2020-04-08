@@ -31,6 +31,22 @@ const ChatWrapper = styled.div<{ foolSize: boolean }>`
     background-image: linear-gradient(to top, rgba(243, 243, 243, 0), #fbfbfb);
     z-index: 2;
   }
+
+  &::after {
+    content: '';
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    display: block;
+    background-image: linear-gradient(
+      to bottom,
+      rgba(243, 243, 243, 0),
+      #f2f2f2
+    );
+    z-index: 2;
+  }
 `;
 
 const MessageRow = styled.div<{ type?: string }>`

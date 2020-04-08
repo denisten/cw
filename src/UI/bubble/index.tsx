@@ -17,7 +17,7 @@ const BubbleBody = styled.div<{ type?: string }>`
   max-width: 323px;
 
   span {
-    font-family: MTSSans;
+    font-family: 'MTSSansRegular';
     font-size: 16px;
     line-height: 1.25;
     color: ${props => (props.type === 'system' ? '#001424' : 'white')};
@@ -48,7 +48,7 @@ const BubbleBody = styled.div<{ type?: string }>`
 
 const BotName = styled.div`
   height: 20px;
-  font-family: MTSSans;
+  font-family: 'MTSSansRegular';
   font-size: 12px;
   font-weight: bold;
   font-stretch: normal;
