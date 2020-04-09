@@ -19,6 +19,8 @@ const ChatWrapper = styled.div<{ foolSize: boolean }>`
   border-bottom: solid 1px #e2e5eb;
   position: relative;
   max-height: 460px;
+  transition: 0.5s;
+  padding-right: 14px;
 
   &::before {
     content: '';
@@ -29,6 +31,22 @@ const ChatWrapper = styled.div<{ foolSize: boolean }>`
     height: 40px;
     display: block;
     background-image: linear-gradient(to top, rgba(243, 243, 243, 0), #fbfbfb);
+    z-index: 2;
+  }
+
+  &::after {
+    content: '';
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    display: block;
+    background-image: linear-gradient(
+      to bottom,
+      rgba(243, 243, 243, 0),
+      #f2f2f2
+    );
     z-index: 2;
   }
 `;

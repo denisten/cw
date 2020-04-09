@@ -20,10 +20,9 @@ import { BuildingsDescriptionService } from '../../buildings/descriptions';
 import { ButtonClassNames, Button } from '../../UI/button';
 import { ZIndexes } from '../root-component/z-indexes-enum';
 import wrapperBackground from './background.svg';
-import headerBackground from './header.svg';
+import headerBackground from './header.png';
 import { RowWrapper } from '../../UI/row-wrapper';
 import { MoneyWrapper } from '../../UI/money-wrapper';
-import { pulseAnimationHOF } from '../../hoc/pulse-anim';
 import {
   TutorialConditions,
   TutorialStore,
@@ -37,6 +36,7 @@ import { UserDataStore } from '../../effector/user-data/store';
 import { useMoveTo } from '../../hooks/useMoveTo';
 import { MoveDivider } from '../../UI/move-divider';
 import { device } from '../../UI/media';
+import { TowerInfoUpgradeButton } from '../../UI/tower-info-upgrade-button';
 
 export type ModalWindowProps = {
   opened?: boolean;
@@ -63,30 +63,24 @@ enum TowerTutorialSteps {
 
 const MAXLEVEL = 100;
 const FIRST_ELEM_WIDTH = 92;
+const COMMON_TRANSITION = 0.5;
 
 export const ModalWindowWrapper = styled.div<ModalWindowProps>`
   position: absolute;
   z-index: ${ZIndexes.MODAL};
   right: -3px;
   width: 36%;
-  height: 90%;
-  top: 5%;
+  height: 100%;
+  top: 0%;
   box-sizing: border-box;
   margin-right: ${props =>
     !props.opened ? marginRightValues.CLOSED : marginRightValues.OPENED}%;
-  transition-duration: 0.5s;
+  transition-duration: ${COMMON_TRANSITION}s;
   transition-property: margin-right;
   display: flex;
   flex-direction: column;
 
-  @media (max-resolution: 0.8dppx) {
-    width: 36%;
-    height: 80%;
-  }
-
   @media screen and (max-width: 1440px) {
-    height: 100%;
-    top: 0%;
     width: 547px;
   }
 
@@ -99,7 +93,7 @@ export const ModalWindowWrapper = styled.div<ModalWindowProps>`
 const ModalWindowContentWrapper = styled.div`
   height: 100%;
   width: 100%;
-  padding: 40px 32px 40px 40px;
+  padding: 0px 32px 40px 40px;
   box-sizing: border-box;
   background-image: url(${wrapperBackground});
   background-size: 100% 100%;
@@ -111,7 +105,7 @@ const ModalWindowContentWrapper = styled.div`
 const ModalWindowHeader = styled.div`
   width: 100%;
   height: 55px;
-  background: url(${headerBackground}) no-repeat center;
+  background: url(${headerBackground}) no-repeat center white;
   background-size: 100% 100%;
   flex-shrink: 0;
   position: relative;
@@ -120,14 +114,11 @@ const ModalWindowHeader = styled.div`
     height: 5vh;
   }
 `;
-const TowerInfoHeader = styled.div`
+const TowerInfoHeader = styled.div<{ sizeContent: boolean }>`
   width: 100%;
-  margin-bottom: 32px;
+  margin-bottom: ${props => (props.sizeContent ? '24px' : '32px')};
   flex-shrink: 0;
-
-  @media (max-resolution: 0.8dppx) {
-    margin-bottom: 2vh;
-  }
+  transition: ${COMMON_TRANSITION}s;
 
   @media ${device.laptopS} {
     margin-bottom: 30px;
@@ -136,12 +127,15 @@ const TowerInfoHeader = styled.div`
 
 const HeaderLine = styled.div<{ sizeContent: boolean }>`
   width: 100%;
-  display: ${props => (props.sizeContent ? 'none' : 'flex')};
-  margin-top: ${props => (props.sizeContent ? '20px' : '32px')};
+  display: flex;
+  margin-top: ${props => (props.sizeContent ? '0' : '32px')};
+  height: ${props => (props.sizeContent ? '0px' : '55px')};
+  overflow: ${props => (props.sizeContent ? 'hidden' : 'inherit')};
+  transition: ${COMMON_TRANSITION}s;
 `;
 
 const Title = styled.div<{ sizeContent: boolean }>`
-  font-size: ${props => (props.sizeContent ? '24px' : '32px')};
+  font-size: ${props => (props.sizeContent ? '29px' : '32px')};
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -149,6 +143,7 @@ const Title = styled.div<{ sizeContent: boolean }>`
   letter-spacing: -0.5px;
   color: #001424;
   font-family: 'MTSSansUltraWide';
+  transition: ${COMMON_TRANSITION}s;
 `;
 
 const MainText = styled.span`
@@ -158,7 +153,8 @@ const MainText = styled.span`
   font-style: normal;
   line-height: 1.5;
   letter-spacing: normal;
-  color: #001424;
+  color: #6e7782;
+  font-family: 'MTSSansRegular';
 
   + div {
     margin-top: 4px;
@@ -166,35 +162,6 @@ const MainText = styled.span`
 
   @media (max-resolution: 0.8dppx) {
     font-size: 1.5vh;
-  }
-`;
-
-const UpgradeButton = styled.div<{ canUpgrade?: boolean; pulseAnim?: boolean }>`
-  width: auto;
-  height: 40px;
-  padding: 0 20px;
-  box-sizing: border-box;
-  border-radius: 2px;
-  background-color: ${props => (props.canUpgrade ? '#02adc9' : '#e2e5eb')};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #fff;
-  cursor: ${props => (props.canUpgrade ? 'pointer' : 'default')};
-  font-size: 16px;
-  pointer-events: ${props => (props.canUpgrade ? 'auto' : 'none')};
-  font-family: 'MTSSansBold', 'regular';
-  animation-name: ${props =>
-    props.pulseAnim ? pulseAnimationHOF('159, 169, 176') : 'none'};
-  animation-fill-mode: both;
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: infinite;
-  animation-duration: 0.6s;
-
-  @media (max-resolution: 0.8dppx) {
-    font-size: 1.5vh;
-    height: 3vh;
-    padding: 0 1.4vh;
   }
 `;
 
@@ -249,7 +216,6 @@ const StyleConfig = {
   exitButton: {
     top: '25%',
     left: '90%',
-    hoverFlag: true,
   },
   tutorialArrow: {
     direction: Directions.TOP,
@@ -269,14 +235,12 @@ const StyleConfig = {
   },
   rowWrapper: {
     width: '100%',
-    justifyContent: 'space-between',
     alignItems: 'center',
   },
   money: {
     fontSize: '20px',
     margin: '0px 13px 0 0px',
-    color: 'black',
-    fontWeight: 'bold',
+    color: '#001424',
   },
   firstHeaderLine: {
     paddingBottom: '4px',
@@ -388,28 +352,21 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
         />
       </ModalWindowHeader>
       <ModalWindowContentWrapper>
-        <TowerInfoHeader>
+        <TowerInfoHeader sizeContent={hideTowerInfo}>
           <RowWrapper {...StyleConfig.rowWrapper}>
             <Title sizeContent={hideTowerInfo}>{title}</Title>
-            {hideTowerInfo ? (
-              <ProgressBar
-                progress={LocalTowerProgressStore[towerTitle].progress}
-              />
-            ) : (
-              <UpgradeButton
-                canUpgrade={
-                  LocalTowerProgressStore[towerTitle].progress >= MAXLEVEL &&
-                  level < maxLevel
-                }
-                onClick={handleClick}
-                pulseAnim={
-                  tutorialCondition ===
-                  TutorialConditions.UPGRADE_BUTTON_TOWER_INFO
-                }
-              >
-                Улучшить
-              </UpgradeButton>
-            )}
+            <TowerInfoUpgradeButton
+              handleClick={handleClick}
+              pulseAnim={
+                tutorialCondition ===
+                TutorialConditions.UPGRADE_BUTTON_TOWER_INFO
+              }
+              canUpgrade={
+                LocalTowerProgressStore[towerTitle].progress >= MAXLEVEL &&
+                level < maxLevel
+              }
+              hide={hideTowerInfo}
+            ></TowerInfoUpgradeButton>
           </RowWrapper>
 
           <HeaderLine sizeContent={hideTowerInfo}>

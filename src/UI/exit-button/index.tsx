@@ -1,20 +1,54 @@
-import React from 'react';
-import exitImg from './close.svg';
-import { ImgWrapper, ImgWrapperProps } from '../img-wrapper';
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import background from './close-bcg.svg';
+import hoverBackground from './close-hover.png';
+import focusBackground from './close-focus.png';
 
-type ExitButtonProps = Omit<ImgWrapperProps, 'src'>;
+const CloseButton = styled.div<ICloseButton>`
+  width: 28px;
+  height: 28px;
+  position: ${props => props.position || 'absolute'};
+  top: ${props => props.top};
+  left: ${props => props.left};
+  bottom: ${props => props.bottom};
+  right: ${props => props.right};
+  background-image: url(${background});
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+  cursor: pointer;
+  transition: 0.2s;
 
-export const ExitButton: React.FC<ExitButtonProps> = ({
-  callBack,
-  ...props
-}) => {
+  &:hover {
+    transform: scale(1.15);
+    background-image: url(${hoverBackground});
+  }
+
+  &.pressed {
+    transform: scale(1);
+    background-image: url(${focusBackground});
+  }
+`;
+
+export const ExitButton: React.FC<ICloseButton> = ({ callBack, ...props }) => {
+  const [pressed, setPressed] = useState(false);
   return (
-    <ImgWrapper
-      callBack={callBack}
-      src={exitImg}
+    <CloseButton
       {...props}
-      height="28px"
-      width="28px"
+      onClick={callBack}
+      className={pressed ? 'pressed' : ''}
+      onMouseDown={() => setPressed(true)}
+      onMouseUp={() => setPressed(false)}
+      onMouseLeave={() => setPressed(false)}
     />
   );
 };
+
+interface ICloseButton {
+  position?: string;
+  top?: string;
+  left?: string;
+  right?: string;
+  bottom?: string;
+  callBack?: () => void;
+}
