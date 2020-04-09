@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Router, Switch } from 'react-router';
 import { RootComponent } from './components/root-component/root-component';
 import history from './history';
@@ -9,6 +9,7 @@ import { fetchUserData } from './effector/user-data/events';
 import { useStore } from 'effector-react';
 import { AppCondition } from './effector/app-condition/store';
 import { errorStringsParsingHOF } from './utils/error-handler';
+import { Preloader } from './components/preloader';
 
 export enum Routes {
   MAIN = '/',
@@ -53,18 +54,27 @@ export const App = () => {
     }
   };
 
+  const [documentLoadedFlag, setDocumentLoadedFlag] = useState(false);
+  const showContent = () => {
+    setTimeout(() => {
+      setDocumentLoadedFlag(true);
+    }, 1000);
+  };
   useEffect(() => {
     window.addEventListener('wheel', wheelPreventDefault, { passive: false });
     window.addEventListener('keydown', keyDownPreventDefault, {
       passive: false,
     });
+    window.addEventListener('load', showContent);
     return () => {
       window.removeEventListener('wheel', wheelPreventDefault);
       window.removeEventListener('keydown', keyDownPreventDefault);
     };
   }, []);
+
   return (
     <Router history={history}>
+      {!documentLoadedFlag ? <Preloader /> : null}
       <ErrorBoundary />
       <GlobalStyle />
       <Switch>

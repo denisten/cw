@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { TowerInfo } from '../tower-info';
 import { useStore } from 'effector-react';
@@ -21,7 +21,6 @@ import { scrollToCurrentTower } from '../../utils/scroll-to-current-tower';
 import { TowersProgressStore } from '../../effector/towers-progress/store';
 import { ZoomInOutButtons } from '../../UI/zoom-in-out-buttons';
 import { zoomInOut } from '../../utils/zoomInOut';
-import { Preloader } from '../preloader';
 
 export enum MapSize {
   WIDTH = 7680,
@@ -54,17 +53,10 @@ export const RootComponent = (): React.ReactElement => {
   const { tutorialCondition, tutorialPause } = useStore(TutorialStore);
   const { ref } = useStore(TowersProgressStore).mainTower;
   const mapWrapperRef = useRef<HTMLDivElement>(null);
-  const [documentLoadedFlag, setDocumentLoadedFlag] = useState(false);
   useCheckDisableTutorial([]);
   useEffect(() => {
     scrollToCurrentTower(ref);
   }, [ref]);
-  const showContent = () => {
-    setDocumentLoadedFlag(true);
-  };
-  useEffect(() => {
-    window.addEventListener('load', showContent);
-  }, []);
 
   const wheelHandler = (e: React.WheelEvent) => {
     zoomInOut(e.deltaY, scaleValue);
@@ -72,7 +64,6 @@ export const RootComponent = (): React.ReactElement => {
 
   return (
     <ComponentWrapper id="rootScroll">
-      {!documentLoadedFlag ? <Preloader /> : null}
       <Menu displayFlag={!!selectedMenuItem} />
       <ProfileButton
         tutorialCondition={tutorialCondition}
