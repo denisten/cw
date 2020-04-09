@@ -20,7 +20,7 @@ import { BuildingsDescriptionService } from '../../buildings/descriptions';
 import { ButtonClassNames, Button } from '../../UI/button';
 import { ZIndexes } from '../root-component/z-indexes-enum';
 import wrapperBackground from './background.svg';
-import headerBackground from './header.svg';
+import headerBackground from './header.png';
 import { RowWrapper } from '../../UI/row-wrapper';
 import { MoneyWrapper } from '../../UI/money-wrapper';
 import { pulseAnimationHOF } from '../../hoc/pulse-anim';
@@ -111,7 +111,7 @@ const ModalWindowContentWrapper = styled.div`
 const ModalWindowHeader = styled.div`
   width: 100%;
   height: 55px;
-  background: url(${headerBackground}) no-repeat center;
+  background: url(${headerBackground}) no-repeat center white;
   background-size: 100% 100%;
   flex-shrink: 0;
   position: relative;
