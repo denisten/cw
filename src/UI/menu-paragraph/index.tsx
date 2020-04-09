@@ -44,7 +44,6 @@ const MenuParagraphWrapper = styled.div<IMenuParagraphWrapper>`
   box-sizing: border-box;
   opacity: ${props => (props.availableForClick ? '1' : '0.3')};
   pointer-events: ${props => (props.availableForClick ? 'auto' : 'none')};
-  //border: 3px solid red;
   p {
     &:hover {
       cursor: pointer;
