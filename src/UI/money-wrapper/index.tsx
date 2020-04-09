@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { ImgWrapperProps } from '../img-wrapper';
 import coin from './coin.svg';
 import { MTSSans } from '../../fonts';
-import { MTSSans } from '../../fonts';
 
 const CountWrapper = styled.div<ICountWrapper>`
   color: #fff;
