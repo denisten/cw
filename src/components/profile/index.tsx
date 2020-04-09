@@ -34,7 +34,7 @@ export const Profile = React.memo(() => {
   const { isAuthorized } = useStore(AppCondition);
   return (
     <ProfileWrapper>
-      {!isAuthorized ? <AuthorizedProfile /> : <NotAuthorizedProfile />}
+      {isAuthorized ? <AuthorizedProfile /> : <NotAuthorizedProfile />}
     </ProfileWrapper>
   );
 });

@@ -41,7 +41,7 @@ export const MenuItemsComponent: React.FC<MenuItemsComponentProps> = ({
   const checkAvailableForClickElem = (elem: string) => {
     if (!tutorialCondition) return true;
     else if (
-      elem === MenuItems.SETTINGS &&
+      elem === MenuItems.PROFILE &&
       (tutorialCondition === TutorialConditions.PULSE_EDIT_CHANGE_CITY_NAME ||
         tutorialCondition === TutorialConditions.PULSE_SAVE_CHANGE_CITY_NAME)
     ) {

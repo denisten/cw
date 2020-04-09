@@ -15,8 +15,12 @@ import {
   TutorialConditions,
   TutorialStore,
 } from '../../../effector/tutorial-store/store';
-import { turnOffTutorialMode } from '../../../effector/tutorial-store/events';
+import {
+  nextTutorStep,
+  turnOffTutorialMode,
+} from '../../../effector/tutorial-store/events';
 import { handleAuthButtonClick } from '../../../utils/handle-auth-button-click';
+import { defaultScaleSize, scaleAnimation } from '../../../hoc/scale-anim';
 
 const ProfileWrapper = styled.div`
   width: 100%;
@@ -26,6 +30,18 @@ const ProfileWrapper = styled.div`
   flex-direction: column;
   padding-top: 51px;
   box-sizing: border-box;
+`;
+
+const PenWrapper = styled.img<IPenWrapper>`
+  cursor: pointer;
+  animation-name: ${props =>
+    props.animFlag
+      ? scaleAnimation(props.scaleSize || defaultScaleSize)
+      : 'none'};
+  animation-fill-mode: both;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-duration: 1s;
 `;
 
 const WorldTitle = styled(StyledSpan)`
@@ -53,9 +69,6 @@ const styledConfig = {
     padding: '59px 0 28px 0',
     left: '12px',
   },
-  penImg: {
-    cursor: 'pointer',
-  },
   moneyWallet: {
     marginRight: '4px',
   },
@@ -73,6 +86,12 @@ export const NotAuthorizedProfile = () => {
     handleAuthButtonClick();
   };
 
+  const handlePenClick = () => {
+    setPopUpDisplayFlag(!popUpDisplayFlag);
+    if (tutorialCondition === TutorialConditions.PULSE_EDIT_CHANGE_CITY_NAME)
+      nextTutorStep();
+  };
+
   return (
     <ProfileWrapper>
       <PopUp
@@ -85,11 +104,14 @@ export const NotAuthorizedProfile = () => {
       </MoneyWalletWrapper>
       <RowWrapper {...styledConfig.rowWrapper}>
         <WorldTitle>{worldName || 'Мой мир'}</WorldTitle>
-        <img
+        <PenWrapper
           src={penImg}
           alt="pen"
-          onClick={() => setPopUpDisplayFlag(!popUpDisplayFlag)}
-          style={styledConfig.penImg}
+          onClick={handlePenClick}
+          animFlag={
+            tutorialCondition === TutorialConditions.PULSE_EDIT_CHANGE_CITY_NAME
+          }
+          scaleSize={1.4}
         />
       </RowWrapper>
       <img src={profileIcon} alt="profile" style={styledConfig.profileIcon} />
@@ -105,3 +127,8 @@ export const NotAuthorizedProfile = () => {
     </ProfileWrapper>
   );
 };
+
+interface IPenWrapper {
+  scaleSize?: number;
+  animFlag?: boolean;
+}

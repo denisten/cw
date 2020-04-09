@@ -6,10 +6,7 @@ import { StyledSpan } from '../span';
 import { MTSSans } from '../../fonts';
 import { Input } from '../input';
 import { Button, ButtonClassNames } from '../button';
-import {
-  editCurrentUserDataField,
-  editUserData,
-} from '../../effector/user-data/events';
+import { editCurrentUserDataField } from '../../effector/user-data/events';
 import {
   UserDataStore,
   UserDataStoreKeys,
@@ -19,6 +16,12 @@ import {
   minNameLength,
 } from '../../components/profile/authorized';
 import { useStore } from 'effector-react';
+import {
+  TutorialConditions,
+  TutorialStore,
+} from '../../effector/tutorial-store/store';
+import { nextTutorStep } from '../../effector/tutorial-store/events';
+import { menuClosed } from '../../effector/app-condition/events';
 
 const PopUpWrapper = styled.div`
   background-image: url(${popUpWrapperBackground});
@@ -57,6 +60,7 @@ export const maxSymbolsAlert = 'Максимальное число символ
 
 export const PopUp: React.FC<IPopUp> = ({ callback, displayFlag }) => {
   const { worldName } = useStore(UserDataStore);
+  const { tutorialCondition } = useStore(TutorialStore);
   const [value, setValue] = useState(worldName);
   const [inputHasError, setInputHasError] = useState(false);
 
@@ -80,6 +84,12 @@ export const PopUp: React.FC<IPopUp> = ({ callback, displayFlag }) => {
     if (e) e.preventDefault();
     if (value.length >= minNameLength && value.length <= maxNameLength) {
       saveData();
+      if (
+        tutorialCondition === TutorialConditions.PULSE_SAVE_CHANGE_CITY_NAME
+      ) {
+        nextTutorStep();
+        menuClosed();
+      }
     } else {
       setInputHasError(true);
     }
@@ -103,6 +113,10 @@ export const PopUp: React.FC<IPopUp> = ({ callback, displayFlag }) => {
               className={ButtonClassNames.NORMAL}
               content="Сохранить"
               callback={handleSubmit}
+              animFlag={
+                tutorialCondition ===
+                TutorialConditions.PULSE_SAVE_CHANGE_CITY_NAME
+              }
             />
           </PopUpWrapper>
         </Overlay>
