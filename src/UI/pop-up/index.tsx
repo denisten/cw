@@ -6,7 +6,7 @@ import { StyledSpan } from '../span';
 import { MTSSans } from '../../fonts';
 import { Input } from '../input';
 import { Button, ButtonClassNames } from '../button';
-import { editUserData } from '../../effector/user-data/events';
+import { editCurrentUserDataField } from '../../effector/user-data/events';
 import { UserDataStoreKeys } from '../../effector/user-data/store';
 
 const PopUpWrapper = styled.div`
@@ -43,7 +43,7 @@ export const PopUp: React.FC<IPopUp> = ({ callback, displayFlag }) => {
   const [value, setValue] = useState('');
 
   const saveData = () => {
-    editUserData({ key: UserDataStoreKeys.WORLD_NAME, value });
+    editCurrentUserDataField({ key: UserDataStoreKeys.WORLD_NAME, value });
     callback();
   };
 
@@ -63,7 +63,6 @@ export const PopUp: React.FC<IPopUp> = ({ callback, displayFlag }) => {
               onChangeHandler={e => setValue(e.target.value)}
               onSubmitHandler={handleSubmit}
               value={value}
-              // title="Имя"
             />
             <Button
               className={ButtonClassNames.NORMAL}

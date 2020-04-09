@@ -10,7 +10,7 @@ const formWidthWithTitle = 314,
 
 const Form = styled.form<IFormInput>`
   border-radius: 4px;
-  border: solid 2px #02adc9;
+  border: solid 2px rgba(2, 173, 201, 0.2);
   padding: ${props => (props.title ? '16px 0 0 20px' : '14px 0 14px 16px')};
   box-sizing: border-box;
   width: ${props =>
@@ -19,6 +19,12 @@ const Form = styled.form<IFormInput>`
     props.title ? formHeightWithTitle : formHeightWithoutTitle}px;
   display: flex;
   flex-direction: column;
+  :focus-within {
+    border: solid 2px #02adc9;
+  }
+  &.error:focus-within {
+    border: solid 2px #ea1f49;
+  }
 `;
 
 const InputWrapper = styled.input`
@@ -45,22 +51,41 @@ const InputTitle = styled(StyledSpan)`
   height: 20px;
 `;
 
+const HintWrapper = styled(StyledSpan)`
+  font-family: ${MTSSans.REGULAR};
+  font-size: 12px;
+  line-height: 1.33;
+  color: #ea1f49;
+  margin-top: 4px;
+`;
+
 export const Input: React.FC<IInput> = ({
   style,
   title = '',
   onChangeHandler,
   value,
   onSubmitHandler,
+  hasError = false,
+  hint,
 }) => {
   return (
-    <Form title={title} onSubmit={onSubmitHandler} style={style}>
-      <InputTitle>{title}</InputTitle>
-      <InputWrapper
-        value={value}
-        onChange={onChangeHandler}
-        placeholder="Заполните поле"
-      />
-    </Form>
+    <div>
+      <Form
+        title={title}
+        onSubmit={onSubmitHandler}
+        style={style}
+        className={hasError ? 'error' : ''}
+      >
+        <InputTitle>{title}</InputTitle>
+        <InputWrapper
+          value={value}
+          onChange={onChangeHandler}
+          placeholder="Заполните поле"
+        />
+      </Form>
+
+      <HintWrapper>{hasError && hint}</HintWrapper>
+    </div>
   );
 };
 
@@ -70,6 +95,8 @@ interface IInput {
   onChangeHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
   value?: string;
   onSubmitHandler: (e: React.FormEvent) => void;
+  hasError?: boolean;
+  hint?: string;
 }
 
 interface IFormInput {

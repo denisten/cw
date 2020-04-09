@@ -14,12 +14,11 @@ import { ZIndexes } from '../root-component/z-indexes-enum';
 import { TutorialStore } from '../../effector/tutorial-store/store';
 import { pauseTutorialMode } from '../../effector/tutorial-store/events';
 import styled from 'styled-components';
-import { device } from '../../UI/media';
 
 const StyledConfig = {
   exitButton: {
-    top: '-4%',
-    right: '-2%',
+    top: '-1%',
+    right: '-4%',
     hoverFlag: true,
     zIndex: ZIndexes.UI_BUTTON,
   },
@@ -54,13 +53,9 @@ const StyledConfig = {
 };
 
 const ExpandedColumnWrapper = styled(ColumnWrapper)`
-    height: 456px;
-    width: 1045px;
-    zIndex: 20;
-  // @media ${device.laptopL} {
-  //  height: 90%;
-  //  width: 90%;
-  //}
+  height: 456px;
+  width: 1045px;
+  zindex: 20;
 `;
 
 export const Menu: React.FC<{ displayFlag: boolean }> = ({ displayFlag }) => {
@@ -70,17 +65,18 @@ export const Menu: React.FC<{ displayFlag: boolean }> = ({ displayFlag }) => {
   const menuItemsComponentCallBack = (item: MenuItems) => {
     menuOpened(item);
   };
+
+  const handleExitButtonClick = () => {
+    pauseTutorialMode();
+    menuClosed();
+  };
   return (
     <Overlay displayFlag={displayFlag} {...StyledConfig.overlay}>
       <ExpandedColumnWrapper displayFlag={displayFlag}>
         {!tutorialCondition ? (
           <ExitButton
             {...StyledConfig.exitButton}
-            callBack={() => {
-              pauseTutorialMode();
-
-              menuClosed();
-            }}
+            callBack={handleExitButtonClick}
           />
         ) : null}
         <RowWrapper {...StyledConfig.rowWrapper}>

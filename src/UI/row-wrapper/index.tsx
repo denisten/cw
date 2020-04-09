@@ -11,10 +11,19 @@ const ParentDivWrapper = styled.div<IRowWrapper>`
   align-items: ${props => props.alignItems};
   padding: ${props => props.padding};
   left: ${props => props.left};
+  margin: ${props => props.margin};
 `;
 
-export const RowWrapper: React.FC<IRowWrapper> = ({ children, ...props }) => {
-  return <ParentDivWrapper {...props}>{children}</ParentDivWrapper>;
+export const RowWrapper: React.FC<IRowWrapper> = ({
+  children,
+  style = {},
+  ...props
+}) => {
+  return (
+    <ParentDivWrapper {...props} style={style}>
+      {children}
+    </ParentDivWrapper>
+  );
 };
 
 interface IRowWrapper {
@@ -25,4 +34,6 @@ interface IRowWrapper {
   onMouseOut?: () => void;
   padding?: string;
   left?: string;
+  margin?: string;
+  style?: React.CSSProperties;
 }

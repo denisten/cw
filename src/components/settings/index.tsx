@@ -7,15 +7,10 @@ import {
 } from '../../effector/user-data/store';
 import styled from 'styled-components';
 import { DataInput } from '../../UI/data-input';
-import { editUserData } from '../../effector/user-data/events';
+import { editCurrentUserDataField } from '../../effector/user-data/events';
 import { MoneyWrapper } from '../../UI/money-wrapper';
 import { ButtonClassNames, Button } from '../../UI/button';
-import {
-  Billet,
-  RowWrapper,
-  ITitleWrapper,
-  ProfileHeaderDataWrapper,
-} from '../profile';
+import { RowWrapper, ProfileHeaderDataWrapper } from '../profile';
 import {
   TutorialConditions,
   TutorialStore,
@@ -112,7 +107,6 @@ export const Settings = () => {
 
   return (
     <ProfileWrapper>
-      <Billet />
       <ProfileHeader>
         <img src={avatarImg} {...StyledConfig.avatar} alt="profile" />
         <ProfileHeaderDataWrapper>
@@ -144,7 +138,10 @@ export const Settings = () => {
             key={worldName}
             value={worldName}
             callBack={value =>
-              editUserData({ key: UserDataStoreKeys.WORLD_NAME, value })
+              editCurrentUserDataField({
+                key: UserDataStoreKeys.WORLD_NAME,
+                value,
+              })
             }
           />
         </InputsWrapper>
@@ -168,3 +165,14 @@ export const Settings = () => {
     </ProfileWrapper>
   );
 };
+
+interface ITitleWrapper {
+  fontSize: number;
+  position?: string;
+  top?: number;
+  left?: number;
+  bottom?: number;
+  right?: number;
+  width?: number;
+  margin?: string;
+}
