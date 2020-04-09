@@ -6,8 +6,19 @@ import { StyledSpan } from '../span';
 import { MTSSans } from '../../fonts';
 import { Input } from '../input';
 import { Button, ButtonClassNames } from '../button';
-import { editCurrentUserDataField } from '../../effector/user-data/events';
-import { UserDataStoreKeys } from '../../effector/user-data/store';
+import {
+  editCurrentUserDataField,
+  editUserData,
+} from '../../effector/user-data/events';
+import {
+  UserDataStore,
+  UserDataStoreKeys,
+} from '../../effector/user-data/store';
+import {
+  maxNameLength,
+  minNameLength,
+} from '../../components/profile/authorized';
+import { useStore } from 'effector-react';
 
 const PopUpWrapper = styled.div`
   background-image: url(${popUpWrapperBackground});
@@ -34,22 +45,44 @@ const Title = styled(StyledSpan)`
 }`;
 
 const styleConfig = {
-  input: {
-    marginBottom: '40px',
+  button: {
+    position: 'absolute',
+    bottom: '45px',
   } as React.CSSProperties,
 };
 
-export const PopUp: React.FC<IPopUp> = ({ callback, displayFlag }) => {
-  const [value, setValue] = useState('');
+let worldInputHint = '';
+export const minSymbolsAlert = 'Минимальное число символов ';
+export const maxSymbolsAlert = 'Максимальное число символов ';
 
+export const PopUp: React.FC<IPopUp> = ({ callback, displayFlag }) => {
+  const { worldName } = useStore(UserDataStore);
+  const [value, setValue] = useState(worldName);
+  const [inputHasError, setInputHasError] = useState(false);
+
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setValue(e.target.value);
+    if (value.length < minNameLength) {
+      worldInputHint = minSymbolsAlert + minNameLength;
+    } else if (value.length > maxNameLength) {
+      worldInputHint = maxSymbolsAlert + maxNameLength;
+    } else {
+      setInputHasError(false);
+    }
+  };
   const saveData = () => {
     editCurrentUserDataField({ key: UserDataStoreKeys.WORLD_NAME, value });
     callback();
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    saveData();
+  const handleSubmit = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    if (value.length >= minNameLength && value.length <= maxNameLength) {
+      saveData();
+    } else {
+      setInputHasError(true);
+    }
   };
 
   return (
@@ -59,15 +92,17 @@ export const PopUp: React.FC<IPopUp> = ({ callback, displayFlag }) => {
           <PopUpWrapper>
             <Title>Введите название города</Title>
             <Input
-              style={styleConfig.input}
-              onChangeHandler={e => setValue(e.target.value)}
+              onChangeHandler={handleOnChange}
               onSubmitHandler={handleSubmit}
               value={value}
+              hasError={inputHasError}
+              hint={worldInputHint}
             />
             <Button
+              style={styleConfig.button}
               className={ButtonClassNames.NORMAL}
               content="Сохранить"
-              callback={saveData}
+              callback={handleSubmit}
             />
           </PopUpWrapper>
         </Overlay>

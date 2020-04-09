@@ -5,7 +5,7 @@ import { MTSSans } from '../../../fonts';
 import { Button, ButtonClassNames } from '../../../UI/button';
 import { UserDataStore } from '../../../effector/user-data/store';
 import penImg from '../not-authorized/pen.svg';
-import { PopUp } from '../../../UI/pop-up';
+import { maxSymbolsAlert, minSymbolsAlert, PopUp } from '../../../UI/pop-up';
 import { useStore } from 'effector-react';
 import { RowWrapper } from '../../../UI/row-wrapper';
 import { MoneyWallet } from '../../../UI/wallet/money';
@@ -115,7 +115,7 @@ const styledConfig = {
   },
 };
 
-const minNameLength = 3,
+export const minNameLength = 3,
   maxNameLength = 25;
 
 let nameInputHint = '';
@@ -130,9 +130,9 @@ export const AuthorizedProfile = () => {
   const handleChangeNameInput = (value: string) => {
     setLocalName(value);
     if (value.length < minNameLength) {
-      nameInputHint = `Минимальное число символов ${minNameLength}`;
+      nameInputHint = minSymbolsAlert + minNameLength;
     } else if (value.length > maxNameLength) {
-      nameInputHint = `Максимальное число символов ${maxNameLength}`;
+      nameInputHint = maxSymbolsAlert + maxNameLength;
     } else {
       setNameInputHasError(false);
     }
