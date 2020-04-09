@@ -69,8 +69,8 @@ export const ModalWindowWrapper = styled.div<ModalWindowProps>`
   z-index: ${ZIndexes.MODAL};
   right: -3px;
   width: 36%;
-  height: 90%;
-  top: 5%;
+  height: 100%;
+  top: 0%;
   box-sizing: border-box;
   margin-right: ${props =>
     !props.opened ? marginRightValues.CLOSED : marginRightValues.OPENED}%;
@@ -79,14 +79,7 @@ export const ModalWindowWrapper = styled.div<ModalWindowProps>`
   display: flex;
   flex-direction: column;
 
-  @media (max-resolution: 0.8dppx) {
-    width: 36%;
-    height: 80%;
-  }
-
   @media screen and (max-width: 1440px) {
-    height: 100%;
-    top: 0%;
     width: 547px;
   }
 
@@ -126,10 +119,6 @@ const TowerInfoHeader = styled.div<{ sizeContent: boolean }>`
   flex-shrink: 0;
   transition: 0.5s;
 
-  @media (max-resolution: 0.8dppx) {
-    margin-bottom: 2vh;
-  }
-
   @media ${device.laptopS} {
     margin-bottom: 30px;
   }
@@ -145,7 +134,7 @@ const HeaderLine = styled.div<{ sizeContent: boolean }>`
 `;
 
 const Title = styled.div<{ sizeContent: boolean }>`
-  font-size: ${props => (props.sizeContent ? '24px' : '32px')};
+  font-size: ${props => (props.sizeContent ? '29px' : '32px')};
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -153,6 +142,7 @@ const Title = styled.div<{ sizeContent: boolean }>`
   letter-spacing: -0.5px;
   color: #001424;
   font-family: 'MTSSansUltraWide';
+  transition: 0.5s;
 `;
 
 const MainText = styled.span`
@@ -374,6 +364,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
                 LocalTowerProgressStore[towerTitle].progress >= MAXLEVEL &&
                 level < maxLevel
               }
+              hide={hideTowerInfo}
             ></TowerInfoUpgradeButton>
           </RowWrapper>
 
