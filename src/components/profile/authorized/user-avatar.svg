@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="60" height="60" viewBox="0 0 60 60">
+    <defs>
+        <filter id="prefix__b" width="174.2%" height="174.2%" x="-37.1%" y="-28.7%" filterUnits="objectBoundingBox">
+            <feOffset dy="5" in="SourceAlpha" result="shadowOffsetOuter1"/>
+            <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="6.5"/>
+            <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0.88627451 0 0 0 0 0.898039216 0 0 0 0 0.921568627 0 0 0 1 0"/>
+        </filter>
+        <filter id="prefix__e" width="100%" height="100%" x="0%" y="0%" filterUnits="objectBoundingBox">
+            <feGaussianBlur in="SourceGraphic"/>
+        </filter>
+        <circle id="prefix__a" cx="29.647" cy="29.647" r="29.647"/>
+        <rect id="prefix__g" width="33.882" height="32.627" x=".314" y=".627" rx="12.235"/>
+        <path id="prefix__d" d="M9.407 0H37.7c5.168 0 9.358 4.19 9.358 9.358 0 5.172-4.186 9.368-9.358 9.38l-28.29.064C4.227 18.814.012 14.62 0 9.433V9.407C0 4.21 4.211 0 9.407 0z"/>
+    </defs>
+    <g fill="none" fill-rule="evenodd" transform="matrix(-1 0 0 1 60 0)">
+        <mask id="prefix__c" fill="#fff">
+            <use xlink:href="#prefix__a"/>
+        </mask>
+        <use fill="#000" filter="url(#prefix__b)" xlink:href="#prefix__a"/>
+        <use fill="#02ADC9" xlink:href="#prefix__a"/>
+        <g mask="url(#prefix__c)">
+            <g transform="translate(6.353 9.412)">
+                <g transform="translate(0 36.706)">
+                    <mask id="prefix__f" fill="#fff">
+                        <use xlink:href="#prefix__d"/>
+                    </mask>
+                    <use fill="#202D3D" xlink:href="#prefix__d"/>
+                    <circle cx="22.588" cy="1.882" r="9.412" fill="#001424" filter="url(#prefix__e)" mask="url(#prefix__f)"/>
+                </g>
+                <circle cx="22.588" cy="36.706" r="8.471" fill="#F7C6A4"/>
+                <circle cx="5.647" cy="21.961" r="3.765" fill="#F7C6A4"/>
+                <circle cx="40.157" cy="21.961" r="3.765" fill="#F7C6A4"/>
+                <g transform="translate(5.333 4.078)">
+                    <mask id="prefix__h" fill="#fff">
+                        <use xlink:href="#prefix__g"/>
+                    </mask>
+                    <use fill="#FFD4B6" xlink:href="#prefix__g"/>
+                    <rect width="9.412" height="22.588" x="-6.275" y="-3.137" fill="#001424" mask="url(#prefix__h)" rx="4.706"/>
+                    <path fill="#F7C6A4" d="M17.255 -2.196H36.079V37.333000000000006H17.255z" mask="url(#prefix__h)"/>
+                    <rect width="9.412" height="22.588" x="31.373" y="-3.137" fill="#001424" mask="url(#prefix__h)" rx="4.706"/>
+                </g>
+                <path stroke="#ECAF85" stroke-linecap="round" stroke-width="1.882" d="M16.941 27.294c1.512 1.882 3.418 2.824 5.718 2.824s4.159-.942 5.576-2.824"/>
+                <path fill="#001424" d="M39.53 0v16.941h-2.824v-6.588c0-1.56-1.264-2.824-2.824-2.824H11.294c-1.56 0-2.823 1.265-2.823 2.824v6.588H5.647V0H39.53z"/>
+                <rect width="2.824" height="4.706" x="15.059" y="16.941" fill="#202D3D" rx="1.412"/>
+                <rect width="2.824" height="4.706" x="28.235" y="16.941" fill="#202D3D" rx="1.412"/>
+                <path stroke="#001424" stroke-linecap="round" stroke-width="1.882" d="M13.176 14.1c1.226-1.194 2.482-1.274 3.765.018M28.235 14.1c1.226-1.194 2.481-1.274 3.765.018"/>
+            </g>
+        </g>
+    </g>
+</svg>

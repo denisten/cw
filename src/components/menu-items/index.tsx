@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import { MenuItems, MenuNavigationElement } from '../../UI/menu-paragraph';
-import background from './background.png';
+import background from './background.svg';
 import { checkHaveNotify } from '../../utils/check-have-notify';
 import { TutorialConditions } from '../../effector/tutorial-store/store';
 
 const MenuWrapper = styled.div`
-  width: 406px;
+  width: 290px;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -16,6 +16,10 @@ const MenuWrapper = styled.div`
   background-size: cover;
   flex-shrink: 0;
   position: relative;
+  left: 14px;
+  padding-top: 36px;
+  box-sizing: border-box;
+  overflow: hidden;
 `;
 
 type MenuItemsComponentProps = {
@@ -36,7 +40,7 @@ export const MenuItemsComponent: React.FC<MenuItemsComponentProps> = ({
   const checkAvailableForClickElem = (elem: string) => {
     if (!tutorialCondition) return true;
     else if (
-      elem === MenuItems.SETTINGS &&
+      elem === MenuItems.PROFILE &&
       (tutorialCondition === TutorialConditions.PULSE_EDIT_CHANGE_CITY_NAME ||
         tutorialCondition === TutorialConditions.PULSE_SAVE_CHANGE_CITY_NAME)
     ) {
