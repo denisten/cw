@@ -63,6 +63,7 @@ enum TowerTutorialSteps {
 
 const MAXLEVEL = 100;
 const FIRST_ELEM_WIDTH = 92;
+const COMMON_TRANSITION = 0.5;
 
 export const ModalWindowWrapper = styled.div<ModalWindowProps>`
   position: absolute;
@@ -74,7 +75,7 @@ export const ModalWindowWrapper = styled.div<ModalWindowProps>`
   box-sizing: border-box;
   margin-right: ${props =>
     !props.opened ? marginRightValues.CLOSED : marginRightValues.OPENED}%;
-  transition-duration: 0.5s;
+  transition-duration: ${COMMON_TRANSITION}s;
   transition-property: margin-right;
   display: flex;
   flex-direction: column;
@@ -117,7 +118,7 @@ const TowerInfoHeader = styled.div<{ sizeContent: boolean }>`
   width: 100%;
   margin-bottom: ${props => (props.sizeContent ? '24px' : '32px')};
   flex-shrink: 0;
-  transition: 0.5s;
+  transition: ${COMMON_TRANSITION}s;
 
   @media ${device.laptopS} {
     margin-bottom: 30px;
@@ -130,7 +131,7 @@ const HeaderLine = styled.div<{ sizeContent: boolean }>`
   margin-top: ${props => (props.sizeContent ? '0' : '32px')};
   height: ${props => (props.sizeContent ? '0px' : '55px')};
   overflow: ${props => (props.sizeContent ? 'hidden' : 'inherit')};
-  transition: 0.5s;
+  transition: ${COMMON_TRANSITION}s;
 `;
 
 const Title = styled.div<{ sizeContent: boolean }>`
@@ -142,7 +143,7 @@ const Title = styled.div<{ sizeContent: boolean }>`
   letter-spacing: -0.5px;
   color: #001424;
   font-family: 'MTSSansUltraWide';
-  transition: 0.5s;
+  transition: ${COMMON_TRANSITION}s;
 `;
 
 const MainText = styled.span`
