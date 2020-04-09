@@ -59,10 +59,11 @@ export const RootComponent = (): React.ReactElement => {
   useEffect(() => {
     scrollToCurrentTower(ref);
   }, [ref]);
+  const showContent = () => {
+    setDocumentLoadedFlag(true);
+  };
   useEffect(() => {
-    window.addEventListener('load', () => {
-      setDocumentLoadedFlag(true);
-    });
+    window.addEventListener('load', showContent);
   }, []);
 
   const wheelHandler = (e: React.WheelEvent) => {
@@ -71,7 +72,7 @@ export const RootComponent = (): React.ReactElement => {
 
   return (
     <ComponentWrapper id="rootScroll">
-      <Preloader visible={documentLoadedFlag} />
+      {!documentLoadedFlag ? <Preloader /> : null}
       <Menu displayFlag={!!selectedMenuItem} />
       <ProfileButton
         tutorialCondition={tutorialCondition}

@@ -3,7 +3,7 @@ import styled, { keyframes } from 'styled-components';
 import { ZIndexes } from '../root-component/z-indexes-enum';
 import { cloudsConfig } from './clouds-config';
 
-const PreloaderWrapper = styled.div<IPreloader>`
+const PreloaderWrapper = styled.div`
   width: 100%;
   height: 100%;
   position: fixed;
@@ -11,17 +11,16 @@ const PreloaderWrapper = styled.div<IPreloader>`
   left: 0;
   background: gray;
   z-index: ${ZIndexes.PRELOADER};
-  display: ${props => (props.visible ? 'flex' : 'none')};
-  position: relative;
+  display: flex;
   overflow: hidden;
 `;
 
 const cloudMove = keyframes`
 from {
-    transform: translate3d(0%, 0px, 0);
+    transform: translate3d(0%, 0, 0);
 }
 to {
-    transform: translate3d(20%, 0px, 0);
+    transform: translate3d(20%, 0, 0);
 }
 `;
 
@@ -42,19 +41,15 @@ const Cloud = styled.div<ICloud>`
   z-index: ${props => props.zIndex || 1};
 `;
 
-export const Preloader: React.FC<IPreloader> = ({ visible }) => {
+export const Preloader: React.FC = () => {
   return (
-    <PreloaderWrapper visible={visible}>
+    <PreloaderWrapper>
       {cloudsConfig.map(cloud => (
         <Cloud key={cloud.keyId} {...cloud} />
       ))}
     </PreloaderWrapper>
   );
 };
-
-interface IPreloader {
-  visible: boolean;
-}
 
 export interface ICloud {
   keyId?: number;
