@@ -252,7 +252,6 @@ const StyleConfig = {
   exitButton: {
     top: '25%',
     left: '90%',
-    hoverFlag: true,
   },
   tutorialArrow: {
     direction: Directions.TOP,
