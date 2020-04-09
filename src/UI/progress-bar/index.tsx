@@ -5,14 +5,14 @@ const ProgressBarWrapper = styled.div`
   position: relative;
   display: flex;
   height: 20px;
-  width: 188px;
+  width: 184px;
   border: 1px solid none;
   overflow: hidden;
   justify-content: flex-start;
   background-color: #d6f0f4;
   border: 1px solid none;
-  transform: skew(-32deg);
-  border-radius: 8px;
+  transform: skew(-31deg);
+  border-radius: 4px 2px 4px 2px;
   box-shadow: inset 0 0 2px 0 rgba(32, 189, 218, 0.18);
 
   &::before {
@@ -48,6 +48,7 @@ const ProgressBarGreenLine = styled.div<ProgressBarProps>`
     #3acbe8 44%,
     #5edffc
   );
+
   transition-property: width;
   transition-duration: 0.5s;
   transition-timing-function: ease-in-out;
