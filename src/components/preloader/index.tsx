@@ -2,6 +2,7 @@ import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { ZIndexes } from '../root-component/z-indexes-enum';
 import { cloudsConfig } from './clouds-config';
+import background from './background.png';
 
 const PreloaderWrapper = styled.div`
   width: 100%;
@@ -13,6 +14,8 @@ const PreloaderWrapper = styled.div`
   z-index: ${ZIndexes.PRELOADER};
   display: flex;
   overflow: hidden;
+  background: url(${background}) no-repeat center;
+  background-size: 100% 100%;
 `;
 
 const cloudMove = keyframes`
