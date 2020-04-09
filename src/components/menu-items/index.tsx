@@ -17,7 +17,6 @@ const MenuWrapper = styled.div`
   flex-shrink: 0;
   position: relative;
   left: 14px;
-  top: 2px;
   padding-top: 36px;
   box-sizing: border-box;
   overflow: hidden;
