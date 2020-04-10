@@ -13,11 +13,7 @@ export const useImageOnLoadingCheck = () => {
     for (let index = 0; index < imgCollection.length; index++) {
       const image = imgCollection[index];
 
-      if (
-        image.complete &&
-        allImagesNumber !== loadedImagesNumber &&
-        !image.hasAttribute('checked')
-      ) {
+      if (image.complete && allImagesNumber !== loadedImagesNumber) {
         image.setAttribute('checked', 'true');
         setLoadedImgCount(loadedImagesNumber + 1);
         break;
