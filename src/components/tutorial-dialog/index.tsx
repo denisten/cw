@@ -18,6 +18,7 @@ import supportSprite from '../../img/assistant/assistant.png';
 import { UserDataStore } from '../../effector/user-data/store';
 import { ButtonClassNames, Button } from '../../UI/button';
 import { Span, StyledSpan } from '../../UI/span';
+import { MTSSans } from '../../fonts';
 
 const TutorialDialogWrapper = styled.div`
   width: 1128px;
@@ -105,7 +106,7 @@ const styleConfig = {
     height: 50,
   },
   tutorialDialogTitle: {
-    fontFamily: 'MTSSansBlack',
+    fontFamily: MTSSans.BLACK,
     fontSize: 32,
     fontWeight: 'bold',
     lineHeight: 1.25,

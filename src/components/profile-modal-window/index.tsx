@@ -7,7 +7,6 @@ import { MenuItems } from '../../UI/menu-paragraph';
 import { useStore } from 'effector-react';
 import { AppCondition } from '../../effector/app-condition/store';
 import { Directions } from '../../UI/tutorial-arrow';
-import { HeaderComponent } from '../header';
 import { RowWrapper } from '../../UI/row-wrapper';
 import { ColumnWrapper } from '../../UI/column-wrapper';
 import { Overlay } from '../../UI/overlay';
@@ -15,18 +14,13 @@ import { ZIndexes } from '../root-component/z-indexes-enum';
 import { TutorialStore } from '../../effector/tutorial-store/store';
 import { pauseTutorialMode } from '../../effector/tutorial-store/events';
 import styled from 'styled-components';
-import { device } from '../../UI/media';
 
 const StyledConfig = {
   exitButton: {
-    top: '0%',
-    right: '-2%',
+    top: '-1%',
+    right: '-4%',
     hoverFlag: true,
-  },
-  mainWrapper: {
-    height: '820px',
-    zIndex: 20,
-    width: '1250px',
+    zIndex: ZIndexes.UI_BUTTON,
   },
   avatar: {
     height: '13%',
@@ -59,10 +53,9 @@ const StyledConfig = {
 };
 
 const ExpandedColumnWrapper = styled(ColumnWrapper)`
-  @media ${device.laptopL} {
-    height: 90%;
-    width: 90%;
-  }
+  height: 456px;
+  width: 1045px;
+  zindex: 20;
 `;
 
 export const Menu: React.FC<{ displayFlag: boolean }> = ({ displayFlag }) => {
@@ -73,24 +66,19 @@ export const Menu: React.FC<{ displayFlag: boolean }> = ({ displayFlag }) => {
     menuOpened(item);
   };
 
+  const handleExitButtonClick = () => {
+    pauseTutorialMode();
+    menuClosed();
+  };
   return (
     <Overlay displayFlag={displayFlag} {...StyledConfig.overlay}>
-      <ExpandedColumnWrapper
-        {...StyledConfig.mainWrapper}
-        displayFlag={displayFlag}
-      >
-        <HeaderComponent {...StyledConfig.header}>
-          {!tutorialCondition ? (
-            <ExitButton
-              {...StyledConfig.exitButton}
-              callBack={() => {
-                pauseTutorialMode();
-
-                menuClosed();
-              }}
-            />
-          ) : null}
-        </HeaderComponent>
+      <ExpandedColumnWrapper displayFlag={displayFlag}>
+        {!tutorialCondition ? (
+          <ExitButton
+            {...StyledConfig.exitButton}
+            callBack={handleExitButtonClick}
+          />
+        ) : null}
         <RowWrapper {...StyledConfig.rowWrapper}>
           <MenuItemsComponent
             tutorialCondition={tutorialCondition}

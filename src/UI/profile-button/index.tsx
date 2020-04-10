@@ -97,7 +97,7 @@ export const ProfileButton: React.FC<IProfileButton> = ({
     } else if (
       tutorialCondition === TutorialConditions.PULSE_MENU_CHANGE_CITY_NAME
     ) {
-      menuOpened(MenuItems.SETTINGS);
+      menuOpened(MenuItems.PROFILE);
       extraTowerInfoModalClosed();
       nextTutorStep();
     } else if (tutorialCondition === TutorialConditions.PULSE_MENU_AUTH) {

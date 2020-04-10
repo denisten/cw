@@ -13,6 +13,7 @@ const ParentDivWrapper = styled.div<IColumnWrapper>`
   z-index: ${props => props.zIndex};
   transform: translate(${props => props.transformTranslate});
   width: ${props => props.width};
+  margin: ${props => props.margin};
 `;
 
 export const ColumnWrapper: React.FC<IColumnWrapper> = ({
@@ -33,4 +34,5 @@ interface IColumnWrapper {
   height?: string;
   width?: string;
   displayFlag?: boolean;
+  margin?: string;
 }
