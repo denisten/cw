@@ -115,24 +115,14 @@ export const cloudsConfig: ICloud[] = [
     height: '584px',
     zIndex: 2,
   },
-  //   {
-  //     keyId: 11,
-  //     top: '30%',
-  //     right: '20%',
-  //     background: cloud11,
-  //     animDuration: '5s',
-  //     animDirection: 'alternate-reverse',
-  //     width: '805px',
-  //     height: '346px',
-  //   },
+  {
+    keyId: 11,
+    top: '30%',
+    right: '20%',
+    background: cloud11,
+    animDuration: '5s',
+    animDirection: 'alternate-reverse',
+    width: '805px',
+    height: '346px',
+  },
 ];
-
-// width?: string;
-//   height?: string;
-//   background?: string;
-//   animDuration?: string;
-//   animDirection?: string;
-//   top?: string;
-//   left?: string;
-//   right?: string;
-//   bottom?: string;

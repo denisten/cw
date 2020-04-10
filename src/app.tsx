@@ -22,6 +22,7 @@ enum EventCodes {
   STRING_PLUS = '=',
   STRING_MINUS = '-',
 }
+const delayForMoveToManiTower = 1000;
 
 export const App = () => {
   const { isAuthorized, authCancelledStatus } = useStore(AppCondition);
@@ -57,8 +58,8 @@ export const App = () => {
   const [documentLoadedFlag, setDocumentLoadedFlag] = useState(false);
   const showContent = () => {
     setTimeout(() => {
-      setDocumentLoadedFlag(true);
-    }, 1000);
+      // setDocumentLoadedFlag(true);
+    }, delayForMoveToManiTower);
   };
   useEffect(() => {
     window.addEventListener('wheel', wheelPreventDefault, { passive: false });
@@ -74,7 +75,7 @@ export const App = () => {
 
   return (
     <Router history={history}>
-      {!documentLoadedFlag ? <Preloader /> : null}
+      <Preloader visible={!documentLoadedFlag} />
       <ErrorBoundary />
       <GlobalStyle />
       <Switch>

@@ -2,9 +2,9 @@ import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { ZIndexes } from '../root-component/z-indexes-enum';
 import { cloudsConfig } from './clouds-config';
-import background from './background.png';
+import background from './background.jpg';
 
-const PreloaderWrapper = styled.div`
+const PreloaderWrapper = styled.div<{ visible: boolean }>`
   width: 100%;
   height: 100%;
   position: fixed;
@@ -12,7 +12,7 @@ const PreloaderWrapper = styled.div`
   left: 0;
   background: gray;
   z-index: ${ZIndexes.PRELOADER};
-  display: flex;
+  display: ${props => (props.visible ? 'flex' : 'none')};
   overflow: hidden;
   background: url(${background}) no-repeat center;
   background-size: 100% 100%;
@@ -44,9 +44,9 @@ const Cloud = styled.div<ICloud>`
   z-index: ${props => props.zIndex || 1};
 `;
 
-export const Preloader: React.FC = () => {
+export const Preloader: React.FC<{ visible: boolean }> = ({ visible }) => {
   return (
-    <PreloaderWrapper>
+    <PreloaderWrapper visible={visible}>
       {cloudsConfig.map(cloud => (
         <Cloud key={cloud.keyId} {...cloud} />
       ))}
