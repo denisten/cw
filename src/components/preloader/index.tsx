@@ -1,12 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { ZIndexes } from '../root-component/z-indexes-enum';
 import { cloudsConfig } from './clouds-config';
 import background from './background.jpg';
 import { MTSSans } from '../../fonts';
-import { useImageLoading } from '../../hooks/useImageLoading';
+import { useImageOnLoadingCheck } from '../../hooks/useImageLoading';
 
 const maxpercent = 100;
+const delayBeforePreloaderOff = 1000;
+
+const cloudsOddOff = keyframes`
+to {
+  transform: translate3d(-100%, -100%, 0);
+  opacity: .2;
+}
+`;
+const cloudsEvenOff = keyframes`
+to {
+  transform: translate3d(100%, 100%, 0);
+  opacity: .2;
+}
+`;
+
 const PreloaderWrapper = styled.div<{ disable: boolean }>`
   width: 100%;
   height: 100%;
@@ -21,6 +36,15 @@ const PreloaderWrapper = styled.div<{ disable: boolean }>`
   background-size: 100% 100%;
   align-items: flex-end;
   justify-content: center;
+
+  .cloud:nth-child(odd).hideCloud {
+    animation: ${cloudsOddOff} 1s;
+    animation-fill-mode: forwards;
+  }
+  .cloud:nth-child(even).hideCloud {
+    animation: ${cloudsEvenOff} 1s;
+    animation-fill-mode: forwards;
+  }
 `;
 
 const cloudMove = keyframes`
@@ -70,6 +94,7 @@ const LoadingLine = styled.div<{ persentOfLoad?: string }>`
     letter-spacing: -0.31px;
     color: #ffffff;
     transform: skew(30deg);
+    z-index: 2;
   }
 
   &::before {
@@ -87,25 +112,43 @@ const LoadingLine = styled.div<{ persentOfLoad?: string }>`
       #7ec7ff 53%,
       #8ad1ff 99%
     );
+    z-index: 1;
   }
 `;
 
 export const Preloader: React.FC = () => {
-  const { allImageCount, loadedImgCount, haveNotImg } = useImageLoading();
+  const {
+    allImageCount,
+    loadedImgCount,
+    haveNotImg,
+  } = useImageOnLoadingCheck();
   const translateToPercent = () => {
     const persent = (loadedImgCount * maxpercent) / allImageCount;
     if (persent) {
       return persent.toFixed(0);
     }
   };
+  const [disable, setDisable] = useState(false);
+  const [cloudsOff, setCloudsOff] = useState(false);
+  useEffect(() => {
+    if (
+      (allImageCount !== 0 && allImageCount === loadedImgCount) ||
+      haveNotImg
+    ) {
+      setCloudsOff(true);
+      setTimeout(() => {
+        setDisable(true);
+      }, delayBeforePreloaderOff);
+    }
+  }, [loadedImgCount, haveNotImg]);
   return (
-    <PreloaderWrapper
-      disable={
-        (allImageCount !== 0 && allImageCount === loadedImgCount) || haveNotImg
-      }
-    >
+    <PreloaderWrapper disable={disable}>
       {cloudsConfig.map(cloud => (
-        <Cloud key={cloud.keyId} {...cloud} />
+        <Cloud
+          key={cloud.keyId}
+          {...cloud}
+          className={'cloud ' + (cloudsOff ? 'hideCloud' : '')}
+        />
       ))}
       <LoadingLine persentOfLoad={translateToPercent()}>
         <span>{translateToPercent() || 0}%</span>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export const useImageLoading = () => {
+export const useImageOnLoadingCheck = () => {
   const [allImageCount, setAllImageCount] = useState(0);
   const [loadedImgCount, setLoadedImgCount] = useState(0);
   const [haveNotImg, setHaveNotImg] = useState(false);
@@ -20,7 +20,7 @@ export const useImageLoading = () => {
     const imgs = document.querySelectorAll('img');
 
     setAllImageCount(imgs.length);
-    if (imgs.length === 0) {
+    if (imgs.length === 0 || !imgs) {
       setHaveNotImg(true);
     }
   };
