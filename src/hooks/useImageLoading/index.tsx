@@ -3,8 +3,9 @@ import { useState, useEffect } from 'react';
 export const useImageLoading = () => {
   const [allImageCount, setAllImageCount] = useState(0);
   const [loadedImgCount, setLoadedImgCount] = useState(0);
+  const [haveNotImg, setHaveNotImg] = useState(false);
 
-  const parseImageLoaded = () => {
+  const parseWhenImageLoaded = () => {
     const imgCollection = document.querySelectorAll('img');
     for (let index = 0; index < imgCollection.length; index++) {
       const image = imgCollection[index];
@@ -15,19 +16,22 @@ export const useImageLoading = () => {
     }
   };
 
-  const getAllImagesCollection = () => {
+  const checkAllImages = () => {
     const imgs = document.querySelectorAll('img');
     setAllImageCount(imgs.length);
+    if (imgs.length === 0) {
+      setHaveNotImg(true);
+    }
   };
   useEffect(() => {
-    document.addEventListener('DOMContentLoaded', getAllImagesCollection);
+    document.addEventListener('DOMContentLoaded', checkAllImages);
     return () => {
-      document.removeEventListener('DOMContentLoaded', getAllImagesCollection);
+      document.removeEventListener('DOMContentLoaded', checkAllImages);
     };
   }, []);
   useEffect(() => {
-    parseImageLoaded();
+    parseWhenImageLoaded();
   }, [allImageCount, loadedImgCount]);
 
-  return { loadedImgCount, allImageCount };
+  return { loadedImgCount, allImageCount, haveNotImg };
 };

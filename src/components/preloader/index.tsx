@@ -6,7 +6,8 @@ import background from './background.jpg';
 import { MTSSans } from '../../fonts';
 import { useImageLoading } from '../../hooks/useImageLoading';
 
-const PreloaderWrapper = styled.div<{ visible: boolean }>`
+const maxpercent = 100;
+const PreloaderWrapper = styled.div<{ disable: boolean }>`
   width: 100%;
   height: 100%;
   position: fixed;
@@ -14,7 +15,7 @@ const PreloaderWrapper = styled.div<{ visible: boolean }>`
   left: 0;
   background: gray;
   z-index: ${ZIndexes.PRELOADER};
-  display: ${props => (props.visible ? 'flex' : 'none')};
+  display: ${props => (props.disable ? 'none' : 'flex')};
   overflow: hidden;
   background: url(${background}) no-repeat center;
   background-size: 100% 100%;
@@ -48,7 +49,7 @@ const Cloud = styled.div<ICloud>`
   z-index: ${props => props.zIndex || 1};
 `;
 
-const LoadingLine = styled.div<{ persentOfLoad?: number }>`
+const LoadingLine = styled.div<{ persentOfLoad?: string }>`
   width: 659px;
   height: 23px;
   box-shadow: inset 0 1px 4px 0 #202d3d, inset -1px 0 4px 0 #202d3d;
@@ -89,18 +90,27 @@ const LoadingLine = styled.div<{ persentOfLoad?: number }>`
   }
 `;
 
-export const Preloader: React.FC<{ visible?: boolean }> = ({
-  visible = true,
-}) => {
-  const { allImageCount, loadedImgCount } = useImageLoading();
-  console.log(allImageCount, loadedImgCount);
+export const Preloader: React.FC = () => {
+  const { allImageCount, loadedImgCount, haveNotImg } = useImageLoading();
+  const translateToPercent = () => {
+    const persent = (loadedImgCount * maxpercent) / allImageCount;
+    if (persent) {
+      return persent.toFixed(0);
+    }
+  };
+  // console.log(allImageCount, loadedImgCount);
   return (
-    <PreloaderWrapper visible={visible}>
+    <PreloaderWrapper
+      disable={
+        // (allImageCount !== 0 && allImageCount === loadedImgCount) || haveNotImg
+        false
+      }
+    >
       {cloudsConfig.map(cloud => (
         <Cloud key={cloud.keyId} {...cloud} />
       ))}
-      <LoadingLine persentOfLoad={50}>
-        <span>50%</span>
+      <LoadingLine persentOfLoad={translateToPercent()}>
+        <span>{translateToPercent() || 0}%</span>
       </LoadingLine>
     </PreloaderWrapper>
   );
