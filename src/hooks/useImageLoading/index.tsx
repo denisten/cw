@@ -7,9 +7,16 @@ export const useImageOnLoadingCheck = () => {
 
   const parseWhenImageLoaded = () => {
     const imgCollection = document.querySelectorAll('img');
+
     for (let index = 0; index < imgCollection.length; index++) {
       const image = imgCollection[index];
-      if (image.complete && allImagesNumber !== loadedImagesNumber) {
+
+      if (
+        image.complete &&
+        allImagesNumber !== loadedImagesNumber &&
+        !image.hasAttribute('checked')
+      ) {
+        image.setAttribute('checked', 'true');
         setLoadedImgCount(loadedImagesNumber + 1);
         break;
       }
