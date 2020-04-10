@@ -4,6 +4,7 @@ import { ZIndexes } from '../root-component/z-indexes-enum';
 import { cloudsConfig } from './clouds-config';
 import background from './background.jpg';
 import { MTSSans } from '../../fonts';
+import { useImageLoading } from '../../hooks/useImageLoading';
 
 const PreloaderWrapper = styled.div<{ visible: boolean }>`
   width: 100%;
@@ -88,7 +89,11 @@ const LoadingLine = styled.div<{ persentOfLoad?: number }>`
   }
 `;
 
-export const Preloader: React.FC<{ visible: boolean }> = ({ visible }) => {
+export const Preloader: React.FC<{ visible?: boolean }> = ({
+  visible = true,
+}) => {
+  const { allImageCount, loadedImgCount } = useImageLoading();
+  console.log(allImageCount, loadedImgCount);
   return (
     <PreloaderWrapper visible={visible}>
       {cloudsConfig.map(cloud => (

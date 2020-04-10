@@ -10,6 +10,7 @@ import { useStore } from 'effector-react';
 import { AppCondition } from './effector/app-condition/store';
 import { errorStringsParsingHOF } from './utils/error-handler';
 import { Preloader } from './components/preloader';
+import { useImageLoading } from './hooks/useImageLoading';
 
 export enum Routes {
   MAIN = '/',
@@ -55,18 +56,11 @@ export const App = () => {
     }
   };
 
-  const [documentLoadedFlag, setDocumentLoadedFlag] = useState(false);
-  const showContent = () => {
-    setTimeout(() => {
-      // setDocumentLoadedFlag(true);
-    }, delayForMoveToManiTower);
-  };
   useEffect(() => {
     window.addEventListener('wheel', wheelPreventDefault, { passive: false });
     window.addEventListener('keydown', keyDownPreventDefault, {
       passive: false,
     });
-    window.addEventListener('load', showContent);
     return () => {
       window.removeEventListener('wheel', wheelPreventDefault);
       window.removeEventListener('keydown', keyDownPreventDefault);
@@ -75,7 +69,7 @@ export const App = () => {
 
   return (
     <Router history={history}>
-      <Preloader visible={!documentLoadedFlag} />
+      <Preloader />
       <ErrorBoundary />
       <GlobalStyle />
       <Switch>
