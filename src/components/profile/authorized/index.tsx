@@ -97,9 +97,6 @@ const styledConfig = {
   moneyWallet: {
     marginRight: '4px',
   },
-  profileDataRowWrapper: {
-    margin: '0 0 0 69px',
-  },
   profileDataColumnWrapper: {
     displayFlag: true,
     position: 'relative',
@@ -131,8 +128,10 @@ export const AuthorizedProfile = () => {
     setLocalName(value);
     if (value.length < minNameLength) {
       nameInputHint = minSymbolsAlert + minNameLength;
+      setNameInputHasError(true);
     } else if (value.length > maxNameLength) {
       nameInputHint = maxSymbolsAlert + maxNameLength;
+      setNameInputHasError(true);
     } else {
       setNameInputHasError(false);
     }
@@ -168,7 +167,7 @@ export const AuthorizedProfile = () => {
         callback={() => setPopUpDisplayFlag(false)}
         displayFlag={popUpDisplayFlag}
       />
-      <RowWrapper {...styledConfig.profileDataRowWrapper}>
+      <RowWrapper>
         <img src={userAvatarIcon} alt="user" />
         <ColumnWrapper {...styledConfig.profileDataColumnWrapper}>
           <NickNameWrapper content={name || 'sss'} />

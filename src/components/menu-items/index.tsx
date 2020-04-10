@@ -6,7 +6,7 @@ import { checkHaveNotify } from '../../utils/check-have-notify';
 import { TutorialConditions } from '../../effector/tutorial-store/store';
 
 const MenuWrapper = styled.div`
-  width: 290px;
+  width: 274px;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -17,7 +17,7 @@ const MenuWrapper = styled.div`
   flex-shrink: 0;
   position: relative;
   left: 14px;
-  padding-top: 36px;
+  padding-top: 42px;
   box-sizing: border-box;
   overflow: hidden;
 `;
