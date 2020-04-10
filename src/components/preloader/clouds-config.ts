@@ -78,7 +78,7 @@ export const cloudsConfig: ICloud[] = [
     top: '0%',
     left: '-10%',
     background: cloud7,
-    animDuration: '6s',
+    animDuration: '4s',
     animDirection: 'alternate',
     width: '42%',
     height: '33%',
