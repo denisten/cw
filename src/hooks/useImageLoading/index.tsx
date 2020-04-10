@@ -4,15 +4,12 @@ export const useImageOnLoadingCheck = () => {
   const [allImagesNumber, setAllImagesNumber] = useState(0);
   const [loadedImagesNumber, setLoadedImgCount] = useState(0);
   const [haveNotImg, setHaveNotImg] = useState(false);
-  const [memoryCollection, setMemoryCollection] = useState<HTMLImageElement[]>(
-    []
-  );
 
   const parseWhenImageLoaded = () => {
-    for (let index = 0; index < memoryCollection.length; index++) {
-      const image = memoryCollection[index];
+    const imgCollection = document.querySelectorAll('img');
+    for (let index = 0; index < imgCollection.length; index++) {
+      const image = imgCollection[index];
       if (image.complete && allImagesNumber !== loadedImagesNumber) {
-        setMemoryCollection(memoryCollection.filter(item => item !== image));
         setLoadedImgCount(loadedImagesNumber + 1);
         break;
       }
@@ -22,7 +19,6 @@ export const useImageOnLoadingCheck = () => {
   const checkAllImages = () => {
     const imgCollection = document.querySelectorAll('img');
     setAllImagesNumber(imgCollection.length);
-    setMemoryCollection(Array.from(imgCollection));
     if (imgCollection.length === 0 || !imgCollection) {
       setHaveNotImg(true);
     }
