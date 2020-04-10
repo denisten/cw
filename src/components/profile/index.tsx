@@ -11,36 +11,11 @@ const ProfileWrapper = styled.div`
   position: relative;
 `;
 
-export const RowWrapper = styled.div<IRowWrapper>`
-  display: flex;
-  align-items: center;
-  box-sizing: border-box;
-  padding-left: ${props => props.paddingLeft || '0px'};
-  margin: ${props => props.margin || '0px'};
-  min-height: 52px;
-`;
-
-export const ProfileHeaderDataWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-size: 2.2vh;
-  margin: 0 10%;
-`;
-
 export const Profile = React.memo(() => {
   const { isAuthorized } = useStore(AppCondition);
   return (
     <ProfileWrapper>
-      {isAuthorized ? <AuthorizedProfile /> : <NotAuthorizedProfile />}
+      {!isAuthorized ? <AuthorizedProfile /> : <NotAuthorizedProfile />}
     </ProfileWrapper>
   );
 });
-
-interface IRowWrapper {
-  display?: string;
-  paddingLeft?: string;
-  margin?: string;
-}

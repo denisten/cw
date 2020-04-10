@@ -6,7 +6,7 @@ import { AppCondition } from '../../effector/app-condition/store';
 import { Map } from '../map';
 import { Buildings } from '../../buildings';
 import mapTile from '../../img/roads/map-tile.png';
-import { Menu } from '../profile-modal-window';
+import { Menu } from '../menu';
 import { TaskButton } from '../../UI/task-button';
 import { Bridges } from '../../buildings/bridges';
 import { ProfileButton } from '../../UI/profile-button';

@@ -24,7 +24,7 @@ const notSelectedItemFontWeight = 500;
 
 const MenuParagraphWrapper = styled.div<IMenuParagraphWrapper>`
   height: 56px;
-  width: 92%;
+  width: 100%;
   display: flex;
   justify-content: flex-start;
   align-items: center;

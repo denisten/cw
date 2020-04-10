@@ -22,7 +22,8 @@ const Form = styled.form<IFormInput>`
   :focus-within {
     border: solid 2px #02adc9;
   }
-  &.error:focus-within {
+  &.error:focus-within,
+  &.error {
     border: solid 2px #ea1f49;
   }
 `;
@@ -57,6 +58,7 @@ const HintWrapper = styled(StyledSpan)`
   line-height: 1.33;
   color: #ea1f49;
   margin-top: 4px;
+  position: absolute;
 `;
 
 export const Input: React.FC<IInput> = ({

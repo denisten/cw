@@ -69,8 +69,10 @@ export const PopUp: React.FC<IPopUp> = ({ callback, displayFlag }) => {
     setValue(e.target.value);
     if (value.length < minNameLength) {
       worldInputHint = minSymbolsAlert + minNameLength;
+      setInputHasError(true);
     } else if (value.length > maxNameLength) {
       worldInputHint = maxSymbolsAlert + maxNameLength;
+      setInputHasError(true);
     } else {
       setInputHasError(false);
     }
