@@ -118,12 +118,12 @@ const LoadingLine = styled.div<{ persentOfLoad?: string }>`
 
 export const Preloader: React.FC = () => {
   const {
-    allImageCount,
-    loadedImgCount,
+    allImagesNumber,
+    loadedImagesNumber,
     haveNotImg,
   } = useImageOnLoadingCheck();
   const translateToPercent = () => {
-    const persent = (loadedImgCount * maxpercent) / allImageCount;
+    const persent = (loadedImagesNumber * maxpercent) / allImagesNumber;
     if (persent) {
       return persent.toFixed(0);
     }
@@ -132,7 +132,7 @@ export const Preloader: React.FC = () => {
   const [cloudsOff, setCloudsOff] = useState(false);
   useEffect(() => {
     if (
-      (allImageCount !== 0 && allImageCount === loadedImgCount) ||
+      (allImagesNumber !== 0 && allImagesNumber === loadedImagesNumber) ||
       haveNotImg
     ) {
       setCloudsOff(true);
@@ -140,7 +140,7 @@ export const Preloader: React.FC = () => {
         setDisable(true);
       }, delayBeforePreloaderOff);
     }
-  }, [loadedImgCount, haveNotImg]);
+  }, [loadedImagesNumber, haveNotImg]);
   return (
     <PreloaderWrapper disable={disable}>
       {cloudsConfig.map(cloud => (

@@ -1,26 +1,25 @@
 import { useState, useEffect } from 'react';
 
 export const useImageOnLoadingCheck = () => {
-  const [allImageCount, setAllImageCount] = useState(0);
-  const [loadedImgCount, setLoadedImgCount] = useState(0);
+  const [allImagesNumber, setAllImagesNumber] = useState(0);
+  const [loadedImagesNumber, setLoadedImgCount] = useState(0);
   const [haveNotImg, setHaveNotImg] = useState(false);
 
   const parseWhenImageLoaded = () => {
     const imgCollection = document.querySelectorAll('img');
     for (let index = 0; index < imgCollection.length; index++) {
       const image = imgCollection[index];
-      if (image.complete && allImageCount !== loadedImgCount) {
-        setLoadedImgCount(loadedImgCount + 1);
+      if (image.complete && allImagesNumber !== loadedImagesNumber) {
+        setLoadedImgCount(loadedImagesNumber + 1);
         break;
       }
     }
   };
 
   const checkAllImages = () => {
-    const imgs = document.querySelectorAll('img');
-
-    setAllImageCount(imgs.length);
-    if (imgs.length === 0 || !imgs) {
+    const imgCollection = document.querySelectorAll('img');
+    setAllImagesNumber(imgCollection.length);
+    if (imgCollection.length === 0 || !imgCollection) {
       setHaveNotImg(true);
     }
   };
@@ -38,7 +37,7 @@ export const useImageOnLoadingCheck = () => {
   }, []);
   useEffect(() => {
     parseWhenImageLoaded();
-  }, [allImageCount, loadedImgCount]);
+  }, [allImagesNumber, loadedImagesNumber]);
 
-  return { loadedImgCount, allImageCount, haveNotImg };
+  return { loadedImagesNumber, allImagesNumber, haveNotImg };
 };
