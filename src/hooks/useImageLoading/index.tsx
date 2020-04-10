@@ -6,7 +6,9 @@ export const useImageOnLoadingCheck = () => {
   const [haveNotImg, setHaveNotImg] = useState(false);
 
   const parseWhenImageLoaded = () => {
-    const imgCollection = document.querySelectorAll('img');
+    const imgCollection = Array.from(document.querySelectorAll('img')).filter(
+      image => !image.hasAttribute('checked')
+    );
 
     for (let index = 0; index < imgCollection.length; index++) {
       const image = imgCollection[index];
