@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Route, Router, Switch } from 'react-router';
 import { RootComponent } from './components/root-component/root-component';
 import history from './history';
@@ -10,7 +10,6 @@ import { useStore } from 'effector-react';
 import { AppCondition } from './effector/app-condition/store';
 import { errorStringsParsingHOF } from './utils/error-handler';
 import { Preloader } from './components/preloader';
-import { useImageLoading } from './hooks/useImageLoading';
 
 export enum Routes {
   MAIN = '/',
@@ -23,7 +22,6 @@ enum EventCodes {
   STRING_PLUS = '=',
   STRING_MINUS = '-',
 }
-const delayForMoveToManiTower = 1000;
 
 export const App = () => {
   const { isAuthorized, authCancelledStatus } = useStore(AppCondition);

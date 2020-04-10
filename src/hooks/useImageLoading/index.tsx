@@ -18,13 +18,20 @@ export const useImageLoading = () => {
 
   const checkAllImages = () => {
     const imgs = document.querySelectorAll('img');
+
     setAllImageCount(imgs.length);
     if (imgs.length === 0) {
       setHaveNotImg(true);
     }
   };
+
   useEffect(() => {
-    document.addEventListener('DOMContentLoaded', checkAllImages);
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', checkAllImages);
+    } else {
+      checkAllImages();
+    }
+
     return () => {
       document.removeEventListener('DOMContentLoaded', checkAllImages);
     };

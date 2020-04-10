@@ -98,12 +98,10 @@ export const Preloader: React.FC = () => {
       return persent.toFixed(0);
     }
   };
-  // console.log(allImageCount, loadedImgCount);
   return (
     <PreloaderWrapper
       disable={
-        // (allImageCount !== 0 && allImageCount === loadedImgCount) || haveNotImg
-        false
+        (allImageCount !== 0 && allImageCount === loadedImgCount) || haveNotImg
       }
     >
       {cloudsConfig.map(cloud => (
