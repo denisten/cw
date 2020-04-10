@@ -34,7 +34,7 @@ const Cloud = styled.div<ICloud>`
   background: url(${props => props.background}) no-repeat center;
   background-size: 100% 100%;
   animation-duration: ${props => props.animDuration || '5s'};
-  animation-direction: alternate;
+  animation-direction: ${props => props.animDirection || 'alternate'};
   animation-iteration-count: infinite;
   animation-name: ${cloudMove};
   top: ${props => props.top};
