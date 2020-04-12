@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
-
-export const useImageOnLoadingCheck = () => {
+const maxpercent = 100;
+export const useLoadingIndication = () => {
   const [allImagesNumber, setAllImagesNumber] = useState(0);
   const [loadedImagesNumber, setLoadedImgCount] = useState(0);
-  const [haveNotImg, setHaveNotImg] = useState(false);
+  const [allResoursesLoaded, setAllResoursesLoaded] = useState(false);
+  const [loadingPercent, setLoadingPercent] = useState(0);
 
   const parseWhenImageLoaded = () => {
     const imgCollection = Array.from(document.querySelectorAll('img')).filter(
@@ -29,8 +30,19 @@ export const useImageOnLoadingCheck = () => {
     const imgCollection = document.querySelectorAll('img');
     setAllImagesNumber(imgCollection.length);
     if (imgCollection.length === 0 || !imgCollection) {
-      setHaveNotImg(true);
+      setAllResoursesLoaded(true);
+      setLoadingPercent(maxpercent);
     }
+  };
+
+  const converToPecent = () => {
+    const persent = (loadedImagesNumber * maxpercent) / allImagesNumber;
+    setLoadingPercent(Number(persent.toFixed(0)) || 0);
+  };
+
+  const markAllResoursesAsLoaded = () => {
+    setLoadingPercent(maxpercent);
+    setAllResoursesLoaded(true);
   };
 
   useEffect(() => {
@@ -40,13 +52,20 @@ export const useImageOnLoadingCheck = () => {
       checkAllImages();
     }
 
+    window.addEventListener('load', markAllResoursesAsLoaded);
+
     return () => {
       document.removeEventListener('DOMContentLoaded', checkAllImages);
+      window.removeEventListener('load', markAllResoursesAsLoaded);
     };
   }, []);
   useEffect(() => {
     parseWhenImageLoaded();
+    converToPecent();
   }, [allImagesNumber, loadedImagesNumber]);
 
-  return { loadedImagesNumber, allImagesNumber, haveNotImg };
+  return {
+    allResoursesLoaded,
+    loadingPercent,
+  };
 };
