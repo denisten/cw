@@ -131,7 +131,7 @@ const HeaderLine = styled.div<{ sizeContent: boolean }>`
   margin-top: ${props => (props.sizeContent ? '0' : '32px')};
   height: ${props => (props.sizeContent ? '0px' : '55px')};
   overflow: ${props => (props.sizeContent ? 'hidden' : 'inherit')};
-  transition: ${COMMON_TRANSITION}s;
+  transition: 0.2s;
 `;
 
 const Title = styled.div<{ sizeContent: boolean }>`

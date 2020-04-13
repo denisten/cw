@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { zoomInOut } from '../../utils/zoomInOut';
 import plus from './plus.svg';
 import minus from './minus.svg';
+import plusHover from './plus-hover.svg';
+import minusHover from './minus-hover.svg';
 import body from './zoom.png';
 
 const ButtonContainer = styled.div`
@@ -26,14 +28,21 @@ const ButtonContainer = styled.div`
     height: 50%;
     display: block;
     cursor: pointer;
+    transition: 0.3s;
 
     &:first-child {
       background: url(${plus}) no-repeat center;
       background-size: 14px 14px;
+      &:hover {
+        background: url(${plusHover}) no-repeat center;
+      }
     }
     &:last-child {
       background: url(${minus}) no-repeat center;
       background-size: 14px 4px;
+      &:hover {
+        background: url(${minusHover}) no-repeat center;
+      }
     }
   }
 `;
