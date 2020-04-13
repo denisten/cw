@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import background from './close-bcg.svg';
 import hoverBackground from './close-hover.svg';
+import pressedBackground from './close-pressed.svg';
 
 const CloseButton = styled.div<ICloseButton>`
   width: 28px;
@@ -25,7 +26,7 @@ const CloseButton = styled.div<ICloseButton>`
 
   &.pressed {
     transform: scale(0.8);
-    background-image: url(${hoverBackground});
+    background-image: url(${pressedBackground});
   }
 `;
 
