@@ -117,18 +117,18 @@ const LoadingLine = styled.div<{ persentOfLoad?: number }>`
 `;
 
 export const Preloader: React.FC = () => {
-  const { allResoursesLoaded, loadingPercent } = useLoadingIndication();
+  const { loadingPercent } = useLoadingIndication();
 
   const [disable, setDisable] = useState(false);
   const [cloudsOff, setCloudsOff] = useState(false);
   useEffect(() => {
-    if (loadingPercent === maxpercent || allResoursesLoaded) {
+    if (loadingPercent >= maxpercent) {
       setCloudsOff(true);
       setTimeout(() => {
         setDisable(true);
       }, delayBeforePreloaderOff);
     }
-  }, [loadingPercent, allResoursesLoaded]);
+  }, [loadingPercent]);
   return (
     <PreloaderWrapper disable={disable}>
       {cloudsConfig.map(cloud => (

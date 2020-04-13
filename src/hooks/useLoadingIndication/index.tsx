@@ -3,7 +3,6 @@ const maxpercent = 100;
 export const useLoadingIndication = () => {
   const [allImagesNumber, setAllImagesNumber] = useState(0);
   const [loadedImagesNumber, setLoadedImgCount] = useState(0);
-  const [allResoursesLoaded, setAllResoursesLoaded] = useState(false);
   const [loadingPercent, setLoadingPercent] = useState(0);
 
   const parseWhenImageLoaded = () => {
@@ -30,7 +29,6 @@ export const useLoadingIndication = () => {
     const imgCollection = document.querySelectorAll('img');
     setAllImagesNumber(imgCollection.length);
     if (imgCollection.length === 0 || !imgCollection) {
-      setAllResoursesLoaded(true);
       setLoadingPercent(maxpercent);
     }
   };
@@ -42,7 +40,6 @@ export const useLoadingIndication = () => {
 
   const markAllResoursesAsLoaded = () => {
     setLoadingPercent(maxpercent);
-    setAllResoursesLoaded(true);
   };
 
   useEffect(() => {
@@ -65,7 +62,6 @@ export const useLoadingIndication = () => {
   }, [allImagesNumber, loadedImagesNumber]);
 
   return {
-    allResoursesLoaded,
     loadingPercent,
   };
 };
