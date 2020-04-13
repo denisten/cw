@@ -5,6 +5,7 @@ import { cloudsConfig } from './clouds-config';
 import background from './background.jpg';
 import { MTSSans } from '../../fonts';
 import { useLoadingIndication } from '../../hooks/useLoadingIndication';
+import { setLoaded } from '../../effector/app-condition/events';
 
 const maxpercent = 100;
 const delayBeforePreloaderOff = 1000;
@@ -124,6 +125,7 @@ export const Preloader: React.FC = () => {
   useEffect(() => {
     if (loadingPercent >= maxpercent) {
       setCloudsOff(true);
+      setLoaded();
       setTimeout(() => {
         setDisable(true);
       }, delayBeforePreloaderOff);

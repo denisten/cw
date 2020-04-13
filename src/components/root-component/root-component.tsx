@@ -27,7 +27,7 @@ export enum MapSize {
   HEIGHT = 5400,
 }
 
-const ComponentWrapper = styled.div`
+const ComponentWrapper = styled.div<{ visible: boolean }>`
   background-image: url("${mapTile}");
   background-repeat: repeat;
   background-size: auto;
@@ -35,6 +35,7 @@ const ComponentWrapper = styled.div`
   height: 100vh;
   overflow: hidden;
   position: relative;
+  visibility: ${props => (props.visible ? 'visible' : 'hidden')};
 `;
 
 const MapWrapper = styled.div<{ scaleValue: number }>`
@@ -46,9 +47,12 @@ const MapWrapper = styled.div<{ scaleValue: number }>`
 `;
 
 export const RootComponent = (): React.ReactElement => {
-  const { isExtraTowerInfoModalOpen, selectedMenuItem, scaleValue } = useStore(
-    AppCondition
-  );
+  const {
+    isExtraTowerInfoModalOpen,
+    selectedMenuItem,
+    scaleValue,
+    loaded,
+  } = useStore(AppCondition);
 
   const { tutorialCondition, tutorialPause } = useStore(TutorialStore);
   const { ref } = useStore(TowersProgressStore).mainTower;
@@ -63,7 +67,7 @@ export const RootComponent = (): React.ReactElement => {
   };
 
   return (
-    <ComponentWrapper id="rootScroll">
+    <ComponentWrapper id="rootScroll" visible={loaded}>
       <Menu displayFlag={!!selectedMenuItem} />
       <ProfileButton
         tutorialCondition={tutorialCondition}

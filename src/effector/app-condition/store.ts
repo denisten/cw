@@ -12,6 +12,7 @@ import {
   setAuthValue,
   setCancelAuthorizationStatus,
   setHideTowerInfo,
+  setLoaded,
 } from './events';
 import { TowersTypes } from '../towers-progress/store';
 import { upgradeTower } from '../towers-progress/events';
@@ -30,6 +31,7 @@ const initState = {
   isAuthorized: false,
   authCancelledStatus: '',
   hideTowerInfo: false,
+  loaded: false,
 };
 
 const appConditionLocalStorage = connectLocalStorage('AppCondition').onChange(
@@ -91,6 +93,10 @@ export const AppCondition = AppDomain.store<AppConditionType>(initState)
   .on(setHideTowerInfo, (state, payload) => ({
     ...state,
     hideTowerInfo: payload,
+  }))
+  .on(setLoaded, state => ({
+    ...state,
+    loaded: true,
   }));
 
 AppCondition.watch(appConditionLocalStorage);
@@ -104,4 +110,5 @@ export type AppConditionType = {
   isAuthorized: boolean;
   authCancelledStatus: string;
   hideTowerInfo: boolean;
+  loaded: boolean;
 };
