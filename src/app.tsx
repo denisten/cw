@@ -9,6 +9,7 @@ import { fetchUserData } from './effector/user-data/events';
 import { useStore } from 'effector-react';
 import { AppCondition } from './effector/app-condition/store';
 import { errorStringsParsingHOF } from './utils/error-handler';
+import { Preloader } from './components/preloader';
 
 export enum Routes {
   MAIN = '/',
@@ -63,8 +64,10 @@ export const App = () => {
       window.removeEventListener('keydown', keyDownPreventDefault);
     };
   }, []);
+
   return (
     <Router history={history}>
+      <Preloader />
       <ErrorBoundary />
       <GlobalStyle />
       <Switch>
