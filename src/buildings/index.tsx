@@ -8,6 +8,7 @@ import {
 } from '../effector/towers-progress/store';
 import { AppCondition } from '../effector/app-condition/store';
 import { TutorialStore } from '../effector/tutorial-store/store';
+
 export const Buildings: React.FC = () => {
   const localService = new BuildingsService();
   const localTowersProgressStore = useStore(TowersProgressStore);
@@ -31,6 +32,7 @@ export const Buildings: React.FC = () => {
                 progress={localTowersProgressStore[towerTitle].progress}
                 focusOnTowerTitle={focusOn}
                 towerTitle={towerTitle}
+                wideTower={data.wideTower}
                 zIndex={data.zIndex}
                 width={currentTower.width}
                 height={currentTower.height}
