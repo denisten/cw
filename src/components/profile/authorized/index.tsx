@@ -57,6 +57,7 @@ const NickNameWrapper = styled(StyledSpan)<ISpan>`
   font-family: ${MTSSans.REGULAR};
   line-height: 1.2;
   color: #001424;
+  width: 252px;
   &::after {
   content: "${props => props.content}"
   }
@@ -87,6 +88,9 @@ const WorldTitle = styled(StyledSpan)<ISpan>`
 `;
 
 const styledConfig = {
+  profileIcon: {
+    marginLeft: '4px',
+  },
   rowWrapper: {
     padding: '48px 0 33px 0',
     left: '12px',
@@ -100,7 +104,7 @@ const styledConfig = {
   profileDataColumnWrapper: {
     displayFlag: true,
     position: 'relative',
-    margin: '0 125px 0 8px',
+    margin: '0 12px 0 8px',
   },
   inputWrapper: {
     margin: '0 0 48px 0',
@@ -168,7 +172,7 @@ export const AuthorizedProfile = () => {
         displayFlag={popUpDisplayFlag}
       />
       <RowWrapper>
-        <img src={userAvatarIcon} alt="user" />
+        <img src={userAvatarIcon} alt="user" style={styledConfig.profileIcon} />
         <ColumnWrapper {...styledConfig.profileDataColumnWrapper}>
           <NickNameWrapper content={name || 'sss'} />
           <ProgressBar />
