@@ -4,7 +4,8 @@ import { extraTowerInfoModalOpen } from '../../effector/app-condition/events';
 import { LazyImage } from '@tsareff/lazy-image';
 import { TowerLevel, TowersTypes } from '../../effector/towers-progress/store';
 import { UpgradeButton } from '../update-button';
-import upgradeTowerImg from '../../img/tower-updrade/thin-tower.png';
+import upgradeThinTowerImg from '../../img/tower-updrade/thin-tower.png';
+import upgradeWideTowerImg from '../../img/tower-updrade/wide-tower.png';
 import {
   addRefForTower,
   upgradeTower,
@@ -32,7 +33,6 @@ const StyledConfig = {
   sprite: {
     ticksPerFrame: 2,
     numberOfFramesX: 7,
-    img: upgradeTowerImg,
     numberOfFramesY: 6,
     infinity: false,
     style: {
@@ -61,6 +61,7 @@ export const TowerWrapper = memo(
     upgradeFlag,
     tutorialTower,
     tutorialPause,
+    wideTower,
   }: ITowerWrapper): React.ReactElement => {
     const [posX, posY] = position;
     let mouseDownFlag = false,
@@ -139,6 +140,7 @@ export const TowerWrapper = memo(
             canvasHeight={height}
             canvasWidth={width}
             onAnimationEnd={handleOnAnimationEnd}
+            img={wideTower ? upgradeWideTowerImg : upgradeThinTowerImg}
             {...StyledConfig.sprite}
           />
         ) : (
@@ -174,6 +176,7 @@ interface ITowerWrapper {
   position: number[];
   tutorialCondition: TutorialConditions;
   maxLevel: TowerLevel;
+  wideTower: boolean;
   currentLevel: TowerLevel;
   areaCoords: string;
   shadowImg: string;
