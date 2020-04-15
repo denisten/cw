@@ -6,6 +6,8 @@ import minus from './minus.svg';
 import plusHover from './plus-hover.svg';
 import minusHover from './minus-hover.svg';
 import body from './zoom.png';
+import { useStore } from 'effector-react';
+import { AppCondition } from '../../effector/app-condition/store';
 
 const ButtonContainer = styled.div`
   display: flex;
@@ -47,9 +49,8 @@ const ButtonContainer = styled.div`
   }
 `;
 
-export const ZoomInOutButtons: React.FC<IZoomInOutButtons> = ({
-  scaleValue,
-}) => {
+export const ZoomInOutButtons: React.FC = () => {
+  const { scaleValue } = useStore(AppCondition);
   return (
     <ButtonContainer>
       <i onClick={() => zoomInOut(-1, scaleValue)} />
@@ -57,7 +58,3 @@ export const ZoomInOutButtons: React.FC<IZoomInOutButtons> = ({
     </ButtonContainer>
   );
 };
-
-interface IZoomInOutButtons {
-  scaleValue: number;
-}
