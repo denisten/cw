@@ -36,10 +36,9 @@ const Ripple = styled.div<IRipple>`
   transform: translate(-50%, -50%);
   animation-name: ${props => props.animationName};
   animation-duration: 0.5s;
-  animation-play-state: ${props =>
-    props.animationPlayState ? 'running' : 'paused'};
   animation-iteration-count: 1;
   animation-timing-function: ease-in-out;
+  display: ${props => (props.animationPlayState ? 'block' : 'none')};
 `;
 
 const ButtonWrapper = styled.div<IButtonWrapper>`
@@ -181,7 +180,7 @@ export const Button: React.FC<IButton> = ({
     >
       <Ripple
         {...clickPos}
-        animationName={animationPlayState ? rippleAnimation : null}
+        animationName={rippleAnimation}
         animationPlayState={animationPlayState}
         onAnimationEnd={handleAnimationEnd}
       />
