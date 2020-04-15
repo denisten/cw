@@ -17,6 +17,7 @@ import exitImg from './exit.svg';
 import { editUserData } from '../../../effector/user-data/events';
 import { CookieService } from '../../../sevices/cookies';
 import { logout } from '../../../api';
+import { Dropdown } from '../../../UI/dropdown';
 
 const ExitText = styled(StyledSpan)<ISpan>`
   font-family: ${MTSSans.REGULAR};
@@ -87,6 +88,17 @@ const WorldTitle = styled(StyledSpan)<ISpan>`
   }
 `;
 
+const InputTitle = styled(StyledSpan)<ISpan>`
+  font-family: ${MTSSans.REGULAR};
+  font-size: 14px;
+  color: #02adc9;
+  height: 20px;
+  margin-right: 21px;
+  &::after {
+    content: "${props => props.content}"
+  }
+`;
+
 const styledConfig = {
   profileIcon: {
     marginLeft: '4px',
@@ -107,7 +119,7 @@ const styledConfig = {
     margin: '0 12px 0 8px',
   },
   inputWrapper: {
-    margin: '0 0 48px 0',
+    //   margin: '0 0 48px 0',
   },
   nameInput: { marginRight: '16px' },
   exitWrapper: {
@@ -191,24 +203,34 @@ export const AuthorizedProfile = () => {
           style={styledConfig.penImg}
         />
       </RowWrapper>
-      <RowWrapper {...styledConfig.inputWrapper}>
-        <Input
-          title="Имя"
-          value={localName}
-          onSubmitHandler={onSubmitHandler}
-          onChangeHandler={e => handleChangeNameInput(e.target.value)}
-          style={styledConfig.nameInput}
-          hasError={nameInputHasError}
-          hint={nameInputHint}
-        />
-        <Input
-          title="Дата Рождения"
-          value={localBirthday}
-          onSubmitHandler={onSubmitHandler}
-          onChangeHandler={e => handleChangeBirthdayInput(e.target.value)}
-          hasError={false}
-        />
-      </RowWrapper>
+      <ColumnWrapper
+        {...styledConfig.inputWrapper}
+        displayFlag={true}
+        position="relative"
+      >
+        <RowWrapper alignItems="center" margin="0 0 24px 0">
+          <InputTitle content="Имя" />
+          <Input
+            formPadding={13}
+            value={localName}
+            onSubmitHandler={onSubmitHandler}
+            onChangeHandler={e => handleChangeNameInput(e.target.value)}
+            style={styledConfig.nameInput}
+            hasError={nameInputHasError}
+            hint={nameInputHint}
+          />
+        </RowWrapper>
+        <RowWrapper alignItems="center">
+          <InputTitle content="Дата рождения" />
+          <Dropdown />
+          {/*<Input*/}
+          {/*  value={localBirthday}*/}
+          {/*  onSubmitHandler={onSubmitHandler}*/}
+          {/*  onChangeHandler={e => handleChangeBirthdayInput(e.target.value)}*/}
+          {/*  hasError={false}*/}
+          {/*/>*/}
+        </RowWrapper>
+      </ColumnWrapper>
       <Button
         className={ButtonClassNames.NORMAL}
         content="Сохранить"
