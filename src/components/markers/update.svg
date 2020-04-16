@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="92" height="99" viewBox="0 0 92 99">
+    <defs>
+        <linearGradient id="prefix__c" x1="50%" x2="50%" y1=".224%" y2="100%">
+            <stop offset="0%" stop-color="#FDFDFD"/>
+            <stop offset="56.058%" stop-color="#F6F6F6"/>
+            <stop offset="100%" stop-color="#F2F2F2"/>
+        </linearGradient>
+        <filter id="prefix__a" width="122.7%" height="120.5%" x="-11.3%" y="-10.3%" filterUnits="objectBoundingBox">
+            <feOffset in="SourceAlpha" result="shadowOffsetOuter1"/>
+            <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="3"/>
+            <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0.101960784 0 0 0 0 0.11372549 0 0 0 0 0.133333333 0 0 0 0.6 0"/>
+        </filter>
+        <path id="prefix__b" d="M77.227 0c1.31 0 2.37 1.061 2.37 2.37 0 .062-.002.125-.007.186l-5.553 70.519c-.097 1.233-1.126 2.184-2.363 2.184H47.653l-7.757 12.445-7.758-12.445H8.117c-1.237 0-2.266-.95-2.363-2.184L.2 2.556C.1 1.251 1.073.11 2.378.007 2.44.002 2.502 0 2.564 0h74.663z"/>
+    </defs>
+    <g fill="none" fill-rule="evenodd" transform="translate(6 6)">
+        <use fill="#000" filter="url(#prefix__a)" xlink:href="#prefix__b"/>
+        <use fill="url(#prefix__c)" xlink:href="#prefix__b"/>
+        <g fill="#02ADC9">
+            <path d="M10.597 31.111h13.806c.483 0 .875.392.875.875v2.139c0 .483-.392.875-.875.875H10.597c-.483 0-.875-.392-.875-.875v-2.139c0-.483.392-.875.875-.875zM10.597 36.944h13.806c.483 0 .875.392.875.875v2.14c0 .483-.392.874-.875.874H10.597c-.483 0-.875-.391-.875-.875V37.82c0-.483.392-.875.875-.875z" transform="translate(23 17)"/>
+            <path fill-rule="nonzero" d="M34.936 17.71c-.13.31-.434.512-.77.512h-8.888v9.643c0 .457-.374.827-.834.827H10.556c-.46 0-.834-.37-.834-.827v-9.643H.834c-.337 0-.64-.202-.77-.51-.13-.31-.059-.665.18-.902L16.884.243c.158-.155.37-.243.591-.243.222 0 .434.088.591.242l16.69 16.566c.238.237.31.593.18.903z" transform="translate(23 17)"/>
+        </g>
+    </g>
+</svg>

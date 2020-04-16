@@ -1,12 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import notice from './notice.png';
-import success from './success.png';
+import notice from './notice.svg';
+import success from './success.svg';
 import time from './time.png';
-import update from './update.png';
+import update from './update.svg';
 import { TowersTypes } from '../../effector/towers-progress/store';
 import { hideMarker } from '../../effector/towers-marker/events';
 import { extraTowerInfoModalOpen } from '../../effector/app-condition/events';
+import { ZIndexes } from '../root-component/z-indexes-enum';
 
 export enum typeOfMarkers {
   NOTICE = 'notice',
@@ -31,23 +32,29 @@ const selectBackground = (markerType: string) => {
 };
 
 const MarkerWrapper = styled.div`
-  height: 157px;
+  height: auto;
   width: auto;
-  top: -30px;
+  top: 0px;
   left: 50%;
   position: absolute;
   transform: translate(-50%, -50%);
 
   display: flex;
   align-items: center;
+  z-index: ${ZIndexes.UI_BUTTON};
+
+  div:nth-child(2) {
+    transform: translate3d(-25px, 25px, 0);
+  }
 `;
 
 const MarkerView = styled.div<{ markerType: string }>`
   background: url(${props => selectBackground(props.markerType)}) no-repeat
     center;
-  height: 100%;
-  width: 147px;
+  background-size: 100% 100%;
   cursor: pointer;
+  width: 92px;
+  height: 99px;
 `;
 
 export const Markers: React.FC<IMarkers> = ({
