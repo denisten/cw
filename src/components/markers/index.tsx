@@ -4,6 +4,9 @@ import notice from './notice.png';
 import success from './success.png';
 import time from './time.png';
 import update from './update.png';
+import { TowersTypes } from '../../effector/towers-progress/store';
+import { hideMarker } from '../../effector/towers-marker/events';
+import { extraTowerInfoModalOpen } from '../../effector/app-condition/events';
 
 export enum typeOfMarkers {
   NOTICE = 'notice',
@@ -27,21 +30,48 @@ const selectBackground = (markerType: string) => {
   }
 };
 
-const MakrerView = styled.div<{ markerType: string }>`
-  height: '157px';
-  width: '147px';
-  top: '0%';
-  left: '50%';
-  position: 'absolute';
+const MarkerWrapper = styled.div`
+  height: 157px;
+  width: auto;
+  top: -30px;
+  left: 50%;
+  position: absolute;
   transform: translate(-50%, -50%);
-  background: url(${props => selectBackground(props.markerType)}) no-repeat
-    center;
+
+  display: flex;
+  align-items: center;
 `;
 
-export const Markers: React.FC<IMarkers> = ({ markerType }) => {
-  return <MakrerView markerType={markerType} />;
+const MarkerView = styled.div<{ markerType: string }>`
+  background: url(${props => selectBackground(props.markerType)}) no-repeat
+    center;
+  height: 100%;
+  width: 147px;
+  cursor: pointer;
+`;
+
+export const Markers: React.FC<IMarkers> = ({
+  markersCollection,
+  towerTitle,
+}) => {
+  const clickHandler = (markerType: typeOfMarkers) => {
+    hideMarker({ towerTitle: towerTitle, type: markerType });
+    extraTowerInfoModalOpen(towerTitle);
+  };
+  return (
+    <MarkerWrapper>
+      {markersCollection.map(markItem => (
+        <MarkerView
+          key={markItem.type}
+          markerType={markItem.type}
+          onClick={() => clickHandler(markItem.type)}
+        />
+      ))}
+    </MarkerWrapper>
+  );
 };
 
 interface IMarkers {
-  markerType: typeOfMarkers;
+  markersCollection: { type: typeOfMarkers; duration?: number }[];
+  towerTitle: TowersTypes;
 }

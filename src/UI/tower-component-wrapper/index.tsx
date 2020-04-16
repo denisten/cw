@@ -16,7 +16,7 @@ import { nextTutorStep } from '../../effector/tutorial-store/events';
 import { Sprite } from '../../components/sprite';
 import { ZIndexes } from '../../components/root-component/z-indexes-enum';
 import { scrollToCurrentTower } from '../../utils/scroll-to-current-tower';
-import { typeOfMarkers } from '../../components/markers';
+import { typeOfMarkers, Markers } from '../../components/markers';
 
 const TowerStyledWrapper = styled.div<ITowerStyledWrapper>`
   display: flex;
@@ -130,6 +130,9 @@ export const TowerWrapper = memo(
         height={height}
         ref={towerRef}
       >
+        {markers && markers.length > 0 ? (
+          <Markers markersCollection={markers} towerTitle={towerTitle} />
+        ) : null}
         {progress >= maxProgressValue && currentLevel < maxLevel ? (
           <UpgradeButton
             towerTitle={towerTitle}

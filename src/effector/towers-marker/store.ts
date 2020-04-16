@@ -1,6 +1,7 @@
 import { TowersTypes } from '../towers-progress/store';
 import { typeOfMarkers } from '../../components/markers';
 import { TowersMarkerDomain } from './domain';
+import { hideMarker } from './events';
 
 const initState: TowersMarkerStoreType = {
   [TowersTypes.MAIN_TOWER]: {
@@ -16,7 +17,7 @@ const initState: TowersMarkerStoreType = {
     markers: null,
   },
   [TowersTypes.EGG]: {
-    markers: null,
+    markers: [{ type: typeOfMarkers.TIME }],
   },
   [TowersTypes.LIBRARY]: {
     markers: null,
@@ -80,7 +81,12 @@ const initState: TowersMarkerStoreType = {
 
 export const TowersMarkerStore = TowersMarkerDomain.store<
   TowersMarkerStoreType
->(initState);
+>(initState).on(hideMarker, (state, { towerTitle, type }) => ({
+  ...state,
+  [towerTitle]: {
+    markers: state[towerTitle].markers?.filter(item => item.type !== type),
+  },
+}));
 
 type MarkerData = {
   markers: { type: typeOfMarkers; duration?: number }[] | null;
