@@ -5,7 +5,7 @@ import success from './success.png';
 import time from './time.png';
 import update from './update.png';
 
-enum typeOfMarkers {
+export enum typeOfMarkers {
   NOTICE = 'notice',
   SUCCESS = 'success',
   TIME = 'time',
@@ -43,5 +43,5 @@ export const Markers: React.FC<IMarkers> = ({ markerType }) => {
 };
 
 interface IMarkers {
-  markerType: string;
+  markerType: typeOfMarkers;
 }

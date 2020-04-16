@@ -8,10 +8,12 @@ import {
 } from '../effector/towers-progress/store';
 import { AppCondition } from '../effector/app-condition/store';
 import { TutorialStore } from '../effector/tutorial-store/store';
+import { TowersMarkerStore } from '../effector/towers-marker/store';
 
 export const Buildings: React.FC = () => {
   const localService = new BuildingsService();
   const localTowersProgressStore = useStore(TowersProgressStore);
+  const markers = useStore(TowersMarkerStore);
   const towersKeys = Object.keys(localTowersProgressStore) as TowersTypes[];
   const { focusOn, upgradingTowerTitle, scaleValue } = useStore(AppCondition);
   const { tutorialCondition, tutorialPause } = useStore(TutorialStore);
@@ -42,6 +44,7 @@ export const Buildings: React.FC = () => {
                 tower={currentTower.img}
                 tutorialTower={data.tutorialTower}
                 scaleValue={scaleValue}
+                markers={markers[towerTitle].markers}
               />
             </Fragment>
           );

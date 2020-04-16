@@ -16,6 +16,7 @@ import { nextTutorStep } from '../../effector/tutorial-store/events';
 import { Sprite } from '../../components/sprite';
 import { ZIndexes } from '../../components/root-component/z-indexes-enum';
 import { scrollToCurrentTower } from '../../utils/scroll-to-current-tower';
+import { typeOfMarkers } from '../../components/markers';
 
 const TowerStyledWrapper = styled.div<ITowerStyledWrapper>`
   display: flex;
@@ -62,6 +63,7 @@ export const TowerWrapper = memo(
     tutorialTower,
     tutorialPause,
     wideTower,
+    markers,
   }: ITowerWrapper): React.ReactElement => {
     const [posX, posY] = position;
     let mouseDownFlag = false,
@@ -118,6 +120,7 @@ export const TowerWrapper = memo(
     useEffect(() => {
       addRefForTower({ ref: towerRef, tower: towerTitle });
     }, []);
+
     return (
       <TowerStyledWrapper
         posX={posX}
@@ -191,6 +194,7 @@ interface ITowerWrapper {
   tutorialTower?: boolean;
   tutorialPause?: boolean;
   scaleValue: number;
+  markers: { type: typeOfMarkers; duration?: number }[] | null;
 }
 
 interface ITowerStyledWrapper {
