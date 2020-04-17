@@ -4,10 +4,14 @@ import { ExitButton } from '../../UI/exit-button';
 import {
   extraTowerInfoModalClosed,
   showUpgradeIcon,
+  setTowerInfoContent,
 } from '../../effector/app-condition/events';
 import { addProgressPoints } from '../../effector/towers-progress/events';
 import { useStore } from 'effector-react';
-import { AppCondition } from '../../effector/app-condition/store';
+import {
+  AppCondition,
+  TowerInfoContentValues,
+} from '../../effector/app-condition/store';
 import { ProgressBar } from '../../UI/progress-bar';
 import { TowerInfoContent } from '../tower-info-content';
 import {
@@ -46,12 +50,6 @@ enum marginRightValues {
   OPENED = 0,
   // eslint-disable-next-line @typescript-eslint/no-magic-numbers
   CLOSED = -100,
-}
-
-export enum TowerInfoContentValues {
-  TASK = 'task',
-  CHAT = 'chat',
-  DESCRIPTION = 'description',
 }
 
 enum TowerTutorialSteps {
@@ -251,9 +249,11 @@ const StyleConfig = {
 };
 
 export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
-  const { focusOn: notVerifiedTowerTitle, hideTowerInfo } = useStore(
-      AppCondition
-    ),
+  const {
+      focusOn: notVerifiedTowerTitle,
+      hideTowerInfo,
+      selectTowerInfoContent,
+    } = useStore(AppCondition),
     LocalTowerProgressStore = useStore(TowersProgressStore);
   const { tutorialCondition } = useStore(TutorialStore);
   const towerTitle: TowersTypes =
@@ -271,9 +271,6 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
   } = localBuildingService.getConfigForTower(towerTitle);
   const { level } = useStore(TowersProgressStore)[towerTitle];
 
-  const [selectedMenu, setSelectMenu] = useState(
-    TowerInfoContentValues.DESCRIPTION
-  );
   const [towerTutorialStep, setTowerTutorialStep] = useState(0);
 
   const handleClick = () => {
@@ -304,20 +301,20 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
   };
 
   const showDescription = () => {
-    setSelectMenu(TowerInfoContentValues.DESCRIPTION);
+    setTowerInfoContent(TowerInfoContentValues.DESCRIPTION);
     setTowerTutorialStep(TowerTutorialSteps.DESCRIPTION_OPENED);
     grownLineAndNextStep();
   };
 
   const showChat = () => {
-    setSelectMenu(TowerInfoContentValues.CHAT);
+    setTowerInfoContent(TowerInfoContentValues.CHAT);
     setTowerTutorialStep(TowerTutorialSteps.CHAT_OPENED);
     grownLineAndNextStep();
     handleMouseClick(refsCollection[1].current);
   };
 
   const showTasks = () => {
-    setSelectMenu(TowerInfoContentValues.TASK);
+    setTowerInfoContent(TowerInfoContentValues.TASK);
     setTowerTutorialStep(TowerTutorialSteps.TASKS_OPENED);
     grownLineAndNextStep();
     handleMouseClick(refsCollection[2].current);
@@ -390,9 +387,11 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
         <TowerInfoMenu>
           <RowWrapper onMouseOut={() => handleMouseOut()}>
             <TowerInfoMenuElement
-              selected={selectedMenu === TowerInfoContentValues.DESCRIPTION}
+              selected={
+                selectTowerInfoContent === TowerInfoContentValues.DESCRIPTION
+              }
               onClick={(e: React.MouseEvent<HTMLDivElement>) => {
-                setSelectMenu(TowerInfoContentValues.DESCRIPTION);
+                setTowerInfoContent(TowerInfoContentValues.DESCRIPTION);
                 handleMouseClick(e.currentTarget);
               }}
               onMouseOver={handleMouseOver}
@@ -401,9 +400,9 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
               Описание
             </TowerInfoMenuElement>
             <TowerInfoMenuElement
-              selected={selectedMenu === TowerInfoContentValues.CHAT}
+              selected={selectTowerInfoContent === TowerInfoContentValues.CHAT}
               onClick={(e: React.MouseEvent<HTMLDivElement>) => {
-                setSelectMenu(TowerInfoContentValues.CHAT);
+                setTowerInfoContent(TowerInfoContentValues.CHAT);
                 handleMouseClick(e.currentTarget);
               }}
               onMouseOver={handleMouseOver}
@@ -412,9 +411,9 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
               Чат
             </TowerInfoMenuElement>
             <TowerInfoMenuElement
-              selected={selectedMenu === TowerInfoContentValues.TASK}
+              selected={selectTowerInfoContent === TowerInfoContentValues.TASK}
               onClick={(e: React.MouseEvent<HTMLDivElement>) => {
-                setSelectMenu(TowerInfoContentValues.TASK);
+                setTowerInfoContent(TowerInfoContentValues.TASK);
                 handleMouseClick(e.currentTarget);
               }}
               onMouseOver={handleMouseOver}
@@ -430,7 +429,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
         </TowerInfoMenu>
 
         <TowerInfoContent
-          selectedMenu={selectedMenu}
+          selectedMenu={selectTowerInfoContent}
           text={
             tutorialCondition &&
             towerTutorialStep === TowerTutorialSteps.DESCRIPTION_DONT_OPENED

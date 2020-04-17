@@ -6,9 +6,13 @@ import update from './update.svg';
 import coin from './coin.svg';
 import { TowersTypes } from '../../effector/towers-progress/store';
 import { hideMarker } from '../../effector/towers-marker/events';
-import { extraTowerInfoModalOpen } from '../../effector/app-condition/events';
+import {
+  extraTowerInfoModalOpen,
+  setTowerInfoContent,
+} from '../../effector/app-condition/events';
 import { ZIndexes } from '../root-component/z-indexes-enum';
 import { Timer } from './timer';
+import { TowerInfoContentValues } from '../../effector/app-condition/store';
 
 export enum typeOfMarkers {
   NOTICE = 'notice',
@@ -79,6 +83,7 @@ export const Markers: React.FC<IMarkers> = ({
   const clickHandler = (markerType: typeOfMarkers) => {
     hideMarker({ towerTitle: towerTitle, type: markerType });
     extraTowerInfoModalOpen(towerTitle);
+    setTowerInfoContent(TowerInfoContentValues.TASK);
   };
 
   return (
