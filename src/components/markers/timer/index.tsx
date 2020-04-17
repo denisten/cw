@@ -107,10 +107,6 @@ export const Timer: React.FC<ITimer> = ({ startTime, endTime }) => {
     }, milisecondInSecond);
   };
 
-  //   const calculatePercentOfAvailableTime = (restOfSecond: number, ) => {
-  //       console.log(restOfSecond * 100 / endTime.getTime() / 1000)
-  //   }
-
   useEffect(() => {
     calculateTimeDifference();
     calculateRestOfTime();
@@ -119,6 +115,10 @@ export const Timer: React.FC<ITimer> = ({ startTime, endTime }) => {
       if (timeOutRef.current) clearTimeout(timeOutRef.current);
     };
   }, [totalSeconds]);
+
+  useEffect(() => {
+    // TODO emit when time is over
+  }, [timeIsOver]);
 
   return (
     <TimerBody>
