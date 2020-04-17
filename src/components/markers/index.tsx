@@ -9,10 +9,12 @@ import { hideMarker } from '../../effector/towers-marker/events';
 import {
   extraTowerInfoModalOpen,
   setTowerInfoContent,
+  setTowerInfoContentIndex,
 } from '../../effector/app-condition/events';
 import { ZIndexes } from '../root-component/z-indexes-enum';
 import { Timer } from './timer';
 import { TowerInfoContentValues } from '../../effector/app-condition/store';
+import { IndexDomElements } from '../tower-info';
 
 export enum typeOfMarkers {
   NOTICE = 'notice',
@@ -82,8 +84,18 @@ export const Markers: React.FC<IMarkers> = ({
 }) => {
   const clickHandler = (markerType: typeOfMarkers) => {
     hideMarker({ towerTitle: towerTitle, type: markerType });
-    extraTowerInfoModalOpen(towerTitle);
-    setTowerInfoContent(TowerInfoContentValues.TASK);
+
+    switch (markerType) {
+      case typeOfMarkers.NOTICE:
+      case typeOfMarkers.SUCCESS:
+        extraTowerInfoModalOpen(towerTitle);
+        setTowerInfoContent(TowerInfoContentValues.CHAT);
+        setTowerInfoContentIndex(IndexDomElements.CHAT);
+        break;
+
+      default:
+        break;
+    }
   };
 
   return (

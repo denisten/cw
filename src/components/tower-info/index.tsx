@@ -5,6 +5,7 @@ import {
   extraTowerInfoModalClosed,
   showUpgradeIcon,
   setTowerInfoContent,
+  setTowerInfoContentIndex,
 } from '../../effector/app-condition/events';
 import { addProgressPoints } from '../../effector/towers-progress/events';
 import { useStore } from 'effector-react';
@@ -57,6 +58,12 @@ enum TowerTutorialSteps {
   DESCRIPTION_OPENED = 1,
   CHAT_OPENED = 2,
   TASKS_OPENED = 3,
+}
+
+export enum IndexDomElements {
+  DESCRIPTION = 0,
+  CHAT = 1,
+  TASK = 2,
 }
 
 const MAXLEVEL = 100;
@@ -253,6 +260,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
       focusOn: notVerifiedTowerTitle,
       hideTowerInfo,
       selectTowerInfoContent,
+      selectTowerInfoContentIndex,
     } = useStore(AppCondition),
     LocalTowerProgressStore = useStore(TowersProgressStore);
   const { tutorialCondition } = useStore(TutorialStore);
@@ -279,21 +287,19 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
       extraTowerInfoModalClosed();
     }
   };
+  const refsCollection: Array<React.RefObject<HTMLDivElement>> = useMemo(
+    () => Array.from({ length: 3 }).map(() => createRef()),
+    []
+  );
   const {
     left,
     width,
-    handleMouseClick,
     hLeft,
     hWidth,
     hovered,
     handleMouseOver,
     handleMouseOut,
-  } = useMoveTo(FIRST_ELEM_WIDTH);
-
-  const refsCollection: Array<React.RefObject<HTMLDivElement>> = useMemo(
-    () => Array.from({ length: 3 }).map(() => createRef()),
-    []
-  );
+  } = useMoveTo(FIRST_ELEM_WIDTH, refsCollection, selectTowerInfoContentIndex);
 
   const grownLineAndNextStep = () => {
     nextTutorDescriptionStep();
@@ -310,14 +316,14 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
     setTowerInfoContent(TowerInfoContentValues.CHAT);
     setTowerTutorialStep(TowerTutorialSteps.CHAT_OPENED);
     grownLineAndNextStep();
-    handleMouseClick(refsCollection[1].current);
+    setTowerInfoContentIndex(IndexDomElements.CHAT);
   };
 
   const showTasks = () => {
     setTowerInfoContent(TowerInfoContentValues.TASK);
     setTowerTutorialStep(TowerTutorialSteps.TASKS_OPENED);
     grownLineAndNextStep();
-    handleMouseClick(refsCollection[2].current);
+    setTowerInfoContentIndex(IndexDomElements.TASK);
   };
   const nextTowerTutorialStep = () => {
     if (!tutorialCondition) {
@@ -390,9 +396,9 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
               selected={
                 selectTowerInfoContent === TowerInfoContentValues.DESCRIPTION
               }
-              onClick={(e: React.MouseEvent<HTMLDivElement>) => {
+              onClick={() => {
                 setTowerInfoContent(TowerInfoContentValues.DESCRIPTION);
-                handleMouseClick(e.currentTarget);
+                setTowerInfoContentIndex(0);
               }}
               onMouseOver={handleMouseOver}
               ref={refsCollection[0]}
@@ -401,9 +407,9 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
             </TowerInfoMenuElement>
             <TowerInfoMenuElement
               selected={selectTowerInfoContent === TowerInfoContentValues.CHAT}
-              onClick={(e: React.MouseEvent<HTMLDivElement>) => {
+              onClick={() => {
                 setTowerInfoContent(TowerInfoContentValues.CHAT);
-                handleMouseClick(e.currentTarget);
+                setTowerInfoContentIndex(1);
               }}
               onMouseOver={handleMouseOver}
               ref={refsCollection[1]}
@@ -412,9 +418,9 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
             </TowerInfoMenuElement>
             <TowerInfoMenuElement
               selected={selectTowerInfoContent === TowerInfoContentValues.TASK}
-              onClick={(e: React.MouseEvent<HTMLDivElement>) => {
+              onClick={() => {
                 setTowerInfoContent(TowerInfoContentValues.TASK);
-                handleMouseClick(e.currentTarget);
+                setTowerInfoContentIndex(2);
               }}
               onMouseOver={handleMouseOver}
               ref={refsCollection[2]}
