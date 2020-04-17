@@ -4,6 +4,8 @@ import { ZIndexes } from '../../root-component/z-indexes-enum';
 import background from './background.svg';
 import { MTSSans } from '../../../fonts';
 
+const milisecondInSecond = 1000;
+
 const TimerBody = styled.div`
   width: 154px;
   height: 35px;
@@ -37,23 +39,68 @@ const Percent = styled.div`
 `;
 
 export const Timer: React.FC<ITimer> = ({ startTime, endTime }) => {
-  //   const [time, setTime] = useState<undefined | string>('');
+  const [totalSeconds, setTotalSeconds] = useState(0);
+  const [restOfSeconds, setRestOfSeconds] = useState('');
+
+  const convertTimeToString = (seconds: number) => {
+    const SECOND_IN_MINUTS = 60;
+    const SECOND_IN_HOURS = 3600;
+    let timeString = '';
+    if (seconds <= SECOND_IN_MINUTS) {
+      timeString = seconds.toString();
+    } else if (seconds > SECOND_IN_MINUTS && seconds < SECOND_IN_HOURS) {
+      timeString = `${Math.floor(seconds / SECOND_IN_MINUTS)}: ${Math.floor(
+        seconds % SECOND_IN_MINUTS
+      )}s`;
+    } else if (seconds > SECOND_IN_HOURS) {
+      const wholeMinutsToSecond =
+        SECOND_IN_HOURS * Math.floor(seconds / SECOND_IN_HOURS);
+
+      const secondsRemain =
+        SECOND_IN_MINUTS *
+        Math.floor((seconds - wholeMinutsToSecond) / SECOND_IN_MINUTS);
+      timeString = `${Math.floor(seconds / SECOND_IN_HOURS)}:${Math.floor(
+        (seconds - wholeMinutsToSecond) / SECOND_IN_MINUTS
+      )}:${Math.floor(
+        (seconds - wholeMinutsToSecond - secondsRemain) % SECOND_IN_MINUTS
+      )}`;
+    }
+    return timeString;
+  };
 
   const calculateTimeDifference = () => {
-    if (!startTime || !endTime) return false;
+    if (!startTime || !endTime) return;
     const startSeconds = startTime.getTime();
     const endSeconds = endTime.getTime();
-    const difference = endSeconds - startSeconds;
-    return difference;
+    const differenceSeconds = (endSeconds - startSeconds) / milisecondInSecond;
+    setTotalSeconds(differenceSeconds);
+  };
+
+  const calculateRestOfTime = () => {
+    if (!endTime) return;
+    const restOfSecond =
+      (endTime.getTime() - new Date().getTime()) / milisecondInSecond;
+    setRestOfSeconds(convertTimeToString(restOfSecond));
   };
 
   useEffect(() => {
     calculateTimeDifference();
   }, []);
 
+  useEffect(() => {
+    const timeOut = setTimeout(() => {
+      calculateRestOfTime();
+      clearTimeout(timeOut);
+    }, milisecondInSecond);
+
+    return () => {
+      clearTimeout(timeOut);
+    };
+  }, [restOfSeconds]);
+
   return (
     <TimerBody>
-      <span>12:57:44</span>
+      <span>{restOfSeconds}</span>
       <Percent />
     </TimerBody>
   );

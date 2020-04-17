@@ -8,8 +8,8 @@ const initState: TowersMarkerStoreType = {
     markers: [
       {
         type: typeOfMarkers.TIMER,
-        startTime: new Date('2019-04-15 18:30:00'),
-        endTime: new Date('2019-04-18 11:13:00'),
+        startTime: new Date('Fri Apr 17 2020 08:04:33 GMT+0300'),
+        endTime: new Date('Thu Apr 21 2020 13:04:33 GMT+0300'),
       },
     ],
   },
