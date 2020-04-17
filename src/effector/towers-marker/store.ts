@@ -5,7 +5,13 @@ import { hideMarker } from './events';
 
 const initState: TowersMarkerStoreType = {
   [TowersTypes.MAIN_TOWER]: {
-    markers: null,
+    markers: [
+      {
+        type: typeOfMarkers.TIMER,
+        startTime: new Date('2019-04-15 18:30:00'),
+        endTime: new Date('2019-04-18 11:13:00'),
+      },
+    ],
   },
   [TowersTypes.MUSIC]: {
     markers: null,
@@ -89,7 +95,7 @@ export const TowersMarkerStore = TowersMarkerDomain.store<
 }));
 
 type MarkerData = {
-  markers: { type: typeOfMarkers; duration?: number }[] | null;
+  markers: { type: typeOfMarkers; startTime?: Date; endTime?: Date }[] | null;
 };
 
 type TowersMarkerStoreType = Record<TowersTypes, MarkerData>;

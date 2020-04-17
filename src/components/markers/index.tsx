@@ -8,12 +8,14 @@ import { TowersTypes } from '../../effector/towers-progress/store';
 import { hideMarker } from '../../effector/towers-marker/events';
 import { extraTowerInfoModalOpen } from '../../effector/app-condition/events';
 import { ZIndexes } from '../root-component/z-indexes-enum';
+import { Timer } from './timer';
 
 export enum typeOfMarkers {
   NOTICE = 'notice',
   SUCCESS = 'success',
   COIN = 'coin',
   UPDATE = 'update',
+  TIMER = 'timer',
 }
 
 const selectBackground = (markerType: string) => {
@@ -30,27 +32,6 @@ const selectBackground = (markerType: string) => {
       break;
   }
 };
-
-const MarkerWrapper = styled.div`
-  height: auto;
-  width: auto;
-  top: 0px;
-  left: 50%;
-  position: absolute;
-  transform: translate(-50%, -50%);
-
-  display: flex;
-  align-items: center;
-  z-index: ${ZIndexes.UI_BUTTON};
-
-  div:nth-child(2) {
-    transform: translate3d(-25px, 25px, 0);
-
-    &:hover {
-      transform: translate3d(-25px, 25px, 0) scale(1.2);
-    }
-  }
-`;
 
 const MarkerView = styled.div<{ markerType: string }>`
   background: url(${props => selectBackground(props.markerType)}) no-repeat
@@ -70,6 +51,27 @@ const MarkerView = styled.div<{ markerType: string }>`
   }
 `;
 
+const MarkerWrapper = styled.div`
+  height: auto;
+  width: auto;
+  top: 0px;
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  align-items: center;
+  z-index: ${ZIndexes.UI_BUTTON};
+
+  ${MarkerView}:nth-child(2) {
+    transform: translate3d(-25px, 25px, 0);
+
+    &:hover {
+      transform: translate3d(-25px, 25px, 0) scale(1.2);
+    }
+  }
+`;
+
 export const Markers: React.FC<IMarkers> = ({
   markersCollection,
   towerTitle,
@@ -78,21 +80,34 @@ export const Markers: React.FC<IMarkers> = ({
     hideMarker({ towerTitle: towerTitle, type: markerType });
     extraTowerInfoModalOpen(towerTitle);
   };
+
   return (
     <MarkerWrapper>
-      {markersCollection.map(markItem => (
-        <MarkerView
-          data-type={markItem.type}
-          key={markItem.type}
-          markerType={markItem.type}
-          onClick={() => clickHandler(markItem.type)}
-        />
-      ))}
+      {markersCollection.map(markItem =>
+        markItem.type !== typeOfMarkers.TIMER ? (
+          <MarkerView
+            data-type={markItem.type}
+            key={markItem.type}
+            markerType={markItem.type}
+            onClick={() => clickHandler(markItem.type)}
+          />
+        ) : (
+          <Timer
+            key={markItem.type}
+            startTime={markItem.startTime}
+            endTime={markItem.endTime}
+          />
+        )
+      )}
     </MarkerWrapper>
   );
 };
 
 interface IMarkers {
-  markersCollection: { type: typeOfMarkers; duration?: number }[];
+  markersCollection: {
+    type: typeOfMarkers;
+    startTime?: Date;
+    endTime?: Date;
+  }[];
   towerTitle: TowersTypes;
 }

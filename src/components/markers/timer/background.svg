@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="166px" height="46px" viewBox="0 0 166 46" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 64 (93537) - https://sketch.com -->
+    <title>progress_bar</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M152.884194,0 C153.988763,-2.64539678e-15 154.884194,0.8954305 154.884194,2 C154.884194,2.15138789 154.867005,2.30228632 154.832958,2.449796 L149.75512,24.449796 C149.545676,25.3572211 148.737638,26 147.806355,26 L83.8522029,26 L78.2415525,35 L72.6302029,26 L7.96249388,26 C7.03121147,26 6.22317281,25.3572211 6.01372926,24.449796 L0.935890816,2.449796 C0.687475347,1.37352301 1.35858646,0.299650845 2.43485944,0.0512353756 C2.58236913,0.0171885423 2.73326755,1.36007713e-15 2.88465544,0 L152.884194,0 Z" id="path-1"></path>
+        <filter x="-5.8%" y="-25.7%" width="111.7%" height="151.4%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="3" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.101960784   0 0 0 0 0.11372549   0 0 0 0 0.133333333  0 0 0 0.4 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="MW_markers" transform="translate(-523.000000, -223.000000)">
+            <g id="Group-2" transform="translate(528.000000, 222.000000)">
+                <g id="Group-4" transform="translate(0.000000, 7.000000)">
+                    <g id="Group">
+                        <g id="progress_bar" transform="translate(0.115797, 0.000000)">
+                            <g id="Combined-Shape">
+                                <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                                <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                            </g>
+                            <path d="M7.32381069,3 L148.444595,3 C149.549165,3 150.444595,3.8954305 150.444595,5 C150.444595,5.13170397 150.431586,5.2630859 150.405756,5.39223227 L147.205756,21.3922323 C147.018787,22.3270807 146.197957,23 145.244595,23 L10.5238107,23 C9.57044865,23 8.74961901,22.3270807 8.56264934,21.3922323 L5.36264934,5.39223227 C5.14602543,4.30911276 5.84845891,3.25546255 6.93157842,3.03883865 C7.06072478,3.01300937 7.19210672,3 7.32381069,3 Z" id="Rectangle" fill="#EFEFEF"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
