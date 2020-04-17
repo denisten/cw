@@ -9,7 +9,7 @@ const initState: TowersMarkerStoreType = {
       {
         type: typeOfMarkers.TIMER,
         startTime: new Date('Fri Apr 17 2020 08:04:33 GMT+0300'),
-        endTime: new Date('Thu Apr 21 2020 13:04:33 GMT+0300'),
+        endTime: new Date('Mon Apr 20 2020 15:04:33 GMT+0300'),
       },
     ],
   },
