@@ -17,13 +17,16 @@ const initState: TowersMarkerStoreType = {
     markers: null,
   },
   [TowersTypes.ARENA]: {
-    markers: null,
+    markers: [{ type: typeOfMarkers.COIN, coins: 11221 }],
   },
   [TowersTypes.MOLL]: {
-    markers: null,
+    markers: [
+      { type: typeOfMarkers.SUCCESS },
+      { type: typeOfMarkers.COIN, coins: 10000 },
+    ],
   },
   [TowersTypes.EGG]: {
-    markers: [{ type: typeOfMarkers.COIN }],
+    markers: [{ type: typeOfMarkers.COIN, coins: 15000 }],
   },
   [TowersTypes.LIBRARY]: {
     markers: null,
@@ -95,7 +98,14 @@ export const TowersMarkerStore = TowersMarkerDomain.store<
 }));
 
 type MarkerData = {
-  markers: { type: typeOfMarkers; startTime?: Date; endTime?: Date }[] | null;
+  markers:
+    | {
+        type: typeOfMarkers;
+        startTime?: Date;
+        endTime?: Date;
+        coins?: number;
+      }[]
+    | null;
 };
 
 type TowersMarkerStoreType = Record<TowersTypes, MarkerData>;

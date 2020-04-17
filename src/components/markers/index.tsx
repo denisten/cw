@@ -16,6 +16,7 @@ import { Timer } from './timer';
 import { TowerInfoContentValues } from '../../effector/app-condition/store';
 import { IndexDomElements } from '../tower-info';
 import { scaleAnimation } from '../../hoc/scale-anim';
+import { addMoney } from '../../effector/user-data/events';
 
 export enum typeOfMarkers {
   NOTICE = 'notice',
@@ -92,10 +93,9 @@ export const Markers: React.FC<IMarkers> = ({
   markersCollection,
   towerTitle,
 }) => {
-  const clickHandler = (markerType: typeOfMarkers) => {
-    hideMarker({ towerTitle: towerTitle, type: markerType });
-
-    switch (markerType) {
+  const clickHandler = (marker: IMarkerItem) => {
+    hideMarker({ towerTitle: towerTitle, type: marker.type });
+    switch (marker.type) {
       case typeOfMarkers.NOTICE:
       case typeOfMarkers.SUCCESS:
         extraTowerInfoModalOpen(towerTitle);
@@ -103,6 +103,7 @@ export const Markers: React.FC<IMarkers> = ({
         setTowerInfoContentIndex(IndexDomElements.TASK);
         break;
       case typeOfMarkers.COIN:
+        addMoney(marker.coins || 0);
         break;
 
       default:
@@ -118,7 +119,7 @@ export const Markers: React.FC<IMarkers> = ({
             data-type={markItem.type}
             key={markItem.type}
             markerType={markItem.type}
-            onClick={() => clickHandler(markItem.type)}
+            onClick={() => clickHandler(markItem)}
           />
         ) : (
           <Timer
@@ -133,10 +134,13 @@ export const Markers: React.FC<IMarkers> = ({
 };
 
 interface IMarkers {
-  markersCollection: {
-    type: typeOfMarkers;
-    startTime?: Date;
-    endTime?: Date;
-  }[];
+  markersCollection: IMarkerItem[];
   towerTitle: TowersTypes;
+}
+
+interface IMarkerItem {
+  type: typeOfMarkers;
+  startTime?: Date;
+  endTime?: Date;
+  coins?: number;
 }
