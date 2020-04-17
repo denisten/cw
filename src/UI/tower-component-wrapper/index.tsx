@@ -130,7 +130,7 @@ export const TowerWrapper = memo(
         height={height}
         ref={towerRef}
       >
-        {markers && markers.length > 0 ? (
+        {progress < maxProgressValue && markers && markers.length > 0 ? (
           <Markers markersCollection={markers} towerTitle={towerTitle} />
         ) : null}
         {progress >= maxProgressValue && currentLevel < maxLevel ? (

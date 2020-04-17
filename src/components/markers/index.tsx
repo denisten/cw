@@ -15,6 +15,7 @@ import { ZIndexes } from '../root-component/z-indexes-enum';
 import { Timer } from './timer';
 import { TowerInfoContentValues } from '../../effector/app-condition/store';
 import { IndexDomElements } from '../tower-info';
+import { scaleAnimation } from '../../hoc/scale-anim';
 
 export enum typeOfMarkers {
   NOTICE = 'notice',
@@ -38,8 +39,11 @@ const selectBackground = (markerType: string) => {
       break;
   }
 };
-
-const MarkerView = styled.div<{ markerType: string }>`
+const minScale = 0.9;
+export const MarkerView = styled.div<{
+  markerType: string;
+  animFlag?: boolean;
+}>`
   background: url(${props => selectBackground(props.markerType)}) no-repeat
     center;
   background-size: 100% 100%;
@@ -47,6 +51,12 @@ const MarkerView = styled.div<{ markerType: string }>`
   width: 60px;
   height: 66px;
   transition: 0.5s;
+  animation-name: ${props =>
+    props.animFlag ? scaleAnimation(minScale) : 'none'};
+  animation-fill-mode: both;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-duration: 1s;
 
   &:hover {
     transform: scale(1.1);
@@ -57,7 +67,7 @@ const MarkerView = styled.div<{ markerType: string }>`
   }
 `;
 
-const MarkerWrapper = styled.div`
+export const MarkerWrapper = styled.div`
   height: auto;
   width: auto;
   top: 0px;
