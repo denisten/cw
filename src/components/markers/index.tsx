@@ -99,8 +99,8 @@ export const Markers: React.FC<IMarkers> = ({
       case typeOfMarkers.NOTICE:
       case typeOfMarkers.SUCCESS:
         extraTowerInfoModalOpen(towerTitle);
-        setTowerInfoContent(TowerInfoContentValues.CHAT);
-        setTowerInfoContentIndex(IndexDomElements.CHAT);
+        setTowerInfoContent(TowerInfoContentValues.TASK);
+        setTowerInfoContentIndex(IndexDomElements.TASK);
         break;
       case typeOfMarkers.COIN:
         break;
