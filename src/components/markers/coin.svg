@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="80" height="83" viewBox="0 0 80 83">
+    <defs>
+        <linearGradient id="prefix__c" x1="50%" x2="50%" y1="0%" y2="100%">
+            <stop offset="0%" stop-color="#FBC135"/>
+            <stop offset="100%" stop-color="#F19A1A"/>
+        </linearGradient>
+        <linearGradient id="prefix__b" x1="9.752%" x2="95.361%" y1="23.734%" y2="82.506%">
+            <stop offset="0%" stop-color="#FFDB86"/>
+            <stop offset="100%" stop-color="#E99115"/>
+        </linearGradient>
+        <filter id="prefix__a" width="125.3%" height="123.3%" x="-12.6%" y="-11.7%" filterUnits="objectBoundingBox">
+            <feOffset in="SourceAlpha" result="shadowOffsetOuter1"/>
+            <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="3"/>
+            <feColorMatrix in="shadowBlurOuter1" result="shadowMatrixOuter1" values="0 0 0 0 0.101960784 0 0 0 0 0.11372549 0 0 0 0 0.133333333 0 0 0 0.6 0"/>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"/>
+                <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+        </filter>
+    </defs>
+    <g fill="none" fill-rule="evenodd" filter="url(#prefix__a)" transform="translate(-6 -9)">
+        <g>
+            <path fill="#FFF" stroke="#FFF" stroke-width="4" d="M38.028 56H22.554l7.737 11.606L38.028 56zm5.24-53.98H16.732c-1.786 0-3.437.952-4.33 2.5L-.866 27.5c-.893 1.547-.893 3.453 0 5l13.268 22.98c.893 1.548 2.544 2.5 4.33 2.5h26.536c1.786 0 3.437-.952 4.33-2.5L60.866 32.5c.447-.774.67-1.637.67-2.5s-.223-1.726-.67-2.5L47.598 4.52c-.893-1.548-2.544-2.5-4.33-2.5z" transform="translate(16 15)"/>
+            <path fill="url(#prefix__c)" stroke="url(#prefix__b)" stroke-width="3" d="M30 1.732L5.52 15.866v28.268L30 58.268l24.48-14.134V15.866L30 1.732z" transform="translate(16 15) rotate(90 30 30)"/>
+            <path fill="#FFF" d="M18 32.892C18 39.667 21.705 46.5 30 46.5c8.288 0 12-6.833 12-13.608 0-4.629-1.522-9.957-4.063-14.262C35.467 14.472 32.497 12 30 12c-2.505 0-5.475 2.472-7.924 6.63C19.523 22.935 18 28.263 18 32.892" transform="translate(16 15)"/>
+        </g>
+    </g>
+</svg>

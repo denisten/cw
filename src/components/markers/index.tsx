@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import notice from './notice.svg';
 import success from './success.svg';
-import time from './time.png';
 import update from './update.svg';
+import coin from './coin.svg';
 import { TowersTypes } from '../../effector/towers-progress/store';
 import { hideMarker } from '../../effector/towers-marker/events';
 import { extraTowerInfoModalOpen } from '../../effector/app-condition/events';
@@ -12,7 +12,7 @@ import { ZIndexes } from '../root-component/z-indexes-enum';
 export enum typeOfMarkers {
   NOTICE = 'notice',
   SUCCESS = 'success',
-  TIME = 'time',
+  COIN = 'coin',
   UPDATE = 'update',
 }
 
@@ -22,8 +22,8 @@ const selectBackground = (markerType: string) => {
       return notice;
     case typeOfMarkers.SUCCESS:
       return success;
-    case typeOfMarkers.TIME:
-      return time;
+    case typeOfMarkers.COIN:
+      return coin;
     case typeOfMarkers.UPDATE:
       return update;
     default:
@@ -45,6 +45,10 @@ const MarkerWrapper = styled.div`
 
   div:nth-child(2) {
     transform: translate3d(-25px, 25px, 0);
+
+    &:hover {
+      transform: translate3d(-25px, 25px, 0) scale(1.2);
+    }
   }
 `;
 
@@ -53,8 +57,17 @@ const MarkerView = styled.div<{ markerType: string }>`
     center;
   background-size: 100% 100%;
   cursor: pointer;
-  width: 92px;
-  height: 99px;
+  width: 60px;
+  height: 66px;
+  transition: 0.5s;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+  &[data-type='coin'] {
+    width: 95px;
+    height: 103px;
+  }
 `;
 
 export const Markers: React.FC<IMarkers> = ({
@@ -69,6 +82,7 @@ export const Markers: React.FC<IMarkers> = ({
     <MarkerWrapper>
       {markersCollection.map(markItem => (
         <MarkerView
+          data-type={markItem.type}
           key={markItem.type}
           markerType={markItem.type}
           onClick={() => clickHandler(markItem.type)}

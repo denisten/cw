@@ -17,7 +17,7 @@ const initState: TowersMarkerStoreType = {
     markers: null,
   },
   [TowersTypes.EGG]: {
-    markers: [{ type: typeOfMarkers.TIME }],
+    markers: [{ type: typeOfMarkers.COIN }],
   },
   [TowersTypes.LIBRARY]: {
     markers: null,
