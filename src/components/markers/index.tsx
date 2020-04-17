@@ -102,6 +102,8 @@ export const Markers: React.FC<IMarkers> = ({
         setTowerInfoContent(TowerInfoContentValues.CHAT);
         setTowerInfoContentIndex(IndexDomElements.CHAT);
         break;
+      case typeOfMarkers.COIN:
+        break;
 
       default:
         break;

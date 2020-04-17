@@ -17,6 +17,7 @@ const TimerBody = styled.div`
   display: flex;
   padding: 4px 14px 12px 12px;
   overflow: hidden;
+  position: relative;
 
   span {
     font-family: ${MTSSans.BOLD};
@@ -29,6 +30,7 @@ const TimerBody = styled.div`
     z-index: 2;
     width: 100%;
     text-align: center;
+    max-width: 154px;
   }
 `;
 
