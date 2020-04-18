@@ -211,6 +211,7 @@ export const TutorialDialog: React.FC = () => {
               content="Назад"
               {...styleConfig.backButton}
             />
+
             <Button
               displayFlag={!isPrinting}
               callback={handleClick}

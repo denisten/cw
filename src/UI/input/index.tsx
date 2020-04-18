@@ -3,18 +3,16 @@ import styled from 'styled-components';
 import { MTSSans } from '../../fonts';
 import { StyledSpan } from '../span';
 
-// const formWidthWithTitle = 314,
-//   formWidthWithoutTitle = 299,
-//   formHeightWithTitle = 72,
-//   formHeightWithoutTitle = 52;
+const defaultWidth = 273,
+  defaultHeight = 44;
 
 const Form = styled.form<IFormInput>`
   border-radius: 4px;
   border: solid 2px rgba(2, 173, 201, 0.2);
   padding-left: ${props => props.formPadding}px;
   box-sizing: border-box;
-  width: ${props => props.width || 273}px;
-  height: ${props => props.height || 44}px;
+  width: ${props => props.width || defaultWidth}px;
+  height: ${props => props.height || defaultHeight}px;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -43,13 +41,6 @@ const InputWrapper = styled.input`
     color: #9198a0;
   }
 `;
-//
-// const InputTitle = styled(StyledSpan)`
-//   font-family: ${MTSSans.REGULAR};
-//   font-size: 14px;
-//   color: #02adc9;
-//   height: 20px;
-// `;
 
 const HintWrapper = styled(StyledSpan)`
   font-family: ${MTSSans.REGULAR};
