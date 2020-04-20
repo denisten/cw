@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import notice from './notice.svg';
 import success from './success.svg';
@@ -18,6 +18,7 @@ import { IndexDomElements } from '../tower-info';
 import { scaleAnimation } from '../../hoc/scale-anim';
 import { addMoney } from '../../effector/user-data/events';
 import { IMarker } from '../../effector/towers-marker/store';
+import { scrollToCurrentTower } from '../../utils/scroll-to-current-tower';
 
 export enum typeOfMarkers {
   NOTICE = 'notice',
@@ -94,6 +95,7 @@ export const Markers: React.FC<IMarkers> = ({
   markersCollection,
   towerTitle,
 }) => {
+  const markerRef = useRef(null);
   const clickHandler = (marker: IMarker) => {
     hideMarker({ towerTitle: towerTitle, type: marker.type });
     switch (marker.type) {
@@ -102,6 +104,7 @@ export const Markers: React.FC<IMarkers> = ({
         extraTowerInfoModalOpen(towerTitle);
         setTowerInfoContent(TowerInfoContentValues.TASK);
         setTowerInfoContentIndex(IndexDomElements.TASK);
+        scrollToCurrentTower(markerRef);
         break;
       case typeOfMarkers.COIN:
         addMoney(marker.coins || 0);
@@ -113,7 +116,7 @@ export const Markers: React.FC<IMarkers> = ({
   };
 
   return (
-    <MarkerWrapper>
+    <MarkerWrapper ref={markerRef}>
       {markersCollection.map(markItem =>
         markItem.type !== typeOfMarkers.TIMER ? (
           <MarkerView
