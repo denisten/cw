@@ -10,9 +10,10 @@ import { MarkerView, MarkerWrapper } from '../../components/markers';
 export const UpgradeButton: React.FC<UpgradeButtonProps> = ({
   towerTitle,
   animFlag = false,
+  displayFlag,
 }) => {
   return (
-    <MarkerWrapper>
+    <MarkerWrapper displayFlag={displayFlag}>
       <MarkerView
         markerType="update"
         animFlag={animFlag}
@@ -28,4 +29,5 @@ export const UpgradeButton: React.FC<UpgradeButtonProps> = ({
 type UpgradeButtonProps = {
   towerTitle: TowersTypes;
   animFlag?: boolean;
+  displayFlag: boolean;
 };

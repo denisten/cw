@@ -130,17 +130,23 @@ export const TowerWrapper = memo(
         height={height}
         ref={towerRef}
       >
-        {progress < maxProgressValue && markers && markers.length > 0 ? (
-          <Markers markersCollection={markers} towerTitle={towerTitle} />
-        ) : null}
-        {progress >= maxProgressValue && currentLevel < maxLevel ? (
-          <UpgradeButton
-            towerTitle={towerTitle}
-            animFlag={
-              tutorialCondition === TutorialConditions.UPGRADE_BUTTON_TOWER_INFO
-            }
-          />
-        ) : null}
+        <Markers
+          markersCollection={markers || []}
+          towerTitle={towerTitle}
+          displayFlag={
+            !!(progress < maxProgressValue && markers && markers.length > 0)
+          }
+        />
+        <UpgradeButton
+          displayFlag={
+            !!(progress >= maxProgressValue && currentLevel < maxLevel)
+          }
+          towerTitle={towerTitle}
+          animFlag={
+            tutorialCondition === TutorialConditions.UPGRADE_BUTTON_TOWER_INFO
+          }
+        />
+
         {upgradeFlag ? (
           <Sprite
             canvasHeight={height}

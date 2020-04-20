@@ -70,7 +70,7 @@ export const MarkerView = styled.div<{
   }
 `;
 
-export const MarkerWrapper = styled.div`
+export const MarkerWrapper = styled.div<{ displayFlag: boolean }>`
   height: auto;
   width: auto;
   top: 0px;
@@ -78,7 +78,7 @@ export const MarkerWrapper = styled.div`
   position: absolute;
   transform: translate(-50%, -50%);
 
-  display: flex;
+  display: ${props => (props.displayFlag ? 'flex' : 'none')};
   align-items: center;
   z-index: ${ZIndexes.UI_BUTTON};
 
@@ -94,6 +94,7 @@ export const MarkerWrapper = styled.div`
 export const Markers: React.FC<IMarkers> = ({
   markersCollection,
   towerTitle,
+  displayFlag,
 }) => {
   const markerRef = useRef(null);
   const clickHandler = (marker: IMarker) => {
@@ -116,7 +117,7 @@ export const Markers: React.FC<IMarkers> = ({
   };
 
   return (
-    <MarkerWrapper ref={markerRef}>
+    <MarkerWrapper ref={markerRef} displayFlag={displayFlag}>
       {markersCollection.map(markItem =>
         markItem.type !== typeOfMarkers.TIMER ? (
           <MarkerView
@@ -140,4 +141,5 @@ export const Markers: React.FC<IMarkers> = ({
 interface IMarkers {
   markersCollection: IMarker[];
   towerTitle: TowersTypes;
+  displayFlag: boolean;
 }
