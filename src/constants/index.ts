@@ -2,7 +2,7 @@ const daysNumInOneMonth = 31;
 
 export const DaysNumArr: string[] = new Array(daysNumInOneMonth)
   .fill(0)
-  .map((el, id) => (el = String(id + 1)));
+  .map((el, idx) => (el = String(idx + 1)));
 
 export const MonthsStringArr = [
   'январь',
