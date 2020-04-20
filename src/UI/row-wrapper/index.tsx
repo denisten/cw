@@ -11,6 +11,7 @@ const ParentDivWrapper = styled.div<IRowWrapper>`
   align-items: ${props => props.alignItems};
   padding: ${props => props.padding};
   left: ${props => props.left};
+  right: ${props => props.right};
   margin: ${props => props.margin};
 `;
 
@@ -33,6 +34,7 @@ interface IRowWrapper {
   alignItems?: string;
   onMouseOut?: () => void;
   padding?: string;
+  right?: string;
   left?: string;
   margin?: string;
   style?: React.CSSProperties;

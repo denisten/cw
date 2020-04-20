@@ -17,6 +17,8 @@ import exitImg from './exit.svg';
 import { editUserData } from '../../../effector/user-data/events';
 import { CookieService } from '../../../sevices/cookies';
 import { logout } from '../../../api';
+import { Dropdown } from '../../../UI/dropdown';
+import { DaysNumArr, MonthsStringArr } from '../../../constants';
 
 const ExitText = styled(StyledSpan)<ISpan>`
   font-family: ${MTSSans.REGULAR};
@@ -87,6 +89,17 @@ const WorldTitle = styled(StyledSpan)<ISpan>`
   }
 `;
 
+const InputTitle = styled(StyledSpan)<ISpan>`
+  font-family: ${MTSSans.REGULAR};
+  font-size: 14px;
+  color: #02adc9;
+  height: 20px;
+  margin-right: 21px;
+  &::after {
+    content: "${props => props.content}"
+  }
+`;
+
 const styledConfig = {
   profileIcon: {
     marginLeft: '4px',
@@ -107,12 +120,23 @@ const styledConfig = {
     margin: '0 12px 0 8px',
   },
   inputWrapper: {
-    margin: '0 0 48px 0',
+    position: 'relative',
+    displayFlag: true,
   },
   nameInput: { marginRight: '16px' },
   exitWrapper: {
     margin: '30px 0 0 0',
     cursor: 'pointer',
+  },
+  nameRowWrapper: {
+    alignItems: 'center',
+    margin: '0 0 24px 0',
+    left: '20px',
+  },
+  birthdayRowWrapper: {
+    alignItems: 'center',
+    margin: '0 0 32px 0',
+    right: '53px',
   },
 };
 
@@ -125,7 +149,7 @@ export const AuthorizedProfile = () => {
   const [popUpDisplayFlag, setPopUpDisplayFlag] = useState(false);
   const { worldName, money, coins, name, birthday } = useStore(UserDataStore);
   const [localName, setLocalName] = useState(name);
-  const [localBirthday, setLocalBirthday] = useState(birthday);
+  const [birthdayDate, setBirthdayDate] = useState(birthday);
   const [nameInputHasError, setNameInputHasError] = useState(false);
 
   const handleChangeNameInput = (value: string) => {
@@ -141,10 +165,6 @@ export const AuthorizedProfile = () => {
     }
   };
 
-  const handleChangeBirthdayInput = (value: string) => {
-    setLocalBirthday(value);
-  };
-
   const onSubmitHandler = (e?: FormEvent) => {
     if (e) e.preventDefault();
     if (
@@ -153,7 +173,7 @@ export const AuthorizedProfile = () => {
     ) {
       editUserData({
         name: localName,
-        birthday: localBirthday,
+        birthday: birthdayDate,
       });
     } else {
       setNameInputHasError(true);
@@ -191,24 +211,43 @@ export const AuthorizedProfile = () => {
           style={styledConfig.penImg}
         />
       </RowWrapper>
-      <RowWrapper {...styledConfig.inputWrapper}>
-        <Input
-          title="Имя"
-          value={localName}
-          onSubmitHandler={onSubmitHandler}
-          onChangeHandler={e => handleChangeNameInput(e.target.value)}
-          style={styledConfig.nameInput}
-          hasError={nameInputHasError}
-          hint={nameInputHint}
-        />
-        <Input
-          title="Дата Рождения"
-          value={localBirthday}
-          onSubmitHandler={onSubmitHandler}
-          onChangeHandler={e => handleChangeBirthdayInput(e.target.value)}
-          hasError={false}
-        />
-      </RowWrapper>
+      <ColumnWrapper {...styledConfig.inputWrapper}>
+        <RowWrapper {...styledConfig.nameRowWrapper}>
+          <InputTitle content="Имя" />
+          <Input
+            formPadding={13}
+            value={localName}
+            onSubmitHandler={onSubmitHandler}
+            onChangeHandler={e => handleChangeNameInput(e.target.value)}
+            style={styledConfig.nameInput}
+            hasError={nameInputHasError}
+            hint={nameInputHint}
+          />
+        </RowWrapper>
+        <RowWrapper {...styledConfig.birthdayRowWrapper}>
+          <InputTitle content="Дата рождения" />
+          <Dropdown
+            options={DaysNumArr}
+            optionsHeight={329}
+            top={40}
+            style={{ marginRight: '16px' }}
+            value={birthdayDate.dd}
+            onChangeCallback={el =>
+              setBirthdayDate(prevState => ({ dd: el, mm: prevState.mm }))
+            }
+          />
+          <Dropdown
+            options={MonthsStringArr}
+            optionsHeight={329}
+            top={40}
+            width={149}
+            value={birthdayDate.mm}
+            onChangeCallback={el =>
+              setBirthdayDate(prevState => ({ dd: prevState.dd, mm: el }))
+            }
+          />
+        </RowWrapper>
+      </ColumnWrapper>
       <Button
         className={ButtonClassNames.NORMAL}
         content="Сохранить"
