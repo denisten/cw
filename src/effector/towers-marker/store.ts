@@ -1,7 +1,7 @@
 import { TowersTypes } from '../towers-progress/store';
 import { typeOfMarkers } from '../../components/markers';
 import { TowersMarkerDomain } from './domain';
-import { hideMarker } from './events';
+import { hideMarker, setMarker } from './events';
 
 const initState: TowersMarkerStoreType = {
   [TowersTypes.MAIN_TOWER]: {
@@ -14,7 +14,7 @@ const initState: TowersMarkerStoreType = {
     ],
   },
   [TowersTypes.MUSIC]: {
-    markers: null,
+    markers: [],
   },
   [TowersTypes.ARENA]: {
     markers: [{ type: typeOfMarkers.COIN, coins: 11221 }],
@@ -29,83 +29,94 @@ const initState: TowersMarkerStoreType = {
     markers: [{ type: typeOfMarkers.COIN, coins: 15000 }],
   },
   [TowersTypes.LIBRARY]: {
-    markers: null,
+    markers: [],
   },
   [TowersTypes.OBSERVATORY]: {
-    markers: null,
+    markers: [],
   },
   [TowersTypes.TARIFF]: {
     markers: [{ type: typeOfMarkers.NOTICE }, { type: typeOfMarkers.SUCCESS }],
   },
   [TowersTypes.THEATER]: {
-    markers: null,
+    markers: [],
   },
   [TowersTypes.TV]: {
-    markers: null,
+    markers: [],
   },
   [TowersTypes.STADIUM]: {
-    markers: null,
+    markers: [],
   },
   [TowersTypes.AIRPORT]: {
-    markers: null,
+    markers: [],
   },
   [TowersTypes.BANK]: {
-    markers: null,
+    markers: [],
   },
   [TowersTypes.CYBER_ARENA]: {
-    markers: null,
+    markers: [],
   },
 
   [TowersTypes.SATELLITETV]: {
-    markers: null,
+    markers: [],
   },
   [TowersTypes.PARTNER_BLUE]: {
-    markers: null,
+    markers: [],
   },
   [TowersTypes.PARTNER_YELLOW]: {
-    markers: null,
+    markers: [],
   },
   [TowersTypes.SLOT_MACHINE]: {
-    markers: null,
+    markers: [],
   },
   [TowersTypes.ROUTER]: {
-    markers: null,
+    markers: [],
   },
   [TowersTypes.AUTO_FACTORY]: {
-    markers: null,
+    markers: [],
   },
   [TowersTypes.RTK]: {
-    markers: null,
+    markers: [],
   },
   [TowersTypes.PARTNER_BANK]: {
-    markers: null,
+    markers: [],
   },
   [TowersTypes.MARVIN]: {
-    markers: null,
+    markers: [],
   },
   [TowersTypes.CLOUD]: {
-    markers: null,
+    markers: [],
   },
 };
 
 export const TowersMarkerStore = TowersMarkerDomain.store<
   TowersMarkerStoreType
->(initState).on(hideMarker, (state, { towerTitle, type }) => ({
-  ...state,
-  [towerTitle]: {
-    markers: state[towerTitle].markers?.filter(item => item.type !== type),
-  },
-}));
+>(initState)
+  .on(hideMarker, (state, { towerTitle, type }) => ({
+    ...state,
+    [towerTitle]: {
+      markers: state[towerTitle].markers?.filter(item => item.type !== type),
+    },
+  }))
+  .on(setMarker, (state, { towerTitle, type, ...rest }) => ({
+    ...state,
+    [towerTitle]: {
+      markers: state[towerTitle].markers.find(
+        searchItem => searchItem.type === type
+      )
+        ? state[towerTitle].markers
+        : state[towerTitle].markers.concat([{ type, ...rest }]),
+    },
+  }));
 
 type MarkerData = {
-  markers:
-    | {
-        type: typeOfMarkers;
-        startTime?: Date;
-        endTime?: Date;
-        coins?: number;
-      }[]
-    | null;
+  markers: IMarker[];
 };
+
+export interface IMarker {
+  type: typeOfMarkers;
+  startTime?: Date;
+  endTime?: Date;
+  coins?: number;
+}
 
 type TowersMarkerStoreType = Record<TowersTypes, MarkerData>;
