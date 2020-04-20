@@ -100,7 +100,7 @@ export const TowersMarkerStore = TowersMarkerDomain.store<
   .on(hideMarker, (state, { towerTitle, type }) => ({
     ...state,
     [towerTitle]: {
-      markers: state[towerTitle].markers?.filter(item => item.type !== type),
+      markers: state[towerTitle].markers.filter(item => item.type !== type),
     },
   }))
   .on(setMarker, (state, { towerTitle, type, ...rest }) => ({
