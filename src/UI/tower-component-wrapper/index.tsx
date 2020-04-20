@@ -16,7 +16,8 @@ import { nextTutorStep } from '../../effector/tutorial-store/events';
 import { Sprite } from '../../components/sprite';
 import { ZIndexes } from '../../components/root-component/z-indexes-enum';
 import { scrollToCurrentTower } from '../../utils/scroll-to-current-tower';
-import { typeOfMarkers, Markers } from '../../components/markers';
+import { Markers } from '../../components/markers';
+import { IMarker } from '../../effector/towers-marker/store';
 
 const TowerStyledWrapper = styled.div<ITowerStyledWrapper>`
   display: flex;
@@ -63,7 +64,7 @@ export const TowerWrapper = memo(
     tutorialTower,
     tutorialPause,
     wideTower,
-    markers,
+    markers = [],
   }: ITowerWrapper): React.ReactElement => {
     const [posX, posY] = position;
     let mouseDownFlag = false,
@@ -131,7 +132,7 @@ export const TowerWrapper = memo(
         ref={towerRef}
       >
         <Markers
-          markersCollection={markers || []}
+          markersCollection={markers}
           towerTitle={towerTitle}
           displayFlag={
             !!(progress < maxProgressValue && markers && markers.length > 0)
@@ -203,7 +204,7 @@ interface ITowerWrapper {
   tutorialTower?: boolean;
   tutorialPause?: boolean;
   scaleValue: number;
-  markers: { type: typeOfMarkers; duration?: number }[] | null;
+  markers: IMarker[];
 }
 
 interface ITowerStyledWrapper {
