@@ -8,8 +8,8 @@ const initState: TowersMarkerStoreType = {
     markers: [
       {
         type: typeOfMarkers.TIMER,
-        startTime: new Date('Fri Apr 17 2020 08:04:33 GMT+0300'),
-        endTime: new Date('Mon Apr 20 2020 15:04:33 GMT+0300'),
+        startTime: new Date('Apr 17 2020 08:04:33 GMT+0300'),
+        endTime: new Date('Apr 22 2020 15:04:33 GMT+0300'),
       },
     ],
   },
@@ -38,7 +38,13 @@ const initState: TowersMarkerStoreType = {
     markers: [{ type: typeOfMarkers.NOTICE }, { type: typeOfMarkers.SUCCESS }],
   },
   [TowersTypes.THEATER]: {
-    markers: [],
+    markers: [
+      {
+        type: typeOfMarkers.TIMER,
+        startTime: new Date('Apr 20 2020 07:04:33 GMT+0300'),
+        endTime: new Date('Apr 22 2020 19:04:33 GMT+0300'),
+      },
+    ],
   },
   [TowersTypes.TV]: {
     markers: [],

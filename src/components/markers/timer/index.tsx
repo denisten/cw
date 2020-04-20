@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { ZIndexes } from '../../root-component/z-indexes-enum';
 import background from './background.svg';
 import { MTSSans } from '../../../fonts';
+import { convertTimeToString } from '../../../utils/converTimeToString';
 
 const milisecondInSecond = 1000;
 const maxPercent = 100;
@@ -49,31 +50,6 @@ export const Timer: React.FC<ITimer> = ({ startTime, endTime }) => {
   const [percent, setPercent] = useState(0);
   const [timeIsOver, setTimeIsOver] = useState(false);
   const timeOutRef = useRef<null | number>(0);
-  const convertTimeToString = (seconds: number) => {
-    const SECOND_IN_MINUTS = 60;
-    const SECOND_IN_HOURS = 3600;
-    let timeString = '';
-    if (seconds <= SECOND_IN_MINUTS) {
-      timeString = seconds.toFixed(0);
-    } else if (seconds > SECOND_IN_MINUTS && seconds < SECOND_IN_HOURS) {
-      timeString = `${Math.floor(seconds / SECOND_IN_MINUTS)}:${Math.floor(
-        seconds % SECOND_IN_MINUTS
-      )}`;
-    } else if (seconds > SECOND_IN_HOURS) {
-      const wholeMinutsToSecond =
-        SECOND_IN_HOURS * Math.floor(seconds / SECOND_IN_HOURS);
-
-      const secondsRemain =
-        SECOND_IN_MINUTS *
-        Math.floor((seconds - wholeMinutsToSecond) / SECOND_IN_MINUTS);
-      timeString = `${Math.floor(seconds / SECOND_IN_HOURS)}:${Math.floor(
-        (seconds - wholeMinutsToSecond) / SECOND_IN_MINUTS
-      )}:${Math.floor(
-        (seconds - wholeMinutsToSecond - secondsRemain) % SECOND_IN_MINUTS
-      )}`;
-    }
-    return timeString;
-  };
 
   const calculateTimeDifference = () => {
     if (!startTime || !endTime) return;
@@ -89,16 +65,20 @@ export const Timer: React.FC<ITimer> = ({ startTime, endTime }) => {
     timeOutRef.current && clearTimeout(timeOutRef.current);
   };
 
-  const calculateRestOfTime = () => {
-    if (!endTime || !startTime) return;
-    const restOfSecond =
-      (endTime.getTime() - new Date().getTime()) / milisecondInSecond;
+  const setTimerDependValues = (restOfSecond: number) => {
     setRestOfSeconds(convertTimeToString(restOfSecond));
     setPercent(
       Number(
         (((totalSeconds - restOfSecond) * maxPercent) / totalSeconds).toFixed(0)
       )
     );
+  };
+
+  const calculateRestOfTime = () => {
+    if (!endTime || !startTime) return;
+    const restOfSecond =
+      (endTime.getTime() - new Date().getTime()) / milisecondInSecond;
+    setTimerDependValues(restOfSecond);
 
     if (restOfSecond <= 0) {
       timeIsOverHandler();
