@@ -5,7 +5,11 @@ import {
   extraTowerInfoModalClosed,
   showUpgradeIcon,
 } from '../../effector/app-condition/events';
-import { MarkerView, MarkerWrapper } from '../../components/markers';
+import {
+  MarkerView,
+  MarkerWrapper,
+  TypeOfMarkers,
+} from '../../components/markers';
 
 export const UpgradeButton: React.FC<UpgradeButtonProps> = ({
   towerTitle,
@@ -15,7 +19,7 @@ export const UpgradeButton: React.FC<UpgradeButtonProps> = ({
   return (
     <MarkerWrapper displayFlag={displayFlag}>
       <MarkerView
-        markerType="update"
+        markerType={TypeOfMarkers.UPDATE}
         animFlag={animFlag}
         onClick={() => {
           showUpgradeIcon(towerTitle);

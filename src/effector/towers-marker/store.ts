@@ -1,5 +1,5 @@
 import { TowersTypes } from '../towers-progress/store';
-import { typeOfMarkers } from '../../components/markers';
+import { TypeOfMarkers } from '../../components/markers';
 import { TowersMarkerDomain } from './domain';
 import { hideMarker, setMarker } from './events';
 
@@ -7,7 +7,7 @@ const initState: TowersMarkerStoreType = {
   [TowersTypes.MAIN_TOWER]: {
     markers: [
       {
-        type: typeOfMarkers.TIMER,
+        type: TypeOfMarkers.TIMER,
         startTime: new Date('Apr 17 2020 08:04:33 GMT+0300'),
         endTime: new Date('Apr 22 2020 15:04:33 GMT+0300'),
       },
@@ -17,16 +17,16 @@ const initState: TowersMarkerStoreType = {
     markers: [],
   },
   [TowersTypes.ARENA]: {
-    markers: [{ type: typeOfMarkers.COIN, coins: 11221 }],
+    markers: [{ type: TypeOfMarkers.COIN, coins: 11221 }],
   },
   [TowersTypes.MOLL]: {
     markers: [
-      { type: typeOfMarkers.SUCCESS },
-      { type: typeOfMarkers.COIN, coins: 10000 },
+      { type: TypeOfMarkers.SUCCESS },
+      { type: TypeOfMarkers.COIN, coins: 10000 },
     ],
   },
   [TowersTypes.EGG]: {
-    markers: [{ type: typeOfMarkers.COIN, coins: 15000 }],
+    markers: [{ type: TypeOfMarkers.COIN, coins: 15000 }],
   },
   [TowersTypes.LIBRARY]: {
     markers: [],
@@ -35,12 +35,12 @@ const initState: TowersMarkerStoreType = {
     markers: [],
   },
   [TowersTypes.TARIFF]: {
-    markers: [{ type: typeOfMarkers.NOTICE }, { type: typeOfMarkers.SUCCESS }],
+    markers: [{ type: TypeOfMarkers.NOTICE }, { type: TypeOfMarkers.SUCCESS }],
   },
   [TowersTypes.THEATER]: {
     markers: [
       {
-        type: typeOfMarkers.TIMER,
+        type: TypeOfMarkers.TIMER,
         startTime: new Date('Apr 20 2020 07:04:33 GMT+0300'),
         endTime: new Date('Apr 22 2020 19:04:33 GMT+0300'),
       },
@@ -119,7 +119,7 @@ type MarkerData = {
 };
 
 export interface IMarker {
-  type: typeOfMarkers;
+  type: TypeOfMarkers;
   startTime?: Date;
   endTime?: Date;
   coins?: number;

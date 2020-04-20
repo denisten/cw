@@ -5,20 +5,13 @@ import success from './success.svg';
 import update from './update.svg';
 import coin from './coin.svg';
 import { TowersTypes } from '../../effector/towers-progress/store';
-import { hideMarker } from '../../effector/towers-marker/events';
-import {
-  extraTowerInfoModalOpen,
-  setTowerInfoContent,
-} from '../../effector/app-condition/events';
 import { ZIndexes } from '../root-component/z-indexes-enum';
 import { Timer } from './timer';
-import { TowerInfoContentValues } from '../../effector/app-condition/store';
 import { scaleAnimation } from '../../hoc/scale-anim';
-import { addMoney } from '../../effector/user-data/events';
 import { IMarker } from '../../effector/towers-marker/store';
-import { scrollToCurrentTower } from '../../utils/scroll-to-current-tower';
+import { markerClickHandler } from '../../utils/markerClickHandler';
 
-export enum typeOfMarkers {
+export enum TypeOfMarkers {
   NOTICE = 'notice',
   SUCCESS = 'success',
   COIN = 'coin',
@@ -28,13 +21,13 @@ export enum typeOfMarkers {
 
 const selectBackground = (markerType: string) => {
   switch (markerType) {
-    case typeOfMarkers.NOTICE:
+    case TypeOfMarkers.NOTICE:
       return notice;
-    case typeOfMarkers.SUCCESS:
+    case TypeOfMarkers.SUCCESS:
       return success;
-    case typeOfMarkers.COIN:
+    case TypeOfMarkers.COIN:
       return coin;
-    case typeOfMarkers.UPDATE:
+    case TypeOfMarkers.UPDATE:
       return update;
     default:
       break;
@@ -94,34 +87,17 @@ export const Markers: React.FC<IMarkers> = ({
   towerTitle,
   displayFlag,
 }) => {
-  const markerRef = useRef(null);
-  const clickHandler = (marker: IMarker) => {
-    hideMarker({ towerTitle: towerTitle, type: marker.type });
-    switch (marker.type) {
-      case typeOfMarkers.NOTICE:
-      case typeOfMarkers.SUCCESS:
-        extraTowerInfoModalOpen(towerTitle);
-        setTowerInfoContent(TowerInfoContentValues.TASK);
-        scrollToCurrentTower(markerRef);
-        break;
-      case typeOfMarkers.COIN:
-        addMoney(marker.coins || 0);
-        break;
-
-      default:
-        break;
-    }
-  };
+  const markerRef = useRef<HTMLDivElement>(null);
 
   return (
     <MarkerWrapper ref={markerRef} displayFlag={displayFlag}>
       {markersCollection.map(markItem =>
-        markItem.type !== typeOfMarkers.TIMER ? (
+        markItem.type !== TypeOfMarkers.TIMER ? (
           <MarkerView
             data-type={markItem.type}
             key={markItem.type}
             markerType={markItem.type}
-            onClick={() => clickHandler(markItem)}
+            onClick={() => markerClickHandler(markItem, towerTitle, markerRef)}
           />
         ) : (
           <Timer
