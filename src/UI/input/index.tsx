@@ -3,21 +3,18 @@ import styled from 'styled-components';
 import { MTSSans } from '../../fonts';
 import { StyledSpan } from '../span';
 
-const formWidthWithTitle = 314,
-  formWidthWithoutTitle = 299,
-  formHeightWithTitle = 72,
-  formHeightWithoutTitle = 52;
+const defaultWidth = 273,
+  defaultHeight = 44;
 
 const Form = styled.form<IFormInput>`
   border-radius: 4px;
   border: solid 2px rgba(2, 173, 201, 0.2);
-  padding: ${props => (props.title ? '16px 0 0 20px' : '14px 0 14px 16px')};
+  padding-left: ${props => props.formPadding}px;
   box-sizing: border-box;
-  width: ${props =>
-    props.title ? formWidthWithTitle : formWidthWithoutTitle}px;
-  height: ${props =>
-    props.title ? formHeightWithTitle : formHeightWithoutTitle}px;
+  width: ${props => props.width || defaultWidth}px;
+  height: ${props => props.height || defaultHeight}px;
   display: flex;
+  justify-content: center;
   flex-direction: column;
   :focus-within {
     border: solid 2px #02adc9;
@@ -45,13 +42,6 @@ const InputWrapper = styled.input`
   }
 `;
 
-const InputTitle = styled(StyledSpan)`
-  font-family: ${MTSSans.REGULAR};
-  font-size: 14px;
-  color: #02adc9;
-  height: 20px;
-`;
-
 const HintWrapper = styled(StyledSpan)`
   font-family: ${MTSSans.REGULAR};
   font-size: 12px;
@@ -63,22 +53,21 @@ const HintWrapper = styled(StyledSpan)`
 
 export const Input: React.FC<IInput> = ({
   style,
-  title = '',
   onChangeHandler,
   value,
   onSubmitHandler,
   hasError = false,
   hint,
+  formPadding,
 }) => {
   return (
     <div>
       <Form
-        title={title}
+        formPadding={formPadding}
         onSubmit={onSubmitHandler}
         style={style}
         className={hasError ? 'error' : ''}
       >
-        <InputTitle>{title}</InputTitle>
         <InputWrapper
           value={value}
           onChange={onChangeHandler}
@@ -99,8 +88,12 @@ interface IInput {
   onSubmitHandler: (e: React.FormEvent) => void;
   hasError?: boolean;
   hint?: string;
+  formPadding?: number;
 }
 
 interface IFormInput {
+  formPadding?: number;
   title?: string;
+  width?: number;
+  height?: number;
 }

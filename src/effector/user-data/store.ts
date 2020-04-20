@@ -23,7 +23,10 @@ const initState: IUserDataStore = {
   [UserDataStoreKeys.ASSISTANT_NAME]: 'Генадий',
   [UserDataStoreKeys.MONEY]: 200000,
   [UserDataStoreKeys.COINS]: 300000,
-  [UserDataStoreKeys.BIRTHDAY]: '01.02',
+  [UserDataStoreKeys.BIRTHDAY]: {
+    dd: '',
+    mm: '',
+  },
 };
 
 const userDataStoreLocalStorage = connectLocalStorage('UserData').onChange(
@@ -61,5 +64,10 @@ export interface IUserDataStore {
   [UserDataStoreKeys.ASSISTANT_NAME]: string;
   [UserDataStoreKeys.MONEY]: number;
   [UserDataStoreKeys.COINS]: number;
-  [UserDataStoreKeys.BIRTHDAY]: string;
+  [UserDataStoreKeys.BIRTHDAY]: IBirthday;
+}
+
+export interface IBirthday {
+  dd: string;
+  mm: string;
 }

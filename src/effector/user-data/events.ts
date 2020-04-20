@@ -1,5 +1,5 @@
 import { UserDataDomain } from './domain';
-import { UserDataStoreKeys } from './store';
+import { IBirthday, UserDataStoreKeys } from './store';
 import { getProfile, IGetProfile } from '../../api/get-profile';
 
 export const editCurrentUserDataField = UserDataDomain.event<
@@ -23,5 +23,5 @@ interface IEditUserData {
   name?: string;
   worldName?: string;
   assistantName?: string;
-  birthday?: string;
+  birthday?: IBirthday;
 }
