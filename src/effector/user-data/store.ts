@@ -4,6 +4,7 @@ import {
   editUserData,
   fetchUserData,
   saveUserDataAfterAuth,
+  addMoney,
 } from './events';
 import connectLocalStorage from 'effector-localstorage/sync';
 
@@ -33,6 +34,10 @@ const userDataStoreLocalStorage = connectLocalStorage('UserData').onChange(
 );
 
 export const UserDataStore = UserDataDomain.store<IUserDataStore>(initState)
+  .on(addMoney, (state, payload) => ({
+    ...state,
+    money: state.money + payload,
+  }))
   .on(editCurrentUserDataField, (state, { key, value }) => ({
     ...state,
     [key]: value,

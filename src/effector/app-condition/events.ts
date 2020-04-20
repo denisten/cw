@@ -1,7 +1,7 @@
 import { AppDomain } from './domain';
 import { TowersTypes } from '../towers-progress/store';
 import { MenuItems } from '../../UI/menu-paragraph';
-import { AppConditionType } from './store';
+import { AppConditionType, TowerInfoContentValues } from './store';
 
 export enum ScaleValues {
   SCALE_STEP = 0.1,
@@ -27,7 +27,7 @@ export const setCancelAuthorizationStatus = AppDomain.event<string>();
 export const setAuthValue = AppDomain.event<AppConditionType>();
 export const setHideTowerInfo = AppDomain.event<boolean>();
 export const setLoaded = AppDomain.event();
-
+export const setTowerInfoContent = AppDomain.event<TowerInfoContentValues>();
 export interface IUserSelectedTower {
   towerTitle: TowersTypes | null;
 }

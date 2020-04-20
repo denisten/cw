@@ -12,6 +12,7 @@ export const fetchUserData = UserDataDomain.effect('fetch after auth', {
     return await getProfile();
   },
 });
+export const addMoney = UserDataDomain.event<number>();
 
 interface IEditCurrentUserDataField {
   key: UserDataStoreKeys;

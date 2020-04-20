@@ -1,6 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-export const useMoveTo = (initWidth: number) => {
+export const useMoveTo = (
+  initWidth: number,
+  refsCollection: Array<React.RefObject<HTMLDivElement>>,
+  selectTowerInfoContentIndex: number
+) => {
   const [state, setState] = useState({
     left: 0,
     width: initWidth,
@@ -8,6 +12,7 @@ export const useMoveTo = (initWidth: number) => {
     hWidth: 0,
     hovered: false,
   });
+
   const handleMouseClick = (target: HTMLDivElement | null) => {
     if (!target) return;
     setState(state => ({
@@ -16,6 +21,11 @@ export const useMoveTo = (initWidth: number) => {
       width: target.offsetWidth,
     }));
   };
+  useEffect(() => {
+    if (refsCollection) {
+      handleMouseClick(refsCollection[selectTowerInfoContentIndex].current);
+    }
+  }, [selectTowerInfoContentIndex]);
   const handleMouseOver = (e: React.MouseEvent) => {
     const target = e.target as HTMLDivElement;
     setState(state => ({
@@ -39,6 +49,5 @@ export const useMoveTo = (initWidth: number) => {
     hovered: state.hovered,
     handleMouseOver,
     handleMouseOut,
-    handleMouseClick,
   };
 };

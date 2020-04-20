@@ -13,15 +13,21 @@ import {
   setCancelAuthorizationStatus,
   setHideTowerInfo,
   setLoaded,
+  setTowerInfoContent,
 } from './events';
 import { TowersTypes } from '../towers-progress/store';
 import { upgradeTower } from '../towers-progress/events';
 import { MenuItems } from '../../UI/menu-paragraph';
 import connectLocalStorage from 'effector-localstorage/sync';
+
 export const maxProgressValue = 100;
 
 const initScaleValue = 1;
-
+export enum TowerInfoContentValues {
+  DESCRIPTION = 0,
+  CHAT = 1,
+  TASK = 2,
+}
 const initState = {
   isExtraTowerInfoModalOpen: false,
   scaleValue: initScaleValue,
@@ -32,6 +38,7 @@ const initState = {
   authCancelledStatus: '',
   hideTowerInfo: false,
   loaded: false,
+  selectTowerInfoContent: TowerInfoContentValues.DESCRIPTION,
 };
 
 const appConditionLocalStorage = connectLocalStorage('AppCondition').onChange(
@@ -39,6 +46,11 @@ const appConditionLocalStorage = connectLocalStorage('AppCondition').onChange(
 );
 
 export const AppCondition = AppDomain.store<AppConditionType>(initState)
+
+  .on(setTowerInfoContent, (state, payload) => ({
+    ...state,
+    selectTowerInfoContent: payload,
+  }))
   .on(extraTowerInfoModalOpen, (state, payload) => ({
     ...state,
     isExtraTowerInfoModalOpen: true,
@@ -111,4 +123,5 @@ export type AppConditionType = {
   authCancelledStatus: string;
   hideTowerInfo: boolean;
   loaded: boolean;
+  selectTowerInfoContent: TowerInfoContentValues;
 };

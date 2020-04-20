@@ -16,6 +16,8 @@ import { nextTutorStep } from '../../effector/tutorial-store/events';
 import { Sprite } from '../../components/sprite';
 import { ZIndexes } from '../../components/root-component/z-indexes-enum';
 import { scrollToCurrentTower } from '../../utils/scroll-to-current-tower';
+import { Markers } from '../../components/markers';
+import { IMarker } from '../../effector/towers-marker/store';
 
 const TowerStyledWrapper = styled.div<ITowerStyledWrapper>`
   display: flex;
@@ -62,6 +64,7 @@ export const TowerWrapper = memo(
     tutorialTower,
     tutorialPause,
     wideTower,
+    markers = [],
   }: ITowerWrapper): React.ReactElement => {
     const [posX, posY] = position;
     let mouseDownFlag = false,
@@ -118,6 +121,7 @@ export const TowerWrapper = memo(
     useEffect(() => {
       addRefForTower({ ref: towerRef, tower: towerTitle });
     }, []);
+
     return (
       <TowerStyledWrapper
         posX={posX}
@@ -127,14 +131,23 @@ export const TowerWrapper = memo(
         height={height}
         ref={towerRef}
       >
-        {progress >= maxProgressValue && currentLevel < maxLevel ? (
-          <UpgradeButton
-            towerTitle={towerTitle}
-            animFlag={
-              tutorialCondition === TutorialConditions.UPGRADE_BUTTON_TOWER_INFO
-            }
-          />
-        ) : null}
+        <Markers
+          markersCollection={markers}
+          towerTitle={towerTitle}
+          displayFlag={
+            !!(progress < maxProgressValue && markers && markers.length > 0)
+          }
+        />
+        <UpgradeButton
+          displayFlag={
+            !!(progress >= maxProgressValue && currentLevel < maxLevel)
+          }
+          towerTitle={towerTitle}
+          animFlag={
+            tutorialCondition === TutorialConditions.UPGRADE_BUTTON_TOWER_INFO
+          }
+        />
+
         {upgradeFlag ? (
           <Sprite
             canvasHeight={height}
@@ -191,6 +204,7 @@ interface ITowerWrapper {
   tutorialTower?: boolean;
   tutorialPause?: boolean;
   scaleValue: number;
+  markers: IMarker[];
 }
 
 interface ITowerStyledWrapper {

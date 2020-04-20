@@ -1,40 +1,37 @@
 import React from 'react';
-import { ImgWrapper } from '../img-wrapper';
-import updateImg from './update-img.png';
+
 import { TowersTypes } from '../../effector/towers-progress/store';
 import {
   extraTowerInfoModalClosed,
   showUpgradeIcon,
 } from '../../effector/app-condition/events';
-const StyleConfig = {
-  height: '50px',
-  width: '50px',
-  zIndex: 20,
-  top: '0%',
-  left: '50%',
-  position: 'absolute',
-  transformTranslate: '-50%, -50%',
-  hoverFlag: true,
-};
+import {
+  MarkerView,
+  MarkerWrapper,
+  TypeOfMarkers,
+} from '../../components/markers';
 
 export const UpgradeButton: React.FC<UpgradeButtonProps> = ({
   towerTitle,
   animFlag = false,
+  displayFlag,
 }) => {
   return (
-    <ImgWrapper
-      animFlag={animFlag}
-      src={updateImg}
-      {...StyleConfig}
-      callBack={() => {
-        showUpgradeIcon(towerTitle);
-        extraTowerInfoModalClosed();
-      }}
-    />
+    <MarkerWrapper displayFlag={displayFlag}>
+      <MarkerView
+        markerType={TypeOfMarkers.UPDATE}
+        animFlag={animFlag}
+        onClick={() => {
+          showUpgradeIcon(towerTitle);
+          extraTowerInfoModalClosed();
+        }}
+      />
+    </MarkerWrapper>
   );
 };
 
 type UpgradeButtonProps = {
   towerTitle: TowersTypes;
   animFlag?: boolean;
+  displayFlag: boolean;
 };
