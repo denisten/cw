@@ -59,12 +59,6 @@ enum TowerTutorialSteps {
   TASKS_OPENED = 3,
 }
 
-export enum IndexDomElements {
-  DESCRIPTION = 0,
-  CHAT = 1,
-  TASK = 2,
-}
-
 const MAXLEVEL = 100;
 const FIRST_ELEM_WIDTH = 92;
 const COMMON_TRANSITION = 0.5;

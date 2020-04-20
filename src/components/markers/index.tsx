@@ -13,7 +13,6 @@ import {
 import { ZIndexes } from '../root-component/z-indexes-enum';
 import { Timer } from './timer';
 import { TowerInfoContentValues } from '../../effector/app-condition/store';
-import { IndexDomElements } from '../tower-info';
 import { scaleAnimation } from '../../hoc/scale-anim';
 import { addMoney } from '../../effector/user-data/events';
 import { IMarker } from '../../effector/towers-marker/store';

@@ -94,7 +94,7 @@ export const Timer: React.FC<ITimer> = ({ startTime, endTime }) => {
     calculateRestOfTime();
 
     return () => {
-      if (timeOutRef.current) clearTimeout(timeOutRef.current);
+      timeOutRef.current && clearTimeout(timeOutRef.current);
     };
   }, [totalSeconds]);
 
