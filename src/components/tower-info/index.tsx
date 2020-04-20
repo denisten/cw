@@ -5,7 +5,6 @@ import {
   extraTowerInfoModalClosed,
   showUpgradeIcon,
   setTowerInfoContent,
-  setTowerInfoContentIndex,
 } from '../../effector/app-condition/events';
 import { addProgressPoints } from '../../effector/towers-progress/events';
 import { useStore } from 'effector-react';
@@ -260,7 +259,6 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
       focusOn: notVerifiedTowerTitle,
       hideTowerInfo,
       selectTowerInfoContent,
-      selectTowerInfoContentIndex,
     } = useStore(AppCondition),
     LocalTowerProgressStore = useStore(TowersProgressStore);
   const { tutorialCondition } = useStore(TutorialStore);
@@ -299,7 +297,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
     hovered,
     handleMouseOver,
     handleMouseOut,
-  } = useMoveTo(FIRST_ELEM_WIDTH, refsCollection, selectTowerInfoContentIndex);
+  } = useMoveTo(FIRST_ELEM_WIDTH, refsCollection, selectTowerInfoContent);
 
   const grownLineAndNextStep = () => {
     nextTutorDescriptionStep();
@@ -316,14 +314,12 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
     setTowerInfoContent(TowerInfoContentValues.CHAT);
     setTowerTutorialStep(TowerTutorialSteps.CHAT_OPENED);
     grownLineAndNextStep();
-    setTowerInfoContentIndex(IndexDomElements.CHAT);
   };
 
   const showTasks = () => {
     setTowerInfoContent(TowerInfoContentValues.TASK);
     setTowerTutorialStep(TowerTutorialSteps.TASKS_OPENED);
     grownLineAndNextStep();
-    setTowerInfoContentIndex(IndexDomElements.TASK);
   };
   const nextTowerTutorialStep = () => {
     if (!tutorialCondition) {
@@ -398,7 +394,6 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
               }
               onClick={() => {
                 setTowerInfoContent(TowerInfoContentValues.DESCRIPTION);
-                setTowerInfoContentIndex(0);
               }}
               onMouseOver={handleMouseOver}
               ref={refsCollection[0]}
@@ -409,7 +404,6 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
               selected={selectTowerInfoContent === TowerInfoContentValues.CHAT}
               onClick={() => {
                 setTowerInfoContent(TowerInfoContentValues.CHAT);
-                setTowerInfoContentIndex(1);
               }}
               onMouseOver={handleMouseOver}
               ref={refsCollection[1]}
@@ -420,7 +414,6 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
               selected={selectTowerInfoContent === TowerInfoContentValues.TASK}
               onClick={() => {
                 setTowerInfoContent(TowerInfoContentValues.TASK);
-                setTowerInfoContentIndex(2);
               }}
               onMouseOver={handleMouseOver}
               ref={refsCollection[2]}

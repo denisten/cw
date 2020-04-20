@@ -9,7 +9,6 @@ import { hideMarker } from '../../effector/towers-marker/events';
 import {
   extraTowerInfoModalOpen,
   setTowerInfoContent,
-  setTowerInfoContentIndex,
 } from '../../effector/app-condition/events';
 import { ZIndexes } from '../root-component/z-indexes-enum';
 import { Timer } from './timer';
@@ -104,7 +103,6 @@ export const Markers: React.FC<IMarkers> = ({
       case typeOfMarkers.SUCCESS:
         extraTowerInfoModalOpen(towerTitle);
         setTowerInfoContent(TowerInfoContentValues.TASK);
-        setTowerInfoContentIndex(IndexDomElements.TASK);
         scrollToCurrentTower(markerRef);
         break;
       case typeOfMarkers.COIN:
