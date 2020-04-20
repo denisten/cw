@@ -133,6 +133,11 @@ const styledConfig = {
     margin: '0 0 24px 0',
     left: '20px',
   },
+  birthdayRowWrapper: {
+    alignItems: 'center',
+    margin: '0 0 32px 0',
+    right: '53px',
+  },
 };
 
 export const minNameLength = 3,
@@ -219,7 +224,7 @@ export const AuthorizedProfile = () => {
             hint={nameInputHint}
           />
         </RowWrapper>
-        <RowWrapper alignItems="center" margin="0 0 32px 0" right="53px">
+        <RowWrapper {...styledConfig.birthdayRowWrapper}>
           <InputTitle content="Дата рождения" />
           <Dropdown
             options={DaysNumArr}

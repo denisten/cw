@@ -96,6 +96,14 @@ const defaultOptionsHeight = 100,
   defaultWidth = 109,
   defaultTop = 0;
 
+const styledConfig = {
+  rowWrapper: {
+    justifyContent: 'space-between',
+    padding: '0 9px 0 0',
+    cursor: 'pointer',
+  },
+};
+
 export const Dropdown: React.FC<IDropDown> = ({
   options,
   optionsHeight = defaultOptionsHeight,
@@ -110,6 +118,7 @@ export const Dropdown: React.FC<IDropDown> = ({
   const arrowRef = useRef<HTMLImageElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
   useEffect(() => {
     if (arrowRef.current) {
       if (showOptions) {
@@ -134,11 +143,7 @@ export const Dropdown: React.FC<IDropDown> = ({
         onClick={() => setShowOptions(!showOptions)}
         width={width}
       >
-        <RowWrapper
-          justifyContent="space-between"
-          style={{ cursor: 'pointer' }}
-          padding="0 9px 0 0"
-        >
+        <RowWrapper style={styledConfig.rowWrapper}>
           <Input
             type="text"
             value={value || selectedValue || options[0]}
