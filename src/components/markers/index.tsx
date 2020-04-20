@@ -17,6 +17,7 @@ import { TowerInfoContentValues } from '../../effector/app-condition/store';
 import { IndexDomElements } from '../tower-info';
 import { scaleAnimation } from '../../hoc/scale-anim';
 import { addMoney } from '../../effector/user-data/events';
+import { IMarker } from '../../effector/towers-marker/store';
 
 export enum typeOfMarkers {
   NOTICE = 'notice',
@@ -93,7 +94,7 @@ export const Markers: React.FC<IMarkers> = ({
   markersCollection,
   towerTitle,
 }) => {
-  const clickHandler = (marker: IMarkerItem) => {
+  const clickHandler = (marker: IMarker) => {
     hideMarker({ towerTitle: towerTitle, type: marker.type });
     switch (marker.type) {
       case typeOfMarkers.NOTICE:
@@ -134,13 +135,6 @@ export const Markers: React.FC<IMarkers> = ({
 };
 
 interface IMarkers {
-  markersCollection: IMarkerItem[];
+  markersCollection: IMarker[];
   towerTitle: TowersTypes;
-}
-
-interface IMarkerItem {
-  type: typeOfMarkers;
-  startTime?: Date;
-  endTime?: Date;
-  coins?: number;
 }
