@@ -14,13 +14,17 @@ const styledConfig = {
     right: '8px',
     cursor: 'pointer',
   } as React.CSSProperties,
+  wallet: {
+    width: 105,
+    contentMargin: 15,
+  },
 };
 
 export const CoinsWallet: React.FC<IWalletCounter> = ({ sum }) => {
   return (
     <WalletWrapper>
       <img src={coinImg} alt="coins" style={styledConfig.coinImg} />
-      <WalletCounter sum={parseSum(sum)} width={105} contentMargin={15} />
+      <WalletCounter sum={parseSum(sum)} {...styledConfig.wallet} />
       <img src={plusImg} alt="plus" style={styledConfig.plusImg} />
     </WalletWrapper>
   );
