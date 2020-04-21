@@ -18,7 +18,7 @@ const TimerBody = styled.div`
   z-index: ${ZIndexes.UI_BUTTON};
   box-sizing: border-box;
   display: flex;
-  padding: 5px 12px 12px 12px;
+  padding: 5px 10px 12px 10px;
   overflow: hidden;
   position: relative;
 
