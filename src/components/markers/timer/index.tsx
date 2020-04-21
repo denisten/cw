@@ -4,6 +4,8 @@ import { ZIndexes } from '../../root-component/z-indexes-enum';
 import background from './background.svg';
 import { MTSSans } from '../../../fonts';
 import { convertTimeToString } from '../../../utils/converTimeToString';
+import inProgressBack from './inprogress.png';
+import fullBack from './full.png';
 
 const milisecondInSecond = 1000;
 const maxPercent = 100;
@@ -16,7 +18,7 @@ const TimerBody = styled.div`
   z-index: ${ZIndexes.UI_BUTTON};
   box-sizing: border-box;
   display: flex;
-  padding: 4px 14px 12px 12px;
+  padding: 5px 10px 12px 10px;
   overflow: hidden;
   position: relative;
 
@@ -35,12 +37,12 @@ const TimerBody = styled.div`
   }
 `;
 
-const Percent = styled.div<{ percent: number }>`
+const Percent = styled.div<{ percent: number; timeIsOver: boolean }>`
   width: ${props => props.percent}%;
   height: 100%;
-  border-radius: 2px;
-  background-image: linear-gradient(to top, #00cef0, #83e6f7);
-  transform: skew(15deg);
+  background: url(${props => (props.timeIsOver ? fullBack : inProgressBack)})
+    no-repeat center;
+  background-size: 100% 100%;
   transition: 0.4s;
 `;
 
@@ -105,7 +107,7 @@ export const Timer: React.FC<ITimer> = ({ startTime, endTime }) => {
   return (
     <TimerBody>
       <span>{!timeIsOver ? restOfSeconds : 'Время вышло'}</span>
-      <Percent percent={percent || 0} />
+      <Percent percent={percent || 0} timeIsOver={timeIsOver} />
     </TimerBody>
   );
 };
