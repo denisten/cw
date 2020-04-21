@@ -20,7 +20,7 @@ export const CoinsWallet: React.FC<IWalletCounter> = ({ sum }) => {
   return (
     <WalletWrapper>
       <img src={coinImg} alt="coins" style={styledConfig.coinImg} />
-      <WalletCounter sum={parseSum(sum)} />
+      <WalletCounter sum={parseSum(sum)} width={105} contentMargin={15} />
       <img src={plusImg} alt="plus" style={styledConfig.plusImg} />
     </WalletWrapper>
   );

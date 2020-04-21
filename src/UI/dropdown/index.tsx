@@ -32,6 +32,23 @@ const MainWrapper = styled.div`
   }
 `;
 
+const Options = styled(StyledSpan)`
+  width: 149px;
+  height: 47px;
+  background-color: #f7f7f7;
+  position: relative;
+  box-sizing: border-box;
+  padding: 8px 0 11px 17px;
+  font-family: ${MTSSans.REGULAR};
+  font-size: 16px;
+  line-height: 1.5;
+  color: #001424;
+  &:hover {
+    background-color: #bae4eb;
+    cursor: pointer;
+  }
+`;
+
 const OptionsWrapper = styled.div<IOptionsWrapper>`
   position: absolute;
   top: ${props => props.top}px;
@@ -47,22 +64,8 @@ const OptionsWrapper = styled.div<IOptionsWrapper>`
   overflow-y: scroll;
   overflow-x: hidden;
   background-color: #f7f7f7;
-`;
-
-const Options = styled(StyledSpan)`
-  width: 149px;
-  height: 47px;
-  background-color: #f7f7f7;
-  position: relative;
-  box-sizing: border-box;
-  padding: 8px 0 11px 16px;
-  font-family: ${MTSSans.REGULAR};
-  font-size: 16px;
-  line-height: 1.5;
-  color: #001424;
-  &:hover {
-    background-color: #bae4eb;
-    cursor: pointer;
+  ${Options}:nth-child(1) {
+    padding: 12px 0 11px 17px;
   }
 `;
 
@@ -74,7 +77,7 @@ const ArrowImg = styled.img`
 
 const Input = styled.input`
   font-family: ${MTSSans.REGULAR};
-  width: 100%;
+  width: 70%;
   font-size: 16px;
   font-weight: normal;
   font-stretch: normal;
