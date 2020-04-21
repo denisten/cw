@@ -1,5 +1,6 @@
 import { TutorialConditions } from '../../effector/tutorial-store/store';
 import { openMainTower } from '../../utils/open-main-tower';
+import { scrollToMainTower } from '../../utils/scroll-to-main-tower';
 
 export enum TutorialDialogsValues {
   DIALOG_HELLO = 'DIALOG_HELLO',
@@ -26,6 +27,7 @@ class TutorialDialogTextsService {
       titles: ['Класс!'],
       buttonContent: ['Здорово'],
       reload: true,
+      action: { step: 0, callBack: scrollToMainTower },
     },
     [TutorialConditions.DIALOG_START_MISSION]: {
       messages: ['Первая миссия – исследуй здание, чтобы улучшить его.'],
