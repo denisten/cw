@@ -155,9 +155,7 @@ export const Dropdown: React.FC<IDropDown> = ({
     <MainWrapper ref={wrapperRef} style={style}>
       <DropdownWrapper
         opened={showOptions}
-        onClick={() => {
-          setShowOptions(state => !state);
-        }}
+        onClick={() => setShowOptions(!showOptions)}
         width={width}
       >
         <RowWrapper style={styledConfig.rowWrapper}>
