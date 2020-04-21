@@ -13,7 +13,7 @@ const DropdownWrapper = styled.div<IDropdownWrapper>`
   border: solid 2px
     ${props => (props.opened ? '#02acc8' : 'rgba(2, 172, 200, 0.25)')};
   box-sizing: border-box;
-  padding: 8px 0 11px 16px;
+  padding: 8px 0 11px 18px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -44,9 +44,9 @@ const OptionsWrapper = styled.div<IOptionsWrapper>`
   border-top: none;
   box-sizing: border-box;
   z-index: ${ZIndexes.UI_BUTTON - 1};
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  overflow-y: scroll;
+  overflow-x: hidden;
+  background-color: #f7f7f7;
 `;
 
 const Options = styled(StyledSpan)`
@@ -118,6 +118,7 @@ export const Dropdown: React.FC<IDropDown> = ({
   const arrowRef = useRef<HTMLImageElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const [mouseInsideDiv, setMouseInsideDiv] = useState(false);
 
   useEffect(() => {
     if (arrowRef.current) {
@@ -127,20 +128,36 @@ export const Dropdown: React.FC<IDropDown> = ({
         arrowRef.current.style.transform = 'rotate(0deg)';
       }
     }
+    showOptions && inputRef.current && inputRef.current.focus();
   }, [showOptions]);
+
+  const handleFocusOut = () => {
+    if (!mouseInsideDiv) setShowOptions(false);
+  };
+  const handleMouseEnter = () => setMouseInsideDiv(true);
+  const handleMouseLeave = () => setMouseInsideDiv(false);
 
   useEffect(() => {
     if (wrapperRef.current) {
-      wrapperRef.current.addEventListener('focusout', () => {
-        setShowOptions(false);
-      });
+      wrapperRef.current.addEventListener('mouseenter', handleMouseEnter);
+      wrapperRef.current.addEventListener('mouseleave', handleMouseLeave);
+      wrapperRef.current.addEventListener('focusout', handleFocusOut);
     }
-  }, []);
+    return () => {
+      if (wrapperRef.current) {
+        wrapperRef.current.removeEventListener('focusout', handleFocusOut);
+        wrapperRef.current.removeEventListener('mouseleave', handleMouseLeave);
+        wrapperRef.current.removeEventListener('mouseenter', handleFocusOut);
+      }
+    };
+  });
   return (
     <MainWrapper ref={wrapperRef} style={style}>
       <DropdownWrapper
         opened={showOptions}
-        onClick={() => setShowOptions(!showOptions)}
+        onClick={() => {
+          setShowOptions(state => !state);
+        }}
         width={width}
       >
         <RowWrapper style={styledConfig.rowWrapper}>
@@ -150,16 +167,7 @@ export const Dropdown: React.FC<IDropDown> = ({
             ref={inputRef}
             readOnly={true}
           />
-          <ArrowImg
-            src={arrowDown}
-            alt="arrow"
-            ref={arrowRef}
-            onClick={() => {
-              if (inputRef.current) {
-                inputRef.current.focus();
-              }
-            }}
-          />
+          <ArrowImg src={arrowDown} alt="arrow" ref={arrowRef} />
         </RowWrapper>
       </DropdownWrapper>
 

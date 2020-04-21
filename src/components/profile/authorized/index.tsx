@@ -105,7 +105,7 @@ const styledConfig = {
     marginLeft: '4px',
   },
   rowWrapper: {
-    padding: '48px 0 33px 0',
+    padding: '36px 0 22px 0',
     left: '12px',
   },
   penImg: {
