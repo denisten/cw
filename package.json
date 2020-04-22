@@ -18,7 +18,9 @@
       "^.+\\.svg$": "jest-svg-transformer",
       ".+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$": "jest-transform-stub"
     },
-    "setupFilesAfterEnv": ["./setup-tests.ts"]
+    "setupFilesAfterEnv": [
+      "./setup-tests.ts"
+    ]
   },
   "keywords": [],
   "author": "Denis Ten",
@@ -35,6 +37,7 @@
   },
   "dependencies": {
     "@types/dragscroll": "0.0.0",
+    "@types/jest": "^25.2.1",
     "@types/react-router": "^5.1.4",
     "axios": "^0.19.1",
     "core-js": "^3.6.1",
