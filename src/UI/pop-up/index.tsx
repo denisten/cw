@@ -22,6 +22,8 @@ import {
 } from '../../effector/tutorial-store/store';
 import { nextTutorStep } from '../../effector/tutorial-store/events';
 import { menuClosed } from '../../effector/app-condition/events';
+import { ZIndexes } from '../../components/root-component/z-indexes-enum';
+import { ExitButton } from '../exit-button';
 
 const PopUpWrapper = styled.div`
   background-image: url(${popUpWrapperBackground});
@@ -52,6 +54,16 @@ const styleConfig = {
     position: 'absolute',
     bottom: '45px',
   } as React.CSSProperties,
+  overlay: {
+    zIndex: ZIndexes.UI_BUTTON + 1,
+  },
+  exitButton: {
+    top: '0',
+    right: '0',
+  },
+  input: {
+    padding: '0 0 0 16px',
+  },
 };
 
 let worldInputHint = '';
@@ -100,8 +112,9 @@ export const PopUp: React.FC<IPopUp> = ({ callback, displayFlag }) => {
   return (
     <Fragment>
       {displayFlag ? (
-        <Overlay displayFlag={true}>
+        <Overlay displayFlag={true} style={styleConfig.overlay}>
           <PopUpWrapper>
+            <ExitButton callBack={callback} {...styleConfig.exitButton} />
             <Title>Введите название города</Title>
             <Input
               onChangeHandler={handleOnChange}
@@ -109,6 +122,7 @@ export const PopUp: React.FC<IPopUp> = ({ callback, displayFlag }) => {
               value={value}
               hasError={inputHasError}
               hint={worldInputHint}
+              style={styleConfig.input}
             />
             <Button
               style={styleConfig.button}

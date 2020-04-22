@@ -21,8 +21,8 @@ const MenuContentSelector: React.FC<MenuContentProps> = ({ content }) => {
   switch (content) {
     case MenuItems.PROFILE:
       return <Profile />;
-    case MenuItems.DOCUMENTS:
-      return <h1>Documents</h1>;
+    case MenuItems.OFFER:
+      return <h1>Offer</h1>;
     case MenuItems.SETTINGS:
       return <Settings />;
     default:

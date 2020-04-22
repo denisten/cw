@@ -10,9 +10,19 @@
             <stop offset="81.113%" stop-color="#0CB4D0"/>
             <stop offset="100%" stop-color="#02ACC8"/>
         </linearGradient>
+        <linearGradient id="prefix__d" x1="50%" x2="50%" y1="0%" y2="100%">
+            <stop offset="0%" stop-color="#FBC135"/>
+            <stop offset="100%" stop-color="#F19A1A"/>
+        </linearGradient>
+        <linearGradient id="prefix__c" x1="19.814%" x2="84.021%" y1="23.734%" y2="82.506%">
+            <stop offset="0%" stop-color="#FFDB86"/>
+            <stop offset="100%" stop-color="#E99115"/>
+        </linearGradient>
     </defs>
     <g fill="none" fill-rule="evenodd">
         <path fill="url(#prefix__b)" stroke="url(#prefix__a)" stroke-width="1.9" d="M19 1.097L3.496 10.048v17.904L19 36.903l15.504-8.951V10.048L19 1.097z" transform="translate(0 -2) rotate(90 19 19)"/>
+        <path fill="url(#prefix__d)" stroke="url(#prefix__c)" stroke-width="1.9" d="M19 1.097L3.496 10.048v17.904L19 36.903l15.504-8.951V10.048L19 1.097z" transform="translate(0 -2) rotate(90 19 19)"/>
+        <path fill="#FFF" d="M11.4 20.832c0 4.29 2.346 8.618 7.6 8.618 5.249 0 7.6-4.327 7.6-8.618 0-2.932-.964-6.307-2.573-9.033C22.462 9.166 20.582 7.6 19 7.6c-1.586 0-3.467 1.566-5.019 4.199-1.616 2.726-2.581 6.101-2.581 9.033" transform="translate(0 -2)"/>
         <path fill="#FFF" d="M11.4 20.832c0 4.29 2.346 8.618 7.6 8.618 5.249 0 7.6-4.327 7.6-8.618 0-2.932-.964-6.307-2.573-9.033C22.462 9.166 20.582 7.6 19 7.6c-1.586 0-3.467 1.566-5.019 4.199-1.616 2.726-2.581 6.101-2.581 9.033" transform="translate(0 -2)"/>
     </g>
 </svg>

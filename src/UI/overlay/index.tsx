@@ -21,4 +21,5 @@ export const Overlay: React.FC<IOverlay> = ({ children, ...props }) => {
 interface IOverlay {
   zIndex?: number;
   displayFlag?: boolean;
+  style?: React.CSSProperties;
 }
