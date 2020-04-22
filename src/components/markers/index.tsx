@@ -42,8 +42,8 @@ export const MarkerView = styled.div<{
     center;
   background-size: 100% 100%;
   cursor: pointer;
-  width: 60px;
-  height: 66px;
+  width: 64px;
+  height: 68px;
   transition: 0.5s;
   animation-name: ${props =>
     props.animFlag ? scaleAnimation(minScale) : 'none'};
@@ -54,10 +54,6 @@ export const MarkerView = styled.div<{
 
   &:hover {
     transform: scale(1.1);
-  }
-  &[data-type='coin'] {
-    width: 95px;
-    height: 103px;
   }
 `;
 
