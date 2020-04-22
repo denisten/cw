@@ -23,7 +23,7 @@ enum EventCodes {
   STRING_MINUS = '-',
 }
 
-export const App = () => {
+export const App: React.FC = () => {
   const { isAuthorized, authCancelledStatus } = useStore(AppCondition);
   useEffect(() => {
     if (isAuthorized) {
