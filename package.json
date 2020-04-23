@@ -31,6 +31,7 @@
     "*.{ts, tsx}": [
       "eslint --cache --ext .js,.jsx,.ts,.tsx src --max-warnings=1",
       "prettier --write",
+      "jest --bail --findRelatedTests",
       "git add"
     ]
   },
