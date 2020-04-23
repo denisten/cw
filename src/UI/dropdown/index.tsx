@@ -124,7 +124,6 @@ export const Dropdown: React.FC<IDropDown> = ({
   const wrapperRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const [mouseInsideDiv, setMouseInsideDiv] = useState(false);
-  const optionsWrapperRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (arrowRef.current) {
       if (showOptions) {
@@ -180,7 +179,6 @@ export const Dropdown: React.FC<IDropDown> = ({
         optionsHeight={optionsHeight}
         top={top}
         width={width}
-        ref={optionsWrapperRef}
       >
         {options.map(el => (
           <Options
