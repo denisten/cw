@@ -12,7 +12,8 @@ import { errorStringsParsingHOF } from './utils/error-handler';
 import { Preloader } from './components/preloader';
 import {
   addHandleScrollForCollection,
-  AdvanceScrollBarAttr, stringTrue,
+  AdvanceScrollBarAttr,
+  stringTrue,
 } from './utils/handle-scroll';
 
 export enum Routes {
@@ -50,7 +51,9 @@ export const App: React.FC = () => {
 
   addHandleScrollForCollection(
     Array.from(
-      document.querySelectorAll(`[data-type="${AdvanceScrollBarAttr.ADVANCE_SCROLLBAR}"]`)
+      document.querySelectorAll(
+        `[data-type="${AdvanceScrollBarAttr.ADVANCE_SCROLLBAR}"]`
+      )
     ).filter(
       el => el.getAttribute(AdvanceScrollBarAttr.DATA_HANDLED) !== stringTrue
     )

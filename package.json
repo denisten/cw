@@ -15,8 +15,7 @@
     "verbose": true,
     "transform": {
       "^.+\\.(tsx|ts|js)$": "ts-jest",
-      "^.+\\.svg$": "jest-svg-transformer",
-      ".+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$": "jest-transform-stub"
+      ".+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2|svg)$": "jest-transform-stub"
     },
     "setupFilesAfterEnv": [
       "./setup-tests.ts"
@@ -47,6 +46,7 @@
     "effector": "^20.9.1",
     "effector-localstorage": "^0.5.1",
     "effector-react": "^20.6.0",
+    "jest-transform-stub": "^2.0.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-router": "^5.1.2",
