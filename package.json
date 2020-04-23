@@ -9,8 +9,7 @@
     "lint": "eslint --cache --ext .js,.jsx,.ts,.tsx src",
     "show-browsers": "npx browserslist",
     "clear": "rm -rf dist",
-    "test": "jest",
-    "push": "lint-staged"
+    "test": "jest --watch"
   },
   "jest": {
     "verbose": true,
@@ -98,7 +97,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && npm test"
+      "pre-commit": "lint-staged && jest"
     }
   }
 }

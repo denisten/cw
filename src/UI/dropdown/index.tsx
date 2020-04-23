@@ -106,7 +106,6 @@ const styledConfig = {
     justifyContent: 'space-between',
     padding: '0 9px 0 0',
     cursor: 'pointer',
-    asdf: 'asdf',
   },
 };
 
