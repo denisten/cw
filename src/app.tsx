@@ -10,6 +10,10 @@ import { useStore } from 'effector-react';
 import { AppCondition } from './effector/app-condition/store';
 import { errorStringsParsingHOF } from './utils/error-handler';
 import { Preloader } from './components/preloader';
+import {
+  addHandleScrollForCollection,
+  AdvanceScrollBarAttr, stringTrue,
+} from './utils/handle-scroll';
 
 export enum Routes {
   MAIN = '/',
@@ -25,16 +29,6 @@ enum EventCodes {
 
 export const App: React.FC = () => {
   const { isAuthorized, authCancelledStatus } = useStore(AppCondition);
-  useEffect(() => {
-    if (isAuthorized) {
-      fetchUserData('');
-    }
-  }, [isAuthorized]);
-  useEffect(() => {
-    if (authCancelledStatus) {
-      errorStringsParsingHOF(authCancelledStatus);
-    }
-  }, [authCancelledStatus]);
 
   const wheelPreventDefault = (e: WheelEvent) => {
     if (e.ctrlKey) {
@@ -53,6 +47,25 @@ export const App: React.FC = () => {
       e.preventDefault();
     }
   };
+
+  addHandleScrollForCollection(
+    Array.from(
+      document.querySelectorAll(`[data-type="${AdvanceScrollBarAttr.ADVANCE_SCROLLBAR}"]`)
+    ).filter(
+      el => el.getAttribute(AdvanceScrollBarAttr.DATA_HANDLED) !== stringTrue
+    )
+  );
+
+  useEffect(() => {
+    if (isAuthorized) {
+      fetchUserData('');
+    }
+  }, [isAuthorized]);
+  useEffect(() => {
+    if (authCancelledStatus) {
+      errorStringsParsingHOF(authCancelledStatus);
+    }
+  }, [authCancelledStatus]);
 
   useEffect(() => {
     window.addEventListener('wheel', wheelPreventDefault, { passive: false });

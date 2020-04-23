@@ -5,6 +5,8 @@ import { MTSSans } from '../../fonts';
 import { StyledSpan } from '../span';
 import { RowWrapper } from '../row-wrapper';
 import { ZIndexes } from '../../components/root-component/z-indexes-enum';
+import { AdvancedScrollbar } from '../advanced-scrollbar';
+import { AdvanceScrollBarAttr } from '../../utils/handle-scroll';
 
 const DropdownWrapper = styled.div<IDropdownWrapper>`
   width: ${props => props.width}px;
@@ -49,7 +51,7 @@ const Options = styled(StyledSpan)`
   }
 `;
 
-const OptionsWrapper = styled.div<IOptionsWrapper>`
+const OptionsWrapper = styled(AdvancedScrollbar)<IOptionsWrapper>`
   position: absolute;
   top: ${props => props.top}px;
   width: ${props => props.width}px;
@@ -64,7 +66,7 @@ const OptionsWrapper = styled.div<IOptionsWrapper>`
   overflow-y: scroll;
   overflow-x: hidden;
   background-color: #f7f7f7;
-  ${Options}:nth-child(1) {
+  ${Options}:nth-child (1) {
     padding: 12px 0 11px 17px;
   }
 `;
@@ -122,7 +124,7 @@ export const Dropdown: React.FC<IDropDown> = ({
   const wrapperRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const [mouseInsideDiv, setMouseInsideDiv] = useState(false);
-
+  const optionsWrapperRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (arrowRef.current) {
       if (showOptions) {
@@ -173,10 +175,12 @@ export const Dropdown: React.FC<IDropDown> = ({
       </DropdownWrapper>
 
       <OptionsWrapper
+        data-type={AdvanceScrollBarAttr.ADVANCE_SCROLLBAR}
         displayFlag={showOptions}
         optionsHeight={optionsHeight}
         top={top}
         width={width}
+        ref={optionsWrapperRef}
       >
         {options.map(el => (
           <Options

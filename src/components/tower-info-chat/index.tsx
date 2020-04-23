@@ -5,13 +5,15 @@ import { setHideTowerInfo } from '../../effector/app-condition/events';
 import { Bubble } from '../../UI/bubble';
 import { ChatButtons } from '../../UI/chat-buttons';
 import { ChatAvatar } from '../../UI/chat-avatar';
+import { AdvancedScrollbar } from '../../UI/advanced-scrollbar';
+import { AdvanceScrollBarAttr } from '../../utils/handle-scroll';
 
 export enum MessageType {
   SYSTEM = 'system',
   USER = 'user',
 }
 
-const ChatWrapper = styled.div<{ foolSize: boolean }>`
+const ChatWrapper = styled(AdvancedScrollbar)<{ foolSize: boolean }>`
   width: 100%;
   height: ${props => (props.foolSize ? 'auto' : '344px')};
   box-sizing: border-box;
@@ -178,6 +180,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({ hideContent }) => {
   return (
     <>
       <ChatWrapper
+        data-type={AdvanceScrollBarAttr.ADVANCE_SCROLLBAR}
         onScroll={chatWheelHandler}
         foolSize={hideContent}
         ref={chatContainer}
