@@ -38,7 +38,7 @@ const TimerBody = styled.div`
 const Percent = styled.div<{ percent: number; timeIsOver: boolean }>`
   width: ${props => props.percent}%;
   height: 100%;
-  border-radius: 2px;
+  border-radius: ${props => (props.timeIsOver ? '2px' : '2px 0px 0px 2px')};
   background-image: linear-gradient(to top, #00cef0, #83e6f7);
   transition: 0.4s;
 `;
