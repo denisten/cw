@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import { ZIndexes } from '../../root-component/z-indexes-enum';
-import background from './background.svg';
+import background from './background.png';
 import { MTSSans } from '../../../fonts';
 import { convertTimeToString } from '../../../utils/converTimeToString';
 

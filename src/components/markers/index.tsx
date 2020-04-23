@@ -60,13 +60,14 @@ export const MarkerView = styled.div<{
 export const MarkerWrapper = styled.div<{ displayFlag: boolean }>`
   height: auto;
   width: auto;
-  top: 0px;
+  top: 10px;
   left: 50%;
   position: absolute;
   transform: translate(-50%, -50%);
 
   display: ${props => (props.displayFlag ? 'flex' : 'none')};
   align-items: center;
+  justify-content: center;
   z-index: ${ZIndexes.UI_BUTTON};
 
   ${MarkerView}:nth-child(2) {
