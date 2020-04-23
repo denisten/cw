@@ -1,11 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import { ZIndexes } from '../../root-component/z-indexes-enum';
-import background from './background.svg';
+import background from './background.png';
 import { MTSSans } from '../../../fonts';
 import { convertTimeToString } from '../../../utils/converTimeToString';
-import inProgressBack from './inprogress.png';
-import fullBack from './full.png';
 
 const milisecondInSecond = 1000;
 const maxPercent = 100;
@@ -18,7 +16,7 @@ const TimerBody = styled.div`
   z-index: ${ZIndexes.UI_BUTTON};
   box-sizing: border-box;
   display: flex;
-  padding: 5px 10px 12px 10px;
+  padding: 4px 10px 12px 10px;
   overflow: hidden;
   position: relative;
 
@@ -40,9 +38,8 @@ const TimerBody = styled.div`
 const Percent = styled.div<{ percent: number; timeIsOver: boolean }>`
   width: ${props => props.percent}%;
   height: 100%;
-  background: url(${props => (props.timeIsOver ? fullBack : inProgressBack)})
-    no-repeat center;
-  background-size: 100% 100%;
+  border-radius: ${props => (props.timeIsOver ? '2px' : '2px 0px 0px 2px')};
+  background-image: linear-gradient(to top, #00cef0, #83e6f7);
   transition: 0.4s;
 `;
 

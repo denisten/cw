@@ -42,8 +42,8 @@ export const MarkerView = styled.div<{
     center;
   background-size: 100% 100%;
   cursor: pointer;
-  width: 60px;
-  height: 66px;
+  width: 64px;
+  height: 68px;
   transition: 0.5s;
   animation-name: ${props =>
     props.animFlag ? scaleAnimation(minScale) : 'none'};
@@ -55,22 +55,19 @@ export const MarkerView = styled.div<{
   &:hover {
     transform: scale(1.1);
   }
-  &[data-type='coin'] {
-    width: 95px;
-    height: 103px;
-  }
 `;
 
 export const MarkerWrapper = styled.div<{ displayFlag: boolean }>`
   height: auto;
   width: auto;
-  top: 0px;
+  top: 10px;
   left: 50%;
   position: absolute;
   transform: translate(-50%, -50%);
 
   display: ${props => (props.displayFlag ? 'flex' : 'none')};
   align-items: center;
+  justify-content: center;
   z-index: ${ZIndexes.UI_BUTTON};
 
   ${MarkerView}:nth-child(2) {
