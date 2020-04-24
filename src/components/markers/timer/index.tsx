@@ -113,7 +113,7 @@ export const Timer: React.FC<ITimer> = ({ startTime, endTime, towerTitle }) => {
   }, [timeIsOver]);
 
   return (
-    <TimerBody>
+    <TimerBody className="timeMarker">
       <span>{!timeIsOver ? restOfSeconds : 'Время вышло'}</span>
       <Percent percent={percent || 0} timeIsOver={timeIsOver} />
     </TimerBody>
