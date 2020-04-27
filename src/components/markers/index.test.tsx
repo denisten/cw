@@ -2,6 +2,7 @@ import { shallow, mount } from 'enzyme';
 import { Markers, TypeOfMarkers } from '.';
 import React from 'react';
 import { TowersTypes } from '../../effector/towers-progress/store';
+import { TimerBody } from './timer';
 
 describe('<Markers />', () => {
   it('Component Markers have correct props and rendered', () => {
@@ -29,7 +30,7 @@ describe('<Markers />', () => {
       displayFlag: true,
     };
     const markers = mount(<Markers {...props} />);
-    expect(markers.find('.timeMarker').exists()).toBe(true);
+    expect(markers.find(TimerBody).exists()).toBe(true);
   });
 
   it('time is out state when time range undefined', () => {
@@ -45,6 +46,7 @@ describe('<Markers />', () => {
       displayFlag: true,
     };
     const markers = mount(<Markers {...props} />);
-    expect(markers.find('.timeMarker span').text()).toBe('Время вышло');
+    const timerBody = markers.find(TimerBody);
+    expect(timerBody.find('span').text()).toBe('Время вышло');
   });
 });

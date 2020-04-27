@@ -11,7 +11,7 @@ import { TypeOfMarkers } from '..';
 const milisecondInSecond = 1000;
 const maxPercent = 100;
 
-const TimerBody = styled.div`
+export const TimerBody = styled.div`
   width: 154px;
   height: 35px;
   background: url(${background}) no-repeat center;
@@ -113,7 +113,7 @@ export const Timer: React.FC<ITimer> = ({ startTime, endTime, towerTitle }) => {
   }, [timeIsOver]);
 
   return (
-    <TimerBody className="timeMarker">
+    <TimerBody>
       <span>{!timeIsOver ? restOfSeconds : 'Время вышло'}</span>
       <Percent percent={percent || 0} timeIsOver={timeIsOver} />
     </TimerBody>
