@@ -45,6 +45,7 @@ const Options = styled(StyledSpan)`
   font-size: 16px;
   line-height: 1.5;
   color: #001424;
+  user-select: none;
   &:hover {
     background-color: #bae4eb;
     cursor: pointer;
