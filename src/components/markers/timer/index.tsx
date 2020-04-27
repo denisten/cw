@@ -4,11 +4,14 @@ import { ZIndexes } from '../../root-component/z-indexes-enum';
 import background from './background.png';
 import { MTSSans } from '../../../fonts';
 import { convertTimeToString } from '../../../utils/converTimeToString';
+import { TowersTypes } from '../../../effector/towers-progress/store';
+import { hideMarker, setMarker } from '../../../effector/towers-marker/events';
+import { TypeOfMarkers } from '..';
 
 const milisecondInSecond = 1000;
 const maxPercent = 100;
 
-const TimerBody = styled.div`
+export const TimerBody = styled.div`
   width: 154px;
   height: 35px;
   background: url(${background}) no-repeat center;
@@ -43,7 +46,7 @@ const Percent = styled.div<{ percent: number; timeIsOver: boolean }>`
   transition: 0.4s;
 `;
 
-export const Timer: React.FC<ITimer> = ({ startTime, endTime }) => {
+export const Timer: React.FC<ITimer> = ({ startTime, endTime, towerTitle }) => {
   const [totalSeconds, setTotalSeconds] = useState(0);
   const [restOfSeconds, setRestOfSeconds] = useState('');
   const [percent, setPercent] = useState(0);
@@ -74,7 +77,10 @@ export const Timer: React.FC<ITimer> = ({ startTime, endTime }) => {
   };
 
   const calculateRestOfTime = () => {
-    if (!endTime || !startTime) return;
+    if (!endTime || !startTime) {
+      timeIsOverHandler();
+      return;
+    }
     const restOfSecond =
       (endTime.getTime() - new Date().getTime()) / milisecondInSecond;
     setTimerDependValues(restOfSecond);
@@ -99,6 +105,11 @@ export const Timer: React.FC<ITimer> = ({ startTime, endTime }) => {
 
   useEffect(() => {
     // TODO emit when time is over
+
+    if (percent >= maxPercent) {
+      hideMarker({ towerTitle: towerTitle, type: TypeOfMarkers.TIMER });
+      setMarker({ towerTitle: towerTitle, type: TypeOfMarkers.SUCCESS });
+    }
   }, [timeIsOver]);
 
   return (
@@ -112,4 +123,5 @@ export const Timer: React.FC<ITimer> = ({ startTime, endTime }) => {
 interface ITimer {
   startTime?: Date;
   endTime?: Date;
+  towerTitle: TowersTypes;
 }

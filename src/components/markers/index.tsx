@@ -85,7 +85,6 @@ export const Markers: React.FC<IMarkers> = ({
   displayFlag,
 }) => {
   const markerRef = useRef<HTMLDivElement>(null);
-
   return (
     <MarkerWrapper ref={markerRef} displayFlag={displayFlag}>
       {markersCollection.map(markItem =>
@@ -101,6 +100,7 @@ export const Markers: React.FC<IMarkers> = ({
             key={markItem.type}
             startTime={markItem.startTime}
             endTime={markItem.endTime}
+            towerTitle={towerTitle}
           />
         )
       )}
