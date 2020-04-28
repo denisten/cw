@@ -3,21 +3,21 @@ export const carConfig = [
   {
     id: 1,
     carStyle: {
-      animDuration: '9s',
+      animDuration: '20s',
       animationTimingFunction: 'ease-in-out',
       animationName: animForCar1,
-      left: '25.5%',
-      top: '45.1%',
+      left: '21.78%',
+      top: '46%',
     },
   },
   {
     id: 2,
     carStyle: {
-      animDuration: '8s',
+      animDuration: '18s',
       animationTimingFunction: 'ease-in-out',
       animationName: animForCar2,
-      left: '35.4%',
-      top: '39.1%',
+      left: '54.4%',
+      top: '37.1%',
     },
   },
   {

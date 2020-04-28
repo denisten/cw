@@ -32,7 +32,7 @@ export const planeConfig: IPlaneConfig = {
       id: 0,
     },
     {
-      top: '24.2%',
+      top: '21.2%',
       left: '36.1%',
       width: '137px',
       height: '101px',

@@ -13,7 +13,7 @@ export const animForCar1 = keyframes`
 
           }
           50% {
-            transform: translate3d(860px, -420px, 0);
+            transform: translate3d(1370px, -685px, 0);
              background: url(${bottomLeftBg}) no-repeat center;
           }
           99% {
@@ -27,17 +27,17 @@ export const animForCar1 = keyframes`
 
 export const animForCar2 = keyframes`
           0% {
-             background: url(${bottomRightBg}) no-repeat center;
+             background: url(${topLeftBg}) no-repeat center;
           }
           49% {
-          background: url(${bottomRightBg}) no-repeat center;
+          background: url(${topLeftBg}) no-repeat center;
           }
           50% {
-            transform: translate3d(515px,260px, 0px);
-            background: url(${topLeftBg}) no-repeat center;
+            transform: translate3d(-1995px,-997px, 0px);
+            background: url(${bottomRightBg}) no-repeat center;
           }
            99% {
-        background: url(${topLeftBg}) no-repeat center;
+        background: url(${bottomRightBg}) no-repeat center;
           }
         100% {
           transform:translate3d(0, 0, 0);
