@@ -1,3 +1,5 @@
+import mainTowerLevel0Img from './main-tower/0.png';
+import mainTowerLevel0Stroke from './main-tower/0-stroke.png';
 import mainTowerLevel1Img from './main-tower/1.png';
 import mainTowerLevel1Stroke from './main-tower/1-stroke.png';
 import mainTowerLevel2Img from './main-tower/2.png';
@@ -122,29 +124,37 @@ export class BuildingsService {
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
       tutorialTower: true,
+      [TowerLevel.deactive]: {
+        img: mainTowerLevel0Img,
+        width: 278,
+        height: 444,
+        shadowImg: mainTowerLevel0Stroke,
+        areaCoords: '45,47,234,430',
+        position: [32, 50.3],
+      },
       [TowerLevel.low]: {
         img: mainTowerLevel1Img,
-        width: 382,
-        height: 687,
+        width: 277,
+        height: 442,
         shadowImg: mainTowerLevel1Stroke,
-        areaCoords: '84,168,299,576',
-        position: [29.3, 45.4],
+        areaCoords: '42,45,229,426',
+        position: [32, 50.3],
       },
       [TowerLevel.mid]: {
         img: mainTowerLevel2Img,
-        width: 382,
-        height: 744,
+        width: 277,
+        height: 571,
         shadowImg: mainTowerLevel2Stroke,
-        areaCoords: '84,121,301,659',
-        position: [28.3, 45.4],
+        areaCoords: '43,48,227,556',
+        position: [29.63, 50.3],
       },
       [TowerLevel.high]: {
         img: mainTowerLevel3Img,
-        width: 382,
-        height: 761,
+        width: 293,
+        height: 650,
         shadowImg: mainTowerLevel3Stroke,
-        areaCoords: '298,157,87,662',
-        position: [28, 45.4],
+        areaCoords: '48,45,246,620',
+        position: [28.45, 50.3],
       },
     },
     [TowersTypes.MUSIC]: {
@@ -263,7 +273,7 @@ export class BuildingsService {
         height: 327,
         shadowImg: eggTowerLevel1Stroke,
         areaCoords: '55,51,239,312',
-        position: [31.65, 46.5],
+        position: [31.6, 46.4],
       },
       [TowerLevel.mid]: {
         img: eggTowerLevel2Img,
@@ -271,7 +281,7 @@ export class BuildingsService {
         height: 400,
         shadowImg: eggTowerLevel2Stroke,
         areaCoords: '46,44,288,391',
-        position: [31.65, 46.5],
+        position: [30.1, 46.15],
       },
       [TowerLevel.high]: {
         img: eggTowerLevel3Img,
@@ -279,7 +289,7 @@ export class BuildingsService {
         height: 458,
         shadowImg: eggTowerLevel3Stroke,
         areaCoords: '46,49,320,445',
-        position: [31.65, 46.5],
+        position: [29.1, 45.9],
       },
     },
     [TowersTypes.LIBRARY]: {
