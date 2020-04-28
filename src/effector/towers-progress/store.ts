@@ -2,9 +2,10 @@ import { TowersProgressDomain } from './domain';
 import { addProgressPoints, addRefForTower, upgradeTower } from './events';
 import { RefObject } from 'react';
 export enum TowerLevel {
-  low = 0,
-  mid = 1,
-  high = 2,
+  deactive = 0,
+  low = 1,
+  mid = 2,
+  high = 3,
 }
 export enum TowersTypes {
   MAIN_TOWER = 'mainTower',
@@ -54,7 +55,7 @@ const initState: TowersProgressStoreType = {
     ref: null,
   },
   [TowersTypes.EGG]: {
-    level: TowerLevel.low,
+    level: TowerLevel.deactive,
     progress: 0,
     ref: null,
   },

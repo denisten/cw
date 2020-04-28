@@ -21,6 +21,7 @@ export const Buildings: React.FC = () => {
     <Fragment>
       {towersKeys.map(towerTitle => {
         const data = localService.getConfigForTower(towerTitle);
+        if (data.hide) return null;
         const currentTower = data[localTowersProgressStore[towerTitle].level];
         if (currentTower) {
           return (

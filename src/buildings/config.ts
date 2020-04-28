@@ -22,6 +22,8 @@ import mollTowerLevel3Img from './moll/3.png';
 import mollTowerLevel1Stroke from './moll/1-stroke.png';
 import mollTowerLevel2Stroke from './moll/2-stroke.png';
 import mollTowerLevel3Stroke from './moll/3-stroke.png';
+import eggTowerLevel0Img from './egg/0.png';
+import eggTowerLevel0Stroke from './egg/0-stroke.png';
 import eggTowerLevel1Img from './egg/1.png';
 import eggTowerLevel1Stroke from './egg/1-stroke.png';
 import eggTowerLevel2Img from './egg/2.png';
@@ -151,6 +153,7 @@ export class BuildingsService {
       wideTower: false,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
+      hide: true,
       [TowerLevel.low]: {
         img: musicTowerLevel1Img,
         width: 504,
@@ -182,6 +185,7 @@ export class BuildingsService {
       wideTower: true,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
+      hide: true,
       [TowerLevel.low]: {
         img: arenaTowerLevel1Img,
         width: 566,
@@ -213,6 +217,7 @@ export class BuildingsService {
       wideTower: true,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
+      hide: true,
       [TowerLevel.low]: {
         img: mollTowerLevel1Img,
         width: 605,
@@ -244,29 +249,37 @@ export class BuildingsService {
       wideTower: false,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
+      [TowerLevel.deactive]: {
+        img: eggTowerLevel0Img,
+        width: 282,
+        height: 321,
+        shadowImg: eggTowerLevel0Stroke,
+        areaCoords: '49,47,233,311',
+        position: [31.65, 46.5],
+      },
       [TowerLevel.low]: {
         img: eggTowerLevel1Img,
-        width: 331,
-        height: 398,
+        width: 288,
+        height: 327,
         shadowImg: eggTowerLevel1Stroke,
-        areaCoords: '44,45,285,351',
-        position: [34.1, 51.3],
+        areaCoords: '55,51,239,312',
+        position: [31.65, 46.5],
       },
       [TowerLevel.mid]: {
         img: eggTowerLevel2Img,
-        width: 347,
-        height: 478,
+        width: 340,
+        height: 400,
         shadowImg: eggTowerLevel2Stroke,
-        areaCoords: '45,45,295,432',
-        position: [32.6, 51.3],
+        areaCoords: '46,44,288,391',
+        position: [31.65, 46.5],
       },
       [TowerLevel.high]: {
         img: eggTowerLevel3Img,
-        width: 384,
-        height: 531,
+        width: 370,
+        height: 458,
         shadowImg: eggTowerLevel3Stroke,
-        areaCoords: '43,36,322,483',
-        position: [31.6, 51.1],
+        areaCoords: '46,49,320,445',
+        position: [31.65, 46.5],
       },
     },
     [TowersTypes.LIBRARY]: {
@@ -275,6 +288,7 @@ export class BuildingsService {
       wideTower: false,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
+      hide: true,
       [TowerLevel.low]: {
         img: libraryTowerLevel1Img,
         width: 545,
@@ -306,6 +320,7 @@ export class BuildingsService {
       wideTower: false,
       zIndex: ZIndexes.BUILDING_THREE_LEVEL,
       maxLevel: TowerLevel.mid,
+      hide: true,
       [TowerLevel.low]: {
         // TODO: не настоящая картинка
         img: musicTowerLevel1Img,
@@ -339,6 +354,7 @@ export class BuildingsService {
       wideTower: false,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
+      hide: true,
       [TowerLevel.low]: {
         img: tariffTowerLevel1Img,
         width: 329,
@@ -370,6 +386,7 @@ export class BuildingsService {
       wideTower: true,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.mid,
+      hide: true,
       [TowerLevel.low]: {
         // TODO: не настоящая картинка
         img: musicTowerLevel1Img,
@@ -402,6 +419,7 @@ export class BuildingsService {
       wideTower: false,
       zIndex: ZIndexes.BUILDING_THREE_LEVEL,
       maxLevel: TowerLevel.high,
+      hide: true,
       [TowerLevel.low]: {
         img: TVTowerLevel1Img,
         width: 486,
@@ -433,6 +451,7 @@ export class BuildingsService {
       wideTower: true,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
+      hide: true,
       [TowerLevel.low]: {
         img: stadiumLevel1Img,
         width: 635,
@@ -464,6 +483,7 @@ export class BuildingsService {
       wideTower: true,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
+      hide: true,
       [TowerLevel.low]: {
         img: airportLevel1Img,
         width: 572,
@@ -495,6 +515,7 @@ export class BuildingsService {
       wideTower: true,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
+      hide: true,
       [TowerLevel.low]: {
         img: bankLevel1Img,
         width: 532,
@@ -526,6 +547,7 @@ export class BuildingsService {
       wideTower: true,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
+      hide: true,
       [TowerLevel.low]: {
         img: cyberArenaLevel1Img,
         width: 658,
@@ -558,6 +580,7 @@ export class BuildingsService {
       wideTower: true,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
+      hide: true,
       [TowerLevel.low]: {
         img: autoFactoryLevel1Img,
         width: 662,
@@ -590,6 +613,7 @@ export class BuildingsService {
       wideTower: false,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.low,
+      hide: true,
       [TowerLevel.low]: {
         img: satelliteTvLevel1Img,
         width: 479,
@@ -623,6 +647,7 @@ export class BuildingsService {
       wideTower: false,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.low,
+      hide: true,
       [TowerLevel.low]: {
         img: partnerBlueLevel1Img,
         width: 375,
@@ -656,6 +681,7 @@ export class BuildingsService {
       wideTower: true,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.low,
+      hide: true,
       [TowerLevel.low]: {
         img: partnerYellowLevel1Img,
         width: 657,
@@ -689,6 +715,7 @@ export class BuildingsService {
       wideTower: false,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
+      hide: true,
       [TowerLevel.low]: {
         img: slotMachineLevel1Img,
         width: 451,
@@ -720,6 +747,7 @@ export class BuildingsService {
       wideTower: false,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.low,
+      hide: true,
       [TowerLevel.low]: {
         img: routerLevel1Img,
         width: 503,
@@ -753,6 +781,7 @@ export class BuildingsService {
       wideTower: false,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.low,
+      hide: true,
       [TowerLevel.low]: {
         img: rtkLevel1Img,
         width: 530,
@@ -786,6 +815,7 @@ export class BuildingsService {
       wideTower: false,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.low,
+      hide: true,
       // TODO: не настоящая картинка
       [TowerLevel.low]: {
         img: rtkLevel1Img,
@@ -819,6 +849,7 @@ export class BuildingsService {
       wideTower: false,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.low,
+      hide: true,
       [TowerLevel.low]: {
         img: marvinLevel1Img,
         width: 378,
@@ -852,6 +883,7 @@ export class BuildingsService {
       wideTower: false,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
+      hide: true,
       [TowerLevel.low]: {
         img: cloudLevel1Img,
         width: 367,
@@ -895,7 +927,9 @@ type CurrentTowerServiceConfigTypes = {
   zIndex: number;
   wideTower: boolean;
   maxLevel: TowerLevel;
+  hide?: boolean;
   tutorialTower?: boolean;
+  [TowerLevel.deactive]?: TowerLevelType;
   [TowerLevel.low]: TowerLevelType;
   [TowerLevel.mid]: TowerLevelType;
   [TowerLevel.high]: TowerLevelType;
