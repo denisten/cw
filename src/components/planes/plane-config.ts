@@ -24,16 +24,16 @@ export const planeConfig: IPlaneConfig = {
 
   level1: [
     {
-      top: '25.4%',
-      left: '34.3%',
+      top: '24.8%',
+      left: '44.3%',
       width: '137px',
       height: '101px',
       backgroundImage: backgroundLevel1,
       id: 0,
     },
     {
-      top: '21.2%',
-      left: '36.1%',
+      top: '15.9%',
+      left: '44.1%',
       width: '137px',
       height: '101px',
       backgroundImage: backgroundLevel1,
