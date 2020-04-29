@@ -13,7 +13,7 @@ export const carConfig = [
   {
     id: 2,
     carStyle: {
-      animDuration: '18s',
+      animDuration: '23s',
       animationTimingFunction: 'ease-in-out',
       animationName: animForCar2,
       left: '54.4%',
