@@ -5,7 +5,11 @@ import bottomRightBg from './bottomRight.png';
 import { keyframes } from 'styled-components';
 
 const keyframesCreator = (
-  iterationsArray: { anim: string[]; percent?: string; transition?: boolean }[]
+  iterationsArray: {
+    animation: string[];
+    percent?: string;
+    transition?: boolean;
+  }[]
 ) => {
   const maxPercent = 100;
   const minShiftForSmoothBackgroundChanges = 0.01;
@@ -28,11 +32,11 @@ const keyframesCreator = (
   });
   const generatedKeyframe = keyframes`${iterationsWithPercent
     .map(
-      animElem =>
-        animElem.percent +
+      keyframesElem =>
+        keyframesElem.percent +
         '%' +
         '{' +
-        animElem.anim.map(animation => animation).join(' ') +
+        keyframesElem.animation.map(animation => animation).join(' ') +
         '}'
     )
     .join(' ')}`;
@@ -40,19 +44,19 @@ const keyframesCreator = (
 };
 
 const iterationsForCarOne = [
-  { anim: [`background: url(${topRightBg}) no-repeat center;`] },
+  { animation: [`background: url(${topRightBg}) no-repeat center;`] },
   {
-    anim: [`background: url(${topRightBg}) no-repeat center;`],
+    animation: [`background: url(${topRightBg}) no-repeat center;`],
     transition: true,
   },
   {
-    anim: [
+    animation: [
       `transform: translate3d(1370px, -685px, 0);`,
       `background: url(${bottomLeftBg}) no-repeat center;`,
     ],
   },
   {
-    anim: [
+    animation: [
       `transform: translate3d(0, 0, 0);`,
       `background: url(${bottomLeftBg}) no-repeat center;`,
     ],
@@ -83,19 +87,19 @@ export const animForCar1 = keyframesCreator(iterationsForCarOne);
 //           }
 // `;
 const iterationsForCarTwo = [
-  { anim: [`background: url(${topLeftBg}) no-repeat center`] },
+  { animation: [`background: url(${topLeftBg}) no-repeat center`] },
   {
-    anim: [`background: url(${topLeftBg}) no-repeat center`],
+    animation: [`background: url(${topLeftBg}) no-repeat center`],
     transition: true,
   },
   {
-    anim: [
+    animation: [
       `transform: translate3d(-1995px,-997px, 0px);`,
       `background: url(${bottomRightBg}) no-repeat center;`,
     ],
   },
   {
-    anim: [
+    animation: [
       `transform:translate3d(0, 0, 0);`,
       `background: url(${bottomRightBg}) no-repeat center;`,
     ],
@@ -103,59 +107,59 @@ const iterationsForCarTwo = [
 ];
 export const animForCar2 = keyframesCreator(iterationsForCarTwo);
 const iterationsForCarThree = [
-  { anim: [`background: url(${topLeftBg}) no-repeat center;`] },
+  { animation: [`background: url(${topLeftBg}) no-repeat center;`] },
   {
-    anim: [`background: url(${topLeftBg}) no-repeat center;`],
+    animation: [`background: url(${topLeftBg}) no-repeat center;`],
     transition: true,
   },
   {
-    anim: [
+    animation: [
       `transform: translate3d(-486px,-248px, 0);`,
       `background: url(${topRightBg}) no-repeat center;`,
     ],
   },
   {
-    anim: [`background: url(${topRightBg}) no-repeat center;`],
+    animation: [`background: url(${topRightBg}) no-repeat center;`],
     transition: true,
   },
   {
-    anim: [
+    animation: [
       `transform: translate3d(40px,-515px, 0);`,
       `background: url(${topLeftBg}) no-repeat center;`,
     ],
   },
   {
-    anim: [`background: url(${topLeftBg}) no-repeat center;`],
+    animation: [`background: url(${topLeftBg}) no-repeat center;`],
     transition: true,
   },
   {
-    anim: [
+    animation: [
       `transform: translate3d(-233px,-650px, 0);`,
       `background: url(${bottomRightBg}) no-repeat center;`,
     ],
   },
   {
-    anim: [`background: url(${bottomRightBg}) no-repeat center;`],
+    animation: [`background: url(${bottomRightBg}) no-repeat center;`],
     transition: true,
   },
   {
-    anim: [
+    animation: [
       `transform: translate3d(40px,-515px, 0);`,
       `background: url(${bottomLeftBg}) no-repeat center;`,
     ],
   },
   {
-    anim: [`background: url(${bottomLeftBg}) no-repeat center;`],
+    animation: [`background: url(${bottomLeftBg}) no-repeat center;`],
     transition: true,
   },
   {
-    anim: [
+    animation: [
       `transform: translate3d(-486px,-248px, 0);`,
       `background: url(${bottomRightBg}) no-repeat center;`,
     ],
   },
   {
-    anim: [
+    animation: [
       `background: url(${bottomRightBg}) no-repeat center;`,
       `transform: translate3d(0px,0px, 0);`,
     ],
