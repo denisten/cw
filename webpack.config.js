@@ -1,5 +1,8 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
+const domain = 'cwmts.dev-stream.ru';
+const host = 'web.' + domain;
+const backend = 'http://stage.' + domain;
 
 module.exports = {
   mode: 'development',
@@ -81,10 +84,22 @@ module.exports = {
     port: 5000,
     overlay: true,
     historyApiFallback: true,
-    host: '0.0.0.0',
+    host: host,
     disableHostCheck: true,
     watchOptions: {
       ignored: /node_modules/,
     },
+    proxy: {
+      '/api': {
+        target: backend + ':8080',
+        secure: false,
+        changeOrigin: true
+      },
+      '/centrifugo': {
+        target: backend + ':8008',
+        secure: false,
+        changeOrigin: true
+      }
+    }
   },
 };
