@@ -23,11 +23,11 @@ export const carConfig = [
   {
     id: 3,
     carStyle: {
-      animDuration: '18s',
+      animDuration: '25s',
       animationTimingFunction: 'ease-in-out',
       animationName: animForCar3,
-      left: '58.4%',
-      top: '47.95%',
+      left: '56.1%',
+      top: '52.95%',
     },
   },
 ];

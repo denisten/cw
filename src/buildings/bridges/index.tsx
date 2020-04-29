@@ -18,7 +18,7 @@ const StyledConfig = {
   } as React.CSSProperties,
   thirdBridge: {
     position: 'absolute',
-    left: '53.3%',
+    left: '53.6%',
     top: '40.5%',
     zIndex: ZIndexes.DECORATION,
   } as React.CSSProperties,
