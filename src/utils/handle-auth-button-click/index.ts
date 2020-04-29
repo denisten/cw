@@ -14,7 +14,6 @@ export const handleAuthButtonClick = async () => {
     const url = await getUrl();
     if (authWindow && url) authWindow.location.href = url;
   } catch (error) {
-    // console.log(error);
     authWindow?.close();
   }
 };

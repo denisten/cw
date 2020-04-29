@@ -9,6 +9,7 @@ import {
 import connectLocalStorage from 'effector-localstorage/sync';
 
 export enum UserDataStoreKeys {
+  ID = 'id',
   NAME = 'name',
   WORLD_NAME = 'worldName',
   ASSISTANT_NAME = 'assistantName',
@@ -18,6 +19,7 @@ export enum UserDataStoreKeys {
 }
 
 const initState: IUserDataStore = {
+  [UserDataStoreKeys.ID]: 0,
   [UserDataStoreKeys.NAME]: 'Василий',
   [UserDataStoreKeys.WORLD_NAME]: 'Мой Мир',
   [UserDataStoreKeys.ASSISTANT_NAME]: 'Генадий',
@@ -44,8 +46,12 @@ export const UserDataStore = UserDataDomain.store<IUserDataStore>(initState)
   }))
   .on(
     fetchUserData.done,
-    (state, { result: { worldName = '', assistantName = '', name = '' } }) => ({
+    (
+      state,
+      { result: { worldName = '', assistantName = '', name = '', id } }
+    ) => ({
       ...state,
+      id,
       worldName,
       assistantName,
       name,
@@ -59,6 +65,7 @@ export const UserDataStore = UserDataDomain.store<IUserDataStore>(initState)
 UserDataStore.watch(userDataStoreLocalStorage);
 
 export interface IUserDataStore {
+  [UserDataStoreKeys.ID]: number;
   [UserDataStoreKeys.NAME]: string;
   [UserDataStoreKeys.WORLD_NAME]: string;
   [UserDataStoreKeys.ASSISTANT_NAME]: string;
