@@ -36,7 +36,7 @@ const keyframesCreator = (
         keyframesElem.percent +
         '%' +
         '{' +
-        keyframesElem.animation.map(animation => animation).join(' ') +
+        keyframesElem.animation.join(' ') +
         '}'
     )
     .join(' ')}`;
@@ -63,29 +63,6 @@ const iterationsForCarOne = [
   },
 ];
 
-export const animForCar1 = keyframesCreator(iterationsForCarOne);
-
-// keyframes`
-//            0% {
-
-//              background: url(${topRightBg}) no-repeat center;
-//           }
-//           49% {
-//           background: url(${topRightBg}) no-repeat center;
-
-//           }
-//           50% {
-//             transform: translate3d(1370px, -685px, 0);
-//              background: url(${bottomLeftBg}) no-repeat center;
-//           }
-//           99% {
-//           background: url(${bottomLeftBg}) no-repeat center;
-//           }
-//           100% {
-//             transform: translate3d(0, 0, 0);
-//              background: url(${topRightBg}) no-repeat center;
-//           }
-// `;
 const iterationsForCarTwo = [
   { animation: [`background: url(${topLeftBg}) no-repeat center`] },
   {
@@ -105,7 +82,7 @@ const iterationsForCarTwo = [
     ],
   },
 ];
-export const animForCar2 = keyframesCreator(iterationsForCarTwo);
+
 const iterationsForCarThree = [
   { animation: [`background: url(${topLeftBg}) no-repeat center;`] },
   {
@@ -166,4 +143,6 @@ const iterationsForCarThree = [
   },
 ];
 
+export const animForCar1 = keyframesCreator(iterationsForCarOne);
+export const animForCar2 = keyframesCreator(iterationsForCarTwo);
 export const animForCar3 = keyframesCreator(iterationsForCarThree);
