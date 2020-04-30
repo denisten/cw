@@ -4,28 +4,26 @@ import bottomLeftBg from './bottomLeft.png';
 import bottomRightBg from './bottomRight.png';
 import { keyframes } from 'styled-components';
 
-const keyframesCreator = (
-  iterationsArray: {
-    animation: string[];
-    percent?: string;
-    transition?: boolean;
-  }[]
-) => {
+const keyframesCreator = (iterationsArray: IiterationsArray[]) => {
   const maxPercent = 100;
+  const minPercent = 0;
   const minShiftForSmoothBackgroundChanges = 0.01;
+  const fieldName = 'percent';
   const iterationsWithPercent = iterationsArray.map((elem, index) => {
     if (index === 0) {
-      elem['percent'] = '0';
+      elem[fieldName] = minPercent;
     } else if (index === iterationsArray.length - 1) {
-      elem['percent'] = '100';
+      elem[fieldName] = maxPercent;
     } else if (elem.transition) {
-      elem['percent'] = (
-        (maxPercent / iterationsArray.length) * (index + 1) -
-        minShiftForSmoothBackgroundChanges
-      ).toFixed(2);
+      elem[fieldName] = Number(
+        (
+          (maxPercent / iterationsArray.length) * (index + 1) -
+          minShiftForSmoothBackgroundChanges
+        ).toFixed(2)
+      );
     } else {
-      elem['percent'] = ((maxPercent / iterationsArray.length) * index).toFixed(
-        2
+      elem[fieldName] = Number(
+        ((maxPercent / iterationsArray.length) * index).toFixed(2)
       );
     }
     return elem;
@@ -189,3 +187,9 @@ const iterationsForCarThree = [
 export const animForCar1 = keyframesCreator(iterationsForCarOne);
 export const animForCar2 = keyframesCreator(iterationsForCarTwo);
 export const animForCar3 = keyframesCreator(iterationsForCarThree);
+
+interface IiterationsArray {
+  animation: string[];
+  percent?: number;
+  transition?: boolean;
+}
