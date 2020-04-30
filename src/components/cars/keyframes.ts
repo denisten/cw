@@ -51,10 +51,53 @@ const iterationsForCarOne = [
   },
   {
     animation: [
-      `transform: translate3d(1370px, -685px, 0);`,
+      `transform: translate3d(1275px, -638px, 0);`,
+      `background: url(${bottomRightBg}) no-repeat center;`,
+    ],
+  },
+  {
+    animation: [`background: url(${bottomRightBg}) no-repeat center;`],
+    transition: true,
+  },
+  {
+    animation: [
+      `transform: translate3d(1550px, -500px, 0);`,
+      `background: url(${topRightBg}) no-repeat center;`,
+    ],
+  },
+  {
+    animation: [`background: url(${topRightBg}) no-repeat center;`],
+    transition: true,
+  },
+  {
+    animation: [
+      `transform: translate3d(1960px, -695px, 0);`,
       `background: url(${bottomLeftBg}) no-repeat center;`,
     ],
   },
+  {
+    animation: [`background: url(${bottomLeftBg}) no-repeat center;`],
+    transition: true,
+  },
+
+  {
+    animation: [
+      `transform: translate3d(1550px, -500px, 0);`,
+      `background: url(${topLeftBg}) no-repeat center;`,
+    ],
+  },
+  {
+    animation: [`background: url(${topLeftBg}) no-repeat center;`],
+    transition: true,
+  },
+
+  {
+    animation: [
+      `transform: translate3d(1275px, -638px, 0);`,
+      `background: url(${bottomLeftBg}) no-repeat center;`,
+    ],
+  },
+
   {
     animation: [
       `transform: translate3d(0, 0, 0);`,
