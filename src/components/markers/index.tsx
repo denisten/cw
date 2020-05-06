@@ -79,34 +79,34 @@ export const MarkerWrapper = styled.div<{ displayFlag: boolean }>`
   }
 
   &[data-towertype=${TowersTypes.MAIN_TOWER}] {
-    &[data-towerLevel='0'],
-    &[data-towerLevel='1'] {
+    &[data-towerlevel='0'],
+    &[data-towerlevel='1'] {
       top: 205px;
     }
-    &[data-towerLevel='2'] {
+    &[data-towerlevel='2'] {
       top: 85px;
     }
   }
 
   &[data-towertype=${TowersTypes.EGG}] {
-    &[data-towerLevel='0'],
-    &[data-towerLevel='1'] {
+    &[data-towerlevel='0'],
+    &[data-towerlevel='1'] {
       top: 145px;
     }
-    &[data-towerLevel='2'] {
+    &[data-towerlevel='2'] {
       top: 50px;
     }
   }
 
   &[data-towertype=${TowersTypes.MOLL}] {
-    &[data-towerLevel='0'],
-    &[data-towerLevel='1'] {
+    &[data-towerlevel='0'],
+    &[data-towerlevel='1'] {
       top: 200px;
     }
-    &[data-towerLevel='2'] {
+    &[data-towerlevel='2'] {
       top: 150px;
     }
-    &[data-towerLevel='3'] {
+    &[data-towerlevel='3'] {
       top: 60px;
     }
   }
@@ -124,7 +124,7 @@ export const Markers: React.FC<IMarkers> = ({
       ref={markerRef}
       displayFlag={displayFlag}
       data-towertype={towerTitle}
-      data-towerLevel={towerLevel}
+      data-towerlevel={towerLevel}
     >
       {markersCollection.map(markItem =>
         markItem.type !== TypeOfMarkers.TIMER ? (

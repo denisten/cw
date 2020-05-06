@@ -21,7 +21,7 @@ export const UpgradeButton: React.FC<UpgradeButtonProps> = ({
     <MarkerWrapper
       displayFlag={displayFlag}
       data-towertype={towerTitle}
-      data-towerLevel={towerLevel}
+      data-towerlevel={towerLevel}
     >
       <MarkerView
         markerType={TypeOfMarkers.UPDATE}
