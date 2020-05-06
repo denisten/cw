@@ -50,7 +50,7 @@ const initState: TowersProgressStoreType = {
     ref: null,
   },
   [TowersTypes.MOLL]: {
-    level: TowerLevel.low,
+    level: TowerLevel.deactive,
     progress: 0,
     ref: null,
   },

@@ -18,9 +18,11 @@ import arenaTowerLevel2Img from './arena/2.png';
 import arenaTowerLevel2Stroke from './arena/2-stroke.png';
 import arenaTowerLevel3Img from './arena/3.png';
 import arenaTowerLevel3Stroke from './arena/3-stroke.png';
+import mollTowerLevel0Img from './moll/0.png';
 import mollTowerLevel1Img from './moll/1.png';
 import mollTowerLevel2Img from './moll/2.png';
 import mollTowerLevel3Img from './moll/3.png';
+import mollTowerLevel0Stroke from './moll/0-stroke.png';
 import mollTowerLevel1Stroke from './moll/1-stroke.png';
 import mollTowerLevel2Stroke from './moll/2-stroke.png';
 import mollTowerLevel3Stroke from './moll/3-stroke.png';
@@ -209,11 +211,14 @@ export class BuildingsService {
       wideTower: true,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
-      hide: true,
-      width: 605,
-      height: 425,
-      areaCoords: '531,63,75,378',
-      position: [23.1, 49.9],
+      width: 675,
+      height: 546,
+      areaCoords: '52,94,630,508',
+      position: [40.6, 52.5],
+      [TowerLevel.deactive]: {
+        img: mollTowerLevel0Img,
+        shadowImg: mollTowerLevel0Stroke,
+      },
       [TowerLevel.low]: {
         img: mollTowerLevel1Img,
         shadowImg: mollTowerLevel1Stroke,
