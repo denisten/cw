@@ -32,8 +32,14 @@ export enum TowersTypes {
   PARTNER_BANK = 'partnerBank',
   MARVIN = 'marvin',
   CLOUD = 'cloud',
+  UNIVERSITY = 'university',
 }
 const initState: TowersProgressStoreType = {
+  [TowersTypes.UNIVERSITY]: {
+    level: TowerLevel.deactive,
+    progress: 0,
+    ref: null,
+  },
   [TowersTypes.MAIN_TOWER]: {
     level: TowerLevel.deactive,
     progress: 0,

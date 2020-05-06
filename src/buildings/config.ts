@@ -131,10 +131,45 @@ import cloudLevel2Img from './cloud/2.png';
 import cloudLevel2Stroke from './cloud/2-stroke.png';
 import cloudLevel3Img from './cloud/3.png';
 import cloudLevel3Stroke from './cloud/3-stroke.png';
+import universityLevel0Img from './university/0.png';
+import universityLevel1Img from './university/1.png';
+import universityLevel2Img from './university/2.png';
+import universityLevel3Img from './university/3.png';
+import universityLevel0Stroke from './university/0-stroke.png';
+import universityLevel1Stroke from './university/1-stroke.png';
+import universityLevel2Stroke from './university/2-stroke.png';
+import universityLevel3Stroke from './university/3-stroke.png';
 import { ZIndexes } from '../components/root-component/z-indexes-enum';
 
 export class BuildingsService {
   _config: BuildingServiceConfigTypes = {
+    [TowersTypes.UNIVERSITY]: {
+      info: 'info',
+      title: 'Smart University',
+      wideTower: true,
+      zIndex: ZIndexes.BUILDING_THREE_LEVEL,
+      maxLevel: TowerLevel.high,
+      width: 659,
+      height: 707,
+      areaCoords: '58,161,585,653',
+      position: [35.6, 24.7],
+      [TowerLevel.deactive]: {
+        img: universityLevel0Img,
+        shadowImg: universityLevel0Stroke,
+      },
+      [TowerLevel.low]: {
+        img: universityLevel1Img,
+        shadowImg: universityLevel1Stroke,
+      },
+      [TowerLevel.mid]: {
+        img: universityLevel2Img,
+        shadowImg: universityLevel2Stroke,
+      },
+      [TowerLevel.high]: {
+        img: universityLevel3Img,
+        shadowImg: universityLevel3Stroke,
+      },
+    },
     [TowersTypes.MAIN_TOWER]: {
       info: 'info',
       title: 'Сотовая связь',
