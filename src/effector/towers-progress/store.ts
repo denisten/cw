@@ -1,5 +1,10 @@
 import { TowersProgressDomain } from './domain';
-import { addProgressPoints, addRefForTower, upgradeTower } from './events';
+import {
+  addProgressPoints,
+  addRefForTower,
+  fetchAllProductsData,
+  upgradeTower,
+} from './events';
 import { RefObject } from 'react';
 export enum TowerLevel {
   low = 0,
@@ -9,149 +14,437 @@ export enum TowerLevel {
 export enum TowersTypes {
   MAIN_TOWER = 'mainTower',
   MUSIC = 'music',
-  ARENA = 'arena',
-  MOLL = 'moll',
-  EGG = 'egg',
+  LIVE_ARENA = 'live-arena',
+  CASHBACK = 'cashback',
+  MY_MTS = 'my-mts',
   LIBRARY = 'library',
   OBSERVATORY = 'observatory',
   TARIFF = 'tariff',
   THEATER = 'theater',
-  TV = 'tv',
-  STADIUM = 'stadium',
-  AIRPORT = 'airport',
+  TV = 'digital-tv',
+  FITNESS = 'fitness',
+  ROAMING = 'roaming',
   BANK = 'bank',
-  CYBER_ARENA = 'cyberArena',
-  SATELLITETV = 'satelliteTv',
+  WASD_TV = 'wasd-tv',
+  SPUTNIK = 'sputnik',
   PARTNER_BLUE = 'partnerBlue',
   PARTNER_YELLOW = 'partnerYellow',
-  SLOT_MACHINE = 'slotMachine',
-  ROUTER = 'router',
+  IGROTEKA = 'igroteka',
+  HOME_INTERNET = 'home-internet',
   AUTO_FACTORY = 'autoFactory',
-  RTK = 'rtk',
+  SHOP = 'shop',
   PARTNER_BANK = 'partnerBank',
   MARVIN = 'marvin',
-  CLOUD = 'cloud',
+  CONNECT = 'connect',
 }
 const initState: TowersProgressStoreType = {
   [TowersTypes.MAIN_TOWER]: {
-    level: TowerLevel.low,
-    progress: 0,
+    data: {
+      productId: 1,
+      points: 0,
+      level: {
+        id: TowerLevel.low,
+        name: '0 уровень',
+        value: 0,
+      },
+      productIncome: {
+        id: 1,
+        productId: 1,
+        value: 10,
+      },
+    },
     ref: null,
   },
   [TowersTypes.MUSIC]: {
-    level: TowerLevel.low,
-    progress: 0,
+    data: {
+      productId: 1,
+      points: 0,
+      level: {
+        id: TowerLevel.low,
+        name: '0 уровень',
+        value: 0,
+      },
+      productIncome: {
+        id: 1,
+        productId: 1,
+        value: 10,
+      },
+    },
     ref: null,
   },
-  [TowersTypes.ARENA]: {
-    level: TowerLevel.low,
-    progress: 0,
+  [TowersTypes.LIVE_ARENA]: {
+    data: {
+      productId: 1,
+      points: 0,
+      level: {
+        id: TowerLevel.low,
+        name: '0 уровень',
+        value: 0,
+      },
+      productIncome: {
+        id: 1,
+        productId: 1,
+        value: 10,
+      },
+    },
     ref: null,
   },
-  [TowersTypes.MOLL]: {
-    level: TowerLevel.low,
-    progress: 0,
+  [TowersTypes.CASHBACK]: {
+    data: {
+      productId: 1,
+      points: 0,
+      level: {
+        id: TowerLevel.low,
+        name: '0 уровень',
+        value: 0,
+      },
+      productIncome: {
+        id: 1,
+        productId: 1,
+        value: 10,
+      },
+    },
     ref: null,
   },
-  [TowersTypes.EGG]: {
-    level: TowerLevel.low,
-    progress: 0,
+  [TowersTypes.MY_MTS]: {
+    data: {
+      productId: 1,
+      points: 0,
+      level: {
+        id: TowerLevel.low,
+        name: '0 уровень',
+        value: 0,
+      },
+      productIncome: {
+        id: 1,
+        productId: 1,
+        value: 10,
+      },
+    },
     ref: null,
   },
   [TowersTypes.LIBRARY]: {
-    level: TowerLevel.low,
-    progress: 0,
+    data: {
+      productId: 1,
+      points: 0,
+      level: {
+        id: TowerLevel.low,
+        name: '0 уровень',
+        value: 0,
+      },
+      productIncome: {
+        id: 1,
+        productId: 1,
+        value: 10,
+      },
+    },
     ref: null,
   },
   [TowersTypes.OBSERVATORY]: {
-    level: TowerLevel.mid,
-    progress: 0,
+    data: {
+      productId: 1,
+      points: 0,
+      level: {
+        id: TowerLevel.mid,
+        name: '0 уровень',
+        value: 0,
+      },
+      productIncome: {
+        id: 1,
+        productId: 1,
+        value: 10,
+      },
+    },
     ref: null,
   },
   [TowersTypes.TARIFF]: {
-    level: TowerLevel.low,
-    progress: 0,
+    data: {
+      productId: 1,
+      points: 0,
+      level: {
+        id: TowerLevel.low,
+        name: '0 уровень',
+        value: 0,
+      },
+      productIncome: {
+        id: 1,
+        productId: 1,
+        value: 10,
+      },
+    },
     ref: null,
   },
   [TowersTypes.THEATER]: {
-    level: TowerLevel.high,
-    progress: 0,
+    data: {
+      productId: 1,
+      points: 0,
+      level: {
+        id: TowerLevel.high,
+        name: '0 уровень',
+        value: 0,
+      },
+      productIncome: {
+        id: 1,
+        productId: 1,
+        value: 10,
+      },
+    },
     ref: null,
   },
   [TowersTypes.TV]: {
-    level: TowerLevel.low,
-    progress: 0,
+    data: {
+      productId: 1,
+      points: 0,
+      level: {
+        id: TowerLevel.low,
+        name: '0 уровень',
+        value: 0,
+      },
+      productIncome: {
+        id: 1,
+        productId: 1,
+        value: 10,
+      },
+    },
     ref: null,
   },
-  [TowersTypes.STADIUM]: {
-    level: TowerLevel.low,
-    progress: 0,
+  [TowersTypes.FITNESS]: {
+    data: {
+      productId: 1,
+      points: 0,
+      level: {
+        id: TowerLevel.low,
+        name: '0 уровень',
+        value: 0,
+      },
+      productIncome: {
+        id: 1,
+        productId: 1,
+        value: 10,
+      },
+    },
     ref: null,
   },
-  [TowersTypes.AIRPORT]: {
-    level: TowerLevel.low,
-    progress: 0,
+  [TowersTypes.ROAMING]: {
+    data: {
+      productId: 1,
+      points: 0,
+      level: {
+        id: TowerLevel.low,
+        name: '0 уровень',
+        value: 0,
+      },
+      productIncome: {
+        id: 1,
+        productId: 1,
+        value: 10,
+      },
+    },
     ref: null,
   },
   [TowersTypes.BANK]: {
-    level: TowerLevel.low,
-    progress: 0,
+    data: {
+      productId: 1,
+      points: 0,
+      level: {
+        id: TowerLevel.low,
+        name: '0 уровень',
+        value: 0,
+      },
+      productIncome: {
+        id: 1,
+        productId: 1,
+        value: 10,
+      },
+    },
     ref: null,
   },
-  [TowersTypes.CYBER_ARENA]: {
-    level: TowerLevel.low,
-    progress: 0,
+  [TowersTypes.WASD_TV]: {
+    data: {
+      productId: 1,
+      points: 0,
+      level: {
+        id: TowerLevel.low,
+        name: '0 уровень',
+        value: 0,
+      },
+      productIncome: {
+        id: 1,
+        productId: 1,
+        value: 10,
+      },
+    },
     ref: null,
   },
 
-  [TowersTypes.SATELLITETV]: {
-    level: TowerLevel.low,
-    progress: 0,
+  [TowersTypes.SPUTNIK]: {
+    data: {
+      productId: 1,
+      points: 0,
+      level: {
+        id: TowerLevel.low,
+        name: '0 уровень',
+        value: 0,
+      },
+      productIncome: {
+        id: 1,
+        productId: 1,
+        value: 10,
+      },
+    },
     ref: null,
   },
   [TowersTypes.PARTNER_BLUE]: {
-    level: TowerLevel.low,
-    progress: 0,
+    data: {
+      productId: 1,
+      points: 0,
+      level: {
+        id: TowerLevel.low,
+        name: '0 уровень',
+        value: 0,
+      },
+      productIncome: {
+        id: 1,
+        productId: 1,
+        value: 10,
+      },
+    },
     ref: null,
   },
   [TowersTypes.PARTNER_YELLOW]: {
-    level: TowerLevel.low,
-    progress: 0,
+    data: {
+      productId: 1,
+      points: 0,
+      level: {
+        id: TowerLevel.low,
+        name: '0 уровень',
+        value: 0,
+      },
+      productIncome: {
+        id: 1,
+        productId: 1,
+        value: 10,
+      },
+    },
     ref: null,
   },
-  [TowersTypes.SLOT_MACHINE]: {
-    level: TowerLevel.low,
-    progress: 0,
+  [TowersTypes.IGROTEKA]: {
+    data: {
+      productId: 1,
+      points: 0,
+      level: {
+        id: TowerLevel.low,
+        name: '0 уровень',
+        value: 0,
+      },
+      productIncome: {
+        id: 1,
+        productId: 1,
+        value: 10,
+      },
+    },
     ref: null,
   },
-  [TowersTypes.ROUTER]: {
-    level: TowerLevel.low,
-    progress: 0,
+  [TowersTypes.HOME_INTERNET]: {
+    data: {
+      productId: 1,
+      points: 0,
+      level: {
+        id: TowerLevel.low,
+        name: '0 уровень',
+        value: 0,
+      },
+      productIncome: {
+        id: 1,
+        productId: 1,
+        value: 10,
+      },
+    },
     ref: null,
   },
   [TowersTypes.AUTO_FACTORY]: {
-    level: TowerLevel.low,
-    progress: 0,
+    data: {
+      productId: 1,
+      points: 0,
+      level: {
+        id: TowerLevel.low,
+        name: '0 уровень',
+        value: 0,
+      },
+      productIncome: {
+        id: 1,
+        productId: 1,
+        value: 10,
+      },
+    },
     ref: null,
   },
-  [TowersTypes.RTK]: {
-    level: TowerLevel.low,
-    progress: 0,
+  [TowersTypes.SHOP]: {
+    data: {
+      productId: 1,
+      points: 0,
+      level: {
+        id: TowerLevel.low,
+        name: '0 уровень',
+        value: 0,
+      },
+      productIncome: {
+        id: 1,
+        productId: 1,
+        value: 10,
+      },
+    },
     ref: null,
   },
   [TowersTypes.PARTNER_BANK]: {
-    level: TowerLevel.mid,
-    progress: 0,
+    data: {
+      productId: 1,
+      points: 0,
+      level: {
+        id: TowerLevel.mid,
+        name: '0 уровень',
+        value: 0,
+      },
+      productIncome: {
+        id: 1,
+        productId: 1,
+        value: 10,
+      },
+    },
     ref: null,
   },
   [TowersTypes.MARVIN]: {
-    level: TowerLevel.low,
-    progress: 0,
+    data: {
+      productId: 1,
+      points: 0,
+      level: {
+        id: TowerLevel.low,
+        name: '0 уровень',
+        value: 0,
+      },
+      productIncome: {
+        id: 1,
+        productId: 1,
+        value: 10,
+      },
+    },
     ref: null,
   },
-  [TowersTypes.CLOUD]: {
-    level: TowerLevel.low,
-    progress: 0,
+  [TowersTypes.CONNECT]: {
+    data: {
+      productId: 1,
+      points: 0,
+      level: {
+        id: TowerLevel.low,
+        name: '0 уровень',
+        value: 0,
+      },
+      productIncome: {
+        id: 1,
+        productId: 1,
+        value: 10,
+      },
+    },
     ref: null,
   },
 };
@@ -162,15 +455,25 @@ export const TowersProgressStore = TowersProgressDomain.store<
     ...state,
     [towerTitle]: {
       ...state[towerTitle],
-      progress: state[towerTitle].progress + points,
+      data: {
+        ...state[towerTitle].data,
+        points: state[towerTitle].data.points + points,
+      },
     },
   }))
   .on(upgradeTower, (state, payload) => {
     return {
       ...state,
       [payload]: {
-        level: state[payload].level + 1,
-        progress: 0,
+        ...state[payload],
+        data: {
+          ...state[payload].data,
+          points: 0,
+          level: {
+            ...state[payload].data.level,
+            id: state[payload].data.level.id + 1,
+          },
+        },
       },
     };
   })
@@ -180,12 +483,45 @@ export const TowersProgressStore = TowersProgressDomain.store<
       ...state[tower],
       ref,
     },
-  }));
+  }))
+  .on(fetchAllProductsData.done, (state, { result }) => {
+    // console.log({ result });
+    const newState = { ...state };
+    Object.keys(result).map(el => {
+      const a = el as TowersTypes;
+      newState[a] = {
+        data: {
+          ...result[a],
+        },
+        ...state[a],
+      };
+    });
+    // console.log({ newState });
+    return {
+      ...state,
+    };
+  });
 
 type TowerData = {
-  level: TowerLevel;
-  progress: number;
+  data: ITowerProgress;
+  // level: TowerLevel;
+  // progress: number;
   ref?: RefObject<HTMLDivElement> | null;
 };
 
-type TowersProgressStoreType = Record<TowersTypes, TowerData>;
+export type TowersProgressStoreType = Record<TowersTypes, TowerData>;
+
+export interface ITowerProgress {
+  productId: number;
+  points: number;
+  level: {
+    id: TowerLevel;
+    name: string;
+    value: number;
+  };
+  productIncome: {
+    id: number;
+    productId: number;
+    value: number;
+  };
+}

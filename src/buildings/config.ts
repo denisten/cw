@@ -176,7 +176,7 @@ export class BuildingsService {
         position: [40.8, 37.4],
       },
     },
-    [TowersTypes.ARENA]: {
+    [TowersTypes.LIVE_ARENA]: {
       info: 'info',
       title: 'МТС Live Arena',
       wideTower: true,
@@ -207,7 +207,7 @@ export class BuildingsService {
         position: [21.78, 41.3],
       },
     },
-    [TowersTypes.MOLL]: {
+    [TowersTypes.CASHBACK]: {
       info: 'info',
       title: 'МТС Cashback',
       wideTower: true,
@@ -238,7 +238,7 @@ export class BuildingsService {
         position: [22.36, 49.89],
       },
     },
-    [TowersTypes.EGG]: {
+    [TowersTypes.MY_MTS]: {
       info: 'info',
       title: 'Мой МТС',
       wideTower: false,
@@ -427,7 +427,7 @@ export class BuildingsService {
         position: [21.6, 26.42],
       },
     },
-    [TowersTypes.STADIUM]: {
+    [TowersTypes.FITNESS]: {
       info: 'info',
       title: 'МТС Фитнес',
       wideTower: true,
@@ -458,7 +458,7 @@ export class BuildingsService {
         position: [37.2, 30.5],
       },
     },
-    [TowersTypes.AIRPORT]: {
+    [TowersTypes.ROAMING]: {
       info: 'info',
       title: 'Роуминг',
       wideTower: true,
@@ -520,7 +520,7 @@ export class BuildingsService {
         position: [20.5, 61.4],
       },
     },
-    [TowersTypes.CYBER_ARENA]: {
+    [TowersTypes.WASD_TV]: {
       info: 'info',
       title: 'WASD.tv',
       wideTower: true,
@@ -584,7 +584,7 @@ export class BuildingsService {
       },
     },
 
-    [TowersTypes.SATELLITETV]: {
+    [TowersTypes.SPUTNIK]: {
       info: 'info',
       title: 'Спутниковое ТВ',
       wideTower: false,
@@ -683,7 +683,7 @@ export class BuildingsService {
         position: [18.9, 28.3],
       },
     },
-    [TowersTypes.SLOT_MACHINE]: {
+    [TowersTypes.IGROTEKA]: {
       info: 'info',
       title: 'МТС Игротека',
       wideTower: false,
@@ -714,7 +714,7 @@ export class BuildingsService {
         position: [43.3, 66.99],
       },
     },
-    [TowersTypes.ROUTER]: {
+    [TowersTypes.HOME_INTERNET]: {
       info: 'info',
       title: 'Домашний интернет',
       wideTower: false,
@@ -747,7 +747,7 @@ export class BuildingsService {
         position: [18.9, 28.3],
       },
     },
-    [TowersTypes.RTK]: {
+    [TowersTypes.SHOP]: {
       info: 'info',
       title: 'Салон-магазин МТС',
       wideTower: false,
@@ -846,7 +846,7 @@ export class BuildingsService {
         position: [18.9, 28.3],
       },
     },
-    [TowersTypes.CLOUD]: {
+    [TowersTypes.CONNECT]: {
       info: 'info',
       title: 'Вторая память',
       wideTower: false,

@@ -41,6 +41,7 @@ import { useMoveTo } from '../../hooks/useMoveTo';
 import { MoveDivider } from '../../UI/move-divider';
 import { device } from '../../UI/media';
 import { TowerInfoUpgradeButton } from '../../UI/tower-info-upgrade-button';
+import { MTSSans } from '../../fonts';
 
 export type ModalWindowProps = {
   opened?: boolean;
@@ -59,7 +60,7 @@ enum TowerTutorialSteps {
   TASKS_OPENED = 3,
 }
 
-const MAXLEVEL = 100;
+const MAX_POINTS = 100;
 const FIRST_ELEM_WIDTH = 92;
 const COMMON_TRANSITION = 0.5;
 
@@ -140,7 +141,7 @@ const Title = styled.div<{ sizeContent: boolean }>`
   line-height: 1.25;
   letter-spacing: -0.5px;
   color: #001424;
-  font-family: 'MTSSansUltraWide';
+  font-family: ${MTSSans.ULTRA_WIDE};
   transition: ${COMMON_TRANSITION}s;
 `;
 
@@ -152,7 +153,7 @@ const MainText = styled.span`
   line-height: 1.5;
   letter-spacing: normal;
   color: #6e7782;
-  font-family: 'MTSSansRegular';
+  font-family: ${MTSSans.REGULAR};
 
   + div {
     margin-top: 4px;
@@ -269,7 +270,11 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
     maxLevel,
     tutorialTower,
   } = localBuildingService.getConfigForTower(towerTitle);
-  const { level } = useStore(TowersProgressStore)[towerTitle];
+  const {
+    data: {
+      level: { id },
+    },
+  } = useStore(TowersProgressStore)[towerTitle];
 
   const [towerTutorialStep, setTowerTutorialStep] = useState(0);
 
@@ -355,11 +360,11 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
                 TutorialConditions.UPGRADE_BUTTON_TOWER_INFO
               }
               canUpgrade={
-                LocalTowerProgressStore[towerTitle].progress >= MAXLEVEL &&
-                level < maxLevel
+                LocalTowerProgressStore[towerTitle].data.points >= MAX_POINTS &&
+                id < maxLevel
               }
               hide={hideTowerInfo}
-            ></TowerInfoUpgradeButton>
+            />
           </RowWrapper>
 
           <HeaderLine sizeContent={hideTowerInfo}>
@@ -367,7 +372,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
               <MainText>Уровень эволюции</MainText>
 
               <ProgressBar
-                progress={LocalTowerProgressStore[towerTitle].progress}
+                progress={LocalTowerProgressStore[towerTitle].data.points}
               />
             </HeaderLineElement>
 

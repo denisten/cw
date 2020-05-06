@@ -21,7 +21,8 @@ export const Buildings: React.FC = () => {
     <Fragment>
       {towersKeys.map(towerTitle => {
         const data = localService.getConfigForTower(towerTitle);
-        const currentTower = data[localTowersProgressStore[towerTitle].level];
+        const currentTower =
+          data[localTowersProgressStore[towerTitle].data.level.id];
         if (currentTower) {
           return (
             <Fragment key={towerTitle}>
@@ -30,8 +31,10 @@ export const Buildings: React.FC = () => {
                 tutorialPause={tutorialPause}
                 upgradeFlag={upgradingTowerTitle === towerTitle}
                 maxLevel={data.maxLevel}
-                currentLevel={localTowersProgressStore[towerTitle].level}
-                progress={localTowersProgressStore[towerTitle].progress}
+                currentLevel={
+                  localTowersProgressStore[towerTitle].data.level.id
+                }
+                progress={localTowersProgressStore[towerTitle].data.points}
                 focusOnTowerTitle={focusOn}
                 towerTitle={towerTitle}
                 wideTower={data.wideTower}
