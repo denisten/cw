@@ -139,7 +139,7 @@ export class BuildingsService {
       info: 'info',
       title: 'Сотовая связь',
       wideTower: false,
-      zIndex: ZIndexes.BUILDING_TWO_LEVEL,
+      zIndex: ZIndexes.BUILDING_THREE_LEVEL,
       maxLevel: TowerLevel.high,
       tutorialTower: true,
       width: 293,
