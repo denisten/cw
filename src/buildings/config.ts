@@ -32,9 +32,11 @@ import eggTowerLevel2Img from './egg/2.png';
 import eggTowerLevel2Stroke from './egg/2-stroke.png';
 import eggTowerLevel3Img from './egg/3.png';
 import eggTowerLevel3Stroke from './egg/3-stroke.png';
+import libraryTowerLevel0Img from './library/0.png';
 import libraryTowerLevel1Img from './library/1.png';
 import libraryTowerLevel2Img from './library/2.png';
 import libraryTowerLevel3Img from './library/3.png';
+import libraryTowerLevel0Stroke from './library/0-stroke.png';
 import libraryTowerLevel1Stroke from './library/1-stroke.png';
 import libraryTowerLevel2Stroke from './library/2-stroke.png';
 import libraryTowerLevel3Stroke from './library/3-stroke.png';
@@ -252,11 +254,14 @@ export class BuildingsService {
       wideTower: false,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
-      hide: true,
-      width: 545,
-      height: 426,
-      areaCoords: '88,97,430,332',
-      position: [42.29, 25.98],
+      width: 451,
+      height: 407,
+      areaCoords: '44,46,411,406',
+      position: [27.6, 60.85],
+      [TowerLevel.deactive]: {
+        img: libraryTowerLevel0Img,
+        shadowImg: libraryTowerLevel0Stroke,
+      },
       [TowerLevel.low]: {
         img: libraryTowerLevel1Img,
         shadowImg: libraryTowerLevel1Stroke,
