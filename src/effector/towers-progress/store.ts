@@ -146,7 +146,7 @@ const initState: TowersProgressStoreType = {
     ref: null,
   },
   [TowersTypes.MARVIN]: {
-    level: TowerLevel.low,
+    level: TowerLevel.deactive,
     progress: 0,
     ref: null,
   },

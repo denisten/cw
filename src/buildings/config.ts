@@ -109,8 +109,14 @@ import rtkLevel1Img from './rtk/1.png';
 import rtkLevel1Stroke from './rtk/1-stroke.png';
 import partnerBankLevel2Img from './partners-build/partner-bank/2.png';
 import partnerBankLevel2Stroke from './partners-build/partner-bank/2-stroke.png';
+import marvinLevel0Img from './marvin/0.png';
 import marvinLevel1Img from './marvin/1.png';
+import marvinLevel2Img from './marvin/2.png';
+import marvinLevel3Img from './marvin/3.png';
+import marvinLevel0Stroke from './marvin/0-stroke.png';
 import marvinLevel1Stroke from './marvin/1-stroke.png';
+import marvinLevel2Stroke from './marvin/2-stroke.png';
+import marvinLevel3Stroke from './marvin/3-stroke.png';
 import cloudLevel1Img from './cloud/1.png';
 import cloudLevel1Stroke from './cloud/1-stroke.png';
 import cloudLevel2Img from './cloud/2.png';
@@ -257,7 +263,7 @@ export class BuildingsService {
       width: 451,
       height: 407,
       areaCoords: '44,46,411,406',
-      position: [27.6, 60.85],
+      position: [27.6, 60.95],
       [TowerLevel.deactive]: {
         img: libraryTowerLevel0Img,
         shadowImg: libraryTowerLevel0Stroke,
@@ -684,25 +690,26 @@ export class BuildingsService {
       title: 'Колонка Марвин',
       wideTower: false,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
-      maxLevel: TowerLevel.low,
-      hide: true,
-      width: 378,
-      height: 452,
-      areaCoords: '275,54,94,368',
-      position: [48, 54.8],
+      maxLevel: TowerLevel.high,
+      width: 245,
+      height: 330,
+      areaCoords: '49,47,198,328',
+      position: [23, 58.4],
+      [TowerLevel.deactive]: {
+        img: marvinLevel0Img,
+        shadowImg: marvinLevel0Stroke,
+      },
       [TowerLevel.low]: {
         img: marvinLevel1Img,
         shadowImg: marvinLevel1Stroke,
       },
-      // TODO: не настоящая картинка
       [TowerLevel.mid]: {
-        img: partnerBankLevel2Img,
-        shadowImg: partnerBankLevel2Stroke,
+        img: marvinLevel2Img,
+        shadowImg: marvinLevel2Stroke,
       },
-      // TODO: не настоящая картинка
       [TowerLevel.high]: {
-        img: airportLevel3Img,
-        shadowImg: airportLevel3Stroke,
+        img: marvinLevel3Img,
+        shadowImg: marvinLevel3Stroke,
       },
     },
     [TowersTypes.CLOUD]: {
