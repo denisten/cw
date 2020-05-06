@@ -72,6 +72,8 @@ import airportLevel3Img from './airport/3.png';
 import airportLevel1Stroke from './airport/1-stroke.png';
 import airportLevel2Stroke from './airport/2-stroke.png';
 import airportLevel3Stroke from './airport/3-stroke.png';
+import bankLevel0Img from './bank/0.png';
+import bankLevel0Stroke from './bank/0-stroke.png';
 import bankLevel1Img from './bank/1.png';
 import bankLevel1Stroke from './bank/1-stroke.png';
 import bankLevel2Img from './bank/2.png';
@@ -439,11 +441,14 @@ export class BuildingsService {
       wideTower: true,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
-      hide: true,
-      width: 532,
-      height: 461,
-      areaCoords: '50,62,482,408',
-      position: [22.9, 61.8],
+      width: 446,
+      height: 435,
+      areaCoords: '399,410,48,92',
+      position: [37.2, 60.4],
+      [TowerLevel.deactive]: {
+        img: bankLevel0Img,
+        shadowImg: bankLevel0Stroke,
+      },
       [TowerLevel.low]: {
         img: bankLevel1Img,
         shadowImg: bankLevel1Stroke,
