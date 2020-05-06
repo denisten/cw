@@ -77,16 +77,32 @@ export const MarkerWrapper = styled.div<{ displayFlag: boolean }>`
       transform: translate3d(-25px, 25px, 0) scale(1.2);
     }
   }
+
+  &[data-towertype=${TowersTypes.MAIN_TOWER}] {
+    &[data-towerLevel='0'],
+    &[data-towerLevel='1'] {
+      top: 205px;
+    }
+    &[data-towerLevel='2'] {
+      top: 85px;
+    }
+  }
 `;
 
 export const Markers: React.FC<IMarkers> = ({
   markersCollection,
   towerTitle,
   displayFlag,
+  towerLevel,
 }) => {
   const markerRef = useRef<HTMLDivElement>(null);
   return (
-    <MarkerWrapper ref={markerRef} displayFlag={displayFlag}>
+    <MarkerWrapper
+      ref={markerRef}
+      displayFlag={displayFlag}
+      data-towertype={towerTitle}
+      data-towerLevel={towerLevel}
+    >
       {markersCollection.map(markItem =>
         markItem.type !== TypeOfMarkers.TIMER ? (
           <MarkerView
@@ -112,4 +128,5 @@ interface IMarkers {
   markersCollection: IMarker[];
   towerTitle: TowersTypes;
   displayFlag: boolean;
+  towerLevel?: number;
 }

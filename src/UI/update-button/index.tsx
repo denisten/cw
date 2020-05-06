@@ -15,9 +15,14 @@ export const UpgradeButton: React.FC<UpgradeButtonProps> = ({
   towerTitle,
   animFlag = false,
   displayFlag,
+  towerLevel,
 }) => {
   return (
-    <MarkerWrapper displayFlag={displayFlag}>
+    <MarkerWrapper
+      displayFlag={displayFlag}
+      data-towertype={towerTitle}
+      data-towerLevel={towerLevel}
+    >
       <MarkerView
         markerType={TypeOfMarkers.UPDATE}
         animFlag={animFlag}
@@ -34,4 +39,5 @@ type UpgradeButtonProps = {
   towerTitle: TowersTypes;
   animFlag?: boolean;
   displayFlag: boolean;
+  towerLevel: number;
 };
