@@ -37,10 +37,10 @@ export const Buildings: React.FC = () => {
                 towerTitle={towerTitle}
                 wideTower={data.wideTower}
                 zIndex={data.zIndex}
-                width={currentTower.width}
-                height={currentTower.height}
-                position={currentTower.position}
-                areaCoords={currentTower.areaCoords}
+                width={data.width}
+                height={data.height}
+                position={data.position}
+                areaCoords={data.areaCoords}
                 shadowImg={currentTower.shadowImg}
                 tower={currentTower.img}
                 tutorialTower={data.tutorialTower}
