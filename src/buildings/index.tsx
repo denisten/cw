@@ -19,35 +19,39 @@ export const Buildings: React.FC = () => {
   return (
     <Fragment>
       {towersKeys.map(towerTitle => {
-        const data = BuildingsService.getConfigForTower(towerTitle);
-        const currentTower =
-          data[localTowersProgressStore[towerTitle].level.id];
-        if (currentTower) {
-          return (
-            <Fragment key={towerTitle}>
-              <TowerWrapper
-                tutorialCondition={tutorialCondition}
-                tutorialPause={tutorialPause}
-                upgradeFlag={upgradingTowerTitle === towerTitle}
-                maxLevel={data.maxLevel}
-                currentLevel={localTowersProgressStore[towerTitle].level.id}
-                progress={localTowersProgressStore[towerTitle].points}
-                focusOnTowerTitle={focusOn}
-                towerTitle={towerTitle}
-                wideTower={data.wideTower}
-                zIndex={data.zIndex}
-                width={currentTower.width}
-                height={currentTower.height}
-                position={currentTower.position}
-                areaCoords={currentTower.areaCoords}
-                shadowImg={currentTower.shadowImg}
-                tower={currentTower.img}
-                tutorialTower={data.tutorialTower}
-                scaleValue={scaleValue}
-                markers={markers[towerTitle].markers}
-              />
-            </Fragment>
-          );
+        const towerLayoutData = BuildingsService.getConfigForTower(towerTitle);
+        try {
+          const towerParams =
+            towerLayoutData[localTowersProgressStore[towerTitle].level.id];
+          if (towerParams) {
+            return (
+              <Fragment key={towerTitle}>
+                <TowerWrapper
+                  tutorialCondition={tutorialCondition}
+                  tutorialPause={tutorialPause}
+                  upgradeFlag={upgradingTowerTitle === towerTitle}
+                  maxLevel={towerLayoutData.maxLevel}
+                  currentLevel={localTowersProgressStore[towerTitle].level.id}
+                  progress={localTowersProgressStore[towerTitle].points}
+                  focusOnTowerTitle={focusOn}
+                  towerTitle={towerTitle}
+                  wideTower={towerLayoutData.wideTower}
+                  zIndex={towerLayoutData.zIndex}
+                  width={towerParams.width}
+                  height={towerParams.height}
+                  position={towerParams.position}
+                  areaCoords={towerParams.areaCoords}
+                  shadowImg={towerParams.shadowImg}
+                  tower={towerParams.img}
+                  tutorialTower={towerLayoutData.tutorialTower}
+                  scaleValue={scaleValue}
+                  markers={markers[towerTitle].markers}
+                />
+              </Fragment>
+            );
+          }
+        } catch {
+          return;
         }
       })}
     </Fragment>

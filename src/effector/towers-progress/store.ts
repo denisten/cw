@@ -6,9 +6,9 @@ import {
   upgradeTower,
 } from './events';
 export enum TowerLevel {
-  low = 0,
-  mid = 1,
-  high = 2,
+  low = 1,
+  mid = 2,
+  high = 3,
 }
 export enum TowersTypes {
   MAIN_TOWER = 'mainTower',
@@ -405,18 +405,10 @@ export const TowersProgressStore = TowersProgressDomain.store<
       ref,
     },
   }))
-  .on(fetchAllProductsData.done, (state, { result }) => {
-    // console.log({ result });
-    const newState = { ...state };
-    Object.keys(result).map(el => {
-      const a = el as TowersTypes;
-      newState[a] = { ...result[a], ...state[a] };
-    });
-    // console.log({ newState });
-    return {
-      ...state,
-    };
-  });
+  .on(fetchAllProductsData.done, (state, { result }) => ({
+    ...state,
+    ...result,
+  }));
 
 export type TowersProgressStoreType = Record<TowersTypes, ITowerProgress>;
 

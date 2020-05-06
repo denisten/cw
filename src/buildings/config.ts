@@ -910,7 +910,6 @@ class BuildingsService {
 
   setRefForTower = (towerId: TowersTypes, ref: RefObject<HTMLDivElement>) => {
     this._config[towerId].ref = ref;
-    console.log(this._config[towerId]);
   };
 }
 const instance = new BuildingsService();
