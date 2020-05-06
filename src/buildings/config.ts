@@ -6,6 +6,8 @@ import mainTowerLevel2Img from './main-tower/2.png';
 import mainTowerLevel2Stroke from './main-tower/2-stroke.png';
 import mainTowerLevel3Stroke from './main-tower/3-stroke.png';
 import mainTowerLevel3Img from './main-tower/3.png';
+import musicTowerLevel0Img from './music/0.png';
+import musicTowerLevel0Stroke from './music/0-stroke.png';
 import musicTowerLevel1Img from './music/1.png';
 import musicTowerLevel1Stroke from './music/1-stroke.png';
 import musicTowerLevel2Img from './music/2.png';
@@ -165,11 +167,14 @@ export class BuildingsService {
       wideTower: false,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
-      hide: true,
-      width: 504,
-      height: 414,
-      areaCoords: '128,57,418,291',
-      position: [42.2, 36.9],
+      width: 398,
+      height: 374,
+      areaCoords: '51,72,349,356',
+      position: [21.4, 49.5],
+      [TowerLevel.deactive]: {
+        img: musicTowerLevel0Img,
+        shadowImg: musicTowerLevel0Stroke,
+      },
       [TowerLevel.low]: {
         img: musicTowerLevel1Img,
         shadowImg: musicTowerLevel1Stroke,

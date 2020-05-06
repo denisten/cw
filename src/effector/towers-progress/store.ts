@@ -40,7 +40,7 @@ const initState: TowersProgressStoreType = {
     ref: null,
   },
   [TowersTypes.MUSIC]: {
-    level: TowerLevel.low,
+    level: TowerLevel.deactive,
     progress: 0,
     ref: null,
   },
