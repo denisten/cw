@@ -60,7 +60,7 @@ export const RootComponent = (): React.ReactElement => {
         tutorialCondition={tutorialCondition}
         isInsideScrollContainer={false}
       />
-      <ScrollContainer tutorialCondition={tutorialCondition}></ScrollContainer>
+      <ScrollContainer tutorialCondition={tutorialCondition} />
     </ComponentWrapper>
   );
 };

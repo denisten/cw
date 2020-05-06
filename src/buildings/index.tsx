@@ -11,7 +11,6 @@ import { TutorialStore } from '../effector/tutorial-store/store';
 import { TowersMarkerStore } from '../effector/towers-marker/store';
 
 export const Buildings: React.FC = () => {
-  const localService = new BuildingsService();
   const localTowersProgressStore = useStore(TowersProgressStore);
   const markers = useStore(TowersMarkerStore);
   const towersKeys = Object.keys(localTowersProgressStore) as TowersTypes[];
@@ -20,9 +19,9 @@ export const Buildings: React.FC = () => {
   return (
     <Fragment>
       {towersKeys.map(towerTitle => {
-        const data = localService.getConfigForTower(towerTitle);
+        const data = BuildingsService.getConfigForTower(towerTitle);
         const currentTower =
-          data[localTowersProgressStore[towerTitle].data.level.id];
+          data[localTowersProgressStore[towerTitle].level.id];
         if (currentTower) {
           return (
             <Fragment key={towerTitle}>
@@ -31,10 +30,8 @@ export const Buildings: React.FC = () => {
                 tutorialPause={tutorialPause}
                 upgradeFlag={upgradingTowerTitle === towerTitle}
                 maxLevel={data.maxLevel}
-                currentLevel={
-                  localTowersProgressStore[towerTitle].data.level.id
-                }
-                progress={localTowersProgressStore[towerTitle].data.points}
+                currentLevel={localTowersProgressStore[towerTitle].level.id}
+                progress={localTowersProgressStore[towerTitle].points}
                 focusOnTowerTitle={focusOn}
                 towerTitle={towerTitle}
                 wideTower={data.wideTower}

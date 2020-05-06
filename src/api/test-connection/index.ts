@@ -26,5 +26,4 @@ export const testConnection = async () => {
   });
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const data = fetchAllProductsData('');
-  // console.log('its product data:', data);
 };

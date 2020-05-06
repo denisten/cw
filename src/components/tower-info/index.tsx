@@ -259,21 +259,16 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
   const { tutorialCondition } = useStore(TutorialStore);
   const towerTitle: TowersTypes =
     notVerifiedTowerTitle || TowersTypes.MAIN_TOWER;
-  const localBuildingService = new BuildingsService(),
-    localDescriptionService = new BuildingsDescriptionService();
+  const localDescriptionService = new BuildingsDescriptionService();
   const descriptionText: Array<string> = localDescriptionService.getAllDescriptionForCurrentTower(
     towerTitle
   );
 
+  const { title, maxLevel, tutorialTower } = BuildingsService.getConfigForTower(
+    towerTitle
+  );
   const {
-    title,
-    maxLevel,
-    tutorialTower,
-  } = localBuildingService.getConfigForTower(towerTitle);
-  const {
-    data: {
-      level: { id },
-    },
+    level: { id },
   } = useStore(TowersProgressStore)[towerTitle];
 
   const [towerTutorialStep, setTowerTutorialStep] = useState(0);
@@ -360,7 +355,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
                 TutorialConditions.UPGRADE_BUTTON_TOWER_INFO
               }
               canUpgrade={
-                LocalTowerProgressStore[towerTitle].data.points >= MAX_POINTS &&
+                LocalTowerProgressStore[towerTitle].points >= MAX_POINTS &&
                 id < maxLevel
               }
               hide={hideTowerInfo}
@@ -372,7 +367,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
               <MainText>Уровень эволюции</MainText>
 
               <ProgressBar
-                progress={LocalTowerProgressStore[towerTitle].data.points}
+                progress={LocalTowerProgressStore[towerTitle].points}
               />
             </HeaderLineElement>
 
