@@ -62,9 +62,11 @@ import TVTowerLevel2Stroke from './TV/2-stroke.png';
 import TVTowerLevel2Img from './TV/2.png';
 import TVTowerLevel3Stroke from './TV/3-stroke.png';
 import TVTowerLevel3Img from './TV/3.png';
+import stadiumLevel0Img from './stadium/0.png';
 import stadiumLevel1Img from './stadium/1.png';
 import stadiumLevel2Img from './stadium/2.png';
 import stadiumLevel3Img from './stadium/3.png';
+import stadiumLevel0Stroke from './stadium/0-stroke.png';
 import stadiumLevel1Stroke from './stadium/1-stroke.png';
 import stadiumLevel2Stroke from './stadium/2-stroke.png';
 import stadiumLevel3Stroke from './stadium/3-stroke.png';
@@ -398,11 +400,14 @@ export class BuildingsService {
       wideTower: true,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
-      hide: true,
-      width: 635,
-      height: 391,
-      areaCoords: '27,39,524,355',
-      position: [40.4, 30.8],
+      width: 657,
+      height: 385,
+      areaCoords: '97,55,575,380',
+      position: [20, 60.2],
+      [TowerLevel.deactive]: {
+        img: stadiumLevel0Img,
+        shadowImg: stadiumLevel0Stroke,
+      },
       [TowerLevel.low]: {
         img: stadiumLevel1Img,
         shadowImg: stadiumLevel1Stroke,
