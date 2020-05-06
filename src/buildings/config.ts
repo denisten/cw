@@ -77,9 +77,11 @@ import bankLevel3Stroke from './bank/3-stroke.png';
 import cyberArenaLevel3Img from './cyber-arena/3.png';
 import cyberArenaLevel2Img from './cyber-arena/2.png';
 import cyberArenaLevel1Img from './cyber-arena/1.png';
+import cyberArenaLevel0Img from './cyber-arena/0.png';
 import cyberArenaLevel3Stroke from './cyber-arena/3-stroke.png';
 import cyberArenaLevel2Stroke from './cyber-arena/2-stroke.png';
 import cyberArenaLevel1Stroke from './cyber-arena/1-stroke.png';
+import cyberArenaLevel0Stroke from './cyber-arena/0-stroke.png';
 import { TowerLevel, TowersTypes } from '../effector/towers-progress/store';
 import satelliteTvLevel1Img from './satellite-tv/1.png';
 import satelliteTvLevel1Stroke from './satellite-tv/1-stroke.png';
@@ -445,11 +447,14 @@ export class BuildingsService {
       wideTower: true,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
-      hide: true,
-      width: 658,
-      height: 443,
-      areaCoords: '81,57,675,472',
-      position: [42.1, 59.2],
+      width: 519,
+      height: 354,
+      areaCoords: '42,49,478,344',
+      position: [33.7, 64.9],
+      [TowerLevel.deactive]: {
+        img: cyberArenaLevel0Img,
+        shadowImg: cyberArenaLevel1Stroke,
+      },
       [TowerLevel.low]: {
         img: cyberArenaLevel1Img,
         shadowImg: cyberArenaLevel1Stroke,

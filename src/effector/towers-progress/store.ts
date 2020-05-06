@@ -100,7 +100,7 @@ const initState: TowersProgressStoreType = {
     ref: null,
   },
   [TowersTypes.CYBER_ARENA]: {
-    level: TowerLevel.low,
+    level: TowerLevel.deactive,
     progress: 0,
     ref: null,
   },
