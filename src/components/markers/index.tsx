@@ -87,6 +87,16 @@ export const MarkerWrapper = styled.div<{ displayFlag: boolean }>`
       top: 85px;
     }
   }
+
+  &[data-towertype=${TowersTypes.EGG}] {
+    &[data-towerLevel='0'],
+    &[data-towerLevel='1'] {
+      top: 145px;
+    }
+    &[data-towerLevel='2'] {
+      top: 50px;
+    }
+  }
 `;
 
 export const Markers: React.FC<IMarkers> = ({
