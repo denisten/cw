@@ -775,10 +775,10 @@ class BuildingsService {
       wideTower: false,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
-      width: 245,
-      height: 330,
+      width: 227,
+      height: 306,
       areaCoords: '49,47,198,328',
-      position: [23, 58.4],
+      position: [23.3, 58.5],
       [TowerLevel.deactive]: {
         img: marvinLevel0Img,
         shadowImg: marvinLevel0Stroke,
