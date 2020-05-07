@@ -533,10 +533,10 @@ class BuildingsService {
       wideTower: true,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
-      width: 519,
-      height: 354,
+      width: 479,
+      height: 326,
       areaCoords: '42,49,478,344',
-      position: [33.7, 64.9],
+      position: [34, 65.3],
       ref: null,
       [TowerLevel.deactive]: {
         img: cyberArenaLevel0Img,
