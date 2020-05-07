@@ -110,8 +110,9 @@ import cloudLevel2Stroke from './cloud/2-stroke.png';
 import cloudLevel3Img from './cloud/3.png';
 import cloudLevel3Stroke from './cloud/3-stroke.png';
 import { ZIndexes } from '../components/root-component/z-indexes-enum';
+import { RefObject } from 'react';
 
-export class BuildingsService {
+class BuildingsService {
   _config: BuildingServiceConfigTypes = {
     [TowersTypes.MAIN_TOWER]: {
       info: 'info',
@@ -120,6 +121,7 @@ export class BuildingsService {
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
       tutorialTower: true,
+      ref: null,
       [TowerLevel.low]: {
         img: mainTowerLevel1Img,
         width: 382,
@@ -151,6 +153,7 @@ export class BuildingsService {
       wideTower: false,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
+      ref: null,
       [TowerLevel.low]: {
         img: musicTowerLevel1Img,
         width: 504,
@@ -176,12 +179,13 @@ export class BuildingsService {
         position: [40.8, 37.4],
       },
     },
-    [TowersTypes.ARENA]: {
+    [TowersTypes.LIVE_ARENA]: {
       info: 'info',
       title: 'МТС Live Arena',
       wideTower: true,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
+      ref: null,
       [TowerLevel.low]: {
         img: arenaTowerLevel1Img,
         width: 566,
@@ -207,12 +211,13 @@ export class BuildingsService {
         position: [21.78, 41.3],
       },
     },
-    [TowersTypes.MOLL]: {
+    [TowersTypes.CASHBACK]: {
       info: 'info',
       title: 'МТС Cashback',
       wideTower: true,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
+      ref: null,
       [TowerLevel.low]: {
         img: mollTowerLevel1Img,
         width: 605,
@@ -238,12 +243,13 @@ export class BuildingsService {
         position: [22.36, 49.89],
       },
     },
-    [TowersTypes.EGG]: {
+    [TowersTypes.MY_MTS]: {
       info: 'info',
       title: 'Мой МТС',
       wideTower: false,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
+      ref: null,
       [TowerLevel.low]: {
         img: eggTowerLevel1Img,
         width: 331,
@@ -275,6 +281,7 @@ export class BuildingsService {
       wideTower: false,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
+      ref: null,
       [TowerLevel.low]: {
         img: libraryTowerLevel1Img,
         width: 545,
@@ -306,6 +313,7 @@ export class BuildingsService {
       wideTower: false,
       zIndex: ZIndexes.BUILDING_THREE_LEVEL,
       maxLevel: TowerLevel.mid,
+      ref: null,
       [TowerLevel.low]: {
         // TODO: не настоящая картинка
         img: musicTowerLevel1Img,
@@ -339,6 +347,7 @@ export class BuildingsService {
       wideTower: false,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
+      ref: null,
       [TowerLevel.low]: {
         img: tariffTowerLevel1Img,
         width: 329,
@@ -370,6 +379,7 @@ export class BuildingsService {
       wideTower: true,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.mid,
+      ref: null,
       [TowerLevel.low]: {
         // TODO: не настоящая картинка
         img: musicTowerLevel1Img,
@@ -402,6 +412,7 @@ export class BuildingsService {
       wideTower: false,
       zIndex: ZIndexes.BUILDING_THREE_LEVEL,
       maxLevel: TowerLevel.high,
+      ref: null,
       [TowerLevel.low]: {
         img: TVTowerLevel1Img,
         width: 486,
@@ -427,12 +438,13 @@ export class BuildingsService {
         position: [21.6, 26.42],
       },
     },
-    [TowersTypes.STADIUM]: {
+    [TowersTypes.FITNESS]: {
       info: 'info',
       title: 'МТС Фитнес',
       wideTower: true,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
+      ref: null,
       [TowerLevel.low]: {
         img: stadiumLevel1Img,
         width: 635,
@@ -458,12 +470,13 @@ export class BuildingsService {
         position: [37.2, 30.5],
       },
     },
-    [TowersTypes.AIRPORT]: {
+    [TowersTypes.ROAMING]: {
       info: 'info',
       title: 'Роуминг',
       wideTower: true,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
+      ref: null,
       [TowerLevel.low]: {
         img: airportLevel1Img,
         width: 572,
@@ -495,6 +508,7 @@ export class BuildingsService {
       wideTower: true,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
+      ref: null,
       [TowerLevel.low]: {
         img: bankLevel1Img,
         width: 532,
@@ -520,12 +534,13 @@ export class BuildingsService {
         position: [20.5, 61.4],
       },
     },
-    [TowersTypes.CYBER_ARENA]: {
+    [TowersTypes.WASD_TV]: {
       info: 'info',
       title: 'WASD.tv',
       wideTower: true,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
+      ref: null,
       [TowerLevel.low]: {
         img: cyberArenaLevel1Img,
         width: 658,
@@ -558,6 +573,7 @@ export class BuildingsService {
       wideTower: true,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
+      ref: null,
       [TowerLevel.low]: {
         img: autoFactoryLevel1Img,
         width: 662,
@@ -584,12 +600,13 @@ export class BuildingsService {
       },
     },
 
-    [TowersTypes.SATELLITETV]: {
+    [TowersTypes.SPUTNIK]: {
       info: 'info',
       title: 'Спутниковое ТВ',
       wideTower: false,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.low,
+      ref: null,
       [TowerLevel.low]: {
         img: satelliteTvLevel1Img,
         width: 479,
@@ -623,6 +640,7 @@ export class BuildingsService {
       wideTower: false,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.low,
+      ref: null,
       [TowerLevel.low]: {
         img: partnerBlueLevel1Img,
         width: 375,
@@ -656,6 +674,7 @@ export class BuildingsService {
       wideTower: true,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.low,
+      ref: null,
       [TowerLevel.low]: {
         img: partnerYellowLevel1Img,
         width: 657,
@@ -683,12 +702,13 @@ export class BuildingsService {
         position: [18.9, 28.3],
       },
     },
-    [TowersTypes.SLOT_MACHINE]: {
+    [TowersTypes.IGROTEKA]: {
       info: 'info',
       title: 'МТС Игротека',
       wideTower: false,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
+      ref: null,
       [TowerLevel.low]: {
         img: slotMachineLevel1Img,
         width: 451,
@@ -714,12 +734,13 @@ export class BuildingsService {
         position: [43.3, 66.99],
       },
     },
-    [TowersTypes.ROUTER]: {
+    [TowersTypes.HOME_INTERNET]: {
       info: 'info',
       title: 'Домашний интернет',
       wideTower: false,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.low,
+      ref: null,
       [TowerLevel.low]: {
         img: routerLevel1Img,
         width: 503,
@@ -747,12 +768,13 @@ export class BuildingsService {
         position: [18.9, 28.3],
       },
     },
-    [TowersTypes.RTK]: {
+    [TowersTypes.SHOP]: {
       info: 'info',
       title: 'Салон-магазин МТС',
       wideTower: false,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.low,
+      ref: null,
       [TowerLevel.low]: {
         img: rtkLevel1Img,
         width: 530,
@@ -786,6 +808,7 @@ export class BuildingsService {
       wideTower: false,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.low,
+      ref: null,
       // TODO: не настоящая картинка
       [TowerLevel.low]: {
         img: rtkLevel1Img,
@@ -819,6 +842,7 @@ export class BuildingsService {
       wideTower: false,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.low,
+      ref: null,
       [TowerLevel.low]: {
         img: marvinLevel1Img,
         width: 378,
@@ -846,12 +870,13 @@ export class BuildingsService {
         position: [18.9, 28.3],
       },
     },
-    [TowersTypes.CLOUD]: {
+    [TowersTypes.CONNECT]: {
       info: 'info',
       title: 'Вторая память',
       wideTower: false,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
+      ref: null,
       [TowerLevel.low]: {
         img: cloudLevel1Img,
         width: 367,
@@ -882,7 +907,13 @@ export class BuildingsService {
   getConfigForTower = (towerId: TowersTypes) => {
     return this._config[towerId];
   };
+
+  setRefForTower = (towerId: TowersTypes, ref: RefObject<HTMLDivElement>) => {
+    this._config[towerId].ref = ref;
+  };
 }
+const instance = new BuildingsService();
+export { instance as BuildingsService };
 
 type BuildingServiceConfigTypes = Record<
   TowersTypes,
@@ -896,6 +927,7 @@ type CurrentTowerServiceConfigTypes = {
   wideTower: boolean;
   maxLevel: TowerLevel;
   tutorialTower?: boolean;
+  ref: RefObject<HTMLDivElement> | null;
   [TowerLevel.low]: TowerLevelType;
   [TowerLevel.mid]: TowerLevelType;
   [TowerLevel.high]: TowerLevelType;

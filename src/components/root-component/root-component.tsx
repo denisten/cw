@@ -3,17 +3,13 @@ import styled from 'styled-components';
 import { TowerInfo } from '../tower-info';
 import { useStore } from 'effector-react';
 import { AppCondition } from '../../effector/app-condition/store';
-
 import mapTile from '../../img/roads/map-tile.png';
 import { Menu } from '../menu';
 import { TaskButton } from '../../UI/task-button';
-
 import { ProfileButton } from '../../UI/profile-button';
 import { TutorialToolsSelector } from '../../utils/arrows-container';
-
 import { TutorialStore } from '../../effector/tutorial-store/store';
 import { ScrollContainer } from '../scroll-container';
-
 import { ZoomInOutButtons } from '../../UI/zoom-in-out-buttons';
 
 const ComponentWrapper = styled.div<{ visible: boolean }>`
@@ -48,7 +44,7 @@ export const RootComponent = (): React.ReactElement => {
         tutorialCondition={tutorialCondition}
         isInsideScrollContainer={false}
       />
-      <ScrollContainer tutorialCondition={tutorialCondition}></ScrollContainer>
+      <ScrollContainer tutorialCondition={tutorialCondition} />
     </ComponentWrapper>
   );
 };

@@ -6,10 +6,7 @@ import { TowerLevel, TowersTypes } from '../../effector/towers-progress/store';
 import { UpgradeButton } from '../update-button';
 import upgradeThinTowerImg from '../../img/tower-updrade/thin-tower.png';
 import upgradeWideTowerImg from '../../img/tower-updrade/wide-tower.png';
-import {
-  addRefForTower,
-  upgradeTower,
-} from '../../effector/towers-progress/events';
+import { upgradeTower } from '../../effector/towers-progress/events';
 import { maxProgressValue } from '../../effector/app-condition/store';
 import { TutorialConditions } from '../../effector/tutorial-store/store';
 import { nextTutorStep } from '../../effector/tutorial-store/events';
@@ -18,6 +15,7 @@ import { ZIndexes } from '../../components/root-component/z-indexes-enum';
 import { scrollToCurrentTower } from '../../utils/scroll-to-current-tower';
 import { Markers } from '../../components/markers';
 import { IMarker } from '../../effector/towers-marker/store';
+import { BuildingsService } from '../../buildings/config';
 
 const TowerStyledWrapper = styled.div<ITowerStyledWrapper>`
   display: flex;
@@ -76,7 +74,6 @@ export const TowerWrapper = memo(
       height: `${height}px`,
       position: 'absolute',
     } as React.CSSProperties;
-
     const mouseOverHandle = () => {
       if (!(focusOnTowerTitle && focusOnTowerTitle === towerTitle))
         setHoverState(false);
@@ -119,7 +116,7 @@ export const TowerWrapper = memo(
 
     useEffect(() => mouseOverHandle(), [focusOnTowerTitle]);
     useEffect(() => {
-      addRefForTower({ ref: towerRef, tower: towerTitle });
+      BuildingsService.setRefForTower(towerTitle, towerRef);
     }, []);
 
     return (
@@ -135,13 +132,11 @@ export const TowerWrapper = memo(
           markersCollection={markers}
           towerTitle={towerTitle}
           displayFlag={
-            !!(progress < maxProgressValue && markers && markers.length > 0)
+            progress < maxProgressValue && markers && markers.length > 0
           }
         />
         <UpgradeButton
-          displayFlag={
-            !!(progress >= maxProgressValue && currentLevel < maxLevel)
-          }
+          displayFlag={progress >= maxProgressValue && currentLevel < maxLevel}
           towerTitle={towerTitle}
           animFlag={
             tutorialCondition === TutorialConditions.UPGRADE_BUTTON_TOWER_INFO

@@ -16,16 +16,16 @@ const initState: TowersMarkerStoreType = {
   [TowersTypes.MUSIC]: {
     markers: [],
   },
-  [TowersTypes.ARENA]: {
+  [TowersTypes.LIVE_ARENA]: {
     markers: [{ type: TypeOfMarkers.COIN, coins: 11221 }],
   },
-  [TowersTypes.MOLL]: {
+  [TowersTypes.CASHBACK]: {
     markers: [
       { type: TypeOfMarkers.SUCCESS },
       { type: TypeOfMarkers.COIN, coins: 10000 },
     ],
   },
-  [TowersTypes.EGG]: {
+  [TowersTypes.MY_MTS]: {
     markers: [{ type: TypeOfMarkers.COIN, coins: 15000 }],
   },
   [TowersTypes.LIBRARY]: {
@@ -49,20 +49,20 @@ const initState: TowersMarkerStoreType = {
   [TowersTypes.TV]: {
     markers: [],
   },
-  [TowersTypes.STADIUM]: {
+  [TowersTypes.FITNESS]: {
     markers: [],
   },
-  [TowersTypes.AIRPORT]: {
+  [TowersTypes.ROAMING]: {
     markers: [],
   },
   [TowersTypes.BANK]: {
     markers: [],
   },
-  [TowersTypes.CYBER_ARENA]: {
+  [TowersTypes.WASD_TV]: {
     markers: [],
   },
 
-  [TowersTypes.SATELLITETV]: {
+  [TowersTypes.SPUTNIK]: {
     markers: [],
   },
   [TowersTypes.PARTNER_BLUE]: {
@@ -71,16 +71,16 @@ const initState: TowersMarkerStoreType = {
   [TowersTypes.PARTNER_YELLOW]: {
     markers: [],
   },
-  [TowersTypes.SLOT_MACHINE]: {
+  [TowersTypes.IGROTEKA]: {
     markers: [],
   },
-  [TowersTypes.ROUTER]: {
+  [TowersTypes.HOME_INTERNET]: {
     markers: [],
   },
   [TowersTypes.AUTO_FACTORY]: {
     markers: [],
   },
-  [TowersTypes.RTK]: {
+  [TowersTypes.SHOP]: {
     markers: [],
   },
   [TowersTypes.PARTNER_BANK]: {
@@ -89,7 +89,7 @@ const initState: TowersMarkerStoreType = {
   [TowersTypes.MARVIN]: {
     markers: [],
   },
-  [TowersTypes.CLOUD]: {
+  [TowersTypes.CONNECT]: {
     markers: [],
   },
 };

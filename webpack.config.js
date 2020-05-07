@@ -93,13 +93,13 @@ module.exports = {
       '/api': {
         target: backend + ':8080',
         secure: false,
-        changeOrigin: true
+        changeOrigin: true,
       },
       '/centrifugo': {
         target: backend + ':8008',
         secure: false,
-        changeOrigin: true
-      }
-    }
+        changeOrigin: true,
+      },
+    },
   },
 };
