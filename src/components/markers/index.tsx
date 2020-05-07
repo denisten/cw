@@ -88,7 +88,7 @@ export const MarkerWrapper = styled.div<{ displayFlag: boolean }>`
     }
   }
 
-  &[data-towertype=${TowersTypes.EGG}] {
+  &[data-towertype=${TowersTypes.MY_MTS}] {
     &[data-towerlevel='0'],
     &[data-towerlevel='1'] {
       top: 145px;
@@ -98,7 +98,7 @@ export const MarkerWrapper = styled.div<{ displayFlag: boolean }>`
     }
   }
 
-  &[data-towertype=${TowersTypes.MOLL}] {
+  &[data-towertype=${TowersTypes.CASHBACK}] {
     &[data-towerlevel='0'],
     &[data-towerlevel='1'] {
       top: 200px;
@@ -110,7 +110,7 @@ export const MarkerWrapper = styled.div<{ displayFlag: boolean }>`
       top: 60px;
     }
   }
-  &[data-towertype=${TowersTypes.ARENA}] {
+  &[data-towertype=${TowersTypes.LIVE_ARENA}] {
     &[data-towerlevel='0'],
     &[data-towerlevel='1'] {
       top: 100px;
