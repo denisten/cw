@@ -452,10 +452,10 @@ class BuildingsService {
       wideTower: true,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
-      width: 657,
-      height: 385,
+      width: 593,
+      height: 347,
       areaCoords: '97,55,575,380',
-      position: [20, 60.2],
+      position: [20.4, 60.5],
       ref: null,
       [TowerLevel.deactive]: {
         img: stadiumLevel0Img,
