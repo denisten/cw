@@ -5,6 +5,7 @@ import { AppCondition } from '../../effector/app-condition/store';
 import { NotAuthorizedProfile } from './not-authorized';
 import { AuthorizedProfile } from './authorized';
 import { fetchAllProductsData } from '../../effector/towers-progress/events';
+import { openWsConnection } from '../../api/centrifuge';
 
 const ProfileWrapper = styled.div`
   width: 100%;
@@ -15,7 +16,10 @@ const ProfileWrapper = styled.div`
 export const Profile = React.memo(() => {
   const { isAuthorized } = useStore(AppCondition);
   useEffect(() => {
-    isAuthorized && fetchAllProductsData('');
+    if (isAuthorized) {
+      fetchAllProductsData('');
+      openWsConnection();
+    }
   }, [isAuthorized]);
   return (
     <ProfileWrapper>
