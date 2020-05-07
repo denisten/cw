@@ -110,6 +110,18 @@ export const MarkerWrapper = styled.div<{ displayFlag: boolean }>`
       top: 60px;
     }
   }
+  &[data-towertype=${TowersTypes.ARENA}] {
+    &[data-towerlevel='0'],
+    &[data-towerlevel='1'] {
+      top: 100px;
+    }
+    &[data-towerlevel='2'] {
+      top: 80px;
+    }
+    &[data-towerlevel='3'] {
+      top: 60px;
+    }
+  }
 `;
 
 export const Markers: React.FC<IMarkers> = ({
