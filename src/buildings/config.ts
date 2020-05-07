@@ -107,8 +107,14 @@ import slotMachineLevel2Img from './slot-machine/2.png';
 import slotMachineLevel2Stroke from './slot-machine/2-stroke.png';
 import slotMachineLevel3Img from './slot-machine/3.png';
 import slotMachineLevel3Stroke from './slot-machine/3-stroke.png';
+import routerLevel0Img from './router/0.png';
+import routerLevel0Stroke from './router/0-stroke.png';
 import routerLevel1Img from './router/1.png';
 import routerLevel1Stroke from './router/1-stroke.png';
+import routerLevel2Img from './router/2.png';
+import routerLevel2Stroke from './router/2-stroke.png';
+import routerLevel3Img from './router/3.png';
+import routerLevel3Stroke from './router/3-stroke.png';
 import autoFactoryLevel1Img from './auto-factory/1.png';
 import autoFactoryLevel1Stroke from './auto-factory/1-stroke.png';
 import autoFactoryLevel2Img from './auto-factory/2.png';
@@ -693,26 +699,27 @@ class BuildingsService {
       title: 'Домашний интернет',
       wideTower: false,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
-      maxLevel: TowerLevel.low,
-      hide: true,
-      width: 503,
-      height: 539,
-      areaCoords: '434,188,79,472',
-      position: [45, 30],
+      maxLevel: TowerLevel.high,
+      width: 494,
+      height: 500,
+      areaCoords: '49,127,443,496',
+      position: [23.8, 25.35],
       ref: null,
+      [TowerLevel.deactive]: {
+        img: routerLevel0Img,
+        shadowImg: routerLevel0Stroke,
+      },
       [TowerLevel.low]: {
         img: routerLevel1Img,
         shadowImg: routerLevel1Stroke,
       },
-      // TODO: не настоящая картинка
       [TowerLevel.mid]: {
-        img: bankLevel2Img,
-        shadowImg: bankLevel2Stroke,
+        img: routerLevel2Img,
+        shadowImg: routerLevel2Stroke,
       },
-      // TODO: не настоящая картинка
       [TowerLevel.high]: {
-        img: airportLevel3Img,
-        shadowImg: airportLevel3Stroke,
+        img: routerLevel3Img,
+        shadowImg: routerLevel3Stroke,
       },
     },
     [TowersTypes.SHOP]: {
