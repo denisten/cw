@@ -142,8 +142,9 @@ import universityLevel1Stroke from './university/1-stroke.png';
 import universityLevel2Stroke from './university/2-stroke.png';
 import universityLevel3Stroke from './university/3-stroke.png';
 import { ZIndexes } from '../components/root-component/z-indexes-enum';
+import { RefObject } from 'react';
 
-export class BuildingsService {
+class BuildingsService {
   _config: BuildingServiceConfigTypes = {
     [TowersTypes.UNIVERSITY]: {
       info: 'info',
@@ -155,6 +156,7 @@ export class BuildingsService {
       height: 707,
       areaCoords: '58,161,585,653',
       position: [35.6, 24.7],
+      ref: null,
       [TowerLevel.deactive]: {
         img: universityLevel0Img,
         shadowImg: universityLevel0Stroke,
@@ -183,6 +185,7 @@ export class BuildingsService {
       height: 650,
       areaCoords: '50,194,228,621',
       position: [28.5, 50.3],
+      ref: null,
       [TowerLevel.deactive]: {
         img: mainTowerLevel0Img,
         shadowImg: mainTowerLevel0Stroke,
@@ -210,6 +213,7 @@ export class BuildingsService {
       height: 374,
       areaCoords: '51,72,349,356',
       position: [21.4, 49.5],
+      ref: null,
       [TowerLevel.deactive]: {
         img: musicTowerLevel0Img,
         shadowImg: musicTowerLevel0Stroke,
@@ -227,7 +231,7 @@ export class BuildingsService {
         shadowImg: musicTowerLevel3Stroke,
       },
     },
-    [TowersTypes.ARENA]: {
+    [TowersTypes.LIVE_ARENA]: {
       info: 'info',
       title: 'МТС Live Arena',
       wideTower: true,
@@ -237,6 +241,7 @@ export class BuildingsService {
       height: 440,
       areaCoords: '46,119,606,425',
       position: [41, 34.7],
+      ref: null,
       [TowerLevel.deactive]: {
         img: arenaTowerLevel0Img,
         shadowImg: arenaTowerLevel0Stroke,
@@ -254,7 +259,7 @@ export class BuildingsService {
         shadowImg: arenaTowerLevel3Stroke,
       },
     },
-    [TowersTypes.MOLL]: {
+    [TowersTypes.CASHBACK]: {
       info: 'info',
       title: 'МТС Cashback',
       wideTower: true,
@@ -263,6 +268,7 @@ export class BuildingsService {
       width: 675,
       height: 546,
       areaCoords: '52,94,630,508',
+      ref: null,
       position: [40.6, 52.5],
       [TowerLevel.deactive]: {
         img: mollTowerLevel0Img,
@@ -281,7 +287,7 @@ export class BuildingsService {
         shadowImg: mollTowerLevel3Stroke,
       },
     },
-    [TowersTypes.EGG]: {
+    [TowersTypes.MY_MTS]: {
       info: 'info',
       title: 'Мой МТС',
       wideTower: false,
@@ -291,6 +297,7 @@ export class BuildingsService {
       height: 458,
       areaCoords: '45,77,316,444',
       position: [29.1, 45.9],
+      ref: null,
       [TowerLevel.deactive]: {
         img: eggTowerLevel0Img,
         shadowImg: eggTowerLevel0Stroke,
@@ -318,6 +325,7 @@ export class BuildingsService {
       height: 407,
       areaCoords: '44,46,411,406',
       position: [27.6, 60.95],
+      ref: null,
       [TowerLevel.deactive]: {
         img: libraryTowerLevel0Img,
         shadowImg: libraryTowerLevel0Stroke,
@@ -346,6 +354,7 @@ export class BuildingsService {
       height: 606,
       areaCoords: '128,57,418,291',
       position: [42.2, 36.9],
+      ref: null,
       [TowerLevel.low]: {
         // TODO: не настоящая картинка
         img: musicTowerLevel1Img,
@@ -372,6 +381,7 @@ export class BuildingsService {
       height: 559,
       areaCoords: '51,53,276,505',
       position: [28.2, 48.2],
+      ref: null,
       [TowerLevel.low]: {
         img: tariffTowerLevel1Img,
         shadowImg: tariffTowerLevel1Stroke,
@@ -396,6 +406,7 @@ export class BuildingsService {
       height: 461,
       areaCoords: '518,397,95,92',
       position: [25.5, 35.3],
+      ref: null,
       [TowerLevel.low]: {
         // TODO: не настоящая картинка
         img: musicTowerLevel1Img,
@@ -421,6 +432,7 @@ export class BuildingsService {
       height: 842,
       areaCoords: '49,52,434,789',
       position: [25.74, 26.35],
+      ref: null,
       [TowerLevel.low]: {
         img: TVTowerLevel1Img,
         shadowImg: TVTowerLevel1Stroke,
@@ -434,7 +446,7 @@ export class BuildingsService {
         shadowImg: TVTowerLevel3Stroke,
       },
     },
-    [TowersTypes.STADIUM]: {
+    [TowersTypes.FITNESS]: {
       info: 'info',
       title: 'МТС Фитнес',
       wideTower: true,
@@ -444,6 +456,7 @@ export class BuildingsService {
       height: 385,
       areaCoords: '97,55,575,380',
       position: [20, 60.2],
+      ref: null,
       [TowerLevel.deactive]: {
         img: stadiumLevel0Img,
         shadowImg: stadiumLevel0Stroke,
@@ -461,7 +474,7 @@ export class BuildingsService {
         shadowImg: stadiumLevel3Stroke,
       },
     },
-    [TowersTypes.AIRPORT]: {
+    [TowersTypes.ROAMING]: {
       info: 'info',
       title: 'Роуминг',
       wideTower: true,
@@ -472,6 +485,7 @@ export class BuildingsService {
       height: 398,
       areaCoords: '510,47,70,345',
       position: [19.9, 29.3],
+      ref: null,
       [TowerLevel.low]: {
         img: airportLevel1Img,
         shadowImg: airportLevel1Stroke,
@@ -495,6 +509,7 @@ export class BuildingsService {
       height: 435,
       areaCoords: '399,410,48,92',
       position: [37.2, 60.4],
+      ref: null,
       [TowerLevel.deactive]: {
         img: bankLevel0Img,
         shadowImg: bankLevel0Stroke,
@@ -512,7 +527,7 @@ export class BuildingsService {
         shadowImg: bankLevel3Stroke,
       },
     },
-    [TowersTypes.CYBER_ARENA]: {
+    [TowersTypes.WASD_TV]: {
       info: 'info',
       title: 'WASD.tv',
       wideTower: true,
@@ -522,6 +537,7 @@ export class BuildingsService {
       height: 354,
       areaCoords: '42,49,478,344',
       position: [33.7, 64.9],
+      ref: null,
       [TowerLevel.deactive]: {
         img: cyberArenaLevel0Img,
         shadowImg: cyberArenaLevel1Stroke,
@@ -551,6 +567,7 @@ export class BuildingsService {
       height: 499,
       areaCoords: '49,143,613,448',
       position: [29.6, 59.3],
+      ref: null,
       [TowerLevel.low]: {
         img: autoFactoryLevel1Img,
         shadowImg: autoFactoryLevel1Stroke,
@@ -565,7 +582,7 @@ export class BuildingsService {
       },
     },
 
-    [TowersTypes.SATELLITETV]: {
+    [TowersTypes.SPUTNIK]: {
       info: 'info',
       title: 'Спутниковое ТВ',
       wideTower: false,
@@ -576,6 +593,7 @@ export class BuildingsService {
       height: 585,
       areaCoords: '80,46,398,531',
       position: [25.9, 30],
+      ref: null,
       [TowerLevel.low]: {
         img: satelliteTvLevel1Img,
         shadowImg: satelliteTvLevel1Stroke,
@@ -602,6 +620,7 @@ export class BuildingsService {
       height: 645,
       areaCoords: '51,49,336,590',
       position: [44.4, 42.6],
+      ref: null,
       [TowerLevel.low]: {
         img: partnerBlueLevel1Img,
         shadowImg: partnerBlueLevel1Stroke,
@@ -628,6 +647,7 @@ export class BuildingsService {
       height: 690,
       areaCoords: '53,54,604,641',
       position: [48.9, 36.8],
+      ref: null,
       [TowerLevel.low]: {
         img: partnerYellowLevel1Img,
         shadowImg: partnerYellowLevel1Stroke,
@@ -643,7 +663,7 @@ export class BuildingsService {
         shadowImg: airportLevel3Stroke,
       },
     },
-    [TowersTypes.SLOT_MACHINE]: {
+    [TowersTypes.IGROTEKA]: {
       info: 'info',
       title: 'МТС Игротека',
       wideTower: false,
@@ -654,6 +674,7 @@ export class BuildingsService {
       height: 458,
       areaCoords: '392,148,101,545',
       position: [46, 67],
+      ref: null,
       [TowerLevel.low]: {
         img: slotMachineLevel1Img,
         shadowImg: slotMachineLevel1Stroke,
@@ -667,7 +688,7 @@ export class BuildingsService {
         shadowImg: slotMachineLevel3Stroke,
       },
     },
-    [TowersTypes.ROUTER]: {
+    [TowersTypes.HOME_INTERNET]: {
       info: 'info',
       title: 'Домашний интернет',
       wideTower: false,
@@ -678,6 +699,7 @@ export class BuildingsService {
       height: 539,
       areaCoords: '434,188,79,472',
       position: [45, 30],
+      ref: null,
       [TowerLevel.low]: {
         img: routerLevel1Img,
         shadowImg: routerLevel1Stroke,
@@ -693,7 +715,7 @@ export class BuildingsService {
         shadowImg: airportLevel3Stroke,
       },
     },
-    [TowersTypes.RTK]: {
+    [TowersTypes.SHOP]: {
       info: 'info',
       title: 'Салон-магазин МТС',
       wideTower: false,
@@ -704,6 +726,7 @@ export class BuildingsService {
       height: 555,
       areaCoords: '74,67,456,472',
       position: [25, 66.8],
+      ref: null,
       [TowerLevel.low]: {
         img: rtkLevel1Img,
         shadowImg: rtkLevel1Stroke,
@@ -730,6 +753,7 @@ export class BuildingsService {
       height: 555,
       areaCoords: '74,67,456,472',
       position: [30, 66.8],
+      ref: null,
       // TODO: не настоящая картинка
       [TowerLevel.low]: {
         img: rtkLevel1Img,
@@ -759,6 +783,7 @@ export class BuildingsService {
         img: marvinLevel0Img,
         shadowImg: marvinLevel0Stroke,
       },
+      ref: null,
       [TowerLevel.low]: {
         img: marvinLevel1Img,
         shadowImg: marvinLevel1Stroke,
@@ -772,7 +797,7 @@ export class BuildingsService {
         shadowImg: marvinLevel3Stroke,
       },
     },
-    [TowersTypes.CLOUD]: {
+    [TowersTypes.CONNECT]: {
       info: 'info',
       title: 'Вторая память',
       wideTower: false,
@@ -783,6 +808,7 @@ export class BuildingsService {
       height: 413,
       areaCoords: '47,42,323,366',
       position: [50, 58],
+      ref: null,
       [TowerLevel.low]: {
         img: cloudLevel1Img,
         shadowImg: cloudLevel1Stroke,
@@ -801,7 +827,13 @@ export class BuildingsService {
   getConfigForTower = (towerId: TowersTypes) => {
     return this._config[towerId];
   };
+
+  setRefForTower = (towerId: TowersTypes, ref: RefObject<HTMLDivElement>) => {
+    this._config[towerId].ref = ref;
+  };
 }
+const instance = new BuildingsService();
+export { instance as BuildingsService };
 
 type BuildingServiceConfigTypes = Record<
   TowersTypes,
@@ -821,6 +853,7 @@ type CurrentTowerServiceConfigTypes = {
   areaCoords: string;
   position: number[];
   [TowerLevel.deactive]?: TowerLevelType;
+  ref: RefObject<HTMLDivElement> | null;
   [TowerLevel.low]: TowerLevelType;
   [TowerLevel.mid]: TowerLevelType;
   [TowerLevel.high]: TowerLevelType;

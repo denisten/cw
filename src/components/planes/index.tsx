@@ -5,7 +5,7 @@ import { planeConfig } from './plane-config';
 import { Plane } from './plane';
 
 export const Planes = () => {
-  const airportLevelStoreLevel = useStore(TowersProgressStore).airport.level;
+  const airportLevelStoreLevel = useStore(TowersProgressStore).roaming.level.id;
   const planesArray = planeConfig[`level${airportLevelStoreLevel}`] || null;
 
   return (

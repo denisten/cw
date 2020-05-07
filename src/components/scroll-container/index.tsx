@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { useStore } from 'effector-react';
 import { AppCondition } from '../../effector/app-condition/store';
 import { useCheckDisableTutorial } from '../../hooks/useCheckDisableTutorial';
-import { TowersProgressStore } from '../../effector/towers-progress/store';
+import { TowersTypes } from '../../effector/towers-progress/store';
 import { scrollToCurrentTower } from '../../utils/scroll-to-current-tower';
 import { zoomInOut } from '../../utils/zoomInOut';
 import { TutorialToolsSelector } from '../../utils/arrows-container';
@@ -14,6 +14,7 @@ import { Cars } from '../cars/carsArray';
 import { Map } from '../map';
 import { Buildings } from '../../buildings';
 import { Bridges } from '../../buildings/bridges';
+import { BuildingsService } from '../../buildings/config';
 
 export enum MapSize {
   WIDTH = 7680,
@@ -41,8 +42,7 @@ export const ScrollContainer: React.FC<{
     dragscroll.reset();
   }, []);
   const { scaleValue } = useStore(AppCondition);
-
-  const { ref } = useStore(TowersProgressStore).mainTower;
+  const { ref } = BuildingsService.getConfigForTower(TowersTypes.MAIN_TOWER);
   useCheckDisableTutorial([]);
   useEffect(() => {
     scrollToCurrentTower(ref);

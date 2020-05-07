@@ -11,7 +11,6 @@ import { TutorialStore } from '../effector/tutorial-store/store';
 import { TowersMarkerStore } from '../effector/towers-marker/store';
 
 export const Buildings: React.FC = () => {
-  const localService = new BuildingsService();
   const localTowersProgressStore = useStore(TowersProgressStore);
   const markers = useStore(TowersMarkerStore);
   const towersKeys = Object.keys(localTowersProgressStore) as TowersTypes[];
@@ -20,35 +19,39 @@ export const Buildings: React.FC = () => {
   return (
     <Fragment>
       {towersKeys.map(towerTitle => {
-        const data = localService.getConfigForTower(towerTitle);
-        if (data.hide) return null;
-        const currentTower = data[localTowersProgressStore[towerTitle].level];
-        if (currentTower) {
-          return (
-            <Fragment key={towerTitle}>
-              <TowerWrapper
-                tutorialCondition={tutorialCondition}
-                tutorialPause={tutorialPause}
-                upgradeFlag={upgradingTowerTitle === towerTitle}
-                maxLevel={data.maxLevel}
-                currentLevel={localTowersProgressStore[towerTitle].level}
-                progress={localTowersProgressStore[towerTitle].progress}
-                focusOnTowerTitle={focusOn}
-                towerTitle={towerTitle}
-                wideTower={data.wideTower}
-                zIndex={data.zIndex}
-                width={data.width}
-                height={data.height}
-                position={data.position}
-                areaCoords={data.areaCoords}
-                shadowImg={currentTower.shadowImg}
-                tower={currentTower.img}
-                tutorialTower={data.tutorialTower}
-                scaleValue={scaleValue}
-                markers={markers[towerTitle].markers}
-              />
-            </Fragment>
-          );
+        const towerLayoutData = BuildingsService.getConfigForTower(towerTitle);
+        try {
+          const towerParams =
+            towerLayoutData[localTowersProgressStore[towerTitle].level.id];
+          if (towerParams) {
+            return (
+              <Fragment key={towerTitle}>
+                <TowerWrapper
+                  tutorialCondition={tutorialCondition}
+                  tutorialPause={tutorialPause}
+                  upgradeFlag={upgradingTowerTitle === towerTitle}
+                  maxLevel={towerLayoutData.maxLevel}
+                  currentLevel={localTowersProgressStore[towerTitle].level.id}
+                  progress={localTowersProgressStore[towerTitle].points}
+                  focusOnTowerTitle={focusOn}
+                  towerTitle={towerTitle}
+                  wideTower={towerLayoutData.wideTower}
+                  zIndex={towerLayoutData.zIndex}
+                  width={towerLayoutData.width}
+                  height={towerLayoutData.height}
+                  position={towerLayoutData.position}
+                  areaCoords={towerLayoutData.areaCoords}
+                  shadowImg={towerParams.shadowImg}
+                  tower={towerParams.img}
+                  tutorialTower={towerLayoutData.tutorialTower}
+                  scaleValue={scaleValue}
+                  markers={markers[towerTitle].markers}
+                />
+              </Fragment>
+            );
+          }
+        } catch {
+          return;
         }
       })}
     </Fragment>

@@ -11,7 +11,7 @@ describe('<Markers />', () => {
         { type: TypeOfMarkers.SUCCESS },
         { type: TypeOfMarkers.NOTICE },
       ],
-      towerTitle: TowersTypes.ARENA,
+      towerTitle: TowersTypes.LIVE_ARENA,
       displayFlag: true,
     };
     shallow(<Markers {...props} />);
@@ -26,7 +26,7 @@ describe('<Markers />', () => {
           endTime: new Date('Apr 22 2020 15:04:33 GMT+0300'),
         },
       ],
-      towerTitle: TowersTypes.ARENA,
+      towerTitle: TowersTypes.LIVE_ARENA,
       displayFlag: true,
     };
     const markers = mount(<Markers {...props} />);
@@ -42,7 +42,7 @@ describe('<Markers />', () => {
           endTime: undefined,
         },
       ],
-      towerTitle: TowersTypes.ARENA,
+      towerTitle: TowersTypes.LIVE_ARENA,
       displayFlag: true,
     };
     const markers = mount(<Markers {...props} />);

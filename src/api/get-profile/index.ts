@@ -7,6 +7,7 @@ export const getProfile = async () => {
 };
 
 export interface IGetProfile {
+  id: number;
   name: string;
   worldName: string;
   assistantName: string;
