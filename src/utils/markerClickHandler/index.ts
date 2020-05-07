@@ -14,7 +14,7 @@ import { addMoney } from '../../effector/user-data/events';
 export const markerClickHandler = (
   marker: IMarker,
   towerTitle: TowersTypes,
-  markerRef: RefObject<HTMLDivElement>
+  markerRef: RefObject<HTMLDivElement> | undefined
 ) => {
   hideMarker({ towerTitle: towerTitle, type: marker.type });
   switch (marker.type) {

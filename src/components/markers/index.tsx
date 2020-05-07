@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import notice from './notice.svg';
 import success from './success.svg';
@@ -129,11 +129,10 @@ export const Markers: React.FC<IMarkers> = ({
   towerTitle,
   displayFlag,
   towerLevel,
+  towerRef,
 }) => {
-  const markerRef = useRef<HTMLDivElement>(null);
   return (
     <MarkerWrapper
-      ref={markerRef}
       displayFlag={displayFlag}
       data-towertype={towerTitle}
       data-towerlevel={towerLevel}
@@ -144,7 +143,7 @@ export const Markers: React.FC<IMarkers> = ({
             data-type={markItem.type}
             key={markItem.type}
             markerType={markItem.type}
-            onClick={() => markerClickHandler(markItem, towerTitle, markerRef)}
+            onClick={() => markerClickHandler(markItem, towerTitle, towerRef)}
           />
         ) : (
           <Timer
@@ -164,4 +163,5 @@ interface IMarkers {
   towerTitle: TowersTypes;
   displayFlag: boolean;
   towerLevel?: number;
+  towerRef?: React.RefObject<HTMLDivElement>;
 }

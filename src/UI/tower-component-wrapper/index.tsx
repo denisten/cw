@@ -129,6 +129,7 @@ export const TowerWrapper = memo(
         ref={towerRef}
       >
         <Markers
+          towerRef={towerRef}
           towerLevel={currentLevel}
           markersCollection={markers}
           towerTitle={towerTitle}
