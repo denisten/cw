@@ -46,14 +46,12 @@ const HeaderItem = styled.div<{ active: boolean }>`
     background: url(${props => (props.active ? chellengeActive : chellenge)})
       no-repeat center;
     background-size: 100% 100%;
-    left: -12px;
   }
 
   &:nth-child(3) {
     background: url(${props => (props.active ? missionActive : mission)})
       no-repeat center;
     background-size: 100% 100%;
-    left: -26px;
   }
 `;
 

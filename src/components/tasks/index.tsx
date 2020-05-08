@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { TasksHeader } from './tasks-header';
+import { TasksContent } from './tasks-content';
 
 const TasksBody = styled.div`
   width: 100%;
@@ -31,6 +32,7 @@ export const Tasks = () => {
         activeType={taskType}
         taskTypes={taskTypes}
       />
+      <TasksContent activeType={taskType} />
     </TasksBody>
   );
 };
