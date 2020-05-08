@@ -161,7 +161,7 @@ class BuildingsService {
       width: 659,
       height: 707,
       areaCoords: '58,161,585,653',
-      position: [35.6, 24.7],
+      position: [35.5, 24.7],
       ref: null,
       [TowerLevel.deactive]: {
         img: universityLevel0Img,
@@ -246,7 +246,7 @@ class BuildingsService {
       width: 658,
       height: 440,
       areaCoords: '46,119,606,425',
-      position: [41, 34.7],
+      position: [41, 34.4],
       ref: null,
       [TowerLevel.deactive]: {
         img: arenaTowerLevel0Img,
@@ -275,7 +275,7 @@ class BuildingsService {
       height: 546,
       areaCoords: '52,94,630,508',
       ref: null,
-      position: [40.6, 52.5],
+      position: [40.6, 52.7],
       [TowerLevel.deactive]: {
         img: mollTowerLevel0Img,
         shadowImg: mollTowerLevel0Stroke,
@@ -514,7 +514,7 @@ class BuildingsService {
       width: 446,
       height: 435,
       areaCoords: '399,410,48,92',
-      position: [37.2, 60.4],
+      position: [37.3, 60.3],
       ref: null,
       [TowerLevel.deactive]: {
         img: bankLevel0Img,
@@ -542,7 +542,7 @@ class BuildingsService {
       width: 479,
       height: 326,
       areaCoords: '42,49,478,344',
-      position: [34, 65.3],
+      position: [34, 65.25],
       ref: null,
       [TowerLevel.deactive]: {
         img: cyberArenaLevel0Img,
@@ -703,7 +703,7 @@ class BuildingsService {
       width: 494,
       height: 500,
       areaCoords: '49,127,443,496',
-      position: [23.8, 25.35],
+      position: [23.8, 25.2],
       ref: null,
       [TowerLevel.deactive]: {
         img: routerLevel0Img,
@@ -785,7 +785,7 @@ class BuildingsService {
       width: 227,
       height: 306,
       areaCoords: '49,47,198,328',
-      position: [23.3, 58.5],
+      position: [23.2, 58.5],
       [TowerLevel.deactive]: {
         img: marvinLevel0Img,
         shadowImg: marvinLevel0Stroke,

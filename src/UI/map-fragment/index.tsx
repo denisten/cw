@@ -27,8 +27,9 @@ export const MapFragment: React.FC<IMapFragment> = ({
   treeImg,
   style,
   bannerImg,
+  decorationImg,
 }) => {
-  const treeWrapperStyle = {
+  const laztImageWrapperStyle = {
     ...style,
     position: 'absolute',
     zIndex: ZIndexes.DECORATION,
@@ -36,8 +37,15 @@ export const MapFragment: React.FC<IMapFragment> = ({
   return (
     <MapFragmentWrapper>
       <LazyImage src={roadImg} style={style} />
-      {treeImg ? <LazyImage src={treeImg} style={treeWrapperStyle} /> : null}
-      {bannerImg ? <Banners src={bannerImg} style={treeWrapperStyle} /> : null}
+      {treeImg ? (
+        <LazyImage src={treeImg} style={laztImageWrapperStyle} />
+      ) : null}
+      {bannerImg ? (
+        <Banners src={bannerImg} style={laztImageWrapperStyle} />
+      ) : null}
+      {decorationImg ? (
+        <LazyImage src={decorationImg} style={laztImageWrapperStyle} />
+      ) : null}
     </MapFragmentWrapper>
   );
 };
@@ -51,4 +59,5 @@ interface IMapFragment {
   treeImg?: string;
   style: IMapFragmentCSS;
   bannerImg?: string;
+  decorationImg?: string;
 }
