@@ -56,7 +56,7 @@ const iterationsForCarOne = [
   },
   {
     animation: [
-      `transform: translate3d(1275px, -638px, 0);`,
+      `transform: translate3d(1290px, -643px, 0);`,
       `background: url(${redBottomRight}) no-repeat center;`,
     ],
   },
@@ -66,7 +66,7 @@ const iterationsForCarOne = [
   },
   {
     animation: [
-      `transform: translate3d(1550px, -500px, 0);`,
+      `transform: translate3d(1560px, -504px, 0);`,
       `background: url(${redTopRight}) no-repeat center;`,
     ],
   },
@@ -76,7 +76,7 @@ const iterationsForCarOne = [
   },
   {
     animation: [
-      `transform: translate3d(1960px, -695px, 0);`,
+      `transform: translate3d(1967px, -706px, 0);`,
       `background: url(${redBottomLeft}) no-repeat center;`,
     ],
   },
@@ -87,7 +87,7 @@ const iterationsForCarOne = [
 
   {
     animation: [
-      `transform: translate3d(1550px, -500px, 0);`,
+      `transform: translate3d(1560px, -504px, 0);`,
       `background: url(${redTopLeft}) no-repeat center;`,
     ],
   },
@@ -98,7 +98,7 @@ const iterationsForCarOne = [
 
   {
     animation: [
-      `transform: translate3d(1275px, -638px, 0);`,
+      `transform: translate3d(1290px, -643px, 0);`,
       `background: url(${redBottomLeft}) no-repeat center;`,
     ],
   },
@@ -191,9 +191,105 @@ const iterationsForCarThree = [
   },
 ];
 
+const iterationsForCarFour = [
+  { animation: [`background: url(${redTopLeft}) no-repeat center;`] },
+  {
+    animation: [`background: url(${redTopLeft}) no-repeat center;`],
+    transition: true,
+  },
+  {
+    animation: [
+      `transform: translate3d(-102px,-45px,0px);`,
+      `background: url(${redBottomLeft}) no-repeat center;`,
+    ],
+  },
+  {
+    animation: [`background: url(${redBottomLeft}) no-repeat center;`],
+    transition: true,
+  },
+  {
+    animation: [
+      `transform: translate3d(-169px,-2px,0px);`,
+      `background: url(${redBottomRight}) no-repeat center;`,
+    ],
+  },
+  {
+    animation: [`background: url(${redBottomRight}) no-repeat center;`],
+    transition: true,
+  },
+
+  {
+    animation: [
+      `transform: translate3d(280px,225px,0px);`,
+      `background: url(${redBottomLeft}) no-repeat center;`,
+    ],
+  },
+  {
+    animation: [`background: url(${redBottomLeft}) no-repeat center;`],
+    transition: true,
+  },
+  {
+    animation: [
+      `transform: translate3d(-195px,465px,0px);`,
+      `background: url(${redBottomRight}) no-repeat center;`,
+    ],
+  },
+  {
+    animation: [`background: url(${redBottomRight}) no-repeat center;`],
+    transition: true,
+  },
+  {
+    animation: [
+      `transform: translate3d(345px,735px,0px);`,
+      `background: url(${redTopRight}) no-repeat center;`,
+    ],
+  },
+  {
+    animation: [`background: url(${redTopRight}) no-repeat center;`],
+    transition: true,
+  },
+  {
+    animation: [
+      `transform: translate3d(812px,490px,0px);`,
+      `background: url(${redTopLeft}) no-repeat center;`,
+    ],
+  },
+  {
+    animation: [`background: url(${redTopLeft}) no-repeat center;`],
+    transition: true,
+  },
+  {
+    animation: [
+      `transform: translate3d(-168px,-3px,0px);`,
+      `background: url(${redTopRight}) no-repeat center;`,
+    ],
+  },
+  {
+    animation: [`background: url(${redTopRight}) no-repeat center;`],
+    transition: true,
+  },
+  {
+    animation: [
+      `transform: translate3d(-101px,-48px,0px);`,
+      `background: url(${redBottomRight}) no-repeat center;`,
+    ],
+  },
+  {
+    animation: [`background: url(${redBottomRight}) no-repeat center;`],
+    transition: true,
+  },
+  {
+    animation: [
+      `transform: translate3d(0px,0px,0px);`,
+      `background: url(${redBottomRight}) no-repeat center;`,
+    ],
+  },
+];
+
 export const animForCar1 = keyframesCreator(iterationsForCarOne);
 export const animForCar2 = keyframesCreator(iterationsForCarTwo);
 export const animForCar3 = keyframesCreator(iterationsForCarThree);
+export const animForCar4 = keyframesCreator(iterationsForCarFour);
 
 interface IiterationsArray {
   animation: string[];
