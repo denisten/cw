@@ -8,6 +8,7 @@ const Header = styled.div`
   height: 50px;
   display: flex;
   overflow: hidden;
+  flex-shrink: 0;
 `;
 
 const HeaderItem = styled.div<{ active: boolean }>`
@@ -25,7 +26,7 @@ const HeaderItem = styled.div<{ active: boolean }>`
   font-family: ${MTSSans.REGULAR};
   cursor: pointer;
   position: relative;
-  z-index: ${props => (props.active ? '2' : 'inherit')};
+  z-index: ${props => (props.active ? '4 !important' : 'inherit')};
   transform: skew(15deg);
   border-top-right-radius: 4px;
   border-top-left-radius: 4px;
@@ -35,10 +36,34 @@ const HeaderItem = styled.div<{ active: boolean }>`
   }
 
   &:nth-child(1) {
-    box-shadow: 5px 5px 12px 0px rgba(26, 29, 34, 0.21);
+    box-shadow: ${props =>
+      props.active
+        ? '5px 5px 12px 0px rgba(26, 29, 34, 0.21)'
+        : 'inset -2px 0 0 0 #02acc8'};
+    left: -6px;
+    z-index: 3;
   }
   &:nth-child(2) {
-    box-shadow: inset -2px 0 0 0 #02acc8;
+    box-shadow: ${props =>
+      props.active
+        ? '0px 5px 12px 0px rgba(26, 29, 34, 0.21)'
+        : 'inset -2px 0 0 0 #02acc8'};
+    left: -10px;
+    transform: perspective(110px) rotateX(10deg);
+    z-index: 2;
+    span {
+      transform: perspective(200px) rotateX(-10deg);
+    }
+  }
+
+  &:nth-child(3) {
+    transform: skew(0deg);
+    left: -14px;
+    box-shadow: ${props =>
+      props.active ? '-5px 5px 12px 0px rgba(26, 29, 34, 0.21)' : ''};
+    span {
+      transform: skew(0deg);
+    }
   }
 `;
 
