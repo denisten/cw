@@ -15,8 +15,8 @@ type CarConfigureType = {
 };
 
 const CarBlock = styled.div<CarProps>`
-  width: 57px;
-  height: 50px;
+  width: 44px;
+  height: 41px;
   position: absolute;
   background-size: 100% 100%;
   animation-duration: ${props => props.animDuration || '5s'};
