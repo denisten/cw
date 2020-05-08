@@ -54,8 +54,8 @@ const StyledConfig = {
 
 const ExpandedColumnWrapper = styled(ColumnWrapper)`
   height: 456px;
-  width: 1045px;
-  zindex: 20;
+  width: auto;
+  z-index: 20;
 `;
 
 export const Menu: React.FC<{ displayFlag: boolean }> = ({ displayFlag }) => {
