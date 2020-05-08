@@ -4,6 +4,7 @@ import { Profile } from '../profile';
 import styled from 'styled-components';
 import { Settings } from '../settings';
 import { ZIndexes } from '../root-component/z-indexes-enum';
+import { Tasks } from '../tasks';
 
 const MenuContentWrapper = styled.div`
   flex: 1;
@@ -25,6 +26,8 @@ const MenuContentSelector: React.FC<MenuContentProps> = ({ content }) => {
       return <h1>Offer</h1>;
     case MenuItems.SETTINGS:
       return <Settings />;
+    case MenuItems.TASKS:
+      return <Tasks />;
     default:
       return <h1>In Progress...</h1>;
   }
