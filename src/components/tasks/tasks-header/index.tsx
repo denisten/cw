@@ -40,18 +40,21 @@ const HeaderItem = styled.div<{ active: boolean }>`
     background: url(${props => (props.active ? taskActive : task)}) no-repeat
       center;
     background-size: 100% 100%;
-    z-index: 3;
+    z-index: 2;
   }
   &:nth-child(2) {
     background: url(${props => (props.active ? chellengeActive : chellenge)})
       no-repeat center;
     background-size: 100% 100%;
+    left: -12px;
+    z-index: 1;
   }
 
   &:nth-child(3) {
     background: url(${props => (props.active ? missionActive : mission)})
       no-repeat center;
     background-size: 100% 100%;
+    left: -24px;
   }
 `;
 

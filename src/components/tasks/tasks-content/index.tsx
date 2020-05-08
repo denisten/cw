@@ -5,7 +5,7 @@ import { Task } from './task';
 import { Challenge } from './challenge';
 import { Mission } from './mission';
 const Body = styled.div`
-  width: 100%;
+  width: calc(100% - 24px);
   height: 100%;
   background: white;
 `;
