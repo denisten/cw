@@ -2,6 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { TasksType } from '..';
 import { MTSSans } from '../../../fonts';
+import chellenge from './chellenge.png';
+import mission from './mission.png';
+import task from './task.png';
+import chellengeActive from './chellenge-active.png';
+import missionActive from './mission-active.png';
+import taskActive from './task-active.png';
 
 const Header = styled.div`
   width: 100%;
@@ -27,43 +33,27 @@ const HeaderItem = styled.div<{ active: boolean }>`
   cursor: pointer;
   position: relative;
   z-index: ${props => (props.active ? '4 !important' : 'inherit')};
-  transform: skew(15deg);
   border-top-right-radius: 4px;
   border-top-left-radius: 4px;
 
-  span {
-    transform: skew(-15deg);
-  }
-
   &:nth-child(1) {
-    box-shadow: ${props =>
-      props.active
-        ? '5px 5px 12px 0px rgba(26, 29, 34, 0.21)'
-        : 'inset -2px 0 0 0 #02acc8'};
-    left: -6px;
+    background: url(${props => (props.active ? taskActive : task)}) no-repeat
+      center;
+    background-size: 100% 100%;
     z-index: 3;
   }
   &:nth-child(2) {
-    box-shadow: ${props =>
-      props.active
-        ? '0px 5px 12px 0px rgba(26, 29, 34, 0.21)'
-        : 'inset -2px 0 0 0 #02acc8'};
-    left: -10px;
-    transform: perspective(110px) rotateX(10deg);
-    z-index: 2;
-    span {
-      transform: perspective(200px) rotateX(-10deg);
-    }
+    background: url(${props => (props.active ? chellengeActive : chellenge)})
+      no-repeat center;
+    background-size: 100% 100%;
+    left: -12px;
   }
 
   &:nth-child(3) {
-    transform: skew(0deg);
-    left: -14px;
-    box-shadow: ${props =>
-      props.active ? '-5px 5px 12px 0px rgba(26, 29, 34, 0.21)' : ''};
-    span {
-      transform: skew(0deg);
-    }
+    background: url(${props => (props.active ? missionActive : mission)})
+      no-repeat center;
+    background-size: 100% 100%;
+    left: -26px;
   }
 `;
 

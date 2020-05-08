@@ -9,12 +9,6 @@ const TasksBody = styled.div`
   flex-direction: column;
 `;
 
-const TasksContent = styled.div`
-  width: 100%;
-  height: 100%;
-  background: white;
-`;
-
 export enum TasksType {
   TASKS = 'tasks',
   CHALLENGES = 'сhallenges',
@@ -37,7 +31,6 @@ export const Tasks = () => {
         activeType={taskType}
         taskTypes={taskTypes}
       />
-      <TasksContent />
     </TasksBody>
   );
 };
