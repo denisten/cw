@@ -46,7 +46,7 @@ const HeaderItem = styled.div<{ active: boolean }>`
     background: url(${props => (props.active ? chellengeActive : chellenge)})
       no-repeat center;
     background-size: 100% 100%;
-    left: -12px;
+    left: -14px;
     z-index: 1;
   }
 
@@ -54,7 +54,7 @@ const HeaderItem = styled.div<{ active: boolean }>`
     background: url(${props => (props.active ? missionActive : mission)})
       no-repeat center;
     background-size: 100% 100%;
-    left: -24px;
+    left: -28px;
   }
 `;
 
