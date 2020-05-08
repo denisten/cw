@@ -13,29 +13,11 @@ const Body = styled.div`
 export const TasksContent: React.FC<{ activeType: TasksType }> = ({
   activeType,
 }) => {
-  {
-    switch (activeType) {
-      case TasksType.TASKS:
-        return (
-          <Body>
-            <Task />
-          </Body>
-        );
-      case TasksType.CHALLENGES:
-        return (
-          <Body>
-            <Challenge />
-          </Body>
-        );
-      case TasksType.MISSION:
-        return (
-          <Body>
-            <Mission />
-          </Body>
-        );
-
-      default:
-        return <span>none</span>;
-    }
-  }
+  return (
+    <Body>
+      <Task active={activeType === TasksType.TASKS} />
+      <Challenge active={activeType === TasksType.CHALLENGES} />
+      <Mission active={activeType === TasksType.MISSION} />
+    </Body>
+  );
 };
