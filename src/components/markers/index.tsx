@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import notice from './notice.svg';
 import success from './success.svg';
@@ -77,23 +77,73 @@ export const MarkerWrapper = styled.div<{ displayFlag: boolean }>`
       transform: translate3d(-25px, 25px, 0) scale(1.2);
     }
   }
+
+  &[data-towertype=${TowersTypes.MAIN_TOWER}] {
+    &[data-towerlevel='0'],
+    &[data-towerlevel='1'] {
+      top: 205px;
+    }
+    &[data-towerlevel='2'] {
+      top: 85px;
+    }
+  }
+
+  &[data-towertype=${TowersTypes.MY_MTS}] {
+    &[data-towerlevel='0'],
+    &[data-towerlevel='1'] {
+      top: 145px;
+    }
+    &[data-towerlevel='2'] {
+      top: 50px;
+    }
+  }
+
+  &[data-towertype=${TowersTypes.CASHBACK}] {
+    &[data-towerlevel='0'],
+    &[data-towerlevel='1'] {
+      top: 200px;
+    }
+    &[data-towerlevel='2'] {
+      top: 150px;
+    }
+    &[data-towerlevel='3'] {
+      top: 60px;
+    }
+  }
+  &[data-towertype=${TowersTypes.LIVE_ARENA}] {
+    &[data-towerlevel='0'],
+    &[data-towerlevel='1'] {
+      top: 100px;
+    }
+    &[data-towerlevel='2'] {
+      top: 80px;
+    }
+    &[data-towerlevel='3'] {
+      top: 60px;
+    }
+  }
 `;
 
 export const Markers: React.FC<IMarkers> = ({
   markersCollection,
   towerTitle,
   displayFlag,
+  towerLevel,
+  towerRef,
 }) => {
-  const markerRef = useRef<HTMLDivElement>(null);
   return (
-    <MarkerWrapper ref={markerRef} displayFlag={displayFlag}>
+    <MarkerWrapper
+      displayFlag={displayFlag}
+      data-towertype={towerTitle}
+      data-towerlevel={towerLevel}
+    >
       {markersCollection.map(markItem =>
         markItem.type !== TypeOfMarkers.TIMER ? (
           <MarkerView
             data-type={markItem.type}
             key={markItem.type}
             markerType={markItem.type}
-            onClick={() => markerClickHandler(markItem, towerTitle, markerRef)}
+            onClick={() => markerClickHandler(markItem, towerTitle, towerRef)}
           />
         ) : (
           <Timer
@@ -112,4 +162,6 @@ interface IMarkers {
   markersCollection: IMarker[];
   towerTitle: TowersTypes;
   displayFlag: boolean;
+  towerLevel?: number;
+  towerRef?: React.RefObject<HTMLDivElement>;
 }

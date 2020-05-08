@@ -20,6 +20,7 @@ export const Buildings: React.FC = () => {
     <Fragment>
       {towersKeys.map(towerTitle => {
         const towerLayoutData = BuildingsService.getConfigForTower(towerTitle);
+        if (towerLayoutData.hide) return null;
         try {
           const towerParams =
             towerLayoutData[localTowersProgressStore[towerTitle].level.id];
@@ -37,10 +38,10 @@ export const Buildings: React.FC = () => {
                   towerTitle={towerTitle}
                   wideTower={towerLayoutData.wideTower}
                   zIndex={towerLayoutData.zIndex}
-                  width={towerParams.width}
-                  height={towerParams.height}
-                  position={towerParams.position}
-                  areaCoords={towerParams.areaCoords}
+                  width={towerLayoutData.width}
+                  height={towerLayoutData.height}
+                  position={towerLayoutData.position}
+                  areaCoords={towerLayoutData.areaCoords}
                   shadowImg={towerParams.shadowImg}
                   tower={towerParams.img}
                   tutorialTower={towerLayoutData.tutorialTower}

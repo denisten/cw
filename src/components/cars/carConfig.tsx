@@ -1,33 +1,48 @@
-import { animForCar1, animForCar2, animForCar3 } from './keyframes';
+import {
+  animForCar1,
+  animForCar2,
+  animForCar3,
+  animForCar4,
+} from './keyframes';
 export const carConfig = [
   {
     id: 1,
     carStyle: {
-      animDuration: '9s',
+      animDuration: '30s',
       animationTimingFunction: 'ease-in-out',
       animationName: animForCar1,
-      left: '25.5%',
-      top: '45.1%',
+      left: '21.78%',
+      top: '46.25%',
     },
   },
   {
     id: 2,
     carStyle: {
-      animDuration: '8s',
+      animDuration: '23s',
       animationTimingFunction: 'ease-in-out',
       animationName: animForCar2,
-      left: '35.4%',
-      top: '39.1%',
+      left: '54.4%',
+      top: '37.23%',
     },
   },
   {
     id: 3,
     carStyle: {
-      animDuration: '18s',
+      animDuration: '25s',
       animationTimingFunction: 'ease-in-out',
       animationName: animForCar3,
-      left: '58.4%',
-      top: '47.95%',
+      left: '56.1%',
+      top: '53.06%',
+    },
+  },
+  {
+    id: 4,
+    carStyle: {
+      animDuration: '43s',
+      animationTimingFunction: 'ease-in-out',
+      animationName: animForCar4,
+      top: '34.9%',
+      left: '59.3%',
     },
   },
 ];

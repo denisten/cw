@@ -6,6 +6,7 @@ import {
   upgradeTower,
 } from './events';
 export enum TowerLevel {
+  deactive = 0,
   low = 1,
   mid = 2,
   high = 3,
@@ -34,14 +35,29 @@ export enum TowersTypes {
   SHOP = 'shop',
   PARTNER_BANK = 'partnerBank',
   MARVIN = 'marvin',
+  UNIVERSITY = 'university',
   CONNECT = 'connect',
 }
 const initState: TowersProgressStoreType = {
+  [TowersTypes.UNIVERSITY]: {
+    productId: 1,
+    points: 0,
+    level: {
+      id: TowerLevel.deactive,
+      name: '0 уровень',
+      value: 0,
+    },
+    productIncome: {
+      id: 1,
+      productId: 1,
+      value: 10,
+    },
+  },
   [TowersTypes.MAIN_TOWER]: {
     productId: 1,
     points: 0,
     level: {
-      id: TowerLevel.low,
+      id: TowerLevel.deactive,
       name: '0 уровень',
       value: 0,
     },
@@ -55,7 +71,7 @@ const initState: TowersProgressStoreType = {
     productId: 1,
     points: 0,
     level: {
-      id: TowerLevel.low,
+      id: TowerLevel.deactive,
       name: '0 уровень',
       value: 0,
     },
@@ -69,7 +85,7 @@ const initState: TowersProgressStoreType = {
     productId: 1,
     points: 0,
     level: {
-      id: TowerLevel.low,
+      id: TowerLevel.deactive,
       name: '0 уровень',
       value: 0,
     },
@@ -83,7 +99,7 @@ const initState: TowersProgressStoreType = {
     productId: 1,
     points: 0,
     level: {
-      id: TowerLevel.low,
+      id: TowerLevel.deactive,
       name: '0 уровень',
       value: 0,
     },
@@ -97,7 +113,7 @@ const initState: TowersProgressStoreType = {
     productId: 1,
     points: 0,
     level: {
-      id: TowerLevel.low,
+      id: TowerLevel.deactive,
       name: '0 уровень',
       value: 0,
     },
@@ -111,7 +127,7 @@ const initState: TowersProgressStoreType = {
     productId: 1,
     points: 0,
     level: {
-      id: TowerLevel.low,
+      id: TowerLevel.deactive,
       name: '0 уровень',
       value: 0,
     },
@@ -139,7 +155,7 @@ const initState: TowersProgressStoreType = {
     productId: 1,
     points: 0,
     level: {
-      id: TowerLevel.low,
+      id: TowerLevel.deactive,
       name: '0 уровень',
       value: 0,
     },
@@ -167,7 +183,7 @@ const initState: TowersProgressStoreType = {
     productId: 1,
     points: 0,
     level: {
-      id: TowerLevel.low,
+      id: TowerLevel.deactive,
       name: '0 уровень',
       value: 0,
     },
@@ -181,7 +197,7 @@ const initState: TowersProgressStoreType = {
     productId: 1,
     points: 0,
     level: {
-      id: TowerLevel.low,
+      id: TowerLevel.deactive,
       name: '0 уровень',
       value: 0,
     },
@@ -209,7 +225,7 @@ const initState: TowersProgressStoreType = {
     productId: 1,
     points: 0,
     level: {
-      id: TowerLevel.low,
+      id: TowerLevel.deactive,
       name: '0 уровень',
       value: 0,
     },
@@ -223,7 +239,7 @@ const initState: TowersProgressStoreType = {
     productId: 1,
     points: 0,
     level: {
-      id: TowerLevel.low,
+      id: TowerLevel.deactive,
       name: '0 уровень',
       value: 0,
     },
@@ -294,7 +310,7 @@ const initState: TowersProgressStoreType = {
     productId: 1,
     points: 0,
     level: {
-      id: TowerLevel.low,
+      id: TowerLevel.deactive,
       name: '0 уровень',
       value: 0,
     },
@@ -350,7 +366,7 @@ const initState: TowersProgressStoreType = {
     productId: 1,
     points: 0,
     level: {
-      id: TowerLevel.low,
+      id: TowerLevel.deactive,
       name: '0 уровень',
       value: 0,
     },

@@ -129,6 +129,8 @@ export const TowerWrapper = memo(
         ref={towerRef}
       >
         <Markers
+          towerRef={towerRef}
+          towerLevel={currentLevel}
           markersCollection={markers}
           towerTitle={towerTitle}
           displayFlag={
@@ -138,6 +140,7 @@ export const TowerWrapper = memo(
         <UpgradeButton
           displayFlag={progress >= maxProgressValue && currentLevel < maxLevel}
           towerTitle={towerTitle}
+          towerLevel={currentLevel}
           animFlag={
             tutorialCondition === TutorialConditions.UPGRADE_BUTTON_TOWER_INFO
           }
