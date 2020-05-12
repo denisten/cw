@@ -8,6 +8,10 @@ const Body = styled.div`
   width: calc(100% - 28px);
   height: 100%;
   background: white;
+  padding: 40px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 export const TasksContent: React.FC<{ activeType: TasksType }> = ({

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="34" height="34" viewBox="0 0 34 34">
+    <defs>
+        <radialGradient id="prefix__d" cx="67.655%" cy="23.105%" r="166.267%" fx="67.655%" fy="23.105%" gradientTransform="matrix(-.07832 .83952 -1.02088 -.06754 .965 -.321)">
+            <stop offset="0%" stop-color="#FFF"/>
+            <stop offset="29.046%" stop-color="#FFF"/>
+            <stop offset="55.329%" stop-color="#FDEFEF"/>
+            <stop offset="100%" stop-color="#EEBEC4"/>
+        </radialGradient>
+        <linearGradient id="prefix__a" x1="50%" x2="50%" y1="0%" y2="100%">
+            <stop offset="0%" stop-color="#FF4558"/>
+            <stop offset="100%" stop-color="#E30611"/>
+        </linearGradient>
+        <rect id="prefix__b" width="32" height="32" x="0" y="0" rx="4"/>
+        <path id="prefix__c" d="M24 24.452c0 .439-.235.844-.615 1.062l-.385.221c-.62.356-1.38.356-2 0-.62-.355-1.38-.355-2 0-.62.356-1.38.356-2 0-.62-.355-1.38-.355-2 0-.62.356-1.38.356-2 0-.62-.355-1.38-.355-2 0-.62.356-1.38.356-2 0l-.385-.22c-.38-.22-.615-.624-.615-1.063V8.992c0-.713.381-1.372 1-1.727.62-.356 1.38-.356 2 0 .62.355 1.38.355 2 0 .62-.356 1.38-.356 2 0 .62.355 1.38.355 2 0 .62-.356 1.38-.356 2 0 .62.355 1.38.355 2 0 .62-.356 1.38-.356 2 0 .619.355 1 1.014 1 1.727zm-8.689-2.604h-4.44c-.38 0-.69.308-.69.689 0 .349.26.637.596.683l.094.006h4.44c.38 0 .689-.309.689-.689 0-.38-.308-.689-.689-.689zm5.818-2.199H10.871c-.38 0-.69.309-.69.69 0 .348.26.636.596.682l.094.006h10.258c.38 0 .69-.308.69-.689 0-.38-.31-.689-.69-.689zm-6.049-8.997h-3.862v3.039h-1.036v1.291h1.036v.641h-1.036v1.158h1.036v1.002h1.822v-1.002h2.607v-1.158H13.04v-.64h2.04c.793 0 1.387-.182 1.784-.543.396-.362.594-.877.594-1.545 0-.703-.198-1.252-.594-1.649-.397-.396-.991-.594-1.784-.594zm-.36 1.437c.305 0 .524.063.655.19.13.128.196.302.196.523v.186c0 .2-.064.367-.191.501s-.347.202-.66.202h-1.68v-1.602h1.68z"/>
+    </defs>
+    <g fill="none" fill-rule="evenodd" transform="translate(1 1)">
+        <rect width="29" height="29" x="1.5" y="1.5" fill="url(#prefix__a)" stroke="#FFD6DA" stroke-linejoin="square" stroke-width="3" rx="4"/>
+        <use stroke="#E30611" xlink:href="#prefix__b"/>
+        <g>
+            <use fill="#FFF" xlink:href="#prefix__c"/>
+            <use fill="url(#prefix__d)" style="mix-blend-mode:multiply" xlink:href="#prefix__c"/>
+        </g>
+    </g>
+</svg>
