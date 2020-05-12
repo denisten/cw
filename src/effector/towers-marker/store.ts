@@ -68,7 +68,7 @@ const initState: TowersMarkerStoreType = {
   [TowersTypes.SPUTNIK]: {
     markers: [],
   },
-  [TowersTypes.PARTNER_BLUE]: {
+  [TowersTypes.PARTNER_ONE]: {
     markers: [],
   },
   [TowersTypes.PARTNER_YELLOW]: {
