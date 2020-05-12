@@ -2,6 +2,7 @@ export enum ZIndexes {
   ROADS = 1,
   CARS = 2,
   DECORATION = 3,
+  BANNERS = 4,
   BUILDING_ONE_LEVEL = 10,
   BUILDING_TWO_LEVEL = 11,
   BUILDING_THREE_LEVEL = 12,
