@@ -34,15 +34,17 @@ export const MapFragment: React.FC<IMapFragment> = ({
     position: 'absolute',
     zIndex: ZIndexes.DECORATION,
   } as React.CSSProperties;
+  const lazyBannerStyle = {
+    ...lazyImageWrapperStyle,
+    zIndex: ZIndexes.BANNERS,
+  };
   return (
     <MapFragmentWrapper>
       <LazyImage src={roadImg} style={style} />
       {treeImg ? (
         <LazyImage src={treeImg} style={lazyImageWrapperStyle} />
       ) : null}
-      {bannerImg ? (
-        <Banners src={bannerImg} style={lazyImageWrapperStyle} />
-      ) : null}
+      {bannerImg ? <Banners src={bannerImg} style={lazyBannerStyle} /> : null}
       {decorationImg ? (
         <LazyImage src={decorationImg} style={lazyImageWrapperStyle} />
       ) : null}
