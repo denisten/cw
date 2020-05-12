@@ -35,10 +35,9 @@ export const MapFragment: React.FC<IMapFragment> = ({
     zIndex: ZIndexes.DECORATION,
   } as React.CSSProperties;
   const lazyBannerStyle = {
-    ...style,
-    position: 'absolute',
+    ...lazyImageWrapperStyle,
     zIndex: ZIndexes.BANNERS,
-  } as React.CSSProperties;
+  };
   return (
     <MapFragmentWrapper>
       <LazyImage src={roadImg} style={style} />
