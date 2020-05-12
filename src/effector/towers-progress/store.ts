@@ -27,7 +27,7 @@ export enum TowersTypes {
   BANK = 'bank',
   WASD_TV = 'wasd-tv',
   SPUTNIK = 'sputnik',
-  PARTNER_BLUE = 'partnerBlue',
+  PARTNER_ONE = 'partnerOne',
   PARTNER_YELLOW = 'partnerYellow',
   IGROTEKA = 'igroteka',
   HOME_INTERNET = 'home-internet',
@@ -264,11 +264,11 @@ const initState: TowersProgressStoreType = {
       value: 10,
     },
   },
-  [TowersTypes.PARTNER_BLUE]: {
+  [TowersTypes.PARTNER_ONE]: {
     productId: 1,
     points: 0,
     level: {
-      id: TowerLevel.low,
+      id: TowerLevel.deactive,
       name: '0 уровень',
       value: 0,
     },

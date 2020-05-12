@@ -97,8 +97,14 @@ import cyberArenaLevel0Stroke from './cyber-arena/0-stroke.png';
 import { TowerLevel, TowersTypes } from '../effector/towers-progress/store';
 import satelliteTvLevel1Img from './satellite-tv/1.png';
 import satelliteTvLevel1Stroke from './satellite-tv/1-stroke.png';
-import partnerBlueLevel1Img from './partners-build/partner-blue/1.png';
-import partnerBlueLevel1Stroke from './partners-build/partner-blue/1-stroke.png';
+import partnerOneLevel0Img from './partners-build/partner-one/0.png';
+import partnerOneLevel0Stroke from './partners-build/partner-one/0-stroke.png';
+import partnerOneLevel1Img from './partners-build/partner-one/1.png';
+import partnerOneLevel1Stroke from './partners-build/partner-one/1-stroke.png';
+import partnerOneLevel2Img from './partners-build/partner-one/2.png';
+import partnerOneLevel2Stroke from './partners-build/partner-one/2-stroke.png';
+import partnerOneLevel3Img from './partners-build/partner-one/3.png';
+import partnerOneLevel3Stroke from './partners-build/partner-one/3-stroke.png';
 import partnerYellowLevel1Img from './partners-build/partner-yellow/1.png';
 import partnerYellowLevel1Stroke from './partners-build/partner-yellow/1-stroke.png';
 import slotMachineLevel1Img from './slot-machine/1.png';
@@ -615,31 +621,33 @@ class BuildingsService {
         shadowImg: airportLevel3Stroke,
       },
     },
-    [TowersTypes.PARTNER_BLUE]: {
+    [TowersTypes.PARTNER_ONE]: {
       info: 'info',
-      title: 'Здание партнера',
+      title: 'Здание партнера 1',
       wideTower: false,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
-      maxLevel: TowerLevel.low,
-      hide: true,
-      width: 375,
-      height: 645,
-      areaCoords: '51,49,336,590',
-      position: [44.4, 42.6],
+      maxLevel: TowerLevel.high,
+      width: 304,
+      height: 469,
+      areaCoords: '51,72,239,461',
+      position: [46.5, 40.35],
       ref: null,
+      [TowerLevel.deactive]: {
+        img: partnerOneLevel0Img,
+        shadowImg: partnerOneLevel0Stroke,
+      },
       [TowerLevel.low]: {
-        img: partnerBlueLevel1Img,
-        shadowImg: partnerBlueLevel1Stroke,
+        img: partnerOneLevel1Img,
+        shadowImg: partnerOneLevel1Stroke,
       },
-      // TODO: не настоящая картинка
+
       [TowerLevel.mid]: {
-        img: bankLevel2Img,
-        shadowImg: bankLevel2Stroke,
+        img: partnerOneLevel2Img,
+        shadowImg: partnerOneLevel2Stroke,
       },
-      // TODO: не настоящая картинка
       [TowerLevel.high]: {
-        img: airportLevel3Img,
-        shadowImg: airportLevel3Stroke,
+        img: partnerOneLevel3Img,
+        shadowImg: partnerOneLevel3Stroke,
       },
     },
     [TowersTypes.PARTNER_YELLOW]: {
