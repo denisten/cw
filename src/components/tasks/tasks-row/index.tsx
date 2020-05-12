@@ -22,3 +22,8 @@ export const TasksRow = () => {
     </TaskWrapper>
   );
 };
+
+interface ITasksRow {
+  type: TaskSubType;
+  taskTitle: string;
+}

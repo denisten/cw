@@ -3,10 +3,13 @@ import challenge from './challenge.svg';
 import missions from './missions.svg';
 import nbo from './nbo.svg';
 import cosmetics from './cosmetics.svg';
+import energy from './energy.svg';
+import coin from './coin.svg';
 import { TaskSubType } from '../../components/tasks';
 
 export enum TypeOfIcons {
-  CHALLENGE = 'challenge',
+  ENERGY = 'energy',
+  COIN = 'coin',
 }
 
 export const Icon: React.FC<IIcon> = ({
@@ -23,6 +26,10 @@ export const Icon: React.FC<IIcon> = ({
         return nbo;
       case TaskSubType.COSMETICS:
         return cosmetics;
+      case TypeOfIcons.ENERGY:
+        return energy;
+      case TypeOfIcons.COIN:
+        return coin;
 
       default:
         break;
