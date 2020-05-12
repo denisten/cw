@@ -4,10 +4,11 @@ import { Profile } from '../profile';
 import styled from 'styled-components';
 import { Settings } from '../settings';
 import { ZIndexes } from '../root-component/z-indexes-enum';
+import { Tasks } from '../tasks';
 
-const MenuContentWrapper = styled.div`
+const MenuContentWrapper = styled.div<{ activeTaskElem: boolean }>`
   flex: 1;
-  background: #fff;
+  background: ${props => (props.activeTaskElem ? 'inherit' : '#fff')};
   width: 776px;
   height: 100%;
   z-index: ${ZIndexes.UI_BUTTON};
@@ -25,6 +26,8 @@ const MenuContentSelector: React.FC<MenuContentProps> = ({ content }) => {
       return <h1>Offer</h1>;
     case MenuItems.SETTINGS:
       return <Settings />;
+    case MenuItems.TASKS:
+      return <Tasks />;
     default:
       return <h1>In Progress...</h1>;
   }
@@ -32,7 +35,7 @@ const MenuContentSelector: React.FC<MenuContentProps> = ({ content }) => {
 
 export const MenuContent: React.FC<MenuContentProps> = ({ content }) => {
   return (
-    <MenuContentWrapper>
+    <MenuContentWrapper activeTaskElem={content === MenuItems.TASKS}>
       <MenuContentSelector content={content} />
     </MenuContentWrapper>
   );

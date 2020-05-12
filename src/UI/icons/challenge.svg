@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="34" height="34" viewBox="0 0 34 34">
+    <defs>
+        <linearGradient id="prefix__a" x1="50%" x2="50%" y1="2.856%" y2="100%">
+            <stop offset="0%" stop-color="#1CDE8C"/>
+            <stop offset="100%" stop-color="#19B171"/>
+        </linearGradient>
+        <rect id="prefix__b" width="32" height="32" x="0" y="0" rx="4"/>
+    </defs>
+    <g fill="none" fill-rule="evenodd" transform="translate(1 .582)">
+        <rect width="29" height="29" x="1.5" y="1.5" fill="url(#prefix__a)" stroke="#CAFFD1" stroke-linejoin="square" stroke-width="3" rx="4"/>
+        <use stroke="#37B982" xlink:href="#prefix__b"/>
+        <g fill-rule="nonzero">
+            <path fill="#FFF" d="M1.471 0h13.058c.265 0 .483.206.5.47l.94 15.734c.016.275-.194.512-.47.528l-.03.001H.531c-.276 0-.5-.224-.5-.5v-.03L.972.47c.017-.264.235-.47.5-.47z" transform="translate(8 8)"/>
+            <path fill="#1AB674" d="M11.733 2.8c0 .513-.42.933-.933.933-.513 0-.933-.42-.933-.933 0-.513.42-.933.933-.933.513 0 .933.42.933.933zm-5.6 0c0 .513-.42.933-.933.933-.513 0-.933-.42-.933-.933 0-.513.42-.933.933-.933.513 0 .933.42.933.933z" transform="translate(8 8)"/>
+            <path fill="#1BD688" d="M8 7.467c-1.82 0-3.267-1.447-3.267-3.267V2.8c0-.28.187-.467.467-.467s.467.187.467.467v1.4c0 1.307 1.026 2.333 2.333 2.333 1.307 0 2.333-1.026 2.333-2.333V2.8c0-.28.187-.467.467-.467s.467.187.467.467v1.4c0 1.82-1.447 3.267-3.267 3.267z" transform="translate(8 8)"/>
+        </g>
+    </g>
+</svg>
