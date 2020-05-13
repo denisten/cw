@@ -21,6 +21,7 @@ import {
 } from '../../../effector/tutorial-store/events';
 import { handleAuthButtonClick } from '../../../utils/handle-auth-button-click';
 import { defaultScaleSize, scaleAnimation } from '../../../hoc/scale-anim';
+import { TutorialOverlay } from '../../tutorial-overlay';
 
 const ProfileWrapper = styled.div`
   width: 100%;
@@ -74,6 +75,8 @@ const styledConfig = {
   },
 };
 
+const zIndexForInheritOverlay = 2;
+
 export const NotAuthorizedProfile = () => {
   const [popUpDisplayFlag, setPopUpDisplayFlag] = useState(false);
   const { worldName, money, coins } = useStore(UserDataStore);
@@ -124,6 +127,10 @@ export const NotAuthorizedProfile = () => {
           callback={handleButtonClick}
         />
       ) : null}
+      <TutorialOverlay
+        displayFlag={true}
+        zIndex={zIndexForInheritOverlay}
+      ></TutorialOverlay>
     </ProfileWrapper>
   );
 };
