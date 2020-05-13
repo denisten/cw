@@ -13,10 +13,7 @@ import {
 } from '../effector/tutorial-store/store';
 import { TowersMarkerStore } from '../effector/towers-marker/store';
 import { zIndexForInheritOverlayBuilding } from '../constants';
-import {
-  TutorialOverlay,
-  TutorialOverlayTopLayer,
-} from '../components/tutorial-overlay';
+import { TutorialOverlay } from '../components/tutorial-overlay';
 
 export const Buildings: React.FC = () => {
   const localTowersProgressStore = useStore(TowersProgressStore);

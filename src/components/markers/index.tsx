@@ -122,6 +122,17 @@ export const MarkerWrapper = styled.div<{ displayFlag: boolean }>`
       top: 60px;
     }
   }
+
+  &[data-towertype=${TowersTypes.THEATER}] {
+    &[data-towerlevel='0'],
+    &[data-towerlevel='1'] {
+      top: 85px;
+    }
+    &[data-towerlevel='2'],
+    &[data-towerlevel='3'] {
+      top: 50px;
+    }
+  }
 `;
 
 export const Markers: React.FC<IMarkers> = ({
