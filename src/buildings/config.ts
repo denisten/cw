@@ -99,8 +99,14 @@ import cyberArenaLevel2Stroke from './cyber-arena/2-stroke.png';
 import cyberArenaLevel1Stroke from './cyber-arena/1-stroke.png';
 import cyberArenaLevel0Stroke from './cyber-arena/0-stroke.png';
 import { TowerLevel, TowersTypes } from '../effector/towers-progress/store';
+import satelliteTvLevel0Img from './satellite-tv/0.png';
+import satelliteTvLevel0Stroke from './satellite-tv/0-stroke.png';
 import satelliteTvLevel1Img from './satellite-tv/1.png';
 import satelliteTvLevel1Stroke from './satellite-tv/1-stroke.png';
+import satelliteTvLevel2Img from './satellite-tv/2.png';
+import satelliteTvLevel2Stroke from './satellite-tv/2-stroke.png';
+import satelliteTvLevel3Img from './satellite-tv/3.png';
+import satelliteTvLevel3Stroke from './satellite-tv/3-stroke.png';
 import partnerOneLevel0Img from './partners-build/partner-one/0.png';
 import partnerOneLevel0Stroke from './partners-build/partner-one/0-stroke.png';
 import partnerOneLevel1Img from './partners-build/partner-one/1.png';
@@ -605,26 +611,27 @@ class BuildingsService {
       title: 'Спутниковое ТВ',
       wideTower: false,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
-      maxLevel: TowerLevel.low,
-      hide: true,
-      width: 479,
-      height: 585,
-      areaCoords: '80,46,398,531',
-      position: [25.9, 30],
+      maxLevel: TowerLevel.high,
+      width: 393,
+      height: 479,
+      areaCoords: '45,132,340,454',
+      position: [20.1, 32.9],
       ref: null,
+      [TowerLevel.deactive]: {
+        img: satelliteTvLevel0Img,
+        shadowImg: satelliteTvLevel0Stroke,
+      },
       [TowerLevel.low]: {
         img: satelliteTvLevel1Img,
         shadowImg: satelliteTvLevel1Stroke,
       },
-      // TODO: не настоящая картинка
       [TowerLevel.mid]: {
-        img: bankLevel2Img,
-        shadowImg: bankLevel2Stroke,
+        img: satelliteTvLevel2Img,
+        shadowImg: satelliteTvLevel2Stroke,
       },
-      // TODO: не настоящая картинка
       [TowerLevel.high]: {
-        img: airportLevel3Img,
-        shadowImg: airportLevel3Stroke,
+        img: satelliteTvLevel3Img,
+        shadowImg: satelliteTvLevel3Stroke,
       },
     },
     [TowersTypes.PARTNER_ONE]: {
