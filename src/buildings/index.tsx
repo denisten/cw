@@ -7,8 +7,16 @@ import {
   TowersTypes,
 } from '../effector/towers-progress/store';
 import { AppCondition } from '../effector/app-condition/store';
-import { TutorialStore } from '../effector/tutorial-store/store';
+import {
+  TutorialStore,
+  TutorialConditions,
+} from '../effector/tutorial-store/store';
 import { TowersMarkerStore } from '../effector/towers-marker/store';
+import { zIndexForInheritOverlayBuilding } from '../constants';
+import {
+  TutorialOverlay,
+  TutorialOverlayTopLayer,
+} from '../components/tutorial-overlay';
 
 export const Buildings: React.FC = () => {
   const localTowersProgressStore = useStore(TowersProgressStore);
@@ -26,35 +34,43 @@ export const Buildings: React.FC = () => {
             towerLayoutData[localTowersProgressStore[towerTitle].level.id];
           if (towerParams) {
             return (
-              <Fragment key={towerTitle}>
-                <TowerWrapper
-                  tutorialCondition={tutorialCondition}
-                  tutorialPause={tutorialPause}
-                  upgradeFlag={upgradingTowerTitle === towerTitle}
-                  maxLevel={towerLayoutData.maxLevel}
-                  currentLevel={localTowersProgressStore[towerTitle].level.id}
-                  progress={localTowersProgressStore[towerTitle].points}
-                  focusOnTowerTitle={focusOn}
-                  towerTitle={towerTitle}
-                  wideTower={towerLayoutData.wideTower}
-                  zIndex={towerLayoutData.zIndex}
-                  width={towerLayoutData.width}
-                  height={towerLayoutData.height}
-                  position={towerLayoutData.position}
-                  areaCoords={towerLayoutData.areaCoords}
-                  shadowImg={towerParams.shadowImg}
-                  tower={towerParams.img}
-                  tutorialTower={towerLayoutData.tutorialTower}
-                  scaleValue={scaleValue}
-                  markers={markers[towerTitle].markers}
-                />
-              </Fragment>
+              <TowerWrapper
+                key={towerTitle}
+                tutorialCondition={tutorialCondition}
+                tutorialPause={tutorialPause}
+                upgradeFlag={upgradingTowerTitle === towerTitle}
+                maxLevel={towerLayoutData.maxLevel}
+                currentLevel={localTowersProgressStore[towerTitle].level.id}
+                progress={localTowersProgressStore[towerTitle].points}
+                focusOnTowerTitle={focusOn}
+                towerTitle={towerTitle}
+                wideTower={towerLayoutData.wideTower}
+                zIndex={
+                  tutorialCondition === TutorialConditions.ARROW_TOWER_INFO &&
+                  towerLayoutData.tutorialTower
+                    ? zIndexForInheritOverlayBuilding + 1
+                    : towerLayoutData.zIndex
+                }
+                width={towerLayoutData.width}
+                height={towerLayoutData.height}
+                position={towerLayoutData.position}
+                areaCoords={towerLayoutData.areaCoords}
+                shadowImg={towerParams.shadowImg}
+                tower={towerParams.img}
+                tutorialTower={towerLayoutData.tutorialTower}
+                scaleValue={scaleValue}
+                markers={markers[towerTitle].markers}
+              />
             );
           }
         } catch {
           return;
         }
       })}
+      <TutorialOverlay
+        displayFlag={tutorialCondition === TutorialConditions.ARROW_TOWER_INFO}
+        zIndex={zIndexForInheritOverlayBuilding}
+      ></TutorialOverlay>
     </Fragment>
   );
 };

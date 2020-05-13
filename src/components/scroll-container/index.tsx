@@ -68,7 +68,10 @@ export const ScrollContainer: React.FC<{
         <Bridges showBridges={true} />
       </MapWrapper>
       <TutorialOverlay
-        displayFlag={tutorialCondition !== 0}
+        displayFlag={
+          tutorialCondition !== 0 &&
+          tutorialCondition !== TutorialConditions.ARROW_TOWER_INFO
+        }
         zIndex={zIndexForInheritOverlay}
       ></TutorialOverlay>
     </ScrollContainerWrapper>
