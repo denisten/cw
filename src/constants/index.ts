@@ -18,3 +18,5 @@ export const MonthsStringArr = [
   'ноябрь',
   'декабрь',
 ];
+
+export const zIndexForInheritOverlay = 2;

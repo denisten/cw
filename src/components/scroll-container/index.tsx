@@ -15,6 +15,8 @@ import { Map } from '../map';
 import { Buildings } from '../../buildings';
 import { Bridges } from '../../buildings/bridges';
 import { BuildingsService } from '../../buildings/config';
+import { TutorialOverlay } from '../tutorial-overlay';
+import { zIndexForInheritOverlay } from '../../constants';
 
 export enum MapSize {
   WIDTH = 7680,
@@ -65,6 +67,10 @@ export const ScrollContainer: React.FC<{
         <Buildings />
         <Bridges showBridges={true} />
       </MapWrapper>
+      <TutorialOverlay
+        displayFlag={tutorialCondition !== 0}
+        zIndex={zIndexForInheritOverlay}
+      ></TutorialOverlay>
     </ScrollContainerWrapper>
   );
 });

@@ -25,6 +25,7 @@ import {
   TutorialOverlay,
   TutorialOverlayTopLayer,
 } from '../../tutorial-overlay';
+import { zIndexForInheritOverlay } from '../../../constants';
 
 const ProfileWrapper = styled.div`
   width: 100%;
@@ -77,8 +78,6 @@ const styledConfig = {
     marginRight: '4px',
   },
 };
-
-const zIndexForInheritOverlay = 2;
 
 export const NotAuthorizedProfile = () => {
   const [popUpDisplayFlag, setPopUpDisplayFlag] = useState(false);
