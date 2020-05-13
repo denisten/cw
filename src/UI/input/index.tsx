@@ -16,6 +16,7 @@ const Form = styled.form<IFormInput>`
   display: flex;
   justify-content: center;
   flex-direction: column;
+  background: ${props => props.background};
   :focus-within {
     border: solid 2px #02adc9;
   }
@@ -96,4 +97,5 @@ interface IFormInput {
   title?: string;
   width?: number;
   height?: number;
+  background?: string;
 }
