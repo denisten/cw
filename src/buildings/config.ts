@@ -54,6 +54,10 @@ import tariffTowerLevel2Img from './tariff/2.png';
 import tariffTowerLevel2Stroke from './tariff/2-stroke.png';
 import tariffTowerLevel3Img from './tariff/3.png';
 import tariffTowerLevel3Stroke from './tariff/3-stroke.png';
+import theaterTowerLevel0Img from './theater/0.png';
+import theaterTowerLevel0Stroke from './theater/0-stroke.png';
+import theaterTowerLevel1Img from './theater/1.png';
+import theaterTowerLevel1Stroke from './theater/1-stroke.png';
 import theaterTowerLevel2Img from './theater/2.png';
 import theaterTowerLevel2Stroke from './theater/2-stroke.png';
 import theaterTowerLevel3Img from './theater/3.png';
@@ -412,17 +416,19 @@ class BuildingsService {
       title: 'МТС Афиша',
       wideTower: true,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
-      maxLevel: TowerLevel.mid,
-      hide: true,
-      width: 584,
-      height: 461,
-      areaCoords: '518,397,95,92',
-      position: [25.5, 35.3],
+      maxLevel: TowerLevel.high,
+      width: 521,
+      height: 472,
+      areaCoords: '46,85,475,396',
+      position: [34.2, 34.1],
       ref: null,
+      [TowerLevel.deactive]: {
+        img: theaterTowerLevel0Img,
+        shadowImg: theaterTowerLevel0Stroke,
+      },
       [TowerLevel.low]: {
-        // TODO: не настоящая картинка
-        img: musicTowerLevel1Img,
-        shadowImg: musicTowerLevel1Stroke,
+        img: theaterTowerLevel1Img,
+        shadowImg: theaterTowerLevel1Stroke,
       },
       [TowerLevel.mid]: {
         img: theaterTowerLevel2Img,
