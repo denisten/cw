@@ -12,6 +12,17 @@ const Overlay = styled.div<ITutorialOverlay>`
   z-index: ${props => props.zIndex || 1};
 `;
 
+const OverlayTopLevel = styled.div<{ zIndex?: number }>`
+  z-index: ${props => props.zIndex || 0};
+`;
+
+export const TutorialOverlayTopLayer: React.FC<ITutorialOverlay> = ({
+  zIndex,
+  children,
+}) => {
+  return <OverlayTopLevel zIndex={zIndex}>{children}</OverlayTopLevel>;
+};
+
 export const TutorialOverlay: React.FC<ITutorialOverlay> = props => {
   return <Overlay {...props}></Overlay>;
 };
