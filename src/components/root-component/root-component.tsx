@@ -8,9 +8,14 @@ import { Menu } from '../menu';
 import { TaskButton } from '../../UI/task-button';
 import { ProfileButton } from '../../UI/profile-button';
 import { TutorialToolsSelector } from '../../utils/arrows-container';
-import { TutorialStore } from '../../effector/tutorial-store/store';
+import {
+  TutorialStore,
+  TutorialConditions,
+} from '../../effector/tutorial-store/store';
 import { ScrollContainer } from '../scroll-container';
 import { ZoomInOutButtons } from '../../UI/zoom-in-out-buttons';
+import { TutorialOverlay } from '../tutorial-overlay';
+import { zIndexForInheritOverlay } from '../../constants';
 
 const ComponentWrapper = styled.div<{ visible: boolean }>`
   background-image: url("${mapTile}");
@@ -45,6 +50,13 @@ export const RootComponent = (): React.ReactElement => {
         isInsideScrollContainer={false}
       />
       <ScrollContainer tutorialCondition={tutorialCondition} />
+      <TutorialOverlay
+        displayFlag={
+          tutorialCondition !== 0 &&
+          tutorialCondition !== TutorialConditions.ARROW_TOWER_INFO
+        }
+        zIndex={zIndexForInheritOverlay}
+      ></TutorialOverlay>
     </ComponentWrapper>
   );
 };
