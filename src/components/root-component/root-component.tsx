@@ -49,7 +49,14 @@ export const RootComponent = (): React.ReactElement => {
         tutorialCondition={tutorialCondition}
         isInsideScrollContainer={false}
       />
-      <ScrollContainer tutorialCondition={tutorialCondition} />
+      <ScrollContainer
+        tutorialCondition={tutorialCondition}
+        zIndex={
+          tutorialCondition === TutorialConditions.ARROW_TOWER_INFO
+            ? zIndexForInheritOverlay + 1
+            : 0
+        }
+      />
       <TutorialOverlay
         displayFlag={
           tutorialCondition !== 0 &&

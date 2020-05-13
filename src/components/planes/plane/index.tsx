@@ -11,7 +11,7 @@ const PlaneBody = styled.div<IPlaneItem>`
   left: ${props => props.left};
   background: url(${props => props.backgroundImage}) no-repeat center;
   background-size: 100% 100%;
-  z-index: ${ZIndexes.UI_BUTTON};
+  z-index: ${ZIndexes.BUILDING_FOUR_LEVEL};
 `;
 
 export const Plane = ({ ...props }) => {
