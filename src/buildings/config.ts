@@ -157,6 +157,8 @@ import marvinLevel0Stroke from './marvin/0-stroke.png';
 import marvinLevel1Stroke from './marvin/1-stroke.png';
 import marvinLevel2Stroke from './marvin/2-stroke.png';
 import marvinLevel3Stroke from './marvin/3-stroke.png';
+import cloudLevel0Img from './cloud/0.png';
+import cloudLevel0Stroke from './cloud/0-stroke.png';
 import cloudLevel1Img from './cloud/1.png';
 import cloudLevel1Stroke from './cloud/1-stroke.png';
 import cloudLevel2Img from './cloud/2.png';
@@ -881,12 +883,15 @@ class BuildingsService {
       wideTower: false,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
-      hide: true,
-      width: 367,
-      height: 413,
-      areaCoords: '47,42,323,366',
-      position: [50, 58],
+      width: 304,
+      height: 391,
+      areaCoords: '47,70,245,362',
+      position: [26.2, 37.5],
       ref: null,
+      [TowerLevel.deactive]: {
+        img: cloudLevel0Img,
+        shadowImg: cloudLevel0Stroke,
+      },
       [TowerLevel.low]: {
         img: cloudLevel1Img,
         shadowImg: cloudLevel1Stroke,
