@@ -71,7 +71,7 @@ const initState: TowersMarkerStoreType = {
   [TowersTypes.PARTNER_ONE]: {
     markers: [],
   },
-  [TowersTypes.PARTNER_YELLOW]: {
+  [TowersTypes.PARTNER_TWO]: {
     markers: [],
   },
   [TowersTypes.IGROTEKA]: {

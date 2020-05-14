@@ -28,7 +28,7 @@ export enum TowersTypes {
   WASD_TV = 'wasd-tv',
   SPUTNIK = 'sputnik',
   PARTNER_ONE = 'partnerOne',
-  PARTNER_YELLOW = 'partnerYellow',
+  PARTNER_TWO = 'partnerTwo',
   IGROTEKA = 'igroteka',
   HOME_INTERNET = 'home-internet',
   AUTO_FACTORY = 'autoFactory',
@@ -278,11 +278,11 @@ const initState: TowersProgressStoreType = {
       value: 10,
     },
   },
-  [TowersTypes.PARTNER_YELLOW]: {
+  [TowersTypes.PARTNER_TWO]: {
     productId: 1,
     points: 0,
     level: {
-      id: TowerLevel.low,
+      id: TowerLevel.deactive,
       name: '0 уровень',
       value: 0,
     },

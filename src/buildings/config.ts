@@ -115,8 +115,14 @@ import partnerOneLevel2Img from './partners-build/partner-one/2.png';
 import partnerOneLevel2Stroke from './partners-build/partner-one/2-stroke.png';
 import partnerOneLevel3Img from './partners-build/partner-one/3.png';
 import partnerOneLevel3Stroke from './partners-build/partner-one/3-stroke.png';
-import partnerYellowLevel1Img from './partners-build/partner-yellow/1.png';
-import partnerYellowLevel1Stroke from './partners-build/partner-yellow/1-stroke.png';
+import partnerTwoLevel0Img from './partners-build/partner-two/0.png';
+import partnerTwoLevel0Stroke from './partners-build/partner-two/0-stroke.png';
+import partnerTwoLevel1Img from './partners-build/partner-two/1.png';
+import partnerTwoLevel1Stroke from './partners-build/partner-two/1-stroke.png';
+import partnerTwoLevel2Img from './partners-build/partner-two/2.png';
+import partnerTwoLevel2Stroke from './partners-build/partner-two/2-stroke.png';
+import partnerTwoLevel3Img from './partners-build/partner-two/3.png';
+import partnerTwoLevel3Stroke from './partners-build/partner-two/3-stroke.png';
 import slotMachineLevel1Img from './slot-machine/1.png';
 import slotMachineLevel1Stroke from './slot-machine/1-stroke.png';
 import slotMachineLevel2Img from './slot-machine/2.png';
@@ -663,31 +669,32 @@ class BuildingsService {
         shadowImg: partnerOneLevel3Stroke,
       },
     },
-    [TowersTypes.PARTNER_YELLOW]: {
+    [TowersTypes.PARTNER_TWO]: {
       info: 'info',
       title: 'Здание партнера 2',
       wideTower: true,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
-      maxLevel: TowerLevel.low,
-      hide: true,
-      width: 657,
-      height: 690,
-      areaCoords: '53,54,604,641',
-      position: [48.9, 36.8],
+      maxLevel: TowerLevel.high,
+      width: 463,
+      height: 456,
+      areaCoords: '47,83,412,422',
+      position: [50.2, 35],
       ref: null,
+      [TowerLevel.deactive]: {
+        img: partnerTwoLevel0Img,
+        shadowImg: partnerTwoLevel0Stroke,
+      },
       [TowerLevel.low]: {
-        img: partnerYellowLevel1Img,
-        shadowImg: partnerYellowLevel1Stroke,
+        img: partnerTwoLevel1Img,
+        shadowImg: partnerTwoLevel1Stroke,
       },
-      // TODO: не настоящая картинка
       [TowerLevel.mid]: {
-        img: bankLevel2Img,
-        shadowImg: bankLevel2Stroke,
+        img: partnerTwoLevel2Img,
+        shadowImg: partnerTwoLevel2Stroke,
       },
-      // TODO: не настоящая картинка
       [TowerLevel.high]: {
-        img: airportLevel3Img,
-        shadowImg: airportLevel3Stroke,
+        img: partnerTwoLevel3Img,
+        shadowImg: partnerTwoLevel3Stroke,
       },
     },
     [TowersTypes.IGROTEKA]: {
