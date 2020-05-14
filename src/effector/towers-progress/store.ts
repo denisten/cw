@@ -37,8 +37,23 @@ export enum TowersTypes {
   MARVIN = 'marvin',
   UNIVERSITY = 'university',
   CONNECT = 'connect',
+  SMARTMED = 'smartmed',
 }
 const initState: TowersProgressStoreType = {
+  [TowersTypes.SMARTMED]: {
+    productId: 1,
+    points: 0,
+    level: {
+      id: TowerLevel.deactive,
+      name: '0 уровень',
+      value: 0,
+    },
+    productIncome: {
+      id: 1,
+      productId: 1,
+      value: 10,
+    },
+  },
   [TowersTypes.UNIVERSITY]: {
     productId: 1,
     points: 0,

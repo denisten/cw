@@ -171,11 +171,49 @@ import universityLevel0Stroke from './university/0-stroke.png';
 import universityLevel1Stroke from './university/1-stroke.png';
 import universityLevel2Stroke from './university/2-stroke.png';
 import universityLevel3Stroke from './university/3-stroke.png';
+
+import smartmedLevel0Img from './smartmed/0.png';
+import smartmedLevel1Img from './smartmed/1.png';
+import smartmedLevel2Img from './smartmed/2.png';
+import smartmedLevel3Img from './smartmed/3.png';
+import smartmedLevel0Stroke from './smartmed/0-stroke.png';
+import smartmedLevel1Stroke from './smartmed/1-stroke.png';
+import smartmedLevel2Stroke from './smartmed/2-stroke.png';
+import smartmedLevel3Stroke from './smartmed/3-stroke.png';
+
 import { ZIndexes } from '../components/root-component/z-indexes-enum';
 import { RefObject } from 'react';
 
 class BuildingsService {
   _config: BuildingServiceConfigTypes = {
+    [TowersTypes.SMARTMED]: {
+      info: 'info',
+      title: 'SmartMed',
+      wideTower: false,
+      zIndex: ZIndexes.BUILDING_THREE_LEVEL,
+      maxLevel: TowerLevel.high,
+      width: 313,
+      height: 655,
+      areaCoords: '55,82,259,651',
+      position: [45.2, 62.6],
+      ref: null,
+      [TowerLevel.deactive]: {
+        img: smartmedLevel0Img,
+        shadowImg: smartmedLevel0Stroke,
+      },
+      [TowerLevel.low]: {
+        img: smartmedLevel1Img,
+        shadowImg: smartmedLevel1Stroke,
+      },
+      [TowerLevel.mid]: {
+        img: smartmedLevel2Img,
+        shadowImg: smartmedLevel2Stroke,
+      },
+      [TowerLevel.high]: {
+        img: smartmedLevel3Img,
+        shadowImg: smartmedLevel3Stroke,
+      },
+    },
     [TowersTypes.UNIVERSITY]: {
       info: 'info',
       title: 'Smart University',

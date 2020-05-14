@@ -146,6 +146,16 @@ export const MarkerWrapper = styled.div<{ displayFlag: boolean }>`
       top: 100px;
     }
   }
+  &[data-towertype=${TowersTypes.SMARTMED}] {
+    &[data-towerlevel='0'],
+    &[data-towerlevel='1'] {
+      top: 185px;
+    }
+    &[data-towerlevel='2'] {
+      top: 80px;
+    }
+
+  }
 `;
 
 export const Markers: React.FC<IMarkers> = ({
