@@ -62,7 +62,9 @@ import theaterTowerLevel2Img from './theater/2.png';
 import theaterTowerLevel2Stroke from './theater/2-stroke.png';
 import theaterTowerLevel3Img from './theater/3.png';
 import theaterTowerLevel3Stroke from './theater/3-stroke.png';
-import TVTowerLevel1Stroke from './TV/1-stroke.png';
+import TVTowerLevel0Stroke from './TV/1-stroke.png';
+import TVTowerLevel0Img from './TV/0.png';
+import TVTowerLevel1Stroke from './TV/0-stroke.png';
 import TVTowerLevel1Img from './TV/1.png';
 import TVTowerLevel2Stroke from './TV/2-stroke.png';
 import TVTowerLevel2Img from './TV/2.png';
@@ -457,12 +459,15 @@ class BuildingsService {
       wideTower: false,
       zIndex: ZIndexes.BUILDING_THREE_LEVEL,
       maxLevel: TowerLevel.high,
-      hide: true,
-      width: 486,
-      height: 842,
-      areaCoords: '49,52,434,789',
-      position: [25.74, 26.35],
+      width: 428,
+      height: 965,
+      areaCoords: '59,165,372,926',
+      position: [19.7, 29.45],
       ref: null,
+      [TowerLevel.deactive]: {
+        img: TVTowerLevel0Img,
+        shadowImg: TVTowerLevel0Stroke,
+      },
       [TowerLevel.low]: {
         img: TVTowerLevel1Img,
         shadowImg: TVTowerLevel1Stroke,

@@ -133,6 +133,19 @@ export const MarkerWrapper = styled.div<{ displayFlag: boolean }>`
       top: 50px;
     }
   }
+
+  &[data-towertype=${TowersTypes.TV}] {
+    &[data-towerlevel='0'],
+    &[data-towerlevel='1'] {
+      top: 360px;
+    }
+    &[data-towerlevel='2'] {
+      top: 180px;
+    }
+    &[data-towerlevel='3'] {
+      top: 100px;
+    }
+  }
 `;
 
 export const Markers: React.FC<IMarkers> = ({
