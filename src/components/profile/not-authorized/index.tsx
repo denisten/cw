@@ -71,8 +71,10 @@ const styledConfig = {
     paddingBottom: '32px',
   },
   rowWrapper: {
-    padding: '59px 0 28px 0',
+    padding: '28px 10px',
+    margin: '31px 0 0 0',
     left: '12px',
+    background: 'white',
   },
   moneyWallet: {
     marginRight: '4px',
@@ -129,25 +131,20 @@ export const NotAuthorizedProfile = () => {
         </RowWrapper>
       </TutorialOverlayTopLayer>
       <img src={profileIcon} alt="profile" style={styledConfig.profileIcon} />
-      {!tutorialCondition ||
-      tutorialCondition === TutorialConditions.PULSE_AUTH_BUTTON ? (
-        <TutorialOverlayTopLayer
-          zIndex={
-            tutorialCondition === TutorialConditions.PULSE_AUTH_BUTTON
-              ? zIndexForInheritOverlay + 1
-              : zIndexForInheritOverlay - 1
-          }
-        >
-          <Button
-            animFlag={
-              tutorialCondition === TutorialConditions.PULSE_AUTH_BUTTON
-            }
-            className={ButtonClassNames.NORMAL}
-            content="Войти"
-            callback={handleButtonClick}
-          />
-        </TutorialOverlayTopLayer>
-      ) : null}
+      <TutorialOverlayTopLayer
+        zIndex={
+          tutorialCondition === TutorialConditions.PULSE_AUTH_BUTTON
+            ? zIndexForInheritOverlay + 1
+            : zIndexForInheritOverlay - 1
+        }
+      >
+        <Button
+          animFlag={tutorialCondition === TutorialConditions.PULSE_AUTH_BUTTON}
+          className={ButtonClassNames.NORMAL}
+          content="Войти"
+          callback={handleButtonClick}
+        />
+      </TutorialOverlayTopLayer>
       <TutorialOverlay
         displayFlag={
           tutorialCondition === TutorialConditions.PULSE_AUTH_BUTTON ||

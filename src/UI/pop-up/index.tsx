@@ -56,8 +56,8 @@ const Title = styled(StyledSpan)`
 
 const styleConfig = {
   button: {
-    position: 'absolute',
-    bottom: '45px',
+    position: 'static',
+    margin: '45px 0 0 0',
   } as React.CSSProperties,
   overlay: {
     zIndex: ZIndexes.UI_BUTTON + 1,

@@ -13,6 +13,7 @@ const ParentDivWrapper = styled.div<IRowWrapper>`
   left: ${props => props.left};
   right: ${props => props.right};
   margin: ${props => props.margin};
+  background: ${props => props.background};
 `;
 
 export const RowWrapper: React.FC<IRowWrapper> = ({
@@ -33,6 +34,7 @@ interface IRowWrapper {
   justifyContent?: string;
   alignItems?: string;
   onMouseOut?: () => void;
+  background?: string;
   padding?: string;
   right?: string;
   left?: string;
