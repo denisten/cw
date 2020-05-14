@@ -1,5 +1,3 @@
-import { ZIndexes } from '../components/root-component/z-indexes-enum';
-
 const daysNumInOneMonth = 31;
 
 export const DaysNumArr: string[] = new Array(daysNumInOneMonth)
@@ -22,4 +20,3 @@ export const MonthsStringArr = [
 ];
 
 export const zIndexForInheritOverlay = 2;
-export const zIndexForInheritOverlayBuilding = ZIndexes.BUILDING_FOUR_LEVEL;

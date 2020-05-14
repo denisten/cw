@@ -59,8 +59,9 @@ export const RootComponent = (): React.ReactElement => {
       />
       <TutorialOverlay
         displayFlag={
-          tutorialCondition !== 0 &&
-          tutorialCondition !== TutorialConditions.ARROW_TOWER_INFO
+          tutorialCondition ===
+            TutorialConditions.PULSE_MENU_CHANGE_CITY_NAME ||
+          tutorialCondition === TutorialConditions.PULSE_MENU_AUTH
         }
         zIndex={zIndexForInheritOverlay}
       ></TutorialOverlay>

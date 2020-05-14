@@ -7,13 +7,8 @@ import {
   TowersTypes,
 } from '../effector/towers-progress/store';
 import { AppCondition } from '../effector/app-condition/store';
-import {
-  TutorialStore,
-  TutorialConditions,
-} from '../effector/tutorial-store/store';
+import { TutorialStore } from '../effector/tutorial-store/store';
 import { TowersMarkerStore } from '../effector/towers-marker/store';
-import { zIndexForInheritOverlayBuilding } from '../constants';
-import { TutorialOverlay } from '../components/tutorial-overlay';
 
 export const Buildings: React.FC = () => {
   const localTowersProgressStore = useStore(TowersProgressStore);
@@ -42,12 +37,7 @@ export const Buildings: React.FC = () => {
                 focusOnTowerTitle={focusOn}
                 towerTitle={towerTitle}
                 wideTower={towerLayoutData.wideTower}
-                zIndex={
-                  tutorialCondition === TutorialConditions.ARROW_TOWER_INFO &&
-                  towerLayoutData.tutorialTower
-                    ? zIndexForInheritOverlayBuilding + 1
-                    : towerLayoutData.zIndex
-                }
+                zIndex={towerLayoutData.zIndex}
                 width={towerLayoutData.width}
                 height={towerLayoutData.height}
                 position={towerLayoutData.position}
@@ -64,10 +54,6 @@ export const Buildings: React.FC = () => {
           return;
         }
       })}
-      <TutorialOverlay
-        displayFlag={tutorialCondition === TutorialConditions.ARROW_TOWER_INFO}
-        zIndex={zIndexForInheritOverlayBuilding}
-      ></TutorialOverlay>
     </Fragment>
   );
 };
