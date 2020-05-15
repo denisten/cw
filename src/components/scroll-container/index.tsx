@@ -26,17 +26,19 @@ const ScrollContainerWrapper = styled.div`
   overflow: hidden;
   user-select: none;
 `;
-const MapWrapper = styled.div<{ scaleValue: number }>`
+const MapWrapper = styled.div<{ scaleValue: number; zIndex: number }>`
   display: block;
   width: ${MapSize.WIDTH}px;
   height: ${MapSize.HEIGHT}px;
   position: relative;
   transform: scale(${props => props.scaleValue});
+  z-index: ${props => props.zIndex};
 `;
 
 export const ScrollContainer: React.FC<{
   tutorialCondition: TutorialConditions;
-}> = React.memo(({ tutorialCondition }) => {
+  zIndex: number;
+}> = React.memo(({ tutorialCondition, zIndex }) => {
   const myRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     dragscroll.reset();
@@ -54,7 +56,11 @@ export const ScrollContainer: React.FC<{
 
   return (
     <ScrollContainerWrapper className="dragscroll" ref={myRef}>
-      <MapWrapper onWheel={wheelHandler} scaleValue={scaleValue}>
+      <MapWrapper
+        onWheel={wheelHandler}
+        scaleValue={scaleValue}
+        zIndex={zIndex}
+      >
         <TutorialToolsSelector
           tutorialCondition={tutorialCondition}
           isInsideScrollContainer={true}

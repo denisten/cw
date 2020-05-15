@@ -16,6 +16,7 @@ import nameBackground from './name-background.svg';
 import coinsBackground from './coins-background.svg';
 import coins from './coin.svg';
 import { defaultScaleSize, scaleAnimation } from '../../hoc/scale-anim';
+import { zIndexForInheritOverlay } from '../../constants';
 
 const CoinsWrapper = styled.div`
   background-image: url(${coinsBackground});
@@ -60,7 +61,7 @@ const NickNameWrapper = styled.div<INickNameWrapper>`
 `;
 
 const ProfileButtonWrapper = styled.div<IProfileButtonWrapper>`
-  z-index: ${ZIndexes.UI_BUTTON};
+  z-index: ${props => props.zIndex};
   position: absolute;
   top: 37px;
   left: 39px;
@@ -109,6 +110,12 @@ export const ProfileButton: React.FC<IProfileButton> = ({
   const { money, name } = useStore(UserDataStore);
   return (
     <ProfileButtonWrapper
+      zIndex={
+        tutorialCondition === TutorialConditions.PULSE_MENU_CHANGE_CITY_NAME ||
+        tutorialCondition === TutorialConditions.PULSE_MENU_AUTH
+          ? zIndexForInheritOverlay + 1
+          : ZIndexes.UI_BUTTON
+      }
       onClick={handleClick}
       animFlag={
         tutorialCondition === TutorialConditions.PULSE_MENU_CHANGE_CITY_NAME ||
@@ -137,4 +144,5 @@ interface INickNameWrapper {
 interface IProfileButtonWrapper {
   animFlag?: boolean;
   scaleSize?: number;
+  zIndex?: number;
 }

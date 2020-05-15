@@ -44,8 +44,7 @@ const MenuParagraphWrapper = styled.div<IMenuParagraphWrapper>`
     props.isItemSelected ? 'rgba(255, 255, 255, 0.15)' : 'none'};
   padding-left: 48px;
   box-sizing: border-box;
-  opacity: ${props => (props.availableForClick ? '1' : '0.3')};
-  pointer-events: ${props => (props.availableForClick ? 'auto' : 'none')};
+  pointer-events: auto;
   p {
     &:hover {
       cursor: pointer;
@@ -77,12 +76,10 @@ export const MenuNavigationElement: React.FC<IMenuParagraph> = ({
   onClickHandler,
   haveNotify,
   pulseAnim = false,
-  availableForClick,
   ...props
 }) => {
   return (
     <MenuParagraphWrapper
-      availableForClick={availableForClick}
       menuElement={menuElement}
       isItemSelected={isItemSelected}
       {...props}
@@ -102,12 +99,10 @@ interface IMenuParagraphTitleWrapper {
 interface IMenuParagraphWrapper {
   menuElement: MenuItems;
   isItemSelected: boolean;
-  availableForClick?: boolean;
 }
 
 interface IMenuParagraph extends IMenuParagraphWrapper {
   onClickHandler: () => void;
   haveNotify: boolean;
   pulseAnim?: boolean;
-  availableForClick?: boolean;
 }
