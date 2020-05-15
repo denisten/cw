@@ -139,6 +139,8 @@ import routerLevel2Img from './router/2.png';
 import routerLevel2Stroke from './router/2-stroke.png';
 import routerLevel3Img from './router/3.png';
 import routerLevel3Stroke from './router/3-stroke.png';
+import autoFactoryLevel0Img from './auto-factory/0.png';
+import autoFactoryLevel0Stroke from './auto-factory/0-stroke.png';
 import autoFactoryLevel1Img from './auto-factory/1.png';
 import autoFactoryLevel1Stroke from './auto-factory/1-stroke.png';
 import autoFactoryLevel2Img from './auto-factory/2.png';
@@ -635,14 +637,17 @@ class BuildingsService {
       info: 'info',
       title: 'МТС Авто',
       wideTower: true,
-      zIndex: ZIndexes.BUILDING_TWO_LEVEL,
+      zIndex: ZIndexes.BUILDING_FOUR_LEVEL,
       maxLevel: TowerLevel.high,
-      hide: true,
-      width: 662,
-      height: 499,
-      areaCoords: '49,143,613,448',
-      position: [29.6, 59.3],
+      width: 649,
+      height: 445,
+      areaCoords: '49,134,608,444',
+      position: [46.8, 25.3],
       ref: null,
+      [TowerLevel.deactive]: {
+        img: autoFactoryLevel0Img,
+        shadowImg: autoFactoryLevel0Stroke,
+      },
       [TowerLevel.low]: {
         img: autoFactoryLevel1Img,
         shadowImg: autoFactoryLevel1Stroke,
