@@ -24,7 +24,7 @@ export const TutorialOverlayTopLayer: React.FC<ITutorialOverlay> = ({
 };
 
 export const TutorialOverlay: React.FC<ITutorialOverlay> = props => {
-  return <Overlay {...props}></Overlay>;
+  return <Overlay {...props} />;
 };
 
 interface ITutorialOverlay {

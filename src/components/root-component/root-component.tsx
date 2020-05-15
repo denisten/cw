@@ -64,7 +64,7 @@ export const RootComponent = (): React.ReactElement => {
           tutorialCondition === TutorialConditions.PULSE_MENU_AUTH
         }
         zIndex={zIndexForInheritOverlay}
-      ></TutorialOverlay>
+      />
     </ComponentWrapper>
   );
 };

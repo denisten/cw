@@ -165,7 +165,7 @@ export const PopUp: React.FC<IPopUp> = ({ callback, displayFlag }) => {
               TutorialConditions.PULSE_SAVE_CHANGE_CITY_NAME
             }
             zIndex={zIndexForInheritOverlay}
-          ></TutorialOverlay>
+          />
         </Overlay>
       ) : null}
     </Fragment>

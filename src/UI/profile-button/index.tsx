@@ -114,9 +114,7 @@ export const ProfileButton: React.FC<IProfileButton> = ({
         tutorialCondition === TutorialConditions.PULSE_MENU_CHANGE_CITY_NAME ||
         tutorialCondition === TutorialConditions.PULSE_MENU_AUTH
           ? zIndexForInheritOverlay + 1
-          : !tutorialCondition
-          ? ZIndexes.UI_BUTTON
-          : zIndexForInheritOverlay
+          : ZIndexes.UI_BUTTON
       }
       onClick={handleClick}
       animFlag={
