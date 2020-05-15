@@ -62,7 +62,9 @@ import theaterTowerLevel2Img from './theater/2.png';
 import theaterTowerLevel2Stroke from './theater/2-stroke.png';
 import theaterTowerLevel3Img from './theater/3.png';
 import theaterTowerLevel3Stroke from './theater/3-stroke.png';
-import TVTowerLevel1Stroke from './TV/1-stroke.png';
+import TVTowerLevel0Stroke from './TV/1-stroke.png';
+import TVTowerLevel0Img from './TV/0.png';
+import TVTowerLevel1Stroke from './TV/0-stroke.png';
 import TVTowerLevel1Img from './TV/1.png';
 import TVTowerLevel2Stroke from './TV/2-stroke.png';
 import TVTowerLevel2Img from './TV/2.png';
@@ -115,8 +117,14 @@ import partnerOneLevel2Img from './partners-build/partner-one/2.png';
 import partnerOneLevel2Stroke from './partners-build/partner-one/2-stroke.png';
 import partnerOneLevel3Img from './partners-build/partner-one/3.png';
 import partnerOneLevel3Stroke from './partners-build/partner-one/3-stroke.png';
-import partnerYellowLevel1Img from './partners-build/partner-yellow/1.png';
-import partnerYellowLevel1Stroke from './partners-build/partner-yellow/1-stroke.png';
+import partnerTwoLevel0Img from './partners-build/partner-two/0.png';
+import partnerTwoLevel0Stroke from './partners-build/partner-two/0-stroke.png';
+import partnerTwoLevel1Img from './partners-build/partner-two/1.png';
+import partnerTwoLevel1Stroke from './partners-build/partner-two/1-stroke.png';
+import partnerTwoLevel2Img from './partners-build/partner-two/2.png';
+import partnerTwoLevel2Stroke from './partners-build/partner-two/2-stroke.png';
+import partnerTwoLevel3Img from './partners-build/partner-two/3.png';
+import partnerTwoLevel3Stroke from './partners-build/partner-two/3-stroke.png';
 import slotMachineLevel1Img from './slot-machine/1.png';
 import slotMachineLevel1Stroke from './slot-machine/1-stroke.png';
 import slotMachineLevel2Img from './slot-machine/2.png';
@@ -131,6 +139,8 @@ import routerLevel2Img from './router/2.png';
 import routerLevel2Stroke from './router/2-stroke.png';
 import routerLevel3Img from './router/3.png';
 import routerLevel3Stroke from './router/3-stroke.png';
+import autoFactoryLevel0Img from './auto-factory/0.png';
+import autoFactoryLevel0Stroke from './auto-factory/0-stroke.png';
 import autoFactoryLevel1Img from './auto-factory/1.png';
 import autoFactoryLevel1Stroke from './auto-factory/1-stroke.png';
 import autoFactoryLevel2Img from './auto-factory/2.png';
@@ -149,6 +159,8 @@ import marvinLevel0Stroke from './marvin/0-stroke.png';
 import marvinLevel1Stroke from './marvin/1-stroke.png';
 import marvinLevel2Stroke from './marvin/2-stroke.png';
 import marvinLevel3Stroke from './marvin/3-stroke.png';
+import cloudLevel0Img from './cloud/0.png';
+import cloudLevel0Stroke from './cloud/0-stroke.png';
 import cloudLevel1Img from './cloud/1.png';
 import cloudLevel1Stroke from './cloud/1-stroke.png';
 import cloudLevel2Img from './cloud/2.png';
@@ -163,11 +175,49 @@ import universityLevel0Stroke from './university/0-stroke.png';
 import universityLevel1Stroke from './university/1-stroke.png';
 import universityLevel2Stroke from './university/2-stroke.png';
 import universityLevel3Stroke from './university/3-stroke.png';
+
+import smartmedLevel0Img from './smartmed/0.png';
+import smartmedLevel1Img from './smartmed/1.png';
+import smartmedLevel2Img from './smartmed/2.png';
+import smartmedLevel3Img from './smartmed/3.png';
+import smartmedLevel0Stroke from './smartmed/0-stroke.png';
+import smartmedLevel1Stroke from './smartmed/1-stroke.png';
+import smartmedLevel2Stroke from './smartmed/2-stroke.png';
+import smartmedLevel3Stroke from './smartmed/3-stroke.png';
+
 import { ZIndexes } from '../components/root-component/z-indexes-enum';
 import { RefObject } from 'react';
 
 class BuildingsService {
   _config: BuildingServiceConfigTypes = {
+    [TowersTypes.SMARTMED]: {
+      info: 'info',
+      title: 'SmartMed',
+      wideTower: false,
+      zIndex: ZIndexes.BUILDING_THREE_LEVEL,
+      maxLevel: TowerLevel.high,
+      width: 313,
+      height: 655,
+      areaCoords: '55,82,259,651',
+      position: [45.2, 62.6],
+      ref: null,
+      [TowerLevel.deactive]: {
+        img: smartmedLevel0Img,
+        shadowImg: smartmedLevel0Stroke,
+      },
+      [TowerLevel.low]: {
+        img: smartmedLevel1Img,
+        shadowImg: smartmedLevel1Stroke,
+      },
+      [TowerLevel.mid]: {
+        img: smartmedLevel2Img,
+        shadowImg: smartmedLevel2Stroke,
+      },
+      [TowerLevel.high]: {
+        img: smartmedLevel3Img,
+        shadowImg: smartmedLevel3Stroke,
+      },
+    },
     [TowersTypes.UNIVERSITY]: {
       info: 'info',
       title: 'Smart University',
@@ -451,12 +501,15 @@ class BuildingsService {
       wideTower: false,
       zIndex: ZIndexes.BUILDING_THREE_LEVEL,
       maxLevel: TowerLevel.high,
-      hide: true,
-      width: 486,
-      height: 842,
-      areaCoords: '49,52,434,789',
-      position: [25.74, 26.35],
+      width: 428,
+      height: 965,
+      areaCoords: '59,165,372,926',
+      position: [19.7, 29.45],
       ref: null,
+      [TowerLevel.deactive]: {
+        img: TVTowerLevel0Img,
+        shadowImg: TVTowerLevel0Stroke,
+      },
       [TowerLevel.low]: {
         img: TVTowerLevel1Img,
         shadowImg: TVTowerLevel1Stroke,
@@ -584,14 +637,17 @@ class BuildingsService {
       info: 'info',
       title: 'МТС Авто',
       wideTower: true,
-      zIndex: ZIndexes.BUILDING_TWO_LEVEL,
+      zIndex: ZIndexes.BUILDING_FOUR_LEVEL,
       maxLevel: TowerLevel.high,
-      hide: true,
-      width: 662,
-      height: 499,
-      areaCoords: '49,143,613,448',
-      position: [29.6, 59.3],
+      width: 649,
+      height: 445,
+      areaCoords: '49,134,608,444',
+      position: [46.8, 25.3],
       ref: null,
+      [TowerLevel.deactive]: {
+        img: autoFactoryLevel0Img,
+        shadowImg: autoFactoryLevel0Stroke,
+      },
       [TowerLevel.low]: {
         img: autoFactoryLevel1Img,
         shadowImg: autoFactoryLevel1Stroke,
@@ -663,31 +719,32 @@ class BuildingsService {
         shadowImg: partnerOneLevel3Stroke,
       },
     },
-    [TowersTypes.PARTNER_YELLOW]: {
+    [TowersTypes.PARTNER_TWO]: {
       info: 'info',
       title: 'Здание партнера 2',
       wideTower: true,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
-      maxLevel: TowerLevel.low,
-      hide: true,
-      width: 657,
-      height: 690,
-      areaCoords: '53,54,604,641',
-      position: [48.9, 36.8],
+      maxLevel: TowerLevel.high,
+      width: 463,
+      height: 456,
+      areaCoords: '47,83,412,422',
+      position: [50.2, 35],
       ref: null,
+      [TowerLevel.deactive]: {
+        img: partnerTwoLevel0Img,
+        shadowImg: partnerTwoLevel0Stroke,
+      },
       [TowerLevel.low]: {
-        img: partnerYellowLevel1Img,
-        shadowImg: partnerYellowLevel1Stroke,
+        img: partnerTwoLevel1Img,
+        shadowImg: partnerTwoLevel1Stroke,
       },
-      // TODO: не настоящая картинка
       [TowerLevel.mid]: {
-        img: bankLevel2Img,
-        shadowImg: bankLevel2Stroke,
+        img: partnerTwoLevel2Img,
+        shadowImg: partnerTwoLevel2Stroke,
       },
-      // TODO: не настоящая картинка
       [TowerLevel.high]: {
-        img: airportLevel3Img,
-        shadowImg: airportLevel3Stroke,
+        img: partnerTwoLevel3Img,
+        shadowImg: partnerTwoLevel3Stroke,
       },
     },
     [TowersTypes.IGROTEKA]: {
@@ -831,12 +888,15 @@ class BuildingsService {
       wideTower: false,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
-      hide: true,
-      width: 367,
-      height: 413,
-      areaCoords: '47,42,323,366',
-      position: [50, 58],
+      width: 304,
+      height: 391,
+      areaCoords: '47,70,245,362',
+      position: [26.2, 37.5],
       ref: null,
+      [TowerLevel.deactive]: {
+        img: cloudLevel0Img,
+        shadowImg: cloudLevel0Stroke,
+      },
       [TowerLevel.low]: {
         img: cloudLevel1Img,
         shadowImg: cloudLevel1Stroke,
