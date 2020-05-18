@@ -78,9 +78,11 @@ import stadiumLevel0Stroke from './stadium/0-stroke.png';
 import stadiumLevel1Stroke from './stadium/1-stroke.png';
 import stadiumLevel2Stroke from './stadium/2-stroke.png';
 import stadiumLevel3Stroke from './stadium/3-stroke.png';
+import airportLevel0Img from './airport/0.png';
 import airportLevel1Img from './airport/1.png';
 import airportLevel2Img from './airport/2.png';
 import airportLevel3Img from './airport/3.png';
+import airportLevel0Stroke from './airport/0-stroke.png';
 import airportLevel1Stroke from './airport/1-stroke.png';
 import airportLevel2Stroke from './airport/2-stroke.png';
 import airportLevel3Stroke from './airport/3-stroke.png';
@@ -557,12 +559,15 @@ class BuildingsService {
       wideTower: true,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
-      hide: true,
-      width: 572,
-      height: 398,
-      areaCoords: '510,47,70,345',
-      position: [19.9, 29.3],
+      width: 381,
+      height: 405,
+      areaCoords: '37,46,608,444',
+      position: [19, 40],
       ref: null,
+      [TowerLevel.deactive]: {
+        img: airportLevel0Img,
+        shadowImg: airportLevel0Stroke,
+      },
       [TowerLevel.low]: {
         img: airportLevel1Img,
         shadowImg: airportLevel1Stroke,
