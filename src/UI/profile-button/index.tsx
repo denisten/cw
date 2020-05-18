@@ -17,6 +17,7 @@ import coinsBackground from './coins-background.svg';
 import coins from './coin.svg';
 import { defaultScaleSize, scaleAnimation } from '../../hoc/scale-anim';
 import { zIndexForInheritOverlay } from '../../constants';
+import { MTSSans } from '../../fonts';
 
 const CoinsWrapper = styled.div`
   background-image: url(${coinsBackground});
@@ -76,7 +77,7 @@ const ProfileButtonWrapper = styled.div<IProfileButtonWrapper>`
   font-weight: bold;
   font-stretch: normal;
   font-style: normal;
-  font-family: 'MTSSansBold';
+  font-family: ${MTSSans.BOLD};
 `;
 
 const StyleConfig = {
@@ -122,7 +123,7 @@ export const ProfileButton: React.FC<IProfileButton> = ({
         tutorialCondition === TutorialConditions.PULSE_MENU_AUTH
       }
     >
-      <NickNameWrapper content={name || 'Nickname'} />
+      <NickNameWrapper content={name} />
       <CoinsWrapper>
         <img src={coins} alt="coins" style={StyleConfig.coins} />
         {money}
