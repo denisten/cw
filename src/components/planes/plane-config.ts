@@ -3,18 +3,18 @@ import backgroundLevel1 from './plane_v_2.png';
 import backgroundLevel2 from './plane_v_3.png';
 
 export const planeConfig: IPlaneConfig = {
-  level0: [
+  level1: [
     {
-      top: '25.9%',
-      left: '34.3%',
+      top: '24.3%',
+      left: '46.3%',
       width: '107px',
       height: '71px',
       backgroundImage: backgroundLevel0,
       id: 0,
     },
     {
-      top: '24.5%',
-      left: '36.3%',
+      top: '25.7%',
+      left: '44.3%',
       width: '107px',
       height: '71px',
       backgroundImage: backgroundLevel0,
@@ -22,7 +22,7 @@ export const planeConfig: IPlaneConfig = {
     },
   ],
 
-  level1: [
+  level2: [
     {
       top: '26%',
       left: '43.3%',
@@ -40,18 +40,18 @@ export const planeConfig: IPlaneConfig = {
       id: 1,
     },
   ],
-  level2: [
+  level3: [
     {
-      top: '24.7%',
-      left: '34.3%',
+      top: '23.3%',
+      left: '46.1%',
       width: '207px',
       height: '124px',
       backgroundImage: backgroundLevel2,
       id: 0,
     },
     {
-      top: '22.8%',
-      left: '37.1%',
+      top: '25.7%',
+      left: '42.6%',
       width: '207px',
       height: '124px',
       backgroundImage: backgroundLevel2,

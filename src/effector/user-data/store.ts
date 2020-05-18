@@ -16,19 +16,32 @@ export enum UserDataStoreKeys {
   BIRTHDAY = 'birthday',
   MONEY = 'money',
   COINS = 'coins',
+  COUPONS_COUNT = 'couponsCount',
 }
 
-const initState: IUserDataStore = {
-  [UserDataStoreKeys.ID]: 0,
-  [UserDataStoreKeys.NAME]: 'Василий',
-  [UserDataStoreKeys.WORLD_NAME]: 'Мой Мир',
-  [UserDataStoreKeys.ASSISTANT_NAME]: 'Генадий',
-  [UserDataStoreKeys.MONEY]: 200000,
-  [UserDataStoreKeys.COINS]: 300000,
-  [UserDataStoreKeys.BIRTHDAY]: {
-    dd: '',
-    mm: '',
+const initData = {
+  id: 0,
+  name: 'Неизвестно',
+  worldName: 'Неизвестно',
+  assistantName: 'Неизвестно',
+  money: 200,
+  coins: 299,
+  birthday: {
+    dd: '00',
+    mm: '00',
   },
+  couponsCount: 2,
+};
+
+const initState: IUserDataStore = {
+  [UserDataStoreKeys.ID]: initData.id,
+  [UserDataStoreKeys.NAME]: initData.name,
+  [UserDataStoreKeys.WORLD_NAME]: initData.worldName,
+  [UserDataStoreKeys.ASSISTANT_NAME]: initData.assistantName,
+  [UserDataStoreKeys.MONEY]: initData.money,
+  [UserDataStoreKeys.COINS]: initData.coins,
+  [UserDataStoreKeys.BIRTHDAY]: initData.birthday,
+  [UserDataStoreKeys.COUPONS_COUNT]: initData.couponsCount,
 };
 
 const userDataStoreLocalStorage = connectLocalStorage('UserData').onChange(
@@ -46,15 +59,12 @@ export const UserDataStore = UserDataDomain.store<IUserDataStore>(initState)
   }))
   .on(
     fetchUserData.done,
-    (
-      state,
-      { result: { worldName = '', assistantName = '', name = '', id } }
-    ) => ({
+    (state, { result: { worldName, assistantName, name, id } }) => ({
       ...state,
       id,
-      worldName,
-      assistantName,
-      name,
+      worldName: worldName || initData.worldName,
+      assistantName: assistantName || initData.assistantName,
+      name: name || initData.name,
     })
   )
   .on(editUserData, (state, payload) => ({
@@ -71,7 +81,9 @@ export interface IUserDataStore {
   [UserDataStoreKeys.ASSISTANT_NAME]: string;
   [UserDataStoreKeys.MONEY]: number;
   [UserDataStoreKeys.COINS]: number;
+  [UserDataStoreKeys.COUPONS_COUNT]: number;
   [UserDataStoreKeys.BIRTHDAY]: IBirthday;
+  [UserDataStoreKeys.COUPONS_COUNT]: number;
 }
 
 export interface IBirthday {

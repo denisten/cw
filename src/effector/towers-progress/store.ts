@@ -27,8 +27,8 @@ export enum TowersTypes {
   BANK = 'bank',
   WASD_TV = 'wasd-tv',
   SPUTNIK = 'sputnik',
-  PARTNER_BLUE = 'partnerBlue',
-  PARTNER_YELLOW = 'partnerYellow',
+  PARTNER_ONE = 'partnerOne',
+  PARTNER_TWO = 'partnerTwo',
   IGROTEKA = 'igroteka',
   HOME_INTERNET = 'home-internet',
   AUTO_FACTORY = 'autoFactory',
@@ -37,8 +37,23 @@ export enum TowersTypes {
   MARVIN = 'marvin',
   UNIVERSITY = 'university',
   CONNECT = 'connect',
+  SMARTMED = 'smartmed',
 }
 const initState: TowersProgressStoreType = {
+  [TowersTypes.SMARTMED]: {
+    productId: 1,
+    points: 0,
+    level: {
+      id: TowerLevel.deactive,
+      name: '0 уровень',
+      value: 0,
+    },
+    productIncome: {
+      id: 1,
+      productId: 1,
+      value: 10,
+    },
+  },
   [TowersTypes.UNIVERSITY]: {
     productId: 1,
     points: 0,
@@ -169,7 +184,7 @@ const initState: TowersProgressStoreType = {
     productId: 1,
     points: 0,
     level: {
-      id: TowerLevel.high,
+      id: TowerLevel.deactive,
       name: '0 уровень',
       value: 0,
     },
@@ -211,7 +226,7 @@ const initState: TowersProgressStoreType = {
     productId: 1,
     points: 0,
     level: {
-      id: TowerLevel.low,
+      id: TowerLevel.deactive,
       name: '0 уровень',
       value: 0,
     },
@@ -254,7 +269,7 @@ const initState: TowersProgressStoreType = {
     productId: 1,
     points: 0,
     level: {
-      id: TowerLevel.low,
+      id: TowerLevel.deactive,
       name: '0 уровень',
       value: 0,
     },
@@ -264,11 +279,11 @@ const initState: TowersProgressStoreType = {
       value: 10,
     },
   },
-  [TowersTypes.PARTNER_BLUE]: {
+  [TowersTypes.PARTNER_ONE]: {
     productId: 1,
     points: 0,
     level: {
-      id: TowerLevel.low,
+      id: TowerLevel.deactive,
       name: '0 уровень',
       value: 0,
     },
@@ -278,11 +293,11 @@ const initState: TowersProgressStoreType = {
       value: 10,
     },
   },
-  [TowersTypes.PARTNER_YELLOW]: {
+  [TowersTypes.PARTNER_TWO]: {
     productId: 1,
     points: 0,
     level: {
-      id: TowerLevel.low,
+      id: TowerLevel.deactive,
       name: '0 уровень',
       value: 0,
     },
@@ -324,7 +339,7 @@ const initState: TowersProgressStoreType = {
     productId: 1,
     points: 0,
     level: {
-      id: TowerLevel.low,
+      id: TowerLevel.deactive,
       name: '0 уровень',
       value: 0,
     },
@@ -380,7 +395,7 @@ const initState: TowersProgressStoreType = {
     productId: 1,
     points: 0,
     level: {
-      id: TowerLevel.low,
+      id: TowerLevel.deactive,
       name: '0 уровень',
       value: 0,
     },

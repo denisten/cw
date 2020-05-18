@@ -24,6 +24,11 @@ import { nextTutorStep } from '../../effector/tutorial-store/events';
 import { menuClosed } from '../../effector/app-condition/events';
 import { ZIndexes } from '../../components/root-component/z-indexes-enum';
 import { ExitButton } from '../exit-button';
+import {
+  TutorialOverlay,
+  TutorialOverlayTopLayer,
+} from '../../components/tutorial-overlay';
+import { zIndexForInheritOverlay } from '../../constants';
 
 const PopUpWrapper = styled.div`
   background-image: url(${popUpWrapperBackground});
@@ -47,12 +52,12 @@ const Title = styled(StyledSpan)`
   text-align: center;
   color: #001424;
   margin-bottom: 24px;
-}`;
+`;
 
 const styleConfig = {
   button: {
-    position: 'absolute',
-    bottom: '45px',
+    position: 'static',
+    margin: '45px 0 0 0',
   } as React.CSSProperties,
   overlay: {
     zIndex: ZIndexes.UI_BUTTON + 1,
@@ -63,6 +68,7 @@ const styleConfig = {
   },
   input: {
     padding: '0 0 0 16px',
+    background: 'white',
   },
 };
 
@@ -116,25 +122,50 @@ export const PopUp: React.FC<IPopUp> = ({ callback, displayFlag }) => {
           <PopUpWrapper>
             <ExitButton callBack={callback} {...styleConfig.exitButton} />
             <Title>Введите название города</Title>
-            <Input
-              onChangeHandler={handleOnChange}
-              onSubmitHandler={handleSubmit}
-              value={value}
-              hasError={inputHasError}
-              hint={worldInputHint}
-              style={styleConfig.input}
-            />
-            <Button
-              style={styleConfig.button}
-              className={ButtonClassNames.NORMAL}
-              content="Сохранить"
-              callback={handleSubmit}
-              animFlag={
+            <TutorialOverlayTopLayer
+              zIndex={
                 tutorialCondition ===
                 TutorialConditions.PULSE_SAVE_CHANGE_CITY_NAME
+                  ? zIndexForInheritOverlay + 1
+                  : zIndexForInheritOverlay - 1
               }
-            />
+            >
+              <Input
+                onChangeHandler={handleOnChange}
+                onSubmitHandler={handleSubmit}
+                value={value}
+                hasError={inputHasError}
+                hint={worldInputHint}
+                style={styleConfig.input}
+              />
+            </TutorialOverlayTopLayer>
+            <TutorialOverlayTopLayer
+              zIndex={
+                tutorialCondition ===
+                TutorialConditions.PULSE_SAVE_CHANGE_CITY_NAME
+                  ? zIndexForInheritOverlay + 1
+                  : zIndexForInheritOverlay - 1
+              }
+            >
+              <Button
+                style={styleConfig.button}
+                className={ButtonClassNames.NORMAL}
+                content="Сохранить"
+                callback={handleSubmit}
+                animFlag={
+                  tutorialCondition ===
+                  TutorialConditions.PULSE_SAVE_CHANGE_CITY_NAME
+                }
+              />
+            </TutorialOverlayTopLayer>
           </PopUpWrapper>
+          <TutorialOverlay
+            displayFlag={
+              tutorialCondition ===
+              TutorialConditions.PULSE_SAVE_CHANGE_CITY_NAME
+            }
+            zIndex={zIndexForInheritOverlay}
+          />
         </Overlay>
       ) : null}
     </Fragment>

@@ -16,6 +16,8 @@ import nameBackground from './name-background.svg';
 import coinsBackground from './coins-background.svg';
 import coins from './coin.svg';
 import { defaultScaleSize, scaleAnimation } from '../../hoc/scale-anim';
+import { zIndexForInheritOverlay } from '../../constants';
+import { MTSSans } from '../../fonts';
 
 const CoinsWrapper = styled.div`
   background-image: url(${coinsBackground});
@@ -60,7 +62,7 @@ const NickNameWrapper = styled.div<INickNameWrapper>`
 `;
 
 const ProfileButtonWrapper = styled.div<IProfileButtonWrapper>`
-  z-index: ${ZIndexes.UI_BUTTON};
+  z-index: ${props => props.zIndex};
   position: absolute;
   top: 37px;
   left: 39px;
@@ -75,7 +77,7 @@ const ProfileButtonWrapper = styled.div<IProfileButtonWrapper>`
   font-weight: bold;
   font-stretch: normal;
   font-style: normal;
-  font-family: 'MTSSansBold';
+  font-family: ${MTSSans.BOLD};
 `;
 
 const StyleConfig = {
@@ -109,13 +111,19 @@ export const ProfileButton: React.FC<IProfileButton> = ({
   const { money, name } = useStore(UserDataStore);
   return (
     <ProfileButtonWrapper
+      zIndex={
+        tutorialCondition === TutorialConditions.PULSE_MENU_CHANGE_CITY_NAME ||
+        tutorialCondition === TutorialConditions.PULSE_MENU_AUTH
+          ? zIndexForInheritOverlay + 1
+          : ZIndexes.UI_BUTTON
+      }
       onClick={handleClick}
       animFlag={
         tutorialCondition === TutorialConditions.PULSE_MENU_CHANGE_CITY_NAME ||
         tutorialCondition === TutorialConditions.PULSE_MENU_AUTH
       }
     >
-      <NickNameWrapper content={name || 'Nickname'} />
+      <NickNameWrapper content={name} />
       <CoinsWrapper>
         <img src={coins} alt="coins" style={StyleConfig.coins} />
         {money}
@@ -137,4 +145,5 @@ interface INickNameWrapper {
 interface IProfileButtonWrapper {
   animFlag?: boolean;
   scaleSize?: number;
+  zIndex?: number;
 }

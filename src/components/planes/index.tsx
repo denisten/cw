@@ -1,18 +1,21 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { useStore } from 'effector-react';
 import { TowersProgressStore } from '../../effector/towers-progress/store';
 import { planeConfig } from './plane-config';
 import { Plane } from './plane';
 
-export const Planes = () => {
+export const Planes = React.memo(() => {
   const airportLevelStoreLevel = useStore(TowersProgressStore).roaming.level.id;
-  const planesArray = planeConfig[`level${airportLevelStoreLevel}`] || null;
-
-  return (
-    <>
-      {planesArray.map(item =>
-        useMemo(() => <Plane key={item.id} {...item} />, [item])
-      )}
-    </>
-  );
-};
+  if (airportLevelStoreLevel === 0) {
+    return null;
+  } else {
+    const planesArray = planeConfig[`level${airportLevelStoreLevel}`] || null;
+    return (
+      <>
+        {planesArray.map(item => (
+          <Plane key={item.id} {...item} />
+        ))}
+      </>
+    );
+  }
+});

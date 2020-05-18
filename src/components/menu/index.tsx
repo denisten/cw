@@ -54,8 +54,8 @@ const StyledConfig = {
 
 const ExpandedColumnWrapper = styled(ColumnWrapper)`
   height: 456px;
-  width: 1045px;
-  zindex: 20;
+  width: auto;
+  z-index: 20;
 `;
 
 export const Menu: React.FC<{ displayFlag: boolean }> = ({ displayFlag }) => {
@@ -81,7 +81,6 @@ export const Menu: React.FC<{ displayFlag: boolean }> = ({ displayFlag }) => {
         ) : null}
         <RowWrapper {...StyledConfig.rowWrapper}>
           <MenuItemsComponent
-            tutorialCondition={tutorialCondition}
             currentNotifysList={[MenuItems.TASKS, MenuItems.FEEDBACK]} // TODO get real data from somewhere
             selectedMenuItem={selectedMenuItem || MenuItems.PROFILE}
             callBack={menuItemsComponentCallBack}
