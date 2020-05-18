@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { TasksType } from '..';
-import { Task } from './task';
+import { Tasks } from './task';
 import { Challenge } from './challenge';
 import { Mission } from './mission';
 
@@ -21,7 +21,7 @@ export const TasksContent: React.FC<{ activeType: TasksType }> = ({
 }) => {
   return (
     <Body>
-      <Task active={activeType === TasksType.TASKS} />
+      <Tasks active={activeType === TasksType.TASKS} />
       <Challenge active={activeType === TasksType.CHALLENGES} />
       <Mission active={activeType === TasksType.MISSION} />
     </Body>

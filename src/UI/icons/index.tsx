@@ -12,10 +12,12 @@ export enum TypeOfIcons {
   COIN = 'coin',
 }
 
-export const Icon: React.FC<IIcon> = ({
-  style = { width: '34px', height: '34px' },
-  type,
-}) => {
+const defaultStyle = {
+  width: '34px',
+  height: '34px',
+};
+
+export const Icon: React.FC<IIcon> = ({ style = defaultStyle, type }) => {
   const switchSrc = (type: TypeOfIcons | TaskSubType) => {
     switch (type) {
       case TaskSubType.CHALLENGE:
@@ -35,7 +37,7 @@ export const Icon: React.FC<IIcon> = ({
     }
   };
 
-  return <img style={style} loading="lazy" src={switchSrc(type)} />;
+  return <img style={style} loading="lazy" src={switchSrc(type)} alt="icon" />;
 };
 
 interface IIcon {
