@@ -5,6 +5,7 @@ export const handleAuthButtonClick = async () => {
   const height = 500;
   const left = window.innerWidth / 2 - width / 2;
   const top = window.innerHeight / 2 - height / 2;
+  window.history.replaceState({}, document.title, '/');
   const authWindow = window.open(
     undefined,
     'window_auth',
