@@ -16,13 +16,6 @@ export enum TasksType {
   MISSION = 'mission',
 }
 
-export enum TaskSubType {
-  CHALLENGE = 'challenge',
-  MISSIONS = 'missions',
-  NBO = 'nbo',
-  COSMETICS = 'cosmetics',
-}
-
 const taskTypes = [
   { id: TasksType.TASKS, label: 'Задачи' },
   { id: TasksType.CHALLENGES, label: 'Челленджи' },

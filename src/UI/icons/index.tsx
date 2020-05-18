@@ -5,7 +5,7 @@ import nbo from './nbo.svg';
 import cosmetics from './cosmetics.svg';
 import energy from './energy.svg';
 import coin from './coin.svg';
-import { TaskSubType } from '../../components/tasks';
+import { TaskSubType } from '../../effector/missions-store/store';
 
 export enum TypeOfIcons {
   ENERGY = 'energy',
@@ -30,7 +30,6 @@ export const Icon: React.FC<IIcon> = ({
         return energy;
       case TypeOfIcons.COIN:
         return coin;
-
       default:
         break;
     }

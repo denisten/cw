@@ -81,6 +81,7 @@ export interface IUserDataStore {
   [UserDataStoreKeys.ASSISTANT_NAME]: string;
   [UserDataStoreKeys.MONEY]: number;
   [UserDataStoreKeys.COINS]: number;
+  [UserDataStoreKeys.COUPONS_COUNT]: number;
   [UserDataStoreKeys.BIRTHDAY]: IBirthday;
   [UserDataStoreKeys.COUPONS_COUNT]: number;
 }
