@@ -4,6 +4,9 @@ import { TowersMarkerDomain } from './domain';
 import { hideMarker, setMarker } from './events';
 
 const initState: TowersMarkerStoreType = {
+  [TowersTypes.SMARTMED]: {
+    markers: [{ type: TypeOfMarkers.SUCCESS }],
+  },
   [TowersTypes.UNIVERSITY]: {
     markers: [],
   },
@@ -71,7 +74,7 @@ const initState: TowersMarkerStoreType = {
   [TowersTypes.PARTNER_ONE]: {
     markers: [],
   },
-  [TowersTypes.PARTNER_YELLOW]: {
+  [TowersTypes.PARTNER_TWO]: {
     markers: [],
   },
   [TowersTypes.IGROTEKA]: {

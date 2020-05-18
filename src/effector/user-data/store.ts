@@ -16,6 +16,7 @@ export enum UserDataStoreKeys {
   BIRTHDAY = 'birthday',
   MONEY = 'money',
   COINS = 'coins',
+  COUPONS_COUNT = 'couponsCount',
 }
 
 const initState: IUserDataStore = {
@@ -29,6 +30,7 @@ const initState: IUserDataStore = {
     dd: '',
     mm: '',
   },
+  [UserDataStoreKeys.COUPONS_COUNT]: 2,
 };
 
 const userDataStoreLocalStorage = connectLocalStorage('UserData').onChange(
@@ -71,6 +73,7 @@ export interface IUserDataStore {
   [UserDataStoreKeys.ASSISTANT_NAME]: string;
   [UserDataStoreKeys.MONEY]: number;
   [UserDataStoreKeys.COINS]: number;
+  [UserDataStoreKeys.COUPONS_COUNT]: number;
   [UserDataStoreKeys.BIRTHDAY]: IBirthday;
 }
 

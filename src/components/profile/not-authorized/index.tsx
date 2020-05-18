@@ -21,6 +21,11 @@ import {
 } from '../../../effector/tutorial-store/events';
 import { handleAuthButtonClick } from '../../../utils/handle-auth-button-click';
 import { defaultScaleSize, scaleAnimation } from '../../../hoc/scale-anim';
+import {
+  TutorialOverlay,
+  TutorialOverlayTopLayer,
+} from '../../tutorial-overlay';
+import { zIndexForInheritOverlay } from '../../../constants';
 
 const ProfileWrapper = styled.div`
   width: 100%;
@@ -66,8 +71,10 @@ const styledConfig = {
     paddingBottom: '32px',
   },
   rowWrapper: {
-    padding: '59px 0 28px 0',
+    padding: '28px 10px',
+    margin: '31px 0 0 0',
     left: '12px',
+    background: 'white',
   },
   moneyWallet: {
     marginRight: '4px',
@@ -102,28 +109,49 @@ export const NotAuthorizedProfile = () => {
         <MoneyWallet sum={String(money)} style={styledConfig.moneyWallet} />
         <CoinsWallet sum={String(coins)} />
       </MoneyWalletWrapper>
-      <RowWrapper {...styledConfig.rowWrapper}>
-        <WorldTitle>{worldName || 'Мой мир'}</WorldTitle>
-        <PenWrapper
-          src={penImg}
-          alt="pen"
-          onClick={handlePenClick}
-          animFlag={
-            tutorialCondition === TutorialConditions.PULSE_EDIT_CHANGE_CITY_NAME
-          }
-          scaleSize={1.4}
-        />
-      </RowWrapper>
+      <TutorialOverlayTopLayer
+        zIndex={
+          tutorialCondition === TutorialConditions.PULSE_EDIT_CHANGE_CITY_NAME
+            ? zIndexForInheritOverlay + 1
+            : zIndexForInheritOverlay - 1
+        }
+      >
+        <RowWrapper {...styledConfig.rowWrapper}>
+          <WorldTitle>{worldName || 'Мой мир'}</WorldTitle>
+          <PenWrapper
+            src={penImg}
+            alt="pen"
+            onClick={handlePenClick}
+            animFlag={
+              tutorialCondition ===
+              TutorialConditions.PULSE_EDIT_CHANGE_CITY_NAME
+            }
+            scaleSize={1.4}
+          />
+        </RowWrapper>
+      </TutorialOverlayTopLayer>
       <img src={profileIcon} alt="profile" style={styledConfig.profileIcon} />
-      {!tutorialCondition ||
-      tutorialCondition === TutorialConditions.PULSE_AUTH_BUTTON ? (
+      <TutorialOverlayTopLayer
+        zIndex={
+          tutorialCondition === TutorialConditions.PULSE_AUTH_BUTTON
+            ? zIndexForInheritOverlay + 1
+            : zIndexForInheritOverlay - 1
+        }
+      >
         <Button
           animFlag={tutorialCondition === TutorialConditions.PULSE_AUTH_BUTTON}
           className={ButtonClassNames.NORMAL}
           content="Войти"
           callback={handleButtonClick}
         />
-      ) : null}
+      </TutorialOverlayTopLayer>
+      <TutorialOverlay
+        displayFlag={
+          tutorialCondition === TutorialConditions.PULSE_AUTH_BUTTON ||
+          tutorialCondition === TutorialConditions.PULSE_EDIT_CHANGE_CITY_NAME
+        }
+        zIndex={zIndexForInheritOverlay}
+      ></TutorialOverlay>
     </ProfileWrapper>
   );
 };
