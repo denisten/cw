@@ -5,6 +5,7 @@ import {
   fetchAllProductsData,
   upgradeTower,
   addTowerProgressData,
+  resetTowerProgress,
 } from './events';
 export enum TowerLevel {
   deactive = 0,
@@ -474,7 +475,8 @@ export const TowersProgressStore = TowersProgressDomain.store<
   .on(addTowerProgressData, (state, payload) => ({
     ...state,
     ...payload,
-  }));
+  }))
+  .reset(resetTowerProgress);
 
 export type TowersProgressStoreType = Record<TowersTypes, ITowerProgress>;
 

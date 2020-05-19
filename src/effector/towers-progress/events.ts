@@ -19,6 +19,7 @@ export const fetchAllProductsData = TowersProgressDomain.effect(
 export const addTowerProgressData = TowersProgressDomain.event<
   TowersProgressStoreType
 >();
+export const resetTowerProgress = TowersProgressDomain.event();
 export interface IAddProgressPoints {
   points: number;
   towerTitle: TowersTypes;

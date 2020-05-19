@@ -19,6 +19,7 @@ import { CookieService } from '../../../sevices/cookies';
 import { logout } from '../../../api';
 import { Dropdown } from '../../../UI/dropdown';
 import { DaysNumArr, MonthsStringArr } from '../../../constants';
+import { resetTowerProgress } from '../../../effector/towers-progress/events';
 
 const ExitText = styled(StyledSpan)<ISpan>`
   font-family: ${MTSSans.REGULAR};
@@ -191,6 +192,7 @@ export const AuthorizedProfile = () => {
     CookieService.resetToken();
     logout();
     if (userSocketConnect) userSocketConnect.disconnect();
+    resetTowerProgress();
   };
 
   return (
