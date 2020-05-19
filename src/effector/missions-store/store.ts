@@ -1,5 +1,6 @@
 import { MissionsDomain } from './domain';
 import { addMission } from './events';
+import { TowersTypes } from '../towers-progress/store';
 
 export enum TaskSubType {
   CHALLENGE = 'challenge',
@@ -20,6 +21,7 @@ const initStore: IMission[] = [
     taskTitle: 'Продай кастрюлю',
     status: TaskStatuses.DONE,
     isAllowedToChange: true,
+    towerTitle: TowersTypes.SMARTMED,
     description:
       'Бегай каждое утро и отмечай результаты, чтобы задание…было вылненоБегай каждое утро и отмечай результаты, чтобы задание…было вылнено',
     loot: {
@@ -32,6 +34,7 @@ const initStore: IMission[] = [
     taskTitle: 'Купи кастрюлю',
     status: TaskStatuses.NOT_DONE,
     isAllowedToChange: true,
+    towerTitle: TowersTypes.MAIN_TOWER,
     description:
       'Бегай каждое утро и отмечай результаты, чтобы задание…было вылненоБегай каждое утро и отмечай результаты, чтобы задание…было вылнено',
     loot: {
@@ -44,6 +47,7 @@ const initStore: IMission[] = [
     taskTitle: 'Сделай 2000 шагов!',
     status: TaskStatuses.NOT_DONE,
     isAllowedToChange: true,
+    towerTitle: TowersTypes.MUSIC,
     description:
       'Бегай каждое утро и отмечай результаты, чтобы задание…было вылненоБегай каждое утро и отмечай результаты, чтобы задание…было вылнено',
     loot: {
@@ -56,6 +60,7 @@ const initStore: IMission[] = [
     taskTitle: 'Сделай селфи',
     status: TaskStatuses.DONE,
     isAllowedToChange: true,
+    towerTitle: TowersTypes.TARIFF,
     description:
       'Бегай каждое утро и отмечай результаты, чтобы задание…было вылненоБегай каждое утро и отмечай результаты, чтобы задание…было вылнено',
     loot: {
@@ -68,6 +73,7 @@ const initStore: IMission[] = [
     taskTitle: 'Выложи пост',
     status: TaskStatuses.NOT_DONE,
     isAllowedToChange: true,
+    towerTitle: TowersTypes.MAIN_TOWER,
     description:
       'Бегай каждое утро и отмечай результаты, чтобы задание…было вылненоБегай каждое утро и отмечай результаты, чтобы задание…было вылнено',
     loot: {
@@ -80,6 +86,7 @@ const initStore: IMission[] = [
     taskTitle: 'Сходи в магазин',
     status: TaskStatuses.DONE,
     isAllowedToChange: true,
+    towerTitle: TowersTypes.SMARTMED,
     description:
       'Бегай каждое утро и отмечай результаты, чтобы задание…было вылненоБегай каждое утро и отмечай результаты, чтобы задание…было вылнено',
     loot: {
@@ -92,6 +99,7 @@ const initStore: IMission[] = [
     taskTitle: 'Позвони другу',
     status: TaskStatuses.NOT_DONE,
     isAllowedToChange: true,
+    towerTitle: TowersTypes.MAIN_TOWER,
     description:
       'Бегай каждое утро и отмечай результаты, чтобы задание…было вылненоБегай каждое утро и отмечай результаты, чтобы задание…было вылнено',
     loot: {
@@ -117,6 +125,7 @@ export interface IMission {
   status: TaskStatuses;
   description: string;
   isAllowedToChange: boolean;
+  towerTitle: TowersTypes;
   loot: {
     energy: number;
     money: number;
