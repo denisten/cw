@@ -192,6 +192,66 @@ import { RefObject } from 'react';
 
 class BuildingsService {
   _config: BuildingServiceConfigTypes = {
+    // TODO заглушка
+    [TowersTypes.POISK]: {
+      hide: true,
+      info: 'info',
+      title: 'SmartMed',
+      wideTower: false,
+      zIndex: ZIndexes.BUILDING_THREE_LEVEL,
+      maxLevel: TowerLevel.high,
+      width: 313,
+      height: 655,
+      areaCoords: '55,82,259,651',
+      position: [45.2, 62.6],
+      ref: null,
+      [TowerLevel.deactive]: {
+        img: smartmedLevel0Img,
+        shadowImg: smartmedLevel0Stroke,
+      },
+      [TowerLevel.low]: {
+        img: smartmedLevel1Img,
+        shadowImg: smartmedLevel1Stroke,
+      },
+      [TowerLevel.mid]: {
+        img: smartmedLevel2Img,
+        shadowImg: smartmedLevel2Stroke,
+      },
+      [TowerLevel.high]: {
+        img: smartmedLevel3Img,
+        shadowImg: smartmedLevel3Stroke,
+      },
+    },
+    // TODO заглушка
+    [TowersTypes.GOODOK]: {
+      hide: true,
+      info: 'info',
+      title: 'SmartMed',
+      wideTower: false,
+      zIndex: ZIndexes.BUILDING_THREE_LEVEL,
+      maxLevel: TowerLevel.high,
+      width: 313,
+      height: 655,
+      areaCoords: '55,82,259,651',
+      position: [45.2, 62.6],
+      ref: null,
+      [TowerLevel.deactive]: {
+        img: smartmedLevel0Img,
+        shadowImg: smartmedLevel0Stroke,
+      },
+      [TowerLevel.low]: {
+        img: smartmedLevel1Img,
+        shadowImg: smartmedLevel1Stroke,
+      },
+      [TowerLevel.mid]: {
+        img: smartmedLevel2Img,
+        shadowImg: smartmedLevel2Stroke,
+      },
+      [TowerLevel.high]: {
+        img: smartmedLevel3Img,
+        shadowImg: smartmedLevel3Stroke,
+      },
+    },
     [TowersTypes.SMARTMED]: {
       info: 'info',
       title: 'SmartMed',
@@ -444,7 +504,7 @@ class BuildingsService {
         shadowImg: eggTowerLevel3Stroke,
       },
     },
-    [TowersTypes.TARIFF]: {
+    [TowersTypes.MOBILE_NETWORK]: {
       info: 'info',
       title: 'Мобильный интернет',
       wideTower: false,
@@ -638,7 +698,7 @@ class BuildingsService {
       },
     },
 
-    [TowersTypes.AUTO_FACTORY]: {
+    [TowersTypes.AUTO]: {
       info: 'info',
       title: 'МТС Авто',
       wideTower: true,

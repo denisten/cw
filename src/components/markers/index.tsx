@@ -156,7 +156,7 @@ export const MarkerWrapper = styled.div<{ displayFlag: boolean }>`
     }
   }
 
-  &[data-towertype=${TowersTypes.AUTO_FACTORY}] {
+  &[data-towertype=${TowersTypes.AUTO}] {
     &[data-towerlevel='0'] {
       top: 100px;
     }

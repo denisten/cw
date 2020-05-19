@@ -12,14 +12,14 @@ export enum TowerLevel {
   high = 3,
 }
 export enum TowersTypes {
-  MAIN_TOWER = 'mainTower',
+  MAIN_TOWER = 'cellular',
   MUSIC = 'music',
   LIVE_ARENA = 'live-arena',
   CASHBACK = 'cashback',
   MY_MTS = 'my-mts',
   LIBRARY = 'library',
   OBSERVATORY = 'observatory',
-  TARIFF = 'tariff',
+  MOBILE_NETWORK = 'mobile-network',
   THEATER = 'theater',
   TV = 'digital-tv',
   FITNESS = 'fitness',
@@ -31,15 +31,45 @@ export enum TowersTypes {
   PARTNER_TWO = 'partnerTwo',
   IGROTEKA = 'igroteka',
   HOME_INTERNET = 'home-internet',
-  AUTO_FACTORY = 'autoFactory',
+  AUTO = 'auto',
   SHOP = 'shop',
   PARTNER_BANK = 'partnerBank',
   MARVIN = 'marvin',
-  UNIVERSITY = 'university',
-  CONNECT = 'connect',
-  SMARTMED = 'smartmed',
+  UNIVERSITY = 'smart-university',
+  CONNECT = 'second-memory',
+  SMARTMED = 'smart-med',
+  GOODOK = 'goodok',
+  POISK = 'poisk',
 }
 const initState: TowersProgressStoreType = {
+  [TowersTypes.POISK]: {
+    productId: 1,
+    points: 0,
+    level: {
+      id: TowerLevel.deactive,
+      name: '0 уровень',
+      value: 0,
+    },
+    productIncome: {
+      id: 1,
+      productId: 1,
+      value: 10,
+    },
+  },
+  [TowersTypes.GOODOK]: {
+    productId: 1,
+    points: 0,
+    level: {
+      id: TowerLevel.deactive,
+      name: '0 уровень',
+      value: 0,
+    },
+    productIncome: {
+      id: 1,
+      productId: 1,
+      value: 10,
+    },
+  },
   [TowersTypes.SMARTMED]: {
     productId: 1,
     points: 0,
@@ -166,7 +196,7 @@ const initState: TowersProgressStoreType = {
       value: 10,
     },
   },
-  [TowersTypes.TARIFF]: {
+  [TowersTypes.MOBILE_NETWORK]: {
     productId: 1,
     points: 0,
     level: {
@@ -335,7 +365,7 @@ const initState: TowersProgressStoreType = {
       value: 10,
     },
   },
-  [TowersTypes.AUTO_FACTORY]: {
+  [TowersTypes.AUTO]: {
     productId: 1,
     points: 0,
     level: {
