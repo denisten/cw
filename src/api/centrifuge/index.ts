@@ -4,6 +4,7 @@ import { getCookie } from '../../utils/get-cookie';
 import { getWsToken } from '../get-ws-token';
 import { apiRoutes } from '../index';
 import { setUserSocket } from '../../effector/user-data/events';
+import { addTowerProgressData } from '../../effector/towers-progress/events';
 
 const wsConnectionRoute =
   'ws://stage.cwmts.dev-stream.ru/centrifugo/connection/websocket';
@@ -23,7 +24,7 @@ export const openWsConnection = async () => {
   const { id } = await getProfile();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const subscription = centrifuge.subscribe('progress:updates#' + id, item => {
-    //TODO: do smth with received message
+    addTowerProgressData(item.data);
   });
   centrifuge.on('disconnect', () => {
     subscription.unsubscribe();
