@@ -23,7 +23,7 @@ export const Buildings: React.FC = () => {
         if (towerLayoutData.hide) return null;
         try {
           const towerParams =
-            towerLayoutData[localTowersProgressStore[towerTitle].level.id];
+            towerLayoutData[localTowersProgressStore[towerTitle].level.level];
           if (towerParams) {
             return (
               <TowerWrapper
@@ -32,7 +32,7 @@ export const Buildings: React.FC = () => {
                 tutorialPause={tutorialPause}
                 upgradeFlag={upgradingTowerTitle === towerTitle}
                 maxLevel={towerLayoutData.maxLevel}
-                currentLevel={localTowersProgressStore[towerTitle].level.id}
+                currentLevel={localTowersProgressStore[towerTitle].level.level}
                 progress={localTowersProgressStore[towerTitle].points}
                 focusOnTowerTitle={focusOn}
                 towerTitle={towerTitle}
