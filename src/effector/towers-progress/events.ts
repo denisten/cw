@@ -1,5 +1,5 @@
 import { TowersProgressDomain } from './domain';
-import { TowersTypes, TowersProgressStoreType } from './store';
+import { TowersTypes } from './store';
 import { RefObject } from 'react';
 import { getAllProgress } from '../../api';
 export const addProgressPoints = TowersProgressDomain.event<

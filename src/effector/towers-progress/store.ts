@@ -475,10 +475,9 @@ export const TowersProgressStore = TowersProgressDomain.store<
   .on(addTowerProgressData, (state, { towerTitle, levelOnServer }) => ({
     ...state,
     [towerTitle]: {
-      ...state[towerTitle],
       level: {
         ...state[towerTitle].level,
-        levelOnServer: levelOnServer || 0,
+        levelOnServer,
       },
     },
   }))

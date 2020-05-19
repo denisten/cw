@@ -63,7 +63,7 @@ export const TowerWrapper = memo(
     tutorialPause,
     wideTower,
     markers = [],
-    levelOnServer,
+    levelOnServer = 0,
   }: ITowerWrapper): React.ReactElement => {
     const [posX, posY] = position;
     let mouseDownFlag = false,
