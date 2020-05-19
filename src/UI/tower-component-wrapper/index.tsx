@@ -110,6 +110,7 @@ export const TowerWrapper = memo(
     };
 
     const handleOnAnimationEnd = () => {
+      // TODO связать логику с бэком, юзая updateTower(towerTitle)
       upgradeTower(towerTitle);
       if (tutorialCondition) nextTutorStep();
     };

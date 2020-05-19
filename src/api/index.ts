@@ -14,6 +14,8 @@ export enum apiRoutes {
   WS_SUBSCRIBE = '/api/ws/subscribe',
   GET_ALL_PROGRESS = 'api/progress/current',
   PROGRESS_REFRESH = 'api/progress/refresh',
+  PRODUCTS = '/api/products',
+  COMMIT_PROGRESS = 'progress/commit',
 }
 
 export {
