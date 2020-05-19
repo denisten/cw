@@ -12,6 +12,7 @@ export enum apiRoutes {
   GET_WS_TOKEN = '/api/ws/connection',
   WS_SUBSCRIBE = '/api/ws/subscribe',
   GET_ALL_PROGRESS = 'api/progress/current',
+  GET_TASKS = '/api/tasks',
 }
 
 export { getUrl, getProfile, logout, getWsToken, getAllProgress };

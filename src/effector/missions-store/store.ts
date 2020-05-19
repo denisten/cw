@@ -1,5 +1,5 @@
 import { MissionsDomain } from './domain';
-import { addMission } from './events';
+import { addMission, fetchTasks } from './events';
 import { TowersTypes } from '../towers-progress/store';
 
 export enum TaskSubType {
@@ -109,15 +109,17 @@ const initStore: IMission[] = [
   },
 ];
 
-export const MissionsStore = MissionsDomain.store(initStore).on(
-  addMission,
-  (state, payload) => {
+export const MissionsStore = MissionsDomain.store(initStore)
+  .on(addMission, (state, payload) => {
     return {
       ...state,
       payload,
     };
-  }
-);
+  })
+  .on(fetchTasks.done, (state, { result }) => {
+    // console.log({ result });
+    return state;
+  });
 
 export interface IMission {
   type: TaskSubType;

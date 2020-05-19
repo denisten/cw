@@ -15,6 +15,7 @@ import {
   AdvanceScrollBarAttr,
   stringTrue,
 } from './utils/handle-scroll';
+import { fetchTasks } from './effector/missions-store/events';
 
 export enum Routes {
   MAIN = '/',
@@ -62,6 +63,7 @@ export const App: React.FC = () => {
   useEffect(() => {
     if (isAuthorized) {
       fetchUserData('');
+      fetchTasks('');
     }
   }, [isAuthorized]);
   useEffect(() => {
