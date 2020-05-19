@@ -7,6 +7,7 @@ import {
   addTowerProgressData,
   resetTowerProgress,
 } from './events';
+import { maxPersent } from '../../constants';
 export enum TowerLevel {
   deactive = 0,
   low = 1,
@@ -453,7 +454,10 @@ export const TowersProgressStore = TowersProgressDomain.store<
       ...state,
       [payload]: {
         ...state[payload],
-        points: 0,
+        points:
+          state[payload].level.level + 1 < state[payload].level.levelOnServer
+            ? maxPersent
+            : 0,
         level: {
           ...state[payload].level,
           level: state[payload].level.level + 1,
@@ -475,6 +479,11 @@ export const TowersProgressStore = TowersProgressDomain.store<
   .on(addTowerProgressData, (state, { towerTitle, levelOnServer }) => ({
     ...state,
     [towerTitle]: {
+      ...state[towerTitle],
+      points:
+        state[towerTitle].level.level < levelOnServer
+          ? maxPersent
+          : state[towerTitle].points,
       level: {
         ...state[towerTitle].level,
         levelOnServer,
