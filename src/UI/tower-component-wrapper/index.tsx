@@ -63,6 +63,7 @@ export const TowerWrapper = memo(
     tutorialPause,
     wideTower,
     markers = [],
+    levelOnServer,
   }: ITowerWrapper): React.ReactElement => {
     const [posX, posY] = position;
     let mouseDownFlag = false,
@@ -119,7 +120,6 @@ export const TowerWrapper = memo(
     useEffect(() => {
       BuildingsService.setRefForTower(towerTitle, towerRef);
     }, []);
-
     return (
       <TowerStyledWrapper
         posX={posX}
@@ -135,11 +135,17 @@ export const TowerWrapper = memo(
           markersCollection={markers}
           towerTitle={towerTitle}
           displayFlag={
-            progress < maxProgressValue && markers && markers.length > 0
+            progress < maxProgressValue &&
+            markers &&
+            markers.length > 0 &&
+            currentLevel >= levelOnServer
           }
         />
         <UpgradeButton
-          displayFlag={progress >= maxProgressValue && currentLevel < maxLevel}
+          displayFlag={
+            (progress >= maxProgressValue && currentLevel < maxLevel) ||
+            currentLevel < levelOnServer
+          }
           towerTitle={towerTitle}
           towerLevel={currentLevel}
           animFlag={
@@ -204,6 +210,7 @@ interface ITowerWrapper {
   tutorialPause?: boolean;
   scaleValue: number;
   markers: IMarker[];
+  levelOnServer: number;
 }
 
 interface ITowerStyledWrapper {

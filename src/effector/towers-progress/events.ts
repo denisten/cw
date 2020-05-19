@@ -17,11 +17,16 @@ export const fetchAllProductsData = TowersProgressDomain.effect(
   }
 );
 export const addTowerProgressData = TowersProgressDomain.event<
-  TowersProgressStoreType
+  IAddTowerProgressData
 >();
 export const resetTowerProgress = TowersProgressDomain.event();
 export interface IAddProgressPoints {
   points: number;
+  towerTitle: TowersTypes;
+}
+
+interface IAddTowerProgressData {
+  levelOnServer: number;
   towerTitle: TowersTypes;
 }
 

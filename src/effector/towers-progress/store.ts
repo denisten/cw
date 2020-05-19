@@ -50,7 +50,7 @@ const initState: TowersProgressStoreType = {
     level: {
       level: TowerLevel.deactive,
       name: '0 уровень',
-      value: 0,
+      levelOnServer: 0,
     },
     productIncome: {
       id: 1,
@@ -64,7 +64,7 @@ const initState: TowersProgressStoreType = {
     level: {
       level: TowerLevel.deactive,
       name: '0 уровень',
-      value: 0,
+      levelOnServer: 0,
     },
     productIncome: {
       id: 1,
@@ -78,7 +78,7 @@ const initState: TowersProgressStoreType = {
     level: {
       level: TowerLevel.deactive,
       name: '0 уровень',
-      value: 0,
+      levelOnServer: 0,
     },
     productIncome: {
       id: 1,
@@ -92,7 +92,7 @@ const initState: TowersProgressStoreType = {
     level: {
       level: TowerLevel.deactive,
       name: '0 уровень',
-      value: 0,
+      levelOnServer: 0,
     },
     productIncome: {
       id: 1,
@@ -106,7 +106,7 @@ const initState: TowersProgressStoreType = {
     level: {
       level: TowerLevel.deactive,
       name: '0 уровень',
-      value: 0,
+      levelOnServer: 0,
     },
     productIncome: {
       id: 1,
@@ -120,7 +120,7 @@ const initState: TowersProgressStoreType = {
     level: {
       level: TowerLevel.deactive,
       name: '0 уровень',
-      value: 0,
+      levelOnServer: 0,
     },
     productIncome: {
       id: 1,
@@ -134,7 +134,7 @@ const initState: TowersProgressStoreType = {
     level: {
       level: TowerLevel.deactive,
       name: '0 уровень',
-      value: 0,
+      levelOnServer: 0,
     },
     productIncome: {
       id: 1,
@@ -148,7 +148,7 @@ const initState: TowersProgressStoreType = {
     level: {
       level: TowerLevel.deactive,
       name: '0 уровень',
-      value: 0,
+      levelOnServer: 0,
     },
     productIncome: {
       id: 1,
@@ -162,7 +162,7 @@ const initState: TowersProgressStoreType = {
     level: {
       level: TowerLevel.deactive,
       name: '0 уровень',
-      value: 0,
+      levelOnServer: 0,
     },
     productIncome: {
       id: 1,
@@ -176,7 +176,7 @@ const initState: TowersProgressStoreType = {
     level: {
       level: TowerLevel.deactive,
       name: '0 уровень',
-      value: 0,
+      levelOnServer: 0,
     },
     productIncome: {
       id: 1,
@@ -190,7 +190,7 @@ const initState: TowersProgressStoreType = {
     level: {
       level: TowerLevel.mid,
       name: '0 уровень',
-      value: 0,
+      levelOnServer: 0,
     },
     productIncome: {
       id: 1,
@@ -204,7 +204,7 @@ const initState: TowersProgressStoreType = {
     level: {
       level: TowerLevel.deactive,
       name: '0 уровень',
-      value: 0,
+      levelOnServer: 0,
     },
     productIncome: {
       id: 1,
@@ -218,7 +218,7 @@ const initState: TowersProgressStoreType = {
     level: {
       level: TowerLevel.deactive,
       name: '0 уровень',
-      value: 0,
+      levelOnServer: 0,
     },
     productIncome: {
       id: 1,
@@ -232,7 +232,7 @@ const initState: TowersProgressStoreType = {
     level: {
       level: TowerLevel.deactive,
       name: '0 уровень',
-      value: 0,
+      levelOnServer: 0,
     },
     productIncome: {
       id: 1,
@@ -246,7 +246,7 @@ const initState: TowersProgressStoreType = {
     level: {
       level: TowerLevel.deactive,
       name: '0 уровень',
-      value: 0,
+      levelOnServer: 0,
     },
     productIncome: {
       id: 1,
@@ -260,7 +260,7 @@ const initState: TowersProgressStoreType = {
     level: {
       level: TowerLevel.deactive,
       name: '0 уровень',
-      value: 0,
+      levelOnServer: 0,
     },
     productIncome: {
       id: 1,
@@ -274,7 +274,7 @@ const initState: TowersProgressStoreType = {
     level: {
       level: TowerLevel.deactive,
       name: '0 уровень',
-      value: 0,
+      levelOnServer: 0,
     },
     productIncome: {
       id: 1,
@@ -288,7 +288,7 @@ const initState: TowersProgressStoreType = {
     level: {
       level: TowerLevel.deactive,
       name: '0 уровень',
-      value: 0,
+      levelOnServer: 0,
     },
     productIncome: {
       id: 1,
@@ -303,7 +303,7 @@ const initState: TowersProgressStoreType = {
     level: {
       level: TowerLevel.deactive,
       name: '0 уровень',
-      value: 0,
+      levelOnServer: 0,
     },
     productIncome: {
       id: 1,
@@ -317,7 +317,7 @@ const initState: TowersProgressStoreType = {
     level: {
       level: TowerLevel.deactive,
       name: '0 уровень',
-      value: 0,
+      levelOnServer: 0,
     },
     productIncome: {
       id: 1,
@@ -331,7 +331,7 @@ const initState: TowersProgressStoreType = {
     level: {
       level: TowerLevel.deactive,
       name: '0 уровень',
-      value: 0,
+      levelOnServer: 0,
     },
     productIncome: {
       id: 1,
@@ -345,7 +345,7 @@ const initState: TowersProgressStoreType = {
     level: {
       level: TowerLevel.low,
       name: '0 уровень',
-      value: 0,
+      levelOnServer: 0,
     },
     productIncome: {
       id: 1,
@@ -359,7 +359,7 @@ const initState: TowersProgressStoreType = {
     level: {
       level: TowerLevel.deactive,
       name: '0 уровень',
-      value: 0,
+      levelOnServer: 0,
     },
     productIncome: {
       id: 1,
@@ -373,7 +373,7 @@ const initState: TowersProgressStoreType = {
     level: {
       level: TowerLevel.deactive,
       name: '0 уровень',
-      value: 0,
+      levelOnServer: 0,
     },
     productIncome: {
       id: 1,
@@ -387,7 +387,7 @@ const initState: TowersProgressStoreType = {
     level: {
       level: TowerLevel.low,
       name: '0 уровень',
-      value: 0,
+      levelOnServer: 0,
     },
     productIncome: {
       id: 1,
@@ -401,7 +401,7 @@ const initState: TowersProgressStoreType = {
     level: {
       level: TowerLevel.mid,
       name: '0 уровень',
-      value: 0,
+      levelOnServer: 0,
     },
     productIncome: {
       id: 1,
@@ -415,7 +415,7 @@ const initState: TowersProgressStoreType = {
     level: {
       level: TowerLevel.deactive,
       name: '0 уровень',
-      value: 0,
+      levelOnServer: 0,
     },
     productIncome: {
       id: 1,
@@ -429,7 +429,7 @@ const initState: TowersProgressStoreType = {
     level: {
       level: TowerLevel.deactive,
       name: '0 уровень',
-      value: 0,
+      levelOnServer: 0,
     },
     productIncome: {
       id: 1,
@@ -472,9 +472,15 @@ export const TowersProgressStore = TowersProgressDomain.store<
     ...state,
     ...result,
   }))
-  .on(addTowerProgressData, (state, payload) => ({
+  .on(addTowerProgressData, (state, { towerTitle, levelOnServer }) => ({
     ...state,
-    ...payload,
+    [towerTitle]: {
+      ...state[towerTitle],
+      level: {
+        ...state[towerTitle].level,
+        levelOnServer: levelOnServer || 0,
+      },
+    },
   }))
   .reset(resetTowerProgress);
 
@@ -485,7 +491,7 @@ export interface ITowerProgress {
   points: number;
   level: {
     name: string;
-    value: number;
+    levelOnServer: number;
     level: TowerLevel;
   };
   productIncome: {
