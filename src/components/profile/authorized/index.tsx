@@ -147,7 +147,14 @@ let nameInputHint = '';
 
 export const AuthorizedProfile = () => {
   const [popUpDisplayFlag, setPopUpDisplayFlag] = useState(false);
-  const { worldName, money, coins, name, birthday } = useStore(UserDataStore);
+  const {
+    worldName,
+    money,
+    coins,
+    name,
+    birthday,
+    userSocketConnect,
+  } = useStore(UserDataStore);
   const [localName, setLocalName] = useState(name);
   const [birthdayDate, setBirthdayDate] = useState(birthday);
   const [nameInputHasError, setNameInputHasError] = useState(false);
@@ -183,6 +190,7 @@ export const AuthorizedProfile = () => {
   const handleExitButtonClick = () => {
     CookieService.resetToken();
     logout();
+    if (userSocketConnect) userSocketConnect.disconnect();
   };
 
   return (
