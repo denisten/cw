@@ -7,6 +7,7 @@ export const errorCodes: IErrorCode = {
 
 export const errorStrings: IErrorStrings = {
   failure: 'Доступ не предоставлен',
+  backendIntegrationError: 'Ошибка интеграции с backend.',
 };
 
 export const errorCodesParsingHOF = (errorCode: number) => {
