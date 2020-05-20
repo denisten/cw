@@ -268,7 +268,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
     towerTitle
   );
   const {
-    level: { id },
+    level: { level },
   } = useStore(TowersProgressStore)[towerTitle];
 
   const [towerTutorialStep, setTowerTutorialStep] = useState(0);
@@ -356,7 +356,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
               }
               canUpgrade={
                 LocalTowerProgressStore[towerTitle].points >= MAX_POINTS &&
-                id < maxLevel
+                level < maxLevel
               }
               hide={hideTowerInfo}
             />

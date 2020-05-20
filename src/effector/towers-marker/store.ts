@@ -4,6 +4,12 @@ import { TowersMarkerDomain } from './domain';
 import { hideMarker, setMarker } from './events';
 
 const initState: TowersMarkerStoreType = {
+  [TowersTypes.POISK]: {
+    markers: [],
+  },
+  [TowersTypes.GOODOK]: {
+    markers: [],
+  },
   [TowersTypes.SMARTMED]: {
     markers: [{ type: TypeOfMarkers.SUCCESS }],
   },
@@ -40,7 +46,7 @@ const initState: TowersMarkerStoreType = {
   [TowersTypes.OBSERVATORY]: {
     markers: [],
   },
-  [TowersTypes.TARIFF]: {
+  [TowersTypes.MOBILE_NETWORK]: {
     markers: [{ type: TypeOfMarkers.NOTICE }, { type: TypeOfMarkers.SUCCESS }],
   },
   [TowersTypes.THEATER]: {
@@ -83,7 +89,7 @@ const initState: TowersMarkerStoreType = {
   [TowersTypes.HOME_INTERNET]: {
     markers: [],
   },
-  [TowersTypes.AUTO_FACTORY]: {
+  [TowersTypes.AUTO]: {
     markers: [],
   },
   [TowersTypes.SHOP]: {

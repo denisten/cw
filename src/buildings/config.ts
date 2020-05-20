@@ -48,6 +48,8 @@ import libraryTowerLevel2Stroke from './library/2-stroke.png';
 import libraryTowerLevel3Stroke from './library/3-stroke.png';
 import observatoryTowerLevel2Img from './observatory/2.png';
 import observatoryTowerLevel2Stroke from './observatory/2-stroke.png';
+import tariffTowerLevel0Img from './tariff/0.png';
+import tariffTowerLevel0Stroke from './tariff/0-stroke.png';
 import tariffTowerLevel1Img from './tariff/1.png';
 import tariffTowerLevel1Stroke from './tariff/1-stroke.png';
 import tariffTowerLevel2Img from './tariff/2.png';
@@ -192,6 +194,66 @@ import { RefObject } from 'react';
 
 class BuildingsService {
   _config: BuildingServiceConfigTypes = {
+    // TODO заглушка
+    [TowersTypes.POISK]: {
+      hide: true,
+      info: 'info',
+      title: 'SmartMed',
+      wideTower: false,
+      zIndex: ZIndexes.BUILDING_THREE_LEVEL,
+      maxLevel: TowerLevel.high,
+      width: 313,
+      height: 655,
+      areaCoords: '55,82,259,651',
+      position: [45.2, 62.6],
+      ref: null,
+      [TowerLevel.deactive]: {
+        img: smartmedLevel0Img,
+        shadowImg: smartmedLevel0Stroke,
+      },
+      [TowerLevel.low]: {
+        img: smartmedLevel1Img,
+        shadowImg: smartmedLevel1Stroke,
+      },
+      [TowerLevel.mid]: {
+        img: smartmedLevel2Img,
+        shadowImg: smartmedLevel2Stroke,
+      },
+      [TowerLevel.high]: {
+        img: smartmedLevel3Img,
+        shadowImg: smartmedLevel3Stroke,
+      },
+    },
+    // TODO заглушка
+    [TowersTypes.GOODOK]: {
+      hide: true,
+      info: 'info',
+      title: 'SmartMed',
+      wideTower: false,
+      zIndex: ZIndexes.BUILDING_THREE_LEVEL,
+      maxLevel: TowerLevel.high,
+      width: 313,
+      height: 655,
+      areaCoords: '55,82,259,651',
+      position: [45.2, 62.6],
+      ref: null,
+      [TowerLevel.deactive]: {
+        img: smartmedLevel0Img,
+        shadowImg: smartmedLevel0Stroke,
+      },
+      [TowerLevel.low]: {
+        img: smartmedLevel1Img,
+        shadowImg: smartmedLevel1Stroke,
+      },
+      [TowerLevel.mid]: {
+        img: smartmedLevel2Img,
+        shadowImg: smartmedLevel2Stroke,
+      },
+      [TowerLevel.high]: {
+        img: smartmedLevel3Img,
+        shadowImg: smartmedLevel3Stroke,
+      },
+    },
     [TowersTypes.SMARTMED]: {
       info: 'info',
       title: 'SmartMed',
@@ -444,18 +506,21 @@ class BuildingsService {
         shadowImg: eggTowerLevel3Stroke,
       },
     },
-    [TowersTypes.TARIFF]: {
+    [TowersTypes.MOBILE_NETWORK]: {
       info: 'info',
       title: 'Мобильный интернет',
       wideTower: false,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
-      hide: true,
-      width: 329,
-      height: 559,
-      areaCoords: '51,53,276,505',
-      position: [28.2, 48.2],
+      width: 288,
+      height: 490,
+      areaCoords: '44,102,240,481',
+      position: [30.75, 42.8],
       ref: null,
+      [TowerLevel.deactive]: {
+        img: tariffTowerLevel0Img,
+        shadowImg: tariffTowerLevel0Stroke,
+      },
       [TowerLevel.low]: {
         img: tariffTowerLevel1Img,
         shadowImg: tariffTowerLevel1Stroke,
@@ -638,7 +703,7 @@ class BuildingsService {
       },
     },
 
-    [TowersTypes.AUTO_FACTORY]: {
+    [TowersTypes.AUTO]: {
       info: 'info',
       title: 'МТС Авто',
       wideTower: true,

@@ -60,7 +60,7 @@ const initStore: IMission[] = [
     taskTitle: 'Сделай селфи',
     status: TaskStatuses.DONE,
     isAllowedToChange: true,
-    towerTitle: TowersTypes.TARIFF,
+    towerTitle: TowersTypes.MOBILE_NETWORK,
     description:
       'Бегай каждое утро и отмечай результаты, чтобы задание…было вылненоБегай каждое утро и отмечай результаты, чтобы задание…было вылнено',
     loot: {
