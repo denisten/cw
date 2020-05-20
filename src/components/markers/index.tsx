@@ -162,6 +162,16 @@ export const MarkerWrapper = styled.div<{ displayFlag: boolean }>`
     }
 
   }
+
+  &[data-towertype=${TowersTypes.MOBILE_NETWORK}] {
+    &[data-towerlevel='0'],
+    &[data-towerlevel='1'] {
+      top: 100px;
+    }
+    &[data-towerlevel='2'] {
+      top: 40px;
+    }
+  }
 `;
 
 export const Markers: React.FC<IMarkers> = ({

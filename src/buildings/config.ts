@@ -48,6 +48,8 @@ import libraryTowerLevel2Stroke from './library/2-stroke.png';
 import libraryTowerLevel3Stroke from './library/3-stroke.png';
 import observatoryTowerLevel2Img from './observatory/2.png';
 import observatoryTowerLevel2Stroke from './observatory/2-stroke.png';
+import tariffTowerLevel0Img from './tariff/0.png';
+import tariffTowerLevel0Stroke from './tariff/0-stroke.png';
 import tariffTowerLevel1Img from './tariff/1.png';
 import tariffTowerLevel1Stroke from './tariff/1-stroke.png';
 import tariffTowerLevel2Img from './tariff/2.png';
@@ -510,12 +512,15 @@ class BuildingsService {
       wideTower: false,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
-      hide: true,
-      width: 329,
-      height: 559,
-      areaCoords: '51,53,276,505',
-      position: [28.2, 48.2],
+      width: 288,
+      height: 490,
+      areaCoords: '44,102,240,481',
+      position: [30.75, 42.8],
       ref: null,
+      [TowerLevel.deactive]: {
+        img: tariffTowerLevel0Img,
+        shadowImg: tariffTowerLevel0Stroke,
+      },
       [TowerLevel.low]: {
         img: tariffTowerLevel1Img,
         shadowImg: tariffTowerLevel1Stroke,
