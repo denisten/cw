@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { ZIndexes } from '../root-component/z-indexes-enum';
 import { cloudsConfig } from './clouds-config';
-import background from './background.jpg';
+import background from './background.png';
 import { MTSSans } from '../../fonts';
 import { useLoadingIndication } from '../../hooks/useLoadingIndication';
 import { setLoaded } from '../../effector/app-condition/events';
@@ -53,7 +53,7 @@ from {
     transform: translate3d(0%, 0, 0);
 }
 to {
-    transform: translate3d(20%, 0, 0);
+    transform: translate3d(10%, 0, 0);
 }
 `;
 
