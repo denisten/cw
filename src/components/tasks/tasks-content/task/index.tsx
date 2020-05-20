@@ -1,5 +1,5 @@
 import React from 'react';
-import { TasksRow } from '../../tasks-row';
+import { Task } from '../../tasks-row';
 import styled from 'styled-components';
 import { AdvancedScrollbar } from '../../../../UI/advanced-scrollbar';
 import { AdvanceScrollBarAttr } from '../../../../utils/handle-scroll';
@@ -7,24 +7,25 @@ import { useStore } from 'effector-react';
 import { MissionsStore } from '../../../../effector/missions-store/store';
 import { UserDataStore } from '../../../../effector/user-data/store';
 
-const TaskWrapper = styled(AdvancedScrollbar)<ITask>`
+const TasksWrapper = styled(AdvancedScrollbar)<ITask>`
   display: ${props => (props.hidden ? 'hidden' : 'block')};
   height: 100%;
   overflow-y: scroll;
   overflow-x: hidden;
 `;
 
-export const Task: React.FC<{ active: boolean }> = ({ active }) => {
+export const Tasks: React.FC<{ active: boolean }> = ({ active }) => {
   const missions = useStore(MissionsStore);
   const { couponsCount } = useStore(UserDataStore);
   return (
-    <TaskWrapper
+    <TasksWrapper
       hidden={!active}
       data-type={AdvanceScrollBarAttr.ADVANCE_SCROLLBAR}
     >
       {missions.map(el => {
         return (
-          <TasksRow
+          <Task
+            isInTowerInfo={false}
             isAllowedToChange={el.isAllowedToChange}
             couponsCount={couponsCount}
             type={el.type}
@@ -37,7 +38,7 @@ export const Task: React.FC<{ active: boolean }> = ({ active }) => {
           />
         );
       })}
-    </TaskWrapper>
+    </TasksWrapper>
   );
 };
 

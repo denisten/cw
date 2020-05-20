@@ -4,13 +4,22 @@ import moneyImg from './money.svg';
 import batteryImg from './battery.svg';
 import { StyledSpan } from '../span';
 import { MTSSans } from '../../fonts';
+import { ITaskLocation } from '../../components/tasks/tasks-row';
 
-const TaskLootWrapper = styled.div`
+enum TaskLootWrapperMarginValues {
+  inTowerInfo = 2,
+  notInTowerInfo = 16,
+}
+
+const TaskLootWrapper = styled.div<ITaskLocation>`
   display: flex;
-  margin-right: 16px;
+  margin-right: ${props =>
+    props.isInTowerInfo
+      ? TaskLootWrapperMarginValues.inTowerInfo
+      : TaskLootWrapperMarginValues.notInTowerInfo}px;
 `;
 
-const EnergyWrapper = styled.div`
+const LootWrapper = styled.div`
   display: flex;
 `;
 
@@ -31,22 +40,26 @@ const styledConfig = {
   },
 };
 
-export const TaskLoot: React.FC<ITaskLoot> = ({ energy, money }) => {
+export const TaskLoot: React.FC<ITaskLoot> = ({
+  energy,
+  money,
+  isInTowerInfo,
+}) => {
   return (
-    <TaskLootWrapper>
-      <EnergyWrapper>
+    <TaskLootWrapper isInTowerInfo={isInTowerInfo}>
+      <LootWrapper>
         <img src={batteryImg} alt="battery" style={styledConfig.loot} />
         <CountWrapper>{energy}</CountWrapper>
-      </EnergyWrapper>
-      <EnergyWrapper>
+      </LootWrapper>
+      <LootWrapper>
         <img src={moneyImg} alt="money" style={styledConfig.loot} />
         <CountWrapper>{money}</CountWrapper>
-      </EnergyWrapper>
+      </LootWrapper>
     </TaskLootWrapper>
   );
 };
 
-interface ITaskLoot {
+interface ITaskLoot extends ITaskLocation {
   energy: number;
   money: number;
 }

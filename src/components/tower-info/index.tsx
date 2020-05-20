@@ -70,7 +70,7 @@ export const ModalWindowWrapper = styled.div<ModalWindowProps>`
   right: -3px;
   width: 36%;
   height: 100%;
-  top: 0%;
+  top: 0;
   box-sizing: border-box;
   margin-right: ${props =>
     !props.opened ? marginRightValues.CLOSED : marginRightValues.OPENED}%;
@@ -92,7 +92,7 @@ export const ModalWindowWrapper = styled.div<ModalWindowProps>`
 const ModalWindowContentWrapper = styled.div`
   height: 100%;
   width: 100%;
-  padding: 0px 32px 40px 40px;
+  padding: 0 32px 40px 40px;
   box-sizing: border-box;
   background-image: url(${wrapperBackground});
   background-size: 100% 100%;
@@ -251,11 +251,11 @@ const StyleConfig = {
 
 export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
   const {
-      focusOn: notVerifiedTowerTitle,
-      hideTowerInfo,
-      selectTowerInfoContent,
-    } = useStore(AppCondition),
-    LocalTowerProgressStore = useStore(TowersProgressStore);
+    focusOn: notVerifiedTowerTitle,
+    hideTowerInfo,
+    selectTowerInfoContent,
+  } = useStore(AppCondition);
+  const LocalTowerProgressStore = useStore(TowersProgressStore);
   const { tutorialCondition } = useStore(TutorialStore);
   const towerTitle: TowersTypes =
     notVerifiedTowerTitle || TowersTypes.MAIN_TOWER;
@@ -430,6 +430,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
               : descriptionText
           }
           hideContent={hideTowerInfo}
+          towerTitle={towerTitle}
         />
 
         {!tutorialCondition ||

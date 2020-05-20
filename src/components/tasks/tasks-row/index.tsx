@@ -15,15 +15,37 @@ enum TaskWrapperHeight {
   closed = 64,
 }
 
+enum TaskWrapperWidth {
+  inTower = 474,
+  notInTower = 674,
+}
+
+enum TitleMarginLeft {
+  inTowerInfo = 16,
+  notInTowerInfo = 14,
+}
+
+enum TitleWidth {
+  inTowerInfo = 124,
+  notInTowerInfo = 274,
+}
+enum TitleMarginRight {
+  inTowerInfo = 19,
+  notInTowerInfo = 45,
+}
+
 const TaskWrapper = styled.div<ITaskWrapper>`
-  width: 674px;
+  width: ${props =>
+    props.isInTowerInfo
+      ? TaskWrapperWidth.inTower
+      : TaskWrapperWidth.notInTower}px;
   height: ${props =>
     props.isOpened ? TaskWrapperHeight.opened : TaskWrapperHeight.closed}px;
   border-radius: 4px;
   box-shadow: 0 2px 4px 0 #e2e5eb;
   background-color: #ffffff;
   box-sizing: border-box;
-  padding: 14px 18px;
+  padding: ${props => (props.isInTowerInfo ? '16px 0 16px 16px' : '14px 18px')};
   margin-bottom: 16px;
   cursor: pointer;
   transition-duration: 0.2s;
@@ -33,16 +55,23 @@ const TaskWrapper = styled.div<ITaskWrapper>`
   position: relative;
 `;
 
-const Title = styled(StyledSpan)`
+const Title = styled(StyledSpan)<ITaskLocation>`
   font-family: ${MTSSans.MEDIUM};
   font-size: 16px;
   line-height: 1.5;
   letter-spacing: -0.4px;
   color: #001424;
-  margin-left: 14px;
+  margin-left: ${props =>
+    props.isInTowerInfo
+      ? TitleMarginLeft.inTowerInfo
+      : TitleMarginLeft.notInTowerInfo}px;
   font-weight: 500;
-  width: 274px;
-  margin-right: 45px;
+  width: ${props =>
+    props.isInTowerInfo ? TitleWidth.inTowerInfo : TitleWidth.notInTowerInfo}px;
+  margin-right: ${props =>
+    props.isInTowerInfo
+      ? TitleMarginRight.inTowerInfo
+      : TitleMarginRight.notInTowerInfo}px;
 `;
 
 const TaskButton = styled.div`
@@ -139,7 +168,7 @@ const styledConfig = {
   },
 };
 
-export const TasksRow: React.FC<ITasksRow> = ({
+export const Task: React.FC<ITasksRow> = ({
   type,
   taskTitle,
   status,
@@ -148,14 +177,19 @@ export const TasksRow: React.FC<ITasksRow> = ({
   description,
   couponsCount,
   isAllowedToChange,
+  isInTowerInfo,
 }) => {
   const [isOpened, setIsOpened] = useState(false);
   return (
-    <TaskWrapper isOpened={isOpened} onClick={() => setIsOpened(!isOpened)}>
+    <TaskWrapper
+      isOpened={isOpened}
+      onClick={() => setIsOpened(!isOpened)}
+      isInTowerInfo={isInTowerInfo}
+    >
       <TaskInfo>
         <Icon type={type} />
-        <Title>{taskTitle}</Title>
-        <TaskLoot money={money} energy={energy} />
+        <Title isInTowerInfo={isInTowerInfo}>{taskTitle}</Title>
+        <TaskLoot money={money} energy={energy} isInTowerInfo={isInTowerInfo} />
         <TaskButton className={status} />
       </TaskInfo>
       <Border />
@@ -180,8 +214,15 @@ interface ITasksRow {
   description: string;
   isAllowedToChange: boolean;
   couponsCount: number;
+  width?: number;
+  isInTowerInfo: boolean;
 }
 
-interface ITaskWrapper {
+interface ITaskWrapper extends ITaskLocation {
   isOpened: boolean;
+  width?: number;
+}
+
+export interface ITaskLocation {
+  isInTowerInfo: boolean;
 }
