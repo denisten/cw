@@ -15,7 +15,7 @@ export const cloudsConfig: ICloud[] = [
     animDirection: 'alternate',
     width: '936px',
     height: '339px',
-    zIndex: 2,
+    zIndex: 4,
   },
   {
     keyId: 2,
@@ -36,7 +36,7 @@ export const cloudsConfig: ICloud[] = [
     animDirection: 'alternate-reverse',
     width: '913px',
     height: '440px',
-    zIndex: 2,
+    zIndex: 4,
   },
   {
     keyId: 4,

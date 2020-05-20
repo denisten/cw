@@ -34,6 +34,7 @@ export const useLoadingIndication = () => {
   };
 
   const converToPecent = () => {
+    // TODO delete -1
     const persent = (loadedImagesNumber * maxpercent) / allImagesNumber - 1;
     setLoadingPercent(Number(persent.toFixed(0)) || 0);
   };
