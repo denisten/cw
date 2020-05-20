@@ -3,7 +3,7 @@ import { getProfile } from '../get-profile';
 import { getCookie } from '../../utils/get-cookie';
 import { getWsToken } from '../get-ws-token';
 import { apiRoutes } from '../index';
-import { setUserSocket } from '../../effector/user-data/events';
+import { setUserSessionSocket } from '../../effector/user-data/events';
 import { addTowerProgressData } from '../../effector/towers-progress/events';
 import {
   TowersTypes,
@@ -23,7 +23,7 @@ export const openWsConnection = async () => {
   const token = await getWsToken();
   centrifuge.setToken(token);
   centrifuge.connect();
-  setUserSocket(centrifuge);
+  setUserSessionSocket(centrifuge);
 
   const { id } = await getProfile();
   const subscription = centrifuge.subscribe('progress:updates#' + id, item => {

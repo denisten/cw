@@ -14,7 +14,7 @@ export const fetchUserData = UserDataDomain.effect('fetch after auth', {
   },
 });
 export const addMoney = UserDataDomain.event<number>();
-export const setUserSocket = UserDataDomain.event<Centrifuge>();
+export const setUserSessionSocket = UserDataDomain.event<Centrifuge>();
 
 interface IEditCurrentUserDataField {
   key: UserDataStoreKeys;

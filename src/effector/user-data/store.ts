@@ -5,7 +5,7 @@ import {
   fetchUserData,
   saveUserDataAfterAuth,
   addMoney,
-  setUserSocket,
+  setUserSessionSocket,
 } from './events';
 import connectLocalStorage from 'effector-localstorage/sync';
 import Centrifuge from 'centrifuge';
@@ -19,7 +19,7 @@ export enum UserDataStoreKeys {
   MONEY = 'money',
   COINS = 'coins',
   COUPONS_COUNT = 'couponsCount',
-  USER_SOCKET_CONNECT = 'userSocketConnect',
+  USER_SESSION_SOCKET = 'userSessionSocket',
 }
 
 const initData = {
@@ -34,6 +34,7 @@ const initData = {
     mm: '00',
   },
   couponsCount: 2,
+  userSessionSocket: null,
 };
 
 const initState: IUserDataStore = {
@@ -45,7 +46,7 @@ const initState: IUserDataStore = {
   [UserDataStoreKeys.COINS]: initData.coins,
   [UserDataStoreKeys.BIRTHDAY]: initData.birthday,
   [UserDataStoreKeys.COUPONS_COUNT]: initData.couponsCount,
-  [UserDataStoreKeys.USER_SOCKET_CONNECT]: null,
+  [UserDataStoreKeys.USER_SESSION_SOCKET]: initData.userSessionSocket,
 };
 
 const userDataStoreLocalStorage = connectLocalStorage('UserData').onChange(
@@ -71,9 +72,9 @@ export const UserDataStore = UserDataDomain.store<IUserDataStore>(initState)
       name: name || initData.name,
     })
   )
-  .on(setUserSocket, (state, payload) => ({
+  .on(setUserSessionSocket, (state, payload) => ({
     ...state,
-    userSocketConnect: payload,
+    userSessionSocket: payload,
   }))
   .on(editUserData, (state, payload) => ({
     ...state,
@@ -92,7 +93,7 @@ export interface IUserDataStore {
   [UserDataStoreKeys.COUPONS_COUNT]: number;
   [UserDataStoreKeys.BIRTHDAY]: IBirthday;
   [UserDataStoreKeys.COUPONS_COUNT]: number;
-  [UserDataStoreKeys.USER_SOCKET_CONNECT]: Centrifuge | null;
+  [UserDataStoreKeys.USER_SESSION_SOCKET]: Centrifuge | null;
 }
 
 export interface IBirthday {

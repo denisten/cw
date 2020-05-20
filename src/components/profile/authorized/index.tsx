@@ -154,7 +154,7 @@ export const AuthorizedProfile = () => {
     coins,
     name,
     birthday,
-    userSocketConnect,
+    userSessionSocket,
   } = useStore(UserDataStore);
   const [localName, setLocalName] = useState(name);
   const [birthdayDate, setBirthdayDate] = useState(birthday);
@@ -191,7 +191,7 @@ export const AuthorizedProfile = () => {
   const handleExitButtonClick = () => {
     CookieService.resetToken();
     logout();
-    if (userSocketConnect) userSocketConnect.disconnect();
+    if (userSessionSocket) userSessionSocket.disconnect();
     resetTowerProgress();
   };
 
