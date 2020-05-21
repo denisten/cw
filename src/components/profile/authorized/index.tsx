@@ -19,6 +19,7 @@ import { CookieService } from '../../../sevices/cookies';
 import { logout } from '../../../api';
 import { Dropdown } from '../../../UI/dropdown';
 import { DaysNumArr, MonthsStringArr } from '../../../constants';
+import { resetTowerProgress } from '../../../effector/towers-progress/events';
 
 const ExitText = styled(StyledSpan)<ISpan>`
   font-family: ${MTSSans.REGULAR};
@@ -147,7 +148,14 @@ let nameInputHint = '';
 
 export const AuthorizedProfile = () => {
   const [popUpDisplayFlag, setPopUpDisplayFlag] = useState(false);
-  const { worldName, money, coins, name, birthday } = useStore(UserDataStore);
+  const {
+    worldName,
+    money,
+    coins,
+    name,
+    birthday,
+    userSessionSocket,
+  } = useStore(UserDataStore);
   const [localName, setLocalName] = useState(name);
   const [birthdayDate, setBirthdayDate] = useState(birthday);
   const [nameInputHasError, setNameInputHasError] = useState(false);
@@ -183,6 +191,8 @@ export const AuthorizedProfile = () => {
   const handleExitButtonClick = () => {
     CookieService.resetToken();
     logout();
+    if (userSessionSocket) userSessionSocket.disconnect();
+    resetTowerProgress();
   };
 
   return (

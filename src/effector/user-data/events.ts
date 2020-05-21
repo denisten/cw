@@ -1,6 +1,7 @@
 import { UserDataDomain } from './domain';
 import { IBirthday, UserDataStoreKeys } from './store';
 import { getProfile, IGetProfile } from '../../api/get-profile';
+import Centrifuge from 'centrifuge';
 
 export const editCurrentUserDataField = UserDataDomain.event<
   IEditCurrentUserDataField
@@ -13,6 +14,7 @@ export const fetchUserData = UserDataDomain.effect('fetch after auth', {
   },
 });
 export const addMoney = UserDataDomain.event<number>();
+export const setUserSessionSocket = UserDataDomain.event<Centrifuge>();
 
 interface IEditCurrentUserDataField {
   key: UserDataStoreKeys;

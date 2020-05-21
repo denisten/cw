@@ -110,6 +110,7 @@ export const TowerWrapper = memo(
     };
 
     const handleOnAnimationEnd = () => {
+      // TODO связать логику с бэком, юзая updateTower(towerTitle)
       upgradeTower(towerTitle);
       if (tutorialCondition) nextTutorStep();
     };
@@ -118,7 +119,6 @@ export const TowerWrapper = memo(
     useEffect(() => {
       BuildingsService.setRefForTower(towerTitle, towerRef);
     }, []);
-
     return (
       <TowerStyledWrapper
         posX={posX}

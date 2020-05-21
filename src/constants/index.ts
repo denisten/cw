@@ -20,3 +20,4 @@ export const MonthsStringArr = [
 ];
 
 export const zIndexForInheritOverlay = 2;
+export const maxPersent = 100;

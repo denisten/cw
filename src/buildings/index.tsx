@@ -9,6 +9,7 @@ import {
 import { AppCondition } from '../effector/app-condition/store';
 import { TutorialStore } from '../effector/tutorial-store/store';
 import { TowersMarkerStore } from '../effector/towers-marker/store';
+import { errorStringsParsingHOF } from '../utils/error-handler';
 
 export const Buildings: React.FC = () => {
   const localTowersProgressStore = useStore(TowersProgressStore);
@@ -23,7 +24,7 @@ export const Buildings: React.FC = () => {
         if (towerLayoutData && towerLayoutData.hide) return null;
         try {
           const towerParams =
-            towerLayoutData[localTowersProgressStore[towerTitle].level.id];
+            towerLayoutData[localTowersProgressStore[towerTitle].level.level];
           if (towerParams) {
             return (
               <TowerWrapper
@@ -32,7 +33,7 @@ export const Buildings: React.FC = () => {
                 tutorialPause={tutorialPause}
                 upgradeFlag={upgradingTowerTitle === towerTitle}
                 maxLevel={towerLayoutData.maxLevel}
-                currentLevel={localTowersProgressStore[towerTitle].level.id}
+                currentLevel={localTowersProgressStore[towerTitle].level.level}
                 progress={localTowersProgressStore[towerTitle].points}
                 focusOnTowerTitle={focusOn}
                 towerTitle={towerTitle}
@@ -51,7 +52,7 @@ export const Buildings: React.FC = () => {
             );
           }
         } catch {
-          return;
+          errorStringsParsingHOF('backendIntegrationError');
         }
       })}
     </Fragment>

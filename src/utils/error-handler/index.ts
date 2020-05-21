@@ -3,10 +3,12 @@ import { coughtError } from '../../effector/error-boundary-store/events';
 export const errorCodes: IErrorCode = {
   404: 'Адрес запроса не найден',
   0: 'Нет соединения с интернетом',
+  504: 'Нет ответа от сервера',
 };
 
 export const errorStrings: IErrorStrings = {
   failure: 'Доступ не предоставлен',
+  backendIntegrationError: 'Ошибка интеграции с backend.',
 };
 
 export const errorCodesParsingHOF = (errorCode: number) => {
