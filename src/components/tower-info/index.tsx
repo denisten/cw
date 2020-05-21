@@ -45,6 +45,7 @@ import { MoveDivider } from '../../UI/move-divider';
 import { device } from '../../UI/media';
 import { TowerInfoUpgradeButton } from '../../UI/tower-info-upgrade-button';
 import { MTSSans } from '../../fonts';
+import { towerUpdateHandler } from '../../utils/towerUpdateHandler';
 
 export type ModalWindowProps = {
   opened?: boolean;
@@ -279,7 +280,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
   const handleClick = () => {
     if (towerTitle) {
       showUpgradeIcon(towerTitle);
-      extraTowerInfoModalClosed();
+      towerUpdateHandler(tutorialCondition, towerTitle);
     }
   };
   const refsCollection: Array<React.RefObject<HTMLDivElement>> = useMemo(

@@ -1,15 +1,11 @@
 import React, { memo, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import {
-  extraTowerInfoModalOpen,
-  showUpgradeIcon,
-} from '../../effector/app-condition/events';
+import { extraTowerInfoModalOpen } from '../../effector/app-condition/events';
 import { LazyImage } from '@tsareff/lazy-image';
 import { TowerLevel, TowersTypes } from '../../effector/towers-progress/store';
 import { UpgradeButton } from '../update-button';
 import upgradeThinTowerImg from '../../img/tower-updrade/thin-tower.png';
 import upgradeWideTowerImg from '../../img/tower-updrade/wide-tower.png';
-import { upgradeTower } from '../../effector/towers-progress/events';
 import { maxProgressValue } from '../../effector/app-condition/store';
 import { TutorialConditions } from '../../effector/tutorial-store/store';
 import { nextTutorStep } from '../../effector/tutorial-store/events';
@@ -19,8 +15,6 @@ import { scrollToCurrentTower } from '../../utils/scroll-to-current-tower';
 import { Markers } from '../../components/markers';
 import { IMarker } from '../../effector/towers-marker/store';
 import { BuildingsService } from '../../buildings/config';
-import { updateTowerRequest } from '../../api/updateTower';
-import { statusOk } from '../../constants';
 
 const TowerStyledWrapper = styled.div<ITowerStyledWrapper>`
   display: flex;
@@ -39,7 +33,7 @@ const StyledConfig = {
     ticksPerFrame: 2,
     numberOfFramesX: 7,
     numberOfFramesY: 6,
-    infinity: false,
+    infinity: true,
     style: {
       zIndex: ZIndexes.UPGRADE_TOWER_ANIMATION_CANVAS,
       position: 'absolute',
@@ -114,20 +108,6 @@ export const TowerWrapper = memo(
       }
     };
 
-    const handleOnAnimationEnd = async () => {
-      if (!tutorialCondition) {
-        const resp = await updateTowerRequest(towerTitle);
-        if (resp.status === statusOk) {
-          upgradeTower(towerTitle);
-        } else {
-          showUpgradeIcon(null);
-        }
-      } else {
-        upgradeTower(towerTitle);
-        nextTutorStep();
-      }
-    };
-
     useEffect(() => mouseOverHandle(), [focusOnTowerTitle]);
     useEffect(() => {
       BuildingsService.setRefForTower(towerTitle, towerRef);
@@ -151,6 +131,7 @@ export const TowerWrapper = memo(
           }
         />
         <UpgradeButton
+          tutorialCondition={tutorialCondition}
           displayFlag={progress >= maxProgressValue && currentLevel < maxLevel}
           towerTitle={towerTitle}
           towerLevel={currentLevel}
@@ -163,7 +144,6 @@ export const TowerWrapper = memo(
           <Sprite
             canvasHeight={height}
             canvasWidth={width}
-            onAnimationEnd={handleOnAnimationEnd}
             img={wideTower ? upgradeWideTowerImg : upgradeThinTowerImg}
             {...StyledConfig.sprite}
           />
