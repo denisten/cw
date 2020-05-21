@@ -10,21 +10,28 @@ import { setLoaded } from '../../effector/app-condition/events';
 import buildingZero from './buildings_0.png';
 import buildingOne from './buildings_1.png';
 import buildingTwo from './buildings_2.png';
+import logo from './logo.png';
 
 const maxpercent = 100;
 const delayBeforePreloaderOff = 1000;
-const cloudsZIndex = 3;
+
+enum InheritZIndexes {
+  BUILDINGS = 2,
+  CLOUDS = 3,
+  LOADLINE = 4,
+  LOGO = 5,
+}
 
 const cloudsOddOff = keyframes`
 to {
   transform: translate3d(-100%, -100%, 0);
-  opacity: .2;
+  opacity: 0;
 }
 `;
 const cloudsEvenOff = keyframes`
 to {
   transform: translate3d(100%, 100%, 0);
-  opacity: .2;
+  opacity: 0;
 }
 `;
 
@@ -34,7 +41,7 @@ const PreloaderWrapper = styled.div<{ disable: boolean }>`
   position: fixed;
   top: 0;
   left: 0;
-  background: gray;
+  overflow: hidden;
   z-index: ${ZIndexes.PRELOADER};
   display: ${props => (props.disable ? 'none' : 'flex')};
   overflow: hidden;
@@ -44,11 +51,11 @@ const PreloaderWrapper = styled.div<{ disable: boolean }>`
   justify-content: center;
 
   .cloud:nth-child(odd).hideCloud {
-    animation: ${cloudsOddOff} 1s;
+    animation: ${cloudsOddOff} 1.5s;
     animation-fill-mode: forwards;
   }
   .cloud:nth-child(even).hideCloud {
-    animation: ${cloudsEvenOff} 1s;
+    animation: ${cloudsEvenOff} 1.5s;
     animation-fill-mode: forwards;
   }
 `;
@@ -76,7 +83,7 @@ const Cloud = styled.div<ICloud>`
   left: ${props => props.left};
   right: ${props => props.right};
   bottom: ${props => props.bottom};
-  z-index: ${props => props.zIndex || cloudsZIndex};
+  z-index: ${InheritZIndexes.CLOUDS};
 `;
 
 const LoadingLine = styled.div<{ persentOfLoad?: number }>`
@@ -84,7 +91,7 @@ const LoadingLine = styled.div<{ persentOfLoad?: number }>`
   height: 23px;
   box-shadow: inset 0 1px 4px 0 #202d3d, inset -1px 0 4px 0 #202d3d;
   background-color: #233742;
-  z-index: 4;
+  z-index: ${InheritZIndexes.LOADLINE};
   transform: skew(-30deg);
   margin-bottom: 80px;
   display: flex;
@@ -122,37 +129,40 @@ const LoadingLine = styled.div<{ persentOfLoad?: number }>`
   }
 `;
 
-const setBuildingBackground = (persentOfLoad: number) => {
-  if (persentOfLoad < 33) {
-    return buildingZero;
-  } else if (persentOfLoad >= 33 && persentOfLoad < 66) {
-    return buildingOne;
-  } else {
-    return buildingTwo;
-  }
-};
-
-const smoothShow = keyframes`
+const fadeLogo = keyframes`
 from {
-    opacity: 0;
+  opacity: 1;
 }
+
 to {
-    opacity: 1
+  opacity: 0;
 }
+`;
+
+const Logo = styled.div<{ displayFlag: boolean }>`
+  position: absolute;
+  width: 1001px;
+  height: 751px;
+  z-index: ${InheritZIndexes.LOGO};
+  background: url(${logo}) no-repeat center;
+  background-size: 100% 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: ${props => (props.displayFlag ? fadeLogo : '')} 0.3s linear both;
 `;
 
 const BuildingsBG = styled.div<{ displayFlag: boolean; background: string }>`
   position: absolute;
   left: 0;
   top: 0;
-  z-index: 2;
+  z-index: ${InheritZIndexes.BUILDINGS};
   width: 100%;
   height: 100%;
   background: url(${props => props.background}) no-repeat center;
   background-size: 100% 100%;
-  display: block;
-  opacity: 0;
-  animation: ${props => (props.displayFlag ? smoothShow : '')} 0s both;
+  opacity: ${props => (props.displayFlag ? 1 : 0)};
 `;
 
 export const Preloader: React.FC = () => {
@@ -162,15 +172,19 @@ export const Preloader: React.FC = () => {
   const [cloudsOff, setCloudsOff] = useState(false);
   useEffect(() => {
     if (loadingPercent >= maxpercent) {
-      setCloudsOff(true);
       setLoaded();
       setTimeout(() => {
         setDisable(true);
       }, delayBeforePreloaderOff);
     }
+
+    if (loadingPercent > 50) {
+      setCloudsOff(true);
+    }
   }, [loadingPercent]);
   return (
     <PreloaderWrapper disable={disable}>
+      <Logo displayFlag={loadingPercent >= 25} />
       {cloudsConfig.map(cloud => (
         <Cloud
           key={cloud.keyId}
