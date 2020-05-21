@@ -62,7 +62,7 @@ const Cloud = styled.img<ICloud>`
   z-index: ${InheritZIndexes.CLOUDS};
 
   &.hideCloud {
-    animation: ${props => props.endAnimation} 1.5s;
+    animation: ${props => props.endAnimation} 3s;
     animation-fill-mode: forwards;
   }
 `;
@@ -129,7 +129,7 @@ const Logo = styled.img<{ displayFlag: boolean }>`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  animation: ${props => (props.displayFlag ? fadeLogo : '')} 0.3s linear both;
+  animation: ${props => (props.displayFlag ? fadeLogo : '')} 0.5s linear both;
 `;
 
 const BuildingsBG = styled.img<{ displayFlag: boolean }>`
@@ -155,7 +155,7 @@ export const Preloader: React.FC = () => {
       }, delayBeforePreloaderOff);
     }
 
-    if (loadingPercent > 50) {
+    if (loadingPercent >= 90) {
       setCloudsOff(true);
     }
   }, [loadingPercent]);
