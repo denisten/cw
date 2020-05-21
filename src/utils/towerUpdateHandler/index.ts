@@ -1,6 +1,6 @@
 import { TutorialConditions } from '../../effector/tutorial-store/store';
 import { TowersTypes } from '../../effector/towers-progress/store';
-import { statusOk } from '../../constants';
+import { statusOk, delayBeforeUpdateTower } from '../../constants';
 import { updateTowerRequest } from '../../api/updateTower';
 import { upgradeTower } from '../../effector/towers-progress/events';
 import {
@@ -22,7 +22,9 @@ export const towerUpdateHandler = async (
       showUpgradeIcon(null);
     }
   } else {
-    upgradeTower(towerTitle);
-    nextTutorStep();
+    setTimeout(() => {
+      nextTutorStep();
+      upgradeTower(towerTitle);
+    }, delayBeforeUpdateTower);
   }
 };
