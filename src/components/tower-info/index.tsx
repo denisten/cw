@@ -6,7 +6,10 @@ import {
   showUpgradeIcon,
   setTowerInfoContent,
 } from '../../effector/app-condition/events';
-import { addProgressPoints } from '../../effector/towers-progress/events';
+import {
+  addProgressPoints,
+  upgradeTower,
+} from '../../effector/towers-progress/events';
 import { useStore } from 'effector-react';
 import {
   AppCondition,
@@ -359,6 +362,10 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
                 level < maxLevel
               }
               hide={hideTowerInfo}
+            />
+            <TowerInfoUpgradeButton
+              handleClick={() => upgradeTower(towerTitle)}
+              canUpgrade={level < maxLevel ? true : false}
             />
           </RowWrapper>
 
