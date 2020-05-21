@@ -1,6 +1,9 @@
 import React, { memo, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import { extraTowerInfoModalOpen } from '../../effector/app-condition/events';
+import {
+  extraTowerInfoModalOpen,
+  showUpgradeIcon,
+} from '../../effector/app-condition/events';
 import { LazyImage } from '@tsareff/lazy-image';
 import { TowerLevel, TowersTypes } from '../../effector/towers-progress/store';
 import { UpgradeButton } from '../update-button';
@@ -116,6 +119,8 @@ export const TowerWrapper = memo(
         const resp = await updateTowerRequest(towerTitle);
         if (resp.status === statusOk) {
           upgradeTower(towerTitle);
+        } else {
+          showUpgradeIcon(null);
         }
       } else {
         upgradeTower(towerTitle);
