@@ -16,6 +16,8 @@ import { scrollToCurrentTower } from '../../utils/scroll-to-current-tower';
 import { Markers } from '../../components/markers';
 import { IMarker } from '../../effector/towers-marker/store';
 import { BuildingsService } from '../../buildings/config';
+import { updateTowerRequest } from '../../api/updateTower';
+import { statusOk } from '../../constants';
 
 const TowerStyledWrapper = styled.div<ITowerStyledWrapper>`
   display: flex;
@@ -109,10 +111,16 @@ export const TowerWrapper = memo(
       }
     };
 
-    const handleOnAnimationEnd = () => {
-      // TODO связать логику с бэком, юзая updateTower(towerTitle)
-      upgradeTower(towerTitle);
-      if (tutorialCondition) nextTutorStep();
+    const handleOnAnimationEnd = async () => {
+      if (!tutorialCondition) {
+        const resp = await updateTowerRequest(towerTitle);
+        if (resp.status === statusOk) {
+          upgradeTower(towerTitle);
+        }
+      } else {
+        upgradeTower(towerTitle);
+        nextTutorStep();
+      }
     };
 
     useEffect(() => mouseOverHandle(), [focusOnTowerTitle]);
