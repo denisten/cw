@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-magic-numbers */
 import React, { useEffect, useState } from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes, Keyframes } from 'styled-components';
 import { ZIndexes } from '../root-component/z-indexes-enum';
 import { cloudsConfig } from './clouds-config';
 import background from './background.png';
@@ -22,19 +22,6 @@ enum InheritZIndexes {
   LOGO = 5,
 }
 
-const cloudsOddOff = keyframes`
-to {
-  transform: translate3d(-100%, -100%, 0);
-  opacity: 0;
-}
-`;
-const cloudsEvenOff = keyframes`
-to {
-  transform: translate3d(100%, 100%, 0);
-  opacity: 0;
-}
-`;
-
 const PreloaderWrapper = styled.div<{ disable: boolean }>`
   width: 100%;
   height: 100%;
@@ -49,15 +36,6 @@ const PreloaderWrapper = styled.div<{ disable: boolean }>`
   background-size: 100% 100%;
   align-items: flex-end;
   justify-content: center;
-
-  .cloud:nth-child(odd).hideCloud {
-    animation: ${cloudsOddOff} 1.5s;
-    animation-fill-mode: forwards;
-  }
-  .cloud:nth-child(even).hideCloud {
-    animation: ${cloudsEvenOff} 1.5s;
-    animation-fill-mode: forwards;
-  }
 `;
 
 const cloudMove = keyframes`
@@ -84,6 +62,11 @@ const Cloud = styled.div<ICloud>`
   right: ${props => props.right};
   bottom: ${props => props.bottom};
   z-index: ${InheritZIndexes.CLOUDS};
+
+  &.hideCloud {
+    animation: ${props => props.endAnimation} 1.5s;
+    animation-fill-mode: forwards;
+  }
 `;
 
 const LoadingLine = styled.div<{ persentOfLoad?: number }>`
@@ -223,4 +206,5 @@ export interface ICloud {
   right?: string;
   bottom?: string;
   zIndex?: number;
+  endAnimation?: Keyframes;
 }

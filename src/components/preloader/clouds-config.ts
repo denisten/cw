@@ -5,6 +5,39 @@ import cloud4 from './clouds_04.png';
 import cloud5 from './clouds_05.png';
 import cloud6 from './clouds_06.png';
 import { ICloud } from '.';
+import { keyframes } from 'styled-components';
+
+const cloud1EndAnim = keyframes`
+to {
+    transform: translate3d(-100%, -50%, 0);
+}
+`;
+
+const cloud2EndAnim = keyframes`
+to {
+    transform: translate3d(-100%, 0, 0);
+}
+`;
+const cloud3EndAnim = keyframes`
+to {
+    transform: translate3d(-50%, 50%, 0);
+}
+`;
+const cloud4EndAnim = keyframes`
+to {
+    transform: translate3d(100%, -50%, 0);
+}
+`;
+const cloud5EndAnim = keyframes`
+to {
+    transform: translate3d(100%, 0, 0);
+}
+`;
+const cloud6EndAnim = keyframes`
+to {
+    transform: translate3d(50%, 100%, 0);
+}
+`;
 export const cloudsConfig: ICloud[] = [
   {
     keyId: 1,
@@ -16,6 +49,7 @@ export const cloudsConfig: ICloud[] = [
     width: '936px',
     height: '339px',
     zIndex: 4,
+    endAnimation: cloud1EndAnim,
   },
   {
     keyId: 2,
@@ -26,6 +60,7 @@ export const cloudsConfig: ICloud[] = [
     animDirection: 'alternate',
     width: '606px',
     height: '488px',
+    endAnimation: cloud2EndAnim,
   },
   {
     keyId: 3,
@@ -37,6 +72,7 @@ export const cloudsConfig: ICloud[] = [
     width: '913px',
     height: '440px',
     zIndex: 4,
+    endAnimation: cloud3EndAnim,
   },
   {
     keyId: 4,
@@ -47,6 +83,7 @@ export const cloudsConfig: ICloud[] = [
     animDirection: 'alternate-reverse',
     width: '769px',
     height: '422px',
+    endAnimation: cloud4EndAnim,
   },
   {
     keyId: 5,
@@ -57,6 +94,7 @@ export const cloudsConfig: ICloud[] = [
     animDirection: 'alternate-reverse',
     width: '821px',
     height: '629px',
+    endAnimation: cloud5EndAnim,
   },
   {
     keyId: 6,
@@ -67,5 +105,6 @@ export const cloudsConfig: ICloud[] = [
     animDirection: 'alternate-reverse',
     width: '1137px',
     height: '315px',
+    endAnimation: cloud6EndAnim,
   },
 ];
