@@ -47,12 +47,10 @@ to {
 }
 `;
 
-const Cloud = styled.div<ICloud>`
+const Cloud = styled.img<ICloud>`
   width: ${props => props.width};
   height: ${props => props.height};
   position: absolute;
-  background: url(${props => props.background}) no-repeat center;
-  background-size: 100% 100%;
   animation-duration: ${props => props.animDuration || '5s'};
   animation-direction: ${props => props.animDirection || 'alternate'};
   animation-iteration-count: infinite;
@@ -122,13 +120,11 @@ to {
 }
 `;
 
-const Logo = styled.div<{ displayFlag: boolean }>`
+const Logo = styled.img<{ displayFlag: boolean }>`
   position: absolute;
   width: 1001px;
   height: 751px;
   z-index: ${InheritZIndexes.LOGO};
-  background: url(${logo}) no-repeat center;
-  background-size: 100% 100%;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -136,15 +132,13 @@ const Logo = styled.div<{ displayFlag: boolean }>`
   animation: ${props => (props.displayFlag ? fadeLogo : '')} 0.3s linear both;
 `;
 
-const BuildingsBG = styled.div<{ displayFlag: boolean; background: string }>`
+const BuildingsBG = styled.img<{ displayFlag: boolean }>`
   position: absolute;
   left: 0;
   top: 0;
   z-index: ${InheritZIndexes.BUILDINGS};
   width: 100%;
   height: 100%;
-  background: url(${props => props.background}) no-repeat center;
-  background-size: 100% 100%;
   opacity: ${props => (props.displayFlag ? 1 : 0)};
 `;
 
@@ -167,26 +161,25 @@ export const Preloader: React.FC = () => {
   }, [loadingPercent]);
   return (
     <PreloaderWrapper disable={disable}>
-      <Logo displayFlag={loadingPercent >= 25} />
+      <Logo displayFlag={loadingPercent >= 25} src={logo} />
       {cloudsConfig.map(cloud => (
         <Cloud
           key={cloud.keyId}
           {...cloud}
+          src={cloud.background}
           className={'cloud ' + (cloudsOff ? 'hideCloud' : '')}
+          alt="cloud"
         />
       ))}
       <BuildingsBG
         displayFlag={!loadingPercent || loadingPercent < 33}
-        background={buildingZero}
+        src={buildingZero}
       />
       <BuildingsBG
         displayFlag={loadingPercent >= 33 && loadingPercent < 66}
-        background={buildingOne}
+        src={buildingOne}
       />
-      <BuildingsBG
-        displayFlag={loadingPercent >= 66}
-        background={buildingTwo}
-      />
+      <BuildingsBG displayFlag={loadingPercent >= 66} src={buildingTwo} />
       <LoadingLine persentOfLoad={loadingPercent}>
         <span>{loadingPercent}%</span>
       </LoadingLine>
