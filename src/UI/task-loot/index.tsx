@@ -21,6 +21,7 @@ const TaskLootWrapper = styled.div<ITaskLocation>`
 
 const LootWrapper = styled.div`
   display: flex;
+  align-items: center;
 `;
 
 const CountWrapper = styled(StyledSpan)`
@@ -38,6 +39,11 @@ const styledConfig = {
   loot: {
     marginRight: '6px',
   },
+  money: {
+    width: '19px',
+    height: '17px',
+    marginRight: '6px',
+  },
 };
 
 export const TaskLoot: React.FC<ITaskLoot> = ({
@@ -52,7 +58,7 @@ export const TaskLoot: React.FC<ITaskLoot> = ({
         <CountWrapper>{energy}</CountWrapper>
       </LootWrapper>
       <LootWrapper>
-        <img src={moneyImg} alt="money" style={styledConfig.loot} />
+        <img src={moneyImg} alt="money" style={styledConfig.money} />
         <CountWrapper>{money}</CountWrapper>
       </LootWrapper>
     </TaskLootWrapper>

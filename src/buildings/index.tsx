@@ -20,7 +20,7 @@ export const Buildings: React.FC = () => {
     <Fragment>
       {towersKeys.map(towerTitle => {
         const towerLayoutData = BuildingsService.getConfigForTower(towerTitle);
-        if (towerLayoutData.hide) return null;
+        if (towerLayoutData && towerLayoutData.hide) return null;
         try {
           const towerParams =
             towerLayoutData[localTowersProgressStore[towerTitle].level.id];

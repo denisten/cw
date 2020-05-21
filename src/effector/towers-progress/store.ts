@@ -12,7 +12,7 @@ export enum TowerLevel {
   high = 3,
 }
 export enum TowersTypes {
-  MAIN_TOWER = 'mainTower',
+  MAIN_TOWER = 'cellular',
   MUSIC = 'music',
   LIVE_ARENA = 'live-arena',
   CASHBACK = 'cashback',

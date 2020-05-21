@@ -24,8 +24,8 @@ const initData = {
   name: 'Неизвестно',
   worldName: 'Неизвестно',
   assistantName: 'Неизвестно',
-  money: 200,
-  coins: 299,
+  money: 0,
+  coins: 0,
   birthday: {
     dd: '00',
     mm: '00',

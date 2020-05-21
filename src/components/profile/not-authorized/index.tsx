@@ -117,7 +117,7 @@ export const NotAuthorizedProfile = () => {
         }
       >
         <RowWrapper {...styledConfig.rowWrapper}>
-          <WorldTitle>{worldName || 'Мой мир'}</WorldTitle>
+          <WorldTitle>{worldName}</WorldTitle>
           <PenWrapper
             src={penImg}
             alt="pen"
@@ -151,7 +151,7 @@ export const NotAuthorizedProfile = () => {
           tutorialCondition === TutorialConditions.PULSE_EDIT_CHANGE_CITY_NAME
         }
         zIndex={zIndexForInheritOverlay}
-      ></TutorialOverlay>
+      />
     </ProfileWrapper>
   );
 };

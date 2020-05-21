@@ -4,7 +4,10 @@ import styled from 'styled-components';
 import { AdvancedScrollbar } from '../../../../UI/advanced-scrollbar';
 import { AdvanceScrollBarAttr } from '../../../../utils/handle-scroll';
 import { useStore } from 'effector-react';
-import { MissionsStore } from '../../../../effector/missions-store/store';
+import {
+  MissionsStore,
+  TaskSubType,
+} from '../../../../effector/missions-store/store';
 import { UserDataStore } from '../../../../effector/user-data/store';
 
 const TasksWrapper = styled(AdvancedScrollbar)<ITask>`
@@ -13,6 +16,8 @@ const TasksWrapper = styled(AdvancedScrollbar)<ITask>`
   overflow-y: scroll;
   overflow-x: hidden;
 `;
+
+const maxTaskLength = 32;
 
 export const Tasks: React.FC<{ active: boolean }> = ({ active }) => {
   const missions = useStore(MissionsStore);
@@ -26,15 +31,15 @@ export const Tasks: React.FC<{ active: boolean }> = ({ active }) => {
         return (
           <Task
             isInTowerInfo={false}
-            isAllowedToChange={el.isAllowedToChange}
+            isAllowedToChange={true}
             couponsCount={couponsCount}
-            type={el.type}
-            taskTitle={el.taskTitle}
-            key={el.taskTitle}
+            type={TaskSubType.NBO}
+            taskTitle={`${el.content.name.slice(0, maxTaskLength)}...`}
+            key={el.content.name}
             status={el.status}
-            money={el.loot.money}
-            energy={el.loot.energy}
-            description={el.description}
+            money={el.reward}
+            energy={el.energy}
+            description={el.content.description}
           />
         );
       })}
