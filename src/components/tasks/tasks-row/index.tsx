@@ -86,7 +86,7 @@ const TaskButton = styled.div`
   background-origin: border-box;
   background-clip: content-box, border-box;
   border-image-slice: 1;
-  &.done {
+  &.${TaskStatuses.DONE} {
     border-image-source: linear-gradient(
       to bottom,
       #027722 -152%,
@@ -104,7 +104,7 @@ const TaskButton = styled.div`
       content: 'Забрать';
     }
   }
-  &.notDone {
+  &.${TaskStatuses.CREATED} {
     border-image-source: linear-gradient(to bottom, #03adc9 1%, #02c5e5 100%);
     background-image: linear-gradient(
         to bottom,
@@ -155,6 +155,8 @@ const TaskDescription = styled.div`
   line-height: 1.43;
   letter-spacing: -0.35px;
   color: #001424;
+  overflow-x: hidden;
+  overflow-y: scroll;
 `;
 
 const TaskDescriptionWrapper = styled.div`

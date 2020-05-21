@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { Settings } from '../settings';
 import { ZIndexes } from '../root-component/z-indexes-enum';
 import { Tasks } from '../tasks';
+import { DevTools } from '../dev-tools';
 
 const MenuContentWrapper = styled.div<{ activeTaskElem: boolean }>`
   flex: 1;
@@ -28,6 +29,8 @@ const MenuContentSelector: React.FC<MenuContentProps> = ({ content }) => {
       return <Settings />;
     case MenuItems.TASKS:
       return <Tasks />;
+    case MenuItems.DEV:
+      return <DevTools />;
     default:
       return <h1>In Progress...</h1>;
   }
