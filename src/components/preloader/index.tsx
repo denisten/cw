@@ -211,7 +211,7 @@ export const Preloader: React.FC = () => {
         alt="building"
       />
       <BuildingsBG
-        displayFlag={loadingPercent >= 53 && loadingPercent < 70}
+        displayFlag={loadingPercent >= 52 && loadingPercent < 70}
         src={building6}
         alt="building"
       />
