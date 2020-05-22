@@ -22,4 +22,5 @@ interface IOverlay {
   zIndex?: number;
   displayFlag?: boolean;
   style?: React.CSSProperties;
+  position?: string;
 }
