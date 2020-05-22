@@ -7,7 +7,7 @@ import { progressRefresh } from './progress-refresh';
 
 export enum apiRoutes {
   GET_URL = '/api/auth/url',
-  GET_PROFILE = 'api/users/current',
+  USER_DATA = 'api/users/current',
   GENERATE_TASKS = '/api/dev/tasks/generate',
   LOGOUT = 'api/auth/logout',
   UPDATE_DATA = 'api/users/current',

@@ -1,9 +1,9 @@
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { StyledSpan } from '../../../UI/span';
 import { MTSSans } from '../../../fonts';
 import { Button, ButtonClassNames } from '../../../UI/button';
-import { UserDataStore } from '../../../effector/user-data/store';
+import { IBirthday, UserDataStore } from '../../../effector/user-data/store';
 import penImg from '../not-authorized/pen.svg';
 import { maxSymbolsAlert, minSymbolsAlert, PopUp } from '../../../UI/pop-up';
 import { useStore } from 'effector-react';
@@ -14,11 +14,14 @@ import userAvatarIcon from './user-avatar.svg';
 import { ColumnWrapper } from '../../../UI/column-wrapper';
 import { Input } from '../../../UI/input';
 import exitImg from './exit.svg';
-import { editUserData } from '../../../effector/user-data/events';
 import { CookieService } from '../../../sevices/cookies';
 import { logout } from '../../../api';
 import { Dropdown } from '../../../UI/dropdown';
 import { DaysNumArr, MonthsStringArr } from '../../../constants';
+import {
+  birthdayParser,
+  updateUserData,
+} from '../../../utils/update-user-data';
 import { resetTowerProgress } from '../../../effector/towers-progress/events';
 
 const ExitText = styled(StyledSpan)<ISpan>`
@@ -157,8 +160,13 @@ export const AuthorizedProfile = () => {
     userSessionSocket,
   } = useStore(UserDataStore);
   const [localName, setLocalName] = useState(name);
-  const [birthdayDate, setBirthdayDate] = useState(birthday);
+  const [birthdayDate, setBirthdayDate] = useState<IBirthday>(birthday);
   const [nameInputHasError, setNameInputHasError] = useState(false);
+
+  useEffect(() => {
+    if (localName !== name) setLocalName(name);
+    if (birthdayDate !== birthday) setBirthdayDate(birthday);
+  }, [name, birthday]);
 
   const handleChangeNameInput = (value: string) => {
     setLocalName(value);
@@ -179,10 +187,7 @@ export const AuthorizedProfile = () => {
       localName.length >= minNameLength &&
       localName.length <= maxNameLength
     ) {
-      editUserData({
-        name: localName,
-        birthday: birthdayDate,
-      });
+      updateUserData({ birthday: birthdayDate, name: localName });
     } else {
       setNameInputHasError(true);
     }
@@ -241,7 +246,7 @@ export const AuthorizedProfile = () => {
             optionsHeight={329}
             top={40}
             style={{ marginRight: '16px' }}
-            value={birthdayDate.dd}
+            value={birthdayParser(birthdayDate.dd)}
             onChangeCallback={el =>
               setBirthdayDate(prevState => ({ dd: el, mm: prevState.mm }))
             }
@@ -251,7 +256,7 @@ export const AuthorizedProfile = () => {
             optionsHeight={329}
             top={40}
             width={149}
-            value={birthdayDate.mm}
+            value={MonthsStringArr[+birthdayDate.mm - 1]}
             onChangeCallback={el =>
               setBirthdayDate(prevState => ({ dd: prevState.dd, mm: el }))
             }
