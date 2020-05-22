@@ -30,6 +30,7 @@ import {
 } from '../../components/tutorial-overlay';
 import { zIndexForInheritOverlay } from '../../constants';
 import { saveUserData } from '../../api/save-user-data';
+import { contains } from '../../utils/check-include';
 
 const PopUpWrapper = styled.div`
   background-image: url(${popUpWrapperBackground});
@@ -57,7 +58,7 @@ const Title = styled(StyledSpan)`
 
 const styleConfig = {
   button: {
-    position: 'static',
+    position: 'relative',
     margin: '45px 0 0 0',
   } as React.CSSProperties,
   overlay: {
@@ -94,7 +95,7 @@ export const PopUp: React.FC<IPopUp> = ({ callback, displayFlag }) => {
     } else if (value.length > maxNameLength) {
       worldInputHint = maxSymbolsAlert + maxNameLength;
       setInputHasError(true);
-    } else if (valuesArr.length > 1) {
+    } else if (contains(value, ' ')) {
       worldInputHint = spaceSymbolsAlert;
       setInputHasError(true);
     } else {
