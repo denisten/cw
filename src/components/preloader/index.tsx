@@ -143,12 +143,13 @@ const BuildingsBG = styled.img<{ displayFlag: boolean }>`
   /* left: 50%;
   top: 50%;
   transform: translate(-50%, -50%); */
-  left: 79px;
-  top: 29px;
+  left: 0;
+  top: 0;
   z-index: ${InheritZIndexes.BUILDINGS};
-  width: calc(100% - 79px - 233px);
-  height: calc(100% + 66px - 29px);
+  width: 100%;
+  height: 100%;
   opacity: ${props => (props.displayFlag ? 1 : 0)};
+  transition: 0.1s;
 `;
 
 export const Preloader: React.FC = () => {
@@ -181,47 +182,47 @@ export const Preloader: React.FC = () => {
         />
       ))}
       <BuildingsBG
-        displayFlag={!loadingPercent || loadingPercent < 10}
+        displayFlag={!loadingPercent || loadingPercent < 12.5}
         src={building0}
         alt="building"
       />
       <BuildingsBG
-        displayFlag={loadingPercent >= 10 && loadingPercent < 20}
+        displayFlag={loadingPercent >= 9 && loadingPercent < 25}
         src={building1}
         alt="building"
       />
       <BuildingsBG
-        displayFlag={loadingPercent >= 20 && loadingPercent < 30}
+        displayFlag={loadingPercent >= 21.5 && loadingPercent < 37.5}
         src={building2}
         alt="building"
       />
       <BuildingsBG
-        displayFlag={loadingPercent >= 30 && loadingPercent < 40}
+        displayFlag={loadingPercent >= 34 && loadingPercent < 50}
         src={building3}
         alt="building"
       />
       <BuildingsBG
-        displayFlag={loadingPercent >= 40 && loadingPercent < 50}
+        displayFlag={loadingPercent >= 46.5 && loadingPercent < 62.5}
         src={building4}
         alt="building"
       />
-      <BuildingsBG
-        displayFlag={loadingPercent >= 50 && loadingPercent < 52}
+      {/* <BuildingsBG
+        displayFlag={loadingPercent >= 59 && loadingPercent < 75}
         src={building5}
         alt="building"
-      />
+      /> */}
       <BuildingsBG
-        displayFlag={loadingPercent >= 52 && loadingPercent < 70}
+        displayFlag={loadingPercent >= 59 && loadingPercent < 75}
         src={building6}
         alt="building"
       />
       <BuildingsBG
-        displayFlag={loadingPercent >= 70 && loadingPercent < 85}
+        displayFlag={loadingPercent >= 71.5 && loadingPercent < 87.5}
         src={building7}
         alt="building"
       />
       <BuildingsBG
-        displayFlag={loadingPercent >= 85}
+        displayFlag={loadingPercent >= 84 && loadingPercent < 100}
         src={building8}
         alt="building"
       />
