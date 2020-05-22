@@ -7,9 +7,15 @@ import background from './background.png';
 import { MTSSans } from '../../fonts';
 import { useLoadingIndication } from '../../hooks/useLoadingIndication';
 import { setLoaded } from '../../effector/app-condition/events';
-import buildingZero from './buildings_0.png';
-import buildingOne from './buildings_1.png';
-import buildingTwo from './buildings_2.png';
+import building0 from './buildings_0.png';
+import building1 from './buildings_1.png';
+import building2 from './buildings_2.png';
+import building3 from './buildings_3.png';
+import building4 from './buildings_4.png';
+import building5 from './buildings_5.png';
+import building6 from './buildings_6.png';
+import building7 from './buildings_7.png';
+import building8 from './buildings_8.png';
 import logo from './logo.png';
 
 const maxpercent = 100;
@@ -134,11 +140,14 @@ const Logo = styled.img<{ displayFlag: boolean }>`
 
 const BuildingsBG = styled.img<{ displayFlag: boolean }>`
   position: absolute;
-  left: 0;
-  top: 0;
+  /* left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%); */
+  left: 79px;
+  top: 29px;
   z-index: ${InheritZIndexes.BUILDINGS};
-  width: 100%;
-  height: 100%;
+  width: calc(100% - 79px - 233px);
+  height: calc(100% + 66px - 29px);
   opacity: ${props => (props.displayFlag ? 1 : 0)};
 `;
 
@@ -161,7 +170,7 @@ export const Preloader: React.FC = () => {
   }, [loadingPercent]);
   return (
     <PreloaderWrapper disable={disable}>
-      <Logo displayFlag={loadingPercent >= 25} src={logo} alt="logo" />
+      {/* <Logo displayFlag={loadingPercent >= 25} src={logo} alt="logo" /> */}
       {cloudsConfig.map(cloud => (
         <Cloud
           key={cloud.keyId}
@@ -172,18 +181,48 @@ export const Preloader: React.FC = () => {
         />
       ))}
       <BuildingsBG
-        displayFlag={!loadingPercent || loadingPercent < 33}
-        src={buildingZero}
+        displayFlag={!loadingPercent || loadingPercent < 10}
+        src={building0}
         alt="building"
       />
       <BuildingsBG
-        displayFlag={loadingPercent >= 33 && loadingPercent < 66}
-        src={buildingOne}
+        displayFlag={loadingPercent >= 10 && loadingPercent < 20}
+        src={building1}
         alt="building"
       />
       <BuildingsBG
-        displayFlag={loadingPercent >= 66}
-        src={buildingTwo}
+        displayFlag={loadingPercent >= 20 && loadingPercent < 30}
+        src={building2}
+        alt="building"
+      />
+      <BuildingsBG
+        displayFlag={loadingPercent >= 30 && loadingPercent < 40}
+        src={building3}
+        alt="building"
+      />
+      <BuildingsBG
+        displayFlag={loadingPercent >= 40 && loadingPercent < 50}
+        src={building4}
+        alt="building"
+      />
+      <BuildingsBG
+        displayFlag={loadingPercent >= 50 && loadingPercent < 52}
+        src={building5}
+        alt="building"
+      />
+      <BuildingsBG
+        displayFlag={loadingPercent >= 53 && loadingPercent < 70}
+        src={building6}
+        alt="building"
+      />
+      <BuildingsBG
+        displayFlag={loadingPercent >= 70 && loadingPercent < 85}
+        src={building7}
+        alt="building"
+      />
+      <BuildingsBG
+        displayFlag={loadingPercent >= 85}
+        src={building8}
         alt="building"
       />
       <LoadingLine persentOfLoad={loadingPercent}>
