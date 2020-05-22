@@ -205,7 +205,7 @@ interface IDropDown {
   width?: number;
   style?: React.CSSProperties;
   onChangeCallback: (el: string) => void;
-  value?: string;
+  value?: string | number;
 }
 
 interface IOptionsWrapper {

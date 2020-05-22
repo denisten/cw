@@ -9,6 +9,7 @@ import {
 } from './events';
 import connectLocalStorage from 'effector-localstorage/sync';
 import Centrifuge from 'centrifuge';
+import { birthdayParserToJSON } from '../../utils/birthday-parser';
 
 export enum UserDataStoreKeys {
   ID = 'id',
@@ -64,12 +65,13 @@ export const UserDataStore = UserDataDomain.store<IUserDataStore>(initState)
   }))
   .on(
     fetchUserData.done,
-    (state, { result: { worldName, assistantName, name, id } }) => ({
+    (state, { result: { worldName, assistantName, name, id, birthday } }) => ({
       ...state,
       id,
       worldName: worldName || initData.worldName,
       assistantName: assistantName || initData.assistantName,
       name: name || initData.name,
+      birthday: birthdayParserToJSON(birthday),
     })
   )
   .on(setUserSessionSocket, (state, payload) => ({

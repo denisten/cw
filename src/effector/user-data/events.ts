@@ -21,7 +21,7 @@ interface IEditCurrentUserDataField {
   value: string;
 }
 
-interface IEditUserData {
+export interface IEditUserData {
   name?: string;
   worldName?: string;
   assistantName?: string;
