@@ -29,6 +29,7 @@ import {
   TutorialOverlayTopLayer,
 } from '../../components/tutorial-overlay';
 import { zIndexForInheritOverlay } from '../../constants';
+import { saveUserData } from '../../api/save-user-data';
 
 const PopUpWrapper = styled.div`
   background-image: url(${popUpWrapperBackground});
@@ -75,15 +76,17 @@ const styleConfig = {
 let worldInputHint = '';
 export const minSymbolsAlert = 'Минимальное число символов ';
 export const maxSymbolsAlert = 'Максимальное число символов ';
+export const spaceSymbolsAlert = 'Имена с пробелом недоступны ';
 
 export const PopUp: React.FC<IPopUp> = ({ callback, displayFlag }) => {
   const { worldName } = useStore(UserDataStore);
   const { tutorialCondition } = useStore(TutorialStore);
   const [value, setValue] = useState(worldName);
   const [inputHasError, setInputHasError] = useState(false);
-
+  const valuesArr = value.split(' ');
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
+
     setValue(e.target.value);
     if (value.length < minNameLength) {
       worldInputHint = minSymbolsAlert + minNameLength;
@@ -91,18 +94,26 @@ export const PopUp: React.FC<IPopUp> = ({ callback, displayFlag }) => {
     } else if (value.length > maxNameLength) {
       worldInputHint = maxSymbolsAlert + maxNameLength;
       setInputHasError(true);
+    } else if (valuesArr.length > 1) {
+      worldInputHint = spaceSymbolsAlert;
+      setInputHasError(true);
     } else {
       setInputHasError(false);
     }
   };
   const saveData = () => {
     editCurrentUserDataField({ key: UserDataStoreKeys.WORLD_NAME, value });
+    saveUserData({ worldName: value });
     callback();
   };
 
   const handleSubmit = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
-    if (value.length >= minNameLength && value.length <= maxNameLength) {
+    if (
+      value.length >= minNameLength &&
+      value.length <= maxNameLength &&
+      valuesArr.length === 1
+    ) {
       saveData();
       if (
         tutorialCondition === TutorialConditions.PULSE_SAVE_CHANGE_CITY_NAME
