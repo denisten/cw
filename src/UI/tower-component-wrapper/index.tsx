@@ -6,7 +6,6 @@ import { TowerLevel, TowersTypes } from '../../effector/towers-progress/store';
 import { UpgradeButton } from '../update-button';
 import upgradeThinTowerImg from '../../img/tower-updrade/thin-tower.png';
 import upgradeWideTowerImg from '../../img/tower-updrade/wide-tower.png';
-import { upgradeTower } from '../../effector/towers-progress/events';
 import { maxProgressValue } from '../../effector/app-condition/store';
 import { TutorialConditions } from '../../effector/tutorial-store/store';
 import { nextTutorStep } from '../../effector/tutorial-store/events';
@@ -34,7 +33,7 @@ const StyledConfig = {
     ticksPerFrame: 2,
     numberOfFramesX: 7,
     numberOfFramesY: 6,
-    infinity: false,
+    infinity: true,
     style: {
       zIndex: ZIndexes.UPGRADE_TOWER_ANIMATION_CANVAS,
       position: 'absolute',
@@ -109,12 +108,6 @@ export const TowerWrapper = memo(
       }
     };
 
-    const handleOnAnimationEnd = () => {
-      // TODO связать логику с бэком, юзая updateTower(towerTitle)
-      upgradeTower(towerTitle);
-      if (tutorialCondition) nextTutorStep();
-    };
-
     useEffect(() => mouseOverHandle(), [focusOnTowerTitle]);
     useEffect(() => {
       BuildingsService.setRefForTower(towerTitle, towerRef);
@@ -138,6 +131,7 @@ export const TowerWrapper = memo(
           }
         />
         <UpgradeButton
+          tutorialCondition={tutorialCondition}
           displayFlag={progress >= maxProgressValue && currentLevel < maxLevel}
           towerTitle={towerTitle}
           towerLevel={currentLevel}
@@ -150,7 +144,6 @@ export const TowerWrapper = memo(
           <Sprite
             canvasHeight={height}
             canvasWidth={width}
-            onAnimationEnd={handleOnAnimationEnd}
             img={wideTower ? upgradeWideTowerImg : upgradeThinTowerImg}
             {...StyledConfig.sprite}
           />

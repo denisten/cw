@@ -1,21 +1,21 @@
 import React from 'react';
 
 import { TowersTypes } from '../../effector/towers-progress/store';
-import {
-  extraTowerInfoModalClosed,
-  showUpgradeIcon,
-} from '../../effector/app-condition/events';
+import { showUpgradeIcon } from '../../effector/app-condition/events';
 import {
   MarkerView,
   MarkerWrapper,
   TypeOfMarkers,
 } from '../../components/markers';
+import { TutorialConditions } from '../../effector/tutorial-store/store';
+import { towerUpdateHandler } from '../../utils/towerUpdateHandler';
 
 export const UpgradeButton: React.FC<UpgradeButtonProps> = ({
   towerTitle,
   animFlag = false,
   displayFlag,
   towerLevel,
+  tutorialCondition,
 }) => {
   return (
     <MarkerWrapper
@@ -28,7 +28,7 @@ export const UpgradeButton: React.FC<UpgradeButtonProps> = ({
         animFlag={animFlag}
         onClick={() => {
           showUpgradeIcon(towerTitle);
-          extraTowerInfoModalClosed();
+          towerUpdateHandler(tutorialCondition, towerTitle);
         }}
       />
     </MarkerWrapper>
@@ -40,4 +40,5 @@ type UpgradeButtonProps = {
   animFlag?: boolean;
   displayFlag: boolean;
   towerLevel: number;
+  tutorialCondition: TutorialConditions;
 };

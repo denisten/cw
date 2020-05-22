@@ -4,6 +4,7 @@ export const errorCodes: IErrorCode = {
   404: 'Адрес запроса не найден',
   0: 'Нет соединения с интернетом',
   504: 'Нет ответа от сервера',
+  401: 'Пользователь не авторизован',
 };
 
 export const errorStrings: IErrorStrings = {

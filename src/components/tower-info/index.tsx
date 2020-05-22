@@ -6,7 +6,10 @@ import {
   showUpgradeIcon,
   setTowerInfoContent,
 } from '../../effector/app-condition/events';
-import { addProgressPoints } from '../../effector/towers-progress/events';
+import {
+  addProgressPoints,
+  upgradeTower,
+} from '../../effector/towers-progress/events';
 import { useStore } from 'effector-react';
 import {
   AppCondition,
@@ -42,6 +45,7 @@ import { MoveDivider } from '../../UI/move-divider';
 import { device } from '../../UI/media';
 import { TowerInfoUpgradeButton } from '../../UI/tower-info-upgrade-button';
 import { MTSSans } from '../../fonts';
+import { towerUpdateHandler } from '../../utils/towerUpdateHandler';
 
 export type ModalWindowProps = {
   opened?: boolean;
@@ -276,7 +280,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
   const handleClick = () => {
     if (towerTitle) {
       showUpgradeIcon(towerTitle);
-      extraTowerInfoModalClosed();
+      towerUpdateHandler(tutorialCondition, towerTitle);
     }
   };
   const refsCollection: Array<React.RefObject<HTMLDivElement>> = useMemo(
@@ -359,6 +363,10 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
                 level < maxLevel
               }
               hide={hideTowerInfo}
+            />
+            <TowerInfoUpgradeButton
+              handleClick={() => upgradeTower(towerTitle)}
+              canUpgrade={level < maxLevel ? true : false}
             />
           </RowWrapper>
 
