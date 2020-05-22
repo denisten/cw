@@ -11,6 +11,7 @@ export enum MenuItems {
   FEEDBACK = 'feedback',
   OFFER = 'offer',
   QA = 'qa',
+  DEV = 'dev',
 }
 
 const TranslatedMenuItems = {
@@ -20,6 +21,7 @@ const TranslatedMenuItems = {
   [MenuItems.FEEDBACK]: 'Обратная связь',
   [MenuItems.OFFER]: 'Оферта',
   [MenuItems.QA]: 'Вопросы и ответы',
+  [MenuItems.DEV]: 'Инструменты разработки',
 };
 
 const notSelectedItemFontWeight = 500;

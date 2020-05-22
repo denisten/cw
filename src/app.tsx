@@ -5,7 +5,6 @@ import history from './history';
 import { AuthLandingPage } from './components/auth-landing-page';
 import { GlobalStyle } from './global-style';
 import { ErrorBoundary } from './components/error-boundary';
-import { fetchUserData } from './effector/user-data/events';
 import { useStore } from 'effector-react';
 import { AppCondition } from './effector/app-condition/store';
 import { errorStringsParsingHOF } from './utils/error-handler';
@@ -15,6 +14,7 @@ import {
   AdvanceScrollBarAttr,
   stringTrue,
 } from './utils/handle-scroll';
+import { useFetchDataAfterAuth } from './hooks/use-fetch-data-after-auth';
 
 export enum Routes {
   MAIN = '/',
@@ -59,11 +59,8 @@ export const App: React.FC = () => {
     )
   );
 
-  useEffect(() => {
-    if (isAuthorized) {
-      fetchUserData('');
-    }
-  }, [isAuthorized]);
+  useFetchDataAfterAuth(isAuthorized);
+
   useEffect(() => {
     if (authCancelledStatus) {
       errorStringsParsingHOF(authCancelledStatus);

@@ -8,6 +8,6 @@ export const withHandlingErrors = async <T>(
     return await request();
   } catch (err) {
     errorCodesParsingHOF(err.response.status);
-    throw new Error('request error');
+    return err.response;
   }
 };
