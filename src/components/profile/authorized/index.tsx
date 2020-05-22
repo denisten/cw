@@ -18,11 +18,9 @@ import { CookieService } from '../../../sevices/cookies';
 import { logout } from '../../../api';
 import { Dropdown } from '../../../UI/dropdown';
 import { DaysNumArr, MonthsStringArr } from '../../../constants';
-import {
-  birthdayParser,
-  updateUserData,
-} from '../../../utils/update-user-data';
+import { updateUserData } from '../../../utils/update-user-data';
 import { resetTowerProgress } from '../../../effector/towers-progress/events';
+import { birthdayParser } from '../../../utils/birthday-parser';
 
 const ExitText = styled(StyledSpan)<ISpan>`
   font-family: ${MTSSans.REGULAR};

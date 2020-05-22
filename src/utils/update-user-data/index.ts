@@ -1,18 +1,6 @@
 import { editUserData, IEditUserData } from '../../effector/user-data/events';
 import { saveUserData } from '../../api/save-user-data';
-import { MonthsStringArr } from '../../constants';
-
-export const birthdayParser = (date: string) => {
-  return +date || String(MonthsStringArr.findIndex(el => el === date) + 1);
-};
-
-export const birthdayParserToJSON = (date: string) => {
-  const birthdayDate = date.split('.');
-  return {
-    dd: birthdayDate[0],
-    mm: birthdayDate[1],
-  };
-};
+import { birthdayParser } from '../birthday-parser';
 
 export const updateUserData = (data: IEditUserData) => {
   editUserData({
