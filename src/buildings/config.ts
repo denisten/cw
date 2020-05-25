@@ -153,8 +153,14 @@ import autoFactoryLevel3Img from './auto-factory/3.png';
 import autoFactoryLevel3Stroke from './auto-factory/3-stroke.png';
 import rtkLevel1Img from './rtk/1.png';
 import rtkLevel1Stroke from './rtk/1-stroke.png';
-import partnerBankLevel2Img from './partners-build/partner-bank/2.png';
-import partnerBankLevel2Stroke from './partners-build/partner-bank/2-stroke.png';
+import partnerThreeLevel0Img from './partners-build/partner-three/0.png';
+import partnerThreeLevel0Stroke from './partners-build/partner-three/0-stroke.png';
+import partnerThreeLevel1Img from './partners-build/partner-three/1.png';
+import partnerThreeLevel1Stroke from './partners-build/partner-three/1-stroke.png';
+import partnerThreeLevel2Img from './partners-build/partner-three/2.png';
+import partnerThreeLevel2Stroke from './partners-build/partner-three/2-stroke.png';
+import partnerThreeLevel3Img from './partners-build/partner-three/3.png';
+import partnerThreeLevel3Stroke from './partners-build/partner-three/3-stroke.png';
 import marvinLevel0Img from './marvin/0.png';
 import marvinLevel1Img from './marvin/1.png';
 import marvinLevel2Img from './marvin/2.png';
@@ -897,31 +903,32 @@ class BuildingsService {
         shadowImg: airportLevel3Stroke,
       },
     },
-    [TowersTypes.PARTNER_BANK]: {
+    [TowersTypes.PARTNER_THREE]: {
       info: 'info',
-      title: 'Партнерское здание',
+      title: 'Партнерское здание 3',
       wideTower: false,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
-      maxLevel: TowerLevel.low,
-      hide: true,
-      width: 530,
-      height: 555,
-      areaCoords: '74,67,456,472',
-      position: [30, 66.8],
+      maxLevel: TowerLevel.high,
+      width: 313,
+      height: 501,
+      areaCoords: '48,121,241,490',
+      position: [35.7, 71],
       ref: null,
-      // TODO: не настоящая картинка
+      [TowerLevel.deactive]: {
+        img: partnerThreeLevel0Img,
+        shadowImg: partnerThreeLevel0Stroke,
+      },
       [TowerLevel.low]: {
-        img: rtkLevel1Img,
-        shadowImg: rtkLevel1Stroke,
+        img: partnerThreeLevel1Img,
+        shadowImg: partnerThreeLevel1Stroke,
       },
       [TowerLevel.mid]: {
-        img: partnerBankLevel2Img,
-        shadowImg: partnerBankLevel2Stroke,
+        img: partnerThreeLevel2Img,
+        shadowImg: partnerThreeLevel2Stroke,
       },
-      // TODO: не настоящая картинка
       [TowerLevel.high]: {
-        img: airportLevel3Img,
-        shadowImg: airportLevel3Stroke,
+        img: partnerThreeLevel3Img,
+        shadowImg: partnerThreeLevel3Stroke,
       },
     },
     [TowersTypes.MARVIN]: {

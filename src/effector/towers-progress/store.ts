@@ -36,7 +36,7 @@ export enum TowersTypes {
   HOME_INTERNET = 'home-internet',
   AUTO = 'auto',
   SHOP = 'shop',
-  PARTNER_BANK = 'partnerBank',
+  PARTNER_THREE = 'partnerThree',
   MARVIN = 'marvin',
   UNIVERSITY = 'smart-university',
   CONNECT = 'second-memory',
@@ -396,11 +396,11 @@ const initState: TowersProgressStoreType = {
       value: 10,
     },
   },
-  [TowersTypes.PARTNER_BANK]: {
+  [TowersTypes.PARTNER_THREE]: {
     productId: 1,
     points: 0,
     level: {
-      level: TowerLevel.mid,
+      level: TowerLevel.deactive,
       name: '0 уровень',
       levelOnServer: 0,
     },

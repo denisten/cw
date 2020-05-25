@@ -95,7 +95,7 @@ const initState: TowersMarkerStoreType = {
   [TowersTypes.SHOP]: {
     markers: [],
   },
-  [TowersTypes.PARTNER_BANK]: {
+  [TowersTypes.PARTNER_THREE]: {
     markers: [],
   },
   [TowersTypes.MARVIN]: {
