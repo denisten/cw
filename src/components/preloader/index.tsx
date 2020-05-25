@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-magic-numbers */
 import React, { useEffect, useState } from 'react';
 import styled, { keyframes, Keyframes } from 'styled-components';
 import { ZIndexes } from '../root-component/z-indexes-enum';
@@ -7,15 +6,8 @@ import background from './background.png';
 import { MTSSans } from '../../fonts';
 import { useLoadingIndication } from '../../hooks/useLoadingIndication';
 import { setLoaded } from '../../effector/app-condition/events';
-import building0 from './buildings_0.png';
-import building1 from './buildings_1.png';
-import building2 from './buildings_2.png';
-import building3 from './buildings_3.png';
-import building4 from './buildings_4.png';
-import building5 from './buildings_5.png';
-import building6 from './buildings_6.png';
-import building7 from './buildings_7.png';
-import building8 from './buildings_8.png';
+import { preloaderBuildingsConfig } from './preloader-building-config';
+import { PreloaderBuilding } from './preloader-building';
 import logo from './logo.png';
 
 const maxpercent = 100;
@@ -26,6 +18,11 @@ enum InheritZIndexes {
   CLOUDS = 3,
   LOADLINE = 4,
   LOGO = 5,
+}
+
+enum PreloaderStages {
+  LOGO_DISABLE = 25,
+  CLOUDS_DISABLE = 90,
 }
 
 const PreloaderWrapper = styled.div<{ disable: boolean }>`
@@ -138,25 +135,13 @@ const Logo = styled.img<{ displayFlag: boolean }>`
   animation: ${props => (props.displayFlag ? fadeLogo : '')} 0.5s linear both;
 `;
 
-const BuildingsBG = styled.img<{ displayFlag: boolean }>`
-  position: absolute;
-  /* left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%); */
-  left: 0;
-  top: 0;
-  z-index: ${InheritZIndexes.BUILDINGS};
-  width: 100%;
-  height: 100%;
-  opacity: ${props => (props.displayFlag ? 1 : 0)};
-  transition: 0.1s;
-`;
-
 export const Preloader: React.FC = () => {
   const { loadingPercent } = useLoadingIndication();
 
   const [disable, setDisable] = useState(false);
   const [cloudsOff, setCloudsOff] = useState(false);
+  const [firstStepAnimationEnd, setFirstStepAnimationEnd] = useState(false);
+  const [secondStepAnimationEnd, setSecondStepAnimationEnd] = useState(false);
   useEffect(() => {
     if (loadingPercent >= maxpercent) {
       setLoaded();
@@ -165,13 +150,30 @@ export const Preloader: React.FC = () => {
       }, delayBeforePreloaderOff);
     }
 
-    if (loadingPercent >= 90) {
+    if (loadingPercent >= PreloaderStages.CLOUDS_DISABLE) {
       setCloudsOff(true);
     }
   }, [loadingPercent]);
+
   return (
     <PreloaderWrapper disable={disable}>
-      {/* <Logo displayFlag={loadingPercent >= 25} src={logo} alt="logo" /> */}
+      {preloaderBuildingsConfig.map((building, ind) => (
+        <PreloaderBuilding
+          imgs={building.imgs}
+          firstStepAnimationEnd={firstStepAnimationEnd}
+          onAnimationEndFirstCallback={setFirstStepAnimationEnd}
+          onAnimationEndSecondCallback={setSecondStepAnimationEnd}
+          secondStepAnimationEnd={secondStepAnimationEnd}
+          loadingPercent={loadingPercent}
+          {...building}
+          key={ind}
+        />
+      ))}
+      <Logo
+        displayFlag={loadingPercent >= PreloaderStages.LOGO_DISABLE}
+        src={logo}
+        alt="logo"
+      />
       {cloudsConfig.map(cloud => (
         <Cloud
           key={cloud.keyId}
@@ -181,51 +183,7 @@ export const Preloader: React.FC = () => {
           className={'cloud ' + (cloudsOff ? 'hideCloud' : '')}
         />
       ))}
-      <BuildingsBG
-        displayFlag={!loadingPercent || loadingPercent < 12.5}
-        src={building0}
-        alt="building"
-      />
-      <BuildingsBG
-        displayFlag={loadingPercent >= 9 && loadingPercent < 25}
-        src={building1}
-        alt="building"
-      />
-      <BuildingsBG
-        displayFlag={loadingPercent >= 21.5 && loadingPercent < 37.5}
-        src={building2}
-        alt="building"
-      />
-      <BuildingsBG
-        displayFlag={loadingPercent >= 34 && loadingPercent < 50}
-        src={building3}
-        alt="building"
-      />
-      <BuildingsBG
-        displayFlag={loadingPercent >= 46.5 && loadingPercent < 62.5}
-        src={building4}
-        alt="building"
-      />
-      {/* <BuildingsBG
-        displayFlag={loadingPercent >= 59 && loadingPercent < 75}
-        src={building5}
-        alt="building"
-      /> */}
-      <BuildingsBG
-        displayFlag={loadingPercent >= 59 && loadingPercent < 75}
-        src={building6}
-        alt="building"
-      />
-      <BuildingsBG
-        displayFlag={loadingPercent >= 71.5 && loadingPercent < 87.5}
-        src={building7}
-        alt="building"
-      />
-      <BuildingsBG
-        displayFlag={loadingPercent >= 84 && loadingPercent < 100}
-        src={building8}
-        alt="building"
-      />
+
       <LoadingLine persentOfLoad={loadingPercent}>
         <span>{loadingPercent}%</span>
       </LoadingLine>
