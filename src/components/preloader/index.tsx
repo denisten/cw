@@ -9,6 +9,8 @@ import { setLoaded } from '../../effector/app-condition/events';
 import { preloaderBuildingsConfig } from './preloader-building-config';
 import { PreloaderBuilding } from './preloader-building';
 import logo from './logo.png';
+import animLogo from './anim_logo.png';
+import { Sprite } from '../sprite';
 
 const maxpercent = 100;
 const delayBeforePreloaderOff = 1000;
@@ -135,6 +137,25 @@ const Logo = styled.img<{ displayFlag: boolean }>`
   animation: ${props => (props.displayFlag ? fadeLogo : '')} 0.5s linear both;
 `;
 
+const spriteStyle = {
+  canvasWidth: 224,
+  canvasHeight: 304,
+  numberOfFramesX: 6,
+  numberOfFramesY: 5,
+  ticksPerFrame: 1,
+  infinity: false,
+
+  style: {
+    width: '780px',
+    height: '730px',
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    zIndex: InheritZIndexes.LOGO,
+  } as React.CSSProperties,
+};
+
 export const Preloader: React.FC = () => {
   const { loadingPercent } = useLoadingIndication();
 
@@ -169,11 +190,12 @@ export const Preloader: React.FC = () => {
           key={ind}
         />
       ))}
-      <Logo
+      {/* <Logo
         displayFlag={loadingPercent >= PreloaderStages.LOGO_DISABLE}
         src={logo}
         alt="logo"
-      />
+      /> */}
+      <Sprite img={animLogo} {...spriteStyle} />
       {cloudsConfig.map(cloud => (
         <Cloud
           key={cloud.keyId}
