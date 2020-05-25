@@ -12,7 +12,7 @@ import animLogo from './anim_logo.png';
 import { Sprite } from '../sprite';
 
 const maxpercent = 100;
-const delayBeforePreloaderOff = 500;
+const delayBeforePreloaderOff = 800;
 
 enum InheritZIndexes {
   BUILDINGS = 2,
