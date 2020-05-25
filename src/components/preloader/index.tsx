@@ -140,6 +140,11 @@ const spriteStyle = {
   } as React.CSSProperties,
 };
 
+enum CloudsState {
+  VISIBLE = 'cloud',
+  HIDE = 'hideCloud',
+}
+
 export const Preloader: React.FC = () => {
   const { loadingPercent } = useLoadingIndication();
 
@@ -188,7 +193,9 @@ export const Preloader: React.FC = () => {
           {...cloud}
           src={cloud.background}
           alt="cloud"
-          className={'cloud ' + (cloudsOff ? 'hideCloud' : '')}
+          className={
+            `${CloudsState.VISIBLE} ` + (cloudsOff ? `${CloudsState.HIDE}` : '')
+          }
         />
       ))}
 

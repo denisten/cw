@@ -1,6 +1,11 @@
-/* eslint-disable @typescript-eslint/no-magic-numbers */
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
+
+enum AnimationSteps {
+  ONE = 'stepOne',
+  TWO = 'stepTwo',
+  THREE = 'stepThree',
+}
 
 const growAnim = keyframes`
         0%   { transform: scaleY(1)    translateY(0); }
@@ -27,18 +32,18 @@ const BuildingsBG = styled.img<{
   width: 100%;
   height: 100%;
   transform-origin: bottom;
-  &.stepOne {
+  &.${AnimationSteps.ONE} {
     animation: ${props => (props.animationStartFlag ? growAnim : '')} 0.5s both;
     opacity: ${props => (props.firstStepAnimationEnd ? 0 : 1)};
   }
-  &.stepTwo {
+  &.${AnimationSteps.TWO} {
     opacity: ${props =>
       props.firstStepAnimationEnd && !props.secondStepAnimationEnd ? 1 : 0};
     animation: ${props =>
         props.firstStepAnimationEnd && props.animationStartFlag ? growAnim : ''}
       0.5s both;
   }
-  &.stepThree {
+  &.${AnimationSteps.THREE} {
     opacity: ${props => (props.secondStepAnimationEnd ? 1 : 0)};
     animation: ${props => (props.secondStepAnimationEnd ? finallyAnim : '')}
       0.2s both;
@@ -67,7 +72,7 @@ export const PreloaderBuilding: React.FC<IPreloaderBuilding> = ({
       <BuildingsBG
         src={imgs[0]}
         alt="building"
-        className="stepOne"
+        className={AnimationSteps.ONE}
         firstStepAnimationEnd={firstStepAnimationEnd}
         onAnimationEnd={() => onAnimationEndFirstCallback(true)}
         animationStartFlag={animationStartFlag}
@@ -75,7 +80,7 @@ export const PreloaderBuilding: React.FC<IPreloaderBuilding> = ({
       <BuildingsBG
         src={imgs[1]}
         alt="building"
-        className="stepTwo"
+        className={AnimationSteps.TWO}
         firstStepAnimationEnd={firstStepAnimationEnd}
         secondStepAnimationEnd={secondStepAnimationEnd}
         onAnimationEnd={() => onAnimationEndSecondCallback(true)}
@@ -84,7 +89,7 @@ export const PreloaderBuilding: React.FC<IPreloaderBuilding> = ({
       <BuildingsBG
         src={imgs[2]}
         alt="building"
-        className="stepThree"
+        className={AnimationSteps.THREE}
         secondStepAnimationEnd={secondStepAnimationEnd}
       />
     </BuildingWrapper>
