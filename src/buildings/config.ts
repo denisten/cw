@@ -129,6 +129,8 @@ import partnerTwoLevel2Img from './partners-build/partner-two/2.png';
 import partnerTwoLevel2Stroke from './partners-build/partner-two/2-stroke.png';
 import partnerTwoLevel3Img from './partners-build/partner-two/3.png';
 import partnerTwoLevel3Stroke from './partners-build/partner-two/3-stroke.png';
+import slotMachineLevel0Img from './slot-machine/0.png';
+import slotMachineLevel0Stroke from './slot-machine/0-stroke.png';
 import slotMachineLevel1Img from './slot-machine/1.png';
 import slotMachineLevel1Stroke from './slot-machine/1-stroke.png';
 import slotMachineLevel2Img from './slot-machine/2.png';
@@ -829,12 +831,15 @@ class BuildingsService {
       wideTower: false,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
-      hide: true,
-      width: 451,
-      height: 458,
-      areaCoords: '392,148,101,545',
-      position: [46, 67],
+      width: 433,
+      height: 471,
+      areaCoords: '88,81,349,442',
+      position: [23, 67.3],
       ref: null,
+      [TowerLevel.deactive]: {
+        img: slotMachineLevel0Img,
+        shadowImg: slotMachineLevel0Stroke,
+      },
       [TowerLevel.low]: {
         img: slotMachineLevel1Img,
         shadowImg: slotMachineLevel1Stroke,
