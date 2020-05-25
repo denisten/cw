@@ -36,10 +36,22 @@ const PreloaderWrapper = styled.div<{ disable: boolean }>`
   z-index: ${ZIndexes.PRELOADER};
   display: ${props => (props.disable ? 'none' : 'flex')};
   overflow: hidden;
-  background: url(${background}) no-repeat center;
-  background-size: 100% 100%;
+
   align-items: flex-end;
   justify-content: center;
+`;
+
+const BuildingWrapper = styled.div<{ animationStartFlag: boolean }>`
+  z-index: ${InheritZIndexes.BUILDINGS};
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: url(${background}) no-repeat center;
+  background-size: 100% 100%;
+  transition: 1s;
+  transform: scale(${props => (props.animationStartFlag ? '1.05' : 1)});
 `;
 
 const cloudMove = keyframes`
@@ -66,7 +78,7 @@ const Cloud = styled.img<ICloud>`
   z-index: ${InheritZIndexes.CLOUDS};
 
   &.hideCloud {
-    animation: ${props => props.endAnimation} 2s;
+    animation: ${props => props.endAnimation} 1.5s;
     animation-fill-mode: forwards;
   }
 `;
@@ -149,10 +161,10 @@ export const Preloader: React.FC = () => {
       }, delayBeforePreloaderOff);
     }
 
-    if (loadingPercent >= PreloaderStages.CLOUDS_DISABLE) {
+    if (animationStartFlag) {
       setCloudsOff(true);
     }
-  }, [loadingPercent, secondStepAnimationEnd]);
+  }, [loadingPercent, secondStepAnimationEnd, animationStartFlag]);
 
   const animationEnd = () => {
     setAnimationStartFlag(true);
@@ -160,18 +172,20 @@ export const Preloader: React.FC = () => {
 
   return (
     <PreloaderWrapper disable={disable}>
-      {preloaderBuildingsConfig.map((building, ind) => (
-        <PreloaderBuilding
-          imgs={building.imgs}
-          firstStepAnimationEnd={firstStepAnimationEnd}
-          onAnimationEndFirstCallback={setFirstStepAnimationEnd}
-          onAnimationEndSecondCallback={setSecondStepAnimationEnd}
-          secondStepAnimationEnd={secondStepAnimationEnd}
-          animationStartFlag={animationStartFlag}
-          {...building}
-          key={ind}
-        />
-      ))}
+      <BuildingWrapper animationStartFlag={animationStartFlag}>
+        {preloaderBuildingsConfig.map((building, ind) => (
+          <PreloaderBuilding
+            imgs={building.imgs}
+            firstStepAnimationEnd={firstStepAnimationEnd}
+            onAnimationEndFirstCallback={setFirstStepAnimationEnd}
+            onAnimationEndSecondCallback={setSecondStepAnimationEnd}
+            secondStepAnimationEnd={secondStepAnimationEnd}
+            animationStartFlag={animationStartFlag}
+            {...building}
+            key={ind}
+          />
+        ))}
+      </BuildingWrapper>
       <Sprite img={animLogo} {...spriteStyle} onAnimationEnd={animationEnd} />
       {cloudsConfig.map(cloud => (
         <Cloud

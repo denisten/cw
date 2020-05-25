@@ -47,7 +47,6 @@ const BuildingsBG = styled.img<{
 
 const BuildingWrapper = styled.div<IBuildingWrapper>`
   position: absolute;
-  z-index: 2;
   top: ${props => props.top};
   left: ${props => props.left};
   width: ${props => props.width};

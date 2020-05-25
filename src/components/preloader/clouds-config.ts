@@ -80,7 +80,7 @@ export const cloudsConfig: ICloud[] = [
     right: '-15%',
     background: cloud4,
     animDuration: '3s',
-    animDirection: 'alternate-reverse',
+    animDirection: 'alternate',
     width: '769px',
     height: '422px',
     endAnimation: cloud4EndAnim,
