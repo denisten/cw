@@ -354,9 +354,9 @@ class BuildingsService {
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
       width: 398,
-      height: 374,
+      height: 362,
       areaCoords: '51,72,349,356',
-      position: [21.4, 49.5],
+      position: [21.6, 49.7],
       ref: null,
       [TowerLevel.deactive]: {
         img: musicTowerLevel0Img,
