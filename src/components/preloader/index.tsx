@@ -1,27 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes, Keyframes } from 'styled-components';
 import { ZIndexes } from '../root-component/z-indexes-enum';
 import { cloudsConfig } from './clouds-config';
 import background from './background.jpg';
 import { MTSSans } from '../../fonts';
 import { useLoadingIndication } from '../../hooks/useLoadingIndication';
 import { setLoaded } from '../../effector/app-condition/events';
+import { preloaderBuildingsConfig } from './preloader-building-config';
+import { PreloaderBuilding } from './preloader-building';
+import animLogo from './anim_logo.png';
+import { Sprite } from '../sprite';
 
 const maxpercent = 100;
-const delayBeforePreloaderOff = 1000;
+const delayBeforePreloaderOff = 800;
 
-const cloudsOddOff = keyframes`
-to {
-  transform: translate3d(-100%, -100%, 0);
-  opacity: .2;
+enum InheritZIndexes {
+  BUILDINGS = 2,
+  CLOUDS = 3,
+  LOADLINE = 4,
+  LOGO = 5,
 }
-`;
-const cloudsEvenOff = keyframes`
-to {
-  transform: translate3d(100%, 100%, 0);
-  opacity: .2;
-}
-`;
 
 const PreloaderWrapper = styled.div<{ disable: boolean }>`
   width: 100%;
@@ -29,23 +27,26 @@ const PreloaderWrapper = styled.div<{ disable: boolean }>`
   position: fixed;
   top: 0;
   left: 0;
-  background: gray;
+  overflow: hidden;
   z-index: ${ZIndexes.PRELOADER};
   display: ${props => (props.disable ? 'none' : 'flex')};
   overflow: hidden;
-  background: url(${background}) no-repeat center;
-  background-size: 100% 100%;
+
   align-items: flex-end;
   justify-content: center;
+`;
 
-  .cloud:nth-child(odd).hideCloud {
-    animation: ${cloudsOddOff} 1s;
-    animation-fill-mode: forwards;
-  }
-  .cloud:nth-child(even).hideCloud {
-    animation: ${cloudsEvenOff} 1s;
-    animation-fill-mode: forwards;
-  }
+const BuildingWrapper = styled.div<{ animationStartFlag: boolean }>`
+  z-index: ${InheritZIndexes.BUILDINGS};
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: url(${background}) no-repeat center;
+  background-size: 100% 100%;
+  transition: 1s;
+  transform: scale(${props => (props.animationStartFlag ? '1.07' : 1)});
 `;
 
 const cloudMove = keyframes`
@@ -53,16 +54,14 @@ from {
     transform: translate3d(0%, 0, 0);
 }
 to {
-    transform: translate3d(20%, 0, 0);
+    transform: translate3d(10%, 0, 0);
 }
 `;
 
-const Cloud = styled.div<ICloud>`
+const Cloud = styled.img<ICloud>`
   width: ${props => props.width};
   height: ${props => props.height};
   position: absolute;
-  background: url(${props => props.background}) no-repeat center;
-  background-size: 100% 100%;
   animation-duration: ${props => props.animDuration || '5s'};
   animation-direction: ${props => props.animDirection || 'alternate'};
   animation-iteration-count: infinite;
@@ -71,7 +70,12 @@ const Cloud = styled.div<ICloud>`
   left: ${props => props.left};
   right: ${props => props.right};
   bottom: ${props => props.bottom};
-  z-index: ${props => props.zIndex || 1};
+  z-index: ${InheritZIndexes.CLOUDS};
+
+  &.hideCloud {
+    animation: ${props => props.endAnimation} 1.5s;
+    animation-fill-mode: forwards;
+  }
 `;
 
 const LoadingLine = styled.div<{ persentOfLoad?: number }>`
@@ -79,7 +83,7 @@ const LoadingLine = styled.div<{ persentOfLoad?: number }>`
   height: 23px;
   box-shadow: inset 0 1px 4px 0 #202d3d, inset -1px 0 4px 0 #202d3d;
   background-color: #233742;
-  z-index: 3;
+  z-index: ${InheritZIndexes.LOADLINE};
   transform: skew(-30deg);
   margin-bottom: 80px;
   display: flex;
@@ -117,29 +121,84 @@ const LoadingLine = styled.div<{ persentOfLoad?: number }>`
   }
 `;
 
+const spriteStyle = {
+  canvasWidth: 224,
+  canvasHeight: 304,
+  numberOfFramesX: 6,
+  numberOfFramesY: 6,
+  ticksPerFrame: 1,
+  infinity: false,
+
+  style: {
+    width: '780px',
+    height: '730px',
+    position: 'absolute',
+    top: '40%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    zIndex: InheritZIndexes.LOGO,
+  } as React.CSSProperties,
+};
+
+enum CloudsState {
+  VISIBLE = 'cloud',
+  HIDE = 'hideCloud',
+}
+
 export const Preloader: React.FC = () => {
   const { loadingPercent } = useLoadingIndication();
 
   const [disable, setDisable] = useState(false);
   const [cloudsOff, setCloudsOff] = useState(false);
+  const [animationStartFlag, setAnimationStartFlag] = useState(false);
+  const [firstStepAnimationEnd, setFirstStepAnimationEnd] = useState(false);
+  const [secondStepAnimationEnd, setSecondStepAnimationEnd] = useState(false);
   useEffect(() => {
-    if (loadingPercent >= maxpercent) {
-      setCloudsOff(true);
+    if (loadingPercent >= maxpercent && secondStepAnimationEnd) {
       setLoaded();
       setTimeout(() => {
         setDisable(true);
       }, delayBeforePreloaderOff);
     }
-  }, [loadingPercent]);
+
+    if (animationStartFlag) {
+      setCloudsOff(true);
+    }
+  }, [loadingPercent, secondStepAnimationEnd, animationStartFlag]);
+
+  const animationEnd = () => {
+    setAnimationStartFlag(true);
+  };
+
   return (
     <PreloaderWrapper disable={disable}>
+      <BuildingWrapper animationStartFlag={animationStartFlag}>
+        {preloaderBuildingsConfig.map((building, ind) => (
+          <PreloaderBuilding
+            imgs={building.imgs}
+            firstStepAnimationEnd={firstStepAnimationEnd}
+            onAnimationEndFirstCallback={setFirstStepAnimationEnd}
+            onAnimationEndSecondCallback={setSecondStepAnimationEnd}
+            secondStepAnimationEnd={secondStepAnimationEnd}
+            animationStartFlag={animationStartFlag}
+            {...building}
+            key={ind}
+          />
+        ))}
+      </BuildingWrapper>
+      <Sprite img={animLogo} {...spriteStyle} onAnimationEnd={animationEnd} />
       {cloudsConfig.map(cloud => (
         <Cloud
           key={cloud.keyId}
           {...cloud}
-          className={'cloud ' + (cloudsOff ? 'hideCloud' : '')}
+          src={cloud.background}
+          alt="cloud"
+          className={
+            `${CloudsState.VISIBLE} ` + (cloudsOff ? `${CloudsState.HIDE}` : '')
+          }
         />
       ))}
+
       <LoadingLine persentOfLoad={loadingPercent}>
         <span>{loadingPercent}%</span>
       </LoadingLine>
@@ -159,4 +218,5 @@ export interface ICloud {
   right?: string;
   bottom?: string;
   zIndex?: number;
+  endAnimation?: Keyframes;
 }

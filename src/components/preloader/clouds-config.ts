@@ -4,126 +4,107 @@ import cloud3 from './clouds_03.png';
 import cloud4 from './clouds_04.png';
 import cloud5 from './clouds_05.png';
 import cloud6 from './clouds_06.png';
-import cloud7 from './clouds_07.png';
-import cloud8 from './clouds_08.png';
-import cloud9 from './clouds_09.png';
-import cloud10 from './clouds_10.png';
-import cloud11 from './clouds_11.png';
 import { ICloud } from '.';
+import { keyframes } from 'styled-components';
+
+const cloud1EndAnim = keyframes`
+to {
+    transform: translate3d(-100%, -50%, 0);
+}
+`;
+
+const cloud2EndAnim = keyframes`
+to {
+    transform: translate3d(-100%, 0, 0);
+}
+`;
+const cloud3EndAnim = keyframes`
+to {
+    transform: translate3d(-50%, 50%, 0);
+}
+`;
+const cloud4EndAnim = keyframes`
+to {
+    transform: translate3d(100%, -50%, 0);
+}
+`;
+const cloud5EndAnim = keyframes`
+to {
+    transform: translate3d(100%, 0, 0);
+}
+`;
+const cloud6EndAnim = keyframes`
+to {
+    transform: translate3d(50%, 100%, 0);
+}
+`;
 export const cloudsConfig: ICloud[] = [
   {
     keyId: 1,
-    bottom: '0',
-    left: '0',
+    top: '0',
+    left: '-10%',
     background: cloud1,
-    animDuration: '6s',
+    animDuration: '4s',
     animDirection: 'alternate',
-    width: '64%',
-    height: '37%',
-    zIndex: 2,
+    width: '936px',
+    height: '339px',
+    zIndex: 4,
+    endAnimation: cloud1EndAnim,
   },
   {
     keyId: 2,
-    top: '0',
-    right: '0',
+    top: '17%',
+    left: '-10%',
     background: cloud2,
-    animDuration: '7s',
+    animDuration: '3s',
     animDirection: 'alternate',
-    width: '51%',
-    height: '43%',
+    width: '606px',
+    height: '488px',
+    endAnimation: cloud2EndAnim,
   },
   {
     keyId: 3,
-    top: '20%',
-    right: '0px',
+    bottom: '0%',
+    left: '-20%',
     background: cloud3,
-    animDuration: '6s',
+    animDuration: '5s',
     animDirection: 'alternate-reverse',
-    width: '25%',
-    height: '46%',
-    zIndex: 2,
+    width: '913px',
+    height: '440px',
+    zIndex: 4,
+    endAnimation: cloud3EndAnim,
   },
   {
     keyId: 4,
-    top: '20%',
-    left: '40px',
+    top: '0%',
+    right: '-15%',
     background: cloud4,
-    animDuration: '6s',
-    animDirection: 'alternate-reverse',
-    width: '56%',
-    height: '43%',
+    animDuration: '3s',
+    animDirection: 'alternate',
+    width: '769px',
+    height: '422px',
+    endAnimation: cloud4EndAnim,
   },
   {
     keyId: 5,
-    bottom: '10%',
-    left: '-10%',
+    top: '10%',
+    right: '-10%',
     background: cloud5,
-    animDuration: '6s',
+    animDuration: '4s',
     animDirection: 'alternate-reverse',
-    width: '33%',
-    height: '59%',
+    width: '821px',
+    height: '629px',
+    endAnimation: cloud5EndAnim,
   },
   {
     keyId: 6,
-    top: '5%',
-    left: '20%',
-    background: cloud6,
-    animDuration: '6s',
-    animDirection: 'alternate',
-    width: '41%',
-    height: '36%',
-  },
-  {
-    keyId: 7,
-    top: '0%',
-    left: '-10%',
-    background: cloud7,
-    animDuration: '4s',
-    animDirection: 'alternate',
-    width: '42%',
-    height: '33%',
-  },
-
-  {
-    keyId: 8,
-    bottom: '9%',
-    left: '-10%',
-    background: cloud8,
-    animDuration: '6s',
-    animDirection: 'alternate-reverse',
-    width: '43%',
-    height: '20%',
-  },
-  {
-    keyId: 9,
     bottom: '0%',
-    left: '-20%',
-    background: cloud9,
-    animDuration: '6s',
-    animDirection: 'alternate',
-    width: '82%',
-    height: '48%',
-    zIndex: 2,
-  },
-  {
-    keyId: 10,
-    bottom: '-8%',
-    right: '-30%',
-    background: cloud10,
-    animDuration: '6s',
-    animDirection: 'alternate',
-    width: '88%',
-    height: '70%',
-    zIndex: 2,
-  },
-  {
-    keyId: 11,
-    top: '30%',
-    right: '20%',
-    background: cloud11,
-    animDuration: '6s',
+    right: '0%',
+    background: cloud6,
+    animDuration: '3s',
     animDirection: 'alternate-reverse',
-    width: '56%',
-    height: '43%',
+    width: '1137px',
+    height: '315px',
+    endAnimation: cloud6EndAnim,
   },
 ];
