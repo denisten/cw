@@ -8,12 +8,11 @@ import { useLoadingIndication } from '../../hooks/useLoadingIndication';
 import { setLoaded } from '../../effector/app-condition/events';
 import { preloaderBuildingsConfig } from './preloader-building-config';
 import { PreloaderBuilding } from './preloader-building';
-import logo from './logo.png';
 import animLogo from './anim_logo.png';
 import { Sprite } from '../sprite';
 
 const maxpercent = 100;
-const delayBeforePreloaderOff = 1000;
+const delayBeforePreloaderOff = 500;
 
 enum InheritZIndexes {
   BUILDINGS = 2,
@@ -67,7 +66,7 @@ const Cloud = styled.img<ICloud>`
   z-index: ${InheritZIndexes.CLOUDS};
 
   &.hideCloud {
-    animation: ${props => props.endAnimation} 3s;
+    animation: ${props => props.endAnimation} 2s;
     animation-fill-mode: forwards;
   }
 `;
@@ -115,28 +114,6 @@ const LoadingLine = styled.div<{ persentOfLoad?: number }>`
   }
 `;
 
-const fadeLogo = keyframes`
-from {
-  opacity: 1;
-}
-
-to {
-  opacity: 0;
-}
-`;
-
-const Logo = styled.img<{ displayFlag: boolean }>`
-  position: absolute;
-  width: 1001px;
-  height: 751px;
-  z-index: ${InheritZIndexes.LOGO};
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  animation: ${props => (props.displayFlag ? fadeLogo : '')} 0.5s linear both;
-`;
-
 const spriteStyle = {
   canvasWidth: 224,
   canvasHeight: 304,
@@ -161,10 +138,11 @@ export const Preloader: React.FC = () => {
 
   const [disable, setDisable] = useState(false);
   const [cloudsOff, setCloudsOff] = useState(false);
+  const [animationStartFlag, setAnimationStartFlag] = useState(false);
   const [firstStepAnimationEnd, setFirstStepAnimationEnd] = useState(false);
   const [secondStepAnimationEnd, setSecondStepAnimationEnd] = useState(false);
   useEffect(() => {
-    if (loadingPercent >= maxpercent) {
+    if (loadingPercent >= maxpercent && secondStepAnimationEnd) {
       setLoaded();
       setTimeout(() => {
         setDisable(true);
@@ -174,7 +152,11 @@ export const Preloader: React.FC = () => {
     if (loadingPercent >= PreloaderStages.CLOUDS_DISABLE) {
       setCloudsOff(true);
     }
-  }, [loadingPercent]);
+  }, [loadingPercent, secondStepAnimationEnd]);
+
+  const animationEnd = () => {
+    setAnimationStartFlag(true);
+  };
 
   return (
     <PreloaderWrapper disable={disable}>
@@ -185,17 +167,12 @@ export const Preloader: React.FC = () => {
           onAnimationEndFirstCallback={setFirstStepAnimationEnd}
           onAnimationEndSecondCallback={setSecondStepAnimationEnd}
           secondStepAnimationEnd={secondStepAnimationEnd}
-          loadingPercent={loadingPercent}
+          animationStartFlag={animationStartFlag}
           {...building}
           key={ind}
         />
       ))}
-      {/* <Logo
-        displayFlag={loadingPercent >= PreloaderStages.LOGO_DISABLE}
-        src={logo}
-        alt="logo"
-      /> */}
-      <Sprite img={animLogo} {...spriteStyle} />
+      <Sprite img={animLogo} {...spriteStyle} onAnimationEnd={animationEnd} />
       {cloudsConfig.map(cloud => (
         <Cloud
           key={cloud.keyId}

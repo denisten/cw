@@ -3,11 +3,11 @@ import React from 'react';
 import styled, { keyframes } from 'styled-components';
 
 const growAnim = keyframes`
-        0%   { transform: scale(1,1)    translateY(0); }
-        10%  { transform: scale(1.1,.9) translateY(0); }
-        30%  { transform: scale(.9,1.1) translateY(0px); }
-        50%  { transform: scale(1.1,1.2)    translateY(0); }
-        100% { transform: scale(1,1)    translateY(0);}
+        0%   { transform: scaleY(1)    translateY(0); }
+        10%  { transform: scaleY(1.1) translateY(0); }
+        30%  { transform: scaleY(.9) translateY(0px); }
+        50%  { transform: scaleY(1.1)    translateY(0); }
+        100% { transform: scaleY(1.2)    translateY(0);}
 `;
 
 const BuildingsBG = styled.img<{
@@ -21,6 +21,7 @@ const BuildingsBG = styled.img<{
   width: 100%;
   height: 100%;
   transform-origin: bottom;
+  transition: 0.05s;
   &.stepOne {
     animation: ${props => (props.animationStartFlag ? growAnim : '')} 0.5s both;
     opacity: ${props => (props.firstStepAnimationEnd ? 0 : 1)};
@@ -51,7 +52,7 @@ export const PreloaderBuilding: React.FC<IPreloaderBuilding> = ({
   firstStepAnimationEnd,
   onAnimationEndFirstCallback,
   onAnimationEndSecondCallback,
-  loadingPercent,
+  animationStartFlag,
   secondStepAnimationEnd,
   ...styles
 }) => {
@@ -63,7 +64,7 @@ export const PreloaderBuilding: React.FC<IPreloaderBuilding> = ({
         className="stepOne"
         firstStepAnimationEnd={firstStepAnimationEnd}
         onAnimationEnd={() => onAnimationEndFirstCallback(true)}
-        animationStartFlag={loadingPercent >= 33}
+        animationStartFlag={animationStartFlag}
       />
       <BuildingsBG
         src={imgs[1]}
@@ -72,7 +73,7 @@ export const PreloaderBuilding: React.FC<IPreloaderBuilding> = ({
         firstStepAnimationEnd={firstStepAnimationEnd}
         secondStepAnimationEnd={secondStepAnimationEnd}
         onAnimationEnd={() => onAnimationEndSecondCallback(true)}
-        animationStartFlag={loadingPercent >= 66}
+        animationStartFlag={animationStartFlag}
       />
       <BuildingsBG
         src={imgs[2]}
@@ -96,6 +97,6 @@ interface IPreloaderBuilding extends IBuildingWrapper {
   firstStepAnimationEnd: boolean;
   onAnimationEndFirstCallback: (arg: boolean) => void;
   onAnimationEndSecondCallback: (arg: boolean) => void;
-  loadingPercent: number;
   secondStepAnimationEnd: boolean;
+  animationStartFlag: boolean;
 }
