@@ -13,11 +13,12 @@ export enum TaskStatuses {
   DONE = 'done',
   CREATED = 'created',
   IN_PROGRESS = 'inProgress',
+  EXPIRED = 'expired',
 }
 
 const initStore: ITask[] = [];
 
 export const MissionsStore = MissionsDomain.store(initStore).on(
   fetchTasks.done,
-  (state, { result: { tasks } }) => [...tasks]
+  (state, { result: { userTasks } }) => [...userTasks]
 );

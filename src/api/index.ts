@@ -12,11 +12,11 @@ export enum apiRoutes {
   LOGOUT = 'api/auth/logout',
   GET_WS_TOKEN = '/api/ws/connection',
   WS_SUBSCRIBE = '/api/ws/subscribe',
-  GET_ALL_PROGRESS = 'api/progress/current',
-  PROGRESS_REFRESH = 'api/progress/refresh',
+  GET_ALL_PROGRESS = '/api/users/current/progress/current',
+  PROGRESS_REFRESH = '/api/users/current/progress/refresh',
   PRODUCTS = '/api/products',
   COMMIT_PROGRESS = 'progress/commit',
-  GET_TASKS = '/api/tasks',
+  GET_TASKS = '/api/users/current/tasks',
   REFRESH_BD = '/api/dev/refreshDb',
 }
 

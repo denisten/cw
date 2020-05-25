@@ -26,7 +26,7 @@ export const TowerInfoTask: React.FC<ITowerInfoTask> = ({ towerTitle }) => {
   const missions = useStore(MissionsStore);
   const { couponsCount } = useStore(UserDataStore);
   const sortedMissions = missions.filter(
-    el => el.content.product.slug === towerTitle
+    el => el.task.content.product.slug === towerTitle
   );
   return (
     <TowerInfoTaskWrapper data-type={AdvanceScrollBarAttr.ADVANCE_SCROLLBAR}>
@@ -38,12 +38,12 @@ export const TowerInfoTask: React.FC<ITowerInfoTask> = ({ towerTitle }) => {
                 couponsCount={couponsCount}
                 isAllowedToChange={true}
                 type={TaskSubType.NBO}
-                taskTitle={`${el.content.name.slice(0, maxTaskLength)}...`}
-                key={el.content.name}
+                taskTitle={`${el.task.content.name.slice(0, maxTaskLength)}...`}
+                key={el.task.id}
                 status={el.status}
-                money={el.reward}
-                energy={el.energy}
-                description={el.content.description}
+                money={el.task.reward}
+                energy={el.task.energy}
+                description={el.task.content.description}
               />
             );
           })

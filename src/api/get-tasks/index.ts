@@ -9,7 +9,7 @@ export const getTasks = async () => {
 
 interface IGetTasks {
   data: {
-    tasks: ITask[];
+    userTasks: ITask[];
     total: number;
   };
 }
@@ -17,33 +17,36 @@ interface IGetTasks {
 export interface ITask {
   status: TaskStatuses;
   id: number;
-  parentId: number;
-  content: {
+  task: {
     id: number;
-    taskType: {
+    parentId: number;
+    content: {
       id: number;
-      slug: string;
+      taskType: {
+        id: number;
+        slug: string;
+        name: string;
+      };
+      product: {
+        id: number;
+        name: string;
+        slug: string;
+        description: string;
+      };
+      logo: {
+        id: number;
+        content: string;
+      };
       name: string;
-    };
-    product: {
-      id: number;
-      name: string;
-      slug: string;
+      legend: string;
       description: string;
     };
-    logo: {
-      id: number;
-      content: string;
-    };
-    name: string;
-    legend: string;
-    description: string;
+    priorityNumber: number;
+    energy: number;
+    reward: number;
+    availabilityTime: number;
+    executionTime: number;
+    betweenTasksTime: number;
+    chat: string;
   };
-  priorityNumber: number;
-  energy: number;
-  reward: number;
-  availabilityTime: number;
-  executionTime: number;
-  betweenTasksTime: number;
-  chat: string;
 }

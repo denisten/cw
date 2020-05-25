@@ -86,7 +86,7 @@ const TaskButton = styled.div`
   background-origin: border-box;
   background-clip: content-box, border-box;
   border-image-slice: 1;
-  &.${TaskStatuses.DONE} {
+  &.${TaskStatuses.EXPIRED} {
     border-image-source: linear-gradient(
       to bottom,
       #027722 -152%,
