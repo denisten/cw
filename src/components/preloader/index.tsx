@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled, { keyframes, Keyframes } from 'styled-components';
 import { ZIndexes } from '../root-component/z-indexes-enum';
 import { cloudsConfig } from './clouds-config';
-import background from './background.png';
+import background from './background.jpg';
 import { MTSSans } from '../../fonts';
 import { useLoadingIndication } from '../../hooks/useLoadingIndication';
 import { setLoaded } from '../../effector/app-condition/events';
@@ -19,11 +19,6 @@ enum InheritZIndexes {
   CLOUDS = 3,
   LOADLINE = 4,
   LOGO = 5,
-}
-
-enum PreloaderStages {
-  LOGO_DISABLE = 25,
-  CLOUDS_DISABLE = 75,
 }
 
 const PreloaderWrapper = styled.div<{ disable: boolean }>`
@@ -51,7 +46,7 @@ const BuildingWrapper = styled.div<{ animationStartFlag: boolean }>`
   background: url(${background}) no-repeat center;
   background-size: 100% 100%;
   transition: 1s;
-  transform: scale(${props => (props.animationStartFlag ? '1.05' : 1)});
+  transform: scale(${props => (props.animationStartFlag ? '1.07' : 1)});
 `;
 
 const cloudMove = keyframes`
@@ -138,7 +133,7 @@ const spriteStyle = {
     width: '780px',
     height: '730px',
     position: 'absolute',
-    top: '50%',
+    top: '40%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
     zIndex: InheritZIndexes.LOGO,
