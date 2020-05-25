@@ -7,7 +7,13 @@ const growAnim = keyframes`
         10%  { transform: scaleY(1.1) translateY(0); }
         30%  { transform: scaleY(.9) translateY(0px); }
         50%  { transform: scaleY(1.1)    translateY(0); }
-        100% { transform: scaleY(1.2)    translateY(0);}
+        100% { transform: scaleY(1.15)    translateY(0);}
+`;
+
+const finallyAnim = keyframes`
+        0%   { transform: scaleY(1)    translateY(0); }
+        50%  { transform: scaleY(.9) translateY(0px); }
+        100%  { transform: scaleY(1)    translateY(0); }
 `;
 
 const BuildingsBG = styled.img<{
@@ -21,7 +27,6 @@ const BuildingsBG = styled.img<{
   width: 100%;
   height: 100%;
   transform-origin: bottom;
-  transition: 0.05s;
   &.stepOne {
     animation: ${props => (props.animationStartFlag ? growAnim : '')} 0.5s both;
     opacity: ${props => (props.firstStepAnimationEnd ? 0 : 1)};
@@ -35,6 +40,8 @@ const BuildingsBG = styled.img<{
   }
   &.stepThree {
     opacity: ${props => (props.secondStepAnimationEnd ? 1 : 0)};
+    animation: ${props => (props.secondStepAnimationEnd ? finallyAnim : '')}
+      0.2s both;
   }
 `;
 

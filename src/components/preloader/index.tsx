@@ -23,7 +23,7 @@ enum InheritZIndexes {
 
 enum PreloaderStages {
   LOGO_DISABLE = 25,
-  CLOUDS_DISABLE = 90,
+  CLOUDS_DISABLE = 75,
 }
 
 const PreloaderWrapper = styled.div<{ disable: boolean }>`
@@ -118,7 +118,7 @@ const spriteStyle = {
   canvasWidth: 224,
   canvasHeight: 304,
   numberOfFramesX: 6,
-  numberOfFramesY: 5,
+  numberOfFramesY: 6,
   ticksPerFrame: 1,
   infinity: false,
 
