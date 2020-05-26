@@ -24,6 +24,9 @@ export const TutorialToolsSelector: React.FC<ArrowsContainerProps> = ({
         );
       else return <Fragment />;
     case TutorialConditions.DIALOG_HELLO:
+      if (!isInsideScrollContainer)
+        return <TutorialDialog mustBeAsAnimated={true} />;
+      else return <Fragment />;
     case TutorialConditions.DIALOG_CONFIRM_CITY_NAME:
     case TutorialConditions.DIALOG_START_MISSION:
     case TutorialConditions.DIALOG_AUTH:

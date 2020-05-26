@@ -10,18 +10,27 @@ import { preloaderBuildingsConfig } from './preloader-building-config';
 import { PreloaderBuilding } from './preloader-building';
 import animLogo from './anim_logo.png';
 import { Sprite } from '../sprite';
+import { delayBeforePreloaderOff } from '../../constants';
 
 const maxpercent = 100;
-const delayBeforePreloaderOff = 800;
 
 enum InheritZIndexes {
   BUILDINGS = 2,
   CLOUDS = 3,
   LOADLINE = 4,
   LOGO = 5,
+  FADEIN_BLOCK = 6,
 }
 
-const PreloaderWrapper = styled.div<{ disable: boolean }>`
+const appearAnim = keyframes`
+from {opacity: 0};
+to {opacity: 1};
+`;
+
+const PreloaderWrapper = styled.div<{
+  disable: boolean;
+  smoothHideBlock?: boolean;
+}>`
   width: 100%;
   height: 100%;
   position: fixed;
@@ -31,9 +40,25 @@ const PreloaderWrapper = styled.div<{ disable: boolean }>`
   z-index: ${ZIndexes.PRELOADER};
   display: ${props => (props.disable ? 'none' : 'flex')};
   overflow: hidden;
-
   align-items: flex-end;
   justify-content: center;
+  animation: ${props => (props.smoothHideBlock ? appearAnim : '')}
+    ${delayBeforePreloaderOff / 2}ms ${delayBeforePreloaderOff / 2}ms linear
+    both reverse;
+
+  &::before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: black;
+    z-index: ${InheritZIndexes.FADEIN_BLOCK};
+    opacity: 0;
+    animation: ${props => (props.smoothHideBlock ? appearAnim : '')}
+      ${delayBeforePreloaderOff / 2}ms linear both;
+  }
 `;
 
 const BuildingWrapper = styled.div<{ animationStartFlag: boolean }>`
@@ -100,6 +125,7 @@ const LoadingLine = styled.div<{ persentOfLoad?: number }>`
     color: #ffffff;
     transform: skew(30deg);
     z-index: 2;
+    transition: 0.1s;
   }
 
   &::before {
@@ -126,7 +152,7 @@ const spriteStyle = {
   canvasHeight: 304,
   numberOfFramesX: 6,
   numberOfFramesY: 6,
-  ticksPerFrame: 1,
+  ticksPerFrame: 0.5,
   infinity: false,
 
   style: {
@@ -145,17 +171,19 @@ enum CloudsState {
   HIDE = 'hideCloud',
 }
 
-export const Preloader: React.FC = () => {
+export const Preloader: React.FC = React.memo(() => {
   const { loadingPercent } = useLoadingIndication();
 
   const [disable, setDisable] = useState(false);
   const [cloudsOff, setCloudsOff] = useState(false);
   const [animationStartFlag, setAnimationStartFlag] = useState(false);
-  const [firstStepAnimationEnd, setFirstStepAnimationEnd] = useState(false);
-  const [secondStepAnimationEnd, setSecondStepAnimationEnd] = useState(false);
+  const [animationEndFlag, setAnimationEndFlag] = useState(false);
+  const [smoothHideBlock, setSmoothHideBlock] = useState(false);
+
   useEffect(() => {
-    if (loadingPercent >= maxpercent && secondStepAnimationEnd) {
+    if (loadingPercent >= maxpercent && animationEndFlag) {
       setLoaded();
+      setSmoothHideBlock(true);
       setTimeout(() => {
         setDisable(true);
       }, delayBeforePreloaderOff);
@@ -164,23 +192,20 @@ export const Preloader: React.FC = () => {
     if (animationStartFlag) {
       setCloudsOff(true);
     }
-  }, [loadingPercent, secondStepAnimationEnd, animationStartFlag]);
+  }, [loadingPercent, animationEndFlag, animationStartFlag]);
 
   const animationEnd = () => {
     setAnimationStartFlag(true);
   };
 
   return (
-    <PreloaderWrapper disable={disable}>
+    <PreloaderWrapper disable={disable} smoothHideBlock={smoothHideBlock}>
       <BuildingWrapper animationStartFlag={animationStartFlag}>
         {preloaderBuildingsConfig.map((building, ind) => (
           <PreloaderBuilding
             imgs={building.imgs}
-            firstStepAnimationEnd={firstStepAnimationEnd}
-            onAnimationEndFirstCallback={setFirstStepAnimationEnd}
-            onAnimationEndSecondCallback={setSecondStepAnimationEnd}
-            secondStepAnimationEnd={secondStepAnimationEnd}
             animationStartFlag={animationStartFlag}
+            onAnimationEndCallback={setAnimationEndFlag}
             {...building}
             key={ind}
           />
@@ -204,7 +229,7 @@ export const Preloader: React.FC = () => {
       </LoadingLine>
     </PreloaderWrapper>
   );
-};
+});
 
 export interface ICloud {
   keyId?: number;

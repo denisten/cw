@@ -44,10 +44,14 @@ export const ScrollContainer: React.FC<{
     dragscroll.reset();
   }, []);
   const { scaleValue } = useStore(AppCondition);
-  const { ref } = BuildingsService.getConfigForTower(TowersTypes.MAIN_TOWER);
+  const { ref } = BuildingsService.getConfigForTower(TowersTypes.MY_MTS);
   useCheckDisableTutorial([]);
   useEffect(() => {
-    scrollToCurrentTower(ref);
+    scrollToCurrentTower(ref, {
+      behavior: 'smooth',
+      block: 'start',
+      inline: 'center',
+    });
   }, [ref]);
 
   const wheelHandler = (e: React.WheelEvent) => {

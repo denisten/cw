@@ -20,6 +20,13 @@ import theater from './theater.png';
 import theater2 from './theater2.png';
 import theater3 from './theater3.png';
 import { IBuildingWrapper } from '../preloader-building';
+import { totalAnimationPreloaderTowerDuration } from '../../../constants';
+
+enum AnimationOrder {
+  FIRST = 1,
+  SECOND = 2,
+  THIRD = 3,
+}
 
 export const preloaderBuildingsConfig: IBuildingWrapper[] = [
   {
@@ -28,6 +35,7 @@ export const preloaderBuildingsConfig: IBuildingWrapper[] = [
     top: '17%',
     width: '12.71%',
     height: '32.5%',
+    delay: totalAnimationPreloaderTowerDuration * AnimationOrder.SECOND + 'ms',
   },
   {
     imgs: [main, main2, main3],
@@ -35,6 +43,15 @@ export const preloaderBuildingsConfig: IBuildingWrapper[] = [
     top: '13.5%',
     width: '9%',
     height: '46.85%',
+    delay: totalAnimationPreloaderTowerDuration * AnimationOrder.SECOND + 'ms',
+  },
+  {
+    imgs: [tarif, tarif2, tarif3],
+    left: '33.8%',
+    top: '20.5%',
+    width: '9.42%',
+    height: '38.42%',
+    delay: totalAnimationPreloaderTowerDuration * AnimationOrder.SECOND + 'ms',
   },
   {
     imgs: [cloud, cloud2, cloud3],
@@ -42,6 +59,7 @@ export const preloaderBuildingsConfig: IBuildingWrapper[] = [
     top: '8.6%',
     width: '9.8%',
     height: '26.5%',
+    delay: totalAnimationPreloaderTowerDuration * AnimationOrder.THIRD + 'ms',
   },
   {
     imgs: [moll, moll2, moll3],
@@ -49,6 +67,8 @@ export const preloaderBuildingsConfig: IBuildingWrapper[] = [
     top: '64.2%',
     width: '23.2%',
     height: '35.46%',
+    delay: totalAnimationPreloaderTowerDuration * AnimationOrder.THIRD + 'ms',
+    lastBuilding: true,
   },
 
   {
@@ -58,18 +78,13 @@ export const preloaderBuildingsConfig: IBuildingWrapper[] = [
     width: '22.39%',
     height: '26.02%',
   },
-  {
-    imgs: [tarif, tarif2, tarif3],
-    left: '33.8%',
-    top: '20.5%',
-    width: '9.42%',
-    height: '38.42%',
-  },
+
   {
     imgs: [theater, theater2, theater3],
     left: '7%',
     top: '37%',
     width: '19.63%',
     height: '31.01%',
+    delay: totalAnimationPreloaderTowerDuration * AnimationOrder.FIRST + 'ms',
   },
 ];
