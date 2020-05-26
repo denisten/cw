@@ -22,7 +22,7 @@ import connectLocalStorage from 'effector-localstorage/sync';
 
 export const maxProgressValue = 100;
 
-const initScaleValue = 1;
+const initScaleValue = 0.9;
 export enum TowerInfoContentValues {
   DESCRIPTION = 0,
   CHAT = 1,
