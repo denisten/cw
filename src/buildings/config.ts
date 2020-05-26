@@ -129,6 +129,8 @@ import partnerTwoLevel2Img from './partners-build/partner-two/2.png';
 import partnerTwoLevel2Stroke from './partners-build/partner-two/2-stroke.png';
 import partnerTwoLevel3Img from './partners-build/partner-two/3.png';
 import partnerTwoLevel3Stroke from './partners-build/partner-two/3-stroke.png';
+import slotMachineLevel0Img from './slot-machine/0.png';
+import slotMachineLevel0Stroke from './slot-machine/0-stroke.png';
 import slotMachineLevel1Img from './slot-machine/1.png';
 import slotMachineLevel1Stroke from './slot-machine/1-stroke.png';
 import slotMachineLevel2Img from './slot-machine/2.png';
@@ -153,8 +155,14 @@ import autoFactoryLevel3Img from './auto-factory/3.png';
 import autoFactoryLevel3Stroke from './auto-factory/3-stroke.png';
 import rtkLevel1Img from './rtk/1.png';
 import rtkLevel1Stroke from './rtk/1-stroke.png';
-import partnerBankLevel2Img from './partners-build/partner-bank/2.png';
-import partnerBankLevel2Stroke from './partners-build/partner-bank/2-stroke.png';
+import partnerThreeLevel0Img from './partners-build/partner-three/0.png';
+import partnerThreeLevel0Stroke from './partners-build/partner-three/0-stroke.png';
+import partnerThreeLevel1Img from './partners-build/partner-three/1.png';
+import partnerThreeLevel1Stroke from './partners-build/partner-three/1-stroke.png';
+import partnerThreeLevel2Img from './partners-build/partner-three/2.png';
+import partnerThreeLevel2Stroke from './partners-build/partner-three/2-stroke.png';
+import partnerThreeLevel3Img from './partners-build/partner-three/3.png';
+import partnerThreeLevel3Stroke from './partners-build/partner-three/3-stroke.png';
 import marvinLevel0Img from './marvin/0.png';
 import marvinLevel1Img from './marvin/1.png';
 import marvinLevel2Img from './marvin/2.png';
@@ -346,9 +354,9 @@ class BuildingsService {
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
       width: 398,
-      height: 374,
+      height: 362,
       areaCoords: '51,72,349,356',
-      position: [21.4, 49.5],
+      position: [21.6, 49.7],
       ref: null,
       [TowerLevel.deactive]: {
         img: musicTowerLevel0Img,
@@ -823,12 +831,15 @@ class BuildingsService {
       wideTower: false,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
-      hide: true,
-      width: 451,
-      height: 458,
-      areaCoords: '392,148,101,545',
-      position: [46, 67],
+      width: 433,
+      height: 471,
+      areaCoords: '88,81,349,442',
+      position: [23, 67.3],
       ref: null,
+      [TowerLevel.deactive]: {
+        img: slotMachineLevel0Img,
+        shadowImg: slotMachineLevel0Stroke,
+      },
       [TowerLevel.low]: {
         img: slotMachineLevel1Img,
         shadowImg: slotMachineLevel1Stroke,
@@ -897,31 +908,32 @@ class BuildingsService {
         shadowImg: airportLevel3Stroke,
       },
     },
-    [TowersTypes.PARTNER_BANK]: {
+    [TowersTypes.PARTNER_THREE]: {
       info: 'info',
-      title: 'Партнерское здание',
+      title: 'Партнерское здание 3',
       wideTower: false,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
-      maxLevel: TowerLevel.low,
-      hide: true,
-      width: 530,
-      height: 555,
-      areaCoords: '74,67,456,472',
-      position: [30, 66.8],
+      maxLevel: TowerLevel.high,
+      width: 313,
+      height: 501,
+      areaCoords: '48,121,241,490',
+      position: [35.7, 71],
       ref: null,
-      // TODO: не настоящая картинка
+      [TowerLevel.deactive]: {
+        img: partnerThreeLevel0Img,
+        shadowImg: partnerThreeLevel0Stroke,
+      },
       [TowerLevel.low]: {
-        img: rtkLevel1Img,
-        shadowImg: rtkLevel1Stroke,
+        img: partnerThreeLevel1Img,
+        shadowImg: partnerThreeLevel1Stroke,
       },
       [TowerLevel.mid]: {
-        img: partnerBankLevel2Img,
-        shadowImg: partnerBankLevel2Stroke,
+        img: partnerThreeLevel2Img,
+        shadowImg: partnerThreeLevel2Stroke,
       },
-      // TODO: не настоящая картинка
       [TowerLevel.high]: {
-        img: airportLevel3Img,
-        shadowImg: airportLevel3Stroke,
+        img: partnerThreeLevel3Img,
+        shadowImg: partnerThreeLevel3Stroke,
       },
     },
     [TowersTypes.MARVIN]: {
