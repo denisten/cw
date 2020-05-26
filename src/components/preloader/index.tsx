@@ -19,9 +19,15 @@ enum InheritZIndexes {
   CLOUDS = 3,
   LOADLINE = 4,
   LOGO = 5,
+  FADEIN_BLOCK = 6,
 }
 
-const PreloaderWrapper = styled.div<{ disable: boolean }>`
+const fadeOut = keyframes`
+from {opacity: 0};
+to {opacity: 1};
+`;
+
+const PreloaderWrapper = styled.div<{ disable: boolean; fadeOut?: boolean }>`
   width: 100%;
   height: 100%;
   position: fixed;
@@ -31,9 +37,22 @@ const PreloaderWrapper = styled.div<{ disable: boolean }>`
   z-index: ${ZIndexes.PRELOADER};
   display: ${props => (props.disable ? 'none' : 'flex')};
   overflow: hidden;
-
   align-items: flex-end;
   justify-content: center;
+
+  &::before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: black;
+    z-index: ${InheritZIndexes.FADEIN_BLOCK};
+    opacity: 0;
+    animation: ${props => (props.fadeOut ? fadeOut : '')}
+      ${delayBeforePreloaderOff}ms linear both;
+  }
 `;
 
 const BuildingWrapper = styled.div<{ animationStartFlag: boolean }>`
@@ -153,9 +172,12 @@ export const Preloader: React.FC = React.memo(() => {
   const [cloudsOff, setCloudsOff] = useState(false);
   const [animationStartFlag, setAnimationStartFlag] = useState(false);
   const [animationEndFlag, setAnimationEndFlag] = useState(false);
+  const [fadeOut, setFadeOut] = useState(false);
+
   useEffect(() => {
     if (loadingPercent >= maxpercent && animationEndFlag) {
       setLoaded();
+      setFadeOut(true);
       setTimeout(() => {
         setDisable(true);
       }, delayBeforePreloaderOff);
@@ -171,7 +193,7 @@ export const Preloader: React.FC = React.memo(() => {
   };
 
   return (
-    <PreloaderWrapper disable={disable}>
+    <PreloaderWrapper disable={disable} fadeOut={fadeOut}>
       <BuildingWrapper animationStartFlag={animationStartFlag}>
         {preloaderBuildingsConfig.map((building, ind) => (
           <PreloaderBuilding
