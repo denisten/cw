@@ -10,9 +10,9 @@ import { preloaderBuildingsConfig } from './preloader-building-config';
 import { PreloaderBuilding } from './preloader-building';
 import animLogo from './anim_logo.png';
 import { Sprite } from '../sprite';
+import { delayBeforePreloaderOff } from '../../constants';
 
 const maxpercent = 100;
-const delayBeforePreloaderOff = 800;
 
 enum InheritZIndexes {
   BUILDINGS = 2,
