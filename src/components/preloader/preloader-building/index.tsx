@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 
 enum AnimationSteps {
@@ -9,10 +9,8 @@ enum AnimationSteps {
 
 const growAnim = keyframes`
         0%   { transform: scaleY(1)    translateY(0); }
-        10%  { transform: scaleY(1.1) translateY(0); }
-        30%  { transform: scaleY(.9) translateY(0px); }
-        50%  { transform: scaleY(1.1)    translateY(0); }
-        100% { transform: scaleY(1.15)    translateY(0);}
+        50%  { transform: scaleY(.9) translateY(0px); }
+        100% { transform: scaleY(1.1)    translateY(0);}
 `;
 
 const finallyAnim = keyframes`
@@ -25,6 +23,7 @@ const BuildingsBG = styled.img<{
   firstStepAnimationEnd?: boolean;
   secondStepAnimationEnd?: boolean;
   animationStartFlag?: boolean;
+  delay?: string;
 }>`
   position: absolute;
   left: 0;
@@ -33,7 +32,8 @@ const BuildingsBG = styled.img<{
   height: 100%;
   transform-origin: bottom;
   &.${AnimationSteps.ONE} {
-    animation: ${props => (props.animationStartFlag ? growAnim : '')} 0.5s both;
+    animation: ${props => (props.animationStartFlag ? growAnim : '')} 0.2s both;
+    animation-delay: ${props => props.delay || '0s'};
     opacity: ${props => (props.firstStepAnimationEnd ? 0 : 1)};
   }
   &.${AnimationSteps.TWO} {
@@ -41,7 +41,7 @@ const BuildingsBG = styled.img<{
       props.firstStepAnimationEnd && !props.secondStepAnimationEnd ? 1 : 0};
     animation: ${props =>
         props.firstStepAnimationEnd && props.animationStartFlag ? growAnim : ''}
-      0.5s both;
+      0.2s both;
   }
   &.${AnimationSteps.THREE} {
     opacity: ${props => (props.secondStepAnimationEnd ? 1 : 0)};
@@ -60,37 +60,42 @@ const BuildingWrapper = styled.div<IBuildingWrapper>`
 
 export const PreloaderBuilding: React.FC<IPreloaderBuilding> = ({
   imgs = ['', '', ''],
-  firstStepAnimationEnd,
-  onAnimationEndFirstCallback,
-  onAnimationEndSecondCallback,
   animationStartFlag,
-  secondStepAnimationEnd,
+  onAnimationEndCallback,
   ...styles
 }) => {
+  const [firstStepAnim, setFirstStepAnim] = useState(false);
+  const [secondStepAnim, setSecondStepAnim] = useState(false);
   return (
     <BuildingWrapper {...styles}>
       <BuildingsBG
         src={imgs[0]}
         alt="building"
         className={AnimationSteps.ONE}
-        firstStepAnimationEnd={firstStepAnimationEnd}
-        onAnimationEnd={() => onAnimationEndFirstCallback(true)}
+        firstStepAnimationEnd={firstStepAnim}
+        onAnimationEnd={() => setFirstStepAnim(true)}
         animationStartFlag={animationStartFlag}
+        {...styles}
       />
       <BuildingsBG
         src={imgs[1]}
         alt="building"
         className={AnimationSteps.TWO}
-        firstStepAnimationEnd={firstStepAnimationEnd}
-        secondStepAnimationEnd={secondStepAnimationEnd}
-        onAnimationEnd={() => onAnimationEndSecondCallback(true)}
+        firstStepAnimationEnd={firstStepAnim}
+        secondStepAnimationEnd={secondStepAnim}
+        onAnimationEnd={() => setSecondStepAnim(true)}
         animationStartFlag={animationStartFlag}
+        {...styles}
       />
       <BuildingsBG
         src={imgs[2]}
         alt="building"
         className={AnimationSteps.THREE}
-        secondStepAnimationEnd={secondStepAnimationEnd}
+        secondStepAnimationEnd={secondStepAnim}
+        onAnimationEnd={() => {
+          styles.lastBuilding && onAnimationEndCallback(true);
+        }}
+        {...styles}
       />
     </BuildingWrapper>
   );
@@ -102,12 +107,11 @@ export interface IBuildingWrapper {
   top: string;
   left: string;
   imgs?: string[];
+  delay?: string;
+  lastBuilding?: boolean;
 }
 
 interface IPreloaderBuilding extends IBuildingWrapper {
-  firstStepAnimationEnd: boolean;
-  onAnimationEndFirstCallback: (arg: boolean) => void;
-  onAnimationEndSecondCallback: (arg: boolean) => void;
-  secondStepAnimationEnd: boolean;
+  onAnimationEndCallback: (arg: boolean) => void;
   animationStartFlag: boolean;
 }

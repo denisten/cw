@@ -100,6 +100,7 @@ const LoadingLine = styled.div<{ persentOfLoad?: number }>`
     color: #ffffff;
     transform: skew(30deg);
     z-index: 2;
+    transition: 0.1s;
   }
 
   &::before {
@@ -151,10 +152,9 @@ export const Preloader: React.FC = () => {
   const [disable, setDisable] = useState(false);
   const [cloudsOff, setCloudsOff] = useState(false);
   const [animationStartFlag, setAnimationStartFlag] = useState(false);
-  const [firstStepAnimationEnd, setFirstStepAnimationEnd] = useState(false);
-  const [secondStepAnimationEnd, setSecondStepAnimationEnd] = useState(false);
+  const [animationEndFlag, setAnimationEndFlag] = useState(false);
   useEffect(() => {
-    if (loadingPercent >= maxpercent && secondStepAnimationEnd) {
+    if (loadingPercent >= maxpercent && animationEndFlag) {
       setLoaded();
       setTimeout(() => {
         setDisable(true);
@@ -164,7 +164,7 @@ export const Preloader: React.FC = () => {
     if (animationStartFlag) {
       setCloudsOff(true);
     }
-  }, [loadingPercent, secondStepAnimationEnd, animationStartFlag]);
+  }, [loadingPercent, animationEndFlag, animationStartFlag]);
 
   const animationEnd = () => {
     setAnimationStartFlag(true);
@@ -176,11 +176,8 @@ export const Preloader: React.FC = () => {
         {preloaderBuildingsConfig.map((building, ind) => (
           <PreloaderBuilding
             imgs={building.imgs}
-            firstStepAnimationEnd={firstStepAnimationEnd}
-            onAnimationEndFirstCallback={setFirstStepAnimationEnd}
-            onAnimationEndSecondCallback={setSecondStepAnimationEnd}
-            secondStepAnimationEnd={secondStepAnimationEnd}
             animationStartFlag={animationStartFlag}
+            onAnimationEndCallback={setAnimationEndFlag}
             {...building}
             key={ind}
           />
