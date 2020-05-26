@@ -146,7 +146,7 @@ enum CloudsState {
   HIDE = 'hideCloud',
 }
 
-export const Preloader: React.FC = () => {
+export const Preloader: React.FC = React.memo(() => {
   const { loadingPercent } = useLoadingIndication();
 
   const [disable, setDisable] = useState(false);
@@ -201,7 +201,7 @@ export const Preloader: React.FC = () => {
       </LoadingLine>
     </PreloaderWrapper>
   );
-};
+});
 
 export interface ICloud {
   keyId?: number;
