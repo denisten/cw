@@ -93,7 +93,7 @@ const MainWrapper = styled.div<{
   align-items: center;
   animation: ${props =>
       props.firstLoaded && props.mustBeAsAnimated ? tutorialShowAnimation : ''}
-    0.7s ${delayBeforePreloaderOff}ms both;
+    0.4s ${delayBeforePreloaderOff}ms both;
 `;
 
 const delayBetweenDialogMessages = 600;

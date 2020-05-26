@@ -22,12 +22,15 @@ enum InheritZIndexes {
   FADEIN_BLOCK = 6,
 }
 
-const fadeOut = keyframes`
+const appearAnim = keyframes`
 from {opacity: 0};
 to {opacity: 1};
 `;
 
-const PreloaderWrapper = styled.div<{ disable: boolean; fadeOut?: boolean }>`
+const PreloaderWrapper = styled.div<{
+  disable: boolean;
+  smoothHideBlock?: boolean;
+}>`
   width: 100%;
   height: 100%;
   position: fixed;
@@ -39,6 +42,9 @@ const PreloaderWrapper = styled.div<{ disable: boolean; fadeOut?: boolean }>`
   overflow: hidden;
   align-items: flex-end;
   justify-content: center;
+  animation: ${props => (props.smoothHideBlock ? appearAnim : '')}
+    ${delayBeforePreloaderOff / 2}ms ${delayBeforePreloaderOff / 2}ms linear
+    both reverse;
 
   &::before {
     content: '';
@@ -50,8 +56,8 @@ const PreloaderWrapper = styled.div<{ disable: boolean; fadeOut?: boolean }>`
     background: black;
     z-index: ${InheritZIndexes.FADEIN_BLOCK};
     opacity: 0;
-    animation: ${props => (props.fadeOut ? fadeOut : '')}
-      ${delayBeforePreloaderOff}ms linear both;
+    animation: ${props => (props.smoothHideBlock ? appearAnim : '')}
+      ${delayBeforePreloaderOff / 2}ms linear both;
   }
 `;
 
@@ -146,7 +152,7 @@ const spriteStyle = {
   canvasHeight: 304,
   numberOfFramesX: 6,
   numberOfFramesY: 6,
-  ticksPerFrame: 1,
+  ticksPerFrame: 0.5,
   infinity: false,
 
   style: {
@@ -172,12 +178,12 @@ export const Preloader: React.FC = React.memo(() => {
   const [cloudsOff, setCloudsOff] = useState(false);
   const [animationStartFlag, setAnimationStartFlag] = useState(false);
   const [animationEndFlag, setAnimationEndFlag] = useState(false);
-  const [fadeOut, setFadeOut] = useState(false);
+  const [smoothHideBlock, setSmoothHideBlock] = useState(false);
 
   useEffect(() => {
     if (loadingPercent >= maxpercent && animationEndFlag) {
       setLoaded();
-      setFadeOut(true);
+      setSmoothHideBlock(true);
       setTimeout(() => {
         setDisable(true);
       }, delayBeforePreloaderOff);
@@ -193,7 +199,7 @@ export const Preloader: React.FC = React.memo(() => {
   };
 
   return (
-    <PreloaderWrapper disable={disable} fadeOut={fadeOut}>
+    <PreloaderWrapper disable={disable} smoothHideBlock={smoothHideBlock}>
       <BuildingWrapper animationStartFlag={animationStartFlag}>
         {preloaderBuildingsConfig.map((building, ind) => (
           <PreloaderBuilding

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
+import { preloaderTowersAnimationDuration } from '../../../constants';
 
 enum AnimationSteps {
   ONE = 'stepOne',
@@ -32,7 +33,8 @@ const BuildingsBG = styled.img<{
   height: 100%;
   transform-origin: bottom;
   &.${AnimationSteps.ONE} {
-    animation: ${props => (props.animationStartFlag ? growAnim : '')} 0.2s both;
+    animation: ${props => (props.animationStartFlag ? growAnim : '')}
+      ${preloaderTowersAnimationDuration}ms both;
     animation-delay: ${props => props.delay || '0s'};
     opacity: ${props => (props.firstStepAnimationEnd ? 0 : 1)};
   }
@@ -41,12 +43,12 @@ const BuildingsBG = styled.img<{
       props.firstStepAnimationEnd && !props.secondStepAnimationEnd ? 1 : 0};
     animation: ${props =>
         props.firstStepAnimationEnd && props.animationStartFlag ? growAnim : ''}
-      0.2s both;
+      ${preloaderTowersAnimationDuration}ms both;
   }
   &.${AnimationSteps.THREE} {
     opacity: ${props => (props.secondStepAnimationEnd ? 1 : 0)};
     animation: ${props => (props.secondStepAnimationEnd ? finallyAnim : '')}
-      0.2s both;
+      ${preloaderTowersAnimationDuration}ms both;
   }
 `;
 
