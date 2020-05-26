@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { ZIndexes } from '../root-component/z-indexes-enum';
 import tutorialBackground from './tutorial-background.svg';
 import {
@@ -19,6 +19,8 @@ import { UserDataStore } from '../../effector/user-data/store';
 import { ButtonClassNames, Button } from '../../UI/button';
 import { Span, StyledSpan } from '../../UI/span';
 import { MTSSans } from '../../fonts';
+import { AppCondition } from '../../effector/app-condition/store';
+import { delayBeforePreloaderOff } from '../../constants';
 
 const TutorialDialogWrapper = styled.div`
   width: 1128px;
@@ -69,8 +71,19 @@ const ButtonWrapper = styled.div`
   box-sizing: border-box;
   font-family: MTSSansMedium, serif;
 `;
+const tutorialShowAnimation = keyframes`
+from {
+  transform: translateY(500px);
+}
+to {
+  transform: translateY(0px);
+}
+`;
 
-const MainWrapper = styled.div`
+const MainWrapper = styled.div<{
+  firstLoaded?: boolean;
+  mustBeAsAnimated?: boolean;
+}>`
   width: 100%;
   height: 36.5%;
   position: absolute;
@@ -78,6 +91,9 @@ const MainWrapper = styled.div`
   z-index: ${ZIndexes.TUTORIAL};
   display: flex;
   align-items: center;
+  animation: ${props =>
+      props.firstLoaded && props.mustBeAsAnimated ? tutorialShowAnimation : ''}
+    0.7s ${delayBeforePreloaderOff}ms both;
 `;
 
 const delayBetweenDialogMessages = 600;
@@ -115,12 +131,15 @@ const styleConfig = {
   },
 };
 
-export const TutorialDialog: React.FC = () => {
+export const TutorialDialog: React.FC<{ mustBeAsAnimated?: boolean }> = ({
+  mustBeAsAnimated,
+}) => {
   const [printedText, setPrintedText] = useState('');
   const [dialogStep, setDialogStep] = useState(0);
   const [isPrinting, setIsPrinting] = useState(false);
   const { tutorialCondition } = useStore(TutorialStore);
   const { worldName } = useStore(UserDataStore);
+  const { loaded } = useStore(AppCondition);
 
   const {
     messages,
@@ -174,7 +193,7 @@ export const TutorialDialog: React.FC = () => {
     if (dialogStep) setDialogStep(dialogStep - 1);
   };
   return (
-    <MainWrapper>
+    <MainWrapper firstLoaded={loaded} mustBeAsAnimated={mustBeAsAnimated}>
       <TutorialDialogWrapper>
         <ExitButton
           callBack={handleExitButtonClick}
