@@ -148,16 +148,16 @@ const LoadingLine = styled.div<{ persentOfLoad?: number }>`
 `;
 
 const spriteStyle = {
-  canvasWidth: 224,
-  canvasHeight: 304,
+  canvasWidth: 700,
+  canvasHeight: 730,
   numberOfFramesX: 6,
   numberOfFramesY: 6,
-  ticksPerFrame: 0.5,
+  ticksPerFrame: 1,
   infinity: false,
 
   style: {
     width: '780px',
-    height: '730px',
+    height: '694px',
     position: 'absolute',
     top: '40%',
     left: '50%',
