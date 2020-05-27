@@ -335,10 +335,10 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
     }
   };
   const { money } = useStore(UserDataStore);
-  const towerInfoRef = useRef(null);
+  const towerInfoRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    if (towerInfoRef) {
-      setTowerInfoShift(towerInfoRef);
+    if (towerInfoRef && towerInfoRef.current) {
+      setTowerInfoShift(towerInfoRef.current?.offsetWidth);
     }
   }, [towerInfoRef]);
 

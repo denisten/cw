@@ -64,7 +64,7 @@ export const TowerWrapper = memo(
     tutorialPause,
     wideTower,
     markers = [],
-    towerInfoRef,
+    towerInfoShift,
     loaded,
   }: ITowerWrapper): React.ReactElement => {
     const [posX, posY] = position;
@@ -124,11 +124,7 @@ export const TowerWrapper = memo(
         width={width}
         height={height}
         ref={towerRef}
-        scrollShift={
-          towerInfoRef && towerInfoRef.current
-            ? towerInfoRef.current.offsetWidth
-            : null
-        }
+        scrollShift={towerInfoShift}
         loaded={loaded}
       >
         <Markers
@@ -206,7 +202,7 @@ interface ITowerWrapper {
   tutorialPause?: boolean;
   scaleValue: number;
   markers: IMarker[];
-  towerInfoRef: React.RefObject<HTMLDivElement> | null;
+  towerInfoShift: number;
   loaded: boolean;
 }
 

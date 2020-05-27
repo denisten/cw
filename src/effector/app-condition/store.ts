@@ -40,7 +40,7 @@ const initState = {
   hideTowerInfo: false,
   loaded: false,
   selectTowerInfoContent: TowerInfoContentValues.DESCRIPTION,
-  towerInfoRef: null,
+  towerInfoShift: 0,
 };
 
 const appConditionLocalStorage = connectLocalStorage('AppCondition').onChange(
@@ -114,7 +114,7 @@ export const AppCondition = AppDomain.store<AppConditionType>(initState)
   }))
   .on(setTowerInfoShift, (state, payload) => ({
     ...state,
-    towerInfoRef: payload,
+    towerInfoShift: payload,
   }));
 
 AppCondition.watch(appConditionLocalStorage);
@@ -130,5 +130,5 @@ export type AppConditionType = {
   hideTowerInfo: boolean;
   loaded: boolean;
   selectTowerInfoContent: TowerInfoContentValues;
-  towerInfoRef: React.RefObject<HTMLDivElement> | null;
+  towerInfoShift: number;
 };
