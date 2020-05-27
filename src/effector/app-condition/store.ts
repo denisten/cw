@@ -14,6 +14,7 @@ import {
   setHideTowerInfo,
   setLoaded,
   setTowerInfoContent,
+  setDataReceived,
 } from './events';
 import { TowersTypes } from '../towers-progress/store';
 import { upgradeTower } from '../towers-progress/events';
@@ -39,6 +40,7 @@ const initState = {
   hideTowerInfo: false,
   loaded: false,
   selectTowerInfoContent: TowerInfoContentValues.DESCRIPTION,
+  dataReceived: false,
 };
 
 const appConditionLocalStorage = connectLocalStorage('AppCondition').onChange(
@@ -109,6 +111,10 @@ export const AppCondition = AppDomain.store<AppConditionType>(initState)
   .on(setLoaded, state => ({
     ...state,
     loaded: true,
+  }))
+  .on(setDataReceived, (state, payload) => ({
+    ...state,
+    dataReceived: payload,
   }));
 
 AppCondition.watch(appConditionLocalStorage);
@@ -124,4 +130,5 @@ export type AppConditionType = {
   hideTowerInfo: boolean;
   loaded: boolean;
   selectTowerInfoContent: TowerInfoContentValues;
+  dataReceived: boolean;
 };
