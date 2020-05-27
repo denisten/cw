@@ -7,6 +7,7 @@ import { AuthorizedProfile } from './authorized';
 import { fetchAllProductsData } from '../../effector/towers-progress/events';
 import { openWsConnection } from '../../api/centrifuge';
 import { progressRefresh } from '../../api';
+import { setDataReceived } from '../../effector/app-condition/events';
 
 const ProfileWrapper = styled.div`
   width: 100%;
@@ -14,18 +15,19 @@ const ProfileWrapper = styled.div`
   position: relative;
 `;
 
-const handleAuth = async (isAuthorized: boolean) => {
-  if (isAuthorized) {
+const handleAuth = async (isAuthorized: boolean, dataReceived: boolean) => {
+  if (isAuthorized && !dataReceived) {
     await fetchAllProductsData('');
     await openWsConnection();
     await progressRefresh();
+    setDataReceived(true);
   }
 };
 
 export const Profile = React.memo(() => {
-  const { isAuthorized } = useStore(AppCondition);
+  const { isAuthorized, dataReceived } = useStore(AppCondition);
   useEffect(() => {
-    handleAuth(isAuthorized);
+    handleAuth(isAuthorized, dataReceived);
   }, [isAuthorized]);
   return (
     <ProfileWrapper>

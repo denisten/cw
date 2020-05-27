@@ -21,6 +21,7 @@ import { DaysNumArr, MonthsStringArr } from '../../../constants';
 import { updateUserData } from '../../../utils/update-user-data';
 import { resetTowerProgress } from '../../../effector/towers-progress/events';
 import { birthdayParser } from '../../../utils/birthday-parser';
+import { setDataReceived } from '../../../effector/app-condition/events';
 
 const ExitText = styled(StyledSpan)<ISpan>`
   font-family: ${MTSSans.REGULAR};
@@ -196,6 +197,7 @@ export const AuthorizedProfile = () => {
     logout();
     if (userSessionSocket) userSessionSocket.disconnect();
     resetTowerProgress();
+    setDataReceived(false);
   };
 
   return (
