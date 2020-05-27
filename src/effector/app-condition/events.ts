@@ -28,6 +28,9 @@ export const setAuthValue = AppDomain.event<AppConditionType>();
 export const setHideTowerInfo = AppDomain.event<boolean>();
 export const setLoaded = AppDomain.event();
 export const setTowerInfoContent = AppDomain.event<TowerInfoContentValues>();
+export const setTowerInfoShift = AppDomain.event<
+  React.RefObject<HTMLDivElement>
+>();
 export interface IUserSelectedTower {
   towerTitle: TowersTypes | null;
 }
