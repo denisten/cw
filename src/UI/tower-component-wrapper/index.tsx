@@ -27,7 +27,7 @@ const TowerStyledWrapper = styled.div<ITowerStyledWrapper>`
   height: ${props => props.height}px;
   align-items: flex-end;
   scroll-margin-right: ${props =>
-    props.scrollShift && props.loaded ? props.scrollShift : 0}px;
+    props.scrollShift && props.DOMLoaded ? props.scrollShift : 0}px;
 `;
 
 const StyledConfig = {
@@ -65,7 +65,7 @@ export const TowerWrapper = memo(
     wideTower,
     markers = [],
     towerInfoShift,
-    loaded,
+    DOMLoaded,
   }: ITowerWrapper): React.ReactElement => {
     const [posX, posY] = position;
     let mouseDownFlag = false,
@@ -125,7 +125,7 @@ export const TowerWrapper = memo(
         height={height}
         ref={towerRef}
         scrollShift={towerInfoShift}
-        loaded={loaded}
+        DOMLoaded={DOMLoaded}
       >
         <Markers
           towerRef={towerRef}
@@ -203,7 +203,7 @@ interface ITowerWrapper {
   scaleValue: number;
   markers: IMarker[];
   towerInfoShift: number;
-  loaded: boolean;
+  DOMLoaded: boolean;
 }
 
 interface ITowerStyledWrapper {
@@ -213,5 +213,5 @@ interface ITowerStyledWrapper {
   width: number;
   height: number;
   scrollShift?: number | null;
-  loaded: boolean;
+  DOMLoaded: boolean;
 }

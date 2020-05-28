@@ -20,7 +20,7 @@ export const Buildings: React.FC = () => {
     upgradingTowerTitle,
     scaleValue,
     towerInfoShift,
-    loaded,
+    DOMLoaded,
   } = useStore(AppCondition);
   const { tutorialCondition, tutorialPause } = useStore(TutorialStore);
   return (
@@ -34,7 +34,7 @@ export const Buildings: React.FC = () => {
           if (towerParams) {
             return (
               <TowerWrapper
-                loaded={loaded}
+                DOMLoaded={DOMLoaded}
                 towerInfoShift={towerInfoShift}
                 key={towerTitle}
                 tutorialCondition={tutorialCondition}

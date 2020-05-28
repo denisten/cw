@@ -5,7 +5,7 @@ import { cloudsConfig } from './clouds-config';
 import background from './background.jpg';
 import { MTSSans } from '../../fonts';
 import { useLoadingIndication } from '../../hooks/useLoadingIndication';
-import { setLoaded } from '../../effector/app-condition/events';
+import { setDOMLoaded } from '../../effector/app-condition/events';
 import { preloaderBuildingsConfig } from './preloader-building-config';
 import { PreloaderBuilding } from './preloader-building';
 import animLogo from './anim_logo.png';
@@ -182,7 +182,7 @@ export const Preloader: React.FC = React.memo(() => {
 
   useEffect(() => {
     if (loadingPercent >= maxpercent && animationEndFlag) {
-      setLoaded();
+      setDOMLoaded();
       setSmoothHideBlock(true);
       setTimeout(() => {
         setDisable(true);
