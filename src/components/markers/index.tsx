@@ -172,6 +172,16 @@ export const MarkerWrapper = styled.div<{ displayFlag: boolean }>`
       top: 40px;
     }
   }
+
+  &[data-towertype=${TowersTypes.OBSERVATORY}] {
+    &[data-towerlevel='0'],
+    &[data-towerlevel='1'] {
+      top: 155px;
+    }
+    &[data-towerlevel='2'] {
+      top: 115px;
+    }
+  }
 `;
 
 export const Markers: React.FC<IMarkers> = ({

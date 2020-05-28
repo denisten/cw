@@ -153,6 +153,7 @@ export const TutorialDialog: React.FC<{ mustBeAsAnimated?: boolean }> = ({
   let letterByLetterCallback: number;
 
   useEffect(() => {
+    if (!DOMLoaded) return;
     setPrintedText('');
     clearTimeout(letterByLetterCallback);
     setIsPrinting(true);
@@ -170,7 +171,7 @@ export const TutorialDialog: React.FC<{ mustBeAsAnimated?: boolean }> = ({
       clearTimeout(timeoutBetweenDialogMessages);
       clearTimeout(letterByLetterCallback);
     };
-  }, [dialogStep, reload]);
+  }, [dialogStep, reload, DOMLoaded]);
 
   const handleExitButtonClick = () => {
     turnOffTutorialMode();

@@ -46,8 +46,14 @@ import libraryTowerLevel0Stroke from './library/0-stroke.png';
 import libraryTowerLevel1Stroke from './library/1-stroke.png';
 import libraryTowerLevel2Stroke from './library/2-stroke.png';
 import libraryTowerLevel3Stroke from './library/3-stroke.png';
+import observatoryTowerLevel0Img from './observatory/0.png';
+import observatoryTowerLevel0Stroke from './observatory/0-stroke.png';
+import observatoryTowerLevel1Img from './observatory/1.png';
+import observatoryTowerLevel1Stroke from './observatory/1-stroke.png';
 import observatoryTowerLevel2Img from './observatory/2.png';
 import observatoryTowerLevel2Stroke from './observatory/2-stroke.png';
+import observatoryTowerLevel3Img from './observatory/3.png';
+import observatoryTowerLevel3Stroke from './observatory/3-stroke.png';
 import tariffTowerLevel0Img from './tariff/0.png';
 import tariffTowerLevel0Stroke from './tariff/0-stroke.png';
 import tariffTowerLevel1Img from './tariff/1.png';
@@ -489,29 +495,30 @@ class BuildingsService {
     },
     [TowersTypes.OBSERVATORY]: {
       info: 'info',
-      title: 'Здание партнера',
+      title: 'Здание партнера 4',
       wideTower: false,
       zIndex: ZIndexes.BUILDING_THREE_LEVEL,
-      maxLevel: TowerLevel.mid,
-      hide: true,
-      width: 351,
-      height: 606,
-      areaCoords: '128,57,418,291',
-      position: [42.2, 36.9],
+      maxLevel: TowerLevel.high,
+      width: 326,
+      height: 554,
+      areaCoords: '49,132,273,553',
+      position: [40.1, 66.1],
       ref: null,
+      [TowerLevel.deactive]: {
+        img: observatoryTowerLevel0Img,
+        shadowImg: observatoryTowerLevel0Stroke,
+      },
       [TowerLevel.low]: {
-        // TODO: не настоящая картинка
-        img: musicTowerLevel1Img,
-        shadowImg: musicTowerLevel1Stroke,
+        img: observatoryTowerLevel1Img,
+        shadowImg: observatoryTowerLevel1Stroke,
       },
       [TowerLevel.mid]: {
         img: observatoryTowerLevel2Img,
         shadowImg: observatoryTowerLevel2Stroke,
       },
       [TowerLevel.high]: {
-        // TODO: не настоящая картинка
-        img: eggTowerLevel3Img,
-        shadowImg: eggTowerLevel3Stroke,
+        img: observatoryTowerLevel3Img,
+        shadowImg: observatoryTowerLevel3Stroke,
       },
     },
     [TowersTypes.MOBILE_NETWORK]: {
