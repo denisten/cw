@@ -12,8 +12,9 @@ import {
   setAuthValue,
   setCancelAuthorizationStatus,
   setHideTowerInfo,
-  setLoaded,
+  setDOMLoaded,
   setTowerInfoContent,
+  setTowerInfoShift,
   setDataReceived,
 } from './events';
 import { TowersTypes } from '../towers-progress/store';
@@ -38,8 +39,9 @@ const initState = {
   isAuthorized: false,
   authCancelledStatus: '',
   hideTowerInfo: false,
-  loaded: false,
+  DOMLoaded: false,
   selectTowerInfoContent: TowerInfoContentValues.DESCRIPTION,
+  towerInfoShift: 0,
   dataReceived: false,
 };
 
@@ -108,9 +110,13 @@ export const AppCondition = AppDomain.store<AppConditionType>(initState)
     ...state,
     hideTowerInfo: payload,
   }))
-  .on(setLoaded, state => ({
+  .on(setDOMLoaded, state => ({
     ...state,
-    loaded: true,
+    DOMLoaded: true,
+  }))
+  .on(setTowerInfoShift, (state, payload) => ({
+    ...state,
+    towerInfoShift: payload,
   }))
   .on(setDataReceived, (state, payload) => ({
     ...state,
@@ -128,7 +134,8 @@ export type AppConditionType = {
   isAuthorized: boolean;
   authCancelledStatus: string;
   hideTowerInfo: boolean;
-  loaded: boolean;
+  DOMLoaded: boolean;
   selectTowerInfoContent: TowerInfoContentValues;
+  towerInfoShift: number;
   dataReceived: boolean;
 };

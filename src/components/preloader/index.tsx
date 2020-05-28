@@ -5,7 +5,7 @@ import { cloudsConfig } from './clouds-config';
 import background from './background.jpg';
 import { MTSSans } from '../../fonts';
 import { useLoadingIndication } from '../../hooks/useLoadingIndication';
-import { setLoaded } from '../../effector/app-condition/events';
+import { setDOMLoaded } from '../../effector/app-condition/events';
 import { preloaderBuildingsConfig } from './preloader-building-config';
 import { PreloaderBuilding } from './preloader-building';
 import animLogo from './anim_logo.png';
@@ -148,16 +148,16 @@ const LoadingLine = styled.div<{ persentOfLoad?: number }>`
 `;
 
 const spriteStyle = {
-  canvasWidth: 224,
-  canvasHeight: 304,
+  canvasWidth: 700,
+  canvasHeight: 730,
   numberOfFramesX: 6,
   numberOfFramesY: 6,
-  ticksPerFrame: 0.5,
+  ticksPerFrame: 1,
   infinity: false,
 
   style: {
     width: '780px',
-    height: '730px',
+    height: '694px',
     position: 'absolute',
     top: '40%',
     left: '50%',
@@ -182,7 +182,7 @@ export const Preloader: React.FC = React.memo(() => {
 
   useEffect(() => {
     if (loadingPercent >= maxpercent && animationEndFlag) {
-      setLoaded();
+      setDOMLoaded();
       setSmoothHideBlock(true);
       setTimeout(() => {
         setDisable(true);
