@@ -13,7 +13,8 @@ export const fetchUserData = UserDataDomain.effect('fetch after auth', {
     return await getProfile();
   },
 });
-export const addMoney = UserDataDomain.event<number>();
+export const editMoneyCount = UserDataDomain.event<number>();
+export const editUserProperty = UserDataDomain.event<IEditUserProperty>();
 export const setUserSessionSocket = UserDataDomain.event<Centrifuge>();
 
 interface IEditCurrentUserDataField {
@@ -26,4 +27,9 @@ export interface IEditUserData {
   worldName?: string;
   assistantName?: string;
   birthday?: IBirthday;
+}
+
+export interface IEditUserProperty {
+  money: number;
+  energy: number;
 }

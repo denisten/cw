@@ -4,8 +4,9 @@ import {
   editUserData,
   fetchUserData,
   saveUserDataAfterAuth,
-  addMoney,
+  editMoneyCount,
   setUserSessionSocket,
+  editUserProperty,
 } from './events';
 import connectLocalStorage from 'effector-localstorage/sync';
 import Centrifuge from 'centrifuge';
@@ -21,6 +22,7 @@ export enum UserDataStoreKeys {
   COINS = 'coins',
   COUPONS_COUNT = 'couponsCount',
   USER_SESSION_SOCKET = 'userSessionSocket',
+  ENERGY = 'energy',
 }
 
 const initData = {
@@ -29,6 +31,7 @@ const initData = {
   worldName: 'Неизвестно',
   assistantName: 'Неизвестно',
   money: 0,
+  energy: 0,
   coins: 0,
   birthday: {
     dd: '00',
@@ -44,6 +47,7 @@ const initState: IUserDataStore = {
   [UserDataStoreKeys.WORLD_NAME]: initData.worldName,
   [UserDataStoreKeys.ASSISTANT_NAME]: initData.assistantName,
   [UserDataStoreKeys.MONEY]: initData.money,
+  [UserDataStoreKeys.ENERGY]: initData.energy,
   [UserDataStoreKeys.COINS]: initData.coins,
   [UserDataStoreKeys.BIRTHDAY]: initData.birthday,
   [UserDataStoreKeys.COUPONS_COUNT]: initData.couponsCount,
@@ -55,9 +59,14 @@ const userDataStoreLocalStorage = connectLocalStorage('UserData').onChange(
 );
 
 export const UserDataStore = UserDataDomain.store<IUserDataStore>(initState)
-  .on(addMoney, (state, payload) => ({
+  .on(editMoneyCount, (state, payload) => ({
     ...state,
     money: state.money + payload,
+  }))
+  .on(editUserProperty, (state, { money, energy }) => ({
+    ...state,
+    money: state.money + money,
+    energy: state.energy + energy,
   }))
   .on(editCurrentUserDataField, (state, { key, value }) => ({
     ...state,
@@ -65,7 +74,10 @@ export const UserDataStore = UserDataDomain.store<IUserDataStore>(initState)
   }))
   .on(
     fetchUserData.done,
-    (state, { result: { worldName, assistantName, name, id, birthday } }) => ({
+    (
+      state,
+      { result: { worldName, assistantName, name, id, birthday = '' } }
+    ) => ({
       ...state,
       id,
       worldName: worldName || initData.worldName,
@@ -91,6 +103,7 @@ export interface IUserDataStore {
   [UserDataStoreKeys.WORLD_NAME]: string;
   [UserDataStoreKeys.ASSISTANT_NAME]: string;
   [UserDataStoreKeys.MONEY]: number;
+  [UserDataStoreKeys.ENERGY]: number;
   [UserDataStoreKeys.COINS]: number;
   [UserDataStoreKeys.COUPONS_COUNT]: number;
   [UserDataStoreKeys.BIRTHDAY]: IBirthday;
