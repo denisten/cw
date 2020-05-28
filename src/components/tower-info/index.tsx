@@ -1,10 +1,11 @@
-import React, { useState, useMemo, createRef } from 'react';
+import React, { useState, useMemo, createRef, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { ExitButton } from '../../UI/exit-button';
 import {
   extraTowerInfoModalClosed,
   showUpgradeIcon,
   setTowerInfoContent,
+  setTowerInfoShift,
 } from '../../effector/app-condition/events';
 import {
   addProgressPoints,
@@ -334,9 +335,15 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
     }
   };
   const { money } = useStore(UserDataStore);
+  const towerInfoRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (towerInfoRef && towerInfoRef.current) {
+      setTowerInfoShift(towerInfoRef.current?.offsetWidth);
+    }
+  }, [towerInfoRef]);
 
   return (
-    <ModalWindowWrapper opened={opened}>
+    <ModalWindowWrapper opened={opened} ref={towerInfoRef}>
       <ModalWindowHeader>
         <ExitButton
           {...StyleConfig.exitButton}

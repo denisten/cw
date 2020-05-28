@@ -35,7 +35,7 @@ export const preloaderBuildingsConfig: IBuildingWrapper[] = [
     top: '17%',
     width: '12.71%',
     height: '32.5%',
-    delay: totalAnimationPreloaderTowerDuration * AnimationOrder.SECOND + 'ms',
+    delay: totalAnimationPreloaderTowerDuration * AnimationOrder.THIRD + 'ms',
   },
   {
     imgs: [main, main2, main3],
@@ -43,7 +43,7 @@ export const preloaderBuildingsConfig: IBuildingWrapper[] = [
     top: '13.5%',
     width: '9%',
     height: '46.85%',
-    delay: totalAnimationPreloaderTowerDuration * AnimationOrder.SECOND + 'ms',
+    delay: totalAnimationPreloaderTowerDuration * AnimationOrder.THIRD + 'ms',
   },
   {
     imgs: [tarif, tarif2, tarif3],
@@ -51,7 +51,8 @@ export const preloaderBuildingsConfig: IBuildingWrapper[] = [
     top: '20.5%',
     width: '9.42%',
     height: '38.42%',
-    delay: totalAnimationPreloaderTowerDuration * AnimationOrder.SECOND + 'ms',
+    delay: totalAnimationPreloaderTowerDuration * AnimationOrder.THIRD + 'ms',
+    lastBuilding: true,
   },
   {
     imgs: [cloud, cloud2, cloud3],
@@ -59,7 +60,7 @@ export const preloaderBuildingsConfig: IBuildingWrapper[] = [
     top: '8.6%',
     width: '9.8%',
     height: '26.5%',
-    delay: totalAnimationPreloaderTowerDuration * AnimationOrder.THIRD + 'ms',
+    delay: totalAnimationPreloaderTowerDuration * AnimationOrder.SECOND + 'ms',
   },
   {
     imgs: [moll, moll2, moll3],
@@ -67,8 +68,6 @@ export const preloaderBuildingsConfig: IBuildingWrapper[] = [
     top: '64.2%',
     width: '23.2%',
     height: '35.46%',
-    delay: totalAnimationPreloaderTowerDuration * AnimationOrder.THIRD + 'ms',
-    lastBuilding: true,
   },
 
   {
