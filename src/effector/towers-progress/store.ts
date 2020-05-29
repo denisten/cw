@@ -386,7 +386,7 @@ const initState: TowersProgressStoreType = {
     productId: 1,
     points: 0,
     level: {
-      level: TowerLevel.low,
+      level: TowerLevel.deactive,
       name: '0 уровень',
       levelOnServer: 0,
     },
