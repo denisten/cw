@@ -159,8 +159,12 @@ import autoFactoryLevel2Img from './auto-factory/2.png';
 import autoFactoryLevel2Stroke from './auto-factory/2-stroke.png';
 import autoFactoryLevel3Img from './auto-factory/3.png';
 import autoFactoryLevel3Stroke from './auto-factory/3-stroke.png';
+import rtkLevel0Img from './rtk/0.png';
 import rtkLevel1Img from './rtk/1.png';
-import rtkLevel1Stroke from './rtk/1-stroke.png';
+import rtkLevel2Img from './rtk/2.png';
+import rtkLevel3Img from './rtk/3.png';
+import rtkLevel0Stroke from './rtk/0-stroke.png';
+import rtkLevel3Stroke from './rtk/3-stroke.png';
 import partnerThreeLevel0Img from './partners-build/partner-three/0.png';
 import partnerThreeLevel0Stroke from './partners-build/partner-three/0-stroke.png';
 import partnerThreeLevel1Img from './partners-build/partner-three/1.png';
@@ -893,26 +897,29 @@ class BuildingsService {
       title: 'Салон-магазин МТС',
       wideTower: false,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
-      maxLevel: TowerLevel.low,
-      hide: true,
-      width: 530,
-      height: 555,
-      areaCoords: '74,67,456,472',
-      position: [25, 66.8],
+      maxLevel: TowerLevel.high,
+      width: 386,
+      height: 390,
+      areaCoords: '70,72,316,386',
+      position: [45.7, 45.22],
       ref: null,
+      [TowerLevel.deactive]: {
+        img: rtkLevel0Img,
+        shadowImg: rtkLevel0Stroke,
+      },
       [TowerLevel.low]: {
         img: rtkLevel1Img,
-        shadowImg: rtkLevel1Stroke,
+        shadowImg: rtkLevel0Stroke,
       },
-      // TODO: не настоящая картинка
+
       [TowerLevel.mid]: {
-        img: bankLevel2Img,
-        shadowImg: bankLevel2Stroke,
+        img: rtkLevel2Img,
+        shadowImg: rtkLevel0Stroke,
       },
-      // TODO: не настоящая картинка
+
       [TowerLevel.high]: {
-        img: airportLevel3Img,
-        shadowImg: airportLevel3Stroke,
+        img: rtkLevel3Img,
+        shadowImg: rtkLevel3Stroke,
       },
     },
     [TowersTypes.PARTNER_THREE]: {
