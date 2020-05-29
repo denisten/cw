@@ -9,6 +9,7 @@ import { MenuItems } from '../menu-paragraph';
 import styled from 'styled-components';
 import { useStore } from 'effector-react';
 import { TutorialStore } from '../../effector/tutorial-store/store';
+import { MTSSans } from '../../fonts';
 
 const StyleConfig = {
   zIndex: 1,
@@ -25,9 +26,8 @@ const SpanElem = styled.span`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-family: MTSSansBold;
+  font-family: ${MTSSans.BOLD};
   font-size: 28px;
-  font-weight: bold;
   font-stretch: normal;
   font-style: normal;
   line-height: 1.14;

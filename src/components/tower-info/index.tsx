@@ -46,7 +46,7 @@ import { MoveDivider } from '../../UI/move-divider';
 import { device } from '../../UI/media';
 import { TowerInfoUpgradeButton } from '../../UI/tower-info-upgrade-button';
 import { MTSSans } from '../../fonts';
-import { towerUpdateHandler } from '../../utils/towerUpdateHandler';
+import { towerUpdateHandler } from '../../utils/tower-update-handler';
 
 export type ModalWindowProps = {
   opened?: boolean;
