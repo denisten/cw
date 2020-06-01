@@ -18,7 +18,7 @@ const WaveImg = styled.div<IWaveImg>`
   background-size: ${props => props.backgroundSize || '100% 100%'};
   background-repeat: ${props => props.backgroundRepeat || 'no-repeat'};
   border-radius: ${props => props.borderRadius || '0px'};
-  animation-fill-mode: both;
+  /* animation-fill-mode: both; */
 `;
 
 export const Waves: React.FC = React.memo(() => {

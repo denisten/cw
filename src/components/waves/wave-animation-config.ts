@@ -5,18 +5,15 @@ import wave3 from './wave3.png';
 import { keyframes } from 'styled-components';
 
 const moveBackground = keyframes`
-0% {
-  opacity: 0.2;
+
+to {
+  background-position: left 0px top 241px;
 }
-15% {
-  opacity: 1;
-}
-85% {
-  opacity: 1;
-}
-100% {
-  opacity: 0;
-  background-position: left 0px top 80px;
+`;
+const moveBackgroundSecond = keyframes`
+
+to {
+  background-position: left 0px top 270px;
 }
 `;
 const moveImgOne = keyframes`
@@ -66,7 +63,7 @@ export const waveConfig: IWaveImg[] = [
     top: '38.1%',
     left: '56.4%',
     animation: moveBackground,
-    animationDuration: '4s',
+    animationDuration: '12s',
     borderRadius: '0% 100% 70% 12% / 46% 43% 61% 14%',
     backgroundRepeat: 'repeat',
     background: wave1,
@@ -145,8 +142,8 @@ export const waveConfig: IWaveImg[] = [
     height: '205px',
     top: '70.1%',
     left: '25.6%',
-    animation: moveBackground,
-    animationDuration: '4s',
+    animation: moveBackgroundSecond,
+    animationDuration: '12s',
     borderRadius: '0% 100% 70% 12% / 46% 43% 61% 14%',
     backgroundRepeat: 'repeat',
     background: wave1,
