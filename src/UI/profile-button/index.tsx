@@ -43,8 +43,8 @@ const CoinsWrapper = styled.div`
 const NickNameWrapper = styled.div<INickNameWrapper>`
   background-image: url(${nameBackground});
   background-size: 100%;
-  padding: 12px 0 0 32px;
-  width: 312px;
+  padding: 12px 0 0 56px;
+  width: 320px;
   height: 61px;
   z-index: 2;
   position: relative;

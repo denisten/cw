@@ -139,7 +139,7 @@ export const TutorialDialog: React.FC<{ mustBeAsAnimated?: boolean }> = ({
   const [isPrinting, setIsPrinting] = useState(false);
   const { tutorialCondition } = useStore(TutorialStore);
   const { worldName } = useStore(UserDataStore);
-  const { loaded } = useStore(AppCondition);
+  const { DOMLoaded } = useStore(AppCondition);
 
   const {
     messages,
@@ -153,6 +153,7 @@ export const TutorialDialog: React.FC<{ mustBeAsAnimated?: boolean }> = ({
   let letterByLetterCallback: number;
 
   useEffect(() => {
+    if (!DOMLoaded) return;
     setPrintedText('');
     clearTimeout(letterByLetterCallback);
     setIsPrinting(true);
@@ -170,7 +171,7 @@ export const TutorialDialog: React.FC<{ mustBeAsAnimated?: boolean }> = ({
       clearTimeout(timeoutBetweenDialogMessages);
       clearTimeout(letterByLetterCallback);
     };
-  }, [dialogStep, reload]);
+  }, [dialogStep, reload, DOMLoaded]);
 
   const handleExitButtonClick = () => {
     turnOffTutorialMode();
@@ -193,7 +194,7 @@ export const TutorialDialog: React.FC<{ mustBeAsAnimated?: boolean }> = ({
     if (dialogStep) setDialogStep(dialogStep - 1);
   };
   return (
-    <MainWrapper firstLoaded={loaded} mustBeAsAnimated={mustBeAsAnimated}>
+    <MainWrapper firstLoaded={DOMLoaded} mustBeAsAnimated={mustBeAsAnimated}>
       <TutorialDialogWrapper>
         <ExitButton
           callBack={handleExitButtonClick}

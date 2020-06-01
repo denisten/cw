@@ -18,7 +18,7 @@ export const MonthsStringArr = [
   'ноябрь',
   'декабрь',
 ];
-const numberOfPreloaderTowerStates = 3;
+const numberOfPreloaderTowerStates = 2;
 
 export const zIndexForInheritOverlay = 2;
 export const maxPersent = 100;

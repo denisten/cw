@@ -29,14 +29,14 @@ const ComponentWrapper = styled.div<{ visible: boolean }>`
 `;
 
 export const RootComponent = (): React.ReactElement => {
-  const { isExtraTowerInfoModalOpen, selectedMenuItem, loaded } = useStore(
+  const { isExtraTowerInfoModalOpen, selectedMenuItem, DOMLoaded } = useStore(
     AppCondition
   );
 
   const { tutorialCondition, tutorialPause } = useStore(TutorialStore);
 
   return (
-    <ComponentWrapper id="rootScroll" visible={loaded}>
+    <ComponentWrapper id="rootScroll" visible={DOMLoaded}>
       <Menu displayFlag={!!selectedMenuItem} />
       <ProfileButton
         tutorialCondition={tutorialCondition}

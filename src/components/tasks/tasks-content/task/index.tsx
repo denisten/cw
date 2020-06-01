@@ -30,6 +30,7 @@ export const Tasks: React.FC<{ active: boolean }> = ({ active }) => {
       {missions.map(el => {
         return (
           <Task
+            id={el.id}
             isInTowerInfo={false}
             isAllowedToChange={true}
             couponsCount={couponsCount}

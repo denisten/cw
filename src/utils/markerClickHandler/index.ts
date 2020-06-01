@@ -9,7 +9,7 @@ import {
 import { TowerInfoContentValues } from '../../effector/app-condition/store';
 import { scrollToCurrentTower } from '../scroll-to-current-tower';
 import { RefObject } from 'react';
-import { addMoney } from '../../effector/user-data/events';
+import { editMoneyCount } from '../../effector/user-data/events';
 
 export const markerClickHandler = (
   marker: IMarker,
@@ -25,7 +25,7 @@ export const markerClickHandler = (
       scrollToCurrentTower(markerRef);
       break;
     case TypeOfMarkers.COIN:
-      addMoney(marker.coins || 0);
+      editMoneyCount(marker.coins || 0);
       break;
 
     default:

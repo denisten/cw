@@ -6,9 +6,15 @@ import { StyledSpan } from '../../../UI/span';
 import { TaskLoot } from '../../../UI/task-loot';
 import { Coupon } from '../../../UI/coupon';
 import {
+  MissionsStore,
   TaskStatuses,
   TaskSubType,
 } from '../../../effector/missions-store/store';
+import {
+  activateTask,
+  finishTask,
+  verifyTask,
+} from '../../../effector/missions-store/events';
 
 enum TaskWrapperHeight {
   opened = 149,
@@ -86,24 +92,15 @@ const TaskButton = styled.div`
   background-origin: border-box;
   background-clip: content-box, border-box;
   border-image-slice: 1;
-  &.${TaskStatuses.EXPIRED} {
-    border-image-source: linear-gradient(
+  border-image-source: linear-gradient(to bottom, #027722 -152%, #26cd58 107%);
+  background-image: linear-gradient(
       to bottom,
-      #027722 -152%,
-      #26cd58 107%
-    );
-    background-image: linear-gradient(
-        to bottom,
-        #1ecc52,
-        #26cd58 48%,
-        #04aa42 80%,
-        #08972f 98%
-      ),
-      linear-gradient(to bottom, #027722 -152%, #26cd58 107%);
-    ::after {
-      content: 'Забрать';
-    }
-  }
+      #1ecc52,
+      #26cd58 48%,
+      #04aa42 80%,
+      #08972f 98%
+    ),
+    linear-gradient(to bottom, #027722 -152%, #26cd58 107%);
   &.${TaskStatuses.CREATED} {
     border-image-source: linear-gradient(to bottom, #03adc9 1%, #02c5e5 100%);
     background-image: linear-gradient(
@@ -114,9 +111,19 @@ const TaskButton = styled.div`
         #02acc8 98%
       ),
       linear-gradient(to bottom, #03adc9 1%, #02c5e5 100%);
-    ::after {
-      content: 'Подтвердить';
-    }
+    content: 'Выполнить';
+  }
+  &.${TaskStatuses.ACTIVE || TaskStatuses.REJECTED}::after {
+    content: 'Проверить';
+  }
+  &.${TaskStatuses.VERIFICATION}::after {
+    content: 'Проверяем...';
+  }
+  &.${TaskStatuses.DONE}::after {
+    content: 'Забрать';
+  }
+  &.${TaskStatuses.EXPIRED || TaskStatuses.REWARDED}::after {
+    content: 'Время вышло';
   }
 
   ::after {
@@ -170,6 +177,24 @@ const styledConfig = {
   },
 };
 
+const handleClick = (id: number) => {
+  const state = MissionsStore.getState();
+  const currentMissionIdx = state.findIndex(el => el.id === id);
+  switch (state[currentMissionIdx].status) {
+    case TaskStatuses.CREATED:
+      return activateTask(id);
+    case TaskStatuses.ACTIVE:
+      return verifyTask(id);
+    case TaskStatuses.DONE:
+      return finishTask(id);
+    case TaskStatuses.REJECTED:
+    case TaskStatuses.REWARDED:
+    case TaskStatuses.EXPIRED:
+    case TaskStatuses.VERIFICATION:
+    // do smth
+  }
+};
+
 export const Task: React.FC<ITasksRow> = ({
   type,
   taskTitle,
@@ -180,6 +205,7 @@ export const Task: React.FC<ITasksRow> = ({
   couponsCount,
   isAllowedToChange,
   isInTowerInfo,
+  id,
 }) => {
   const [isOpened, setIsOpened] = useState(false);
   return (
@@ -192,7 +218,13 @@ export const Task: React.FC<ITasksRow> = ({
         <Icon type={type} />
         <Title isInTowerInfo={isInTowerInfo}>{taskTitle}</Title>
         <TaskLoot money={money} energy={energy} isInTowerInfo={isInTowerInfo} />
-        <TaskButton className={status} />
+        <TaskButton
+          className={status}
+          onClick={e => {
+            e.stopPropagation();
+            handleClick(id);
+          }}
+        />
       </TaskInfo>
       <Border />
       <TaskDescriptionWrapper>
@@ -208,6 +240,7 @@ export const Task: React.FC<ITasksRow> = ({
 };
 
 interface ITasksRow {
+  id: number;
   type: TaskSubType;
   taskTitle: string;
   status: TaskStatuses;

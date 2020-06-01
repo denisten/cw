@@ -34,6 +34,7 @@ export const TowerInfoTask: React.FC<ITowerInfoTask> = ({ towerTitle }) => {
         ? sortedMissions.map(el => {
             return (
               <Task
+                id={el.id}
                 isInTowerInfo={true}
                 couponsCount={couponsCount}
                 isAllowedToChange={true}

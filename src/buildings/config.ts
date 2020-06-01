@@ -46,8 +46,14 @@ import libraryTowerLevel0Stroke from './library/0-stroke.png';
 import libraryTowerLevel1Stroke from './library/1-stroke.png';
 import libraryTowerLevel2Stroke from './library/2-stroke.png';
 import libraryTowerLevel3Stroke from './library/3-stroke.png';
+import observatoryTowerLevel0Img from './observatory/0.png';
+import observatoryTowerLevel0Stroke from './observatory/0-stroke.png';
+import observatoryTowerLevel1Img from './observatory/1.png';
+import observatoryTowerLevel1Stroke from './observatory/1-stroke.png';
 import observatoryTowerLevel2Img from './observatory/2.png';
 import observatoryTowerLevel2Stroke from './observatory/2-stroke.png';
+import observatoryTowerLevel3Img from './observatory/3.png';
+import observatoryTowerLevel3Stroke from './observatory/3-stroke.png';
 import tariffTowerLevel0Img from './tariff/0.png';
 import tariffTowerLevel0Stroke from './tariff/0-stroke.png';
 import tariffTowerLevel1Img from './tariff/1.png';
@@ -153,8 +159,12 @@ import autoFactoryLevel2Img from './auto-factory/2.png';
 import autoFactoryLevel2Stroke from './auto-factory/2-stroke.png';
 import autoFactoryLevel3Img from './auto-factory/3.png';
 import autoFactoryLevel3Stroke from './auto-factory/3-stroke.png';
+import rtkLevel0Img from './rtk/0.png';
 import rtkLevel1Img from './rtk/1.png';
-import rtkLevel1Stroke from './rtk/1-stroke.png';
+import rtkLevel2Img from './rtk/2.png';
+import rtkLevel3Img from './rtk/3.png';
+import rtkLevel0Stroke from './rtk/0-stroke.png';
+import rtkLevel3Stroke from './rtk/3-stroke.png';
 import partnerThreeLevel0Img from './partners-build/partner-three/0.png';
 import partnerThreeLevel0Stroke from './partners-build/partner-three/0-stroke.png';
 import partnerThreeLevel1Img from './partners-build/partner-three/1.png';
@@ -489,29 +499,30 @@ class BuildingsService {
     },
     [TowersTypes.OBSERVATORY]: {
       info: 'info',
-      title: 'Здание партнера',
+      title: 'Здание партнера 4',
       wideTower: false,
       zIndex: ZIndexes.BUILDING_THREE_LEVEL,
-      maxLevel: TowerLevel.mid,
-      hide: true,
-      width: 351,
-      height: 606,
-      areaCoords: '128,57,418,291',
-      position: [42.2, 36.9],
+      maxLevel: TowerLevel.high,
+      width: 326,
+      height: 554,
+      areaCoords: '49,132,273,553',
+      position: [40.1, 66.1],
       ref: null,
+      [TowerLevel.deactive]: {
+        img: observatoryTowerLevel0Img,
+        shadowImg: observatoryTowerLevel0Stroke,
+      },
       [TowerLevel.low]: {
-        // TODO: не настоящая картинка
-        img: musicTowerLevel1Img,
-        shadowImg: musicTowerLevel1Stroke,
+        img: observatoryTowerLevel1Img,
+        shadowImg: observatoryTowerLevel1Stroke,
       },
       [TowerLevel.mid]: {
         img: observatoryTowerLevel2Img,
         shadowImg: observatoryTowerLevel2Stroke,
       },
       [TowerLevel.high]: {
-        // TODO: не настоящая картинка
-        img: eggTowerLevel3Img,
-        shadowImg: eggTowerLevel3Stroke,
+        img: observatoryTowerLevel3Img,
+        shadowImg: observatoryTowerLevel3Stroke,
       },
     },
     [TowersTypes.MOBILE_NETWORK]: {
@@ -886,26 +897,29 @@ class BuildingsService {
       title: 'Салон-магазин МТС',
       wideTower: false,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
-      maxLevel: TowerLevel.low,
-      hide: true,
-      width: 530,
-      height: 555,
-      areaCoords: '74,67,456,472',
-      position: [25, 66.8],
+      maxLevel: TowerLevel.high,
+      width: 386,
+      height: 390,
+      areaCoords: '70,72,316,386',
+      position: [45.7, 45.22],
       ref: null,
+      [TowerLevel.deactive]: {
+        img: rtkLevel0Img,
+        shadowImg: rtkLevel0Stroke,
+      },
       [TowerLevel.low]: {
         img: rtkLevel1Img,
-        shadowImg: rtkLevel1Stroke,
+        shadowImg: rtkLevel0Stroke,
       },
-      // TODO: не настоящая картинка
+
       [TowerLevel.mid]: {
-        img: bankLevel2Img,
-        shadowImg: bankLevel2Stroke,
+        img: rtkLevel2Img,
+        shadowImg: rtkLevel0Stroke,
       },
-      // TODO: не настоящая картинка
+
       [TowerLevel.high]: {
-        img: airportLevel3Img,
-        shadowImg: airportLevel3Stroke,
+        img: rtkLevel3Img,
+        shadowImg: rtkLevel3Stroke,
       },
     },
     [TowersTypes.PARTNER_THREE]: {

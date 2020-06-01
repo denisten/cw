@@ -7,7 +7,7 @@ export const AvatarWrapper: React.FC<ImgWrapperProps> = ({ src, ...props }) => {
     <ImgWrapper
       src={src}
       top="-24px"
-      left="-20px"
+      left="-28px"
       {...props}
       width="119px"
       height="126px"

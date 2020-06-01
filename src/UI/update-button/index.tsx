@@ -8,7 +8,7 @@ import {
   TypeOfMarkers,
 } from '../../components/markers';
 import { TutorialConditions } from '../../effector/tutorial-store/store';
-import { towerUpdateHandler } from '../../utils/towerUpdateHandler';
+import { towerUpdateHandler } from '../../utils/tower-update-handler';
 
 export const UpgradeButton: React.FC<UpgradeButtonProps> = ({
   towerTitle,

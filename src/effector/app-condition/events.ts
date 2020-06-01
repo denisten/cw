@@ -26,9 +26,10 @@ export const editIsAuthorizedFlag = AppDomain.event<boolean>();
 export const setCancelAuthorizationStatus = AppDomain.event<string>();
 export const setAuthValue = AppDomain.event<AppConditionType>();
 export const setHideTowerInfo = AppDomain.event<boolean>();
-export const setLoaded = AppDomain.event();
+export const setDOMLoaded = AppDomain.event();
 export const setDataReceived = AppDomain.event<boolean>();
 export const setTowerInfoContent = AppDomain.event<TowerInfoContentValues>();
+export const setTowerInfoShift = AppDomain.event<number>();
 export interface IUserSelectedTower {
   towerTitle: TowersTypes | null;
 }
