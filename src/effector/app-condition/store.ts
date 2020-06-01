@@ -117,7 +117,7 @@ export const AppCondition = AppDomain.store<AppConditionType>(initState)
     ...state,
     dataReceived: payload,
   }))
-  .on(fetchUserData.done, (state, _) => ({
+  .on(fetchUserData.done, state => ({
     ...state,
     isAuthorized: true,
   }));
