@@ -20,6 +20,7 @@ import { TowersTypes } from '../towers-progress/store';
 import { upgradeTower } from '../towers-progress/events';
 import { MenuItems } from '../../UI/menu-paragraph';
 import connectLocalStorage from 'effector-localstorage/sync';
+import { fetchUserData } from '../user-data/events';
 
 export const maxProgressValue = 100;
 
@@ -115,6 +116,10 @@ export const AppCondition = AppDomain.store<AppConditionType>(initState)
   .on(setDataReceived, (state, payload) => ({
     ...state,
     dataReceived: payload,
+  }))
+  .on(fetchUserData.done, (state, _) => ({
+    ...state,
+    isAuthorized: true,
   }));
 
 AppCondition.watch(appConditionLocalStorage);
