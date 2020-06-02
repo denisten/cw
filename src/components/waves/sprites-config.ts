@@ -1,7 +1,15 @@
 import { keyframes, Keyframes } from 'styled-components';
 
 const animSpriteOne = keyframes`
-to {
+0% {
+  opacity: 0;
+}
+
+20% {
+  opacity: 1;
+}
+
+100% {
   transform: translate3D(24px, 16px, 0)
 }
 `;

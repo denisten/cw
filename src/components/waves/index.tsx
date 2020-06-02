@@ -25,7 +25,7 @@ const WaveImg = styled.div<IWaveImg>`
 `;
 
 const SpriteWrapper = styled.div<{ animation: Keyframes }>`
-  animation: ${props => props.animation} 3s infinite linear alternate;
+  animation: ${props => props.animation} 3s infinite linear;
   position: absolute;
   z-index: ${ZIndexes.DECORATION};
 `;
