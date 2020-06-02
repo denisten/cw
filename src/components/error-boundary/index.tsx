@@ -52,7 +52,6 @@ export const ErrorBoundary = () => {
     window.addEventListener('offline', setNetworkStatusOffline);
     window.addEventListener('online', setNetworkStatusOnline);
   }, []);
-
   return (
     <ErrorWrapper errorFlag={errorFlag} text={text} {...StyledConfig.overlay}>
       {networkStatus === NetworkStatuses.ONLINE ? (

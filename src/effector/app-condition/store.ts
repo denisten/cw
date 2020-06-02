@@ -22,6 +22,7 @@ import { upgradeTower } from '../towers-progress/events';
 import { MenuItems } from '../../UI/menu-paragraph';
 import connectLocalStorage from 'effector-localstorage/sync';
 import { fetchUserData } from '../user-data/events';
+import { ErrorBoundaryStore } from '../error-boundary-store/store';
 
 export const maxProgressValue = 100;
 
@@ -123,10 +124,13 @@ export const AppCondition = AppDomain.store<AppConditionType>(initState)
     ...state,
     dataReceived: payload,
   }))
-  .on(fetchUserData.done, state => ({
-    ...state,
-    isAuthorized: true,
-  }));
+  .on(fetchUserData.doneData, state => {
+    const { errorFlag } = ErrorBoundaryStore.getState();
+    return {
+      ...state,
+      isAuthorized: !errorFlag,
+    };
+  });
 
 AppCondition.watch(appConditionLocalStorage);
 
