@@ -27,7 +27,7 @@ const leftBackgroundAnim = keyframes`
 to {background-position: left 446px top 0px;}
 `;
 
-const moveImgTwo = keyframes`
+const moveLayerAnim = keyframes`
 
 0% {
   opacity: .6;
@@ -95,7 +95,7 @@ export const waveConfig: IWaveImg[] = [
     background: wave1,
     backgroundSize: '100% 100%',
     animationDuration: '3s',
-    animation: moveImgTwo,
+    animation: moveLayerAnim,
   },
   {
     width: '45px',
@@ -107,7 +107,7 @@ export const waveConfig: IWaveImg[] = [
     backgroundSize: '100% 100%',
     animationDuration: '3s',
     animationDelay: '1.5s',
-    animation: moveImgTwo,
+    animation: moveLayerAnim,
   },
 
   {

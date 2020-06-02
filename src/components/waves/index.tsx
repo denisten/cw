@@ -12,7 +12,7 @@ const WaveImg = styled.div<IWaveImg>`
   position: absolute;
   top: ${props => props.top};
   left: ${props => props.left};
-  z-index: 500;
+  z-index: ${ZIndexes.DECORATION};
   transform: ${props => props.transform};
   animation: ${props => props.animation} infinite linear;
   animation-duration: ${props => props.animationDuration || '4s'};
