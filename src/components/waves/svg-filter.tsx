@@ -7,7 +7,7 @@ export const svgFilter = (
         id="sea-filter"
         numOctaves="3"
         seed="2"
-        baseFrequency="0.02 0.05"
+        baseFrequency="0.02"
       ></feTurbulence>
       <feDisplacementMap scale="20" in="SourceGraphic"></feDisplacementMap>
       <animate
@@ -15,7 +15,7 @@ export const svgFilter = (
         attributeName="baseFrequency"
         dur="6s"
         keyTimes="0;0.5;1"
-        values="0.02 0.05; 0.04 0.07; 0.06 0.09"
+        values="0.02; 0.04;0.06"
         repeatCount="indefinite"
       />
     </filter>
