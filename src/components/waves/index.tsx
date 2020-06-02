@@ -12,14 +12,11 @@ const WaveImg = styled.div<IWaveImg>`
   position: absolute;
   top: ${props => props.top};
   left: ${props => props.left};
-  z-index: ${ZIndexes.DECORATION};
-  transform: ${props => props.transform};
-  animation: ${props => props.animation} infinite linear;
-  animation-duration: ${props => props.animationDuration || '4s'};
-  animation-delay: ${props => props.animationDelay};
-  animation-direction: ${props => props.animationDirection};
+  z-index: 333;
   background: url(${props => props.background});
   background-size: ${props => props.backgroundSize || '100% 100%'};
+  filter: url('#turbulence');
+  transform: ${props => props.transform};
   background-repeat: ${props => props.backgroundRepeat || 'no-repeat'};
   border-radius: ${props => props.borderRadius || '0px'};
 `;
@@ -43,6 +40,27 @@ export const Waves: React.FC = React.memo(() => {
       {waveConfig.map((waveParams, ind) => (
         <WaveImg key={ind} {...waveParams} />
       ))}
+      <svg>
+        <filter id="turbulence" x="0" y="0" width="100%" height="100%">
+          <feTurbulence
+            id="sea-filter"
+            numOctaves="3"
+            seed="2"
+            baseFrequency="0.02 0.05"
+          ></feTurbulence>
+          <feDisplacementMap scale="20" in="SourceGraphic"></feDisplacementMap>
+          <animate
+            xlinkHref="#sea-filter"
+            attributeName="baseFrequency"
+            dur="6s"
+            keyTimes="0;0.5;1"
+            // values="0.02 0.06;0.03 0.07;0.04 0.08"
+            from="0.02"
+            by="0.05"
+            repeatCount="indefinite"
+          />
+        </filter>
+      </svg>
     </>
   );
 });
@@ -53,10 +71,6 @@ export interface IWaveImg {
   top: string;
   left: string;
   transform?: string;
-  animation?: Keyframes;
-  animationDelay?: string;
-  animationDuration?: string;
-  animationDirection?: string;
   background?: string;
   backgroundRepeat?: string;
   borderRadius?: string;
