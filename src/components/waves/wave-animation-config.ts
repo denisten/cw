@@ -1,7 +1,6 @@
 import { IWaveImg } from '.';
 import wave1 from './wave1.png';
 import wave2 from './wave2.png';
-import wave3 from './wave3.png';
 import { keyframes } from 'styled-components';
 
 const moveBackground = keyframes`
@@ -69,20 +68,6 @@ export const waveConfig: IWaveImg[] = [
     background: wave1,
     backgroundSize: 'contain',
   },
-  // {
-  //   width: '143px',
-  //   height: '132px',
-  //   top: '39.6%',
-  //   left: '56.5%',
-  //   background: wave2,
-  // },
-  // {
-  //   width: '246px',
-  //   height: '122px',
-  //   top: '37.3%',
-  //   left: '56.2%',
-  //   background: wave3,
-  // },
   {
     width: '127px',
     height: '112px',

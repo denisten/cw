@@ -4,7 +4,7 @@ import { waveConfig } from './wave-animation-config';
 import animRiverSprite from './anim_river.png';
 import { Sprite } from '../sprite';
 import { ZIndexes } from '../root-component/z-indexes-enum';
-import { spritesConfig, mainSpriteSettings } from './sprites-config';
+import { spriteWrapperConfig, mainSpriteSettings } from './sprites-config';
 
 const WaveImg = styled.div<IWaveImg>`
   width: ${props => props.width};
@@ -24,17 +24,22 @@ const WaveImg = styled.div<IWaveImg>`
   border-radius: ${props => props.borderRadius || '0px'};
 `;
 
+const SpriteWrapper = styled.div<{ animation: Keyframes }>`
+  animation: ${props => props.animation} 3s infinite linear alternate;
+  position: absolute;
+  z-index: 500;
+`;
+
 export const Waves: React.FC = React.memo(() => {
   return (
     <>
-      {spritesConfig.map((flareConfig, ind) => (
-        <Sprite
-          key={ind}
-          {...mainSpriteSettings}
-          img={animRiverSprite}
-          {...flareConfig}
-        />
-      ))}
+      {spriteWrapperConfig.map((flareConfig, ind) => {
+        return (
+          <SpriteWrapper key={ind} {...flareConfig}>
+            <Sprite key={ind} {...mainSpriteSettings} img={animRiverSprite} />
+          </SpriteWrapper>
+        );
+      })}
       {waveConfig.map((waveParams, ind) => (
         <WaveImg key={ind} {...waveParams} />
       ))}
