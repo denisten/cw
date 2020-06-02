@@ -207,7 +207,6 @@ const handleClick = (id: number) => {
     case TaskStatuses.REWARDED:
     case TaskStatuses.REJECTED:
     case TaskStatuses.EXPIRED:
-
     // do smth
   }
 };
@@ -226,6 +225,11 @@ export const Task: React.FC<ITasksRow> = ({
   expireInSeconds,
 }) => {
   const [isOpened, setIsOpened] = useState(false);
+  const handleWrapperClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    handleClick(id);
+  };
+
   return (
     <TaskWrapper
       isOpened={isOpened}
@@ -237,22 +241,14 @@ export const Task: React.FC<ITasksRow> = ({
         <Title isInTowerInfo={isInTowerInfo}>{taskTitle}</Title>
         <TaskLoot money={money} energy={energy} isInTowerInfo={isInTowerInfo} />
         {status === TaskStatuses.ACTIVE ? (
-          <TimerWrapper
-            onClick={e => {
-              e.stopPropagation();
-              handleClick(id);
-            }}
-          >
+          <TimerWrapper onClick={handleWrapperClick}>
             {expireInSeconds}
           </TimerWrapper>
         ) : (
           <TaskButton
             expireInSeconds={expireInSeconds}
             className={status}
-            onClick={e => {
-              e.stopPropagation();
-              handleClick(id);
-            }}
+            onClick={handleWrapperClick}
           />
         )}
       </TaskInfo>
