@@ -3,7 +3,7 @@ import dragscroll from 'dragscroll';
 import styled from 'styled-components';
 import { useStore } from 'effector-react';
 import { AppCondition } from '../../effector/app-condition/store';
-import { useCheckDisableTutorial } from '../../hooks/useCheckDisableTutorial';
+import { useCheckDisableTutorial } from '../../hooks/use-check-disable-tutorial';
 import { TowersTypes } from '../../effector/towers-progress/store';
 import { scrollToCurrentTower } from '../../utils/scroll-to-current-tower';
 import { zoomInOut } from '../../utils/zoomInOut';

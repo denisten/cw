@@ -1,7 +1,7 @@
 import { getCookie } from '../../utils/get-cookie';
 import { editIsAuthorizedFlag } from '../../effector/app-condition/events';
 
-export const authCookieKey = 'id_token';
+export const authCookieKey = 'XSRF-TOKEN';
 
 class CookieService {
   private _idToken = '';

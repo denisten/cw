@@ -15,6 +15,8 @@ import {
   stringTrue,
 } from './utils/handle-scroll';
 import { useFetchDataAfterAuth } from './hooks/use-fetch-data-after-auth';
+import { useCheckUserAuthStatus } from './hooks/use-check-user-auth-status';
+import { UserDataStore } from './effector/user-data/store';
 
 export enum Routes {
   MAIN = '/',
@@ -30,6 +32,7 @@ enum EventCodes {
 
 export const App: React.FC = () => {
   const { isAuthorized, authCancelledStatus } = useStore(AppCondition);
+  const { id } = useStore(UserDataStore);
 
   const wheelPreventDefault = (e: WheelEvent) => {
     if (e.ctrlKey) {
@@ -59,13 +62,15 @@ export const App: React.FC = () => {
     )
   );
 
-  useFetchDataAfterAuth(isAuthorized);
+  useFetchDataAfterAuth(isAuthorized, id);
 
   useEffect(() => {
     if (authCancelledStatus) {
       errorStringsParsingHOF(authCancelledStatus);
     }
   }, [authCancelledStatus]);
+
+  useCheckUserAuthStatus();
 
   useEffect(() => {
     window.addEventListener('wheel', wheelPreventDefault, { passive: false });
