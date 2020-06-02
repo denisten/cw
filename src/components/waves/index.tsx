@@ -12,7 +12,7 @@ const WaveImg = styled.div<IWaveImg>`
   position: absolute;
   top: ${props => props.top};
   left: ${props => props.left};
-  z-index: ${ZIndexes.DECORATION};
+  z-index: 500;
   transform: ${props => props.transform};
   animation: ${props => props.animation} infinite linear;
   animation-duration: ${props => props.animationDuration || '4s'};
@@ -27,7 +27,7 @@ const WaveImg = styled.div<IWaveImg>`
 const SpriteWrapper = styled.div<{ animation: Keyframes }>`
   animation: ${props => props.animation} 3s infinite linear alternate;
   position: absolute;
-  z-index: 500;
+  z-index: ${ZIndexes.DECORATION};
 `;
 
 export const Waves: React.FC = React.memo(() => {
