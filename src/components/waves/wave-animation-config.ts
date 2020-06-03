@@ -4,6 +4,17 @@ import wave2 from './wave2.png';
 
 export const waveConfig: IWaveImg[] = [
   {
+    width: '50px',
+    height: '50px',
+    top: '42.75%',
+    left: '42.5%',
+    backgroundRepeat: 'repeat',
+    background: wave1,
+    backgroundSize: '110px',
+    borderRadius: '0% 100% 70% 12% / 46% 43% 61% 14%',
+    transform: 'rotate(305deg)',
+  },
+  {
     width: '146px',
     height: '233px',
     top: '8.1%',
@@ -34,16 +45,16 @@ export const waveConfig: IWaveImg[] = [
     borderRadius: '95% 96% 37% 45% / 100% 100% 69% 65%',
     transform: 'rotate(-28deg)',
   },
-  {
-    width: '357px',
-    height: '46px',
-    top: '46.4%',
-    left: '45.5%',
-    backgroundRepeat: 'repeat',
-    background: wave2,
-    backgroundSize: '100% 100%',
-    transform: 'rotate(4deg)',
-  },
+  // {
+  //   width: '357px',
+  //   height: '46px',
+  //   top: '46.4%',
+  //   left: '45.5%',
+  //   backgroundRepeat: 'repeat',
+  //   background: wave2,
+  //   backgroundSize: '100% 100%',
+  //   transform: 'rotate(4deg)',
+  // },
 
   {
     width: '50px',
