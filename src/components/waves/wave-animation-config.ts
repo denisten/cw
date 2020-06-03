@@ -6,12 +6,12 @@ export const waveConfig: IWaveImg[] = [
   {
     width: '146px',
     height: '233px',
-    top: '8%',
-    left: '78.5%',
+    top: '8.1%',
+    left: '78.6%',
     borderRadius: '0% 100% 70% 12% / 46% 43% 61% 14%',
-    backgroundRepeat: 'repeat-y',
+    backgroundRepeat: 'repeat',
     background: wave1,
-    backgroundSize: 'contain',
+    backgroundSize: '100% 100%',
   },
   {
     width: '140px',
