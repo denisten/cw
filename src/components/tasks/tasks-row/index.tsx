@@ -12,7 +12,8 @@ import {
 } from '../../../effector/missions-store/store';
 import {
   activateTask,
-  finishTask,
+  fetchTasks,
+  takeReward,
   verifyTask,
 } from '../../../effector/missions-store/events';
 
@@ -80,7 +81,9 @@ const Title = styled(StyledSpan)<ITaskLocation>`
       : TitleMarginRight.notInTowerInfo}px;
 `;
 
-const TaskButton = styled.div`
+const TaskButton = styled.div<{
+  expireInSeconds: number | null;
+}>`
   width: 109px;
   height: 24px;
   display: flex;
@@ -111,10 +114,12 @@ const TaskButton = styled.div`
         #02acc8 98%
       ),
       linear-gradient(to bottom, #03adc9 1%, #02c5e5 100%);
+      ::after {
     content: 'Выполнить';
+    }
   }
   &.${TaskStatuses.ACTIVE || TaskStatuses.REJECTED}::after {
-    content: 'Проверить';
+    content: "${props => props.expireInSeconds}";
   }
   &.${TaskStatuses.VERIFICATION}::after {
     content: 'Проверяем...';
@@ -171,6 +176,16 @@ const TaskDescriptionWrapper = styled.div`
   justify-content: space-between;
 `;
 
+const TimerWrapper = styled.div`
+  width: 110px;
+  height: 16px;
+  box-shadow: inset 0 0 2px 0 rgba(32, 189, 218, 0.18);
+  background-color: #d6f0f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const styledConfig = {
   coupon: {
     marginRight: '12px',
@@ -186,11 +201,12 @@ const handleClick = (id: number) => {
     case TaskStatuses.ACTIVE:
       return verifyTask(id);
     case TaskStatuses.DONE:
-      return finishTask(id);
-    case TaskStatuses.REJECTED:
-    case TaskStatuses.REWARDED:
-    case TaskStatuses.EXPIRED:
+      return takeReward(id);
     case TaskStatuses.VERIFICATION:
+      return fetchTasks('');
+    case TaskStatuses.REWARDED:
+    case TaskStatuses.REJECTED:
+    case TaskStatuses.EXPIRED:
     // do smth
   }
 };
@@ -206,8 +222,14 @@ export const Task: React.FC<ITasksRow> = ({
   isAllowedToChange,
   isInTowerInfo,
   id,
+  expireInSeconds,
 }) => {
   const [isOpened, setIsOpened] = useState(false);
+  const handleWrapperClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    handleClick(id);
+  };
+
   return (
     <TaskWrapper
       isOpened={isOpened}
@@ -218,13 +240,17 @@ export const Task: React.FC<ITasksRow> = ({
         <Icon type={type} />
         <Title isInTowerInfo={isInTowerInfo}>{taskTitle}</Title>
         <TaskLoot money={money} energy={energy} isInTowerInfo={isInTowerInfo} />
-        <TaskButton
-          className={status}
-          onClick={e => {
-            e.stopPropagation();
-            handleClick(id);
-          }}
-        />
+        {status === TaskStatuses.ACTIVE ? (
+          <TimerWrapper onClick={handleWrapperClick}>
+            {expireInSeconds}
+          </TimerWrapper>
+        ) : (
+          <TaskButton
+            expireInSeconds={expireInSeconds}
+            className={status}
+            onClick={handleWrapperClick}
+          />
+        )}
       </TaskInfo>
       <Border />
       <TaskDescriptionWrapper>
@@ -245,6 +271,7 @@ interface ITasksRow {
   taskTitle: string;
   status: TaskStatuses;
   money: number;
+  expireInSeconds: number | null;
   energy: number;
   description: string;
   isAllowedToChange: boolean;

@@ -1,5 +1,11 @@
 import { MissionsDomain } from './domain';
-import { activateTask, fetchTasks, finishTask, verifyTask } from './events';
+import {
+  activateTask,
+  decreaseTimer,
+  fetchTasks,
+  takeReward,
+  verifyTask,
+} from './events';
 import { handleTaskStatusChange } from '../../utils/task-status-change';
 import { editUserProperty } from '../user-data/events';
 
@@ -30,20 +36,35 @@ export const MissionsStore = MissionsDomain.store(initStore)
   .on(verifyTask, (state, payload) =>
     handleTaskStatusChange(state, payload, TaskStatuses.VERIFICATION)
   )
-  .on(finishTask, (state, payload) => {
+  .on(takeReward.done, (state, { result }) => {
     const newState = [...state];
-    const currentEl = newState.findIndex(el => el.id === payload);
+    const currentEl = newState.findIndex(el => el.id === result);
     const deletedTask = newState.splice(currentEl, 1);
     editUserProperty({
       money: deletedTask[0].task.reward,
       energy: deletedTask[0].task.energy,
     });
     return newState;
+  })
+  .on(decreaseTimer, state => {
+    const newState = [...state];
+    state.forEach((el, id) => {
+      if (el.expireInSeconds && el.expireInSeconds - 1 === 0)
+        newState.splice(id, 1);
+    });
+    return newState.map(el => {
+      return {
+        ...el,
+        expireInSeconds: el.expireInSeconds ? el.expireInSeconds - 1 : null,
+      };
+    });
   });
 
 export interface ITask {
   status: TaskStatuses;
   id: number;
+  expireAt: string;
+  expireInSeconds: number | null;
   task: {
     id: number;
     parentId: number;
