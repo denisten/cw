@@ -8,18 +8,20 @@ import { ZIndexes } from '../../components/root-component/z-indexes-enum';
 const StyledConfig = {
   firstBridge: {
     position: 'absolute',
-    left: '38.5%',
-    top: ' 48.5%',
+    left: '38.2%',
+    top: ' 48.25%',
+    zIndex: ZIndexes.DECORATION,
   } as React.CSSProperties,
   secondBridge: {
     position: 'absolute',
     left: '54%',
     top: '29.15%',
+    zIndex: ZIndexes.DECORATION,
   } as React.CSSProperties,
   thirdBridge: {
     position: 'absolute',
-    left: '53.6%',
-    top: '40.5%',
+    left: '53%',
+    top: '40.2%',
     zIndex: ZIndexes.DECORATION,
   } as React.CSSProperties,
 };

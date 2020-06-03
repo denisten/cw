@@ -13,7 +13,7 @@ export const svgFilter = (
       <animate
         xlinkHref="#sea-filter"
         attributeName="baseFrequency"
-        dur="6s"
+        dur="8s"
         keyTimes="0;0.5;1"
         values="0.02; 0.04;0.06"
         repeatCount="indefinite"
