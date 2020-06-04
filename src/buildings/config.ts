@@ -210,6 +210,25 @@ import smartmedLevel3Stroke from './smartmed/3-stroke.png';
 import { ZIndexes } from '../components/root-component/z-indexes-enum';
 import { RefObject } from 'react';
 
+const animSize = {
+  smallTower: {
+    x: 415,
+    y: 867,
+  },
+  mediumTower: {
+    x: 505,
+    y: 1053,
+  },
+  bigTower: {
+    x: 633,
+    y: 908,
+  },
+  largeTower: {
+    x: 688,
+    y: 988,
+  },
+};
+
 class BuildingsService {
   _config: BuildingServiceConfigTypes = {
     // TODO заглушка
@@ -218,6 +237,7 @@ class BuildingsService {
       info: 'info',
       title: 'SmartMed',
       wideTower: false,
+      animSize: animSize.smallTower,
       zIndex: ZIndexes.BUILDING_THREE_LEVEL,
       maxLevel: TowerLevel.high,
       width: 313,
@@ -248,6 +268,7 @@ class BuildingsService {
       info: 'info',
       title: 'SmartMed',
       wideTower: false,
+      animSize: animSize.smallTower,
       zIndex: ZIndexes.BUILDING_THREE_LEVEL,
       maxLevel: TowerLevel.high,
       width: 313,
@@ -276,6 +297,7 @@ class BuildingsService {
       info: 'info',
       title: 'SmartMed',
       wideTower: false,
+      animSize: animSize.smallTower,
       zIndex: ZIndexes.BUILDING_THREE_LEVEL,
       maxLevel: TowerLevel.high,
       width: 313,
@@ -304,6 +326,7 @@ class BuildingsService {
       info: 'info',
       title: 'Smart University',
       wideTower: true,
+      animSize: animSize.largeTower,
       zIndex: ZIndexes.BUILDING_THREE_LEVEL,
       maxLevel: TowerLevel.high,
       width: 659,
@@ -332,6 +355,7 @@ class BuildingsService {
       info: 'info',
       title: 'Сотовая связь',
       wideTower: false,
+      animSize: animSize.smallTower,
       zIndex: ZIndexes.BUILDING_THREE_LEVEL,
       maxLevel: TowerLevel.high,
       tutorialTower: true,
@@ -361,6 +385,7 @@ class BuildingsService {
       info: 'info',
       title: 'МТС Music',
       wideTower: false,
+      animSize: animSize.mediumTower,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
       width: 398,
@@ -389,6 +414,7 @@ class BuildingsService {
       info: 'info',
       title: 'МТС Live Arena',
       wideTower: true,
+      animSize: animSize.largeTower,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
       width: 658,
@@ -417,6 +443,7 @@ class BuildingsService {
       info: 'info',
       title: 'МТС Cashback',
       wideTower: true,
+      animSize: animSize.largeTower,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
       width: 675,
@@ -448,6 +475,7 @@ class BuildingsService {
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
       width: 370,
+      animSize: animSize.smallTower,
       height: 458,
       areaCoords: '45,77,316,444',
       position: [29.1, 45.9],
@@ -473,6 +501,7 @@ class BuildingsService {
       info: 'info',
       title: 'МТС Библиотека',
       wideTower: false,
+      animSize: animSize.mediumTower,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
       width: 451,
@@ -501,6 +530,7 @@ class BuildingsService {
       info: 'info',
       title: 'Здание партнера 4',
       wideTower: false,
+      animSize: animSize.smallTower,
       zIndex: ZIndexes.BUILDING_THREE_LEVEL,
       maxLevel: TowerLevel.high,
       width: 326,
@@ -529,6 +559,7 @@ class BuildingsService {
       info: 'info',
       title: 'Мобильный интернет',
       wideTower: false,
+      animSize: animSize.smallTower,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
       width: 288,
@@ -557,6 +588,7 @@ class BuildingsService {
       info: 'info',
       title: 'МТС Афиша',
       wideTower: true,
+      animSize: animSize.bigTower,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
       width: 521,
@@ -585,6 +617,7 @@ class BuildingsService {
       info: 'info',
       title: 'Цифровое ТВ',
       wideTower: false,
+      animSize: animSize.mediumTower,
       zIndex: ZIndexes.BUILDING_THREE_LEVEL,
       maxLevel: TowerLevel.high,
       width: 428,
@@ -613,6 +646,7 @@ class BuildingsService {
       info: 'info',
       title: 'МТС Фитнес',
       wideTower: true,
+      animSize: animSize.bigTower,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
       width: 593,
@@ -641,6 +675,7 @@ class BuildingsService {
       info: 'info',
       title: 'Роуминг',
       wideTower: true,
+      animSize: animSize.mediumTower,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
       width: 381,
@@ -669,6 +704,7 @@ class BuildingsService {
       info: 'info',
       title: 'МТС Банк',
       wideTower: true,
+      animSize: animSize.mediumTower,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
       width: 446,
@@ -697,6 +733,7 @@ class BuildingsService {
       info: 'info',
       title: 'WASD.tv',
       wideTower: true,
+      animSize: animSize.mediumTower,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
       width: 479,
@@ -726,6 +763,7 @@ class BuildingsService {
       info: 'info',
       title: 'МТС Авто',
       wideTower: true,
+      animSize: animSize.largeTower,
       zIndex: ZIndexes.BUILDING_FOUR_LEVEL,
       maxLevel: TowerLevel.high,
       width: 649,
@@ -755,6 +793,7 @@ class BuildingsService {
       info: 'info',
       title: 'Спутниковое ТВ',
       wideTower: false,
+      animSize: animSize.mediumTower,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
       width: 393,
@@ -783,6 +822,7 @@ class BuildingsService {
       info: 'info',
       title: 'Здание партнера 1',
       wideTower: false,
+      animSize: animSize.smallTower,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
       width: 304,
@@ -812,6 +852,7 @@ class BuildingsService {
       info: 'info',
       title: 'Здание партнера 2',
       wideTower: true,
+      animSize: animSize.mediumTower,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
       width: 463,
@@ -840,6 +881,7 @@ class BuildingsService {
       info: 'info',
       title: 'МТС Игротека',
       wideTower: false,
+      animSize: animSize.mediumTower,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
       width: 433,
@@ -868,6 +910,7 @@ class BuildingsService {
       info: 'info',
       title: 'Домашний интернет',
       wideTower: false,
+      animSize: animSize.mediumTower,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
       width: 494,
@@ -896,6 +939,7 @@ class BuildingsService {
       info: 'info',
       title: 'Салон-магазин МТС',
       wideTower: false,
+      animSize: animSize.smallTower,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
       width: 386,
@@ -926,6 +970,7 @@ class BuildingsService {
       info: 'info',
       title: 'Партнерское здание 3',
       wideTower: false,
+      animSize: animSize.smallTower,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
       width: 313,
@@ -954,6 +999,7 @@ class BuildingsService {
       info: 'info',
       title: 'Колонка Марвин',
       wideTower: false,
+      animSize: animSize.smallTower,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
       width: 227,
@@ -982,6 +1028,7 @@ class BuildingsService {
       info: 'info',
       title: 'Вторая память',
       wideTower: false,
+      animSize: animSize.smallTower,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
       width: 304,
@@ -1029,6 +1076,7 @@ type CurrentTowerServiceConfigTypes = {
   title: string;
   zIndex: number;
   wideTower: boolean;
+  animSize: IAnimSize;
   maxLevel: TowerLevel;
   hide?: boolean;
   tutorialTower?: boolean;
@@ -1042,6 +1090,11 @@ type CurrentTowerServiceConfigTypes = {
   [TowerLevel.mid]: TowerLevelType;
   [TowerLevel.high]: TowerLevelType;
 };
+
+export interface IAnimSize {
+  x: number;
+  y: number;
+}
 
 type TowerLevelType = {
   img: string;
