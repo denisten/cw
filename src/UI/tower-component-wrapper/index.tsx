@@ -14,7 +14,7 @@ import { ZIndexes } from '../../components/root-component/z-indexes-enum';
 import { scrollToCurrentTower } from '../../utils/scroll-to-current-tower';
 import { Markers } from '../../components/markers';
 import { IMarker } from '../../effector/towers-marker/store';
-import { BuildingsService } from '../../buildings/config';
+import { BuildingsService, IAnimSize } from '../../buildings/config';
 
 const TowerStyledWrapper = styled.div<ITowerStyledWrapper>`
   display: flex;
@@ -22,10 +22,8 @@ const TowerStyledWrapper = styled.div<ITowerStyledWrapper>`
   top: ${props => props.posX}%;
   left: ${props => props.posY}%;
   z-index: ${props => props.zIndex};
-  vertical-align: top;
   width: ${props => props.width}px;
   height: ${props => props.height}px;
-  align-items: flex-end;
   scroll-margin-right: ${props =>
     props.scrollShift && props.DOMLoaded ? props.scrollShift : 0}px;
 `;
@@ -38,7 +36,10 @@ const StyledConfig = {
     infinity: true,
     style: {
       zIndex: ZIndexes.UPGRADE_TOWER_ANIMATION_CANVAS,
-      position: 'absolute',
+      position: 'relative',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
     } as React.CSSProperties,
   },
 };
@@ -66,6 +67,7 @@ export const TowerWrapper = memo(
     markers = [],
     towerInfoShift,
     DOMLoaded,
+    animSize,
   }: ITowerWrapper): React.ReactElement => {
     const [posX, posY] = position;
     let mouseDownFlag = false,
@@ -148,8 +150,8 @@ export const TowerWrapper = memo(
 
         {upgradeFlag ? (
           <Sprite
-            canvasHeight={height}
-            canvasWidth={width}
+            canvasHeight={animSize.y}
+            canvasWidth={animSize.x}
             img={wideTower ? upgradeWideTowerImg : upgradeThinTowerImg}
             {...StyledConfig.sprite}
           />
@@ -183,6 +185,7 @@ export const TowerWrapper = memo(
 );
 
 interface ITowerWrapper {
+  animSize: IAnimSize;
   position: number[];
   tutorialCondition: TutorialConditions;
   maxLevel: TowerLevel;

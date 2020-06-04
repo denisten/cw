@@ -34,6 +34,7 @@ export const Buildings: React.FC = () => {
           if (towerParams) {
             return (
               <TowerWrapper
+                animSize={towerLayoutData.animSize}
                 DOMLoaded={DOMLoaded}
                 towerInfoShift={towerInfoShift}
                 key={towerTitle}
