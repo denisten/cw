@@ -5,6 +5,7 @@ export const errorCodes: IErrorCode = {
   0: 'Нет соединения с интернетом',
   504: 'Нет ответа от сервера',
   401: 'Пользователь не авторизован',
+  419: 'Доступно после авторизации',
 };
 
 export const errorStrings: IErrorStrings = {
