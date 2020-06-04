@@ -7,13 +7,10 @@ import { MTSSans } from '../../fonts';
 import { Input } from '../input';
 import { Button, ButtonClassNames } from '../button';
 import { editCurrentUserDataField } from '../../effector/user-data/events';
+import { UserDataStoreKeys } from '../../effector/user-data/store';
 import {
-  UserDataStore,
-  UserDataStoreKeys,
-} from '../../effector/user-data/store';
-import {
-  maxNameLength,
   minNameLength,
+  maxUserNameLength,
 } from '../../components/profile/authorized';
 import { useStore } from 'effector-react';
 import {
@@ -85,6 +82,8 @@ export const PopUp: React.FC<IPopUp> = ({
   popUpStyles,
   title,
   initValue,
+  popUpType = 'editWorldName',
+  maxInputValueLenght = maxUserNameLength,
 }) => {
   const { tutorialCondition } = useStore(TutorialStore);
   const [value, setValue] = useState(initValue);
@@ -97,8 +96,8 @@ export const PopUp: React.FC<IPopUp> = ({
     if (value.length < minNameLength) {
       worldInputHint = minSymbolsAlert + minNameLength;
       setInputHasError(true);
-    } else if (value.length > maxNameLength) {
-      worldInputHint = maxSymbolsAlert + maxNameLength;
+    } else if (value.length > maxInputValueLenght) {
+      worldInputHint = maxSymbolsAlert + maxInputValueLenght;
       setInputHasError(true);
     } else if (contains(value, ' ')) {
       worldInputHint = spaceSymbolsAlert;
@@ -108,8 +107,10 @@ export const PopUp: React.FC<IPopUp> = ({
     }
   };
   const saveData = () => {
-    editCurrentUserDataField({ key: UserDataStoreKeys.WORLD_NAME, value });
-    saveUserData({ worldName: value });
+    if (popUpType === 'editWorldName') {
+      editCurrentUserDataField({ key: UserDataStoreKeys.WORLD_NAME, value });
+      saveUserData({ worldName: value });
+    }
 
     callback();
   };
@@ -118,7 +119,7 @@ export const PopUp: React.FC<IPopUp> = ({
     if (e) e.preventDefault();
     if (
       value.length >= minNameLength &&
-      value.length <= maxNameLength &&
+      value.length <= maxInputValueLenght &&
       valuesArr.length === 1
     ) {
       saveData();
@@ -196,6 +197,8 @@ interface IPopUp {
   popUpStyles: IPopUpStyles;
   title: string;
   initValue: string;
+  popUpType?: 'editWorldName' | 'editAssistentName';
+  maxInputValueLenght?: number;
 }
 
 interface IPopUpStyles {

@@ -22,6 +22,7 @@ import { updateUserData } from '../../../utils/update-user-data';
 import { resetTowerProgress } from '../../../effector/towers-progress/events';
 import { birthdayParser } from '../../../utils/birthday-parser';
 import { setDataReceived } from '../../../effector/app-condition/events';
+import { Assistent } from '../../../UI/assistent';
 
 const ExitText = styled(StyledSpan)<ISpan>`
   font-family: ${MTSSans.REGULAR};
@@ -148,10 +149,14 @@ const styledConfig = {
     padding: '76px 79px 0 79px',
     flexDirection: 'column',
   },
+  assistentStyle: {
+    top: '0px',
+    left: '400px',
+  },
 };
 
 export const minNameLength = 3,
-  maxNameLength = 25;
+  maxUserNameLength = 25;
 
 let nameInputHint = '';
 
@@ -179,8 +184,8 @@ export const AuthorizedProfile = () => {
     if (value.length < minNameLength) {
       nameInputHint = minSymbolsAlert + minNameLength;
       setNameInputHasError(true);
-    } else if (value.length > maxNameLength) {
-      nameInputHint = maxSymbolsAlert + maxNameLength;
+    } else if (value.length > maxUserNameLength) {
+      nameInputHint = maxSymbolsAlert + maxUserNameLength;
       setNameInputHasError(true);
     } else {
       setNameInputHasError(false);
@@ -191,7 +196,7 @@ export const AuthorizedProfile = () => {
     if (e) e.preventDefault();
     if (
       localName.length >= minNameLength &&
-      localName.length <= maxNameLength
+      localName.length <= maxUserNameLength
     ) {
       updateUserData({ birthday: birthdayDate, name: localName });
     } else {
@@ -237,6 +242,7 @@ export const AuthorizedProfile = () => {
         />
       </RowWrapper>
       <ColumnWrapper {...styledConfig.inputWrapper}>
+        <Assistent assistentStyle={styledConfig.assistentStyle} />
         <RowWrapper {...styledConfig.nameRowWrapper}>
           <InputTitle content="Имя" />
           <Input

@@ -31,7 +31,8 @@ export const Profile = React.memo(() => {
   }, [isAuthorized]);
   return (
     <ProfileWrapper>
-      {isAuthorized ? <AuthorizedProfile /> : <NotAuthorizedProfile />}
+      {/* {isAuthorized ? <AuthorizedProfile /> : <NotAuthorizedProfile />} */}
+      <AuthorizedProfile />
     </ProfileWrapper>
   );
 });
