@@ -79,6 +79,12 @@ const styledConfig = {
   moneyWallet: {
     marginRight: '4px',
   },
+  popUpStyles: {
+    width: '487px',
+    height: '305px',
+    padding: '76px 79px 0 79px',
+    flexDirection: 'column',
+  },
 };
 
 export const NotAuthorizedProfile = () => {
@@ -104,6 +110,7 @@ export const NotAuthorizedProfile = () => {
       <PopUp
         callback={() => setPopUpDisplayFlag(false)}
         displayFlag={popUpDisplayFlag}
+        popUpStyles={styledConfig.popUpStyles}
       />
       <MoneyWalletWrapper>
         <MoneyWallet sum={String(money)} style={styledConfig.moneyWallet} />

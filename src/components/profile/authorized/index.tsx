@@ -141,6 +141,13 @@ const styledConfig = {
     margin: '0 0 32px 0',
     right: '53px',
   },
+
+  popUpStyles: {
+    width: '487px',
+    height: '305px',
+    padding: '76px 79px 0 79px',
+    flexDirection: 'column',
+  },
 };
 
 export const minNameLength = 3,
@@ -205,6 +212,7 @@ export const AuthorizedProfile = () => {
       <PopUp
         callback={() => setPopUpDisplayFlag(false)}
         displayFlag={popUpDisplayFlag}
+        popUpStyles={styledConfig.popUpStyles}
       />
       <RowWrapper>
         <img src={userAvatarIcon} alt="user" style={styledConfig.profileIcon} />

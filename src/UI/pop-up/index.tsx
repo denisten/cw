@@ -32,18 +32,18 @@ import { zIndexForInheritOverlay } from '../../constants';
 import { saveUserData } from '../../api/save-user-data';
 import { contains } from '../../utils/check-include';
 
-const PopUpWrapper = styled.div`
+const PopUpWrapper = styled.div<IPopUpStyles>`
   background-image: url(${popUpWrapperBackground});
   background-size: cover;
   position: absolute;
-  width: 487px;
-  height: 305px;
+  width: ${props => props.width};
+  height: ${props => props.height};
   box-shadow: 0 5px 12px 0 rgba(26, 29, 34, 0.2);
-  padding: 76px 79px 0 79px;
+  padding: ${props => props.padding};
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  flex-direction: column;
+  flex-direction: ${props => props.flexDirection};
 `;
 
 const Title = styled(StyledSpan)`
@@ -79,7 +79,11 @@ export const minSymbolsAlert = 'Минимальное число символо
 export const maxSymbolsAlert = 'Максимальное число символов ';
 export const spaceSymbolsAlert = 'Имена с пробелом недоступны ';
 
-export const PopUp: React.FC<IPopUp> = ({ callback, displayFlag }) => {
+export const PopUp: React.FC<IPopUp> = ({
+  callback,
+  displayFlag,
+  popUpStyles,
+}) => {
   const { worldName } = useStore(UserDataStore);
   const { tutorialCondition } = useStore(TutorialStore);
   const [value, setValue] = useState(worldName);
@@ -131,7 +135,7 @@ export const PopUp: React.FC<IPopUp> = ({ callback, displayFlag }) => {
     <Fragment>
       {displayFlag ? (
         <Overlay displayFlag={true} style={styleConfig.overlay}>
-          <PopUpWrapper>
+          <PopUpWrapper {...popUpStyles}>
             <ExitButton callBack={callback} {...styleConfig.exitButton} />
             <Title>Введите название города</Title>
             <TutorialOverlayTopLayer
@@ -187,4 +191,12 @@ export const PopUp: React.FC<IPopUp> = ({ callback, displayFlag }) => {
 interface IPopUp {
   callback: () => void;
   displayFlag: boolean;
+  popUpStyles: IPopUpStyles;
+}
+
+interface IPopUpStyles {
+  width: string;
+  height: string;
+  padding: string;
+  flexDirection: string;
 }
