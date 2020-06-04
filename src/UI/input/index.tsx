@@ -43,11 +43,11 @@ const InputWrapper = styled.input`
   }
 `;
 
-const HintWrapper = styled(StyledSpan)`
+const HintWrapper = styled(StyledSpan)<{ hasError: boolean }>`
   font-family: ${MTSSans.REGULAR};
   font-size: 12px;
   line-height: 1.33;
-  color: #ea1f49;
+  color: ${props => (props.hasError ? '#ea1f49' : '#9198A0')};
   margin-top: 4px;
   position: absolute;
 `;
@@ -60,6 +60,7 @@ export const Input: React.FC<IInput> = ({
   hasError = false,
   hint,
   formPadding,
+  describer,
 }) => {
   return (
     <div>
@@ -76,7 +77,9 @@ export const Input: React.FC<IInput> = ({
         />
       </Form>
 
-      <HintWrapper>{hasError && hint}</HintWrapper>
+      <HintWrapper hasError={hasError}>
+        {(hasError && hint) || (describer && describer)}
+      </HintWrapper>
     </div>
   );
 };
@@ -90,6 +93,7 @@ interface IInput {
   hasError?: boolean;
   hint?: string;
   formPadding?: number;
+  describer?: string;
 }
 
 interface IFormInput {

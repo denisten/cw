@@ -85,6 +85,11 @@ const styleConfig = {
     numberOfFramesX: 10,
     numberOfFramesY: 9,
     ticksPerFrame: 2,
+
+    style: {
+      width: '100%',
+      height: '100%',
+    } as React.CSSProperties,
   },
 };
 
@@ -188,6 +193,7 @@ export const PopUp: React.FC<IPopUp> = ({
                 hasError={inputHasError}
                 hint={worldInputHint}
                 style={styleConfig.input}
+                describer={'Максимальное число символов ' + maxInputValueLenght}
               />
             </TutorialOverlayTopLayer>
             <TutorialOverlayTopLayer
