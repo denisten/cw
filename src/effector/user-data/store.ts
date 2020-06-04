@@ -29,7 +29,7 @@ const initData = {
   id: 0,
   name: 'Неизвестно',
   worldName: 'Неизвестно',
-  assistantName: 'Имя помощника',
+  assistantName: 'Неизвестно',
   money: 0,
   energy: 0,
   coins: 0,

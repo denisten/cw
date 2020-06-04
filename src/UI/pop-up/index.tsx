@@ -28,6 +28,8 @@ import {
 import { zIndexForInheritOverlay } from '../../constants';
 import { saveUserData } from '../../api/save-user-data';
 import { contains } from '../../utils/check-include';
+import supportSprite from '../../img/assistant/assistant.png';
+import { Sprite } from '../../components/sprite';
 const statusOk = 200;
 const PopUpWrapper = styled.div<IPopUpStyles>`
   background-image: url(${popUpWrapperBackground});
@@ -53,6 +55,14 @@ const Title = styled(StyledSpan)`
   margin-bottom: 24px;
 `;
 
+const AssistantSprite = styled.div`
+  position: absolute;
+  width: 188px;
+  height: 264px;
+  left: 30px;
+  top: 27px;
+`;
+
 const styleConfig = {
   button: {
     position: 'relative',
@@ -68,6 +78,13 @@ const styleConfig = {
   input: {
     padding: '0 0 0 16px',
     background: 'white',
+  },
+  sprite: {
+    canvasWidth: 224,
+    canvasHeight: 304,
+    numberOfFramesX: 10,
+    numberOfFramesY: 9,
+    ticksPerFrame: 2,
   },
 };
 
@@ -192,6 +209,11 @@ export const PopUp: React.FC<IPopUp> = ({
                 }
               />
             </TutorialOverlayTopLayer>
+            {popUpType === 'editAssistantName' ? (
+              <AssistantSprite>
+                <Sprite img={supportSprite} {...styleConfig.sprite} />
+              </AssistantSprite>
+            ) : null}
           </PopUpWrapper>
           <TutorialOverlay
             displayFlag={

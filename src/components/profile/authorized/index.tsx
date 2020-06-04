@@ -148,10 +148,16 @@ const styledConfig = {
     right: '53px',
   },
 
-  popUpStyles: {
+  popUpEditUserNameStyles: {
     width: '487px',
     height: '305px',
     padding: '76px 79px 0 79px',
+    flexDirection: 'column',
+  },
+  popUpEditAssistantNameStyles: {
+    width: '615px',
+    height: '305px',
+    padding: '60px 30px 0 262px',
     flexDirection: 'column',
   },
   assistantStyle: {
@@ -224,7 +230,7 @@ export const AuthorizedProfile = () => {
     editWorldName: {
       callback: () => setSelectedPopUpType('disabled'),
       displayFlag: true,
-      popUpStyles: styledConfig.popUpStyles,
+      popUpStyles: styledConfig.popUpEditUserNameStyles,
       title: 'Введите название города',
       initValue: worldName,
     },
@@ -234,7 +240,7 @@ export const AuthorizedProfile = () => {
     editAssistantName: {
       callback: () => setSelectedPopUpType('disabled'),
       displayFlag: true,
-      popUpStyles: styledConfig.popUpStyles,
+      popUpStyles: styledConfig.popUpEditAssistantNameStyles,
       title: 'Назовите вашего робота',
       initValue: assistantName,
       maxInputValueLenght: 14,
