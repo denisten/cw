@@ -38,9 +38,10 @@ const Title = styled.div`
   color: #001424;
   font-family: ${MTSSans.BOLD};
   margin-right: 10px;
-  width: 170px;
+  max-width: 150px;
   text-overflow: ellipsis;
   white-space: nowrap;
+  overflow: hidden;
 `;
 
 export const Assistent: React.FC<IAssistent> = ({

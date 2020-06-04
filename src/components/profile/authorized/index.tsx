@@ -28,6 +28,7 @@ import { resetTowerProgress } from '../../../effector/towers-progress/events';
 import { birthdayParser } from '../../../utils/birthday-parser';
 import { setDataReceived } from '../../../effector/app-condition/events';
 import { Assistent } from '../../../UI/assistent';
+import camera from './camera.svg';
 
 const ExitText = styled(StyledSpan)<ISpan>`
   font-family: ${MTSSans.REGULAR};
@@ -109,6 +110,37 @@ const InputTitle = styled(StyledSpan)<ISpan>`
   }
 `;
 
+const UserAvatar = styled.label`
+  width: 60px;
+  height: 60px;
+  margin: 0 16px 0 4px;
+  background: url(${userAvatarIcon}) no-repeat;
+  background-size: cover;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  overflow: hidden;
+
+  input {
+    display: none;
+  }
+  &::before {
+    width: 100%;
+    height: 100%;
+    content: '';
+    display: block;
+    background: url(${camera}) no-repeat center, rgba(0, 0, 0, 0.5);
+    background-size: 18px 18px;
+    opacity: 0;
+    transition: 0.4s;
+  }
+  &:hover::before {
+    opacity: 1;
+  }
+`;
+
 const styledConfig = {
   profileIcon: {
     marginLeft: '4px',
@@ -162,7 +194,7 @@ const styledConfig = {
   },
   assistantStyle: {
     top: '0px',
-    left: '360px',
+    left: '380px',
   },
 };
 
@@ -252,7 +284,9 @@ export const AuthorizedProfile = () => {
     <ProfileWrapper>
       <PopUp {...popUpConfig[selectedPopUpType]} />
       <RowWrapper>
-        <img src={userAvatarIcon} alt="user" style={styledConfig.profileIcon} />
+        <UserAvatar>
+          <input type="file" accept="image/jpeg,image/png,image/svg"></input>
+        </UserAvatar>
         <ColumnWrapper {...styledConfig.profileDataColumnWrapper}>
           <NickNameWrapper content={name || 'sss'} />
           <ProgressBar />
