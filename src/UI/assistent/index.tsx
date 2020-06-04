@@ -46,6 +46,7 @@ const Title = styled.div`
 export const Assistent: React.FC<IAssistent> = ({
   assistantStyle,
   assistantName,
+  callBack,
 }) => {
   return (
     <AssistentWrapper {...assistantStyle}>
@@ -53,7 +54,12 @@ export const Assistent: React.FC<IAssistent> = ({
       <span>Робот помощник</span>
       <RowWrapper>
         <Title>{assistantName}</Title>
-        <img src={penImg} alt="pen" style={{ cursor: 'pointer' }} />
+        <img
+          src={penImg}
+          alt="pen"
+          style={{ cursor: 'pointer' }}
+          onClick={callBack}
+        />
       </RowWrapper>
     </AssistentWrapper>
   );
@@ -61,6 +67,7 @@ export const Assistent: React.FC<IAssistent> = ({
 interface IAssistent {
   assistantStyle: IAssistentStyle;
   assistantName: string;
+  callBack: () => void;
 }
 
 interface IAssistentStyle {

@@ -81,7 +81,7 @@ export const PopUp: React.FC<IPopUp> = ({
   displayFlag,
   popUpStyles,
   title,
-  initValue,
+  initValue = '',
   popUpType = 'editWorldName',
   maxInputValueLenght = maxUserNameLength,
 }) => {
@@ -112,7 +112,7 @@ export const PopUp: React.FC<IPopUp> = ({
       saveUserData({ worldName: value });
     }
 
-    callback();
+    callback && callback();
   };
 
   const handleSubmit = (e?: React.FormEvent) => {
@@ -191,19 +191,19 @@ export const PopUp: React.FC<IPopUp> = ({
   );
 };
 
-interface IPopUp {
-  callback: () => void;
+export interface IPopUp {
+  callback?: () => void;
   displayFlag: boolean;
-  popUpStyles: IPopUpStyles;
-  title: string;
-  initValue: string;
+  popUpStyles?: IPopUpStyles;
+  title?: string;
+  initValue?: string;
   popUpType?: 'editWorldName' | 'editAssistentName';
   maxInputValueLenght?: number;
 }
 
 interface IPopUpStyles {
-  width: string;
-  height: string;
-  padding: string;
-  flexDirection: string;
+  width?: string;
+  height?: string;
+  padding?: string;
+  flexDirection?: string;
 }

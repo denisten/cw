@@ -5,7 +5,12 @@ import { MTSSans } from '../../../fonts';
 import { Button, ButtonClassNames } from '../../../UI/button';
 import { IBirthday, UserDataStore } from '../../../effector/user-data/store';
 import penImg from '../not-authorized/pen.svg';
-import { maxSymbolsAlert, minSymbolsAlert, PopUp } from '../../../UI/pop-up';
+import {
+  maxSymbolsAlert,
+  minSymbolsAlert,
+  PopUp,
+  IPopUp,
+} from '../../../UI/pop-up';
 import { useStore } from 'effector-react';
 import { RowWrapper } from '../../../UI/row-wrapper';
 import { MoneyWallet } from '../../../UI/wallet/money';
@@ -161,7 +166,6 @@ export const minNameLength = 3,
 let nameInputHint = '';
 
 export const AuthorizedProfile = () => {
-  const [popUpDisplayFlag, setPopUpDisplayFlag] = useState(false);
   const {
     worldName,
     money,
@@ -174,6 +178,9 @@ export const AuthorizedProfile = () => {
   const [localName, setLocalName] = useState(name);
   const [birthdayDate, setBirthdayDate] = useState<IBirthday>(birthday);
   const [nameInputHasError, setNameInputHasError] = useState(false);
+  const [selectedPopUpType, setSelectedPopUpType] = useState<
+    'disabled' | 'editWorldName' | 'editAssistantName'
+  >('disabled');
 
   useEffect(() => {
     if (localName !== name) setLocalName(name);
@@ -213,15 +220,29 @@ export const AuthorizedProfile = () => {
     setDataReceived(false);
   };
 
+  const popUpConfig: { [key: string]: IPopUp } = {
+    editWorldName: {
+      callback: () => setSelectedPopUpType('disabled'),
+      displayFlag: true,
+      popUpStyles: styledConfig.popUpStyles,
+      title: 'Введите название города',
+      initValue: worldName,
+    },
+    disabled: {
+      displayFlag: false,
+    },
+    editAssistantName: {
+      callback: () => setSelectedPopUpType('disabled'),
+      displayFlag: true,
+      popUpStyles: styledConfig.popUpStyles,
+      title: 'Назовите вашего робота',
+      initValue: assistantName,
+    },
+  };
+
   return (
     <ProfileWrapper>
-      <PopUp
-        callback={() => setPopUpDisplayFlag(false)}
-        displayFlag={popUpDisplayFlag}
-        popUpStyles={styledConfig.popUpStyles}
-        title="Введите название города"
-        initValue={worldName}
-      />
+      <PopUp {...popUpConfig[selectedPopUpType]} />
       <RowWrapper>
         <img src={userAvatarIcon} alt="user" style={styledConfig.profileIcon} />
         <ColumnWrapper {...styledConfig.profileDataColumnWrapper}>
@@ -238,7 +259,7 @@ export const AuthorizedProfile = () => {
         <img
           src={penImg}
           alt="pen"
-          onClick={() => setPopUpDisplayFlag(!popUpDisplayFlag)}
+          onClick={() => setSelectedPopUpType('editWorldName')}
           style={styledConfig.penImg}
         />
       </RowWrapper>
@@ -246,6 +267,7 @@ export const AuthorizedProfile = () => {
         <Assistent
           assistantStyle={styledConfig.assistantStyle}
           assistantName={assistantName}
+          callBack={() => setSelectedPopUpType('editAssistantName')}
         />
         <RowWrapper {...styledConfig.nameRowWrapper}>
           <InputTitle content="Имя" />
