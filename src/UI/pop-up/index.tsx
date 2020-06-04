@@ -115,6 +115,12 @@ export const PopUp: React.FC<IPopUp> = ({
     if (popUpType === 'editWorldName') {
       editCurrentUserDataField({ key: UserDataStoreKeys.WORLD_NAME, value });
       saveUserData({ worldName: value });
+    } else if (popUpType === 'editAssistantName') {
+      editCurrentUserDataField({
+        key: UserDataStoreKeys.ASSISTANT_NAME,
+        value,
+      });
+      saveUserData({ assistantName: value });
     }
 
     callback && callback();
@@ -202,7 +208,7 @@ export interface IPopUp {
   popUpStyles?: IPopUpStyles;
   title?: string;
   initValue?: string;
-  popUpType?: 'editWorldName' | 'editAssistentName';
+  popUpType?: 'editWorldName' | 'editAssistantName';
   maxInputValueLenght?: number;
 }
 

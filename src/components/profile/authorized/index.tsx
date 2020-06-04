@@ -238,6 +238,7 @@ export const AuthorizedProfile = () => {
       title: 'Назовите вашего робота',
       initValue: assistantName,
       maxInputValueLenght: 14,
+      popUpType: 'editAssistantName',
     },
   };
 
