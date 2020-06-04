@@ -110,11 +110,11 @@ const InputTitle = styled(StyledSpan)<ISpan>`
   }
 `;
 
-const UserAvatar = styled.label`
+const UserAvatar = styled.label<{ avatar: string | null }>`
   width: 60px;
   height: 60px;
   margin: 0 16px 0 4px;
-  background: url(${userAvatarIcon}) no-repeat;
+  background: url(${props => props.avatar || userAvatarIcon}) no-repeat;
   background-size: cover;
   cursor: pointer;
   display: flex;
@@ -212,6 +212,7 @@ export const AuthorizedProfile = () => {
     birthday,
     userSessionSocket,
     assistantName,
+    avatar,
   } = useStore(UserDataStore);
   const [localName, setLocalName] = useState(name);
   const [birthdayDate, setBirthdayDate] = useState<IBirthday>(birthday);
@@ -284,7 +285,7 @@ export const AuthorizedProfile = () => {
     <ProfileWrapper>
       <PopUp {...popUpConfig[selectedPopUpType]} />
       <RowWrapper>
-        <UserAvatar>
+        <UserAvatar avatar={avatar}>
           <input type="file" accept="image/jpeg,image/png,image/svg"></input>
         </UserAvatar>
         <ColumnWrapper {...styledConfig.profileDataColumnWrapper}>
