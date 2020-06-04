@@ -28,7 +28,7 @@ import {
 import { zIndexForInheritOverlay } from '../../constants';
 import { saveUserData } from '../../api/save-user-data';
 import { contains } from '../../utils/check-include';
-
+const statusOk = 200;
 const PopUpWrapper = styled.div<IPopUpStyles>`
   background-image: url(${popUpWrapperBackground});
   background-size: cover;
@@ -111,16 +111,20 @@ export const PopUp: React.FC<IPopUp> = ({
       setInputHasError(false);
     }
   };
-  const saveData = () => {
+  const saveData = async () => {
     if (popUpType === 'editWorldName') {
-      editCurrentUserDataField({ key: UserDataStoreKeys.WORLD_NAME, value });
-      saveUserData({ worldName: value });
+      const { status } = await saveUserData({ worldName: value });
+      if (status === statusOk) {
+        editCurrentUserDataField({ key: UserDataStoreKeys.WORLD_NAME, value });
+      }
     } else if (popUpType === 'editAssistantName') {
-      editCurrentUserDataField({
-        key: UserDataStoreKeys.ASSISTANT_NAME,
-        value,
-      });
-      saveUserData({ assistantName: value });
+      const { status } = await saveUserData({ assistantName: value });
+      if (status === statusOk) {
+        editCurrentUserDataField({
+          key: UserDataStoreKeys.ASSISTANT_NAME,
+          value,
+        });
+      }
     }
 
     callback && callback();
