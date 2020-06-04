@@ -114,6 +114,7 @@ export const PopUp: React.FC<IPopUp> = ({
   useEffect(() => {
     if (initValue) {
       setValue(initValue);
+      setInputHasError(false);
     }
   }, [initValue]);
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
