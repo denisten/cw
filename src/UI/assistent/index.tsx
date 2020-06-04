@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import assistentAvatar from './ava.svg';
 import { MTSSans } from '../../fonts';
 import { RowWrapper } from '../row-wrapper';
+import penImg from '../../components/profile/not-authorized/pen.svg';
 
 const AssistentWrapper = styled.div<IAssistentStyle>`
   width: auto;
@@ -29,17 +30,37 @@ const AssistentAvatar = styled.img`
   margin-bottom: 5px;
 `;
 
-export const Assistent: React.FC<IAssistent> = ({ assistentStyle }) => {
+const Title = styled.div`
+  font-size: 18px;
+  line-height: 24px;
+  text-align: center;
+  letter-spacing: -0.6px;
+  color: #001424;
+  font-family: ${MTSSans.BOLD};
+  margin-right: 10px;
+  width: 170px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`;
+
+export const Assistent: React.FC<IAssistent> = ({
+  assistantStyle,
+  assistantName,
+}) => {
   return (
-    <AssistentWrapper {...assistentStyle}>
+    <AssistentWrapper {...assistantStyle}>
       <AssistentAvatar src={assistentAvatar} alt="assistent" />
       <span>Робот помощник</span>
-      <RowWrapper>sss</RowWrapper>
+      <RowWrapper>
+        <Title>{assistantName}</Title>
+        <img src={penImg} alt="pen" style={{ cursor: 'pointer' }} />
+      </RowWrapper>
     </AssistentWrapper>
   );
 };
 interface IAssistent {
-  assistentStyle: IAssistentStyle;
+  assistantStyle: IAssistentStyle;
+  assistantName: string;
 }
 
 interface IAssistentStyle {

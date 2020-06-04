@@ -149,9 +149,9 @@ const styledConfig = {
     padding: '76px 79px 0 79px',
     flexDirection: 'column',
   },
-  assistentStyle: {
+  assistantStyle: {
     top: '0px',
-    left: '400px',
+    left: '360px',
   },
 };
 
@@ -169,6 +169,7 @@ export const AuthorizedProfile = () => {
     name,
     birthday,
     userSessionSocket,
+    assistantName,
   } = useStore(UserDataStore);
   const [localName, setLocalName] = useState(name);
   const [birthdayDate, setBirthdayDate] = useState<IBirthday>(birthday);
@@ -242,7 +243,10 @@ export const AuthorizedProfile = () => {
         />
       </RowWrapper>
       <ColumnWrapper {...styledConfig.inputWrapper}>
-        <Assistent assistentStyle={styledConfig.assistentStyle} />
+        <Assistent
+          assistantStyle={styledConfig.assistantStyle}
+          assistantName={assistantName}
+        />
         <RowWrapper {...styledConfig.nameRowWrapper}>
           <InputTitle content="Имя" />
           <Input
