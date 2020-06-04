@@ -213,6 +213,7 @@ export const AuthorizedProfile = () => {
         callback={() => setPopUpDisplayFlag(false)}
         displayFlag={popUpDisplayFlag}
         popUpStyles={styledConfig.popUpStyles}
+        title="Введите название города"
       />
       <RowWrapper>
         <img src={userAvatarIcon} alt="user" style={styledConfig.profileIcon} />

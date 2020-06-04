@@ -83,6 +83,7 @@ export const PopUp: React.FC<IPopUp> = ({
   callback,
   displayFlag,
   popUpStyles,
+  title,
 }) => {
   const { worldName } = useStore(UserDataStore);
   const { tutorialCondition } = useStore(TutorialStore);
@@ -137,7 +138,7 @@ export const PopUp: React.FC<IPopUp> = ({
         <Overlay displayFlag={true} style={styleConfig.overlay}>
           <PopUpWrapper {...popUpStyles}>
             <ExitButton callBack={callback} {...styleConfig.exitButton} />
-            <Title>Введите название города</Title>
+            <Title>{title}</Title>
             <TutorialOverlayTopLayer
               zIndex={
                 tutorialCondition ===
@@ -192,6 +193,7 @@ interface IPopUp {
   callback: () => void;
   displayFlag: boolean;
   popUpStyles: IPopUpStyles;
+  title: string;
 }
 
 interface IPopUpStyles {

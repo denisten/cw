@@ -111,6 +111,7 @@ export const NotAuthorizedProfile = () => {
         callback={() => setPopUpDisplayFlag(false)}
         displayFlag={popUpDisplayFlag}
         popUpStyles={styledConfig.popUpStyles}
+        title="Введите название города"
       />
       <MoneyWalletWrapper>
         <MoneyWallet sum={String(money)} style={styledConfig.moneyWallet} />
