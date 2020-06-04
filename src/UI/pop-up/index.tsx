@@ -84,10 +84,10 @@ export const PopUp: React.FC<IPopUp> = ({
   displayFlag,
   popUpStyles,
   title,
+  initValue,
 }) => {
-  const { worldName } = useStore(UserDataStore);
   const { tutorialCondition } = useStore(TutorialStore);
-  const [value, setValue] = useState(worldName);
+  const [value, setValue] = useState(initValue);
   const [inputHasError, setInputHasError] = useState(false);
   const valuesArr = value.split(' ');
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -110,6 +110,7 @@ export const PopUp: React.FC<IPopUp> = ({
   const saveData = () => {
     editCurrentUserDataField({ key: UserDataStoreKeys.WORLD_NAME, value });
     saveUserData({ worldName: value });
+
     callback();
   };
 
@@ -194,6 +195,7 @@ interface IPopUp {
   displayFlag: boolean;
   popUpStyles: IPopUpStyles;
   title: string;
+  initValue: string;
 }
 
 interface IPopUpStyles {

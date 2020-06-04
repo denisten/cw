@@ -214,6 +214,7 @@ export const AuthorizedProfile = () => {
         displayFlag={popUpDisplayFlag}
         popUpStyles={styledConfig.popUpStyles}
         title="Введите название города"
+        initValue={worldName}
       />
       <RowWrapper>
         <img src={userAvatarIcon} alt="user" style={styledConfig.profileIcon} />
