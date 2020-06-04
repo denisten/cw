@@ -237,6 +237,7 @@ export const AuthorizedProfile = () => {
       popUpStyles: styledConfig.popUpStyles,
       title: 'Назовите вашего робота',
       initValue: assistantName,
+      maxInputValueLenght: 14,
     },
   };
 

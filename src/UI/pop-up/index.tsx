@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import popUpWrapperBackground from './pop-up-background.svg';
 import { Overlay } from '../overlay';
@@ -81,14 +81,19 @@ export const PopUp: React.FC<IPopUp> = ({
   displayFlag,
   popUpStyles,
   title,
-  initValue = '',
+  initValue,
   popUpType = 'editWorldName',
   maxInputValueLenght = maxUserNameLength,
 }) => {
   const { tutorialCondition } = useStore(TutorialStore);
-  const [value, setValue] = useState(initValue);
+  const [value, setValue] = useState(initValue || '');
   const [inputHasError, setInputHasError] = useState(false);
   const valuesArr = value.split(' ');
+  useEffect(() => {
+    if (initValue) {
+      setValue(initValue);
+    }
+  }, [initValue]);
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
 
