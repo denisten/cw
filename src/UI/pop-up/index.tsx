@@ -11,6 +11,7 @@ import { UserDataStoreKeys } from '../../effector/user-data/store';
 import {
   minNameLength,
   maxUserNameLength,
+  TypesOfPopUps,
 } from '../../components/profile/authorized';
 import { useStore } from 'effector-react';
 import {
@@ -104,7 +105,7 @@ export const PopUp: React.FC<IPopUp> = ({
   popUpStyles,
   title,
   initValue,
-  popUpType = 'editWorldName',
+  popUpType = TypesOfPopUps.EDIT_WORLD_NAME,
   maxInputValueLenght = maxUserNameLength,
 }) => {
   const { tutorialCondition } = useStore(TutorialStore);
@@ -135,12 +136,12 @@ export const PopUp: React.FC<IPopUp> = ({
     }
   };
   const saveData = async () => {
-    if (popUpType === 'editWorldName') {
+    if (popUpType === TypesOfPopUps.EDIT_WORLD_NAME) {
       const { status } = await saveUserData({ worldName: value });
       if (status === statusOk) {
         editCurrentUserDataField({ key: UserDataStoreKeys.WORLD_NAME, value });
       }
-    } else if (popUpType === 'editAssistantName') {
+    } else if (popUpType === TypesOfPopUps.EDIT_ASSISTANT_NAME) {
       const { status } = await saveUserData({ assistantName: value });
       if (status === statusOk) {
         editCurrentUserDataField({
@@ -241,7 +242,7 @@ export interface IPopUp {
   popUpStyles?: IPopUpStyles;
   title?: string;
   initValue?: string;
-  popUpType?: 'editWorldName' | 'editAssistantName';
+  popUpType?: TypesOfPopUps;
   maxInputValueLenght?: number;
 }
 

@@ -203,6 +203,12 @@ export const minNameLength = 3,
 
 let nameInputHint = '';
 
+export enum TypesOfPopUps {
+  EDIT_WORLD_NAME = 'editWorldName',
+  EDIT_ASSISTANT_NAME = 'editAssistantName',
+  DISABLED = 'disabled',
+}
+
 export const AuthorizedProfile = () => {
   const {
     worldName,
@@ -217,9 +223,9 @@ export const AuthorizedProfile = () => {
   const [localName, setLocalName] = useState(name);
   const [birthdayDate, setBirthdayDate] = useState<IBirthday>(birthday);
   const [nameInputHasError, setNameInputHasError] = useState(false);
-  const [selectedPopUpType, setSelectedPopUpType] = useState<
-    'disabled' | 'editWorldName' | 'editAssistantName'
-  >('disabled');
+  const [selectedPopUpType, setSelectedPopUpType] = useState<TypesOfPopUps>(
+    TypesOfPopUps.DISABLED
+  );
 
   useEffect(() => {
     if (localName !== name) setLocalName(name);
@@ -260,24 +266,24 @@ export const AuthorizedProfile = () => {
   };
 
   const popUpConfig: { [key: string]: IPopUp } = {
-    editWorldName: {
-      callback: () => setSelectedPopUpType('disabled'),
+    [TypesOfPopUps.EDIT_WORLD_NAME]: {
+      callback: () => setSelectedPopUpType(TypesOfPopUps.DISABLED),
       displayFlag: true,
       popUpStyles: styledConfig.popUpEditUserNameStyles,
       title: 'Введите название города',
       initValue: worldName,
     },
-    disabled: {
+    [TypesOfPopUps.DISABLED]: {
       displayFlag: false,
     },
-    editAssistantName: {
-      callback: () => setSelectedPopUpType('disabled'),
+    [TypesOfPopUps.EDIT_ASSISTANT_NAME]: {
+      callback: () => setSelectedPopUpType(TypesOfPopUps.DISABLED),
       displayFlag: true,
       popUpStyles: styledConfig.popUpEditAssistantNameStyles,
       title: 'Назовите вашего робота',
       initValue: assistantName,
       maxInputValueLenght: 14,
-      popUpType: 'editAssistantName',
+      popUpType: TypesOfPopUps.EDIT_ASSISTANT_NAME,
     },
   };
 
@@ -302,7 +308,7 @@ export const AuthorizedProfile = () => {
         <img
           src={penImg}
           alt="pen"
-          onClick={() => setSelectedPopUpType('editWorldName')}
+          onClick={() => setSelectedPopUpType(TypesOfPopUps.EDIT_WORLD_NAME)}
           style={styledConfig.penImg}
         />
       </RowWrapper>
@@ -310,7 +316,9 @@ export const AuthorizedProfile = () => {
         <Assistent
           assistantStyle={styledConfig.assistantStyle}
           assistantName={assistantName}
-          callBack={() => setSelectedPopUpType('editAssistantName')}
+          callBack={() =>
+            setSelectedPopUpType(TypesOfPopUps.EDIT_ASSISTANT_NAME)
+          }
         />
         <RowWrapper {...styledConfig.nameRowWrapper}>
           <InputTitle content="Имя" />
