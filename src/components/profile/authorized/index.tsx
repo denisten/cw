@@ -268,17 +268,12 @@ export const AuthorizedProfile = () => {
   const popUpConfig: { [key: string]: IPopUp } = {
     [TypesOfPopUps.EDIT_WORLD_NAME]: {
       callback: () => setSelectedPopUpType(TypesOfPopUps.DISABLED),
-      displayFlag: true,
       popUpStyles: styledConfig.popUpEditUserNameStyles,
       title: 'Введите название города',
       initValue: worldName,
     },
-    [TypesOfPopUps.DISABLED]: {
-      displayFlag: false,
-    },
     [TypesOfPopUps.EDIT_ASSISTANT_NAME]: {
       callback: () => setSelectedPopUpType(TypesOfPopUps.DISABLED),
-      displayFlag: true,
       popUpStyles: styledConfig.popUpEditAssistantNameStyles,
       title: 'Назовите вашего робота',
       initValue: assistantName,
@@ -289,7 +284,10 @@ export const AuthorizedProfile = () => {
 
   return (
     <ProfileWrapper>
-      <PopUp {...popUpConfig[selectedPopUpType]} />
+      <PopUp
+        {...popUpConfig[selectedPopUpType]}
+        displayFlag={selectedPopUpType !== TypesOfPopUps.DISABLED}
+      />
       <RowWrapper>
         <UserAvatar avatar={avatar}>
           <input type="file" accept="image/jpeg,image/png,image/svg"></input>
