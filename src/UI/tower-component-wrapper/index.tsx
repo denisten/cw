@@ -176,7 +176,7 @@ export const TowerWrapper = memo(
             shape="rect"
           />
         </map>
-        {hoverState || focusOnTowerTitle === towerTitle ? (
+        {!upgradeFlag && (hoverState || focusOnTowerTitle === towerTitle) ? (
           <img src={shadowImg} alt="shadow" />
         ) : null}
       </TowerStyledWrapper>
