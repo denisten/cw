@@ -16,6 +16,7 @@ import {
   takeReward,
   verifyTask,
 } from '../../../effector/missions-store/events';
+import { chatTaskSession } from '../../../api/tasks/session';
 
 enum TaskWrapperHeight {
   opened = 149,
@@ -197,7 +198,9 @@ const handleClick = (id: number) => {
   const currentMissionIdx = state.findIndex(el => el.id === id);
   switch (state[currentMissionIdx].status) {
     case TaskStatuses.CREATED:
-      return activateTask(id);
+      activateTask(id);
+      chatTaskSession(id);
+      return;
     case TaskStatuses.ACTIVE:
       return verifyTask(id);
     case TaskStatuses.DONE:
