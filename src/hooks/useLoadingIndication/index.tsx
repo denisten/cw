@@ -27,9 +27,6 @@ export const useLoadingIndication = () => {
   const checkAllImages = () => {
     const imgCollection = document.querySelectorAll('img');
     setAllImagesNumber(imgCollection.length);
-    if (imgCollection.length === 0 || !imgCollection) {
-      setLoadingPercent(maxpercent);
-    }
   };
 
   const converToPecent = () => {
