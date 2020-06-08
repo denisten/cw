@@ -23,6 +23,7 @@ export enum UserDataStoreKeys {
   COUPONS_COUNT = 'couponsCount',
   USER_SESSION_SOCKET = 'userSessionSocket',
   ENERGY = 'energy',
+  AVATAR = 'avatar',
 }
 
 const initData = {
@@ -39,6 +40,7 @@ const initData = {
   },
   couponsCount: 2,
   userSessionSocket: null,
+  avatar: null,
 };
 
 const initState: IUserDataStore = {
@@ -52,6 +54,7 @@ const initState: IUserDataStore = {
   [UserDataStoreKeys.BIRTHDAY]: initData.birthday,
   [UserDataStoreKeys.COUPONS_COUNT]: initData.couponsCount,
   [UserDataStoreKeys.USER_SESSION_SOCKET]: initData.userSessionSocket,
+  [UserDataStoreKeys.AVATAR]: initData.avatar,
 };
 
 const userDataStoreLocalStorage = connectLocalStorage('UserData').onChange(
@@ -76,7 +79,7 @@ export const UserDataStore = UserDataDomain.store<IUserDataStore>(initState)
     fetchUserData.done,
     (
       state,
-      { result: { worldName, assistantName, name, id, birthday = '' } }
+      { result: { worldName, assistantName, name, id, birthday = '', avatar } }
     ) => ({
       ...state,
       id,
@@ -84,6 +87,7 @@ export const UserDataStore = UserDataDomain.store<IUserDataStore>(initState)
       assistantName: assistantName || initData.assistantName,
       name: name || initData.name,
       birthday: birthdayParserToJSON(birthday),
+      avatar,
     })
   )
   .on(setUserSessionSocket, (state, payload) => ({
@@ -109,6 +113,7 @@ export interface IUserDataStore {
   [UserDataStoreKeys.BIRTHDAY]: IBirthday;
   [UserDataStoreKeys.COUPONS_COUNT]: number;
   [UserDataStoreKeys.USER_SESSION_SOCKET]: Centrifuge | null;
+  [UserDataStoreKeys.AVATAR]: string | null;
 }
 
 export interface IBirthday {
