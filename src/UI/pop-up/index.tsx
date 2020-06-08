@@ -11,7 +11,6 @@ import { UserDataStoreKeys } from '../../effector/user-data/store';
 import {
   minNameLength,
   maxCityNameLength,
-  TypesOfPopUps,
 } from '../../components/profile/authorized';
 import { useStore } from 'effector-react';
 import {
@@ -98,6 +97,12 @@ let worldInputHint = '';
 export const minSymbolsAlert = 'Минимальное число символов ';
 export const maxSymbolsAlert = 'Максимальное число символов ';
 export const spaceSymbolsAlert = 'Имена с пробелом недоступны ';
+
+export enum TypesOfPopUps {
+  EDIT_WORLD_NAME = 'editWorldName',
+  EDIT_ASSISTANT_NAME = 'editAssistantName',
+  DISABLED = 'disabled',
+}
 
 export const PopUp: React.FC<IPopUp> = ({
   callback,

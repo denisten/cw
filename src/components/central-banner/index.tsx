@@ -6,7 +6,11 @@ import { MTSSans } from '../../fonts';
 import { useStore } from 'effector-react';
 import { UserDataStore } from '../../effector/user-data/store';
 import { MenuItems } from '../../UI/menu-paragraph';
-import { menuOpened } from '../../effector/app-condition/events';
+import {
+  menuOpened,
+  setOpenPopUpState,
+} from '../../effector/app-condition/events';
+import { TypesOfPopUps } from '../../UI/pop-up';
 
 const Banner = styled.div`
   width: 175px;
@@ -20,7 +24,7 @@ const Banner = styled.div`
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  padding-top: 58px;
+  padding-top: 55px;
   cursor: pointer;
 `;
 
@@ -49,6 +53,7 @@ enum TextSize {
   SHORT = 6,
   MEDIUM = 9,
   BIG = 11,
+  ULTRA_BIG = 12,
 }
 
 const returnFontSize = (wordLength: number) => {
@@ -57,9 +62,11 @@ const returnFontSize = (wordLength: number) => {
   } else if (wordLength > TextSize.SHORT && wordLength <= TextSize.MEDIUM) {
     return '17px';
   } else if (wordLength > TextSize.MEDIUM && wordLength <= TextSize.BIG) {
-    return '16px';
+    return '14px';
+  } else if (wordLength > TextSize.BIG && wordLength <= TextSize.ULTRA_BIG) {
+    return '13px';
   } else {
-    return '15px';
+    return '11px';
   }
 };
 
@@ -72,6 +79,7 @@ export const CentralBanner: React.FC = () => {
 
   const openAndEditCityName = () => {
     menuOpened(MenuItems.PROFILE);
+    setOpenPopUpState(TypesOfPopUps.EDIT_WORLD_NAME);
   };
 
   return (

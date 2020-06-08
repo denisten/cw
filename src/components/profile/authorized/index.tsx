@@ -10,6 +10,7 @@ import {
   minSymbolsAlert,
   PopUp,
   IPopUp,
+  TypesOfPopUps,
 } from '../../../UI/pop-up';
 import { useStore } from 'effector-react';
 import { RowWrapper } from '../../../UI/row-wrapper';
@@ -26,7 +27,10 @@ import { DaysNumArr, MonthsStringArr } from '../../../constants';
 import { updateUserData } from '../../../utils/update-user-data';
 import { resetTowerProgress } from '../../../effector/towers-progress/events';
 import { birthdayParser } from '../../../utils/birthday-parser';
-import { setDataReceived } from '../../../effector/app-condition/events';
+import {
+  setDataReceived,
+  setOpenPopUpState,
+} from '../../../effector/app-condition/events';
 import { Assistent } from '../../../UI/assistent';
 import camera from './camera.svg';
 
@@ -203,13 +207,9 @@ export const minNameLength = 3,
 
 let nameInputHint = '';
 
-export enum TypesOfPopUps {
-  EDIT_WORLD_NAME = 'editWorldName',
-  EDIT_ASSISTANT_NAME = 'editAssistantName',
-  DISABLED = 'disabled',
-}
-
-export const AuthorizedProfile = () => {
+export const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
+  openPopUpState,
+}) => {
   const {
     worldName,
     money,
@@ -223,9 +223,6 @@ export const AuthorizedProfile = () => {
   const [localName, setLocalName] = useState(name);
   const [birthdayDate, setBirthdayDate] = useState<IBirthday>(birthday);
   const [nameInputHasError, setNameInputHasError] = useState(false);
-  const [selectedPopUpType, setSelectedPopUpType] = useState<TypesOfPopUps>(
-    TypesOfPopUps.DISABLED
-  );
 
   useEffect(() => {
     if (localName !== name) setLocalName(name);
@@ -267,13 +264,13 @@ export const AuthorizedProfile = () => {
 
   const popUpConfig: { [key: string]: IPopUp } = {
     [TypesOfPopUps.EDIT_WORLD_NAME]: {
-      callback: () => setSelectedPopUpType(TypesOfPopUps.DISABLED),
+      callback: () => setOpenPopUpState(TypesOfPopUps.DISABLED),
       popUpStyles: styledConfig.popUpEditUserNameStyles,
       title: 'Введите название города',
       initValue: worldName,
     },
     [TypesOfPopUps.EDIT_ASSISTANT_NAME]: {
-      callback: () => setSelectedPopUpType(TypesOfPopUps.DISABLED),
+      callback: () => setOpenPopUpState(TypesOfPopUps.DISABLED),
       popUpStyles: styledConfig.popUpEditAssistantNameStyles,
       title: 'Назовите вашего робота',
       initValue: assistantName,
@@ -285,8 +282,8 @@ export const AuthorizedProfile = () => {
   return (
     <ProfileWrapper>
       <PopUp
-        {...popUpConfig[selectedPopUpType]}
-        displayFlag={selectedPopUpType !== TypesOfPopUps.DISABLED}
+        {...popUpConfig[openPopUpState]}
+        displayFlag={openPopUpState !== TypesOfPopUps.DISABLED}
       />
       <RowWrapper>
         <UserAvatar avatar={avatar}>
@@ -306,7 +303,7 @@ export const AuthorizedProfile = () => {
         <img
           src={penImg}
           alt="pen"
-          onClick={() => setSelectedPopUpType(TypesOfPopUps.EDIT_WORLD_NAME)}
+          onClick={() => setOpenPopUpState(TypesOfPopUps.EDIT_WORLD_NAME)}
           style={styledConfig.penImg}
         />
       </RowWrapper>
@@ -314,9 +311,7 @@ export const AuthorizedProfile = () => {
         <Assistent
           assistantStyle={styledConfig.assistantStyle}
           assistantName={assistantName}
-          callBack={() =>
-            setSelectedPopUpType(TypesOfPopUps.EDIT_ASSISTANT_NAME)
-          }
+          callBack={() => setOpenPopUpState(TypesOfPopUps.EDIT_ASSISTANT_NAME)}
         />
         <RowWrapper {...styledConfig.nameRowWrapper}>
           <InputTitle content="Имя" />
@@ -369,4 +364,8 @@ export const AuthorizedProfile = () => {
 
 interface ISpan {
   content?: string;
+}
+
+interface IAuthorizedProfile {
+  openPopUpState: TypesOfPopUps;
 }
