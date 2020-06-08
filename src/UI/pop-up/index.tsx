@@ -10,7 +10,7 @@ import { editCurrentUserDataField } from '../../effector/user-data/events';
 import { UserDataStoreKeys } from '../../effector/user-data/store';
 import {
   minNameLength,
-  maxUserNameLength,
+  maxCityNameLength,
   TypesOfPopUps,
 } from '../../components/profile/authorized';
 import { useStore } from 'effector-react';
@@ -106,7 +106,7 @@ export const PopUp: React.FC<IPopUp> = ({
   title,
   initValue,
   popUpType = TypesOfPopUps.EDIT_WORLD_NAME,
-  maxInputValueLenght = maxUserNameLength,
+  maxInputValueLenght = maxCityNameLength,
 }) => {
   const { tutorialCondition } = useStore(TutorialStore);
   const [value, setValue] = useState(initValue || '');

@@ -199,7 +199,7 @@ const styledConfig = {
 };
 
 export const minNameLength = 3,
-  maxUserNameLength = 25;
+  maxCityNameLength = 14;
 
 let nameInputHint = '';
 
@@ -237,8 +237,8 @@ export const AuthorizedProfile = () => {
     if (value.length < minNameLength) {
       nameInputHint = minSymbolsAlert + minNameLength;
       setNameInputHasError(true);
-    } else if (value.length > maxUserNameLength) {
-      nameInputHint = maxSymbolsAlert + maxUserNameLength;
+    } else if (value.length > maxCityNameLength) {
+      nameInputHint = maxSymbolsAlert + maxCityNameLength;
       setNameInputHasError(true);
     } else {
       setNameInputHasError(false);
@@ -249,7 +249,7 @@ export const AuthorizedProfile = () => {
     if (e) e.preventDefault();
     if (
       localName.length >= minNameLength &&
-      localName.length <= maxUserNameLength
+      localName.length <= maxCityNameLength
     ) {
       updateUserData({ birthday: birthdayDate, name: localName });
     } else {

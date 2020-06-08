@@ -5,6 +5,8 @@ import { ZIndexes } from '../root-component/z-indexes-enum';
 import { MTSSans } from '../../fonts';
 import { useStore } from 'effector-react';
 import { UserDataStore } from '../../effector/user-data/store';
+import { MenuItems } from '../../UI/menu-paragraph';
+import { menuOpened } from '../../effector/app-condition/events';
 
 const Banner = styled.div`
   width: 175px;
@@ -19,6 +21,7 @@ const Banner = styled.div`
   flex-direction: column;
   box-sizing: border-box;
   padding-top: 58px;
+  cursor: pointer;
 `;
 
 const Title = styled.span`
@@ -45,16 +48,18 @@ const HeadTitle = styled(Title)<{ fontSize: string }>`
 enum TextSize {
   SHORT = 6,
   MEDIUM = 9,
-  BIG = 12,
+  BIG = 11,
 }
 
 const returnFontSize = (wordLength: number) => {
   if (wordLength <= TextSize.SHORT) {
     return '26px';
   } else if (wordLength > TextSize.SHORT && wordLength <= TextSize.MEDIUM) {
-    return '18px';
-  } else {
     return '17px';
+  } else if (wordLength > TextSize.MEDIUM && wordLength <= TextSize.BIG) {
+    return '16px';
+  } else {
+    return '15px';
   }
 };
 
@@ -65,8 +70,12 @@ export const CentralBanner: React.FC = () => {
     setWordLength(worldName.length);
   }, [worldName]);
 
+  const openAndEditCityName = () => {
+    menuOpened(MenuItems.PROFILE);
+  };
+
   return (
-    <Banner>
+    <Banner onClick={openAndEditCityName}>
       <Title>Добро</Title>
       <Title>пожаловать</Title>
       <HeadTitle fontSize={returnFontSize(wordLength)}>{worldName}</HeadTitle>
