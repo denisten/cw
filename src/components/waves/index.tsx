@@ -25,7 +25,7 @@ const WaveImg = styled.div<IWaveImg>`
 const SpriteWrapper = styled.div<{ animation?: Keyframes }>`
   animation: ${props => props.animation} 4s infinite linear;
   position: absolute;
-  z-index: 100;
+  z-index: ${ZIndexes.CARS};
 `;
 
 export const Waves: React.FC = React.memo(() => {

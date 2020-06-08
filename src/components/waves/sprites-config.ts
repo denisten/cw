@@ -182,7 +182,7 @@ export const mainSpriteSettings = {
   canvasHeight: 74,
   numberOfFramesX: 4,
   numberOfFramesY: 4,
-  ticksPerFrame: 4,
+  ticksPerFrame: 6,
   infinity: true,
 
   style: {
