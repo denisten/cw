@@ -203,7 +203,7 @@ const styledConfig = {
 };
 
 export const minNameLength = 3,
-  maxCityNameLength = 14;
+  maxCityNameLength = 12;
 
 let nameInputHint = '';
 

@@ -52,8 +52,7 @@ const HeadTitle = styled(Title)<{ fontSize: string }>`
 enum TextSize {
   SHORT = 6,
   MEDIUM = 9,
-  BIG = 11,
-  ULTRA_BIG = 12,
+  BIG = 12,
 }
 
 const returnFontSize = (wordLength: number) => {
@@ -61,12 +60,8 @@ const returnFontSize = (wordLength: number) => {
     return '26px';
   } else if (wordLength > TextSize.SHORT && wordLength <= TextSize.MEDIUM) {
     return '17px';
-  } else if (wordLength > TextSize.MEDIUM && wordLength <= TextSize.BIG) {
-    return '14px';
-  } else if (wordLength > TextSize.BIG && wordLength <= TextSize.ULTRA_BIG) {
-    return '13px';
   } else {
-    return '11px';
+    return '14px';
   }
 };
 
@@ -85,7 +80,7 @@ export const CentralBanner: React.FC = () => {
   return (
     <Banner onClick={openAndEditCityName}>
       <Title>Добро</Title>
-      <Title>пожаловать</Title>
+      <Title>пожаловать!</Title>
       <HeadTitle fontSize={returnFontSize(wordLength)}>{worldName}</HeadTitle>
     </Banner>
   );
