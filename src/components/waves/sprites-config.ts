@@ -10,7 +10,7 @@ const animSpriteOne = keyframes`
 }
 
 100% {
-  transform: translate3D(28px, 20px, 0)
+  transform: translate3D(26px, 36px, 0);
 }
 `;
 
@@ -43,12 +43,12 @@ export const mainSpriteSettings = {
   canvasHeight: 74,
   numberOfFramesX: 4,
   numberOfFramesY: 4,
-  ticksPerFrame: 2,
+  ticksPerFrame: 4,
   infinity: true,
 
   style: {
     width: '52px',
-    height: '48px',
+    height: '38px',
   } as React.CSSProperties,
 };
 

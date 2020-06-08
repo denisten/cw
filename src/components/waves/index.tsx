@@ -13,7 +13,7 @@ const WaveImg = styled.div<IWaveImg>`
   position: absolute;
   top: ${props => props.top};
   left: ${props => props.left};
-  z-index: ${ZIndexes.DECORATION};
+  z-index: ${props => props.zIndex || ZIndexes.CARS};
   background: url(${props => props.background});
   background-size: ${props => props.backgroundSize || '100% 100%'};
   filter: url('#turbulence');
@@ -56,4 +56,5 @@ export interface IWaveImg {
   backgroundRepeat?: string;
   borderRadius?: string;
   backgroundSize?: string;
+  zIndex?: number;
 }

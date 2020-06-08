@@ -15,6 +15,7 @@ export const waveConfig: IWaveImg[] = [
     background: lake,
     backgroundSize: '100% 100%',
     transform: 'rotate(331deg)',
+    zIndex: 3,
   },
   {
     width: '146px',
