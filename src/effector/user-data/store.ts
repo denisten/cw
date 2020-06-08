@@ -29,7 +29,7 @@ export enum UserDataStoreKeys {
 const initData = {
   id: 0,
   name: 'Неизвестно',
-  worldName: 'Неизвестно',
+  worldName: 'Без имени',
   assistantName: 'Неизвестно',
   money: 0,
   energy: 0,
