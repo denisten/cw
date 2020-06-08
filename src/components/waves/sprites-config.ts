@@ -14,6 +14,24 @@ const animSpriteOne = keyframes`
 }
 `;
 
+const animSpriteTwo = keyframes`
+0% {
+  opacity: 0;
+}
+
+20% {
+  opacity: 1;
+}
+
+50% {
+  transform: translate3D(10px, 24px, 0);
+}
+
+100% {
+  transform: translate3D(0px, 48px, 0);
+}
+`;
+
 export const spriteWrapperConfig: ISpritesConfig[] = [
   {
     style: {
@@ -24,10 +42,10 @@ export const spriteWrapperConfig: ISpritesConfig[] = [
   },
   {
     style: {
-      top: '41%',
+      top: '41.2%',
       left: '56.2%',
     },
-    animation: animSpriteOne,
+    animation: animSpriteTwo,
   },
   {
     style: {

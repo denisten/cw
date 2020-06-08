@@ -13,7 +13,7 @@ const WaveImg = styled.div<IWaveImg>`
   position: absolute;
   top: ${props => props.top};
   left: ${props => props.left};
-  z-index: ${props => props.zIndex || ZIndexes.CARS};
+  z-index: ${props => props.zIndex || 100};
   background: url(${props => props.background});
   background-size: ${props => props.backgroundSize || '100% 100%'};
   filter: url('#turbulence');
