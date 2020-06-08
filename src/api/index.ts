@@ -10,6 +10,7 @@ export enum apiRoutes {
   USER_DATA = '/api/users/current',
   CHAT_SESSION = '/api/users/current/tasks',
   GENERATE_TASKS = '/api/dev/tasks/generate',
+  DEV_LOGIN = '​/api​/dev​/login/​',
   LOGOUT = '/api/auth/logout',
   GET_WS_TOKEN = '/api/ws/connection',
   WS_SUBSCRIBE = '/api/ws/subscribe',
