@@ -87,7 +87,7 @@ export const UserDataStore = UserDataDomain.store<IUserDataStore>(initState)
       assistantName: assistantName || initData.assistantName,
       name: name || initData.name,
       birthday: birthdayParserToJSON(birthday),
-      avatar: avatar,
+      avatar,
     })
   )
   .on(setUserSessionSocket, (state, payload) => ({

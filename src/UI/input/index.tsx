@@ -78,7 +78,7 @@ export const Input: React.FC<IInput> = ({
       </Form>
 
       <HintWrapper hasError={hasError}>
-        {(hasError && hint) || (describer && describer)}
+        {(hasError && hint) || describer}
       </HintWrapper>
     </div>
   );

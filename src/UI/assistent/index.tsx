@@ -44,6 +44,10 @@ const Title = styled.div`
   overflow: hidden;
 `;
 
+const penStyleConfig = {
+  cursor: 'pointer',
+} as React.CSSProperties;
+
 export const Assistent: React.FC<IAssistent> = ({
   assistantStyle,
   assistantName,
@@ -55,12 +59,7 @@ export const Assistent: React.FC<IAssistent> = ({
       <span>Робот помощник</span>
       <RowWrapper>
         <Title>{assistantName}</Title>
-        <img
-          src={penImg}
-          alt="pen"
-          style={{ cursor: 'pointer' }}
-          onClick={callBack}
-        />
+        <img src={penImg} alt="pen" style={penStyleConfig} onClick={callBack} />
       </RowWrapper>
     </AssistentWrapper>
   );
