@@ -32,7 +32,93 @@ const animSpriteTwo = keyframes`
 }
 `;
 
+const animSpriteThree = keyframes`
+0% {
+  opacity: 0;
+}
+
+20% {
+  opacity: 1;
+}
+
+50% {
+  transform: translate3D(-30px, 27px, 0);
+}
+
+100% {
+  transform: translate3D(-38px, 49px, 0);
+}
+`;
+
+const animSpriteFour = keyframes`
+0% {
+  opacity: 0;
+}
+
+20% {
+  opacity: 1;
+}
+
+100% {
+  transform: translate3D(-58px, 6px, 0);
+}
+`;
+const animSpriteFive = keyframes`
+0% {
+  opacity: 0;
+}
+
+20% {
+  opacity: 1;
+}
+
+100% {
+  transform: translate3D(-36px, 37px, 0);
+}
+`;
+const animSpriteSix = keyframes`
+0% {
+  opacity: 0;
+}
+
+20% {
+  opacity: 1;
+}
+
+100% {
+  transform: translate3D(-30px, 20px, 0);
+}
+`;
+
 export const spriteWrapperConfig: ISpritesConfig[] = [
+  {
+    style: {
+      top: '16.8%',
+      left: '68.5%',
+    },
+    animation: animSpriteFour,
+  },
+  {
+    style: {
+      top: '3.2%',
+      left: '75.9%',
+    },
+    animation: animSpriteThree,
+  },
+  {
+    style: {
+      top: '11.3%',
+      left: '78.7%',
+    },
+    animation: animSpriteTwo,
+  },
+  {
+    style: {
+      top: '7.6%',
+      left: '78.3%',
+    },
+    animation: animSpriteOne,
+  },
   {
     style: {
       top: '37.6%',
@@ -49,10 +135,45 @@ export const spriteWrapperConfig: ISpritesConfig[] = [
   },
   {
     style: {
-      top: '57.8%',
-      left: '29.7%',
+      top: '56.8%',
+      left: '31.9%',
+    },
+    animation: animSpriteFive,
+  },
+  {
+    style: {
+      top: '64.6%',
+      left: '22.8%',
+    },
+    animation: animSpriteThree,
+  },
+  {
+    style: {
+      top: '69.5%',
+      left: '25.6%',
     },
     animation: animSpriteOne,
+  },
+  {
+    style: {
+      top: '72.5%',
+      left: '25.6%',
+    },
+    animation: animSpriteTwo,
+  },
+  {
+    style: {
+      top: '78.2%',
+      left: '14.4%',
+    },
+    animation: animSpriteSix,
+  },
+  {
+    style: {
+      top: '78.9%',
+      left: '13.2%',
+    },
+    animation: animSpriteSix,
   },
 ];
 
