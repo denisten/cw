@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { StyledSpan } from '../../../UI/span';
 import { MTSSans } from '../../../fonts';
@@ -6,7 +6,7 @@ import profileIcon from './profile-icon.svg';
 import { Button, ButtonClassNames } from '../../../UI/button';
 import { UserDataStore } from '../../../effector/user-data/store';
 import penImg from './pen.svg';
-import { PopUp } from '../../../UI/pop-up';
+import { PopUp, TypesOfPopUps } from '../../../UI/pop-up';
 import { useStore } from 'effector-react';
 import { RowWrapper } from '../../../UI/row-wrapper';
 import { MoneyWallet } from '../../../UI/wallet/money';
@@ -25,7 +25,8 @@ import {
   TutorialOverlay,
   TutorialOverlayTopLayer,
 } from '../../tutorial-overlay';
-import { zIndexForInheritOverlay } from '../../../constants';
+import { zIndexForInheritOverlay, maxCityNameLength } from '../../../constants';
+import { setOpenPopUpState } from '../../../effector/app-condition/events';
 
 const ProfileWrapper = styled.div`
   width: 100%;
@@ -87,8 +88,9 @@ const styledConfig = {
   },
 };
 
-export const NotAuthorizedProfile = () => {
-  const [popUpDisplayFlag, setPopUpDisplayFlag] = useState(false);
+export const NotAuthorizedProfile: React.FC<INotAuthorizedProfile> = ({
+  openPopUpState,
+}) => {
   const { worldName, money, coins } = useStore(UserDataStore);
   const { tutorialCondition } = useStore(TutorialStore);
 
@@ -100,7 +102,7 @@ export const NotAuthorizedProfile = () => {
   };
 
   const handlePenClick = () => {
-    setPopUpDisplayFlag(!popUpDisplayFlag);
+    setOpenPopUpState(TypesOfPopUps.EDIT_WORLD_NAME);
     if (tutorialCondition === TutorialConditions.PULSE_EDIT_CHANGE_CITY_NAME)
       nextTutorStep();
   };
@@ -108,9 +110,10 @@ export const NotAuthorizedProfile = () => {
   return (
     <ProfileWrapper>
       <PopUp
-        callback={() => setPopUpDisplayFlag(false)}
-        displayFlag={popUpDisplayFlag}
+        callback={() => setOpenPopUpState(TypesOfPopUps.DISABLED)}
+        displayFlag={openPopUpState !== TypesOfPopUps.DISABLED}
         popUpStyles={styledConfig.popUpStyles}
+        maxInputValueLenght={maxCityNameLength}
         title="Введите название города"
         initValue="Неизвестно"
       />
@@ -168,4 +171,7 @@ export const NotAuthorizedProfile = () => {
 interface IPenWrapper {
   scaleSize?: number;
   animFlag?: boolean;
+}
+interface INotAuthorizedProfile {
+  openPopUpState: TypesOfPopUps;
 }
