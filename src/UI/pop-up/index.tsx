@@ -8,11 +8,7 @@ import { Input } from '../input';
 import { Button, ButtonClassNames } from '../button';
 import { editCurrentUserDataField } from '../../effector/user-data/events';
 import { UserDataStoreKeys } from '../../effector/user-data/store';
-import {
-  minNameLength,
-  maxUserNameLength,
-  TypesOfPopUps,
-} from '../../components/profile/authorized';
+
 import { useStore } from 'effector-react';
 import {
   TutorialConditions,
@@ -26,7 +22,11 @@ import {
   TutorialOverlay,
   TutorialOverlayTopLayer,
 } from '../../components/tutorial-overlay';
-import { zIndexForInheritOverlay } from '../../constants';
+import {
+  zIndexForInheritOverlay,
+  maxCityNameLength,
+  minNameLength,
+} from '../../constants';
 import { saveUserData } from '../../api/save-user-data';
 import { contains } from '../../utils/check-include';
 import supportSprite from '../../img/assistant/assistant.png';
@@ -99,6 +99,12 @@ export const minSymbolsAlert = 'Минимальное число символо
 export const maxSymbolsAlert = 'Максимальное число символов ';
 export const spaceSymbolsAlert = 'Имена с пробелом недоступны ';
 
+export enum TypesOfPopUps {
+  EDIT_WORLD_NAME = 'editWorldName',
+  EDIT_ASSISTANT_NAME = 'editAssistantName',
+  DISABLED = 'disabled',
+}
+
 export const PopUp: React.FC<IPopUp> = ({
   callback,
   displayFlag,
@@ -106,7 +112,7 @@ export const PopUp: React.FC<IPopUp> = ({
   title,
   initValue,
   popUpType = TypesOfPopUps.EDIT_WORLD_NAME,
-  maxInputValueLenght = maxUserNameLength,
+  maxInputValueLenght = maxCityNameLength,
 }) => {
   const { tutorialCondition } = useStore(TutorialStore);
   const [value, setValue] = useState(initValue || '');

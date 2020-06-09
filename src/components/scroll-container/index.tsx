@@ -17,6 +17,7 @@ import { Bridges } from '../../buildings/bridges';
 import { BuildingsService } from '../../buildings/config';
 import { Waves } from '../waves';
 import { Decorations } from '../decorations';
+import { CentralBanner } from '../central-banner';
 
 export enum MapSize {
   WIDTH = 7680,
@@ -77,6 +78,7 @@ export const ScrollContainer: React.FC<{
         <Buildings />
         <Waves />
         <Decorations />
+        <CentralBanner />
         <Bridges showBridges={true} />
       </MapWrapper>
     </ScrollContainerWrapper>

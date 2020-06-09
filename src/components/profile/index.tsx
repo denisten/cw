@@ -25,13 +25,17 @@ const handleAuth = async (isAuthorized: boolean, dataReceived: boolean) => {
 };
 
 export const Profile = React.memo(() => {
-  const { isAuthorized, dataReceived } = useStore(AppCondition);
+  const { isAuthorized, dataReceived, openPopUpState } = useStore(AppCondition);
   useEffect(() => {
     handleAuth(isAuthorized, dataReceived);
   }, [isAuthorized]);
   return (
     <ProfileWrapper>
-      {isAuthorized ? <AuthorizedProfile /> : <NotAuthorizedProfile />}
+      {isAuthorized ? (
+        <AuthorizedProfile openPopUpState={openPopUpState} />
+      ) : (
+        <NotAuthorizedProfile openPopUpState={openPopUpState} />
+      )}
     </ProfileWrapper>
   );
 });
