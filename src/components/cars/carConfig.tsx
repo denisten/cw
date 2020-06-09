@@ -3,6 +3,7 @@ import {
   animForCar2,
   animForCar3,
   animForCar4,
+  animCarMed,
 } from './keyframes';
 export const carConfig = [
   {
@@ -43,6 +44,18 @@ export const carConfig = [
       animationName: animForCar4,
       top: '34.9%',
       left: '59.3%',
+    },
+  },
+  {
+    id: 5,
+    carStyle: {
+      animDuration: '25s',
+      animationTimingFunction: 'ease-in-out',
+      animationName: animCarMed,
+      top: '63.9%',
+      left: '71.3%',
+      height: '41px',
+      width: '54px',
     },
   },
 ];

@@ -8,6 +8,10 @@ import greenTopLeft from './greenTopLeft.png';
 import greenTopRight from './greenTopRight.png';
 import greenBottomLeft from './greenBottomLeft.png';
 import greenBottomRight from './greenBottomRight.png';
+import carMedTopLeft from './carMedTopLeft.png';
+import carMedTopRight from './carMedTopRight.png';
+import carMedBottomLeft from './carMedBottomLeft.png';
+import carMedBottomRight from './carMedBottomRight.png';
 
 import { keyframes } from 'styled-components';
 
@@ -286,10 +290,56 @@ const iterationsForCarFour = [
   },
 ];
 
+const iterationsForCarMed = [
+  { animation: [`background: url(${carMedTopLeft}) no-repeat center;`] },
+  {
+    animation: [`background: url(${carMedTopLeft}) no-repeat center;`],
+    transition: true,
+  },
+  {
+    animation: [
+      `transform: translate3d(-1125px,-566px,0px);`,
+      `background: url(${carMedTopRight}) no-repeat center;`,
+    ],
+  },
+  {
+    animation: [`background: url(${carMedTopRight}) no-repeat center;`],
+    transition: true,
+  },
+  {
+    animation: [
+      `transform: translate3d(-610px,-822px,0px);`,
+      `background: url(${carMedBottomLeft}) no-repeat center;`,
+    ],
+  },
+  {
+    animation: [`background: url(${carMedBottomLeft}) no-repeat center;`],
+    transition: true,
+  },
+
+  {
+    animation: [
+      `transform: translate3d(-1125px,-566px,0px);`,
+      `background: url(${carMedBottomRight}) no-repeat center;`,
+    ],
+  },
+  {
+    animation: [`background: url(${carMedBottomRight}) no-repeat center;`],
+    transition: true,
+  },
+  {
+    animation: [
+      `transform: translate3d(0px,0px,0px);`,
+      `background: url(${carMedBottomRight}) no-repeat center;`,
+    ],
+  },
+];
+
 export const animForCar1 = keyframesCreator(iterationsForCarOne);
 export const animForCar2 = keyframesCreator(iterationsForCarTwo);
 export const animForCar3 = keyframesCreator(iterationsForCarThree);
 export const animForCar4 = keyframesCreator(iterationsForCarFour);
+export const animCarMed = keyframesCreator(iterationsForCarMed);
 
 interface IiterationsArray {
   animation: string[];

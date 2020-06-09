@@ -5,9 +5,11 @@ import { ZIndexes } from '../root-component/z-indexes-enum';
 type CarProps = {
   animDuration?: string;
   animationTimingFunction?: string;
-  animationName: Keyframes;
+  animationName?: Keyframes;
   top?: string;
   left?: string;
+  width?: string;
+  height?: string;
 };
 
 type CarConfigureType = {
@@ -15,8 +17,8 @@ type CarConfigureType = {
 };
 
 const CarBlock = styled.div<CarProps>`
-  width: 44px;
-  height: 41px;
+  width: ${props => props.width || '44px'};
+  height: ${props => props.height || '41px'};
   position: absolute;
   background-size: 100% 100%;
   animation-duration: ${props => props.animDuration || '5s'};
