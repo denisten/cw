@@ -9,14 +9,13 @@ export const useLoadingIndication = () => {
     const imgCollection = Array.from(document.querySelectorAll('img')).filter(
       image => !image.hasAttribute('checked')
     );
-
     for (let index = 0; index < imgCollection.length; index++) {
       const image = imgCollection[index];
 
       if (
         image.complete ||
         (image.getAttribute('data-testid') === 'lazy-image' &&
-          allImagesNumber !== loadedImagesNumber)
+          allImagesNumber <= loadedImagesNumber)
       ) {
         image.setAttribute('checked', 'true');
         setLoadedImgCount(loadedImagesNumber + 1);
@@ -28,14 +27,15 @@ export const useLoadingIndication = () => {
   const checkAllImages = () => {
     const imgCollection = document.querySelectorAll('img');
     setAllImagesNumber(imgCollection.length);
-    if (imgCollection.length === 0 || !imgCollection) {
-      setLoadingPercent(maxpercent);
-    }
   };
 
   const converToPecent = () => {
-    const persent = (loadedImagesNumber * maxpercent) / allImagesNumber;
-    setLoadingPercent(Number(persent.toFixed(0)) || 0);
+    const persent = (loadedImagesNumber * maxpercent) / allImagesNumber || 0;
+    if (persent >= maxpercent) {
+      setLoadingPercent(maxpercent);
+    } else {
+      setLoadingPercent(Number(persent.toFixed(0)) || 0);
+    }
   };
 
   const markAllResoursesAsLoaded = () => {

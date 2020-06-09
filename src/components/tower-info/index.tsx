@@ -68,6 +68,7 @@ enum TowerTutorialSteps {
 const MAX_POINTS = 100;
 const FIRST_ELEM_WIDTH = 92;
 const COMMON_TRANSITION = 0.5;
+const delayBeforeAnimationEnd = 2500;
 
 export const ModalWindowWrapper = styled.div<ModalWindowProps>`
   position: absolute;
@@ -320,6 +321,14 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
     setTowerTutorialStep(TowerTutorialSteps.TASKS_OPENED);
     grownLineAndNextStep();
   };
+
+  const upgradeTowerAndShowAnimation = (towerTitle: TowersTypes) => {
+    showUpgradeIcon(towerTitle);
+    setTimeout(() => {
+      upgradeTower(towerTitle);
+    }, delayBeforeAnimationEnd);
+  };
+
   const nextTowerTutorialStep = () => {
     if (!tutorialCondition) {
       addProgressPoints({ points: 33.34, towerTitle: towerTitle });
@@ -372,7 +381,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
               hide={hideTowerInfo}
             />
             <TowerInfoUpgradeButton
-              handleClick={() => upgradeTower(towerTitle)}
+              handleClick={() => upgradeTowerAndShowAnimation(towerTitle)}
               canUpgrade={level < maxLevel ? true : false}
             />
           </RowWrapper>

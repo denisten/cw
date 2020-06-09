@@ -16,6 +16,7 @@ import {
   setTowerInfoContent,
   setTowerInfoShift,
   setDataReceived,
+  setOpenPopUpState,
 } from './events';
 import { TowersTypes } from '../towers-progress/store';
 import { upgradeTower } from '../towers-progress/events';
@@ -23,6 +24,7 @@ import { MenuItems } from '../../UI/menu-paragraph';
 import connectLocalStorage from 'effector-localstorage/sync';
 import { devLogin, fetchUserData } from '../user-data/events';
 import { ErrorBoundaryStore } from '../error-boundary-store/store';
+import { TypesOfPopUps } from '../../UI/pop-up';
 
 export const maxProgressValue = 100;
 
@@ -45,6 +47,7 @@ const initState = {
   selectTowerInfoContent: TowerInfoContentValues.DESCRIPTION,
   towerInfoShift: 0,
   dataReceived: false,
+  openPopUpState: TypesOfPopUps.DISABLED,
 };
 
 const appConditionLocalStorage = connectLocalStorage('AppCondition').onChange(
@@ -137,7 +140,11 @@ export const AppCondition = AppDomain.store<AppConditionType>(initState)
       ...state,
       isAuthorized: !errorFlag,
     };
-  });
+  })
+  .on(setOpenPopUpState, (state, payload) => ({
+    ...state,
+    openPopUpState: payload,
+  }));
 
 AppCondition.watch(appConditionLocalStorage);
 
@@ -154,4 +161,5 @@ export type AppConditionType = {
   selectTowerInfoContent: TowerInfoContentValues;
   towerInfoShift: number;
   dataReceived: boolean;
+  openPopUpState: TypesOfPopUps;
 };

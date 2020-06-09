@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import popUpWrapperBackground from './pop-up-background.svg';
 import { Overlay } from '../overlay';
@@ -7,14 +7,8 @@ import { MTSSans } from '../../fonts';
 import { Input } from '../input';
 import { Button, ButtonClassNames } from '../button';
 import { editCurrentUserDataField } from '../../effector/user-data/events';
-import {
-  UserDataStore,
-  UserDataStoreKeys,
-} from '../../effector/user-data/store';
-import {
-  maxNameLength,
-  minNameLength,
-} from '../../components/profile/authorized';
+import { UserDataStoreKeys } from '../../effector/user-data/store';
+
 import { useStore } from 'effector-react';
 import {
   TutorialConditions,
@@ -28,22 +22,28 @@ import {
   TutorialOverlay,
   TutorialOverlayTopLayer,
 } from '../../components/tutorial-overlay';
-import { zIndexForInheritOverlay } from '../../constants';
+import {
+  zIndexForInheritOverlay,
+  maxCityNameLength,
+  minNameLength,
+} from '../../constants';
 import { saveUserData } from '../../api/save-user-data';
 import { contains } from '../../utils/check-include';
-
-const PopUpWrapper = styled.div`
+import supportSprite from '../../img/assistant/assistant.png';
+import { Sprite } from '../../components/sprite';
+const statusOk = 200;
+const PopUpWrapper = styled.div<IPopUpStyles>`
   background-image: url(${popUpWrapperBackground});
   background-size: cover;
   position: absolute;
-  width: 487px;
-  height: 305px;
+  width: ${props => props.width};
+  height: ${props => props.height};
   box-shadow: 0 5px 12px 0 rgba(26, 29, 34, 0.2);
-  padding: 76px 79px 0 79px;
+  padding: ${props => props.padding};
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  flex-direction: column;
+  flex-direction: ${props => props.flexDirection};
 `;
 
 const Title = styled(StyledSpan)`
@@ -54,6 +54,14 @@ const Title = styled(StyledSpan)`
   text-align: center;
   color: #001424;
   margin-bottom: 24px;
+`;
+
+const AssistantSprite = styled.div`
+  position: absolute;
+  width: 188px;
+  height: 264px;
+  left: 30px;
+  top: 27px;
 `;
 
 const styleConfig = {
@@ -72,6 +80,18 @@ const styleConfig = {
     padding: '0 0 0 16px',
     background: 'white',
   },
+  sprite: {
+    canvasWidth: 224,
+    canvasHeight: 304,
+    numberOfFramesX: 10,
+    numberOfFramesY: 9,
+    ticksPerFrame: 2,
+
+    style: {
+      width: '100%',
+      height: '100%',
+    } as React.CSSProperties,
+  },
 };
 
 let worldInputHint = '';
@@ -79,12 +99,31 @@ export const minSymbolsAlert = 'Минимальное число символо
 export const maxSymbolsAlert = 'Максимальное число символов ';
 export const spaceSymbolsAlert = 'Имена с пробелом недоступны ';
 
-export const PopUp: React.FC<IPopUp> = ({ callback, displayFlag }) => {
-  const { worldName } = useStore(UserDataStore);
+export enum TypesOfPopUps {
+  EDIT_WORLD_NAME = 'editWorldName',
+  EDIT_ASSISTANT_NAME = 'editAssistantName',
+  DISABLED = 'disabled',
+}
+
+export const PopUp: React.FC<IPopUp> = ({
+  callback,
+  displayFlag,
+  popUpStyles,
+  title,
+  initValue,
+  popUpType = TypesOfPopUps.EDIT_WORLD_NAME,
+  maxInputValueLenght = maxCityNameLength,
+}) => {
   const { tutorialCondition } = useStore(TutorialStore);
-  const [value, setValue] = useState(worldName);
+  const [value, setValue] = useState(initValue || '');
   const [inputHasError, setInputHasError] = useState(false);
   const valuesArr = value.split(' ');
+  useEffect(() => {
+    if (initValue) {
+      setValue(initValue);
+      setInputHasError(false);
+    }
+  }, [initValue]);
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
 
@@ -92,8 +131,8 @@ export const PopUp: React.FC<IPopUp> = ({ callback, displayFlag }) => {
     if (value.length < minNameLength) {
       worldInputHint = minSymbolsAlert + minNameLength;
       setInputHasError(true);
-    } else if (value.length > maxNameLength) {
-      worldInputHint = maxSymbolsAlert + maxNameLength;
+    } else if (value.length > maxInputValueLenght) {
+      worldInputHint = maxSymbolsAlert + maxInputValueLenght;
       setInputHasError(true);
     } else if (contains(value, ' ')) {
       worldInputHint = spaceSymbolsAlert;
@@ -102,17 +141,30 @@ export const PopUp: React.FC<IPopUp> = ({ callback, displayFlag }) => {
       setInputHasError(false);
     }
   };
-  const saveData = () => {
-    editCurrentUserDataField({ key: UserDataStoreKeys.WORLD_NAME, value });
-    saveUserData({ worldName: value });
-    callback();
+  const saveData = async () => {
+    if (popUpType === TypesOfPopUps.EDIT_WORLD_NAME) {
+      const { status } = await saveUserData({ worldName: value });
+      if (status === statusOk) {
+        editCurrentUserDataField({ key: UserDataStoreKeys.WORLD_NAME, value });
+      }
+    } else if (popUpType === TypesOfPopUps.EDIT_ASSISTANT_NAME) {
+      const { status } = await saveUserData({ assistantName: value });
+      if (status === statusOk) {
+        editCurrentUserDataField({
+          key: UserDataStoreKeys.ASSISTANT_NAME,
+          value,
+        });
+      }
+    }
+
+    callback && callback();
   };
 
   const handleSubmit = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     if (
       value.length >= minNameLength &&
-      value.length <= maxNameLength &&
+      value.length <= maxInputValueLenght &&
       valuesArr.length === 1
     ) {
       saveData();
@@ -131,9 +183,9 @@ export const PopUp: React.FC<IPopUp> = ({ callback, displayFlag }) => {
     <Fragment>
       {displayFlag ? (
         <Overlay displayFlag={true} style={styleConfig.overlay}>
-          <PopUpWrapper>
+          <PopUpWrapper {...popUpStyles}>
             <ExitButton callBack={callback} {...styleConfig.exitButton} />
-            <Title>Введите название города</Title>
+            <Title>{title}</Title>
             <TutorialOverlayTopLayer
               zIndex={
                 tutorialCondition ===
@@ -149,6 +201,7 @@ export const PopUp: React.FC<IPopUp> = ({ callback, displayFlag }) => {
                 hasError={inputHasError}
                 hint={worldInputHint}
                 style={styleConfig.input}
+                describer={'Максимальное число символов ' + maxInputValueLenght}
               />
             </TutorialOverlayTopLayer>
             <TutorialOverlayTopLayer
@@ -170,6 +223,11 @@ export const PopUp: React.FC<IPopUp> = ({ callback, displayFlag }) => {
                 }
               />
             </TutorialOverlayTopLayer>
+            {popUpType === 'editAssistantName' ? (
+              <AssistantSprite>
+                <Sprite img={supportSprite} {...styleConfig.sprite} />
+              </AssistantSprite>
+            ) : null}
           </PopUpWrapper>
           <TutorialOverlay
             displayFlag={
@@ -184,7 +242,19 @@ export const PopUp: React.FC<IPopUp> = ({ callback, displayFlag }) => {
   );
 };
 
-interface IPopUp {
-  callback: () => void;
-  displayFlag: boolean;
+export interface IPopUp {
+  callback?: () => void;
+  displayFlag?: boolean;
+  popUpStyles?: IPopUpStyles;
+  title?: string;
+  initValue?: string;
+  popUpType?: TypesOfPopUps;
+  maxInputValueLenght?: number;
+}
+
+interface IPopUpStyles {
+  width?: string;
+  height?: string;
+  padding?: string;
+  flexDirection?: string;
 }
