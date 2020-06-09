@@ -2,13 +2,19 @@ import React from 'react';
 import styled from 'styled-components';
 import wCorner from './corner-white.svg';
 import bCorner from './corner-b.svg';
+import { MTSSans } from '../../fonts';
+import { MessagesDirection } from '../../api/tasks/session';
 
-const BubbleBody = styled.div<{ type?: string }>`
-  margin: ${props => (props.type === 'system' ? '0 0 0 8px' : '0 8px 0 0')};
-  background-color: ${props => (props.type === 'system' ? 'white' : '#04B5D2')};
+const BubbleBody = styled.div<{ direction?: string }>`
+  margin: ${props =>
+    props.direction === MessagesDirection.INCOMING ? '0 0 0 8px' : '0 8px 0 0'};
+  background-color: ${props =>
+    props.direction === MessagesDirection.INCOMING ? 'white' : '#04B5D2'};
   border-radius: 4px;
   padding: ${props =>
-    props.type === 'system' ? '12px 41px 12px 29px' : '22px 41px 22px 24px'};
+    props.direction === MessagesDirection.INCOMING
+      ? '12px 41px 12px 29px'
+      : '22px 41px 22px 24px'};
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -17,10 +23,11 @@ const BubbleBody = styled.div<{ type?: string }>`
   max-width: 323px;
 
   span {
-    font-family: 'MTSSansRegular';
+    font-family: ${MTSSans.REGULAR};
     font-size: 16px;
     line-height: 1.25;
-    color: ${props => (props.type === 'system' ? '#001424' : 'white')};
+    color: ${props =>
+      props.direction === MessagesDirection.INCOMING ? '#001424' : 'white'};
   }
 
   &::before {
@@ -31,7 +38,8 @@ const BubbleBody = styled.div<{ type?: string }>`
     left: -6px;
     width: 38px;
     height: 32px;
-    display: ${props => (props.type === 'system' ? 'block' : 'none')};
+    display: ${props =>
+      props.direction === MessagesDirection.INCOMING ? 'block' : 'none'};
   }
 
   &::after {
@@ -42,13 +50,14 @@ const BubbleBody = styled.div<{ type?: string }>`
     right: -6px;
     width: 38px;
     height: 32px;
-    display: ${props => (props.type === 'user' ? 'block' : 'none')};
+    display: ${props =>
+      props.direction === MessagesDirection.OUTGOING ? 'block' : 'none'};
   }
 `;
 
-const BotName = styled.div`
+const BotName = styled.div<{ content: string }>`
   height: 20px;
-  font-family: 'MTSSansRegular';
+  font-family: ${MTSSans.REGULAR};
   font-size: 12px;
   font-weight: bold;
   font-stretch: normal;
@@ -56,19 +65,24 @@ const BotName = styled.div`
   line-height: 1.67;
   letter-spacing: normal;
   color: #02adc9;
+  ::after {
+    content: "${props => props.content}";
+  }
 `;
 
-export const Bubble: React.FC<IBubble> = ({ type, text, botName }) => {
+export const Bubble: React.FC<IBubble> = ({ direction, text, botName }) => {
   return (
-    <BubbleBody type={type}>
-      {type === 'system' && botName && <BotName>{botName}</BotName>}
+    <BubbleBody direction={direction}>
+      {direction === MessagesDirection.OUTGOING && botName && (
+        <BotName content={botName} />
+      )}
       <span>{text}</span>
     </BubbleBody>
   );
 };
 
 interface IBubble {
-  type: string;
+  direction: string;
   text: string;
   botName?: string;
 }

@@ -14,23 +14,20 @@ export const activateTask = MissionsDomain.effect(
   'activate current task and fetch new list',
   {
     handler: async (id: number) => {
-      await activateTaskRequest(id);
-      fetchTasks('');
-      return id;
+      return await activateTaskRequest(id);
     },
   }
 );
 
 export const verifyTask = MissionsDomain.effect('verify current task', {
   handler: async (id: number) => {
-    await verifyTaskRequest(id);
-    return id;
+    return await verifyTaskRequest(id);
   },
 });
 export const takeReward = MissionsDomain.effect({
   handler: async (id: number) => {
-    await rewardRequest(id);
-    return id;
+    const response = await rewardRequest(id);
+    return { ...response, id };
   },
 });
 

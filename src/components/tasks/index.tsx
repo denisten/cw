@@ -12,8 +12,15 @@ const TasksBody = styled.div`
 
 export enum TasksType {
   TASKS = 'tasks',
-  CHALLENGES = 'сhallenges',
+  CHALLENGES = 'challenge',
   MISSION = 'mission',
+  NBO = 'nbo',
+  PAID = 'paid',
+  TARGET = 'target',
+  INFORMATIONAL = 'informational',
+  PRODUCT_QUIZ = 'product-quiz',
+  RELATED_QUIZ = 'related-quiz',
+  COSMETIC = 'cosmetic',
 }
 
 const taskTypes = [

@@ -16,10 +16,10 @@ import {
   takeReward,
   verifyTask,
 } from '../../../effector/missions-store/events';
-import { chatTaskSession } from '../../../api/tasks/session';
 import notDoneImg from './not-done.svg';
 import { ColumnWrapper } from '../../../UI/column-wrapper';
 import { TaskTimer } from '../../../UI/task-timer';
+import { chatTaskSession } from '../../../effector/task-messages/events';
 
 enum TaskWrapperHeight {
   opened = 149,
@@ -192,16 +192,6 @@ const HintWrapper = styled.div`
   ::after {
     content: 'Проверить еще раз';
   }
-`;
-
-const TimerWrapper = styled.div`
-  width: 110px;
-  height: 16px;
-  box-shadow: inset 0 0 2px 0 rgba(32, 189, 218, 0.18);
-  background-color: #d6f0f4;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
 const handleClick = (id: number) => {

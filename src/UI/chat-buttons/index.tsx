@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { IAction } from '../../api/tasks/session';
 
 const ButtonBody = styled.div`
   margin-top: 20px;
@@ -24,15 +25,12 @@ const Button = styled.div`
   }
 `;
 
-export const ChatButtons: React.FC<IChatButtons> = ({
-  buttonsCollection,
-  callback,
-}) => {
+export const ChatButtons: React.FC<IChatButtons> = ({ actions, callback }) => {
   return (
     <ButtonBody>
-      {buttonsCollection.map(button => (
-        <Button key={button.answerId} onClick={callback}>
-          {button.title}
+      {actions.map(el => (
+        <Button key={el.id} onClick={() => callback(el.id)}>
+          {el.text}
         </Button>
       ))}
     </ButtonBody>
@@ -40,9 +38,6 @@ export const ChatButtons: React.FC<IChatButtons> = ({
 };
 
 interface IChatButtons {
-  buttonsCollection: {
-    answerId: number;
-    title: string;
-  }[];
-  callback: () => void;
+  actions: IAction[];
+  callback: (id: number) => void;
 }

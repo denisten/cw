@@ -15,7 +15,7 @@ export const getTasks = async () => {
   return response.data.data;
 };
 
-interface IGetTasks {
+export interface IGetTasks {
   data: {
     userTasks: ITask[];
     total: number;
