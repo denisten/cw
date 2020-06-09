@@ -1,11 +1,11 @@
 import React from 'react';
-import styled, { Keyframes } from 'styled-components';
+import styled from 'styled-components';
 import { waveConfig } from './wave-animation-config';
 import { ZIndexes } from '../root-component/z-indexes-enum';
 import { svgFilter } from './svg-filter';
 import { spriteWrapperConfig, mainSpriteSettings } from './sprites-config';
-import { Sprite } from '../sprite';
 import animRiverSprite from './anim_river.png';
+import { SpriteCollection } from '../sprite-collection';
 
 const WaveImg = styled.div<IWaveImg>`
   width: ${props => props.width};
@@ -22,22 +22,14 @@ const WaveImg = styled.div<IWaveImg>`
   border-radius: ${props => props.borderRadius || '0px'};
 `;
 
-const SpriteWrapper = styled.div<{ animation?: Keyframes }>`
-  animation: ${props => props.animation} 4s infinite linear;
-  position: absolute;
-  z-index: ${ZIndexes.CARS};
-`;
-
 export const Waves: React.FC = React.memo(() => {
   return (
     <>
-      {spriteWrapperConfig.map((flareConfig, ind) => {
-        return (
-          <SpriteWrapper key={ind} {...flareConfig}>
-            <Sprite key={ind} {...mainSpriteSettings} img={animRiverSprite} />
-          </SpriteWrapper>
-        );
-      })}
+      <SpriteCollection
+        styleConfig={spriteWrapperConfig}
+        spriteParams={mainSpriteSettings}
+        img={animRiverSprite}
+      />
       {waveConfig.map((waveParams, ind) => (
         <WaveImg key={ind} {...waveParams} />
       ))}
