@@ -4,7 +4,7 @@ import { fountainConfig } from './sprite-config';
 import sprite from './anim_fountain.png';
 import { ZIndexes } from '../root-component/z-indexes-enum';
 
-export const Decorations: React.FC = () => {
+export const Decorations: React.FC = React.memo(() => {
   return (
     <>
       {fountainConfig.map((fountain, ind) => (
@@ -18,4 +18,4 @@ export const Decorations: React.FC = () => {
       ))}
     </>
   );
-};
+});
