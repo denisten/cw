@@ -8,6 +8,7 @@ import {
 } from './events';
 import { editUserProperty } from '../user-data/events';
 import { TasksType } from '../../components/tasks';
+import { TowersTypes } from '../towers-progress/store';
 
 export enum TaskSubType {
   CHALLENGE = 'challenge',
@@ -29,7 +30,7 @@ export enum TaskStatuses {
 const initStore: ITask[] = [];
 
 export const MissionsStore = MissionsDomain.store(initStore)
-  .on(fetchTasks.done, (state, { result: { userTasks } }) => [...userTasks])
+  .on(fetchTasks.done, (state, { result: { userTasks } }) => userTasks)
   .on(activateTask.doneData, (state, { userTasks }) => userTasks)
   .on(verifyTask.doneData, (state, { userTasks }) => userTasks)
   .on(takeReward.doneData, (state, { userTasks, id }) => {
@@ -73,7 +74,7 @@ export interface ITask {
       product: {
         id: number;
         name: string;
-        slug: string;
+        slug: TowersTypes;
         description: string;
       };
       logo: {

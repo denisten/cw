@@ -20,7 +20,8 @@ export const TaskMessagesStore = TaskMessagesDomain.store<ITaskMessagesStore>(
     return {
       ...state,
       messages: [...state.messages, ...payload.messages],
-      actions: [...state.actions, ...payload.actions],
+      actions: payload.actions,
+      masterMessageId: payload.masterMessageId,
     };
   });
 

@@ -5,7 +5,7 @@ import nbo from './nbo.svg';
 import cosmetics from './cosmetics.svg';
 import energy from './energy.svg';
 import coin from './coin.svg';
-import { TaskSubType } from '../../effector/missions-store/store';
+import { TasksType } from '../../components/tasks';
 
 export enum TypeOfIcons {
   ENERGY = 'energy',
@@ -18,15 +18,18 @@ const defaultStyle = {
 };
 
 export const Icon: React.FC<IIcon> = ({ style = defaultStyle, type }) => {
-  const switchSrc = (type: TypeOfIcons | TaskSubType) => {
+  const switchSrc = (type: TypeOfIcons | TasksType) => {
     switch (type) {
-      case TaskSubType.CHALLENGE:
+      case TasksType.CHALLENGE:
+      case TasksType.PRODUCT_QUIZ:
         return challenge;
-      case TaskSubType.MISSIONS:
+      case TasksType.MISSION:
+      case TasksType.RELATED_QUIZ:
         return missions;
-      case TaskSubType.NBO:
+      case TasksType.NBO:
+      case TasksType.INFORMATIONAL:
         return nbo;
-      case TaskSubType.COSMETICS:
+      case TasksType.COSMETIC:
         return cosmetics;
       case TypeOfIcons.ENERGY:
         return energy;
@@ -45,5 +48,5 @@ interface IIcon {
     width?: string;
     height?: string;
   };
-  type: TypeOfIcons | TaskSubType;
+  type: TypeOfIcons | TasksType;
 }

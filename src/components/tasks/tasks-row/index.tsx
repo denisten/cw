@@ -8,7 +8,6 @@ import { Coupon } from '../../../UI/coupon';
 import {
   MissionsStore,
   TaskStatuses,
-  TaskSubType,
 } from '../../../effector/missions-store/store';
 import {
   activateTask,
@@ -20,6 +19,17 @@ import notDoneImg from './not-done.svg';
 import { ColumnWrapper } from '../../../UI/column-wrapper';
 import { TaskTimer } from '../../../UI/task-timer';
 import { chatTaskSession } from '../../../effector/task-messages/events';
+import {
+  menuClosed,
+  setTowerInfoContent,
+} from '../../../effector/app-condition/events';
+import { BuildingsService } from '../../../buildings/config';
+import { scrollToCurrentTower } from '../../../utils/scroll-to-current-tower';
+import { TasksType } from '../index';
+import {
+  AppCondition,
+  TowerInfoContentValues,
+} from '../../../effector/app-condition/store';
 
 enum TaskWrapperHeight {
   opened = 149,
@@ -196,11 +206,23 @@ const HintWrapper = styled.div`
 
 const handleClick = (id: number) => {
   const state = MissionsStore.getState();
+  const { selectedMenuItem } = AppCondition.getState();
   const currentMissionIdx = state.findIndex(el => el.id === id);
+  const currentMission = state[currentMissionIdx];
+  const currentMissionType = currentMission.task.content.taskType.slug;
+  const productTitle = state[currentMissionIdx].task.content.product.slug;
   switch (state[currentMissionIdx].status) {
     case TaskStatuses.CREATED:
       activateTask(id);
-      chatTaskSession(id);
+      if (currentMissionType !== TasksType.COSMETIC) {
+        chatTaskSession(id);
+        if (!selectedMenuItem) {
+          setTowerInfoContent(TowerInfoContentValues.CHAT);
+        } else menuClosed();
+      }
+      scrollToCurrentTower(
+        BuildingsService.getConfigForTower(productTitle).ref
+      );
       return;
     case TaskStatuses.ACTIVE:
       return verifyTask(id);
@@ -295,7 +317,7 @@ export const Task: React.FC<ITasksRow> = ({
 
 interface ITasksRow {
   id: number;
-  type: TaskSubType;
+  type: TasksType;
   taskTitle: string;
   status: TaskStatuses;
   money: number;

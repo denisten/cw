@@ -7,12 +7,12 @@ import { MessagesDirection } from '../../api/tasks/session';
 
 const BubbleBody = styled.div<{ direction?: string }>`
   margin: ${props =>
-    props.direction === MessagesDirection.INCOMING ? '0 0 0 8px' : '0 8px 0 0'};
+    props.direction === MessagesDirection.OUT ? '0 0 0 8px' : '0 8px 0 0'};
   background-color: ${props =>
-    props.direction === MessagesDirection.INCOMING ? 'white' : '#04B5D2'};
+    props.direction === MessagesDirection.OUT ? 'white' : '#04B5D2'};
   border-radius: 4px;
   padding: ${props =>
-    props.direction === MessagesDirection.INCOMING
+    props.direction === MessagesDirection.OUT
       ? '12px 41px 12px 29px'
       : '22px 41px 22px 24px'};
   box-sizing: border-box;
@@ -27,7 +27,7 @@ const BubbleBody = styled.div<{ direction?: string }>`
     font-size: 16px;
     line-height: 1.25;
     color: ${props =>
-      props.direction === MessagesDirection.INCOMING ? '#001424' : 'white'};
+      props.direction === MessagesDirection.OUT ? '#001424' : 'white'};
   }
 
   &::before {
@@ -39,7 +39,7 @@ const BubbleBody = styled.div<{ direction?: string }>`
     width: 38px;
     height: 32px;
     display: ${props =>
-      props.direction === MessagesDirection.INCOMING ? 'block' : 'none'};
+      props.direction === MessagesDirection.OUT ? 'block' : 'none'};
   }
 
   &::after {
@@ -51,7 +51,7 @@ const BubbleBody = styled.div<{ direction?: string }>`
     width: 38px;
     height: 32px;
     display: ${props =>
-      props.direction === MessagesDirection.OUTGOING ? 'block' : 'none'};
+      props.direction === MessagesDirection.IN ? 'block' : 'none'};
   }
 `;
 
@@ -73,7 +73,7 @@ const BotName = styled.div<{ content: string }>`
 export const Bubble: React.FC<IBubble> = ({ direction, text, botName }) => {
   return (
     <BubbleBody direction={direction}>
-      {direction === MessagesDirection.OUTGOING && botName && (
+      {direction === MessagesDirection.OUT && botName && (
         <BotName content={botName} />
       )}
       <span>{text}</span>

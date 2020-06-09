@@ -11,12 +11,12 @@ const Avatar = styled.img`
 `;
 
 export const ChatAvatar: React.FC<IChatAvatar> = ({
-  type,
+  direction,
   systemBotAvatar,
   userAvatar,
 }) => {
   const setAvatar = () => {
-    if (type === MessagesDirection.INCOMING) {
+    if (direction === MessagesDirection.OUT) {
       return systemBotAvatar || botDefault;
     } else {
       return userAvatar || userDefault;
@@ -27,7 +27,7 @@ export const ChatAvatar: React.FC<IChatAvatar> = ({
 };
 
 interface IChatAvatar {
-  type: string;
+  direction: MessagesDirection;
   systemBotAvatar: string | undefined;
   userAvatar: string | undefined;
 }

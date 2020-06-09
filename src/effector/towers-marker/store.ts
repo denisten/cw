@@ -29,16 +29,16 @@ const initState: TowersMarkerStoreType = {
     markers: [],
   },
   [TowersTypes.LIVE_ARENA]: {
-    markers: [{ type: TypeOfMarkers.COIN, coins: 11221 }],
+    markers: [{ type: TypeOfMarkers.TAKE_REWARD, coins: 11221 }],
   },
   [TowersTypes.CASHBACK]: {
     markers: [
       { type: TypeOfMarkers.SUCCESS },
-      { type: TypeOfMarkers.COIN, coins: 10000 },
+      { type: TypeOfMarkers.TAKE_REWARD, coins: 10000 },
     ],
   },
   [TowersTypes.MY_MTS]: {
-    markers: [{ type: TypeOfMarkers.COIN, coins: 15000 }],
+    markers: [{ type: TypeOfMarkers.TAKE_REWARD, coins: 15000 }],
   },
   [TowersTypes.LIBRARY]: {
     markers: [],
@@ -47,14 +47,14 @@ const initState: TowersMarkerStoreType = {
     markers: [],
   },
   [TowersTypes.MOBILE_NETWORK]: {
-    markers: [{ type: TypeOfMarkers.NOTICE }, { type: TypeOfMarkers.SUCCESS }],
+    markers: [{ type: TypeOfMarkers.SUCCESS }],
   },
   [TowersTypes.THEATER]: {
     markers: [
       {
         type: TypeOfMarkers.TIMER,
         startTime: new Date('Apr 20 2020 07:04:33 GMT+0300'),
-        endTime: new Date('Apr 22 2020 19:04:33 GMT+0300'),
+        endTime: new Date('June 22 2020 19:04:33 GMT+0300'),
       },
     ],
   },

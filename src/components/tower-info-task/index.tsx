@@ -2,10 +2,7 @@ import React from 'react';
 import { TowersTypes } from '../../effector/towers-progress/store';
 import styled from 'styled-components';
 import { useStore } from 'effector-react';
-import {
-  MissionsStore,
-  TaskSubType,
-} from '../../effector/missions-store/store';
+import { MissionsStore } from '../../effector/missions-store/store';
 import { Task } from '../tasks/tasks-row';
 import { UserDataStore } from '../../effector/user-data/store';
 import { AdvancedScrollbar } from '../../UI/advanced-scrollbar';
@@ -39,7 +36,7 @@ export const TowerInfoTask: React.FC<ITowerInfoTask> = ({ towerTitle }) => {
                 isInTowerInfo={true}
                 couponsCount={couponsCount}
                 isAllowedToChange={true}
-                type={TaskSubType.NBO}
+                type={el.task.content.taskType.slug}
                 taskTitle={`${el.task.content.name.slice(0, maxTaskLength)}...`}
                 key={el.task.id}
                 status={el.status}

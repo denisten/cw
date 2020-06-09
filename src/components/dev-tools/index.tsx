@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Button, ButtonClassNames } from '../../UI/button';
-import { generateTasks } from '../../api/dev-api/generate-tasks';
 import { refreshBD } from '../../api/dev-api/refresh-bd';
 import { fetchTasks } from '../../effector/missions-store/events';
 import { RowWrapper } from '../../UI/row-wrapper';
@@ -27,11 +26,6 @@ export const DevTools = () => {
         2 - авторизоваться
         <br />3 - сгенерировать <br />4 - получить задания
       </p>
-      <Button
-        className={ButtonClassNames.NORMAL}
-        content="Generate Tasks"
-        callback={generateTasks}
-      />
 
       <Button
         className={ButtonClassNames.NORMAL}

@@ -12,7 +12,7 @@ const TasksBody = styled.div`
 
 export enum TasksType {
   TASKS = 'tasks',
-  CHALLENGES = 'challenge',
+  CHALLENGE = 'challenge',
   MISSION = 'mission',
   NBO = 'nbo',
   PAID = 'paid',
@@ -25,7 +25,7 @@ export enum TasksType {
 
 const taskTypes = [
   { id: TasksType.TASKS, label: 'Задачи' },
-  { id: TasksType.CHALLENGES, label: 'Челленджи' },
+  { id: TasksType.CHALLENGE, label: 'Челленджи' },
   { id: TasksType.MISSION, label: 'Миссии' },
 ];
 export const Tasks = () => {

@@ -24,7 +24,7 @@ export const UpgradeButton: React.FC<UpgradeButtonProps> = ({
       data-towerlevel={towerLevel}
     >
       <MarkerView
-        markerType={TypeOfMarkers.UPDATE}
+        markerType={TypeOfMarkers.UPGRADE_TOWER}
         animFlag={animFlag}
         onClick={() => {
           showUpgradeIcon(towerTitle);

@@ -15,7 +15,11 @@ import {
   consumeUserTaskAction,
 } from '../../effector/task-messages/events';
 import { TowersTypes } from '../../effector/towers-progress/store';
-import { MissionsStore } from '../../effector/missions-store/store';
+import {
+  ITask,
+  MissionsStore,
+  TaskStatuses,
+} from '../../effector/missions-store/store';
 import { TasksType } from '../tasks';
 import { takeReward, verifyTask } from '../../effector/missions-store/events';
 
@@ -63,7 +67,7 @@ const MessageRow = styled.div<{ direction?: string }>`
   display: flex;
   height: auto;
   flex-direction: ${props =>
-    props.direction === MessagesDirection.INCOMING ? 'row' : 'row-reverse'};
+    props.direction === MessagesDirection.OUT ? 'row' : 'row-reverse'};
   align-items: flex-end;
   margin-bottom: 24px;
 `;
@@ -164,22 +168,21 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
   hideContent,
   towerTitle,
 }) => {
-  const chatContainer = useRef<HTMLDivElement | null>(null);
+  const chatContainer = useRef<HTMLDivElement>(null);
   const { messages, actions, masterMessageId, ended } = useStore(
     TaskMessagesStore
   );
-  const [taskId, setTaskId] = useState(0);
+  const [currentMission, setCurrentMission] = useState<ITask | null>(null);
   const missions = useStore(MissionsStore);
 
   useEffect(() => {
-    // chatTaskSession('');
     missions.map(el => {
       if (
         el.task.content.product.slug === towerTitle &&
-        el.task.content.taskType.slug === TasksType.INFORMATIONAL
+        el.task.content.taskType.slug !== TasksType.COSMETIC
       ) {
+        setCurrentMission(el);
         chatTaskSession(el.id);
-        setTaskId(el.id);
         return;
       }
     });
@@ -189,13 +192,22 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
   }, []);
 
   const sendAnswerId = async (actionId: number) => {
-    if (!ended)
-      consumeUserTaskAction({ taskId, messageId: masterMessageId, actionId });
-    else {
-      await verifyTask(taskId);
-      await takeReward(taskId);
+    if (currentMission) {
+      if (!ended)
+        await consumeUserTaskAction({
+          taskId: currentMission.id,
+          messageId: masterMessageId,
+          actionId,
+        });
+      else if (
+        // выпилим если пользователю надо будет самому кликать по статусам
+        currentMission.status !== TaskStatuses.REWARDED &&
+        currentMission.status !== TaskStatuses.DONE
+      ) {
+        await verifyTask(currentMission.id);
+        await takeReward(currentMission.id);
+      }
     }
-    // send user answer
   };
 
   const chatWheelHandler = () => {
@@ -218,9 +230,8 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
       >
         {messages.map((item, idx) => (
           <MessageRow key={idx} direction={item.direction}>
-            <ChatAvatar //тут аватарка отправителя
-              // тут ключ и тип
-              type={item.direction}
+            <ChatAvatar
+              direction={item.direction}
               systemBotAvatar={ChatConfig.systemBotAvatar}
               userAvatar={ChatConfig.userAvatar}
             />

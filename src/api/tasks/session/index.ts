@@ -8,8 +8,8 @@ export const chatTaskSessionRequest = async (id: number) => {
 };
 
 export enum MessagesDirection {
-  INCOMING = 'in',
-  OUTGOING = 'out',
+  IN = 'in',
+  OUT = 'out',
 }
 
 export interface IChatTaskSessionRequest {
