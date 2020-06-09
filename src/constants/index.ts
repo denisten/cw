@@ -24,7 +24,7 @@ export const zIndexForInheritOverlay = 2;
 export const maxPersent = 100;
 export const statusOk = 200;
 export const delayBeforeUpdateTower = 2000;
-export const delayBeforePreloaderOff = 800;
+export const delayBeforePreloaderOff = 1200;
 export const preloaderTowersAnimationDuration = 200;
 export const totalAnimationPreloaderTowerDuration =
   preloaderTowersAnimationDuration * numberOfPreloaderTowerStates;

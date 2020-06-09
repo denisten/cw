@@ -24,7 +24,7 @@ const Banner = styled.div`
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  padding-top: 55px;
+  padding-top: 58px;
   cursor: pointer;
 `;
 
@@ -33,7 +33,7 @@ const Title = styled.span`
   color: #35647b;
   text-transform: uppercase;
   font-family: ${MTSSans.MEDIUM};
-  transform: skewY(28deg);
+  transform: skewY(27.5deg);
   letter-spacing: -1px;
   font-size: 14px;
   position: relative;
@@ -51,7 +51,7 @@ const HeadTitle = styled(Title)<{ fontSize: string }>`
 
 enum TextSize {
   SHORT = 6,
-  MEDIUM = 9,
+  MEDIUM = 10,
   BIG = 12,
 }
 
@@ -61,7 +61,7 @@ const returnFontSize = (wordLength: number) => {
   } else if (wordLength > TextSize.SHORT && wordLength <= TextSize.MEDIUM) {
     return '17px';
   } else {
-    return '14px';
+    return '13px';
   }
 };
 
