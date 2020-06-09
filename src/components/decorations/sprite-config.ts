@@ -8,7 +8,7 @@ const commonSpriteSetting = {
   canvasHeight: 147,
   numberOfFramesX: 6,
   numberOfFramesY: 5,
-  ticksPerFrame: 2,
+  ticksPerFrame: 4,
   infinity: true,
 };
 
