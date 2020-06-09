@@ -8,10 +8,7 @@ import { Input } from '../input';
 import { Button, ButtonClassNames } from '../button';
 import { editCurrentUserDataField } from '../../effector/user-data/events';
 import { UserDataStoreKeys } from '../../effector/user-data/store';
-import {
-  minNameLength,
-  maxCityNameLength,
-} from '../../components/profile/authorized';
+
 import { useStore } from 'effector-react';
 import {
   TutorialConditions,
@@ -25,7 +22,11 @@ import {
   TutorialOverlay,
   TutorialOverlayTopLayer,
 } from '../../components/tutorial-overlay';
-import { zIndexForInheritOverlay } from '../../constants';
+import {
+  zIndexForInheritOverlay,
+  maxCityNameLength,
+  minNameLength,
+} from '../../constants';
 import { saveUserData } from '../../api/save-user-data';
 import { contains } from '../../utils/check-include';
 import supportSprite from '../../img/assistant/assistant.png';

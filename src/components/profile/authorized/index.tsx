@@ -23,7 +23,13 @@ import exitImg from './exit.svg';
 import { CookieService } from '../../../sevices/cookies';
 import { logout } from '../../../api';
 import { Dropdown } from '../../../UI/dropdown';
-import { DaysNumArr, MonthsStringArr } from '../../../constants';
+import {
+  DaysNumArr,
+  MonthsStringArr,
+  minNameLength,
+  maxUserNameLength,
+  maxCityNameLength,
+} from '../../../constants';
 import { updateUserData } from '../../../utils/update-user-data';
 import { resetTowerProgress } from '../../../effector/towers-progress/events';
 import { birthdayParser } from '../../../utils/birthday-parser';
@@ -202,9 +208,6 @@ const styledConfig = {
   },
 };
 
-export const minNameLength = 3,
-  maxCityNameLength = 12;
-
 let nameInputHint = '';
 
 export const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
@@ -234,8 +237,8 @@ export const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
     if (value.length < minNameLength) {
       nameInputHint = minSymbolsAlert + minNameLength;
       setNameInputHasError(true);
-    } else if (value.length > maxCityNameLength) {
-      nameInputHint = maxSymbolsAlert + maxCityNameLength;
+    } else if (value.length > maxUserNameLength) {
+      nameInputHint = maxSymbolsAlert + maxUserNameLength;
       setNameInputHasError(true);
     } else {
       setNameInputHasError(false);
@@ -246,7 +249,7 @@ export const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
     if (e) e.preventDefault();
     if (
       localName.length >= minNameLength &&
-      localName.length <= maxCityNameLength
+      localName.length <= maxUserNameLength
     ) {
       updateUserData({ birthday: birthdayDate, name: localName });
     } else {
@@ -268,6 +271,7 @@ export const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
       popUpStyles: styledConfig.popUpEditUserNameStyles,
       title: 'Введите название города',
       initValue: worldName,
+      maxInputValueLenght: maxCityNameLength,
     },
     [TypesOfPopUps.EDIT_ASSISTANT_NAME]: {
       callback: () => setOpenPopUpState(TypesOfPopUps.DISABLED),

@@ -25,7 +25,7 @@ import {
   TutorialOverlay,
   TutorialOverlayTopLayer,
 } from '../../tutorial-overlay';
-import { zIndexForInheritOverlay } from '../../../constants';
+import { zIndexForInheritOverlay, maxCityNameLength } from '../../../constants';
 import { setOpenPopUpState } from '../../../effector/app-condition/events';
 
 const ProfileWrapper = styled.div`
@@ -113,6 +113,7 @@ export const NotAuthorizedProfile: React.FC<INotAuthorizedProfile> = ({
         callback={() => setOpenPopUpState(TypesOfPopUps.DISABLED)}
         displayFlag={openPopUpState !== TypesOfPopUps.DISABLED}
         popUpStyles={styledConfig.popUpStyles}
+        maxInputValueLenght={maxCityNameLength}
         title="Введите название города"
         initValue="Неизвестно"
       />

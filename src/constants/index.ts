@@ -28,3 +28,7 @@ export const delayBeforePreloaderOff = 800;
 export const preloaderTowersAnimationDuration = 200;
 export const totalAnimationPreloaderTowerDuration =
   preloaderTowersAnimationDuration * numberOfPreloaderTowerStates;
+
+export const minNameLength = 3,
+  maxCityNameLength = 12,
+  maxUserNameLength = 14;
