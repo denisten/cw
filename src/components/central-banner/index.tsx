@@ -20,7 +20,7 @@ const Banner = styled.div`
   position: absolute;
   left: 59%;
   top: 36%;
-  z-index: 100;
+  z-index: ${ZIndexes.BANNERS};
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
