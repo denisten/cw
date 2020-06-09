@@ -1,4 +1,5 @@
 import { keyframes, Keyframes } from 'styled-components';
+import { ISpriteCollectionStyleConfig } from '../sprite-collection';
 
 const animSpriteOne = keyframes`
 0% {
@@ -90,7 +91,7 @@ const animSpriteSix = keyframes`
 }
 `;
 
-export const spriteWrapperConfig: ISpritesConfig[] = [
+export const spriteWrapperConfig: ISpriteCollectionStyleConfig[] = [
   {
     style: {
       top: '16.8%',
@@ -190,8 +191,3 @@ export const mainSpriteSettings = {
     height: '38px',
   } as React.CSSProperties,
 };
-
-interface ISpritesConfig {
-  style: React.CSSProperties;
-  animation?: Keyframes;
-}
