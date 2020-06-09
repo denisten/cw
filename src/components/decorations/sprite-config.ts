@@ -35,21 +35,21 @@ export const fountainConfig: IFountainConfig[] = [
       {
         style: {
           top: '36.8%',
-          left: '31.69%',
+          left: '31.72%',
         },
       },
       {
         style: {
           top: '47.15%',
-          left: '52.35%',
+          left: '52.37%',
         },
       },
     ],
     setting: {
       ...commonSpriteSetting,
       style: {
-        width: '70px',
-        height: '102px',
+        width: '66px',
+        height: '101px',
       },
     },
   },
