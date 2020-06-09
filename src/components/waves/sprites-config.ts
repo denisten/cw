@@ -1,4 +1,4 @@
-import { keyframes, Keyframes } from 'styled-components';
+import { keyframes } from 'styled-components';
 import { ISpriteCollectionStyleConfig } from '../sprite-collection';
 
 const animSpriteOne = keyframes`

@@ -30,17 +30,19 @@ export const SpriteCollection: React.FC<ISpritesConfig> = ({
 
 interface ISpritesConfig {
   styleConfig: ISpriteCollectionStyleConfig[];
-  spriteParams: {
-    canvasWidth: number;
-    canvasHeight: number;
-    numberOfFramesX: number;
-    numberOfFramesY: number;
-    ticksPerFrame: number;
-    infinity: boolean;
-    style: React.CSSProperties;
-  };
+  spriteParams: ISpriteParams;
   img: string;
   zIndex?: number;
+}
+
+export interface ISpriteParams {
+  canvasWidth: number;
+  canvasHeight: number;
+  numberOfFramesX: number;
+  numberOfFramesY: number;
+  ticksPerFrame: number;
+  infinity: boolean;
+  style: React.CSSProperties;
 }
 
 export interface ISpriteCollectionStyleConfig {
