@@ -11,7 +11,6 @@ import {
   setOpenPopUpState,
 } from '../../effector/app-condition/events';
 import { TypesOfPopUps } from '../../UI/pop-up';
-import { maxMouseMoveFaultAfterClick } from '../../constants';
 
 const Banner = styled.div`
   width: 175px;
@@ -69,6 +68,7 @@ const returnFontSize = (wordLength: number) => {
 export const CentralBanner: React.FC = () => {
   let mouseDownFlag = false,
     mouseMoveFlag = 0;
+  const maxMouseMoveFaultAfterClick = 5;
   const { worldName } = useStore(UserDataStore);
   const [wordLength, setWordLength] = useState(0);
   useEffect(() => {
@@ -93,6 +93,10 @@ export const CentralBanner: React.FC = () => {
     if (mouseDownFlag && mouseMoveFlag < maxMouseMoveFaultAfterClick) {
       openAndEditCityName();
       mouseMoveFlag = 0;
+      mouseDownFlag = false;
+    } else {
+      mouseMoveFlag = 0;
+      mouseDownFlag = false;
     }
   };
 

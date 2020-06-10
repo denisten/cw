@@ -15,7 +15,6 @@ import { scrollToCurrentTower } from '../../utils/scroll-to-current-tower';
 import { Markers } from '../../components/markers';
 import { IMarker } from '../../effector/towers-marker/store';
 import { BuildingsService, IAnimSize } from '../../buildings/config';
-import { maxMouseMoveFaultAfterClick } from '../../constants';
 
 const TowerStyledWrapper = styled.div<ITowerStyledWrapper>`
   display: flex;
@@ -45,6 +44,7 @@ const StyledConfig = {
   },
 };
 
+const maxMouseMoveFaultAfterClick = 20;
 export const TowerWrapper = memo(
   ({
     position,
