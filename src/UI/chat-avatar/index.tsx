@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import userDefault from './user-default.svg';
 import botDefault from './bot-default.svg';
-import { MessagesDirection } from '../../api/tasks/session';
+import { Sender } from '../../api/tasks/session';
 
 const Avatar = styled.img`
   width: 50px;
@@ -11,12 +11,12 @@ const Avatar = styled.img`
 `;
 
 export const ChatAvatar: React.FC<IChatAvatar> = ({
-  direction,
+  sender,
   systemBotAvatar,
   userAvatar,
 }) => {
   const setAvatar = () => {
-    if (direction === MessagesDirection.OUT) {
+    if (sender === Sender.BACKEND) {
       return systemBotAvatar || botDefault;
     } else {
       return userAvatar || userDefault;
@@ -27,7 +27,7 @@ export const ChatAvatar: React.FC<IChatAvatar> = ({
 };
 
 interface IChatAvatar {
-  direction: MessagesDirection;
+  sender: Sender;
   systemBotAvatar: string | undefined;
   userAvatar: string | undefined;
 }

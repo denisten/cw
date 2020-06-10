@@ -1,6 +1,6 @@
 import { TaskMessagesDomain } from './domain';
 import { chatTaskSession, consumeUserTaskAction } from './events';
-import { IAction, IMessage, MessagesDirection } from '../../api/tasks/session';
+import { IAction, IMessage, Sender } from '../../api/tasks/session';
 
 const initStore = {
   messages: [],
@@ -19,7 +19,7 @@ export const TaskMessagesStore = TaskMessagesDomain.store<ITaskMessagesStore>(
     }
     const userAction = {
       text: payload.currentAction.text,
-      direction: MessagesDirection.IN,
+      direction: Sender.FRONTEND,
     };
     return {
       ...state,

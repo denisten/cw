@@ -3,16 +3,16 @@ import styled from 'styled-components';
 import wCorner from './corner-white.svg';
 import bCorner from './corner-b.svg';
 import { MTSSans } from '../../fonts';
-import { MessagesDirection } from '../../api/tasks/session';
+import { Sender } from '../../api/tasks/session';
 
-const BubbleBody = styled.div<{ direction?: string }>`
+const BubbleBody = styled.div<{ sender?: Sender }>`
   margin: ${props =>
-    props.direction === MessagesDirection.OUT ? '0 0 0 8px' : '0 8px 0 0'};
+    props.sender === Sender.BACKEND ? '0 0 0 8px' : '0 8px 0 0'};
   background-color: ${props =>
-    props.direction === MessagesDirection.OUT ? 'white' : '#04B5D2'};
+    props.sender === Sender.BACKEND ? 'white' : '#04B5D2'};
   border-radius: 4px;
   padding: ${props =>
-    props.direction === MessagesDirection.OUT
+    props.sender === Sender.BACKEND
       ? '12px 41px 12px 29px'
       : '22px 41px 22px 24px'};
   box-sizing: border-box;
@@ -26,8 +26,7 @@ const BubbleBody = styled.div<{ direction?: string }>`
     font-family: ${MTSSans.REGULAR};
     font-size: 16px;
     line-height: 1.25;
-    color: ${props =>
-      props.direction === MessagesDirection.OUT ? '#001424' : 'white'};
+    color: ${props => (props.sender === Sender.BACKEND ? '#001424' : 'white')};
   }
 
   &::before {
@@ -38,8 +37,7 @@ const BubbleBody = styled.div<{ direction?: string }>`
     left: -6px;
     width: 38px;
     height: 32px;
-    display: ${props =>
-      props.direction === MessagesDirection.OUT ? 'block' : 'none'};
+    display: ${props => (props.sender === Sender.BACKEND ? 'block' : 'none')};
   }
 
   &::after {
@@ -50,8 +48,7 @@ const BubbleBody = styled.div<{ direction?: string }>`
     right: -6px;
     width: 38px;
     height: 32px;
-    display: ${props =>
-      props.direction === MessagesDirection.IN ? 'block' : 'none'};
+    display: ${props => (props.sender === Sender.FRONTEND ? 'block' : 'none')};
   }
 `;
 
@@ -70,19 +67,17 @@ const BotName = styled.div<{ content: string }>`
   }
 `;
 
-export const Bubble: React.FC<IBubble> = ({ direction, text, botName }) => {
+export const Bubble: React.FC<IBubble> = ({ sender, text, botName }) => {
   return (
-    <BubbleBody direction={direction}>
-      {direction === MessagesDirection.OUT && botName && (
-        <BotName content={botName} />
-      )}
+    <BubbleBody sender={sender}>
+      {sender === Sender.BACKEND && botName && <BotName content={botName} />}
       <span>{text}</span>
     </BubbleBody>
   );
 };
 
 interface IBubble {
-  direction: string;
+  sender: Sender;
   text: string;
   botName?: string;
 }

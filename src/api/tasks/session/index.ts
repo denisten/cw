@@ -7,9 +7,9 @@ export const chatTaskSessionRequest = async (id: number) => {
   );
 };
 
-export enum MessagesDirection {
-  IN = 'in',
-  OUT = 'out',
+export enum Sender {
+  FRONTEND = 'in',
+  BACKEND = 'out',
 }
 
 export interface IChatTaskSessionRequest {
@@ -28,7 +28,7 @@ export interface IChatTaskSessionRequest {
 
 export interface IMessage {
   text: string;
-  direction: MessagesDirection;
+  direction: Sender;
 }
 
 export interface IAction {

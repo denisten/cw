@@ -249,6 +249,7 @@ const styledConfig = {
   coupon: {
     marginRight: '12px',
   },
+  columnWrapperAdditionalStyle: { alignItems: 'center' },
 };
 
 export const Task: React.FC<ITasksRow> = ({
@@ -292,7 +293,7 @@ export const Task: React.FC<ITasksRow> = ({
         )}
         <ColumnWrapper
           {...styledConfig.columnWrapper}
-          style={{ alignItems: 'center' }}
+          style={styledConfig.columnWrapperAdditionalStyle}
         >
           <TaskButton
             expireInSeconds={expireInSeconds}

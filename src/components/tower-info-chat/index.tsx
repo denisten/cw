@@ -9,7 +9,7 @@ import { AdvancedScrollbar } from '../../UI/advanced-scrollbar';
 import { AdvanceScrollBarAttr } from '../../utils/handle-scroll';
 import { useStore } from 'effector-react';
 import { TaskMessagesStore } from '../../effector/task-messages/store';
-import { MessagesDirection } from '../../api/tasks/session';
+import { Sender } from '../../api/tasks/session';
 import {
   chatTaskSession,
   consumeUserTaskAction,
@@ -63,11 +63,11 @@ const ChatWrapper = styled(AdvancedScrollbar)<{ foolSize: boolean }>`
   }
 `;
 
-const MessageRow = styled.div<{ direction?: string }>`
+const MessageRow = styled.div<{ sender?: Sender }>`
   display: flex;
   height: auto;
   flex-direction: ${props =>
-    props.direction === MessagesDirection.OUT ? 'row' : 'row-reverse'};
+    props.sender === Sender.BACKEND ? 'row' : 'row-reverse'};
   align-items: flex-end;
   margin-bottom: 24px;
 `;
@@ -229,14 +229,14 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
         ref={chatContainer}
       >
         {messages.map((item, idx) => (
-          <MessageRow key={idx} direction={item.direction}>
+          <MessageRow key={idx} sender={item.direction}>
             <ChatAvatar
-              direction={item.direction}
+              sender={item.direction}
               systemBotAvatar={ChatConfig.systemBotAvatar}
               userAvatar={ChatConfig.userAvatar}
             />
             <Bubble
-              direction={item.direction}
+              sender={item.direction}
               text={item.text}
               botName="Имя бота"
             />
