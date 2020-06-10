@@ -51,19 +51,6 @@ const animSpriteThree = keyframes`
 }
 `;
 
-const animSpriteFour = keyframes`
-0% {
-  opacity: 0;
-}
-
-20% {
-  opacity: 1;
-}
-
-100% {
-  transform: translate3D(-58px, 6px, 0);
-}
-`;
 const animSpriteFive = keyframes`
 0% {
   opacity: 0;
@@ -86,8 +73,26 @@ const animSpriteSix = keyframes`
   opacity: 1;
 }
 
+30% {
+  transform: translate3D(-68px, -6px, 0);
+}
+
 100% {
-  transform: translate3D(-30px, 20px, 0);
+  transform: translate3D(-174px, 38px, 0);
+}
+`;
+
+const shortAnimSprite = keyframes`
+0% {
+  opacity: 0;
+}
+
+20% {
+  opacity: 1;
+}
+
+100% {
+  transform: translate3D(-35px, 23px, 0);
 }
 `;
 
@@ -96,13 +101,21 @@ export const spriteWrapperConfig: ISpriteCollectionStyleConfig[] = [
     style: {
       top: '16.8%',
       left: '68.5%',
+      animationDuration: '7s',
     },
-    animation: animSpriteFour,
+    animation: animSpriteSix,
   },
   {
     style: {
       top: '3.2%',
       left: '75.9%',
+    },
+    animation: animSpriteThree,
+  },
+  {
+    style: {
+      top: '32.5%',
+      left: '53.9%',
     },
     animation: animSpriteThree,
   },
@@ -122,8 +135,8 @@ export const spriteWrapperConfig: ISpriteCollectionStyleConfig[] = [
   },
   {
     style: {
-      top: '37.6%',
-      left: '56.2%',
+      top: '37.1%',
+      left: '56%',
     },
     animation: animSpriteOne,
   },
@@ -143,6 +156,13 @@ export const spriteWrapperConfig: ISpriteCollectionStyleConfig[] = [
   },
   {
     style: {
+      top: '60.7%',
+      left: '27.7%',
+    },
+    animation: animSpriteFive,
+  },
+  {
+    style: {
       top: '64.6%',
       left: '22.8%',
     },
@@ -150,29 +170,23 @@ export const spriteWrapperConfig: ISpriteCollectionStyleConfig[] = [
   },
   {
     style: {
-      top: '69.5%',
-      left: '25.6%',
+      top: '69%',
+      left: '25.25%',
     },
     animation: animSpriteOne,
   },
   {
     style: {
-      top: '72.5%',
-      left: '25.6%',
+      top: '73.7%',
+      left: '25.3%',
     },
-    animation: animSpriteTwo,
+    animation: shortAnimSprite,
   },
   {
     style: {
       top: '78.2%',
-      left: '14.4%',
-    },
-    animation: animSpriteSix,
-  },
-  {
-    style: {
-      top: '78.9%',
-      left: '13.2%',
+      left: '15.5%',
+      animationDuration: '7s',
     },
     animation: animSpriteSix,
   },
