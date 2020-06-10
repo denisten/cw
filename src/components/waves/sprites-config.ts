@@ -114,8 +114,9 @@ export const spriteWrapperConfig: ISpriteCollectionStyleConfig[] = [
     style: {
       top: '16.8%',
       left: '68.5%',
+      animationDuration: '7s',
     },
-    animation: animSpriteFour,
+    animation: animSpriteSix,
   },
   {
     style: {
@@ -163,6 +164,13 @@ export const spriteWrapperConfig: ISpriteCollectionStyleConfig[] = [
     style: {
       top: '56.8%',
       left: '31.9%',
+    },
+    animation: animSpriteFive,
+  },
+  {
+    style: {
+      top: '60.7%',
+      left: '27.7%',
     },
     animation: animSpriteFive,
   },
