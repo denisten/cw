@@ -112,6 +112,13 @@ export const spriteWrapperConfig: ISpriteCollectionStyleConfig[] = [
   },
   {
     style: {
+      top: '32.5%',
+      left: '53.9%',
+    },
+    animation: animSpriteThree,
+  },
+  {
+    style: {
       top: '11.3%',
       left: '78.7%',
     },
