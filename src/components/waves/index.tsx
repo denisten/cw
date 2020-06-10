@@ -29,6 +29,7 @@ export const Waves: React.FC = React.memo(() => {
         styleConfig={spriteWrapperConfig}
         spriteParams={mainSpriteSettings}
         img={animRiverSprite}
+        zIndex={500}
       />
       {waveConfig.map((waveParams, ind) => (
         <WaveImg key={ind} {...waveParams} />

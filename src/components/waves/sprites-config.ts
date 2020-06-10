@@ -86,8 +86,12 @@ const animSpriteSix = keyframes`
   opacity: 1;
 }
 
+30% {
+  transform: translate3D(-68px, -6px, 0);
+}
+
 100% {
-  transform: translate3D(-30px, 20px, 0);
+  transform: translate3D(-174px, 38px, 0);
 }
 `;
 
@@ -165,14 +169,8 @@ export const spriteWrapperConfig: ISpriteCollectionStyleConfig[] = [
   {
     style: {
       top: '78.2%',
-      left: '14.4%',
-    },
-    animation: animSpriteSix,
-  },
-  {
-    style: {
-      top: '78.9%',
-      left: '13.2%',
+      left: '15.5%',
+      animationDuration: '7s',
     },
     animation: animSpriteSix,
   },
