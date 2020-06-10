@@ -95,6 +95,20 @@ const animSpriteSix = keyframes`
 }
 `;
 
+const shortAnimSprite = keyframes`
+0% {
+  opacity: 0;
+}
+
+20% {
+  opacity: 1;
+}
+
+100% {
+  transform: translate3D(-35px, 23px, 0);
+}
+`;
+
 export const spriteWrapperConfig: ISpriteCollectionStyleConfig[] = [
   {
     style: {
@@ -133,8 +147,8 @@ export const spriteWrapperConfig: ISpriteCollectionStyleConfig[] = [
   },
   {
     style: {
-      top: '37.6%',
-      left: '56.2%',
+      top: '37.1%',
+      left: '56%',
     },
     animation: animSpriteOne,
   },
@@ -161,17 +175,17 @@ export const spriteWrapperConfig: ISpriteCollectionStyleConfig[] = [
   },
   {
     style: {
-      top: '69.5%',
-      left: '25.6%',
+      top: '69%',
+      left: '25.25%',
     },
     animation: animSpriteOne,
   },
   {
     style: {
-      top: '72.5%',
-      left: '25.6%',
+      top: '73.7%',
+      left: '25.3%',
     },
-    animation: animSpriteTwo,
+    animation: shortAnimSprite,
   },
   {
     style: {
