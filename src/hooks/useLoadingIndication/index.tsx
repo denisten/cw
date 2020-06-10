@@ -59,7 +59,7 @@ export const useLoadingIndication = () => {
   useEffect(() => {
     parseWhenImageLoaded();
     converToPecent();
-  }, [allImagesNumber, loadedImagesNumber]);
+  }, [allImagesNumber, loadedImagesNumber, loadingPercent]);
 
   return {
     loadingPercent,
