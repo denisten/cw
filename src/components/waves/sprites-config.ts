@@ -51,19 +51,6 @@ const animSpriteThree = keyframes`
 }
 `;
 
-const animSpriteFour = keyframes`
-0% {
-  opacity: 0;
-}
-
-20% {
-  opacity: 1;
-}
-
-100% {
-  transform: translate3D(-58px, 6px, 0);
-}
-`;
 const animSpriteFive = keyframes`
 0% {
   opacity: 0;
