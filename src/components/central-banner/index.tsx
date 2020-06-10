@@ -11,6 +11,7 @@ import {
   setOpenPopUpState,
 } from '../../effector/app-condition/events';
 import { TypesOfPopUps } from '../../UI/pop-up';
+import { mouseMoveProtect } from '../../utils/mouse-move-protect';
 
 const Banner = styled.div`
   width: 175px;
@@ -20,7 +21,7 @@ const Banner = styled.div`
   position: absolute;
   left: 59%;
   top: 36%;
-  z-index: ${ZIndexes.BANNERS};
+  z-index: ${ZIndexes.UI_BUTTON};
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -77,8 +78,18 @@ export const CentralBanner: React.FC = () => {
     setOpenPopUpState(TypesOfPopUps.EDIT_WORLD_NAME);
   };
 
+  const maxMouseMoveFaultAfterClick = 5;
+  const mouseMoveProtectInstance = mouseMoveProtect(
+    openAndEditCityName,
+    maxMouseMoveFaultAfterClick
+  );
+
   return (
-    <Banner onClick={openAndEditCityName}>
+    <Banner
+      onMouseDown={mouseMoveProtectInstance.handleMouseDown}
+      onMouseUp={mouseMoveProtectInstance.handleMouseUp}
+      onMouseMove={mouseMoveProtectInstance.handleMouseMove}
+    >
       <Title>Добро</Title>
       <Title>пожаловать!</Title>
       <HeadTitle fontSize={returnFontSize(wordLength)}>{worldName}</HeadTitle>
