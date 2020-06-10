@@ -49,6 +49,7 @@ const HintWrapper = styled(StyledSpan)<{ hasError: boolean }>`
   line-height: 1.33;
   color: ${props => (props.hasError ? '#ea1f49' : '#9198A0')};
   margin-top: 4px;
+  margin-left: 3px;
   position: absolute;
 `;
 
