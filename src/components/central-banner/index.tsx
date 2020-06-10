@@ -11,6 +11,7 @@ import {
   setOpenPopUpState,
 } from '../../effector/app-condition/events';
 import { TypesOfPopUps } from '../../UI/pop-up';
+import { maxMouseMoveFaultAfterClick } from '../../constants';
 
 const Banner = styled.div`
   width: 175px;
@@ -20,7 +21,7 @@ const Banner = styled.div`
   position: absolute;
   left: 59%;
   top: 36%;
-  z-index: ${ZIndexes.BANNERS};
+  z-index: ${ZIndexes.UI_BUTTON};
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -66,6 +67,8 @@ const returnFontSize = (wordLength: number) => {
 };
 
 export const CentralBanner: React.FC = () => {
+  let mouseDownFlag = false,
+    mouseMoveFlag = 0;
   const { worldName } = useStore(UserDataStore);
   const [wordLength, setWordLength] = useState(0);
   useEffect(() => {
@@ -76,9 +79,29 @@ export const CentralBanner: React.FC = () => {
     menuOpened(MenuItems.PROFILE);
     setOpenPopUpState(TypesOfPopUps.EDIT_WORLD_NAME);
   };
+  const handleMouseDown = () => {
+    mouseDownFlag = true;
+  };
+
+  const handleMouseMove = () => {
+    if (mouseDownFlag) {
+      mouseMoveFlag += 1;
+    }
+  };
+
+  const handleMouseUp = () => {
+    if (mouseDownFlag && mouseMoveFlag < maxMouseMoveFaultAfterClick) {
+      openAndEditCityName();
+      mouseMoveFlag = 0;
+    }
+  };
 
   return (
-    <Banner onClick={openAndEditCityName}>
+    <Banner
+      onMouseDown={handleMouseDown}
+      onMouseUp={handleMouseUp}
+      onMouseMove={handleMouseMove}
+    >
       <Title>Добро</Title>
       <Title>пожаловать!</Title>
       <HeadTitle fontSize={returnFontSize(wordLength)}>{worldName}</HeadTitle>
