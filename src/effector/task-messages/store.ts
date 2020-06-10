@@ -1,6 +1,6 @@
 import { TaskMessagesDomain } from './domain';
 import { chatTaskSession, consumeUserTaskAction } from './events';
-import { IAction, IMessage } from '../../api/tasks/session';
+import { IAction, IMessage, MessagesDirection } from '../../api/tasks/session';
 
 const initStore = {
   messages: [],
@@ -15,11 +15,15 @@ export const TaskMessagesStore = TaskMessagesDomain.store<ITaskMessagesStore>(
   .on(chatTaskSession.doneData, (_, payload) => payload)
   .on(consumeUserTaskAction.doneData, (state, payload) => {
     if (payload.ended) {
-      return initStore;
+      return state;
     }
+    const userAction = {
+      text: payload.currentAction.text,
+      direction: MessagesDirection.IN,
+    };
     return {
       ...state,
-      messages: [...state.messages, ...payload.messages],
+      messages: [...state.messages, userAction, ...payload.messages],
       actions: payload.actions,
       masterMessageId: payload.masterMessageId,
     };

@@ -16,6 +16,10 @@ export interface IChatTaskSessionRequest {
   state: string;
   data: {
     masterMessageId: number;
+    currentAction: {
+      id: number;
+      text: string;
+    };
     messages: IMessage[];
     actions: IAction[];
     ended: boolean;
