@@ -10,6 +10,14 @@ import { TowerInfoContentValues } from '../../effector/app-condition/store';
 import { scrollToCurrentTower } from '../scroll-to-current-tower';
 import { RefObject } from 'react';
 import { editMoneyCount } from '../../effector/user-data/events';
+import { commitIncomes } from '../../api/commit-income';
+
+const setIncome = async (towerTitle: TowersTypes) => {
+  const response = await commitIncomes(towerTitle);
+  if (response.state === 'success') {
+    editMoneyCount(response.data.balance);
+  }
+};
 
 export const markerClickHandler = (
   marker: IMarker,
@@ -25,7 +33,7 @@ export const markerClickHandler = (
       scrollToCurrentTower(markerRef);
       break;
     case TypeOfMarkers.COIN:
-      editMoneyCount(marker.coins || 0);
+      setIncome(towerTitle);
       break;
 
     default:

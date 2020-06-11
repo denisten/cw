@@ -19,6 +19,7 @@ export enum apiRoutes {
   COMMIT_PROGRESS = '/progress/commit',
   GET_TASKS = '/api/users/current/tasks',
   REFRESH_BD = '/api/dev/refreshDb',
+  COMMIT_INCOMES = '/incomes/commit',
 }
 
 export {

@@ -54,7 +54,8 @@ export const MarkerView = styled.div<{
   z-index: 2;
 
   &:hover {
-    transform: scale(1.1);
+    transform: scale(1.2);
+    z-index: 3;
   }
 `;
 
@@ -83,6 +84,10 @@ export const MarkerWrapper = styled.div<{ displayFlag: boolean }>`
     position: absolute;
     left: 65px;
     z-index:1;
+
+    &:hover {
+      z-index: 3;
+    }
 
   }
 
