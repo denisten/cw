@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import { setHideTowerInfo } from '../../effector/app-condition/events';
@@ -7,11 +7,21 @@ import { ChatButtons } from '../../UI/chat-buttons';
 import { ChatAvatar } from '../../UI/chat-avatar';
 import { AdvancedScrollbar } from '../../UI/advanced-scrollbar';
 import { AdvanceScrollBarAttr } from '../../utils/handle-scroll';
-
-export enum MessageType {
-  SYSTEM = 'system',
-  USER = 'user',
-}
+import { useStore } from 'effector-react';
+import { TaskMessagesStore } from '../../effector/task-messages/store';
+import { Sender } from '../../api/tasks/session';
+import {
+  chatTaskSession,
+  consumeUserTaskAction,
+} from '../../effector/task-messages/events';
+import { TowersTypes } from '../../effector/towers-progress/store';
+import {
+  ITask,
+  MissionsStore,
+  TaskStatuses,
+} from '../../effector/missions-store/store';
+import { TasksType } from '../tasks';
+import { takeReward, verifyTask } from '../../effector/missions-store/events';
 
 const ChatWrapper = styled(AdvancedScrollbar)<{ foolSize: boolean }>`
   width: 100%;
@@ -53,11 +63,11 @@ const ChatWrapper = styled(AdvancedScrollbar)<{ foolSize: boolean }>`
   }
 `;
 
-const MessageRow = styled.div<{ type?: string }>`
+const MessageRow = styled.div<{ sender?: Sender }>`
   display: flex;
   height: auto;
   flex-direction: ${props =>
-    props.type === MessageType.SYSTEM ? 'row' : 'row-reverse'};
+    props.sender === Sender.BACKEND ? 'row' : 'row-reverse'};
   align-items: flex-end;
   margin-bottom: 24px;
 `;
@@ -154,17 +164,50 @@ const ChatConfig: IChatConfig = {
 
 const START_HIDE_POS = 200;
 
-export const TowerInfoChat: React.FC<ITowerInfoChat> = ({ hideContent }) => {
-  const chatContainer = useRef<HTMLDivElement | null>(null);
+export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
+  hideContent,
+  towerTitle,
+}) => {
+  const chatContainer = useRef<HTMLDivElement>(null);
+  const { messages, actions, masterMessageId, ended } = useStore(
+    TaskMessagesStore
+  );
+  const [currentMission, setCurrentMission] = useState<ITask | null>(null);
+  const missions = useStore(MissionsStore);
 
   useEffect(() => {
+    missions.map(el => {
+      if (
+        el.task.content.product.slug === towerTitle &&
+        el.task.content.taskType.slug !== TasksType.COSMETIC
+      ) {
+        setCurrentMission(el);
+        chatTaskSession(el.id);
+        return;
+      }
+    });
     return () => {
       setHideTowerInfo(false);
     };
   }, []);
 
-  const sendAnswerId = () => {
-    // do somethink id
+  const sendAnswerId = async (actionId: number) => {
+    if (currentMission) {
+      if (!ended)
+        await consumeUserTaskAction({
+          taskId: currentMission.id,
+          messageId: masterMessageId,
+          actionId,
+        });
+      else if (
+        // выпилим если пользователю надо будет самому кликать по статусам
+        currentMission.status !== TaskStatuses.REWARDED &&
+        currentMission.status !== TaskStatuses.DONE
+      ) {
+        await verifyTask(currentMission.id);
+        await takeReward(currentMission.id);
+      }
+    }
   };
 
   const chatWheelHandler = () => {
@@ -185,21 +228,22 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({ hideContent }) => {
         foolSize={hideContent}
         ref={chatContainer}
       >
-        {ChatConfig.messages.map(item => (
-          <MessageRow key={item.id} type={item.type}>
+        {messages.map((item, idx) => (
+          <MessageRow key={idx} sender={item.direction}>
             <ChatAvatar
-              type={item.type}
+              sender={item.direction}
               systemBotAvatar={ChatConfig.systemBotAvatar}
               userAvatar={ChatConfig.userAvatar}
             />
-            <Bubble type={item.type} text={item.text} botName={item.botName} />
+            <Bubble
+              sender={item.direction}
+              text={item.text}
+              botName="Имя бота"
+            />
           </MessageRow>
         ))}
       </ChatWrapper>
-      <ChatButtons
-        buttonsCollection={ChatConfig.buttons}
-        callback={sendAnswerId}
-      />
+      <ChatButtons actions={actions} callback={sendAnswerId} />
     </>
   );
 };
@@ -207,15 +251,16 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({ hideContent }) => {
 interface IChatConfig {
   systemBotAvatar?: string;
   userAvatar?: string;
-  messages: Imessages[];
+  messages: IMessages[];
   buttons: { title: string; answerId: number }[];
 }
 
 interface ITowerInfoChat {
   hideContent: boolean;
+  towerTitle: TowersTypes;
 }
 
-interface Imessages {
+interface IMessages {
   id: number;
   text: string;
   type: string;

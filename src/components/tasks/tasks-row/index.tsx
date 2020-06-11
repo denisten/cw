@@ -8,7 +8,6 @@ import { Coupon } from '../../../UI/coupon';
 import {
   MissionsStore,
   TaskStatuses,
-  TaskSubType,
 } from '../../../effector/missions-store/store';
 import {
   activateTask,
@@ -16,6 +15,21 @@ import {
   takeReward,
   verifyTask,
 } from '../../../effector/missions-store/events';
+import notDoneImg from './not-done.svg';
+import { ColumnWrapper } from '../../../UI/column-wrapper';
+import { TaskTimer } from '../../../UI/task-timer';
+import { chatTaskSession } from '../../../effector/task-messages/events';
+import {
+  menuClosed,
+  setTowerInfoContent,
+} from '../../../effector/app-condition/events';
+import { BuildingsService } from '../../../buildings/config';
+import { scrollToCurrentTower } from '../../../utils/scroll-to-current-tower';
+import { TasksType } from '../index';
+import {
+  AppCondition,
+  TowerInfoContentValues,
+} from '../../../effector/app-condition/store';
 
 enum TaskWrapperHeight {
   opened = 149,
@@ -49,12 +63,11 @@ const TaskWrapper = styled.div<ITaskWrapper>`
   height: ${props =>
     props.isOpened ? TaskWrapperHeight.opened : TaskWrapperHeight.closed}px;
   border-radius: 4px;
-  box-shadow: 0 2px 4px 0 #e2e5eb;
+  border: 1px solid #ebecef;
   background-color: #ffffff;
   box-sizing: border-box;
   padding: ${props => (props.isInTowerInfo ? '16px 0 16px 16px' : '14px 18px')};
   margin-bottom: 16px;
-  cursor: pointer;
   transition-duration: 0.2s;
   transition-timing-function: ease-in-out;
   transition-property: height;
@@ -84,62 +97,59 @@ const Title = styled(StyledSpan)<ITaskLocation>`
 const TaskButton = styled.div<{
   expireInSeconds: number | null;
 }>`
-  width: 109px;
-  height: 24px;
+  width: 120px;
+  height: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 1px;
-  border-style: solid;
-  border-width: 2px;
-  background-origin: border-box;
-  background-clip: content-box, border-box;
-  border-image-slice: 1;
-  border-image-source: linear-gradient(to bottom, #027722 -152%, #26cd58 107%);
-  background-image: linear-gradient(
-      to bottom,
-      #1ecc52,
-      #26cd58 48%,
-      #04aa42 80%,
-      #08972f 98%
-    ),
-    linear-gradient(to bottom, #027722 -152%, #26cd58 107%);
+  border-radius: 2px;
+  cursor: pointer;
   &.${TaskStatuses.CREATED} {
-    border-image-source: linear-gradient(to bottom, #03adc9 1%, #02c5e5 100%);
-    background-image: linear-gradient(
-        to bottom,
-        #00c4e4,
-        #04c7e7 48%,
-        #0cb4d0 80%,
-        #02acc8 98%
-      ),
-      linear-gradient(to bottom, #03adc9 1%, #02c5e5 100%);
-      ::after {
-    content: 'Выполнить';
+    background: #02adc9;
+    ::after {
+      content: 'Выполнить';
     }
   }
-  &.${TaskStatuses.ACTIVE || TaskStatuses.REJECTED}::after {
-    content: "${props => props.expireInSeconds}";
+  &.${TaskStatuses.ACTIVE} {
+    border: 1px solid #76a2a9;
+    box-sizing: border-box;
+    background: #fff;
+    ::after {
+      content: 'Проверить';
+      color: #76a2a9;
+    }
   }
-  &.${TaskStatuses.VERIFICATION}::after {
-    content: 'Проверяем...';
+  &.${TaskStatuses.VERIFICATION} {
+    background: #fff;
+    ::after {
+      content: 'На проверке';
+      color: #76a2a9;
+    }
   }
-  &.${TaskStatuses.DONE}::after {
-    content: 'Забрать';
-  }
-  &.${TaskStatuses.EXPIRED || TaskStatuses.REWARDED}::after {
-    content: 'Время вышло';
+  &.${TaskStatuses.DONE} {
+    background: #40b71e;
+    border-radius: 2px;
+    ::after {
+      content: 'Забрать';
+      color: #fff;
+    }
   }
 
+  &.${TaskStatuses.REJECTED} {
+    background: #fff;
+    border-radius: 2px;
+    ::after {
+      content: 'Не выполнено';
+      color: #76a2a9;
+    }
+  }
   ::after {
     font-family: ${MTSSans.MEDIUM};
-    font-size: 16px;
-    font-weight: 500;
-    font-stretch: normal;
     font-style: normal;
-    line-height: 1.25;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
     letter-spacing: -0.4px;
-    text-align: center;
     color: #ffffff;
   }
 `;
@@ -176,28 +186,44 @@ const TaskDescriptionWrapper = styled.div`
   justify-content: space-between;
 `;
 
-const TimerWrapper = styled.div`
-  width: 110px;
-  height: 16px;
-  box-shadow: inset 0 0 2px 0 rgba(32, 189, 218, 0.18);
-  background-color: #d6f0f4;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
+const HintWrapper = styled.div`
+  font-family: ${MTSSans.REGULAR};
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 20px;
 
-const styledConfig = {
-  coupon: {
-    marginRight: '12px',
-  },
-};
+  display: flex;
+  align-items: center;
+  letter-spacing: -0.4px;
+  text-decoration-line: underline;
+
+  color: #03adc9;
+  ::after {
+    content: 'Проверить еще раз';
+  }
+`;
 
 const handleClick = (id: number) => {
   const state = MissionsStore.getState();
+  const { selectedMenuItem } = AppCondition.getState();
   const currentMissionIdx = state.findIndex(el => el.id === id);
+  const currentMission = state[currentMissionIdx];
+  const currentMissionType = currentMission.task.content.taskType.slug;
+  const productTitle = state[currentMissionIdx].task.content.product.slug;
   switch (state[currentMissionIdx].status) {
     case TaskStatuses.CREATED:
-      return activateTask(id);
+      activateTask(id);
+      if (currentMissionType !== TasksType.COSMETIC) {
+        chatTaskSession(id);
+        if (!selectedMenuItem) {
+          setTowerInfoContent(TowerInfoContentValues.CHAT);
+        } else menuClosed();
+      }
+      scrollToCurrentTower(
+        BuildingsService.getConfigForTower(productTitle).ref
+      );
+      return;
     case TaskStatuses.ACTIVE:
       return verifyTask(id);
     case TaskStatuses.DONE:
@@ -209,6 +235,21 @@ const handleClick = (id: number) => {
     case TaskStatuses.EXPIRED:
     // do smth
   }
+};
+
+const styledConfig = {
+  img: {
+    position: 'relative',
+    bottom: '10px',
+  } as React.CSSProperties,
+  columnWrapper: {
+    position: 'relative',
+    displayFlag: true,
+  },
+  coupon: {
+    marginRight: '12px',
+  },
+  columnWrapperAdditionalStyle: { alignItems: 'center' },
 };
 
 export const Task: React.FC<ITasksRow> = ({
@@ -239,18 +280,28 @@ export const Task: React.FC<ITasksRow> = ({
       <TaskInfo>
         <Icon type={type} />
         <Title isInTowerInfo={isInTowerInfo}>{taskTitle}</Title>
-        <TaskLoot money={money} energy={energy} isInTowerInfo={isInTowerInfo} />
-        {status === TaskStatuses.ACTIVE ? (
-          <TimerWrapper onClick={handleWrapperClick}>
-            {expireInSeconds}
-          </TimerWrapper>
-        ) : (
+        <ColumnWrapper {...styledConfig.columnWrapper}>
+          <TaskLoot
+            money={money}
+            energy={energy}
+            isInTowerInfo={isInTowerInfo}
+          />
+          <TaskTimer secondsLeft={expireInSeconds} />
+        </ColumnWrapper>
+        {status === TaskStatuses.REJECTED && (
+          <img src={notDoneImg} alt="reject" style={styledConfig.img} />
+        )}
+        <ColumnWrapper
+          {...styledConfig.columnWrapper}
+          style={styledConfig.columnWrapperAdditionalStyle}
+        >
           <TaskButton
             expireInSeconds={expireInSeconds}
             className={status}
             onClick={handleWrapperClick}
           />
-        )}
+          {status === TaskStatuses.REJECTED && <HintWrapper />}
+        </ColumnWrapper>
       </TaskInfo>
       <Border />
       <TaskDescriptionWrapper>
@@ -267,7 +318,7 @@ export const Task: React.FC<ITasksRow> = ({
 
 interface ITasksRow {
   id: number;
-  type: TaskSubType;
+  type: TasksType;
   taskTitle: string;
   status: TaskStatuses;
   money: number;

@@ -4,10 +4,7 @@ import styled from 'styled-components';
 import { AdvancedScrollbar } from '../../../../UI/advanced-scrollbar';
 import { AdvanceScrollBarAttr } from '../../../../utils/handle-scroll';
 import { useStore } from 'effector-react';
-import {
-  MissionsStore,
-  TaskSubType,
-} from '../../../../effector/missions-store/store';
+import { MissionsStore } from '../../../../effector/missions-store/store';
 import { UserDataStore } from '../../../../effector/user-data/store';
 
 const TasksWrapper = styled(AdvancedScrollbar)<ITask>`
@@ -35,7 +32,7 @@ export const Tasks: React.FC<{ active: boolean }> = ({ active }) => {
             isInTowerInfo={false}
             isAllowedToChange={true}
             couponsCount={couponsCount}
-            type={TaskSubType.NBO}
+            type={el.task.content.taskType.slug}
             taskTitle={`${el.task.content.name.slice(0, maxTaskLength)}...`}
             key={el.task.id}
             status={el.status}

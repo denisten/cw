@@ -13,7 +13,9 @@ export const TowerInfoContent: React.FC<ITowerInfoContent> = ({
 }) => {
   switch (selectedMenu) {
     case TowerInfoContentValues.CHAT:
-      return <TowerInfoChat hideContent={hideContent} />;
+      return (
+        <TowerInfoChat hideContent={hideContent} towerTitle={towerTitle} />
+      );
     case TowerInfoContentValues.DESCRIPTION:
       return <TowerInfoDescription text={text} />;
     default:

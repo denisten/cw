@@ -9,7 +9,7 @@ describe('<Markers />', () => {
     const props = {
       markersCollection: [
         { type: TypeOfMarkers.SUCCESS },
-        { type: TypeOfMarkers.NOTICE },
+        { type: TypeOfMarkers.TASK },
       ],
       towerTitle: TowersTypes.LIVE_ARENA,
       displayFlag: true,
