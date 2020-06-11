@@ -301,7 +301,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
 
   const grownLineAndNextStep = () => {
     nextTutorDescriptionStep();
-    addProgressPoints({ points: 33.34, towerTitle: towerTitle });
+    addProgressPoints({ percent: 33.34, towerTitle: towerTitle });
   };
 
   const showDescription = () => {
@@ -331,7 +331,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
 
   const nextTowerTutorialStep = () => {
     if (!tutorialCondition) {
-      addProgressPoints({ points: 33.34, towerTitle: towerTitle });
+      addProgressPoints({ percent: 33.34, towerTitle: towerTitle });
     } else if (
       towerTutorialStep === TowerTutorialSteps.DESCRIPTION_DONT_OPENED
     ) {
@@ -374,7 +374,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
                 TutorialConditions.UPGRADE_BUTTON_TOWER_INFO
               }
               canUpgrade={
-                LocalTowerProgressStore[towerTitle].points >= MAX_POINTS &&
+                LocalTowerProgressStore[towerTitle].percent >= MAX_POINTS &&
                 level < maxLevel
               }
               hide={hideTowerInfo}
@@ -390,7 +390,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
               <MainText>Уровень эволюции</MainText>
 
               <ProgressBar
-                progress={LocalTowerProgressStore[towerTitle].points}
+                progress={LocalTowerProgressStore[towerTitle].percent}
               />
             </HeaderLineElement>
 

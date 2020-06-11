@@ -21,7 +21,7 @@ export const addTowerProgressData = TowersProgressDomain.event<
 >();
 export const resetTowerProgress = TowersProgressDomain.event();
 export interface IAddProgressPoints {
-  points: number;
+  percent: number;
   towerTitle: TowersTypes;
 }
 
