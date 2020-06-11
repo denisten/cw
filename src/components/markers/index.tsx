@@ -51,6 +51,7 @@ export const MarkerView = styled.div<{
   animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;
   animation-duration: 1s;
+  z-index: 2;
 
   &:hover {
     transform: scale(1.1);
@@ -76,6 +77,13 @@ export const MarkerWrapper = styled.div<{ displayFlag: boolean }>`
     &:hover {
       transform: translate3d(-25px, 25px, 0) scale(1.2);
     }
+  }
+
+  ${MarkerView}:nth-child(3) {
+    position: absolute;
+    left: 65px;
+    z-index:1;
+
   }
 
   &[data-towertype=${TowersTypes.MAIN_TOWER}] {

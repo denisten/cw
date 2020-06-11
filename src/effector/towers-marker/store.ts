@@ -29,16 +29,13 @@ const initState: TowersMarkerStoreType = {
     markers: [],
   },
   [TowersTypes.LIVE_ARENA]: {
-    markers: [{ type: TypeOfMarkers.COIN, coins: 11221 }],
+    markers: [],
   },
   [TowersTypes.CASHBACK]: {
-    markers: [
-      { type: TypeOfMarkers.SUCCESS },
-      { type: TypeOfMarkers.COIN, coins: 10000 },
-    ],
+    markers: [{ type: TypeOfMarkers.SUCCESS }],
   },
   [TowersTypes.MY_MTS]: {
-    markers: [{ type: TypeOfMarkers.COIN, coins: 15000 }],
+    markers: [],
   },
   [TowersTypes.LIBRARY]: {
     markers: [],

@@ -6,6 +6,7 @@ import { getAllProgress } from './get-all-progress';
 import { progressRefresh } from './progress-refresh';
 
 export enum apiRoutes {
+  GET_INCOMES = '/api/users/current/products/incomes',
   GET_URL = '/api/auth/url',
   USER_DATA = '/api/users/current',
   GENERATE_TASKS = '/api/dev/tasks/generate',

@@ -8,6 +8,10 @@ import { fetchAllProductsData } from '../../effector/towers-progress/events';
 import { openWsConnection } from '../../api/centrifuge';
 import { progressRefresh } from '../../api';
 import { setDataReceived } from '../../effector/app-condition/events';
+import { getIncome, TowersTypesAsObjectLiteral } from '../../api/get-income';
+import { setMarker } from '../../effector/towers-marker/events';
+import { TypeOfMarkers } from '../markers';
+import { TowersTypes } from '../../effector/towers-progress/store';
 
 const ProfileWrapper = styled.div`
   width: 100%;
@@ -15,11 +19,26 @@ const ProfileWrapper = styled.div`
   position: relative;
 `;
 
+const markersEnumeration = (incomes: TowersTypesAsObjectLiteral) => {
+  const iterableArrayOfIncomesData = Object.entries(incomes);
+  iterableArrayOfIncomesData.forEach(item => {
+    const towerTitle = item[0] as TowersTypes;
+    const markerData = {
+      towerTitle: towerTitle,
+      type: TypeOfMarkers.COIN,
+      coins: item[1],
+    };
+    setMarker(markerData);
+  });
+};
+
 const handleAuth = async (isAuthorized: boolean, dataReceived: boolean) => {
   if (isAuthorized && !dataReceived) {
     await fetchAllProductsData('');
     await openWsConnection();
     await progressRefresh();
+    const incomes = await getIncome();
+    markersEnumeration(incomes);
     setDataReceived(true);
   }
 };
