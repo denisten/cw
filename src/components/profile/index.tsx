@@ -25,7 +25,7 @@ const markersEnumeration = (incomes: TowersTypesAsObjectLiteral) => {
     const towerTitle = item[0] as TowersTypes;
     const markerData = {
       towerTitle: towerTitle,
-      type: TypeOfMarkers.COIN,
+      type: TypeOfMarkers.TAKE_REWARD,
       coins: item[1],
     };
     setMarker(markerData);

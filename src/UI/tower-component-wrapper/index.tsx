@@ -113,7 +113,6 @@ export const TowerWrapper = memo(
         mouseMoveFlag = 0;
       }
     };
-
     useEffect(() => mouseOverHandle(), [focusOnTowerTitle]);
     useEffect(() => {
       BuildingsService.setRefForTower(towerTitle, towerRef);
@@ -134,7 +133,11 @@ export const TowerWrapper = memo(
           towerLevel={currentLevel}
           markersCollection={markers}
           towerTitle={towerTitle}
-          displayFlag={markers && markers.length > 0}
+          displayFlag={
+            (progress < maxProgressValue || currentLevel === maxLevel) &&
+            markers &&
+            markers.length > 0
+          }
         />
         <UpgradeButton
           tutorialCondition={tutorialCondition}
