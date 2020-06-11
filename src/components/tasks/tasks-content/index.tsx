@@ -22,7 +22,7 @@ export const TasksContent: React.FC<{ activeType: TasksType }> = ({
   return (
     <Body>
       <Tasks active={activeType === TasksType.TASKS} />
-      <Challenge active={activeType === TasksType.CHALLENGES} />
+      <Challenge active={activeType === TasksType.CHALLENGE} />
       <Mission active={activeType === TasksType.MISSION} />
     </Body>
   );

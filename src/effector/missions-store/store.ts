@@ -6,8 +6,9 @@ import {
   takeReward,
   verifyTask,
 } from './events';
-import { handleTaskStatusChange } from '../../utils/task-status-change';
 import { editUserProperty } from '../user-data/events';
+import { TasksType } from '../../components/tasks';
+import { TowersTypes } from '../towers-progress/store';
 
 export enum TaskSubType {
   CHALLENGE = 'challenge',
@@ -29,22 +30,17 @@ export enum TaskStatuses {
 const initStore: ITask[] = [];
 
 export const MissionsStore = MissionsDomain.store(initStore)
-  .on(fetchTasks.done, (state, { result: { userTasks } }) => [...userTasks])
-  .on(activateTask, (state, payload) =>
-    handleTaskStatusChange(state, payload, TaskStatuses.ACTIVE)
-  )
-  .on(verifyTask, (state, payload) =>
-    handleTaskStatusChange(state, payload, TaskStatuses.VERIFICATION)
-  )
-  .on(takeReward.done, (state, { result }) => {
-    const newState = [...state];
-    const currentEl = newState.findIndex(el => el.id === result);
-    const deletedTask = newState.splice(currentEl, 1);
+  .on(fetchTasks.done, (state, { result: { userTasks } }) => userTasks)
+  .on(activateTask.doneData, (state, { userTasks }) => userTasks)
+  .on(verifyTask.doneData, (state, { userTasks }) => userTasks)
+  .on(takeReward.doneData, (state, { userTasks, id }) => {
+    const currentEl = state.findIndex(el => el.id === id);
+    const deletedTask = state.splice(currentEl, 1);
     editUserProperty({
       money: deletedTask[0].task.reward,
       energy: deletedTask[0].task.energy,
     });
-    return newState;
+    return userTasks;
   })
   .on(decreaseTimer, state => {
     const newState = [...state];
@@ -72,13 +68,13 @@ export interface ITask {
       id: number;
       taskType: {
         id: number;
-        slug: string;
+        slug: TasksType;
         name: string;
       };
       product: {
         id: number;
         name: string;
-        slug: string;
+        slug: TowersTypes;
         description: string;
       };
       logo: {

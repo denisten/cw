@@ -350,7 +350,6 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
       setTowerInfoShift(towerInfoRef.current?.offsetWidth);
     }
   }, [towerInfoRef]);
-
   return (
     <ModalWindowWrapper opened={opened} ref={towerInfoRef}>
       <ModalWindowHeader>
@@ -382,7 +381,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
             />
             <TowerInfoUpgradeButton
               handleClick={() => upgradeTowerAndShowAnimation(towerTitle)}
-              canUpgrade={level < maxLevel ? true : false}
+              canUpgrade={level < maxLevel}
             />
           </RowWrapper>
 

@@ -2,13 +2,19 @@ import React from 'react';
 import styled from 'styled-components';
 import wCorner from './corner-white.svg';
 import bCorner from './corner-b.svg';
+import { MTSSans } from '../../fonts';
+import { Sender } from '../../api/tasks/session';
 
-const BubbleBody = styled.div<{ type?: string }>`
-  margin: ${props => (props.type === 'system' ? '0 0 0 8px' : '0 8px 0 0')};
-  background-color: ${props => (props.type === 'system' ? 'white' : '#04B5D2')};
+const BubbleBody = styled.div<{ sender?: Sender }>`
+  margin: ${props =>
+    props.sender === Sender.BACKEND ? '0 0 0 8px' : '0 8px 0 0'};
+  background-color: ${props =>
+    props.sender === Sender.BACKEND ? 'white' : '#04B5D2'};
   border-radius: 4px;
   padding: ${props =>
-    props.type === 'system' ? '12px 41px 12px 29px' : '22px 41px 22px 24px'};
+    props.sender === Sender.BACKEND
+      ? '12px 41px 12px 29px'
+      : '22px 41px 22px 24px'};
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -17,10 +23,10 @@ const BubbleBody = styled.div<{ type?: string }>`
   max-width: 323px;
 
   span {
-    font-family: 'MTSSansRegular';
+    font-family: ${MTSSans.REGULAR};
     font-size: 16px;
     line-height: 1.25;
-    color: ${props => (props.type === 'system' ? '#001424' : 'white')};
+    color: ${props => (props.sender === Sender.BACKEND ? '#001424' : 'white')};
   }
 
   &::before {
@@ -31,7 +37,7 @@ const BubbleBody = styled.div<{ type?: string }>`
     left: -6px;
     width: 38px;
     height: 32px;
-    display: ${props => (props.type === 'system' ? 'block' : 'none')};
+    display: ${props => (props.sender === Sender.BACKEND ? 'block' : 'none')};
   }
 
   &::after {
@@ -42,13 +48,13 @@ const BubbleBody = styled.div<{ type?: string }>`
     right: -6px;
     width: 38px;
     height: 32px;
-    display: ${props => (props.type === 'user' ? 'block' : 'none')};
+    display: ${props => (props.sender === Sender.FRONTEND ? 'block' : 'none')};
   }
 `;
 
-const BotName = styled.div`
+const BotName = styled.div<{ content: string }>`
   height: 20px;
-  font-family: 'MTSSansRegular';
+  font-family: ${MTSSans.REGULAR};
   font-size: 12px;
   font-weight: bold;
   font-stretch: normal;
@@ -56,19 +62,22 @@ const BotName = styled.div`
   line-height: 1.67;
   letter-spacing: normal;
   color: #02adc9;
+  ::after {
+    content: "${props => props.content}";
+  }
 `;
 
-export const Bubble: React.FC<IBubble> = ({ type, text, botName }) => {
+export const Bubble: React.FC<IBubble> = ({ sender, text, botName }) => {
   return (
-    <BubbleBody type={type}>
-      {type === 'system' && botName && <BotName>{botName}</BotName>}
+    <BubbleBody sender={sender}>
+      {sender === Sender.BACKEND && botName && <BotName content={botName} />}
       <span>{text}</span>
     </BubbleBody>
   );
 };
 
 interface IBubble {
-  type: string;
+  sender: Sender;
   text: string;
   botName?: string;
 }

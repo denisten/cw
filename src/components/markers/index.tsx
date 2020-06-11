@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import notice from './notice.svg';
 import success from './success.svg';
-import update from './update.svg';
+import upgradeTower from './update.svg';
 import coin from './coin.svg';
 import { TowersTypes } from '../../effector/towers-progress/store';
 import { ZIndexes } from '../root-component/z-indexes-enum';
@@ -12,23 +12,23 @@ import { IMarker } from '../../effector/towers-marker/store';
 import { markerClickHandler } from '../../utils/markerClickHandler';
 
 export enum TypeOfMarkers {
-  NOTICE = 'notice',
+  TASK = 'task',
   SUCCESS = 'success',
-  COIN = 'coin',
-  UPDATE = 'update',
+  TAKE_REWARD = 'takeReward',
+  UPGRADE_TOWER = 'upgradeTower',
   TIMER = 'timer',
 }
 
 const selectBackground = (markerType: string) => {
   switch (markerType) {
-    case TypeOfMarkers.NOTICE:
+    case TypeOfMarkers.TASK:
       return notice;
     case TypeOfMarkers.SUCCESS:
       return success;
-    case TypeOfMarkers.COIN:
+    case TypeOfMarkers.TAKE_REWARD:
       return coin;
-    case TypeOfMarkers.UPDATE:
-      return update;
+    case TypeOfMarkers.UPGRADE_TOWER:
+      return upgradeTower;
     default:
       break;
   }

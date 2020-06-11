@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { MessageType } from '../../components/tower-info-chat';
 import userDefault from './user-default.svg';
 import botDefault from './bot-default.svg';
+import { Sender } from '../../api/tasks/session';
 
 const Avatar = styled.img`
   width: 50px;
@@ -11,23 +11,23 @@ const Avatar = styled.img`
 `;
 
 export const ChatAvatar: React.FC<IChatAvatar> = ({
-  type,
+  sender,
   systemBotAvatar,
   userAvatar,
 }) => {
   const setAvatar = () => {
-    if (type === MessageType.SYSTEM) {
+    if (sender === Sender.BACKEND) {
       return systemBotAvatar || botDefault;
     } else {
       return userAvatar || userDefault;
     }
   };
 
-  return <Avatar src={setAvatar()}></Avatar>;
+  return <Avatar src={setAvatar()} />;
 };
 
 interface IChatAvatar {
-  type: string;
+  sender: Sender;
   systemBotAvatar: string | undefined;
   userAvatar: string | undefined;
 }

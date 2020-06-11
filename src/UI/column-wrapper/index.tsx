@@ -18,12 +18,18 @@ const ParentDivWrapper = styled.div<IColumnWrapper>`
 
 export const ColumnWrapper: React.FC<IColumnWrapper> = ({
   children,
+  style,
   ...props
 }) => {
-  return <ParentDivWrapper {...props}>{children}</ParentDivWrapper>;
+  return (
+    <ParentDivWrapper {...props} style={style}>
+      {children}
+    </ParentDivWrapper>
+  );
 };
 
 interface IColumnWrapper {
+  style?: React.CSSProperties;
   position?: string;
   top?: number;
   left?: number;

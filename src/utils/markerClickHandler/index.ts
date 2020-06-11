@@ -26,13 +26,13 @@ export const markerClickHandler = (
 ) => {
   hideMarker({ towerTitle: towerTitle, type: marker.type });
   switch (marker.type) {
-    case TypeOfMarkers.NOTICE:
+    case TypeOfMarkers.TASK:
     case TypeOfMarkers.SUCCESS:
       extraTowerInfoModalOpen(towerTitle);
       setTowerInfoContent(TowerInfoContentValues.TASK);
       scrollToCurrentTower(markerRef);
       break;
-    case TypeOfMarkers.COIN:
+    case TypeOfMarkers.TAKE_REWARD:
       setIncome(towerTitle);
       break;
 
