@@ -1,5 +1,7 @@
 import { coughtError } from '../../effector/error-boundary-store/events';
 
+const authErrorStatus = 401;
+
 export const errorCodes: IErrorCode = {
   404: 'Адрес запроса не найден',
   0: 'Нет соединения с интернетом',
@@ -14,9 +16,10 @@ export const errorStrings: IErrorStrings = {
 };
 
 export const errorCodesParsingHOF = (errorCode: number) => {
-  coughtError({
-    text: errorCodes[errorCode],
-  });
+  if (errorCode !== authErrorStatus)
+    coughtError({
+      text: errorCodes[errorCode],
+    });
 };
 
 export const errorStringsParsingHOF = (errorString: string) => {

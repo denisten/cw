@@ -76,11 +76,8 @@ export const UserDataStore = UserDataDomain.store<IUserDataStore>(initState)
     [key]: value,
   }))
   .on(
-    fetchUserData.done,
-    (
-      state,
-      { result: { worldName, assistantName, name, id, birthday = '', avatar } }
-    ) => ({
+    fetchUserData.doneData,
+    (state, { worldName, assistantName, name, id, birthday = '', avatar }) => ({
       ...state,
       id,
       worldName: worldName || initData.worldName,

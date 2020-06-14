@@ -9,7 +9,7 @@ import { hideMarker, setMarker } from '../../../effector/towers-marker/events';
 import { TypeOfMarkers } from '..';
 
 const milisecondInSecond = 1000;
-const maxPercent = 100;
+export const maxPercent = 100;
 
 export const TimerBody = styled.div`
   width: 154px;

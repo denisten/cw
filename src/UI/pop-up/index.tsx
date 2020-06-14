@@ -31,6 +31,7 @@ import { saveUserData } from '../../api/save-user-data';
 import { contains } from '../../utils/check-include';
 import supportSprite from '../../img/assistant/assistant.png';
 import { Sprite } from '../../components/sprite';
+
 const statusOk = 200;
 const PopUpWrapper = styled.div<IPopUpStyles>`
   background-image: url(${popUpWrapperBackground});
@@ -223,7 +224,7 @@ export const PopUp: React.FC<IPopUp> = ({
                 }
               />
             </TutorialOverlayTopLayer>
-            {popUpType === 'editAssistantName' ? (
+            {popUpType === TypesOfPopUps.EDIT_ASSISTANT_NAME ? (
               <AssistantSprite>
                 <Sprite img={supportSprite} {...styleConfig.sprite} />
               </AssistantSprite>

@@ -30,7 +30,7 @@ export enum TaskStatuses {
 const initStore: ITask[] = [];
 
 export const MissionsStore = MissionsDomain.store(initStore)
-  .on(fetchTasks.done, (state, { result: { userTasks } }) => userTasks)
+  .on(fetchTasks.doneData, (state, { userTasks }) => userTasks)
   .on(activateTask.doneData, (state, { userTasks }) => userTasks)
   .on(verifyTask.doneData, (state, { userTasks }) => userTasks)
   .on(takeReward.doneData, (state, { userTasks, id }) => {
