@@ -7,6 +7,7 @@ import {
   editMoneyCount,
   setUserSessionSocket,
   editUserProperty,
+  resetUserDataStore,
 } from './events';
 import connectLocalStorage from 'effector-localstorage/sync';
 import Centrifuge from 'centrifuge';
@@ -94,7 +95,8 @@ export const UserDataStore = UserDataDomain.store<IUserDataStore>(initState)
   .on(editUserData, (state, payload) => ({
     ...state,
     ...payload,
-  }));
+  }))
+  .reset(resetUserDataStore);
 
 UserDataStore.watch(userDataStoreLocalStorage);
 

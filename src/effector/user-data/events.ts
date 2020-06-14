@@ -14,6 +14,8 @@ export const fetchUserData = UserDataDomain.effect('fetch after auth', {
     return await getProfile();
   },
 });
+
+export const resetUserDataStore = UserDataDomain.event('reset user data');
 export const devLogin = UserDataDomain.effect('dev login for users', {
   handler: async (phone: string) => {
     return await devLoginRequest(phone);

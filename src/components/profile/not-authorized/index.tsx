@@ -81,10 +81,9 @@ const styledConfig = {
     marginRight: '4px',
   },
   popUpStyles: {
-    width: '487px',
-    height: '305px',
+    width: 487,
+    height: 305,
     padding: '76px 79px 0 79px',
-    flexDirection: 'column',
   },
   penWrapper: {
     alt: 'pen',

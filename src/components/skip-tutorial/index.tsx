@@ -5,11 +5,12 @@ import { MTSSans } from '../../fonts';
 import { useStore } from 'effector-react';
 import { UserDataStore } from '../../effector/user-data/store';
 import { Button, ButtonClassNames } from '../../UI/button';
-import { PopUpSec } from '../../UI/pop-up-wrapper';
+import { PopUpContentWrapper } from '../../UI/pop-up-content-wrapper';
 import { maxPercent } from '../markers/timer';
 import { AppCondition } from '../../effector/app-condition/store';
 import { handleAuthButtonClick } from '../../utils/handle-auth-button-click';
 import { nextTutorStep } from '../../effector/tutorial-store/events';
+import { resetUserDataStore } from '../../effector/user-data/events';
 
 const Title = styled.div`
   font-family: ${MTSSans.MEDIUM};
@@ -83,6 +84,7 @@ export const SkipTutorial: React.FC<ISkipTutorial> = memo(
 
     const handleClickCreateNewWorld = () => {
       if (createNewWorld) {
+        resetUserDataStore();
         nextTutorStep();
         setDisplayFlag();
       } else {
@@ -96,7 +98,6 @@ export const SkipTutorial: React.FC<ISkipTutorial> = memo(
           setCreateNewWorld(false);
         } else {
           setDisplayFlag();
-          nextTutorStep();
         }
       } else {
         if (createNewWorld) {
@@ -109,7 +110,7 @@ export const SkipTutorial: React.FC<ISkipTutorial> = memo(
     };
 
     return (
-      <PopUpSec displayFlag={displayFlag}>
+      <PopUpContentWrapper displayFlag={displayFlag}>
         <Title style={styledConfig.title}>
           {!createNewWorld ? (
             isAuthorized ? (
@@ -137,7 +138,7 @@ export const SkipTutorial: React.FC<ISkipTutorial> = memo(
         <Title className="alternative" onClick={handleClickCreateNewWorld}>
           Создать новый город
         </Title>
-      </PopUpSec>
+      </PopUpContentWrapper>
     );
   }
 );
