@@ -21,14 +21,21 @@ const PopUpWrapper = styled.div`
   box-sizing: border-box;
 `;
 
-export const PopUpSec: React.FC<IPopUp> = ({ displayFlag, children }) => {
+export const PopUpSec: React.FC<IPopUp> = ({
+  displayFlag,
+  children,
+  popUpWrapperStyle,
+}) => {
   return (
     <Overlay displayFlag={displayFlag} zIndex={ZIndexes.UI_BUTTON + 1}>
-      <PopUpWrapper>{children}</PopUpWrapper>
+      <PopUpWrapper style={popUpWrapperStyle}>{children}</PopUpWrapper>
     </Overlay>
   );
 };
 
-interface IPopUp {
+interface IPopUp extends IPopUpWrapper {
+  popUpWrapperStyle?: React.CSSProperties;
+}
+interface IPopUpWrapper {
   displayFlag: boolean;
 }

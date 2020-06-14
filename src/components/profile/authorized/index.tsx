@@ -271,14 +271,14 @@ export const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
       popUpStyles: styledConfig.popUpEditUserNameStyles,
       title: 'Введите название города',
       initValue: worldName,
-      maxInputValueLenght: maxCityNameLength,
+      maxInputValueLength: maxCityNameLength,
     },
     [TypesOfPopUps.EDIT_ASSISTANT_NAME]: {
       callback: () => setOpenPopUpState(TypesOfPopUps.DISABLED),
       popUpStyles: styledConfig.popUpEditAssistantNameStyles,
       title: 'Назовите вашего робота',
       initValue: assistantName,
-      maxInputValueLenght: 14,
+      maxInputValueLength: 14,
       popUpType: TypesOfPopUps.EDIT_ASSISTANT_NAME,
     },
   };
@@ -291,7 +291,7 @@ export const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
       />
       <RowWrapper>
         <UserAvatar avatar={avatar}>
-          <input type="file" accept="image/jpeg,image/png,image/svg"></input>
+          <input type="file" accept="image/jpeg,image/png,image/svg" />
         </UserAvatar>
         <ColumnWrapper {...styledConfig.profileDataColumnWrapper}>
           <NickNameWrapper content={name || 'sss'} />
