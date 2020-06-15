@@ -1,7 +1,5 @@
 import { coughtError } from '../../effector/error-boundary-store/events';
 
-const authErrorStatus = 401;
-
 export const errorCodes: IErrorCode = {
   404: 'Адрес запроса не найден',
   0: 'Нет соединения с интернетом',

@@ -131,12 +131,15 @@ const styleConfig = {
   },
 };
 
+const minStepsCountToSkipTutorial = 3;
+
 const isNowFirstStepOfTutorial = (
   dialogStep: number,
   tutorialCondition: TutorialConditions
 ) => {
   return (
-    dialogStep < 3 && tutorialCondition === TutorialConditions.DIALOG_HELLO
+    dialogStep < minStepsCountToSkipTutorial &&
+    tutorialCondition === TutorialConditions.DIALOG_HELLO
   );
 };
 
