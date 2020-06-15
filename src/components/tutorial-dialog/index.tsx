@@ -16,7 +16,7 @@ import { TutorialDialogTextsService } from './dialog-messages-service';
 import { Sprite } from '../sprite';
 import supportSprite from '../../img/assistant/assistant.png';
 import { UserDataStore } from '../../effector/user-data/store';
-import { ButtonClassNames, Button } from '../../UI/button';
+import { Button, ButtonClassNames } from '../../UI/button';
 import { Span, StyledSpan } from '../../UI/span';
 import { MTSSans } from '../../fonts';
 import { AppCondition } from '../../effector/app-condition/store';
@@ -131,6 +131,15 @@ const styleConfig = {
   },
 };
 
+const isNowFirstStepOfTutorial = (
+  dialogStep: number,
+  tutorialCondition: TutorialConditions
+) => {
+  return (
+    dialogStep < 3 && tutorialCondition === TutorialConditions.DIALOG_HELLO
+  );
+};
+
 export const TutorialDialog: React.FC<{ mustBeAsAnimated?: boolean }> = ({
   mustBeAsAnimated,
 }) => {
@@ -173,10 +182,6 @@ export const TutorialDialog: React.FC<{ mustBeAsAnimated?: boolean }> = ({
     };
   }, [dialogStep, reload, DOMLoaded]);
 
-  const handleExitButtonClick = () => {
-    turnOffTutorialMode();
-  };
-
   const handleClick = () => {
     if (!isPrinting) {
       if (action && action.step === dialogStep) {
@@ -191,14 +196,18 @@ export const TutorialDialog: React.FC<{ mustBeAsAnimated?: boolean }> = ({
   };
 
   const handleBackButtonClick = () => {
-    if (dialogStep) setDialogStep(dialogStep - 1);
+    if (isNowFirstStepOfTutorial(dialogStep, tutorialCondition)) {
+      turnOffTutorialMode();
+    } else if (dialogStep) {
+      setDialogStep(dialogStep - 1);
+    }
   };
   return (
     <MainWrapper firstLoaded={DOMLoaded} mustBeAsAnimated={mustBeAsAnimated}>
       <TutorialDialogWrapper>
         <ExitButton
           displayFlag={true}
-          callBack={handleExitButtonClick}
+          callBack={() => turnOffTutorialMode()}
           {...styleConfig.exitButton}
         />
         <SupportSpriteWrapper>
@@ -223,13 +232,18 @@ export const TutorialDialog: React.FC<{ mustBeAsAnimated?: boolean }> = ({
           <ButtonWrapper>
             <Button
               className={
-                !dialogStep
-                  ? ButtonClassNames.OUTLINE_DISABLED
-                  : ButtonClassNames.OUTLINE_NORMAL
+                isNowFirstStepOfTutorial(dialogStep, tutorialCondition) ||
+                dialogStep
+                  ? ButtonClassNames.OUTLINE_NORMAL
+                  : ButtonClassNames.OUTLINE_DISABLED
               }
               displayFlag={!isPrinting}
               callback={handleBackButtonClick}
-              content="Назад"
+              content={
+                isNowFirstStepOfTutorial(dialogStep, tutorialCondition)
+                  ? 'Пропустить обучение'
+                  : 'Назад'
+              }
               {...styleConfig.backButton}
             />
             <Button
