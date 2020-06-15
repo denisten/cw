@@ -47,7 +47,7 @@ export enum TowersTypes {
 const initState: TowersProgressStoreType = {
   [TowersTypes.POISK]: {
     productId: 1,
-    percent: 0,
+    points: 0,
     level: {
       level: TowerLevel.deactive,
       name: '0 уровень',
@@ -61,7 +61,7 @@ const initState: TowersProgressStoreType = {
   },
   [TowersTypes.GOODOK]: {
     productId: 1,
-    percent: 0,
+    points: 0,
     level: {
       level: TowerLevel.deactive,
       name: '0 уровень',
@@ -75,7 +75,7 @@ const initState: TowersProgressStoreType = {
   },
   [TowersTypes.SMARTMED]: {
     productId: 1,
-    percent: 0,
+    points: 0,
     level: {
       level: TowerLevel.deactive,
       name: '0 уровень',
@@ -89,7 +89,7 @@ const initState: TowersProgressStoreType = {
   },
   [TowersTypes.UNIVERSITY]: {
     productId: 1,
-    percent: 0,
+    points: 0,
     level: {
       level: TowerLevel.deactive,
       name: '0 уровень',
@@ -103,7 +103,7 @@ const initState: TowersProgressStoreType = {
   },
   [TowersTypes.MAIN_TOWER]: {
     productId: 1,
-    percent: 0,
+    points: 0,
     level: {
       level: TowerLevel.deactive,
       name: '0 уровень',
@@ -117,7 +117,7 @@ const initState: TowersProgressStoreType = {
   },
   [TowersTypes.MUSIC]: {
     productId: 1,
-    percent: 0,
+    points: 0,
     level: {
       level: TowerLevel.deactive,
       name: '0 уровень',
@@ -131,7 +131,7 @@ const initState: TowersProgressStoreType = {
   },
   [TowersTypes.LIVE_ARENA]: {
     productId: 1,
-    percent: 0,
+    points: 0,
     level: {
       level: TowerLevel.deactive,
       name: '0 уровень',
@@ -145,7 +145,7 @@ const initState: TowersProgressStoreType = {
   },
   [TowersTypes.CASHBACK]: {
     productId: 1,
-    percent: 0,
+    points: 0,
     level: {
       level: TowerLevel.deactive,
       name: '0 уровень',
@@ -159,7 +159,7 @@ const initState: TowersProgressStoreType = {
   },
   [TowersTypes.MY_MTS]: {
     productId: 1,
-    percent: 0,
+    points: 0,
     level: {
       level: TowerLevel.deactive,
       name: '0 уровень',
@@ -173,7 +173,7 @@ const initState: TowersProgressStoreType = {
   },
   [TowersTypes.LIBRARY]: {
     productId: 1,
-    percent: 0,
+    points: 0,
     level: {
       level: TowerLevel.deactive,
       name: '0 уровень',
@@ -187,7 +187,7 @@ const initState: TowersProgressStoreType = {
   },
   [TowersTypes.OBSERVATORY]: {
     productId: 1,
-    percent: 0,
+    points: 0,
     level: {
       level: TowerLevel.deactive,
       name: '0 уровень',
@@ -201,7 +201,7 @@ const initState: TowersProgressStoreType = {
   },
   [TowersTypes.MOBILE_NETWORK]: {
     productId: 1,
-    percent: 0,
+    points: 0,
     level: {
       level: TowerLevel.deactive,
       name: '0 уровень',
@@ -215,7 +215,7 @@ const initState: TowersProgressStoreType = {
   },
   [TowersTypes.THEATER]: {
     productId: 1,
-    percent: 0,
+    points: 0,
     level: {
       level: TowerLevel.deactive,
       name: '0 уровень',
@@ -229,7 +229,7 @@ const initState: TowersProgressStoreType = {
   },
   [TowersTypes.TV]: {
     productId: 1,
-    percent: 0,
+    points: 0,
     level: {
       level: TowerLevel.deactive,
       name: '0 уровень',
@@ -243,7 +243,7 @@ const initState: TowersProgressStoreType = {
   },
   [TowersTypes.FITNESS]: {
     productId: 1,
-    percent: 0,
+    points: 0,
     level: {
       level: TowerLevel.deactive,
       name: '0 уровень',
@@ -257,7 +257,7 @@ const initState: TowersProgressStoreType = {
   },
   [TowersTypes.ROAMING]: {
     productId: 1,
-    percent: 0,
+    points: 0,
     level: {
       level: TowerLevel.deactive,
       name: '0 уровень',
@@ -271,7 +271,7 @@ const initState: TowersProgressStoreType = {
   },
   [TowersTypes.BANK]: {
     productId: 1,
-    percent: 0,
+    points: 0,
     level: {
       level: TowerLevel.deactive,
       name: '0 уровень',
@@ -285,7 +285,7 @@ const initState: TowersProgressStoreType = {
   },
   [TowersTypes.WASD_TV]: {
     productId: 1,
-    percent: 0,
+    points: 0,
     level: {
       level: TowerLevel.deactive,
       name: '0 уровень',
@@ -300,7 +300,7 @@ const initState: TowersProgressStoreType = {
 
   [TowersTypes.SPUTNIK]: {
     productId: 1,
-    percent: 0,
+    points: 0,
     level: {
       level: TowerLevel.deactive,
       name: '0 уровень',
@@ -314,7 +314,7 @@ const initState: TowersProgressStoreType = {
   },
   [TowersTypes.PARTNER_ONE]: {
     productId: 1,
-    percent: 0,
+    points: 0,
     level: {
       level: TowerLevel.deactive,
       name: '0 уровень',
@@ -328,7 +328,7 @@ const initState: TowersProgressStoreType = {
   },
   [TowersTypes.PARTNER_TWO]: {
     productId: 1,
-    percent: 0,
+    points: 0,
     level: {
       level: TowerLevel.deactive,
       name: '0 уровень',
@@ -342,7 +342,7 @@ const initState: TowersProgressStoreType = {
   },
   [TowersTypes.IGROTEKA]: {
     productId: 1,
-    percent: 0,
+    points: 0,
     level: {
       level: TowerLevel.deactive,
       name: '0 уровень',
@@ -356,7 +356,7 @@ const initState: TowersProgressStoreType = {
   },
   [TowersTypes.HOME_INTERNET]: {
     productId: 1,
-    percent: 0,
+    points: 0,
     level: {
       level: TowerLevel.deactive,
       name: '0 уровень',
@@ -370,7 +370,7 @@ const initState: TowersProgressStoreType = {
   },
   [TowersTypes.AUTO]: {
     productId: 1,
-    percent: 0,
+    points: 0,
     level: {
       level: TowerLevel.deactive,
       name: '0 уровень',
@@ -384,7 +384,7 @@ const initState: TowersProgressStoreType = {
   },
   [TowersTypes.SHOP]: {
     productId: 1,
-    percent: 0,
+    points: 0,
     level: {
       level: TowerLevel.deactive,
       name: '0 уровень',
@@ -398,7 +398,7 @@ const initState: TowersProgressStoreType = {
   },
   [TowersTypes.PARTNER_THREE]: {
     productId: 1,
-    percent: 0,
+    points: 0,
     level: {
       level: TowerLevel.deactive,
       name: '0 уровень',
@@ -412,7 +412,7 @@ const initState: TowersProgressStoreType = {
   },
   [TowersTypes.MARVIN]: {
     productId: 1,
-    percent: 0,
+    points: 0,
     level: {
       level: TowerLevel.deactive,
       name: '0 уровень',
@@ -426,7 +426,7 @@ const initState: TowersProgressStoreType = {
   },
   [TowersTypes.CONNECT]: {
     productId: 1,
-    percent: 0,
+    points: 0,
     level: {
       level: TowerLevel.deactive,
       name: '0 уровень',
@@ -442,11 +442,11 @@ const initState: TowersProgressStoreType = {
 export const TowersProgressStore = TowersProgressDomain.store<
   TowersProgressStoreType
 >(initState)
-  .on(addProgressPoints, (state, { towerTitle, percent }) => ({
+  .on(addProgressPoints, (state, { towerTitle, points }) => ({
     ...state,
     [towerTitle]: {
       ...state[towerTitle],
-      percent: state[towerTitle].percent + percent,
+      points: state[towerTitle].points + points,
     },
   }))
   .on(upgradeTower, (state, payload) => {
@@ -454,7 +454,7 @@ export const TowersProgressStore = TowersProgressDomain.store<
       ...state,
       [payload]: {
         ...state[payload],
-        percent:
+        points:
           state[payload].level.level + 1 < state[payload].level.levelOnServer
             ? maxPersent
             : 0,
@@ -480,10 +480,10 @@ export const TowersProgressStore = TowersProgressDomain.store<
     ...state,
     [towerTitle]: {
       ...state[towerTitle],
-      percent:
+      points:
         state[towerTitle].level.level < levelOnServer
           ? maxPersent
-          : state[towerTitle].percent,
+          : state[towerTitle].points,
       level: {
         ...state[towerTitle].level,
         levelOnServer,
@@ -496,7 +496,7 @@ export type TowersProgressStoreType = Record<TowersTypes, ITowerProgress>;
 
 export interface ITowerProgress {
   productId: number;
-  percent: number;
+  points: number;
   level: {
     name: string;
     levelOnServer: number;
