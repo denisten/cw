@@ -17,6 +17,7 @@ import {
   setTowerInfoShift,
   setDataReceived,
   setOpenPopUpState,
+  setTutorialFinished,
 } from './events';
 import { TowersTypes } from '../towers-progress/store';
 import { upgradeTower } from '../towers-progress/events';
@@ -48,6 +49,7 @@ const initState = {
   towerInfoShift: 0,
   dataReceived: false,
   openPopUpState: TypesOfPopUps.DISABLED,
+  tutorialIsFinished: false,
 };
 
 const appConditionLocalStorage = connectLocalStorage('AppCondition').onChange(
@@ -55,7 +57,10 @@ const appConditionLocalStorage = connectLocalStorage('AppCondition').onChange(
 );
 
 export const AppCondition = AppDomain.store<AppConditionType>(initState)
-
+  .on(setTutorialFinished, state => ({
+    ...state,
+    tutorialIsFinished: true,
+  }))
   .on(setTowerInfoContent, (state, payload) => ({
     ...state,
     selectTowerInfoContent: payload,
@@ -162,4 +167,5 @@ export type AppConditionType = {
   towerInfoShift: number;
   dataReceived: boolean;
   openPopUpState: TypesOfPopUps;
+  tutorialIsFinished: boolean;
 };

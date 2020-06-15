@@ -13,6 +13,8 @@ import { setMarker } from '../../effector/towers-marker/events';
 import { TypeOfMarkers } from '../markers';
 import { TowersTypes } from '../../effector/towers-progress/store';
 import { getAccountData } from '../../effector/user-data/events';
+import { UserDataStore } from '../../effector/user-data/store';
+import { saveUserData } from '../../api/save-user-data';
 
 const ProfileWrapper = styled.div`
   width: 100%;
@@ -33,8 +35,16 @@ const markersEnumeration = (incomes: TowersTypesAsObjectLiteral) => {
   });
 };
 
-const handleAuth = async (isAuthorized: boolean, dataReceived: boolean) => {
+const handleAuth = async (
+  isAuthorized: boolean,
+  dataReceived: boolean,
+  tutorialIsFinished: boolean,
+  worldName: string
+) => {
   if (isAuthorized && !dataReceived) {
+    if (tutorialIsFinished) {
+      await saveUserData({ worldName });
+    }
     await fetchAllProductsData('');
     await openWsConnection();
     await progressRefresh();
@@ -46,9 +56,15 @@ const handleAuth = async (isAuthorized: boolean, dataReceived: boolean) => {
 };
 
 export const Profile = React.memo(() => {
-  const { isAuthorized, dataReceived, openPopUpState } = useStore(AppCondition);
+  const {
+    isAuthorized,
+    dataReceived,
+    openPopUpState,
+    tutorialIsFinished,
+  } = useStore(AppCondition);
+  const { worldName } = useStore(UserDataStore);
   useEffect(() => {
-    handleAuth(isAuthorized, dataReceived);
+    handleAuth(isAuthorized, dataReceived, tutorialIsFinished, worldName);
   }, [isAuthorized]);
   return (
     <ProfileWrapper>

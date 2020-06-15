@@ -26,7 +26,10 @@ import {
   TutorialOverlayTopLayer,
 } from '../../tutorial-overlay';
 import { zIndexForInheritOverlay, maxCityNameLength } from '../../../constants';
-import { setOpenPopUpState } from '../../../effector/app-condition/events';
+import {
+  setOpenPopUpState,
+  setTutorialFinished,
+} from '../../../effector/app-condition/events';
 
 const ProfileWrapper = styled.div`
   width: 100%;
@@ -100,6 +103,7 @@ export const NotAuthorizedProfile: React.FC<INotAuthorizedProfile> = ({
   const handleButtonClick = () => {
     if (tutorialCondition === TutorialConditions.PULSE_AUTH_BUTTON) {
       turnOffTutorialMode();
+      setTutorialFinished();
     }
     handleAuthButtonClick();
   };

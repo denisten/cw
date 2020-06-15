@@ -32,6 +32,7 @@ export const setDataReceived = AppDomain.event<boolean>();
 export const setTowerInfoContent = AppDomain.event<TowerInfoContentValues>();
 export const setTowerInfoShift = AppDomain.event<number>();
 export const setOpenPopUpState = AppDomain.event<TypesOfPopUps>();
+export const setTutorialFinished = AppDomain.event();
 export interface IUserSelectedTower {
   towerTitle: TowersTypes | null;
 }
