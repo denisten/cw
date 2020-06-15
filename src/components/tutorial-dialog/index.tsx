@@ -197,6 +197,7 @@ export const TutorialDialog: React.FC<{ mustBeAsAnimated?: boolean }> = ({
     <MainWrapper firstLoaded={DOMLoaded} mustBeAsAnimated={mustBeAsAnimated}>
       <TutorialDialogWrapper>
         <ExitButton
+          displayFlag={true}
           callBack={handleExitButtonClick}
           {...styleConfig.exitButton}
         />

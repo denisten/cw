@@ -16,10 +16,9 @@ export const errorStrings: IErrorStrings = {
 };
 
 export const errorCodesParsingHOF = (errorCode: number) => {
-  if (errorCode !== authErrorStatus)
-    coughtError({
-      text: errorCodes[errorCode],
-    });
+  coughtError({
+    text: errorCodes[errorCode],
+  });
 };
 
 export const errorStringsParsingHOF = (errorString: string) => {

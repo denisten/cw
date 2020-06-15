@@ -64,6 +64,7 @@ const styleConfig = {
   exitButton: {
     top: '0',
     right: '0',
+    displayFlag: true,
   },
   input: {
     padding: '0 0 0 16px',

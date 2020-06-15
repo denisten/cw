@@ -41,5 +41,8 @@ const BridgesImg: React.FC = () => {
 };
 
 export const Bridges: React.FC<BridgesProps> = ({ showBridges }) => {
-  return <Fragment>{showBridges ? <BridgesImg /> : null}</Fragment>;
+  if (showBridges) {
+    return <BridgesImg />;
+  } else return null;
+  // return <Fragment>{showBridges ? <BridgesImg /> : null}</Fragment>;
 };

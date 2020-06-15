@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const ParentDivWrapper = styled.div<IRowWrapper>`
   height: ${props => props.height};
   width: ${props => props.width};
-  display: flex;
+  display: ${props => (props.displayFlag ? 'flex' : 'none')};
   flex-direction: row;
   justify-content: ${props => props.justifyContent};
   position: relative;
@@ -19,16 +19,18 @@ const ParentDivWrapper = styled.div<IRowWrapper>`
 export const RowWrapper: React.FC<IRowWrapper> = ({
   children,
   style = {},
+  displayFlag = true,
   ...props
 }) => {
   return (
-    <ParentDivWrapper {...props} style={style}>
+    <ParentDivWrapper displayFlag={displayFlag} {...props} style={style}>
       {children}
     </ParentDivWrapper>
   );
 };
 
 interface IRowWrapper {
+  displayFlag?: boolean;
   width?: string;
   height?: string;
   justifyContent?: string;
