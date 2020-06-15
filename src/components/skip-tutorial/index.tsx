@@ -63,6 +63,30 @@ const styledConfig = {
   button: { marginBottom: '20px' },
 };
 
+const buttonContent = (createNewWorld: boolean, isAuthorized: boolean) => {
+  if (!createNewWorld) {
+    if (isAuthorized) {
+      return 'Продолжить';
+    } else {
+      return 'Войти';
+    }
+  } else {
+    return 'Нет, я передумал';
+  }
+};
+
+const titleContent = (createNewWorld: boolean, isAuthorized: boolean) => {
+  if (!createNewWorld) {
+    if (isAuthorized) {
+      return <AuthTitle name={name} />;
+    } else {
+      return 'Авторизация';
+    }
+  } else {
+    return 'Создать новый город';
+  }
+};
+
 const AuthTitle: React.FC<{ name: string }> = ({ name }) => (
   <>
     Продолжить как, <span>{name}</span>
@@ -112,28 +136,14 @@ export const SkipTutorial: React.FC<ISkipTutorial> = memo(
     return (
       <PopUpContentWrapper displayFlag={displayFlag}>
         <Title style={styledConfig.title}>
-          {!createNewWorld ? (
-            isAuthorized ? (
-              <AuthTitle name={name} />
-            ) : (
-              'Авторизация'
-            )
-          ) : (
-            'Создать новый город'
-          )}
+          {titleContent(createNewWorld, isAuthorized)}
         </Title>
         <Alarm displayFlag={createNewWorld} />
         <Button
           style={styledConfig.button}
           className={ButtonClassNames.NORMAL}
           callback={handleClick}
-          content={
-            !createNewWorld
-              ? isAuthorized
-                ? 'Продолжить'
-                : 'Войти'
-              : 'Нет, я передумал'
-          }
+          content={buttonContent(createNewWorld, isAuthorized)}
         />
         <Title className="alternative" onClick={handleClickCreateNewWorld}>
           Создать новый город
