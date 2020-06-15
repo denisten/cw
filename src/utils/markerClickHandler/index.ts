@@ -15,7 +15,8 @@ import { commitIncomes } from '../../api/commit-income';
 const setIncome = async (towerTitle: TowersTypes) => {
   const response = await commitIncomes(towerTitle);
   if (response.state === 'success') {
-    editMoneyCount(response.data.balance);
+    const { balance } = response.data;
+    editMoneyCount(balance);
   }
 };
 
