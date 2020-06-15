@@ -24,6 +24,7 @@ import {
   zIndexForInheritOverlay,
   maxCityNameLength,
   minNameLength,
+  statusOk,
 } from '../../constants';
 import { saveUserData } from '../../api/save-user-data';
 import { contains } from '../../utils/check-include';
@@ -31,8 +32,7 @@ import supportSprite from '../../img/assistant/assistant.png';
 import { Sprite } from '../../components/sprite';
 import { PopUpContentWrapper } from '../pop-up-content-wrapper';
 import { IDisplayFlag } from '../../components/skip-tutorial';
-
-const statusOk = 200;
+import { AppCondition } from '../../effector/app-condition/store';
 
 const Title = styled(StyledSpan)`
   font-family: ${MTSSans.BLACK};
@@ -95,6 +95,10 @@ export enum TypesOfPopUps {
   DISABLED = 'disabled',
 }
 
+const tutorialDesiredState = (tutorialCondition: TutorialConditions) => {
+  return tutorialCondition === TutorialConditions.PULSE_SAVE_CHANGE_CITY_NAME;
+};
+
 export const PopUp: React.FC<IPopUp> = ({
   callback,
   displayFlag,
@@ -105,18 +109,20 @@ export const PopUp: React.FC<IPopUp> = ({
   maxInputValueLength = maxCityNameLength,
 }) => {
   const { tutorialCondition } = useStore(TutorialStore);
+  const { isAuthorized } = useStore(AppCondition);
   const [value, setValue] = useState(initValue || '');
   const [inputHasError, setInputHasError] = useState(false);
   const valuesArr = value.split(' ');
+
   useEffect(() => {
     if (initValue) {
       setValue(initValue);
       setInputHasError(false);
     }
   }, [initValue]);
+
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-
     setValue(e.target.value);
     if (value.length < minNameLength) {
       worldInputHint = minSymbolsAlert + minNameLength;
@@ -131,15 +137,30 @@ export const PopUp: React.FC<IPopUp> = ({
       setInputHasError(false);
     }
   };
+
   const saveData = async () => {
     if (popUpType === TypesOfPopUps.EDIT_WORLD_NAME) {
-      const { status } = await saveUserData({ worldName: value });
-      if (status === statusOk) {
+      if (isAuthorized) {
+        const { status } = await saveUserData({ worldName: value });
+        if (status === statusOk) {
+          editCurrentUserDataField({
+            key: UserDataStoreKeys.WORLD_NAME,
+            value,
+          });
+        }
+      } else {
         editCurrentUserDataField({ key: UserDataStoreKeys.WORLD_NAME, value });
       }
     } else if (popUpType === TypesOfPopUps.EDIT_ASSISTANT_NAME) {
-      const { status } = await saveUserData({ assistantName: value });
-      if (status === statusOk) {
+      if (isAuthorized) {
+        const { status } = await saveUserData({ assistantName: value });
+        if (status === statusOk) {
+          editCurrentUserDataField({
+            key: UserDataStoreKeys.ASSISTANT_NAME,
+            value,
+          });
+        }
+      } else {
         editCurrentUserDataField({
           key: UserDataStoreKeys.ASSISTANT_NAME,
           value,
@@ -158,9 +179,7 @@ export const PopUp: React.FC<IPopUp> = ({
       valuesArr.length === 1
     ) {
       saveData();
-      if (
-        tutorialCondition === TutorialConditions.PULSE_SAVE_CHANGE_CITY_NAME
-      ) {
+      if (tutorialDesiredState(tutorialCondition)) {
         nextTutorStep();
         menuClosed();
       }
@@ -176,7 +195,7 @@ export const PopUp: React.FC<IPopUp> = ({
         <Title>{title}</Title>
         <TutorialOverlayTopLayer
           zIndex={
-            tutorialCondition === TutorialConditions.PULSE_SAVE_CHANGE_CITY_NAME
+            tutorialDesiredState(tutorialCondition)
               ? zIndexForInheritOverlay + 1
               : zIndexForInheritOverlay - 1
           }
@@ -193,7 +212,7 @@ export const PopUp: React.FC<IPopUp> = ({
         </TutorialOverlayTopLayer>
         <TutorialOverlayTopLayer
           zIndex={
-            tutorialCondition === TutorialConditions.PULSE_SAVE_CHANGE_CITY_NAME
+            tutorialDesiredState(tutorialCondition)
               ? zIndexForInheritOverlay + 1
               : zIndexForInheritOverlay - 1
           }
@@ -203,10 +222,7 @@ export const PopUp: React.FC<IPopUp> = ({
             className={ButtonClassNames.NORMAL}
             content="Сохранить"
             callback={handleSubmit}
-            animFlag={
-              tutorialCondition ===
-              TutorialConditions.PULSE_SAVE_CHANGE_CITY_NAME
-            }
+            animFlag={tutorialDesiredState(tutorialCondition)}
           />
         </TutorialOverlayTopLayer>
         <AssistantSprite
@@ -215,9 +231,7 @@ export const PopUp: React.FC<IPopUp> = ({
           <Sprite img={supportSprite} {...styleConfig.sprite} />
         </AssistantSprite>
         <TutorialOverlay
-          displayFlag={
-            tutorialCondition === TutorialConditions.PULSE_SAVE_CHANGE_CITY_NAME
-          }
+          displayFlag={tutorialDesiredState(tutorialCondition)}
           zIndex={zIndexForInheritOverlay}
         />
       </PopUpContentWrapper>
