@@ -191,16 +191,14 @@ const styledConfig = {
   },
 
   popUpEditUserNameStyles: {
-    width: '487px',
-    height: '305px',
+    width: 487,
+    height: 305,
     padding: '76px 79px 0 79px',
-    flexDirection: 'column',
   },
   popUpEditAssistantNameStyles: {
-    width: '615px',
-    height: '305px',
+    width: 615,
+    height: 305,
     padding: '60px 30px 0 262px',
-    flexDirection: 'column',
   },
   assistantStyle: {
     top: '0px',
@@ -265,20 +263,20 @@ export const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
     setDataReceived(false);
   };
 
-  const popUpConfig: { [key: string]: IPopUp } = {
+  const popUpConfig: IPopUpConfig = {
     [TypesOfPopUps.EDIT_WORLD_NAME]: {
       callback: () => setOpenPopUpState(TypesOfPopUps.DISABLED),
       popUpStyles: styledConfig.popUpEditUserNameStyles,
       title: 'Введите название города',
       initValue: worldName,
-      maxInputValueLenght: maxCityNameLength,
+      maxInputValueLength: maxCityNameLength,
     },
     [TypesOfPopUps.EDIT_ASSISTANT_NAME]: {
       callback: () => setOpenPopUpState(TypesOfPopUps.DISABLED),
       popUpStyles: styledConfig.popUpEditAssistantNameStyles,
       title: 'Назовите вашего робота',
       initValue: assistantName,
-      maxInputValueLenght: 14,
+      maxInputValueLength: 14,
       popUpType: TypesOfPopUps.EDIT_ASSISTANT_NAME,
     },
   };
@@ -291,7 +289,7 @@ export const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
       />
       <RowWrapper>
         <UserAvatar avatar={avatar}>
-          <input type="file" accept="image/jpeg,image/png,image/svg"></input>
+          <input type="file" accept="image/jpeg,image/png,image/svg" />
         </UserAvatar>
         <ColumnWrapper {...styledConfig.profileDataColumnWrapper}>
           <NickNameWrapper content={name || 'sss'} />
@@ -372,4 +370,8 @@ interface ISpan {
 
 interface IAuthorizedProfile {
   openPopUpState: TypesOfPopUps;
+}
+
+interface IPopUpConfig {
+  [key: string]: IPopUp;
 }

@@ -105,16 +105,16 @@ export const Sprite = memo((props: ISprite) => {
     return () => unsubscribe();
   }, []);
 
+  const newStyle = { ...style, display: displayFlag ? 'block' : 'none' };
+
   return (
     <Fragment>
-      {displayFlag ? (
-        <canvas
-          width={canvasWidth}
-          height={canvasHeight}
-          ref={canvasRef}
-          style={style}
-        />
-      ) : null}
+      <canvas
+        width={canvasWidth}
+        height={canvasHeight}
+        ref={canvasRef}
+        style={newStyle}
+      />
     </Fragment>
   );
 });

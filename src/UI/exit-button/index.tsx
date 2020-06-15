@@ -5,6 +5,7 @@ import hoverBackground from './close-hover.svg';
 import pressedBackground from './close-pressed.svg';
 
 const CloseButton = styled.div<ICloseButton>`
+  display: ${props => (props.displayFlag ? 'block' : 'none')};
   width: 28px;
   height: 28px;
   position: ${props => props.position || 'absolute'};
@@ -30,10 +31,15 @@ const CloseButton = styled.div<ICloseButton>`
   }
 `;
 
-export const ExitButton: React.FC<ICloseButton> = ({ callBack, ...props }) => {
+export const ExitButton: React.FC<ICloseButton> = ({
+  callBack,
+  displayFlag,
+  ...props
+}) => {
   const [pressed, setPressed] = useState(false);
   return (
     <CloseButton
+      displayFlag={displayFlag}
       {...props}
       onClick={callBack}
       className={pressed ? 'pressed' : ''}
@@ -45,6 +51,7 @@ export const ExitButton: React.FC<ICloseButton> = ({ callBack, ...props }) => {
 };
 
 interface ICloseButton {
+  displayFlag: boolean;
   position?: string;
   top?: string;
   left?: string;

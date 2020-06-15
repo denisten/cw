@@ -472,9 +472,9 @@ export const TowersProgressStore = TowersProgressDomain.store<
       ref,
     },
   }))
-  .on(fetchAllProductsData.done, (state, { result }) => ({
+  .on(fetchAllProductsData.doneData, (state, payload) => ({
     ...state,
-    ...result,
+    ...payload,
   }))
   .on(addTowerProgressData, (state, { towerTitle, levelOnServer }) => ({
     ...state,

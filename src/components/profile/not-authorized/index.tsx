@@ -81,10 +81,13 @@ const styledConfig = {
     marginRight: '4px',
   },
   popUpStyles: {
-    width: '487px',
-    height: '305px',
+    width: 487,
+    height: 305,
     padding: '76px 79px 0 79px',
-    flexDirection: 'column',
+  },
+  penWrapper: {
+    alt: 'pen',
+    scaleSize: 1.4,
   },
 };
 
@@ -113,7 +116,7 @@ export const NotAuthorizedProfile: React.FC<INotAuthorizedProfile> = ({
         callback={() => setOpenPopUpState(TypesOfPopUps.DISABLED)}
         displayFlag={openPopUpState !== TypesOfPopUps.DISABLED}
         popUpStyles={styledConfig.popUpStyles}
-        maxInputValueLenght={maxCityNameLength}
+        maxInputValueLength={maxCityNameLength}
         title="Введите название города"
         initValue="Неизвестно"
       />
@@ -131,14 +134,13 @@ export const NotAuthorizedProfile: React.FC<INotAuthorizedProfile> = ({
         <RowWrapper {...styledConfig.rowWrapper}>
           <WorldTitle>{worldName}</WorldTitle>
           <PenWrapper
+            {...styledConfig.penWrapper}
             src={penImg}
-            alt="pen"
             onClick={handlePenClick}
             animFlag={
               tutorialCondition ===
               TutorialConditions.PULSE_EDIT_CHANGE_CITY_NAME
             }
-            scaleSize={1.4}
           />
         </RowWrapper>
       </TutorialOverlayTopLayer>

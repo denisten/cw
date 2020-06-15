@@ -8,6 +8,7 @@ import {
   setUserSessionSocket,
   editUserProperty,
   getAccountData,
+  resetUserDataStore,
 } from './events';
 import connectLocalStorage from 'effector-localstorage/sync';
 import Centrifuge from 'centrifuge';
@@ -81,11 +82,8 @@ export const UserDataStore = UserDataDomain.store<IUserDataStore>(initState)
     [key]: value,
   }))
   .on(
-    fetchUserData.done,
-    (
-      state,
-      { result: { worldName, assistantName, name, id, birthday = '', avatar } }
-    ) => ({
+    fetchUserData.doneData,
+    (state, { worldName, assistantName, name, id, birthday = '', avatar }) => ({
       ...state,
       id,
       worldName: worldName || initData.worldName,
@@ -102,7 +100,8 @@ export const UserDataStore = UserDataDomain.store<IUserDataStore>(initState)
   .on(editUserData, (state, payload) => ({
     ...state,
     ...payload,
-  }));
+  }))
+  .reset(resetUserDataStore);
 
 UserDataStore.watch(userDataStoreLocalStorage);
 

@@ -177,9 +177,16 @@ export const TowerWrapper = memo(
             shape="rect"
           />
         </map>
-        {!upgradeFlag && (hoverState || focusOnTowerTitle === towerTitle) ? (
-          <img src={shadowImg} alt="shadow" />
-        ) : null}
+        <img
+          src={shadowImg}
+          alt="shadow"
+          style={{
+            display:
+              !upgradeFlag && (hoverState || focusOnTowerTitle === towerTitle)
+                ? 'block'
+                : 'none',
+          }}
+        />
       </TowerStyledWrapper>
     );
   }

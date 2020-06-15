@@ -73,12 +73,11 @@ export const Menu: React.FC<{ displayFlag: boolean }> = ({ displayFlag }) => {
   return (
     <Overlay displayFlag={displayFlag} {...StyledConfig.overlay}>
       <ExpandedColumnWrapper displayFlag={displayFlag}>
-        {!tutorialCondition ? (
-          <ExitButton
-            {...StyledConfig.exitButton}
-            callBack={handleExitButtonClick}
-          />
-        ) : null}
+        <ExitButton
+          displayFlag={!tutorialCondition}
+          {...StyledConfig.exitButton}
+          callBack={handleExitButtonClick}
+        />
         <RowWrapper {...StyledConfig.rowWrapper}>
           <MenuItemsComponent
             currentNotifysList={[MenuItems.TASKS, MenuItems.FEEDBACK]} // TODO get real data from somewhere

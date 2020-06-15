@@ -1,7 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import styled from 'styled-components';
-import popUpWrapperBackground from './pop-up-background.svg';
-import { Overlay } from '../overlay';
 import { StyledSpan } from '../span';
 import { MTSSans } from '../../fonts';
 import { Input } from '../input';
@@ -31,20 +29,10 @@ import { saveUserData } from '../../api/save-user-data';
 import { contains } from '../../utils/check-include';
 import supportSprite from '../../img/assistant/assistant.png';
 import { Sprite } from '../../components/sprite';
+import { PopUpContentWrapper } from '../pop-up-content-wrapper';
+import { IDisplayFlag } from '../../components/skip-tutorial';
+
 const statusOk = 200;
-const PopUpWrapper = styled.div<IPopUpStyles>`
-  background-image: url(${popUpWrapperBackground});
-  background-size: cover;
-  position: absolute;
-  width: ${props => props.width};
-  height: ${props => props.height};
-  box-shadow: 0 5px 12px 0 rgba(26, 29, 34, 0.2);
-  padding: ${props => props.padding};
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  flex-direction: ${props => props.flexDirection};
-`;
 
 const Title = styled(StyledSpan)`
   font-family: ${MTSSans.BLACK};
@@ -56,7 +44,8 @@ const Title = styled(StyledSpan)`
   margin-bottom: 24px;
 `;
 
-const AssistantSprite = styled.div`
+const AssistantSprite = styled.div<IDisplayFlag>`
+  display: ${props => (props.displayFlag ? 'block' : 'none')};
   position: absolute;
   width: 188px;
   height: 264px;
@@ -75,6 +64,7 @@ const styleConfig = {
   exitButton: {
     top: '0',
     right: '0',
+    displayFlag: true,
   },
   input: {
     padding: '0 0 0 16px',
@@ -112,7 +102,7 @@ export const PopUp: React.FC<IPopUp> = ({
   title,
   initValue,
   popUpType = TypesOfPopUps.EDIT_WORLD_NAME,
-  maxInputValueLenght = maxCityNameLength,
+  maxInputValueLength = maxCityNameLength,
 }) => {
   const { tutorialCondition } = useStore(TutorialStore);
   const [value, setValue] = useState(initValue || '');
@@ -131,8 +121,8 @@ export const PopUp: React.FC<IPopUp> = ({
     if (value.length < minNameLength) {
       worldInputHint = minSymbolsAlert + minNameLength;
       setInputHasError(true);
-    } else if (value.length > maxInputValueLenght) {
-      worldInputHint = maxSymbolsAlert + maxInputValueLenght;
+    } else if (value.length > maxInputValueLength) {
+      worldInputHint = maxSymbolsAlert + maxInputValueLength;
       setInputHasError(true);
     } else if (contains(value, ' ')) {
       worldInputHint = spaceSymbolsAlert;
@@ -164,7 +154,7 @@ export const PopUp: React.FC<IPopUp> = ({
     if (e) e.preventDefault();
     if (
       value.length >= minNameLength &&
-      value.length <= maxInputValueLenght &&
+      value.length <= maxInputValueLength &&
       valuesArr.length === 1
     ) {
       saveData();
@@ -181,63 +171,56 @@ export const PopUp: React.FC<IPopUp> = ({
 
   return (
     <Fragment>
-      {displayFlag ? (
-        <Overlay displayFlag={true} style={styleConfig.overlay}>
-          <PopUpWrapper {...popUpStyles}>
-            <ExitButton callBack={callback} {...styleConfig.exitButton} />
-            <Title>{title}</Title>
-            <TutorialOverlayTopLayer
-              zIndex={
-                tutorialCondition ===
-                TutorialConditions.PULSE_SAVE_CHANGE_CITY_NAME
-                  ? zIndexForInheritOverlay + 1
-                  : zIndexForInheritOverlay - 1
-              }
-            >
-              <Input
-                onChangeHandler={handleOnChange}
-                onSubmitHandler={handleSubmit}
-                value={value}
-                hasError={inputHasError}
-                hint={worldInputHint}
-                style={styleConfig.input}
-                describer={'Максимальное число символов ' + maxInputValueLenght}
-              />
-            </TutorialOverlayTopLayer>
-            <TutorialOverlayTopLayer
-              zIndex={
-                tutorialCondition ===
-                TutorialConditions.PULSE_SAVE_CHANGE_CITY_NAME
-                  ? zIndexForInheritOverlay + 1
-                  : zIndexForInheritOverlay - 1
-              }
-            >
-              <Button
-                style={styleConfig.button}
-                className={ButtonClassNames.NORMAL}
-                content="Сохранить"
-                callback={handleSubmit}
-                animFlag={
-                  tutorialCondition ===
-                  TutorialConditions.PULSE_SAVE_CHANGE_CITY_NAME
-                }
-              />
-            </TutorialOverlayTopLayer>
-            {popUpType === 'editAssistantName' ? (
-              <AssistantSprite>
-                <Sprite img={supportSprite} {...styleConfig.sprite} />
-              </AssistantSprite>
-            ) : null}
-          </PopUpWrapper>
-          <TutorialOverlay
-            displayFlag={
+      <PopUpContentWrapper displayFlag={displayFlag} {...popUpStyles}>
+        <ExitButton callBack={callback} {...styleConfig.exitButton} />
+        <Title>{title}</Title>
+        <TutorialOverlayTopLayer
+          zIndex={
+            tutorialCondition === TutorialConditions.PULSE_SAVE_CHANGE_CITY_NAME
+              ? zIndexForInheritOverlay + 1
+              : zIndexForInheritOverlay - 1
+          }
+        >
+          <Input
+            onChangeHandler={handleOnChange}
+            onSubmitHandler={handleSubmit}
+            value={value}
+            hasError={inputHasError}
+            hint={worldInputHint}
+            style={styleConfig.input}
+            describer={'Максимальное число символов ' + maxInputValueLength}
+          />
+        </TutorialOverlayTopLayer>
+        <TutorialOverlayTopLayer
+          zIndex={
+            tutorialCondition === TutorialConditions.PULSE_SAVE_CHANGE_CITY_NAME
+              ? zIndexForInheritOverlay + 1
+              : zIndexForInheritOverlay - 1
+          }
+        >
+          <Button
+            style={styleConfig.button}
+            className={ButtonClassNames.NORMAL}
+            content="Сохранить"
+            callback={handleSubmit}
+            animFlag={
               tutorialCondition ===
               TutorialConditions.PULSE_SAVE_CHANGE_CITY_NAME
             }
-            zIndex={zIndexForInheritOverlay}
           />
-        </Overlay>
-      ) : null}
+        </TutorialOverlayTopLayer>
+        <AssistantSprite
+          displayFlag={popUpType === TypesOfPopUps.EDIT_ASSISTANT_NAME}
+        >
+          <Sprite img={supportSprite} {...styleConfig.sprite} />
+        </AssistantSprite>
+        <TutorialOverlay
+          displayFlag={
+            tutorialCondition === TutorialConditions.PULSE_SAVE_CHANGE_CITY_NAME
+          }
+          zIndex={zIndexForInheritOverlay}
+        />
+      </PopUpContentWrapper>
     </Fragment>
   );
 };
@@ -245,16 +228,15 @@ export const PopUp: React.FC<IPopUp> = ({
 export interface IPopUp {
   callback?: () => void;
   displayFlag?: boolean;
-  popUpStyles?: IPopUpStyles;
+  popUpStyles: IPopUpStyles;
   title?: string;
   initValue?: string;
   popUpType?: TypesOfPopUps;
-  maxInputValueLenght?: number;
+  maxInputValueLength?: number;
 }
 
-interface IPopUpStyles {
-  width?: string;
-  height?: string;
+export interface IPopUpStyles {
+  width?: number;
+  height?: number;
   padding?: string;
-  flexDirection?: string;
 }

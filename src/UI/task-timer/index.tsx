@@ -24,7 +24,8 @@ const styledConfig = {
 const secondsPerDay = 86400,
   secondsPerHour = 3600,
   secondsPerMinute = 60;
-const parseSecondsLeft = (secondsLeft: number) => {
+const parseSecondsLeft = (secondsLeft: number | null) => {
+  if (secondsLeft === null) return;
   const daysLeft = Math.floor(secondsLeft / secondsPerDay);
   const hoursLeft = Math.floor(secondsLeft / secondsPerHour);
   const minutesLeft = Math.floor(secondsLeft / secondsPerMinute);
@@ -39,12 +40,10 @@ const parseSecondsLeft = (secondsLeft: number) => {
 export const TaskTimer: React.FC<ITaskTimer> = ({ secondsLeft }) => {
   return (
     <TaskTimerWrapper>
-      {secondsLeft ? (
-        <RowWrapper>
-          <img src={timerIcon} alt="timer" style={styledConfig.img} />
-          {parseSecondsLeft(secondsLeft)}
-        </RowWrapper>
-      ) : null}
+      <RowWrapper displayFlag={!!secondsLeft}>
+        <img src={timerIcon} alt="timer" style={styledConfig.img} />
+        {parseSecondsLeft(secondsLeft)}
+      </RowWrapper>
     </TaskTimerWrapper>
   );
 };
