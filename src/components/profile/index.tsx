@@ -12,7 +12,7 @@ import { getIncome, TowersTypesAsObjectLiteral } from '../../api/get-income';
 import { setMarker } from '../../effector/towers-marker/events';
 import { TypeOfMarkers } from '../markers';
 import { TowersTypes } from '../../effector/towers-progress/store';
-import { getAccount } from '../../api/get-account';
+import { getAccountData } from '../../effector/user-data/events';
 
 const ProfileWrapper = styled.div`
   width: 100%;
@@ -38,7 +38,7 @@ const handleAuth = async (isAuthorized: boolean, dataReceived: boolean) => {
     await fetchAllProductsData('');
     await openWsConnection();
     await progressRefresh();
-    await getAccount();
+    await getAccountData('');
     const incomes = await getIncome();
     markersEnumeration(incomes);
     setDataReceived(true);
