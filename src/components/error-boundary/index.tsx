@@ -54,13 +54,12 @@ export const ErrorBoundary = () => {
   }, []);
   return (
     <ErrorWrapper errorFlag={errorFlag} text={text} {...StyledConfig.overlay}>
-      {networkStatus === NetworkStatuses.ONLINE ? (
-        <Button
-          className={ButtonClassNames.OUTLINE_NORMAL}
-          callback={closeErrorPopup}
-          {...StyledConfig.closeButton}
-        />
-      ) : null}
+      <Button
+        displayFlag={networkStatus === NetworkStatuses.ONLINE}
+        className={ButtonClassNames.OUTLINE_NORMAL}
+        callback={closeErrorPopup}
+        {...StyledConfig.closeButton}
+      />
     </ErrorWrapper>
   );
 };

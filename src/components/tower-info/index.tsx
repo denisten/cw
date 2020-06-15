@@ -354,11 +354,10 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
     <ModalWindowWrapper opened={opened} ref={towerInfoRef}>
       <ModalWindowHeader>
         <ExitButton
+          displayFlag={true}
           {...StyleConfig.exitButton}
           callBack={() => {
-            if (tutorialCondition) {
-              pauseTutorialMode();
-            }
+            tutorialCondition && pauseTutorialMode();
             extraTowerInfoModalClosed();
           }}
         />
@@ -456,18 +455,19 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
           towerTitle={towerTitle}
         />
 
-        {!tutorialCondition ||
-        (tutorialCondition === TutorialConditions.NEXT_BUTTON_TOWER_INFO &&
-          tutorialTower) ? (
-          <Button
-            className={ButtonClassNames.OUTLINE_NORMAL}
-            animFlag={
-              tutorialCondition === TutorialConditions.NEXT_BUTTON_TOWER_INFO
-            }
-            callback={() => nextTowerTutorialStep()}
-            {...StyleConfig.enterButton}
-          />
-        ) : null}
+        <Button
+          displayFlag={
+            !tutorialCondition ||
+            (tutorialCondition === TutorialConditions.NEXT_BUTTON_TOWER_INFO &&
+              tutorialTower)
+          }
+          className={ButtonClassNames.OUTLINE_NORMAL}
+          animFlag={
+            tutorialCondition === TutorialConditions.NEXT_BUTTON_TOWER_INFO
+          }
+          callback={nextTowerTutorialStep}
+          {...StyleConfig.enterButton}
+        />
       </ModalWindowContentWrapper>
     </ModalWindowWrapper>
   );

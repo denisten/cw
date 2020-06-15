@@ -80,6 +80,8 @@ export const MenuNavigationElement: React.FC<IMenuParagraph> = ({
   pulseAnim = false,
   ...props
 }) => {
+  const notifications = haveNotify ? <Notify /> : null;
+
   return (
     <MenuParagraphWrapper
       menuElement={menuElement}
@@ -89,7 +91,7 @@ export const MenuNavigationElement: React.FC<IMenuParagraph> = ({
       <MenuParagraphTitleWrapper pulseAnim={pulseAnim} onClick={onClickHandler}>
         {TranslatedMenuItems[menuElement]}
       </MenuParagraphTitleWrapper>
-      {haveNotify ? <Notify /> : null}
+      {notifications}
     </MenuParagraphWrapper>
   );
 };
