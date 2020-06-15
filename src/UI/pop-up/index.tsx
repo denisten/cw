@@ -150,6 +150,13 @@ export const PopUp: React.FC<IPopUp> = ({
     callback && callback();
   };
 
+  const popUpHandlerInTutorialMode = () => {
+    editCurrentUserDataField({ key: UserDataStoreKeys.WORLD_NAME, value });
+    nextTutorStep();
+    menuClosed();
+    callback && callback();
+  };
+
   const handleSubmit = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     if (
@@ -157,12 +164,12 @@ export const PopUp: React.FC<IPopUp> = ({
       value.length <= maxInputValueLength &&
       valuesArr.length === 1
     ) {
-      saveData();
       if (
         tutorialCondition === TutorialConditions.PULSE_SAVE_CHANGE_CITY_NAME
       ) {
-        nextTutorStep();
-        menuClosed();
+        popUpHandlerInTutorialMode();
+      } else {
+        saveData();
       }
     } else {
       setInputHasError(true);
