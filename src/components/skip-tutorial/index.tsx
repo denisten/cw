@@ -74,7 +74,11 @@ const buttonContent = (createNewWorld: boolean, isAuthorized: boolean) => {
   }
 };
 
-const titleContent = (createNewWorld: boolean, isAuthorized: boolean) => {
+const titleContent = (
+  createNewWorld: boolean,
+  isAuthorized: boolean,
+  name: string
+) => {
   if (!createNewWorld) {
     if (isAuthorized) {
       return <AuthTitle name={name} />;
@@ -134,7 +138,7 @@ export const SkipTutorial: React.FC<ISkipTutorial> = memo(
     return (
       <PopUpContentWrapper displayFlag={displayFlag}>
         <Title style={styledConfig.title}>
-          {titleContent(createNewWorld, isAuthorized)}
+          {titleContent(createNewWorld, isAuthorized, name)}
         </Title>
         <Alarm displayFlag={createNewWorld} />
         <Button
