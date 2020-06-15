@@ -63,9 +63,9 @@ const userDataStoreLocalStorage = connectLocalStorage('UserData').onChange(
 );
 
 export const UserDataStore = UserDataDomain.store<IUserDataStore>(initState)
-  .on(getAccountData.done, (state, payload) => ({
+  .on(getAccountData.doneData, (state, payload) => ({
     ...state,
-    money: payload.result.balance,
+    money: payload.balance,
   }))
   .on(editMoneyCount, (state, payload) => ({
     ...state,
