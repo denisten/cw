@@ -1,13 +1,19 @@
 import React, { useEffect } from 'react';
 import { useStore } from 'effector-react';
 import styled from 'styled-components';
-import { AppCondition } from '../../effector/app-condition/store';
+import {
+  AppCondition,
+  TutorialFinishedStates,
+} from '../../effector/app-condition/store';
 import { NotAuthorizedProfile } from './not-authorized';
 import { AuthorizedProfile } from './authorized';
 import { fetchAllProductsData } from '../../effector/towers-progress/events';
 import { openWsConnection } from '../../api/centrifuge';
 import { progressRefresh } from '../../api';
-import { setDataReceived } from '../../effector/app-condition/events';
+import {
+  setDataReceived,
+  setTutorialFinished,
+} from '../../effector/app-condition/events';
 import { getIncome, TowersTypesAsObjectLiteral } from '../../api/get-income';
 import { setMarker } from '../../effector/towers-marker/events';
 import { TypeOfMarkers } from '../markers';
@@ -38,12 +44,13 @@ const markersEnumeration = (incomes: TowersTypesAsObjectLiteral) => {
 const handleAuth = async (
   isAuthorized: boolean,
   dataReceived: boolean,
-  tutorialIsFinished: boolean,
+  tutorialIsFinished: TutorialFinishedStates,
   worldName: string
 ) => {
   if (isAuthorized && !dataReceived) {
-    if (tutorialIsFinished) {
+    if (tutorialIsFinished === TutorialFinishedStates.FINISHED_BUT_DONT_SAVE) {
       await saveUserData({ worldName });
+      setTutorialFinished(TutorialFinishedStates.SAVED);
     }
     await fetchAllProductsData('');
     await openWsConnection();

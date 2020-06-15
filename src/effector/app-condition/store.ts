@@ -35,6 +35,12 @@ export enum TowerInfoContentValues {
   CHAT = 1,
   TASK = 2,
 }
+
+export enum TutorialFinishedStates {
+  NOT_FINISHED = 'notFinished',
+  FINISHED_BUT_DONT_SAVE = 'finishedButDontSave',
+  SAVED = 'saved',
+}
 const initState = {
   isExtraTowerInfoModalOpen: false,
   scaleValue: initScaleValue,
@@ -49,7 +55,7 @@ const initState = {
   towerInfoShift: 0,
   dataReceived: false,
   openPopUpState: TypesOfPopUps.DISABLED,
-  tutorialIsFinished: false,
+  tutorialIsFinished: TutorialFinishedStates.NOT_FINISHED,
 };
 
 const appConditionLocalStorage = connectLocalStorage('AppCondition').onChange(
@@ -57,9 +63,9 @@ const appConditionLocalStorage = connectLocalStorage('AppCondition').onChange(
 );
 
 export const AppCondition = AppDomain.store<AppConditionType>(initState)
-  .on(setTutorialFinished, state => ({
+  .on(setTutorialFinished, (state, payload) => ({
     ...state,
-    tutorialIsFinished: true,
+    tutorialIsFinished: payload,
   }))
   .on(setTowerInfoContent, (state, payload) => ({
     ...state,
@@ -167,5 +173,5 @@ export type AppConditionType = {
   towerInfoShift: number;
   dataReceived: boolean;
   openPopUpState: TypesOfPopUps;
-  tutorialIsFinished: boolean;
+  tutorialIsFinished: TutorialFinishedStates;
 };

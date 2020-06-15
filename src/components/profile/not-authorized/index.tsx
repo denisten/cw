@@ -30,6 +30,7 @@ import {
   setOpenPopUpState,
   setTutorialFinished,
 } from '../../../effector/app-condition/events';
+import { TutorialFinishedStates } from '../../../effector/app-condition/store';
 
 const ProfileWrapper = styled.div`
   width: 100%;
@@ -103,7 +104,7 @@ export const NotAuthorizedProfile: React.FC<INotAuthorizedProfile> = ({
   const handleButtonClick = () => {
     if (tutorialCondition === TutorialConditions.PULSE_AUTH_BUTTON) {
       turnOffTutorialMode();
-      setTutorialFinished();
+      setTutorialFinished(TutorialFinishedStates.FINISHED_BUT_DONT_SAVE);
     }
     handleAuthButtonClick();
   };
