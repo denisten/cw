@@ -28,10 +28,12 @@ export enum UserDataStoreKeys {
   AVATAR = 'avatar',
 }
 
+const worldNameInLS = localStorage.getItem(UserDataStoreKeys.WORLD_NAME);
+
 const initData = {
   id: 0,
   name: 'Неизвестно',
-  worldName: 'Неизвестно',
+  worldName: worldNameInLS || 'Неизвестно',
   assistantName: 'Неизвестно',
   money: 0,
   energy: 0,

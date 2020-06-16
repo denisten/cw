@@ -1,19 +1,13 @@
 import React, { useEffect } from 'react';
 import { useStore } from 'effector-react';
 import styled from 'styled-components';
-import {
-  AppCondition,
-  TutorialFinishedStates,
-} from '../../effector/app-condition/store';
+import { AppCondition } from '../../effector/app-condition/store';
 import { NotAuthorizedProfile } from './not-authorized';
 import { AuthorizedProfile } from './authorized';
 import { fetchAllProductsData } from '../../effector/towers-progress/events';
 import { openWsConnection } from '../../api/centrifuge';
 import { progressRefresh } from '../../api';
-import {
-  setDataReceived,
-  setTutorialFinished,
-} from '../../effector/app-condition/events';
+import { setDataReceived } from '../../effector/app-condition/events';
 import { getIncome, TowersTypesAsObjectLiteral } from '../../api/get-income';
 import { setMarker } from '../../effector/towers-marker/events';
 import { TypeOfMarkers } from '../markers';
@@ -44,14 +38,10 @@ const markersEnumeration = (incomes: TowersTypesAsObjectLiteral) => {
 const handleAuth = async (
   isAuthorized: boolean,
   dataReceived: boolean,
-  tutorialIsFinished: TutorialFinishedStates,
   worldName: string
 ) => {
   if (isAuthorized && !dataReceived) {
-    if (tutorialIsFinished === TutorialFinishedStates.FINISHED_BUT_DONT_SAVE) {
-      await saveUserData({ worldName });
-      setTutorialFinished(TutorialFinishedStates.SAVED);
-    }
+    await saveUserData({ worldName });
     await fetchAllProductsData('');
     await openWsConnection();
     await progressRefresh();
@@ -63,15 +53,10 @@ const handleAuth = async (
 };
 
 export const Profile = React.memo(() => {
-  const {
-    isAuthorized,
-    dataReceived,
-    openPopUpState,
-    tutorialIsFinished,
-  } = useStore(AppCondition);
+  const { isAuthorized, dataReceived, openPopUpState } = useStore(AppCondition);
   const { worldName } = useStore(UserDataStore);
   useEffect(() => {
-    handleAuth(isAuthorized, dataReceived, tutorialIsFinished, worldName);
+    handleAuth(isAuthorized, dataReceived, worldName);
   }, [isAuthorized]);
   return (
     <ProfileWrapper>
