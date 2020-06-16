@@ -5,6 +5,7 @@ import { refreshBD } from '../../api/dev-api/refresh-bd';
 import { fetchTasks } from '../../effector/missions-store/events';
 import { RowWrapper } from '../../UI/row-wrapper';
 import { devLogin } from '../../effector/user-data/events';
+import { createMockupOfMessages } from '../../effector/task-messages/events';
 
 const DevToolsWrapper = styled.div`
   width: 100%;
@@ -36,6 +37,11 @@ export const DevTools = () => {
         className={ButtonClassNames.NORMAL}
         content="Get tasks"
         callback={() => fetchTasks('')}
+      />
+      <Button
+        className={ButtonClassNames.NORMAL}
+        content="Get messages in chat"
+        callback={() => createMockupOfMessages()}
       />
       <RowWrapper>
         <input
