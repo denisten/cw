@@ -172,10 +172,8 @@ export const PopUp: React.FC<IPopUp> = ({
   };
 
   const popUpHandlerInTutorialMode = () => {
-    editCurrentUserDataField({ key: UserDataStoreKeys.WORLD_NAME, value });
     nextTutorStep();
     menuClosed();
-    callback && callback();
   };
 
   const handleSubmit = (e?: React.FormEvent) => {
@@ -187,9 +185,8 @@ export const PopUp: React.FC<IPopUp> = ({
     ) {
       if (tutorialDesiredState(tutorialCondition)) {
         popUpHandlerInTutorialMode();
-      } else {
-        saveData();
       }
+      saveData();
     } else {
       setInputHasError(true);
     }
