@@ -17,10 +17,7 @@ const initState: TowersMarkerStoreType = {
     markers: [],
   },
   [TowersTypes.MAIN_TOWER]: {
-    markers: [
-      { type: TypeOfMarkers.SUCCESS },
-      { type: TypeOfMarkers.ACTIVE_TASK },
-    ],
+    markers: [],
   },
   [TowersTypes.MUSIC]: {
     markers: [],
