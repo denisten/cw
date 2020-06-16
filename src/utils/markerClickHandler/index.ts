@@ -14,11 +14,12 @@ import { scrollToCurrentTower } from '../scroll-to-current-tower';
 import { RefObject } from 'react';
 import { editMoneyCount } from '../../effector/user-data/events';
 import { commitIncomes } from '../../api/commit-income';
+import { responseStates } from '../../constants';
 
 const setIncome = async (towerTitle: TowersTypes, marker: IMarker) => {
   setMarkerPendingState({ towerTitle, type: marker.type, pendingState: true });
   const response = await commitIncomes(towerTitle);
-  if (response.state === 'success') {
+  if (response.state === responseStates.SUCCESS) {
     const { balance } = response.data;
     editMoneyCount(balance);
     hideMarker({ towerTitle: towerTitle, type: marker.type });
