@@ -150,6 +150,7 @@ export const PopUp: React.FC<IPopUp> = ({
         }
       } else {
         editCurrentUserDataField({ key: UserDataStoreKeys.WORLD_NAME, value });
+        localStorage.setItem(UserDataStoreKeys.WORLD_NAME, value);
       }
     } else if (popUpType === TypesOfPopUps.EDIT_ASSISTANT_NAME) {
       if (isAuthorized) {
@@ -171,6 +172,11 @@ export const PopUp: React.FC<IPopUp> = ({
     callback && callback();
   };
 
+  const popUpHandlerInTutorialMode = () => {
+    nextTutorStep();
+    menuClosed();
+  };
+
   const handleSubmit = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     if (
@@ -178,11 +184,10 @@ export const PopUp: React.FC<IPopUp> = ({
       value.length <= maxInputValueLength &&
       valuesArr.length === 1
     ) {
-      saveData();
       if (tutorialDesiredState(tutorialCondition)) {
-        nextTutorStep();
-        menuClosed();
+        popUpHandlerInTutorialMode();
       }
+      saveData();
     } else {
       setInputHasError(true);
     }

@@ -3,6 +3,7 @@ import { IBirthday, UserDataStoreKeys } from './store';
 import { getProfile, IGetProfile } from '../../api/get-profile';
 import Centrifuge from 'centrifuge';
 import { devLoginRequest } from '../../api/dev-api/login';
+import { getAccount } from '../../api/get-account';
 
 export const editCurrentUserDataField = UserDataDomain.event<
   IEditCurrentUserDataField
@@ -19,6 +20,12 @@ export const resetUserDataStore = UserDataDomain.event('reset user data');
 export const devLogin = UserDataDomain.effect('dev login for users', {
   handler: async (phone: string) => {
     return await devLoginRequest(phone);
+  },
+});
+
+export const getAccountData = UserDataDomain.effect('fetch balance', {
+  handler: async () => {
+    return await getAccount();
   },
 });
 export const editMoneyCount = UserDataDomain.event<number>();

@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import alarmImg from './alarm.svg';
 import { MTSSans } from '../../fonts';
 import { useStore } from 'effector-react';
-import { UserDataStore } from '../../effector/user-data/store';
 import { Button, ButtonClassNames } from '../../UI/button';
 import { PopUpContentWrapper } from '../../UI/pop-up-content-wrapper';
 import { maxPercent } from '../markers/timer';
@@ -11,6 +10,7 @@ import { AppCondition } from '../../effector/app-condition/store';
 import { handleAuthButtonClick } from '../../utils/handle-auth-button-click';
 import { nextTutorStep } from '../../effector/tutorial-store/events';
 import { resetUserDataStore } from '../../effector/user-data/events';
+import { UserDataStore } from '../../effector/user-data/store';
 
 const Title = styled.div`
   font-family: ${MTSSans.MEDIUM};
@@ -106,9 +106,9 @@ const Alarm: React.FC<IDisplayFlag> = ({ displayFlag }) => (
 
 export const SkipTutorial: React.FC<ISkipTutorial> = memo(
   ({ displayFlag, setDisplayFlag }) => {
-    const { name } = useStore(UserDataStore);
     const { isAuthorized } = useStore(AppCondition);
     const [createNewWorld, setCreateNewWorld] = useState(false);
+    const { name } = useStore(UserDataStore);
 
     const handleClickCreateNewWorld = () => {
       if (createNewWorld) {

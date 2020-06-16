@@ -4,7 +4,7 @@ import { TowersTypes } from '../../effector/towers-progress/store';
 
 export const updateTowerRequest = async (towerTitle: TowersTypes) => {
   return await post<IUpdateTower>(
-    apiRoutes.PRODUCTS + `/${towerTitle}/` + apiRoutes.COMMIT_PROGRESS
+    apiRoutes.PRODUCTS + `${towerTitle}` + apiRoutes.COMMIT_PROGRESS
   );
 };
 

@@ -34,6 +34,7 @@ export enum TowerInfoContentValues {
   CHAT = 1,
   TASK = 2,
 }
+
 const initState = {
   isExtraTowerInfoModalOpen: false,
   scaleValue: initScaleValue,

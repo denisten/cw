@@ -228,20 +228,21 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
         foolSize={hideContent}
         ref={chatContainer}
       >
-        {messages.map((item, idx) => (
-          <MessageRow key={idx} sender={item.direction}>
-            <ChatAvatar
-              sender={item.direction}
-              systemBotAvatar={ChatConfig.systemBotAvatar}
-              userAvatar={ChatConfig.userAvatar}
-            />
-            <Bubble
-              sender={item.direction}
-              text={item.text}
-              botName="Имя бота"
-            />
-          </MessageRow>
-        ))}
+        {messages &&
+          messages.map((item, idx) => (
+            <MessageRow key={idx} sender={item.direction}>
+              <ChatAvatar
+                sender={item.direction}
+                systemBotAvatar={ChatConfig.systemBotAvatar}
+                userAvatar={ChatConfig.userAvatar}
+              />
+              <Bubble
+                sender={item.direction}
+                text={item.text}
+                botName="Имя бота"
+              />
+            </MessageRow>
+          ))}
       </ChatWrapper>
       <ChatButtons actions={actions} callback={sendAnswerId} />
     </>

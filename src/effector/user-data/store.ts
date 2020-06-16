@@ -7,6 +7,7 @@ import {
   editMoneyCount,
   setUserSessionSocket,
   editUserProperty,
+  getAccountData,
   resetUserDataStore,
 } from './events';
 import connectLocalStorage from 'effector-localstorage/sync';
@@ -27,10 +28,12 @@ export enum UserDataStoreKeys {
   AVATAR = 'avatar',
 }
 
+const worldNameInLS = localStorage.getItem(UserDataStoreKeys.WORLD_NAME);
+
 const initData = {
   id: 0,
   name: 'Неизвестно',
-  worldName: 'Неизвестно',
+  worldName: worldNameInLS || 'Неизвестно',
   assistantName: 'Неизвестно',
   money: 0,
   energy: 0,
@@ -63,9 +66,13 @@ const userDataStoreLocalStorage = connectLocalStorage('UserData').onChange(
 );
 
 export const UserDataStore = UserDataDomain.store<IUserDataStore>(initState)
+  .on(getAccountData.doneData, (state, payload) => ({
+    ...state,
+    money: payload.balance,
+  }))
   .on(editMoneyCount, (state, payload) => ({
     ...state,
-    money: state.money + payload,
+    money: payload,
   }))
   .on(editUserProperty, (state, { money, energy }) => ({
     ...state,

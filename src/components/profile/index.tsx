@@ -8,6 +8,13 @@ import { fetchAllProductsData } from '../../effector/towers-progress/events';
 import { openWsConnection } from '../../api/centrifuge';
 import { progressRefresh } from '../../api';
 import { setDataReceived } from '../../effector/app-condition/events';
+import { getIncome, TowersTypesAsObjectLiteral } from '../../api/get-income';
+import { setMarker } from '../../effector/towers-marker/events';
+import { TypeOfMarkers } from '../markers';
+import { TowersTypes } from '../../effector/towers-progress/store';
+import { getAccountData } from '../../effector/user-data/events';
+import { UserDataStore } from '../../effector/user-data/store';
+import { saveUserData } from '../../api/save-user-data';
 
 const ProfileWrapper = styled.div`
   width: 100%;
@@ -15,19 +22,41 @@ const ProfileWrapper = styled.div`
   position: relative;
 `;
 
-const handleAuth = async (isAuthorized: boolean, dataReceived: boolean) => {
+const markersEnumeration = (incomes: TowersTypesAsObjectLiteral) => {
+  const iterableArrayOfIncomesData = Object.entries(incomes);
+  iterableArrayOfIncomesData.forEach(item => {
+    const towerTitle = item[0] as TowersTypes;
+    const markerData = {
+      towerTitle: towerTitle,
+      type: TypeOfMarkers.TAKE_REWARD,
+      coins: item[1],
+    };
+    setMarker(markerData);
+  });
+};
+
+const handleAuth = async (
+  isAuthorized: boolean,
+  dataReceived: boolean,
+  worldName: string
+) => {
   if (isAuthorized && !dataReceived) {
+    await saveUserData({ worldName });
     await fetchAllProductsData('');
     await openWsConnection();
     await progressRefresh();
+    await getAccountData('');
+    const incomes = await getIncome();
+    markersEnumeration(incomes);
     setDataReceived(true);
   }
 };
 
 export const Profile = React.memo(() => {
   const { isAuthorized, dataReceived, openPopUpState } = useStore(AppCondition);
+  const { worldName } = useStore(UserDataStore);
   useEffect(() => {
-    handleAuth(isAuthorized, dataReceived);
+    handleAuth(isAuthorized, dataReceived, worldName);
   }, [isAuthorized]);
   return (
     <ProfileWrapper>

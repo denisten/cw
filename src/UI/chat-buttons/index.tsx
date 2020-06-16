@@ -28,11 +28,12 @@ const Button = styled.div`
 export const ChatButtons: React.FC<IChatButtons> = ({ actions, callback }) => {
   return (
     <ButtonBody>
-      {actions.map(el => (
-        <Button key={el.id} onClick={() => callback(el.id)}>
-          {el.text}
-        </Button>
-      ))}
+      {actions &&
+        actions.map(el => (
+          <Button key={el.id} onClick={() => callback(el.id)}>
+            {el.text}
+          </Button>
+        ))}
     </ButtonBody>
   );
 };

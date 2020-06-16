@@ -118,7 +118,7 @@ export const NotAuthorizedProfile: React.FC<INotAuthorizedProfile> = ({
         popUpStyles={styledConfig.popUpStyles}
         maxInputValueLength={maxCityNameLength}
         title="Введите название города"
-        initValue="Неизвестно"
+        initValue={worldName}
       />
       <MoneyWalletWrapper>
         <MoneyWallet sum={String(money)} style={styledConfig.moneyWallet} />
