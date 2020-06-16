@@ -73,7 +73,6 @@ const MessageRow = styled.div<{ sender?: Sender }>`
 `;
 
 const ChatConfig: IChatConfig = {
-  systemBotAvatar: '',
   userAvatar: '',
   messages: [
     {
@@ -233,8 +232,8 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
             <MessageRow key={idx} sender={item.direction}>
               <ChatAvatar
                 sender={item.direction}
-                systemBotAvatar={ChatConfig.systemBotAvatar}
                 userAvatar={ChatConfig.userAvatar}
+                towerTitle={towerTitle}
               />
               <Bubble
                 sender={item.direction}
@@ -250,7 +249,6 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
 };
 
 interface IChatConfig {
-  systemBotAvatar?: string;
   userAvatar?: string;
   messages: IMessages[];
   buttons: { title: string; answerId: number }[];
