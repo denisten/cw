@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import notice from './notice.svg';
 import success from './success.svg';
-import upgradeTower from './update.svg';
+import upgradeTower from './upgrade.svg';
+import activeTask from './active-task.svg';
 import coin from './coin.svg';
 import { TowersTypes } from '../../effector/towers-progress/store';
 import { ZIndexes } from '../root-component/z-indexes-enum';
@@ -17,6 +18,7 @@ export enum TypeOfMarkers {
   TAKE_REWARD = 'takeReward',
   UPGRADE_TOWER = 'upgradeTower',
   TIMER = 'timer',
+  ACTIVE_TASK = 'activeTask',
 }
 
 const selectBackground = (markerType: string) => {
@@ -27,6 +29,8 @@ const selectBackground = (markerType: string) => {
       return success;
     case TypeOfMarkers.TAKE_REWARD:
       return coin;
+    case TypeOfMarkers.ACTIVE_TASK:
+      return activeTask;
     case TypeOfMarkers.UPGRADE_TOWER:
       return upgradeTower;
     default:
@@ -224,13 +228,30 @@ export const Markers: React.FC<IMarkers> = ({
   towerLevel,
   towerRef,
 }) => {
+  const [activeTaskId, setActiveTaskId] = useState(-1);
+  const [taskId, setTaskId] = useState(-1);
+  const [markers, setMarkers] = useState(markersCollection);
+
+  useEffect(() => {
+    markersCollection.map((el, id) => {
+      if (el.type === TypeOfMarkers.ACTIVE_TASK) setActiveTaskId(id);
+      if (el.type === TypeOfMarkers.TASK) setTaskId(id);
+    });
+  }, []);
+  useEffect(() => {
+    if (activeTaskId >= 0 && taskId >= 0) {
+      const newState = [...markers];
+      newState.slice(taskId, 1);
+      setMarkers(newState);
+    }
+  }, [activeTaskId, taskId]);
   return (
     <MarkerWrapper
       displayFlag={displayFlag}
       data-towertype={towerTitle}
       data-towerlevel={towerLevel}
     >
-      {markersCollection.map(markItem =>
+      {markers.map(markItem =>
         markItem.type !== TypeOfMarkers.TIMER ? (
           <MarkerView
             data-type={markItem.type}
