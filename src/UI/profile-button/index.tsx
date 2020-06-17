@@ -3,7 +3,7 @@ import {
   menuOpened,
   extraTowerInfoModalClosed,
 } from '../../effector/app-condition/events';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { MenuItems } from '../menu-paragraph';
 import { ZIndexes } from '../../components/root-component/z-indexes-enum';
 import { AvatarWrapper } from '../avatar-wrapper';
@@ -18,6 +18,7 @@ import coins from './coin.svg';
 import { defaultScaleSize, scaleAnimation } from '../../hoc/scale-anim';
 import { zIndexForInheritOverlay } from '../../constants';
 import { MTSSans } from '../../fonts';
+import moneyCircle from './money.png';
 
 const CoinsWrapper = styled.div`
   background-image: url(${coinsBackground});
@@ -82,14 +83,42 @@ const ProfileButtonWrapper = styled.div<IProfileButtonWrapper>`
 
 const StyleConfig = {
   coins: {
-    marginRight: '8px',
+    marginRight: '12px',
     position: 'relative',
     bottom: '8px',
   } as React.CSSProperties,
 };
 
+const CoinImg = styled.img<{ moveCoinFinished: boolean }>`
+  transition: 0.3s;
+  transform: ${props => (props.moveCoinFinished ? 'scale(1.2)' : '')};
+`;
+
+const moneyCircleAnim = keyframes`
+from {
+  transform: scale(0.6);
+}
+to {
+  transform: scale(1);
+  opacity: 0;
+}
+`;
+
+const MoneyCircle = styled.div<{ displayFlag: boolean }>`
+  position: absolute;
+  top: -27px;
+  left: 49px;
+  width: 120px;
+  height: 120px;
+  display: ${props => (props.displayFlag ? 'block' : 'none')};
+  background: url(${moneyCircle}) no-repeat center;
+  background-size: 100% 100%;
+  animation: ${moneyCircleAnim} 0.4s linear forwards;
+`;
+
 export const ProfileButton: React.FC<IProfileButton> = ({
   tutorialCondition,
+  moveCoinFinished,
 }) => {
   const handleClick = () => {
     if (!tutorialCondition) {
@@ -125,7 +154,13 @@ export const ProfileButton: React.FC<IProfileButton> = ({
     >
       <NickNameWrapper content={name} />
       <CoinsWrapper>
-        <img src={coins} alt="coins" style={StyleConfig.coins} />
+        <CoinImg
+          src={coins}
+          alt="coins"
+          style={StyleConfig.coins}
+          moveCoinFinished={moveCoinFinished}
+        />
+        <MoneyCircle displayFlag={moveCoinFinished} />
         {money}
       </CoinsWrapper>
       <AvatarWrapper src={userAvatar} />
@@ -136,6 +171,7 @@ export const ProfileButton: React.FC<IProfileButton> = ({
 interface IProfileButton {
   tutorialCondition: TutorialConditions;
   tutorialPause?: boolean;
+  moveCoinFinished: boolean;
 }
 
 interface INickNameWrapper {

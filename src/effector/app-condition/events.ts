@@ -38,6 +38,7 @@ export const setTowerInfoShift = AppDomain.event<number>();
 export const setOpenPopUpState = AppDomain.event<TypesOfPopUps>();
 export const pushMoveElems = AppDomain.event<ImoveCoinElements>();
 export const removeMoveElems = AppDomain.event<number>();
+export const setMoveCoinFinished = AppDomain.event<boolean>();
 export interface IUserSelectedTower {
   towerTitle: TowersTypes | null;
 }

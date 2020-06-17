@@ -19,6 +19,7 @@ import {
   setOpenPopUpState,
   pushMoveElems,
   removeMoveElems,
+  setMoveCoinFinished,
 } from './events';
 import { TowersTypes } from '../towers-progress/store';
 import { upgradeTower } from '../towers-progress/events';
@@ -53,6 +54,7 @@ const initState = {
   dataReceived: false,
   openPopUpState: TypesOfPopUps.DISABLED,
   moveCoinElements: [],
+  moveCoinFinished: false,
 };
 
 const appConditionLocalStorage = connectLocalStorage('AppCondition').onChange(
@@ -61,6 +63,10 @@ const appConditionLocalStorage = connectLocalStorage('AppCondition').onChange(
 
 export const AppCondition = AppDomain.store<AppConditionType>(initState)
 
+  .on(setMoveCoinFinished, (state, payload) => ({
+    ...state,
+    moveCoinFinished: payload,
+  }))
   .on(removeMoveElems, (state, id) => ({
     ...state,
     moveCoinElements: state.moveCoinElements.filter(item => item.id !== id),
@@ -185,6 +191,7 @@ export type AppConditionType = {
   dataReceived: boolean;
   openPopUpState: TypesOfPopUps;
   moveCoinElements: ImoveCoinElements[];
+  moveCoinFinished: boolean;
 };
 
 export interface ImoveCoinElements {

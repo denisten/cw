@@ -31,9 +31,12 @@ const ComponentWrapper = styled.div<{ visible: boolean }>`
 `;
 
 export const RootComponent = (): React.ReactElement => {
-  const { isExtraTowerInfoModalOpen, selectedMenuItem, DOMLoaded } = useStore(
-    AppCondition
-  );
+  const {
+    isExtraTowerInfoModalOpen,
+    selectedMenuItem,
+    DOMLoaded,
+    moveCoinFinished,
+  } = useStore(AppCondition);
   const [showSkipTutorialUI, setShowSkipTutorialUI] = useState(true);
   const { tutorialCondition, tutorialPause } = useStore(TutorialStore);
 
@@ -43,6 +46,7 @@ export const RootComponent = (): React.ReactElement => {
       <ProfileButton
         tutorialCondition={tutorialCondition}
         tutorialPause={tutorialPause}
+        moveCoinFinished={moveCoinFinished}
       />
       <MoveCoinCollection />
       <ZoomInOutButtons />

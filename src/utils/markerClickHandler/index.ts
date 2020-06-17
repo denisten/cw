@@ -22,9 +22,9 @@ const setIncome = async (
   marker: IMarker,
   e: React.MouseEvent
 ) => {
-  setMarkerPendingState({ towerTitle, type: marker.type, pendingState: true });
   pushMoveElems({ x: e.clientX, y: e.clientY, id: 0 });
 
+  setMarkerPendingState({ towerTitle, type: marker.type, pendingState: true });
   const response = await commitIncomes(towerTitle);
   if (response.state === responseStates.SUCCESS) {
     const { balance } = response.data;
