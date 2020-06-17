@@ -73,7 +73,7 @@ const MessageRow = styled.div<{ sender?: Sender }>`
   margin-bottom: 24px;
 `;
 
-const START_HIDE_POS = 200;
+// const START_HIDE_POS = 200;
 
 export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
   ({ hideContent, towerTitle }) => {

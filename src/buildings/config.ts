@@ -1055,8 +1055,8 @@ class BuildingsService {
     },
   };
 
-  getConfigForTower = (towerId: TowersTypes) => {
-    return this._config[towerId];
+  getConfigForTower = (towerTitle: TowersTypes) => {
+    return this._config[towerTitle];
   };
 
   setRefForTower = (towerId: TowersTypes, ref: RefObject<HTMLDivElement>) => {
