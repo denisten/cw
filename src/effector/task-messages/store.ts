@@ -3,6 +3,7 @@ import {
   chatTaskSession,
   consumeUserTaskAction,
   createMockupOfMessages,
+  resetTaskMessagesStore,
 } from './events';
 import { IAction, IMessage, Sender } from '../../api/tasks/session';
 
@@ -40,7 +41,8 @@ export const TaskMessagesStore = TaskMessagesDomain.store<ITaskMessagesStore>(
       actions: payload.actions,
       masterMessageId: payload.masterMessageId,
     };
-  });
+  })
+  .reset(resetTaskMessagesStore);
 
 interface ITaskMessagesStore {
   masterMessageId: number;
