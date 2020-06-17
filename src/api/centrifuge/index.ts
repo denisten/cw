@@ -12,7 +12,9 @@ import {
 import { UserDataStore } from '../../effector/user-data/store';
 
 let wsProxyUrl = '';
-if (window.location.hostname === 'web.cwmts.dev-stream.ru') {
+const wsUrlLocalDevelopment = 'web.cwmts.dev-stream.ru';
+
+if (window.location.hostname === wsUrlLocalDevelopment) {
   wsProxyUrl = 'stage.cwmts.dev-stream.ru';
 }
 const wsConnectionRoute =
