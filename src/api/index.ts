@@ -24,6 +24,7 @@ export enum apiRoutes {
   GET_TASKS = '/api/users/current/tasks',
   REFRESH_BD = '/api/dev/refreshDb',
   COMMIT_INCOMES = '/incomes/commit',
+  CENTRIFUGE = '/centrifugo/connection/websocket',
 }
 
 export {
