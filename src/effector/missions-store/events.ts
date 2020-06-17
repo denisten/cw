@@ -36,3 +36,5 @@ export const decreaseTimer = MissionsDomain.event();
 export const finishTask = MissionsDomain.event<number>(
   'take reward and delete from store'
 );
+
+export const resetMissionsStore = MissionsDomain.event();

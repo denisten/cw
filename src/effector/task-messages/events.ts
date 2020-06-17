@@ -28,3 +28,5 @@ export const consumeUserTaskAction = TaskMessagesDomain.effect(
     },
   }
 );
+
+export const resetTaskMessagesStore = TaskMessagesDomain.event();

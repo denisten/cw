@@ -9,8 +9,9 @@ import { maxPercent } from '../markers/timer';
 import { AppCondition } from '../../effector/app-condition/store';
 import { handleAuthButtonClick } from '../../utils/handle-auth-button-click';
 import { nextTutorStep } from '../../effector/tutorial-store/events';
-import { resetUserDataStore } from '../../effector/user-data/events';
+import { logout, resetUserDataStore } from '../../effector/user-data/events';
 import { UserDataStore } from '../../effector/user-data/store';
+import { CookieService } from '../../sevices/cookies';
 
 const Title = styled.div`
   font-family: ${MTSSans.MEDIUM};
@@ -110,8 +111,11 @@ export const SkipTutorial: React.FC<ISkipTutorial> = memo(
     const [createNewWorld, setCreateNewWorld] = useState(false);
     const { name } = useStore(UserDataStore);
 
-    const handleClickCreateNewWorld = () => {
+    const handleClickCreateNewWorld = async () => {
       if (createNewWorld) {
+        if (CookieService.idToken) {
+          await logout('');
+        }
         resetUserDataStore();
         nextTutorStep();
         setDisplayFlag();

@@ -1,7 +1,12 @@
 import { TowersTypes } from '../towers-progress/store';
 import { TypeOfMarkers } from '../../components/markers';
 import { TowersMarkerDomain } from './domain';
-import { hideMarker, setMarker, setMarkerPendingState } from './events';
+import {
+  hideMarker,
+  resetTowersMarker,
+  setMarker,
+  setMarkerPendingState,
+} from './events';
 
 const initState: TowersMarkerStoreType = {
   [TowersTypes.POISK]: {
@@ -126,7 +131,8 @@ export const TowersMarkerStore = TowersMarkerDomain.store<
         ? state[towerTitle].markers
         : state[towerTitle].markers.concat([{ type, ...rest }]),
     },
-  }));
+  }))
+  .reset(resetTowersMarker);
 
 type MarkerData = {
   markers: IMarker[];

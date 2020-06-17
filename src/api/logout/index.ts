@@ -1,7 +1,7 @@
 import { apiRoutes } from '..';
 import { post } from '../requests';
 
-export const logout = async () => {
+export const logoutRequest = async () => {
   await post<ILogout>(apiRoutes.LOGOUT);
 };
 
