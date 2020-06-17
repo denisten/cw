@@ -17,6 +17,8 @@ import {
   setTowerInfoShift,
   setDataReceived,
   setOpenPopUpState,
+  pushMoveElems,
+  removeMoveElems,
 } from './events';
 import { TowersTypes } from '../towers-progress/store';
 import { upgradeTower } from '../towers-progress/events';
@@ -29,6 +31,7 @@ import { TypesOfPopUps } from '../../UI/pop-up';
 export const maxProgressValue = 100;
 
 const initScaleValue = 0.9;
+const randomRangeID = 1000;
 export enum TowerInfoContentValues {
   DESCRIPTION = 0,
   CHAT = 1,
@@ -49,6 +52,7 @@ const initState = {
   towerInfoShift: 0,
   dataReceived: false,
   openPopUpState: TypesOfPopUps.DISABLED,
+  moveCoinElements: [],
 };
 
 const appConditionLocalStorage = connectLocalStorage('AppCondition').onChange(
@@ -57,6 +61,23 @@ const appConditionLocalStorage = connectLocalStorage('AppCondition').onChange(
 
 export const AppCondition = AppDomain.store<AppConditionType>(initState)
 
+  .on(removeMoveElems, (state, id) => ({
+    ...state,
+    moveCoinElements: state.moveCoinElements.filter(item => item.id !== id),
+  }))
+  .on(pushMoveElems, (state, payload) => {
+    const newState = { ...state };
+    const coinObject = { ...payload };
+    if (newState.moveCoinElements.length === 0) {
+      coinObject.id = 0;
+    } else {
+      coinObject.id =
+        newState.moveCoinElements.length +
+        Math.floor(Math.random() * Math.floor(randomRangeID));
+    }
+    newState.moveCoinElements = [...newState.moveCoinElements, coinObject];
+    return newState;
+  })
   .on(setTowerInfoContent, (state, payload) => ({
     ...state,
     selectTowerInfoContent: payload,
@@ -163,4 +184,11 @@ export type AppConditionType = {
   towerInfoShift: number;
   dataReceived: boolean;
   openPopUpState: TypesOfPopUps;
+  moveCoinElements: ImoveCoinElements[];
 };
+
+export interface ImoveCoinElements {
+  x: number;
+  y: number;
+  id: number;
+}

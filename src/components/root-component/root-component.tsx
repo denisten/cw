@@ -17,6 +17,7 @@ import { ZoomInOutButtons } from '../../UI/zoom-in-out-buttons';
 import { TutorialOverlay } from '../tutorial-overlay';
 import { zIndexForInheritOverlay } from '../../constants';
 import { SkipTutorial } from '../skip-tutorial';
+import { MoveCoinCollection } from '../move-coin-collection';
 
 const ComponentWrapper = styled.div<{ visible: boolean }>`
   background-image: url("${mapTile}");
@@ -35,6 +36,7 @@ export const RootComponent = (): React.ReactElement => {
   );
   const [showSkipTutorialUI, setShowSkipTutorialUI] = useState(true);
   const { tutorialCondition, tutorialPause } = useStore(TutorialStore);
+
   return (
     <ComponentWrapper id="rootScroll" visible={DOMLoaded}>
       <Menu displayFlag={!!selectedMenuItem} />
@@ -42,6 +44,7 @@ export const RootComponent = (): React.ReactElement => {
         tutorialCondition={tutorialCondition}
         tutorialPause={tutorialPause}
       />
+      <MoveCoinCollection />
       <ZoomInOutButtons />
       <TaskButton />
       <TowerInfo opened={isExtraTowerInfoModalOpen} />

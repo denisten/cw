@@ -8,6 +8,7 @@ import { TypeOfMarkers } from '../../components/markers';
 import {
   extraTowerInfoModalOpen,
   setTowerInfoContent,
+  pushMoveElems,
 } from '../../effector/app-condition/events';
 import { TowerInfoContentValues } from '../../effector/app-condition/store';
 import { scrollToCurrentTower } from '../scroll-to-current-tower';
@@ -16,8 +17,14 @@ import { editMoneyCount } from '../../effector/user-data/events';
 import { commitIncomes } from '../../api/commit-income';
 import { responseStates } from '../../constants';
 
-const setIncome = async (towerTitle: TowersTypes, marker: IMarker) => {
+const setIncome = async (
+  towerTitle: TowersTypes,
+  marker: IMarker,
+  e: React.MouseEvent
+) => {
   setMarkerPendingState({ towerTitle, type: marker.type, pendingState: true });
+  pushMoveElems({ x: e.clientX, y: e.clientY, id: 0 });
+
   const response = await commitIncomes(towerTitle);
   if (response.state === responseStates.SUCCESS) {
     const { balance } = response.data;
@@ -30,7 +37,8 @@ const setIncome = async (towerTitle: TowersTypes, marker: IMarker) => {
 export const markerClickHandler = (
   marker: IMarker,
   towerTitle: TowersTypes,
-  markerRef: RefObject<HTMLDivElement> | undefined
+  markerRef: RefObject<HTMLDivElement> | undefined,
+  e: React.MouseEvent
 ) => {
   switch (marker.type) {
     case TypeOfMarkers.TASK:
@@ -41,7 +49,7 @@ export const markerClickHandler = (
       hideMarker({ towerTitle: towerTitle, type: marker.type });
       break;
     case TypeOfMarkers.TAKE_REWARD:
-      setIncome(towerTitle, marker);
+      setIncome(towerTitle, marker, e);
       break;
 
     default:

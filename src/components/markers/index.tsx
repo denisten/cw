@@ -72,6 +72,7 @@ export const MarkerView = styled.div<IMarkerView>`
   animation-iteration-count: infinite;
   animation-duration: 1s;
   z-index: 2;
+  position: relative;
 
   &:hover {
     transform: scale(1.2);
@@ -237,7 +238,7 @@ export const Markers: React.FC<IMarkers> = ({
             key={markItem.type}
             markerType={markItem.type}
             pendingState={markItem.pendingState}
-            onClick={() => markerClickHandler(markItem, towerTitle, towerRef)}
+            onClick={e => markerClickHandler(markItem, towerTitle, towerRef, e)}
           />
         ) : (
           <Timer
