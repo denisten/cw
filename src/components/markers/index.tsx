@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import notice from './notice.svg';
 import success from './success.svg';
@@ -228,30 +228,13 @@ export const Markers: React.FC<IMarkers> = ({
   towerLevel,
   towerRef,
 }) => {
-  const [activeTaskId, setActiveTaskId] = useState(-1);
-  const [taskId, setTaskId] = useState(-1);
-  const [markers, setMarkers] = useState(markersCollection);
-
-  useEffect(() => {
-    markersCollection.map((el, id) => {
-      if (el.type === TypeOfMarkers.ACTIVE_TASK) setActiveTaskId(id);
-      if (el.type === TypeOfMarkers.TASK) setTaskId(id);
-    });
-  }, []);
-  useEffect(() => {
-    if (activeTaskId >= 0 && taskId >= 0) {
-      const newState = [...markers];
-      newState.slice(taskId, 1);
-      setMarkers(newState);
-    }
-  }, [activeTaskId, taskId]);
   return (
     <MarkerWrapper
       displayFlag={displayFlag}
       data-towertype={towerTitle}
       data-towerlevel={towerLevel}
     >
-      {markers.map(markItem =>
+      {markersCollection.map(markItem =>
         markItem.type !== TypeOfMarkers.TIMER ? (
           <MarkerView
             data-type={markItem.type}

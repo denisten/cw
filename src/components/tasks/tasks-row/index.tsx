@@ -30,7 +30,7 @@ import {
   AppCondition,
   TowerInfoContentValues,
 } from '../../../effector/app-condition/store';
-import { setMarker } from '../../../effector/towers-marker/events';
+import { hideMarker, setMarker } from '../../../effector/towers-marker/events';
 import { TypeOfMarkers } from '../../markers';
 
 enum TaskWrapperHeight {
@@ -236,6 +236,10 @@ const handleClick = (id: number) => {
     case TaskStatuses.DONE:
       return takeReward(id);
     case TaskStatuses.VERIFICATION:
+      hideMarker({
+        towerTitle: currentTowerTitle,
+        type: TypeOfMarkers.TAKE_REWARD,
+      });
       return fetchTasks('');
     case TaskStatuses.REWARDED:
     case TaskStatuses.REJECTED:
