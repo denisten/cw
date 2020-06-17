@@ -30,6 +30,8 @@ import {
   AppCondition,
   TowerInfoContentValues,
 } from '../../../effector/app-condition/store';
+import { hideMarker, setMarker } from '../../../effector/towers-marker/events';
+import { TypeOfMarkers } from '../../markers';
 
 enum TaskWrapperHeight {
   opened = 149,
@@ -210,12 +212,17 @@ const handleClick = (id: number) => {
   const currentMissionIdx = state.findIndex(el => el.id === id);
   const currentMission = state[currentMissionIdx];
   const currentMissionType = currentMission.task.content.taskType.slug;
+  const currentTowerTitle = currentMission.task.content.product.slug;
   const productTitle = state[currentMissionIdx].task.content.product.slug;
   switch (state[currentMissionIdx].status) {
     case TaskStatuses.CREATED:
       activateTask(id);
       if (currentMissionType !== TasksType.COSMETIC) {
         chatTaskSession(id);
+        setMarker({
+          towerTitle: currentTowerTitle,
+          type: TypeOfMarkers.ACTIVE_TASK,
+        });
         if (!selectedMenuItem) {
           setTowerInfoContent(TowerInfoContentValues.CHAT);
         } else menuClosed();
@@ -229,6 +236,10 @@ const handleClick = (id: number) => {
     case TaskStatuses.DONE:
       return takeReward(id);
     case TaskStatuses.VERIFICATION:
+      hideMarker({
+        towerTitle: currentTowerTitle,
+        type: TypeOfMarkers.TAKE_REWARD,
+      });
       return fetchTasks('');
     case TaskStatuses.REWARDED:
     case TaskStatuses.REJECTED:
