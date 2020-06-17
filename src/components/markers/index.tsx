@@ -10,7 +10,7 @@ import { ZIndexes } from '../root-component/z-indexes-enum';
 import { Timer } from './timer';
 import { scaleAnimation } from '../../hoc/scale-anim';
 import { IMarker } from '../../effector/towers-marker/store';
-import { markerClickHandler } from '../../utils/markerClickHandler';
+import { markerClickHandler } from '../../utils/marker-click-handler';
 
 export enum TypeOfMarkers {
   TASK = 'task',

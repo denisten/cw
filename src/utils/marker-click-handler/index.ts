@@ -38,7 +38,6 @@ export const markerClickHandler = (
       extraTowerInfoModalOpen(towerTitle);
       setTowerInfoContent(TowerInfoContentValues.TASK);
       scrollToCurrentTower(markerRef);
-      // hideMarker({ towerTitle: towerTitle, type: marker.type });
       break;
     case TypeOfMarkers.TAKE_REWARD:
       setIncome(towerTitle, marker);

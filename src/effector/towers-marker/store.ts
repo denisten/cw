@@ -117,18 +117,16 @@ export const TowersMarkerStore = TowersMarkerDomain.store<
       markers: state[towerTitle].markers.filter(item => item.type !== type),
     },
   }))
-  .on(setMarker, (state, { towerTitle, type, ...rest }) => {
-    return {
-      ...state,
-      [towerTitle]: {
-        markers: state[towerTitle].markers.find(
-          searchItem => searchItem.type === type
-        )
-          ? state[towerTitle].markers
-          : state[towerTitle].markers.concat([{ type, ...rest }]),
-      },
-    };
-  });
+  .on(setMarker, (state, { towerTitle, type, ...rest }) => ({
+    ...state,
+    [towerTitle]: {
+      markers: state[towerTitle].markers.find(
+        searchItem => searchItem.type === type
+      )
+        ? state[towerTitle].markers
+        : state[towerTitle].markers.concat([{ type, ...rest }]),
+    },
+  }));
 
 type MarkerData = {
   markers: IMarker[];
