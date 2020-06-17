@@ -33,6 +33,7 @@ const ChatWrapper = styled(AdvancedScrollbar)<{ foolSize: boolean }>`
   max-height: 460px;
   transition: 0.5s;
   padding-right: 14px;
+  scroll-behavior: smooth;
 
   &::before {
     content: '';
@@ -72,95 +73,6 @@ const MessageRow = styled.div<{ sender?: Sender }>`
   margin-bottom: 24px;
 `;
 
-const ChatConfig: IChatConfig = {
-  userAvatar: '',
-  messages: [
-    {
-      id: 1,
-      text: 'Привет, я библиотекарь',
-      type: 'system',
-      botName: 'Библиотекарь',
-    },
-    {
-      id: 2,
-      text: 'Дай мне книжечку',
-      type: 'user',
-    },
-    {
-      id: 3,
-      text: 'Привет, я библиотекарь',
-      type: 'system',
-      botName: 'Библиотекарь',
-    },
-    {
-      id: 4,
-      text:
-        'Дай мне книжечку почитать текст большой большой большой должен бабл растянуть как надо',
-      type: 'user',
-    },
-    {
-      id: 5,
-      text: 'Привет, я библиотекарь',
-      type: 'system',
-      botName: 'Библиотекарь',
-    },
-    {
-      id: 6,
-      text: 'Дай мне книжечку',
-      type: 'user',
-    },
-    {
-      id: 7,
-      text: 'Привет, я библиотекарь',
-      type: 'system',
-      botName: 'Библиотекарь',
-    },
-    {
-      id: 8,
-      text: 'Дай мне книжечку',
-      type: 'user',
-    },
-    {
-      id: 9,
-      text: 'Привет, я библиотекарь',
-      type: 'system',
-      botName: 'Библиотекарь',
-    },
-    {
-      id: 10,
-      text: 'Дай мне книжечку',
-      type: 'user',
-    },
-    {
-      id: 11,
-      text: 'Привет, я библиотекарь',
-      type: 'system',
-      botName: 'Библиотекарь',
-    },
-    {
-      id: 12,
-      text: 'Дай мне книжечку',
-      type: 'user',
-    },
-    {
-      id: 13,
-      text: 'Привет, я библиотекарь',
-      type: 'system',
-      botName: 'Библиотекарь',
-    },
-    {
-      id: 14,
-      text: 'Дай мне книжечку',
-      type: 'user',
-    },
-  ],
-  buttons: [
-    { title: 'Ничего себе, расскажи подробнее!', answerId: 12 },
-    { title: 'Ясно понятно', answerId: 14 },
-    { title: 'Пойду поем', answerId: 16 },
-  ],
-};
-
 const START_HIDE_POS = 200;
 
 export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
@@ -189,6 +101,12 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
       setHideTowerInfo(false);
     };
   }, []);
+
+  useEffect(() => {
+    if (chatContainer.current) {
+      chatContainer.current.scrollTo(0, 344);
+    }
+  }, [messages]);
 
   const sendAnswerId = async (actionId: number) => {
     if (currentMission) {
@@ -232,7 +150,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
             <MessageRow key={idx} sender={item.direction}>
               <ChatAvatar
                 sender={item.direction}
-                userAvatar={ChatConfig.userAvatar}
+                userAvatar={''}
                 towerTitle={towerTitle}
               />
               <Bubble
@@ -248,20 +166,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
   );
 };
 
-interface IChatConfig {
-  userAvatar?: string;
-  messages: IMessages[];
-  buttons: { title: string; answerId: number }[];
-}
-
 interface ITowerInfoChat {
   hideContent: boolean;
   towerTitle: TowersTypes;
-}
-
-interface IMessages {
-  id: number;
-  text: string;
-  type: string;
-  botName?: string;
 }
