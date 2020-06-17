@@ -263,10 +263,9 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
   } = useStore(AppCondition);
   const LocalTowerProgressStore = useStore(TowersProgressStore);
   const { tutorialCondition } = useStore(TutorialStore);
-  const towerTitle: TowersTypes =
-    notVerifiedTowerTitle || TowersTypes.MAIN_TOWER;
+  const towerTitle = notVerifiedTowerTitle || TowersTypes.MAIN_TOWER;
   const localDescriptionService = new BuildingsDescriptionService();
-  const descriptionText: Array<string> = localDescriptionService.getAllDescriptionForCurrentTower(
+  const descriptionText: string[] = localDescriptionService.getAllDescriptionForCurrentTower(
     towerTitle
   );
 

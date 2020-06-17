@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { memo, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import { setHideTowerInfo } from '../../effector/app-condition/events';
@@ -75,96 +75,97 @@ const MessageRow = styled.div<{ sender?: Sender }>`
 
 const START_HIDE_POS = 200;
 
-export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
-  hideContent,
-  towerTitle,
-}) => {
-  const chatContainer = useRef<HTMLDivElement>(null);
-  const { messages, actions, masterMessageId, ended } = useStore(
-    TaskMessagesStore
-  );
-  const [currentMission, setCurrentMission] = useState<ITask | null>(null);
-  const missions = useStore(MissionsStore);
+export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
+  ({ hideContent, towerTitle }) => {
+    const chatContainer = useRef<HTMLDivElement>(null);
+    const {
+      [towerTitle]: { messages, actions, masterMessageId, ended },
+    } = useStore(TaskMessagesStore);
+    // console.log({ messages, actions, towerTitle });
+    const [currentMission, setCurrentMission] = useState<ITask | null>(null);
+    const missions = useStore(MissionsStore);
 
-  useEffect(() => {
-    missions.map(el => {
-      if (
-        el.task.content.product.slug === towerTitle &&
-        el.task.content.taskType.slug !== TasksType.COSMETIC
-      ) {
-        setCurrentMission(el);
-        chatTaskSession(el.id);
-        return;
-      }
-    });
-    return () => {
-      setHideTowerInfo(false);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (chatContainer.current) {
-      chatContainer.current.scrollTo(0, 344);
-    }
-  }, [messages]);
-
-  const sendAnswerId = async (actionId: number) => {
-    if (currentMission) {
-      if (!ended)
-        await consumeUserTaskAction({
-          taskId: currentMission.id,
-          messageId: masterMessageId,
-          actionId,
-        });
-      else if (
-        // выпилим если пользователю надо будет самому кликать по статусам
-        currentMission.status !== TaskStatuses.REWARDED &&
-        currentMission.status !== TaskStatuses.DONE
-      ) {
-        await verifyTask(currentMission.id);
-        await takeReward(currentMission.id);
-      }
-    }
-  };
-
-  const chatWheelHandler = () => {
-    if (chatContainer.current) {
-      if (chatContainer.current.scrollTop > START_HIDE_POS && !hideContent) {
-        setHideTowerInfo(true);
-      } else if (chatContainer.current.scrollTop === 0 && hideContent) {
+    useEffect(() => {
+      missions.map(el => {
+        if (
+          el.task.content.product.slug === towerTitle &&
+          el.task.content.taskType.slug !== TasksType.COSMETIC
+        ) {
+          setCurrentMission(el);
+          chatTaskSession({ id: el.id, towerTitle });
+          return;
+        }
+      });
+      return () => {
         setHideTowerInfo(false);
-      }
-    }
-  };
+      };
+    }, []);
 
-  return (
-    <>
-      <ChatWrapper
-        data-type={AdvanceScrollBarAttr.ADVANCE_SCROLLBAR}
-        onScroll={chatWheelHandler}
-        foolSize={hideContent}
-        ref={chatContainer}
-      >
-        {messages &&
-          messages.map((item, idx) => (
-            <MessageRow key={idx} sender={item.direction}>
-              <ChatAvatar
-                sender={item.direction}
-                userAvatar={''}
-                towerTitle={towerTitle}
-              />
-              <Bubble
-                sender={item.direction}
-                text={item.text}
-                botName="Имя бота"
-              />
-            </MessageRow>
-          ))}
-      </ChatWrapper>
-      <ChatButtons actions={actions} callback={sendAnswerId} />
-    </>
-  );
-};
+    useEffect(() => {
+      if (chatContainer.current) {
+        // chatContainer.current.scrollTo(0, 344);
+      }
+    }, [messages]);
+
+    const sendAnswerId = async (actionId: number) => {
+      if (currentMission) {
+        if (!ended)
+          await consumeUserTaskAction({
+            taskId: currentMission.id,
+            messageId: masterMessageId,
+            actionId,
+            towerTitle,
+          });
+        else if (
+          // выпилим если пользователю надо будет самому кликать по статусам
+          currentMission.status !== TaskStatuses.REWARDED &&
+          currentMission.status !== TaskStatuses.DONE
+        ) {
+          await verifyTask(currentMission.id);
+          await takeReward(currentMission.id);
+        }
+      }
+    };
+
+    // const chatWheelHandler = () => {
+    //   if (chatContainer.current) {
+    //     if (chatContainer.current.scrollTop > START_HIDE_POS && !hideContent) {
+    //       setHideTowerInfo(true);
+    //     } else if (chatContainer.current.scrollTop === 0 && hideContent) {
+    //       setHideTowerInfo(false);
+    //     }
+    //   }
+    // };
+
+    return (
+      <>
+        <ChatWrapper
+          data-type={AdvanceScrollBarAttr.ADVANCE_SCROLLBAR}
+          // onScroll={chatWheelHandler}
+          foolSize={hideContent}
+          ref={chatContainer}
+        >
+          {messages &&
+            messages.map((item, idx) => (
+              <MessageRow key={idx} sender={item.direction}>
+                <ChatAvatar
+                  sender={item.direction}
+                  userAvatar={''}
+                  towerTitle={towerTitle}
+                />
+                <Bubble
+                  sender={item.direction}
+                  text={item.text}
+                  botName="Имя бота"
+                />
+              </MessageRow>
+            ))}
+        </ChatWrapper>
+        <ChatButtons actions={actions} callback={sendAnswerId} />
+      </>
+    );
+  }
+);
 
 interface ITowerInfoChat {
   hideContent: boolean;
