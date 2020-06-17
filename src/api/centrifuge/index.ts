@@ -11,8 +11,14 @@ import {
 } from '../../effector/towers-progress/store';
 import { UserDataStore } from '../../effector/user-data/store';
 // ws://web.cwmts.dev-stream.ru/centrifugo/connection/websocket
+// ws://stage.cwmts.dev-stream.ru/centrifugo/connection/websocket
+let wsProxyUrl = '';
+if (window.location.hostname === 'web.cwmts.dev-stream.ru') {
+  wsProxyUrl = 'stage.cwmts.dev-stream.ru';
+}
 const wsConnectionRoute =
-  'ws://' + window.location.hostname + apiRoutes.CENTRIFUGE;
+  'ws://' + wsProxyUrl || window.location.hostname + apiRoutes.CENTRIFUGE;
+
 export const openWsConnection = async () => {
   const centrifuge = new Centrifuge(wsConnectionRoute, {
     subscribeEndpoint: apiRoutes.WS_SUBSCRIBE,
