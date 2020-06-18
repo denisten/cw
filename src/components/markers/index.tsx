@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import notice from './notice.svg';
 import success from './success.svg';
 import upgradeTower from './upgrade.svg';
@@ -38,26 +38,10 @@ const selectBackground = (markerType: string) => {
   }
 };
 
-const markerPendingAnim = keyframes`
-0% {
-  transform: scaleX(1);
-}
-
-50% {
-  transform: scaleX(-1);
-}
-
-100% {
-  transform: scaleX(1);
-}
-`;
-
 const minScale = 0.9;
-const selectAnimation = (animFlag?: boolean, pendingState?: boolean) => {
+const selectAnimation = (animFlag?: boolean) => {
   if (animFlag) {
     return scaleAnimation(minScale);
-  } else if (pendingState) {
-    return markerPendingAnim;
   }
 };
 
@@ -69,13 +53,13 @@ export const MarkerView = styled.div<IMarkerView>`
   width: 64px;
   height: 68px;
   transition: 0.5s;
-  animation-name: ${props =>
-    selectAnimation(props.animFlag, props.pendingState)};
+  animation-name: ${props => selectAnimation(props.animFlag)};
   animation-fill-mode: both;
   animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;
   animation-duration: 1s;
   z-index: 2;
+  position: relative;
 
   &:hover {
     transform: scale(1.2);
@@ -240,8 +224,7 @@ export const Markers: React.FC<IMarkers> = ({
             data-type={markItem.type}
             key={markItem.type}
             markerType={markItem.type}
-            pendingState={markItem.pendingState}
-            onClick={() => markerClickHandler(markItem, towerTitle, towerRef)}
+            onClick={e => markerClickHandler(markItem, towerTitle, towerRef, e)}
           />
         ) : (
           <Timer
@@ -267,5 +250,4 @@ interface IMarkers {
 interface IMarkerView {
   markerType: string;
   animFlag?: boolean;
-  pendingState?: boolean;
 }

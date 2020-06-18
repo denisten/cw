@@ -415,7 +415,7 @@ class BuildingsService {
       title: 'МТС Live Arena',
       wideTower: true,
       animSize: animSize.large,
-      zIndex: ZIndexes.BUILDING_ONE_LEVEL,
+      zIndex: ZIndexes.BUILDING_FOUR_LEVEL,
       maxLevel: TowerLevel.high,
       width: 658,
       height: 440,
