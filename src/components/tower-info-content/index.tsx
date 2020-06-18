@@ -12,7 +12,6 @@ export const TowerInfoContent: React.FC<ITowerInfoContent> = memo(
     hideContent,
     towerTitle,
   }) => {
-    // console.log('render tower info content');
     switch (selectedMenu) {
       case TowerInfoContentValues.CHAT:
         return (

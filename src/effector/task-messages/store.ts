@@ -84,8 +84,6 @@ export const TaskMessagesStore = TaskMessagesDomain.store<It>(initStore)
   })
   .reset(resetTaskMessagesStore);
 
-// TaskMessagesStore.watch(console.log);
-
 export interface ITaskMessagesStore {
   masterMessageId: number;
   currentAction: {
