@@ -4,11 +4,11 @@ import { AppCondition } from '../../effector/app-condition/store';
 import { MoveCoinElem } from './move-coin-elem';
 
 export const MoveCoinCollection: React.FC = () => {
-  const { moveCoinElements } = useStore(AppCondition);
+  const { lootRewardCordinatesQueue } = useStore(AppCondition);
 
   return (
     <>
-      {moveCoinElements.map(elem => (
+      {lootRewardCordinatesQueue.map(elem => (
         <MoveCoinElem key={elem.id} {...elem} />
       ))}
     </>

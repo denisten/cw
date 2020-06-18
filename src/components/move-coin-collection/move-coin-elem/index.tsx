@@ -6,40 +6,33 @@ import {
   removeMoveElems,
   setMoveCoinFinished,
 } from '../../../effector/app-condition/events';
-import coinBg from './coin.svg';
+import coinBg from '../../../UI/icons/coin.svg';
 import tailAnim from './anim_tail.png';
 import { Sprite } from '../../sprite';
-import { coinMoveAnimationDuration } from '../../../constants';
+
 const scaleTile = keyframes`
 0% {
     transform: scale(0.5);
 }
-95% {
-    transform: scale(1.1);
-    opacity: 1;
-}
 
-100% {
-    transform: scale(1.1);
-    opacity: 0;
-}
-`;
-const coinAnimation = keyframes`
-60% {
-
+50% {
+  opacity: 1;
   transform: scale(1);
 }
 
-80% {
-    transform: scale(0.7);
+75% {
+  opacity: 0.8;
+  transform: scale(1.1);
 }
+
 100% {
-  top: 100px;
-  left: 130px;
-  transform: scale(0.6);
+    transform: scale(1.15);
+    opacity: 0;
 }
 `;
+
 const delta = 200;
+const coinMoveAnimationDuration = 1000;
 
 const MoveCoin = styled.div`
   position: absolute;
@@ -82,7 +75,7 @@ const commonSpriteSetting = {
     height: '80px',
   } as React.CSSProperties,
 };
-const shiftDelta = { x: 135, y: 102 };
+const shiftDelta = { x: 130, y: 100 };
 const keyframeGenerator = (x: number, y: number) => {
   return keyframes`
                 100% {
@@ -95,7 +88,7 @@ const keyframeGenerator = (x: number, y: number) => {
                       y - shiftDelta.y <= 0
                         ? Math.abs(y - shiftDelta.y)
                         : shiftDelta.y - y
-                    }px) scale(0.6);
+                    }px) scale(0.8);
                 }
       `;
 };

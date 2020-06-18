@@ -36,5 +36,3 @@ export const minNameLength = 3,
 export enum responseStates {
   SUCCESS = 'success',
 }
-
-export const coinMoveAnimationDuration = 1000;

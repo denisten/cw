@@ -19,6 +19,7 @@ import { defaultScaleSize, scaleAnimation } from '../../hoc/scale-anim';
 import { zIndexForInheritOverlay } from '../../constants';
 import { MTSSans } from '../../fonts';
 import moneyCircle from './money.png';
+import { IDisplayFlag } from '../../components/skip-tutorial';
 
 const CoinsWrapper = styled.div`
   background-image: url(${coinsBackground});
@@ -89,9 +90,10 @@ const StyleConfig = {
   } as React.CSSProperties,
 };
 
-const CoinImg = styled.img<{ moveCoinFinished: boolean }>`
+const CoinImg = styled.img<{ isCoinRelocateAnimationEnded: boolean }>`
   transition: 0.3s;
-  transform: ${props => (props.moveCoinFinished ? 'scale(1.2)' : '')};
+  transform: ${props =>
+    props.isCoinRelocateAnimationEnded ? 'scale(1.2)' : ''};
 `;
 
 const moneyCircleAnim = keyframes`
@@ -104,7 +106,7 @@ to {
 }
 `;
 
-const MoneyCircle = styled.div<{ displayFlag: boolean }>`
+const MoneyCircle = styled.div<IDisplayFlag>`
   position: absolute;
   top: -27px;
   left: 49px;
@@ -118,7 +120,7 @@ const MoneyCircle = styled.div<{ displayFlag: boolean }>`
 
 export const ProfileButton: React.FC<IProfileButton> = ({
   tutorialCondition,
-  moveCoinFinished,
+  isCoinRelocateAnimationEnded,
 }) => {
   const handleClick = () => {
     if (!tutorialCondition) {
@@ -158,9 +160,9 @@ export const ProfileButton: React.FC<IProfileButton> = ({
           src={coins}
           alt="coins"
           style={StyleConfig.coins}
-          moveCoinFinished={moveCoinFinished}
+          isCoinRelocateAnimationEnded={isCoinRelocateAnimationEnded}
         />
-        <MoneyCircle displayFlag={moveCoinFinished} />
+        <MoneyCircle displayFlag={isCoinRelocateAnimationEnded} />
         {money}
       </CoinsWrapper>
       <AvatarWrapper src={userAvatar} />
@@ -171,7 +173,7 @@ export const ProfileButton: React.FC<IProfileButton> = ({
 interface IProfileButton {
   tutorialCondition: TutorialConditions;
   tutorialPause?: boolean;
-  moveCoinFinished: boolean;
+  isCoinRelocateAnimationEnded: boolean;
 }
 
 interface INickNameWrapper {

@@ -35,7 +35,7 @@ export const RootComponent = (): React.ReactElement => {
     isExtraTowerInfoModalOpen,
     selectedMenuItem,
     DOMLoaded,
-    moveCoinFinished,
+    isCoinRelocateAnimationEnded,
   } = useStore(AppCondition);
   const [showSkipTutorialUI, setShowSkipTutorialUI] = useState(true);
   const { tutorialCondition, tutorialPause } = useStore(TutorialStore);
@@ -46,7 +46,7 @@ export const RootComponent = (): React.ReactElement => {
       <ProfileButton
         tutorialCondition={tutorialCondition}
         tutorialPause={tutorialPause}
-        moveCoinFinished={moveCoinFinished}
+        isCoinRelocateAnimationEnded={isCoinRelocateAnimationEnded}
       />
       <MoveCoinCollection />
       <ZoomInOutButtons />

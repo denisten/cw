@@ -28,11 +28,11 @@ import connectLocalStorage from 'effector-localstorage/sync';
 import { devLogin, fetchUserData } from '../user-data/events';
 import { ErrorBoundaryStore } from '../error-boundary-store/store';
 import { TypesOfPopUps } from '../../UI/pop-up';
+import { generateUniqueID } from '../../utils/generate-unique-id';
 
 export const maxProgressValue = 100;
 
 const initScaleValue = 0.9;
-const randomRangeID = 1000;
 export enum TowerInfoContentValues {
   DESCRIPTION = 0,
   CHAT = 1,
@@ -53,8 +53,8 @@ const initState = {
   towerInfoShift: 0,
   dataReceived: false,
   openPopUpState: TypesOfPopUps.DISABLED,
-  moveCoinElements: [],
-  moveCoinFinished: false,
+  lootRewardCordinatesQueue: [],
+  isCoinRelocateAnimationEnded: false,
 };
 
 const appConditionLocalStorage = connectLocalStorage('AppCondition').onChange(
@@ -65,23 +65,27 @@ export const AppCondition = AppDomain.store<AppConditionType>(initState)
 
   .on(setMoveCoinFinished, (state, payload) => ({
     ...state,
-    moveCoinFinished: payload,
+    isCoinRelocateAnimationEnded: payload,
   }))
   .on(removeMoveElems, (state, id) => ({
     ...state,
-    moveCoinElements: state.moveCoinElements.filter(item => item.id !== id),
+    lootRewardCordinatesQueue: state.lootRewardCordinatesQueue.filter(
+      item => item.id !== id
+    ),
   }))
   .on(pushMoveElems, (state, payload) => {
     const newState = { ...state };
     const coinObject = { ...payload };
-    if (newState.moveCoinElements.length === 0) {
+    if (newState.lootRewardCordinatesQueue.length === 0) {
       coinObject.id = 0;
     } else {
       coinObject.id =
-        newState.moveCoinElements.length +
-        Math.floor(Math.random() * Math.floor(randomRangeID));
+        newState.lootRewardCordinatesQueue.length + generateUniqueID();
     }
-    newState.moveCoinElements = [...newState.moveCoinElements, coinObject];
+    newState.lootRewardCordinatesQueue = [
+      ...newState.lootRewardCordinatesQueue,
+      coinObject,
+    ];
     return newState;
   })
   .on(setTowerInfoContent, (state, payload) => ({
@@ -190,8 +194,8 @@ export type AppConditionType = {
   towerInfoShift: number;
   dataReceived: boolean;
   openPopUpState: TypesOfPopUps;
-  moveCoinElements: ImoveCoinElements[];
-  moveCoinFinished: boolean;
+  lootRewardCordinatesQueue: ImoveCoinElements[];
+  isCoinRelocateAnimationEnded: boolean;
 };
 
 export interface ImoveCoinElements {
