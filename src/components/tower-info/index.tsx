@@ -13,7 +13,6 @@ import {
 import { TowerInfoContent } from '../tower-info-content';
 import { TowersTypes } from '../../effector/towers-progress/store';
 import { BuildingsService } from '../../buildings/config';
-import { Directions } from '../../UI/tutorial-arrow';
 import { BuildingsDescriptionService } from '../../buildings/descriptions';
 import { ButtonClassNames, Button } from '../../UI/button';
 import { ZIndexes } from '../root-component/z-indexes-enum';
@@ -102,22 +101,16 @@ const TowerInfoHeader1 = styled.div<{ sizeContent: boolean }>`
 `;
 
 const StyleConfig = {
-  tutorialArrow: {
-    direction: Directions.TOP,
-    range: 2,
-    top: '48%',
-    left: '40%',
-  },
-  descriptionButton: {
-    position: 'absolute',
-    top: '46%',
-    left: '39.7%',
-  },
   enterButton: {
     width: 160,
     height: 40,
     content: 'Что дальше?',
   },
+};
+
+const grownLineAndNextStep = (towerTitle: TowersTypes) => {
+  nextTutorDescriptionStep();
+  addProgressPoints({ points: 33.34, towerTitle });
 };
 
 export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
@@ -126,6 +119,8 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
     hideTowerInfo,
     selectTowerInfoContent,
   } = useStore(AppCondition);
+  const { money } = useStore(UserDataStore);
+  const towerInfoRef = useRef<HTMLDivElement>(null);
   const { tutorialCondition } = useStore(TutorialStore);
   const towerTitle = notVerifiedTowerTitle || TowersTypes.MAIN_TOWER;
   const localDescriptionService = new BuildingsDescriptionService();
@@ -135,34 +130,29 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
 
   const { tutorialTower } = BuildingsService.getConfigForTower(towerTitle);
 
-  const [towerTutorialStep, setTowerTutorialStep] = useState(0);
-
   const refsCollection: Array<React.RefObject<HTMLDivElement>> = useMemo(
     () => Array.from({ length: 3 }).map(() => createRef()),
     []
   );
 
-  const grownLineAndNextStep = () => {
-    nextTutorDescriptionStep();
-    addProgressPoints({ points: 33.34, towerTitle: towerTitle });
-  };
+  const [towerTutorialStep, setTowerTutorialStep] = useState(0);
 
   const showDescription = () => {
     setTowerInfoContent(TowerInfoContentValues.DESCRIPTION);
     setTowerTutorialStep(TowerTutorialSteps.DESCRIPTION_OPENED);
-    grownLineAndNextStep();
+    grownLineAndNextStep(towerTitle);
   };
 
   const showChat = () => {
     setTowerInfoContent(TowerInfoContentValues.CHAT);
     setTowerTutorialStep(TowerTutorialSteps.CHAT_OPENED);
-    grownLineAndNextStep();
+    grownLineAndNextStep(towerTitle);
   };
 
   const showTasks = () => {
     setTowerInfoContent(TowerInfoContentValues.TASK);
     setTowerTutorialStep(TowerTutorialSteps.TASKS_OPENED);
-    grownLineAndNextStep();
+    grownLineAndNextStep(towerTitle);
   };
 
   const nextTowerTutorialStep = () => {
@@ -179,13 +169,19 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
       nextTutorStep();
     }
   };
-  const { money } = useStore(UserDataStore);
-  const towerInfoRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     if (towerInfoRef && towerInfoRef.current) {
       setTowerInfoShift(towerInfoRef.current?.offsetWidth);
     }
   }, [towerInfoRef]);
+
+  const towerInfoContentText =
+    tutorialCondition &&
+    towerTutorialStep === TowerTutorialSteps.DESCRIPTION_DONT_OPENED
+      ? [descriptionText[0]]
+      : descriptionText;
+
   return (
     <TowerInfoWrapper opened={opened} ref={towerInfoRef}>
       <TowerInfoHeader tutorialCondition={tutorialCondition} />
@@ -208,12 +204,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
 
         <TowerInfoContent
           selectedMenu={selectTowerInfoContent}
-          text={
-            tutorialCondition &&
-            towerTutorialStep === TowerTutorialSteps.DESCRIPTION_DONT_OPENED
-              ? [descriptionText[0]]
-              : descriptionText
-          }
+          text={towerInfoContentText}
           hideContent={hideTowerInfo}
           towerTitle={towerTitle}
         />
