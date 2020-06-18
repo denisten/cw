@@ -21,7 +21,6 @@ import { ColumnWrapper } from '../../../UI/column-wrapper';
 import { Input } from '../../../UI/input';
 import exitImg from './exit.svg';
 import { CookieService } from '../../../sevices/cookies';
-import { logout } from '../../../api';
 import { Dropdown } from '../../../UI/dropdown';
 import {
   DaysNumArr,
@@ -31,14 +30,11 @@ import {
   maxCityNameLength,
 } from '../../../constants';
 import { updateUserData } from '../../../utils/update-user-data';
-import { resetTowerProgress } from '../../../effector/towers-progress/events';
 import { birthdayParser } from '../../../utils/birthday-parser';
-import {
-  setDataReceived,
-  setOpenPopUpState,
-} from '../../../effector/app-condition/events';
+import { setOpenPopUpState } from '../../../effector/app-condition/events';
 import { Assistent } from '../../../UI/assistent';
 import camera from './camera.svg';
+import { logout } from '../../../effector/user-data/events';
 
 const ExitText = styled(StyledSpan)<ISpan>`
   font-family: ${MTSSans.REGULAR};
@@ -255,12 +251,10 @@ export const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
     }
   };
 
-  const handleExitButtonClick = () => {
+  const handleExitButtonClick = async () => {
     CookieService.resetToken();
-    logout();
+    await logout('');
     if (userSessionSocket) userSessionSocket.disconnect();
-    resetTowerProgress();
-    setDataReceived(false);
   };
 
   const popUpConfig: IPopUpConfig = {

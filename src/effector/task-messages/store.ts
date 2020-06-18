@@ -1,5 +1,10 @@
 import { TaskMessagesDomain } from './domain';
-import { chatTaskSession, consumeUserTaskAction } from './events';
+import {
+  chatTaskSession,
+  consumeUserTaskAction,
+  createMockupOfMessages,
+  resetTaskMessagesStore,
+} from './events';
 import { IAction, IMessage, Sender } from '../../api/tasks/session';
 
 const initStore = {
@@ -9,9 +14,18 @@ const initStore = {
   ended: true,
 };
 
+const mockupOfMessages = [
+  { text: 'Сообщение от бота', direction: Sender.BACKEND },
+  { text: 'Сообщение от бота #2', direction: Sender.BACKEND },
+];
+
 export const TaskMessagesStore = TaskMessagesDomain.store<ITaskMessagesStore>(
   initStore
 )
+  .on(createMockupOfMessages, state => ({
+    ...state,
+    messages: mockupOfMessages,
+  }))
   .on(chatTaskSession.doneData, (_, payload) => payload)
   .on(consumeUserTaskAction.doneData, (state, payload) => {
     if (payload.ended) {
@@ -27,7 +41,8 @@ export const TaskMessagesStore = TaskMessagesDomain.store<ITaskMessagesStore>(
       actions: payload.actions,
       masterMessageId: payload.masterMessageId,
     };
-  });
+  })
+  .reset(resetTaskMessagesStore);
 
 interface ITaskMessagesStore {
   masterMessageId: number;

@@ -12,6 +12,8 @@ export const chatTaskSession = TaskMessagesDomain.effect(
   }
 );
 
+export const createMockupOfMessages = TaskMessagesDomain.event();
+
 export const consumeUserTaskAction = TaskMessagesDomain.effect(
   'submit user answer as action',
   {
@@ -26,3 +28,5 @@ export const consumeUserTaskAction = TaskMessagesDomain.effect(
     },
   }
 );
+
+export const resetTaskMessagesStore = TaskMessagesDomain.event();

@@ -42,12 +42,15 @@ export const markerClickHandler = (
       extraTowerInfoModalOpen(towerTitle);
       setTowerInfoContent(TowerInfoContentValues.TASK);
       scrollToCurrentTower(markerRef);
-      hideMarker({ towerTitle: towerTitle, type: marker.type });
       break;
     case TypeOfMarkers.TAKE_REWARD:
       setIncome(towerTitle, marker, e);
       break;
-
+    case TypeOfMarkers.ACTIVE_TASK:
+      extraTowerInfoModalOpen(towerTitle);
+      setTowerInfoContent(TowerInfoContentValues.CHAT);
+      hideMarker({ towerTitle: towerTitle, type: marker.type });
+      break;
     default:
       break;
   }

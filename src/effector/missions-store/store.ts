@@ -3,6 +3,7 @@ import {
   activateTask,
   decreaseTimer,
   fetchTasks,
+  resetMissionsStore,
   takeReward,
   verifyTask,
 } from './events';
@@ -54,7 +55,8 @@ export const MissionsStore = MissionsDomain.store(initStore)
         expireInSeconds: el.expireInSeconds ? el.expireInSeconds - 1 : null,
       };
     });
-  });
+  })
+  .reset(resetMissionsStore);
 
 export interface ITask {
   status: TaskStatuses;

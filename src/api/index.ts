@@ -1,6 +1,6 @@
 import { getUrl } from './get-url';
 import { getProfile } from './get-profile';
-import { logout } from './logout';
+import { logoutRequest } from './logout';
 import { getWsToken } from './get-ws-token';
 import { getAllProgress } from './get-all-progress';
 import { progressRefresh } from './progress-refresh';
@@ -24,12 +24,13 @@ export enum apiRoutes {
   GET_TASKS = '/api/users/current/tasks',
   REFRESH_BD = '/api/dev/refreshDb',
   COMMIT_INCOMES = '/incomes/commit',
+  CENTRIFUGE = '/centrifugo/connection/websocket',
 }
 
 export {
   getUrl,
   getProfile,
-  logout,
+  logoutRequest,
   getWsToken,
   getAllProgress,
   progressRefresh,

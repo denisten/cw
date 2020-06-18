@@ -4,6 +4,12 @@ import { getProfile, IGetProfile } from '../../api/get-profile';
 import Centrifuge from 'centrifuge';
 import { devLoginRequest } from '../../api/dev-api/login';
 import { getAccount } from '../../api/get-account';
+import { logoutRequest } from '../../api';
+import { editIsAuthorizedFlag, setDataReceived } from '../app-condition/events';
+import { resetMissionsStore } from '../missions-store/events';
+import { resetTaskMessagesStore } from '../task-messages/events';
+import { resetTowersMarker } from '../towers-marker/events';
+import { resetTowerProgress } from '../towers-progress/events';
 
 export const editCurrentUserDataField = UserDataDomain.event<
   IEditCurrentUserDataField
@@ -20,6 +26,19 @@ export const resetUserDataStore = UserDataDomain.event('reset user data');
 export const devLogin = UserDataDomain.effect('dev login for users', {
   handler: async (phone: string) => {
     return await devLoginRequest(phone);
+  },
+});
+
+export const logout = UserDataDomain.effect('logout', {
+  handler: async () => {
+    await logoutRequest();
+    editIsAuthorizedFlag(false);
+    resetMissionsStore();
+    resetTaskMessagesStore();
+    resetTowersMarker();
+    resetTowerProgress();
+    setDataReceived(false);
+    return resetUserDataStore();
   },
 });
 
