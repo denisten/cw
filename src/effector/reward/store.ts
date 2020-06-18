@@ -37,11 +37,11 @@ export const RewardStore = RewardDomain.store<RewardCordinatesStoreType>(
   });
 
 export type RewardCordinatesStoreType = {
-  lootRewardCordinatesQueue: ImoveCoinElements[];
+  lootRewardCordinatesQueue: IMoveCoinElement[];
   isCoinRelocateAnimationEnded: boolean;
 };
 
-export interface ImoveCoinElements {
+export interface IMoveCoinElement {
   x: number;
   y: number;
   id: number;

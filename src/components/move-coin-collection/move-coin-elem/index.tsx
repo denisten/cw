@@ -8,7 +8,7 @@ import {
   removeMoveElems,
   setMoveCoinFinished,
 } from '../../../effector/reward/events';
-import { ImoveCoinElements } from '../../../effector/reward/store';
+import { IMoveCoinElement } from '../../../effector/reward/store';
 
 const scaleTile = keyframes`
 0% {
@@ -93,7 +93,7 @@ const keyframeGenerator = (x: number, y: number) => {
       `;
 };
 
-export const MoveCoinElem: React.FC<ImoveCoinElements> = ({ x, y, id }) => {
+export const MoveCoinElem: React.FC<IMoveCoinElement> = ({ x, y, id }) => {
   const onAnimationEnd = (id: number) => {
     removeMoveElems(id);
     setMoveCoinFinished(true);

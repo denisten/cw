@@ -49,8 +49,6 @@ const initState = {
   towerInfoShift: 0,
   dataReceived: false,
   openPopUpState: TypesOfPopUps.DISABLED,
-  lootRewardCordinatesQueue: [],
-  isCoinRelocateAnimationEnded: false,
 };
 
 const appConditionLocalStorage = connectLocalStorage('AppCondition').onChange(
