@@ -218,7 +218,7 @@ const handleClick = (id: number) => {
     case TaskStatuses.CREATED:
       activateTask(id);
       if (currentMissionType !== TasksType.COSMETIC) {
-        chatTaskSession(id);
+        chatTaskSession({ id, towerTitle: productTitle });
         setMarker({
           towerTitle: currentTowerTitle,
           type: TypeOfMarkers.ACTIVE_TASK,

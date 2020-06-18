@@ -1,13 +1,11 @@
 import React from 'react';
 import { Task } from '../../tasks-row';
 import styled from 'styled-components';
-import { AdvancedScrollbar } from '../../../../UI/advanced-scrollbar';
-import { AdvanceScrollBarAttr } from '../../../../utils/handle-scroll';
 import { useStore } from 'effector-react';
 import { MissionsStore } from '../../../../effector/missions-store/store';
 import { UserDataStore } from '../../../../effector/user-data/store';
 
-const TasksWrapper = styled(AdvancedScrollbar)<ITask>`
+const TasksWrapper = styled.div<ITask>`
   display: ${props => (props.hidden ? 'hidden' : 'block')};
   height: 100%;
   overflow-y: scroll;
@@ -20,10 +18,7 @@ export const Tasks: React.FC<{ active: boolean }> = ({ active }) => {
   const missions = useStore(MissionsStore);
   const { couponsCount } = useStore(UserDataStore);
   return (
-    <TasksWrapper
-      hidden={!active}
-      data-type={AdvanceScrollBarAttr.ADVANCE_SCROLLBAR}
-    >
+    <TasksWrapper hidden={!active}>
       {missions.map(el => {
         return (
           <Task

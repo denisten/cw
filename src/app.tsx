@@ -9,11 +9,6 @@ import { useStore } from 'effector-react';
 import { AppCondition } from './effector/app-condition/store';
 import { errorStringsParsingHOF } from './utils/error-handler';
 import { Preloader } from './components/preloader';
-import {
-  addHandleScrollForCollection,
-  AdvanceScrollBarAttr,
-  stringTrue,
-} from './utils/handle-scroll';
 import { useFetchDataAfterAuth } from './hooks/use-fetch-data-after-auth';
 import { useCheckUserAuthStatus } from './hooks/use-check-user-auth-status';
 import { UserDataStore } from './effector/user-data/store';
@@ -51,16 +46,6 @@ export const App: React.FC = () => {
       e.preventDefault();
     }
   };
-
-  addHandleScrollForCollection(
-    Array.from(
-      document.querySelectorAll(
-        `[data-type="${AdvanceScrollBarAttr.ADVANCE_SCROLLBAR}"]`
-      )
-    ).filter(
-      el => el.getAttribute(AdvanceScrollBarAttr.DATA_HANDLED) !== stringTrue
-    )
-  );
 
   useFetchDataAfterAuth(isAuthorized, id);
 

@@ -1,36 +1,22 @@
 import React, { useState, useMemo, createRef, useRef, useEffect } from 'react';
 import styled from 'styled-components';
-import { ExitButton } from '../../UI/exit-button';
 import {
-  extraTowerInfoModalClosed,
-  showUpgradeIcon,
   setTowerInfoContent,
   setTowerInfoShift,
 } from '../../effector/app-condition/events';
-import {
-  addProgressPoints,
-  upgradeTower,
-} from '../../effector/towers-progress/events';
+import { addProgressPoints } from '../../effector/towers-progress/events';
 import { useStore } from 'effector-react';
 import {
   AppCondition,
   TowerInfoContentValues,
 } from '../../effector/app-condition/store';
-import { ProgressBar } from '../../UI/progress-bar';
 import { TowerInfoContent } from '../tower-info-content';
-import {
-  TowersProgressStore,
-  TowersTypes,
-} from '../../effector/towers-progress/store';
+import { TowersTypes } from '../../effector/towers-progress/store';
 import { BuildingsService } from '../../buildings/config';
-import { Directions } from '../../UI/tutorial-arrow';
 import { BuildingsDescriptionService } from '../../buildings/descriptions';
 import { ButtonClassNames, Button } from '../../UI/button';
 import { ZIndexes } from '../root-component/z-indexes-enum';
 import wrapperBackground from './background.svg';
-import headerBackground from './header.png';
-import { RowWrapper } from '../../UI/row-wrapper';
-import { MoneyWrapper } from '../../UI/money-wrapper';
 import {
   TutorialConditions,
   TutorialStore,
@@ -38,15 +24,13 @@ import {
 import {
   nextTutorDescriptionStep,
   nextTutorStep,
-  pauseTutorialMode,
 } from '../../effector/tutorial-store/events';
 import { UserDataStore } from '../../effector/user-data/store';
-import { useMoveTo } from '../../hooks/useMoveTo';
-import { MoveDivider } from '../../UI/move-divider';
 import { device } from '../../UI/media';
-import { TowerInfoUpgradeButton } from '../../UI/tower-info-upgrade-button';
-import { MTSSans } from '../../fonts';
-import { towerUpdateHandler } from '../../utils/tower-update-handler';
+import { TowerInfoHeader } from './tower-info-header';
+import { TowerInfoTitle } from './tower-info-title';
+import { TowerInfoIndicators } from './tower-info-indicators';
+import { TowerInfoMenu } from './tower-info-menu';
 
 export type ModalWindowProps = {
   opened?: boolean;
@@ -65,12 +49,10 @@ enum TowerTutorialSteps {
   TASKS_OPENED = 3,
 }
 
-const MAX_POINTS = 100;
-const FIRST_ELEM_WIDTH = 92;
-const COMMON_TRANSITION = 0.5;
-const delayBeforeAnimationEnd = 2500;
+export const MAX_POINTS = 100;
+export const COMMON_TRANSITION = 0.5;
 
-export const ModalWindowWrapper = styled.div<ModalWindowProps>`
+export const TowerInfoWrapper = styled.div<ModalWindowProps>`
   position: absolute;
   z-index: ${ZIndexes.MODAL};
   right: -3px;
@@ -91,7 +73,7 @@ export const ModalWindowWrapper = styled.div<ModalWindowProps>`
 
   @media screen and (max-width: 1280px) {
     height: 100%;
-    top: 0%;
+    top: 0;
   }
 `;
 
@@ -107,19 +89,7 @@ const ModalWindowContentWrapper = styled.div`
   flex-direction: column;
 `;
 
-const ModalWindowHeader = styled.div`
-  width: 100%;
-  height: 55px;
-  background: url(${headerBackground}) no-repeat center white;
-  background-size: 100% 100%;
-  flex-shrink: 0;
-  position: relative;
-
-  @media (max-resolution: 0.8dppx) {
-    height: 5vh;
-  }
-`;
-const TowerInfoHeader = styled.div<{ sizeContent: boolean }>`
+const TowerInfoHeader1 = styled.div<{ sizeContent: boolean }>`
   width: 100%;
   margin-bottom: ${props => (props.sizeContent ? '24px' : '32px')};
   flex-shrink: 0;
@@ -130,129 +100,17 @@ const TowerInfoHeader = styled.div<{ sizeContent: boolean }>`
   }
 `;
 
-const HeaderLine = styled.div<{ sizeContent: boolean }>`
-  width: 100%;
-  display: flex;
-  margin-top: ${props => (props.sizeContent ? '0' : '32px')};
-  height: ${props => (props.sizeContent ? '0px' : '55px')};
-  overflow: ${props => (props.sizeContent ? 'hidden' : 'inherit')};
-  transition: 0.2s;
-`;
-
-const Title = styled.div<{ sizeContent: boolean }>`
-  font-size: ${props => (props.sizeContent ? '29px' : '32px')};
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.25;
-  letter-spacing: -0.5px;
-  color: #001424;
-  font-family: ${MTSSans.ULTRA_WIDE};
-  transition: ${COMMON_TRANSITION}s;
-`;
-
-const MainText = styled.span`
-  font-size: 16px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.5;
-  letter-spacing: normal;
-  color: #6e7782;
-  font-family: ${MTSSans.REGULAR};
-
-  + div {
-    margin-top: 4px;
-  }
-
-  @media (max-resolution: 0.8dppx) {
-    font-size: 1.5vh;
-  }
-`;
-
-const HeaderLineElement = styled.div<{
-  width?: number;
-  marginLeft?: string;
-  paddingBottom?: string;
-}>`
-  width: ${props => props.width}%;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  flex-direction: column;
-  margin-left: ${props => props.marginLeft};
-  padding-bottom: ${props => props.paddingBottom};
-`;
-
-const TowerInfoMenu = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  flex-direction: column;
-  width: 100%;
-  flex-shrink: 0;
-`;
-
-const TowerInfoMenuElement = styled.div<{
-  selected: boolean;
-}>`
-  height: 100%;
-  text-align: center;
-  cursor: pointer;
-  z-index: 2;
-  margin-right: 40px;
-  color: #${props => (props.selected ? '001424' : '6e7782')};
-  font-size: 20px;
-  font-family: ${props =>
-    props.selected ? 'MTSSansMedium' : 'MTSSansRegular'};
-  position: relative;
-  padding-bottom: 12px;
-  transition: all 0.8s ease;
-
-  &:hover {
-    color: black;
-  }
-
-  @media (max-resolution: 0.8dppx) {
-    font-size: 1.5vh;
-  }
-`;
-
 const StyleConfig = {
-  exitButton: {
-    top: '25%',
-    left: '90%',
-  },
-  tutorialArrow: {
-    direction: Directions.TOP,
-    range: 2,
-    top: '48%',
-    left: '40%',
-  },
-  descriptionButton: {
-    position: 'absolute',
-    top: '46%',
-    left: '39.7%',
-  },
   enterButton: {
     width: 160,
     height: 40,
     content: 'Что дальше?',
   },
-  rowWrapper: {
-    width: '100%',
-    alignItems: 'center',
-  },
-  money: {
-    fontSize: '20px',
-    margin: '0px 13px 0 0px',
-    color: '#001424',
-  },
-  firstHeaderLine: {
-    paddingBottom: '4px',
-  },
-  secondHeaderLine: {
-    marginLeft: '10%',
-  },
+};
+
+const grownLineAndNextStep = (towerTitle: TowersTypes) => {
+  nextTutorDescriptionStep();
+  addProgressPoints({ points: 33.34, towerTitle });
 };
 
 export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
@@ -261,72 +119,40 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
     hideTowerInfo,
     selectTowerInfoContent,
   } = useStore(AppCondition);
-  const LocalTowerProgressStore = useStore(TowersProgressStore);
+  const { money } = useStore(UserDataStore);
+  const towerInfoRef = useRef<HTMLDivElement>(null);
   const { tutorialCondition } = useStore(TutorialStore);
-  const towerTitle: TowersTypes =
-    notVerifiedTowerTitle || TowersTypes.MAIN_TOWER;
+  const towerTitle = notVerifiedTowerTitle || TowersTypes.MAIN_TOWER;
   const localDescriptionService = new BuildingsDescriptionService();
-  const descriptionText: Array<string> = localDescriptionService.getAllDescriptionForCurrentTower(
+  const descriptionText: string[] = localDescriptionService.getAllDescriptionForCurrentTower(
     towerTitle
   );
 
-  const { title, maxLevel, tutorialTower } = BuildingsService.getConfigForTower(
-    towerTitle
-  );
-  const {
-    level: { level },
-  } = useStore(TowersProgressStore)[towerTitle];
+  const { tutorialTower } = BuildingsService.getConfigForTower(towerTitle);
 
-  const [towerTutorialStep, setTowerTutorialStep] = useState(0);
-
-  const handleClick = () => {
-    if (towerTitle) {
-      showUpgradeIcon(towerTitle);
-      towerUpdateHandler(tutorialCondition, towerTitle);
-    }
-  };
   const refsCollection: Array<React.RefObject<HTMLDivElement>> = useMemo(
     () => Array.from({ length: 3 }).map(() => createRef()),
     []
   );
-  const {
-    left,
-    width,
-    hLeft,
-    hWidth,
-    hovered,
-    handleMouseOver,
-    handleMouseOut,
-  } = useMoveTo(FIRST_ELEM_WIDTH, refsCollection, selectTowerInfoContent);
 
-  const grownLineAndNextStep = () => {
-    nextTutorDescriptionStep();
-    addProgressPoints({ points: 33.34, towerTitle: towerTitle });
-  };
+  const [towerTutorialStep, setTowerTutorialStep] = useState(0);
 
   const showDescription = () => {
     setTowerInfoContent(TowerInfoContentValues.DESCRIPTION);
     setTowerTutorialStep(TowerTutorialSteps.DESCRIPTION_OPENED);
-    grownLineAndNextStep();
+    grownLineAndNextStep(towerTitle);
   };
 
   const showChat = () => {
     setTowerInfoContent(TowerInfoContentValues.CHAT);
     setTowerTutorialStep(TowerTutorialSteps.CHAT_OPENED);
-    grownLineAndNextStep();
+    grownLineAndNextStep(towerTitle);
   };
 
   const showTasks = () => {
     setTowerInfoContent(TowerInfoContentValues.TASK);
     setTowerTutorialStep(TowerTutorialSteps.TASKS_OPENED);
-    grownLineAndNextStep();
-  };
-
-  const upgradeTowerAndShowAnimation = (towerTitle: TowersTypes) => {
-    showUpgradeIcon(towerTitle);
-    setTimeout(() => {
-      upgradeTower(towerTitle);
-    }, delayBeforeAnimationEnd);
+    grownLineAndNextStep(towerTitle);
   };
 
   const nextTowerTutorialStep = () => {
@@ -343,114 +169,42 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
       nextTutorStep();
     }
   };
-  const { money } = useStore(UserDataStore);
-  const towerInfoRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     if (towerInfoRef && towerInfoRef.current) {
       setTowerInfoShift(towerInfoRef.current?.offsetWidth);
     }
   }, [towerInfoRef]);
+
+  const towerInfoContentText =
+    tutorialCondition &&
+    towerTutorialStep === TowerTutorialSteps.DESCRIPTION_DONT_OPENED
+      ? [descriptionText[0]]
+      : descriptionText;
+
   return (
-    <ModalWindowWrapper opened={opened} ref={towerInfoRef}>
-      <ModalWindowHeader>
-        <ExitButton
-          displayFlag={true}
-          {...StyleConfig.exitButton}
-          callBack={() => {
-            tutorialCondition && pauseTutorialMode();
-            extraTowerInfoModalClosed();
-          }}
-        />
-      </ModalWindowHeader>
+    <TowerInfoWrapper opened={opened} ref={towerInfoRef}>
+      <TowerInfoHeader tutorialCondition={tutorialCondition} />
       <ModalWindowContentWrapper>
-        <TowerInfoHeader sizeContent={hideTowerInfo}>
-          <RowWrapper {...StyleConfig.rowWrapper}>
-            <Title sizeContent={hideTowerInfo}>{title}</Title>
-            <TowerInfoUpgradeButton
-              handleClick={handleClick}
-              pulseAnim={
-                tutorialCondition ===
-                TutorialConditions.UPGRADE_BUTTON_TOWER_INFO
-              }
-              canUpgrade={
-                LocalTowerProgressStore[towerTitle].points >= MAX_POINTS &&
-                level < maxLevel
-              }
-              hide={hideTowerInfo}
-            />
-            <TowerInfoUpgradeButton
-              handleClick={() => upgradeTowerAndShowAnimation(towerTitle)}
-              canUpgrade={level < maxLevel}
-            />
-          </RowWrapper>
-
-          <HeaderLine sizeContent={hideTowerInfo}>
-            <HeaderLineElement {...StyleConfig.firstHeaderLine}>
-              <MainText>Уровень эволюции</MainText>
-
-              <ProgressBar
-                progress={LocalTowerProgressStore[towerTitle].points}
-              />
-            </HeaderLineElement>
-
-            <HeaderLineElement {...StyleConfig.secondHeaderLine}>
-              <MainText>Еженедельный доход</MainText>
-
-              <RowWrapper>
-                <MoneyWrapper count={money} {...StyleConfig.money} />
-              </RowWrapper>
-            </HeaderLineElement>
-          </HeaderLine>
-        </TowerInfoHeader>
-        <TowerInfoMenu>
-          <RowWrapper onMouseOut={() => handleMouseOut()}>
-            <TowerInfoMenuElement
-              selected={
-                selectTowerInfoContent === TowerInfoContentValues.DESCRIPTION
-              }
-              onClick={() => {
-                setTowerInfoContent(TowerInfoContentValues.DESCRIPTION);
-              }}
-              onMouseOver={handleMouseOver}
-              ref={refsCollection[0]}
-            >
-              Описание
-            </TowerInfoMenuElement>
-            <TowerInfoMenuElement
-              selected={selectTowerInfoContent === TowerInfoContentValues.CHAT}
-              onClick={() => {
-                setTowerInfoContent(TowerInfoContentValues.CHAT);
-              }}
-              onMouseOver={handleMouseOver}
-              ref={refsCollection[1]}
-            >
-              Чат
-            </TowerInfoMenuElement>
-            <TowerInfoMenuElement
-              selected={selectTowerInfoContent === TowerInfoContentValues.TASK}
-              onClick={() => {
-                setTowerInfoContent(TowerInfoContentValues.TASK);
-              }}
-              onMouseOver={handleMouseOver}
-              ref={refsCollection[2]}
-            >
-              Задания
-            </TowerInfoMenuElement>
-            <MoveDivider
-              width={hovered ? hWidth : width}
-              left={hovered ? hLeft : left}
-            />
-          </RowWrapper>
-        </TowerInfoMenu>
+        <TowerInfoHeader1 sizeContent={hideTowerInfo}>
+          <TowerInfoTitle
+            tutorialCondition={tutorialCondition}
+            towerTitle={towerTitle}
+          />
+          <TowerInfoIndicators
+            towerTitle={towerTitle}
+            money={money}
+            hideTowerInfo={hideTowerInfo}
+          />
+        </TowerInfoHeader1>
+        <TowerInfoMenu
+          refsCollection={refsCollection}
+          selectTowerInfoContent={selectTowerInfoContent}
+        />
 
         <TowerInfoContent
           selectedMenu={selectTowerInfoContent}
-          text={
-            tutorialCondition &&
-            towerTutorialStep === TowerTutorialSteps.DESCRIPTION_DONT_OPENED
-              ? [descriptionText[0]]
-              : descriptionText
-          }
+          text={towerInfoContentText}
           hideContent={hideTowerInfo}
           towerTitle={towerTitle}
         />
@@ -469,6 +223,6 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
           {...StyleConfig.enterButton}
         />
       </ModalWindowContentWrapper>
-    </ModalWindowWrapper>
+    </TowerInfoWrapper>
   );
 };

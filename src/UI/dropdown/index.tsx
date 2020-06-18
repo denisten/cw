@@ -5,8 +5,6 @@ import { MTSSans } from '../../fonts';
 import { StyledSpan } from '../span';
 import { RowWrapper } from '../row-wrapper';
 import { ZIndexes } from '../../components/root-component/z-indexes-enum';
-import { AdvancedScrollbar } from '../advanced-scrollbar';
-import { AdvanceScrollBarAttr } from '../../utils/handle-scroll';
 
 const DropdownWrapper = styled.div<IDropdownWrapper>`
   width: ${props => props.width}px;
@@ -52,7 +50,7 @@ const Options = styled(StyledSpan)`
   }
 `;
 
-const OptionsWrapper = styled(AdvancedScrollbar)<IOptionsWrapper>`
+const OptionsWrapper = styled.div<IOptionsWrapper>`
   position: absolute;
   top: ${props => props.top}px;
   width: ${props => props.width}px;
@@ -175,7 +173,6 @@ export const Dropdown: React.FC<IDropDown> = ({
       </DropdownWrapper>
 
       <OptionsWrapper
-        data-type={AdvanceScrollBarAttr.ADVANCE_SCROLLBAR}
         displayFlag={showOptions}
         optionsHeight={optionsHeight}
         top={top}

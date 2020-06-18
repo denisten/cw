@@ -5,10 +5,8 @@ import { useStore } from 'effector-react';
 import { MissionsStore } from '../../effector/missions-store/store';
 import { Task } from '../tasks/tasks-row';
 import { UserDataStore } from '../../effector/user-data/store';
-import { AdvancedScrollbar } from '../../UI/advanced-scrollbar';
-import { AdvanceScrollBarAttr } from '../../utils/handle-scroll';
 
-const TowerInfoTaskWrapper = styled(AdvancedScrollbar)`
+const TowerInfoTaskWrapper = styled.div`
   margin-top: 24px;
   width: 100%;
   height: 580px;
@@ -26,7 +24,7 @@ export const TowerInfoTask: React.FC<ITowerInfoTask> = ({ towerTitle }) => {
     el => el.task.content.product.slug === towerTitle
   );
   return (
-    <TowerInfoTaskWrapper data-type={AdvanceScrollBarAttr.ADVANCE_SCROLLBAR}>
+    <TowerInfoTaskWrapper>
       {sortedMissions.length
         ? sortedMissions.map(el => {
             return (
