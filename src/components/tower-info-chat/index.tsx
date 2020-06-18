@@ -5,8 +5,6 @@ import { setHideTowerInfo } from '../../effector/app-condition/events';
 import { Bubble } from '../../UI/bubble';
 import { ChatButtons } from '../../UI/chat-buttons';
 import { ChatAvatar } from '../../UI/chat-avatar';
-import { AdvancedScrollbar } from '../../UI/advanced-scrollbar';
-import { AdvanceScrollBarAttr } from '../../utils/handle-scroll';
 import { useStore } from 'effector-react';
 import { TaskMessagesStore } from '../../effector/task-messages/store';
 import { Sender } from '../../api/tasks/session';
@@ -23,9 +21,9 @@ import {
 import { TasksType } from '../tasks';
 import { takeReward, verifyTask } from '../../effector/missions-store/events';
 
-const ChatWrapper = styled(AdvancedScrollbar)<{ foolSize: boolean }>`
+const ChatWrapper = styled.div<IFullSize>`
   width: 100%;
-  height: ${props => (props.foolSize ? 'auto' : '344px')};
+  height: ${props => (props.fullSize ? 'auto' : '344px')};
   box-sizing: border-box;
   overflow: auto;
   border-bottom: solid 1px #e2e5eb;
@@ -73,7 +71,8 @@ const MessageRow = styled.div<{ sender?: Sender }>`
   margin-bottom: 24px;
 `;
 
-// const START_HIDE_POS = 200;
+const START_HIDE_POS = 200;
+const yScrollValue = 344;
 
 export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
   ({ hideContent, towerTitle }) => {
@@ -81,7 +80,6 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
     const {
       [towerTitle]: { messages, actions, masterMessageId, ended },
     } = useStore(TaskMessagesStore);
-    // console.log({ messages, actions, towerTitle });
     const [currentMission, setCurrentMission] = useState<ITask | null>(null);
     const missions = useStore(MissionsStore);
 
@@ -103,7 +101,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
 
     useEffect(() => {
       if (chatContainer.current) {
-        // chatContainer.current.scrollTo(0, 344);
+        chatContainer.current.scrollTo(0, yScrollValue);
       }
     }, [messages]);
 
@@ -117,7 +115,6 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
             towerTitle,
           });
         else if (
-          // выпилим если пользователю надо будет самому кликать по статусам
           currentMission.status !== TaskStatuses.REWARDED &&
           currentMission.status !== TaskStatuses.DONE
         ) {
@@ -127,22 +124,21 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
       }
     };
 
-    // const chatWheelHandler = () => {
-    //   if (chatContainer.current) {
-    //     if (chatContainer.current.scrollTop > START_HIDE_POS && !hideContent) {
-    //       setHideTowerInfo(true);
-    //     } else if (chatContainer.current.scrollTop === 0 && hideContent) {
-    //       setHideTowerInfo(false);
-    //     }
-    //   }
-    // };
+    const chatWheelHandler = () => {
+      if (chatContainer.current) {
+        if (chatContainer.current.scrollTop > START_HIDE_POS && !hideContent) {
+          setHideTowerInfo(true);
+        } else if (chatContainer.current.scrollTop === 0 && hideContent) {
+          setHideTowerInfo(false);
+        }
+      }
+    };
 
     return (
       <>
         <ChatWrapper
-          data-type={AdvanceScrollBarAttr.ADVANCE_SCROLLBAR}
-          // onScroll={chatWheelHandler}
-          foolSize={hideContent}
+          onScroll={chatWheelHandler}
+          fullSize={hideContent}
           ref={chatContainer}
         >
           {messages &&
@@ -170,4 +166,8 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
 interface ITowerInfoChat {
   hideContent: boolean;
   towerTitle: TowersTypes;
+}
+
+export interface IFullSize {
+  fullSize: boolean;
 }
