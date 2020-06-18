@@ -18,6 +18,7 @@ import { TutorialOverlay } from '../tutorial-overlay';
 import { zIndexForInheritOverlay } from '../../constants';
 import { SkipTutorial } from '../skip-tutorial';
 import { MoveCoinCollection } from '../move-coin-collection';
+import { RewardStore } from '../../effector/reward/store';
 
 const ComponentWrapper = styled.div<{ visible: boolean }>`
   background-image: url("${mapTile}");
@@ -31,12 +32,11 @@ const ComponentWrapper = styled.div<{ visible: boolean }>`
 `;
 
 export const RootComponent = (): React.ReactElement => {
-  const {
-    isExtraTowerInfoModalOpen,
-    selectedMenuItem,
-    DOMLoaded,
-    isCoinRelocateAnimationEnded,
-  } = useStore(AppCondition);
+  const { isExtraTowerInfoModalOpen, selectedMenuItem, DOMLoaded } = useStore(
+    AppCondition
+  );
+  const { isCoinRelocateAnimationEnded } = useStore(RewardStore);
+
   const [showSkipTutorialUI, setShowSkipTutorialUI] = useState(true);
   const { tutorialCondition, tutorialPause } = useStore(TutorialStore);
 

@@ -1,11 +1,7 @@
 import { AppDomain } from './domain';
 import { TowersTypes } from '../towers-progress/store';
 import { MenuItems } from '../../UI/menu-paragraph';
-import {
-  AppConditionType,
-  TowerInfoContentValues,
-  ImoveCoinElements,
-} from './store';
+import { AppConditionType, TowerInfoContentValues } from './store';
 import { TypesOfPopUps } from '../../UI/pop-up';
 
 export enum ScaleValues {
@@ -36,9 +32,7 @@ export const setDataReceived = AppDomain.event<boolean>();
 export const setTowerInfoContent = AppDomain.event<TowerInfoContentValues>();
 export const setTowerInfoShift = AppDomain.event<number>();
 export const setOpenPopUpState = AppDomain.event<TypesOfPopUps>();
-export const pushMoveElems = AppDomain.event<ImoveCoinElements>();
-export const removeMoveElems = AppDomain.event<number>();
-export const setMoveCoinFinished = AppDomain.event<boolean>();
+
 export interface IUserSelectedTower {
   towerTitle: TowersTypes | null;
 }

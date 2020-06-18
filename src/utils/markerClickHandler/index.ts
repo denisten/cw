@@ -8,7 +8,6 @@ import { TypeOfMarkers } from '../../components/markers';
 import {
   extraTowerInfoModalOpen,
   setTowerInfoContent,
-  pushMoveElems,
 } from '../../effector/app-condition/events';
 import { TowerInfoContentValues } from '../../effector/app-condition/store';
 import { scrollToCurrentTower } from '../scroll-to-current-tower';
@@ -16,6 +15,7 @@ import { RefObject } from 'react';
 import { editMoneyCount } from '../../effector/user-data/events';
 import { commitIncomes } from '../../api/commit-income';
 import { responseStates } from '../../constants';
+import { pushMoveElems } from '../../effector/reward/events';
 
 const setIncome = async (
   towerTitle: TowersTypes,

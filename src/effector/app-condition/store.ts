@@ -17,9 +17,6 @@ import {
   setTowerInfoShift,
   setDataReceived,
   setOpenPopUpState,
-  pushMoveElems,
-  removeMoveElems,
-  setMoveCoinFinished,
 } from './events';
 import { TowersTypes } from '../towers-progress/store';
 import { upgradeTower } from '../towers-progress/events';
@@ -28,7 +25,6 @@ import connectLocalStorage from 'effector-localstorage/sync';
 import { devLogin, fetchUserData } from '../user-data/events';
 import { ErrorBoundaryStore } from '../error-boundary-store/store';
 import { TypesOfPopUps } from '../../UI/pop-up';
-import { generateUniqueID } from '../../utils/generate-unique-id';
 
 export const maxProgressValue = 100;
 
@@ -63,31 +59,6 @@ const appConditionLocalStorage = connectLocalStorage('AppCondition').onChange(
 
 export const AppCondition = AppDomain.store<AppConditionType>(initState)
 
-  .on(setMoveCoinFinished, (state, payload) => ({
-    ...state,
-    isCoinRelocateAnimationEnded: payload,
-  }))
-  .on(removeMoveElems, (state, id) => ({
-    ...state,
-    lootRewardCordinatesQueue: state.lootRewardCordinatesQueue.filter(
-      item => item.id !== id
-    ),
-  }))
-  .on(pushMoveElems, (state, payload) => {
-    const newState = { ...state };
-    const coinObject = { ...payload };
-    if (newState.lootRewardCordinatesQueue.length === 0) {
-      coinObject.id = 0;
-    } else {
-      coinObject.id =
-        newState.lootRewardCordinatesQueue.length + generateUniqueID();
-    }
-    newState.lootRewardCordinatesQueue = [
-      ...newState.lootRewardCordinatesQueue,
-      coinObject,
-    ];
-    return newState;
-  })
   .on(setTowerInfoContent, (state, payload) => ({
     ...state,
     selectTowerInfoContent: payload,
@@ -194,12 +165,4 @@ export type AppConditionType = {
   towerInfoShift: number;
   dataReceived: boolean;
   openPopUpState: TypesOfPopUps;
-  lootRewardCordinatesQueue: ImoveCoinElements[];
-  isCoinRelocateAnimationEnded: boolean;
 };
-
-export interface ImoveCoinElements {
-  x: number;
-  y: number;
-  id: number;
-}

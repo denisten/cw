@@ -1,14 +1,14 @@
 import React from 'react';
-import { ImoveCoinElements } from '../../../effector/app-condition/store';
 import styled, { keyframes, Keyframes } from 'styled-components';
 import { ZIndexes } from '../../root-component/z-indexes-enum';
-import {
-  removeMoveElems,
-  setMoveCoinFinished,
-} from '../../../effector/app-condition/events';
 import coinBg from '../../../UI/icons/coin.svg';
 import tailAnim from './anim_tail.png';
 import { Sprite } from '../../sprite';
+import {
+  removeMoveElems,
+  setMoveCoinFinished,
+} from '../../../effector/reward/events';
+import { ImoveCoinElements } from '../../../effector/reward/store';
 
 const scaleTile = keyframes`
 0% {
