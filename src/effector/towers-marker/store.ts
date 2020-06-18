@@ -23,7 +23,7 @@ const initState: TowersMarkerStoreType = {
     markers: [],
   },
   [TowersTypes.LIVE_ARENA]: {
-    markers: [{ type: TypeOfMarkers.TAKE_REWARD }],
+    markers: [],
   },
   [TowersTypes.CASHBACK]: {
     markers: [],
@@ -128,6 +128,7 @@ export interface IMarker {
   startTime?: Date;
   endTime?: Date;
   coins?: number;
+  forTesting?: boolean;
 }
 
 type TowersMarkerStoreType = Record<TowersTypes, MarkerData>;

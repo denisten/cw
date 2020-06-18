@@ -14,11 +14,25 @@ import { commitIncomes } from '../../api/commit-income';
 import { responseStates } from '../../constants';
 import { pushMoveElems } from '../../effector/reward/events';
 
+const tmpDelay = 3000;
 const setIncome = async (
   towerTitle: TowersTypes,
   marker: IMarker,
   e: React.MouseEvent
 ) => {
+  if (marker.forTesting) {
+    hideMarker({ towerTitle: towerTitle, type: marker.type });
+    pushMoveElems({ x: e.clientX, y: e.clientY, id: 0 });
+    setTimeout(() => {
+      setMarker({
+        towerTitle: towerTitle,
+        type: marker.type,
+        forTesting: true,
+      });
+    }, tmpDelay);
+    return;
+  }
+
   hideMarker({ towerTitle: towerTitle, type: marker.type });
   pushMoveElems({ x: e.clientX, y: e.clientY, id: 0 });
   const response = await commitIncomes(towerTitle);
