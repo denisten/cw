@@ -1,8 +1,5 @@
 import { IMarker } from '../../effector/towers-marker/store';
-import {
-  hideMarker,
-  setMarkerPendingState,
-} from '../../effector/towers-marker/events';
+import { hideMarker, setMarker } from '../../effector/towers-marker/events';
 import { TowersTypes } from '../../effector/towers-progress/store';
 import { TypeOfMarkers } from '../../components/markers';
 import {
@@ -22,16 +19,15 @@ const setIncome = async (
   marker: IMarker,
   e: React.MouseEvent
 ) => {
-  setMarkerPendingState({ towerTitle, type: marker.type, pendingState: true });
+  hideMarker({ towerTitle: towerTitle, type: marker.type });
   pushMoveElems({ x: e.clientX, y: e.clientY, id: 0 });
-
   const response = await commitIncomes(towerTitle);
   if (response.state === responseStates.SUCCESS) {
     const { balance } = response.data;
     editMoneyCount(balance);
-    hideMarker({ towerTitle: towerTitle, type: marker.type });
+  } else {
+    setMarker({ towerTitle: towerTitle, type: marker.type });
   }
-  setMarkerPendingState({ towerTitle, type: marker.type, pendingState: false });
 };
 
 export const markerClickHandler = (
