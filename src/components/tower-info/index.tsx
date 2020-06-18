@@ -31,6 +31,7 @@ import { TowerInfoHeader } from './tower-info-header';
 import { TowerInfoTitle } from './tower-info-title';
 import { TowerInfoIndicators } from './tower-info-indicators';
 import { TowerInfoMenu } from './tower-info-menu';
+import { TaskMessagesStore } from '../../effector/task-messages/store';
 
 export type ModalWindowProps = {
   opened?: boolean;
@@ -128,6 +129,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
     towerTitle
   );
 
+  const { ended } = useStore(TaskMessagesStore)[towerTitle];
   const { tutorialTower } = BuildingsService.getConfigForTower(towerTitle);
 
   const refsCollection: Array<React.RefObject<HTMLDivElement>> = useMemo(
@@ -198,6 +200,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
           />
         </TowerInfoHeader1>
         <TowerInfoMenu
+          isChatEnded={ended}
           refsCollection={refsCollection}
           selectTowerInfoContent={selectTowerInfoContent}
         />

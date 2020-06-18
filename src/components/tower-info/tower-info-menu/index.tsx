@@ -39,6 +39,19 @@ const TowerInfoMenuElement = styled.div<ISelected>`
   @media (max-resolution: 0.8dppx) {
     font-size: 1.5vh;
   }
+
+  &[data-type='chat']::before {
+    content: '';
+    display: ${props => (props.chatNotify ? 'block' : 'none')};
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    position: absolute;
+    right: -20px;
+    top: 3px;
+    border-radius: 50%;
+    background-color: #e30611;
+  }
 `;
 
 const FIRST_ELEM_WIDTH = 92;
@@ -46,6 +59,7 @@ const FIRST_ELEM_WIDTH = 92;
 export const TowerInfoMenu: React.FC<ITowerInfoMenu> = ({
   refsCollection,
   selectTowerInfoContent,
+  isChatEnded,
 }) => {
   const {
     left,
@@ -79,6 +93,8 @@ export const TowerInfoMenu: React.FC<ITowerInfoMenu> = ({
           }}
           onMouseOver={handleMouseOver}
           ref={refsCollection[1]}
+          chatNotify={!isChatEnded}
+          data-type="chat"
         >
           Чат
         </TowerInfoMenuElement>
@@ -104,8 +120,10 @@ export const TowerInfoMenu: React.FC<ITowerInfoMenu> = ({
 interface ITowerInfoMenu {
   refsCollection: React.RefObject<HTMLDivElement>[];
   selectTowerInfoContent: TowerInfoContentValues;
+  isChatEnded?: boolean;
 }
 
 interface ISelected {
   selected: boolean;
+  chatNotify?: boolean;
 }
