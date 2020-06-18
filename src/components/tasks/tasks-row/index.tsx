@@ -75,6 +75,8 @@ const TaskWrapper = styled.div<ITaskWrapper>`
   transition-property: height;
   overflow: hidden;
   position: relative;
+  display: flex;
+  align-items: center;
 `;
 
 const Title = styled(StyledSpan)<ITaskLocation>`
