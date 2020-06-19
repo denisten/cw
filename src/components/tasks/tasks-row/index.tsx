@@ -32,6 +32,7 @@ import {
 } from '../../../effector/app-condition/store';
 import { hideMarker, setMarker } from '../../../effector/towers-marker/events';
 import { TypeOfMarkers } from '../../markers';
+import { TowersTypes } from '../../../effector/towers-progress/store';
 
 enum TaskWrapperHeight {
   opened = 149,
@@ -206,7 +207,28 @@ const HintWrapper = styled.div`
   }
 `;
 
-const handleClick = (id: number) => {
+const markerHandler = (status: TaskStatuses, productTitle: TowersTypes) => {
+  const state = MissionsStore.getState();
+  const numberOfDoneTasksInCurrentProduct = state.filter(
+    el =>
+      el.task.content.product.slug === productTitle &&
+      el.status === TaskStatuses.DONE
+  ).length;
+
+  if (
+    status === TaskStatuses.ACTIVE ||
+    (status === TaskStatuses.DONE && numberOfDoneTasksInCurrentProduct)
+  ) {
+    setMarker({
+      towerTitle: productTitle,
+      type: TypeOfMarkers.SUCCESS,
+    });
+  } else {
+    hideMarker({ towerTitle: productTitle, type: TypeOfMarkers.SUCCESS });
+  }
+};
+
+const handleClick = async (id: number) => {
   const state = MissionsStore.getState();
   const { selectedMenuItem } = AppCondition.getState();
   const currentMissionIdx = state.findIndex(el => el.id === id);
@@ -214,7 +236,8 @@ const handleClick = (id: number) => {
   const currentMissionType = currentMission.task.content.taskType.slug;
   const currentTowerTitle = currentMission.task.content.product.slug;
   const productTitle = state[currentMissionIdx].task.content.product.slug;
-  switch (state[currentMissionIdx].status) {
+  const status = state[currentMissionIdx].status;
+  switch (status) {
     case TaskStatuses.CREATED:
       activateTask(id);
       if (currentMissionType !== TasksType.COSMETIC) {
@@ -232,9 +255,13 @@ const handleClick = (id: number) => {
       );
       return;
     case TaskStatuses.ACTIVE:
-      return verifyTask(id);
+      await verifyTask(id);
+      markerHandler(status, productTitle);
+      break;
     case TaskStatuses.DONE:
-      return takeReward(id);
+      await takeReward(id);
+      markerHandler(status, productTitle);
+      break;
     case TaskStatuses.VERIFICATION:
       hideMarker({
         towerTitle: currentTowerTitle,

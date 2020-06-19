@@ -19,6 +19,13 @@ export const getTasks = async () => {
       towerTitle: el.task.content.product.slug,
       type: TypeOfMarkers.TASK,
     });
+
+    if (el.status === 'done') {
+      setMarker({
+        towerTitle: el.task.content.product.slug,
+        type: TypeOfMarkers.SUCCESS,
+      });
+    }
   });
   return response.data.data;
 };
