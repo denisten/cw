@@ -5,10 +5,7 @@ import { MTSSans } from '../../../fonts';
 import { StyledSpan } from '../../../UI/span';
 import { TaskLoot } from '../../../UI/task-loot';
 import { Coupon } from '../../../UI/coupon';
-import {
-  MissionsStore,
-  TaskStatuses,
-} from '../../../effector/missions-store/store';
+import { MissionsStore } from '../../../effector/missions-store/store';
 import {
   activateTask,
   fetchTasks,
@@ -33,6 +30,7 @@ import {
 import { hideMarker, setMarker } from '../../../effector/towers-marker/events';
 import { TypeOfMarkers } from '../../markers';
 import { TowersTypes } from '../../../effector/towers-progress/store';
+import { TaskStatuses } from '../../../api/tasks/get-tasks';
 
 enum TaskWrapperHeight {
   opened = 149,

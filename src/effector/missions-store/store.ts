@@ -10,22 +10,13 @@ import {
 import { editUserProperty } from '../user-data/events';
 import { TasksType } from '../../components/tasks';
 import { TowersTypes } from '../towers-progress/store';
+import { TaskStatuses } from '../../api/tasks/get-tasks';
 
 export enum TaskSubType {
   CHALLENGE = 'challenge',
   MISSIONS = 'missions',
   NBO = 'nbo',
   COSMETICS = 'cosmetics',
-}
-
-export enum TaskStatuses {
-  CREATED = 'created',
-  ACTIVE = 'active',
-  VERIFICATION = 'verification',
-  DONE = 'done',
-  REJECTED = 'reject',
-  REWARDED = 'rewarded',
-  EXPIRED = 'expired',
 }
 
 const initStore: ITask[] = [];

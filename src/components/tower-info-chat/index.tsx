@@ -13,13 +13,10 @@ import {
   consumeUserTaskAction,
 } from '../../effector/task-messages/events';
 import { TowersTypes } from '../../effector/towers-progress/store';
-import {
-  ITask,
-  MissionsStore,
-  TaskStatuses,
-} from '../../effector/missions-store/store';
+import { ITask, MissionsStore } from '../../effector/missions-store/store';
 import { TasksType } from '../tasks';
 import { takeReward, verifyTask } from '../../effector/missions-store/events';
+import { TaskStatuses } from '../../api/tasks/get-tasks';
 
 const ChatWrapper = styled.div<IFullSize>`
   width: 100%;
