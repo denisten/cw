@@ -17,9 +17,12 @@ const wsUrlLocalDevelopment = 'web.cwmts.dev-stream.ru';
 if (window.location.hostname === wsUrlLocalDevelopment) {
   wsProxyUrl = 'stage.cwmts.dev-stream.ru';
 }
+const centrifugeUrl =
+  window.location.hostname === 'dev.city.mts.ru'
+    ? '/ws/connection/websocket'
+    : apiRoutes.CENTRIFUGE;
 const wsConnectionRoute =
-  'ws://' + (wsProxyUrl || window.location.hostname) + apiRoutes.CENTRIFUGE;
-
+  'ws://' + (wsProxyUrl || window.location.hostname) + centrifugeUrl;
 export const openWsConnection = async () => {
   const centrifuge = new Centrifuge(wsConnectionRoute, {
     subscribeEndpoint: apiRoutes.WS_SUBSCRIBE,
