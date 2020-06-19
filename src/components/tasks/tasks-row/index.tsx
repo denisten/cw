@@ -18,7 +18,10 @@ import {
 import notDoneImg from './not-done.svg';
 import { ColumnWrapper } from '../../../UI/column-wrapper';
 import { TaskTimer } from '../../../UI/task-timer';
-import { chatTaskSession } from '../../../effector/task-messages/events';
+import {
+  chatTaskSession,
+  clearChat,
+} from '../../../effector/task-messages/events';
 import {
   menuClosed,
   setTowerInfoContent,
@@ -75,6 +78,8 @@ const TaskWrapper = styled.div<ITaskWrapper>`
   transition-property: height;
   overflow: hidden;
   position: relative;
+  display: flex;
+  align-items: center;
 `;
 
 const Title = styled(StyledSpan)<ITaskLocation>`
@@ -234,6 +239,7 @@ const handleClick = (id: number) => {
     case TaskStatuses.ACTIVE:
       return verifyTask(id);
     case TaskStatuses.DONE:
+      clearChat({ towerTitle: productTitle });
       return takeReward(id);
     case TaskStatuses.VERIFICATION:
       hideMarker({

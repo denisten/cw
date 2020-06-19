@@ -2,24 +2,23 @@ import { TaskMessagesDomain } from './domain';
 import { chatTaskSessionRequest } from '../../api/tasks/session';
 import { consumeUserTaskActionRequest } from '../../api/tasks/consume-user-task-action';
 import { TowersTypes } from '../towers-progress/store';
-import { ITaskMessagesStore } from './store';
+import { ICurrentTowerTaskMessagesStore } from './store';
 
 export const chatTaskSession = TaskMessagesDomain.effect(
   'download chat session data',
   {
     handler: async ({ id, towerTitle }): Promise<IChatTaskSession> => {
       const request = await chatTaskSessionRequest(id);
-      return { data: request.data.data, towerTitle };
+      return { data: request.data.data, towerTitle, taskId: id };
     },
   }
 );
 
-interface IChatTaskSession {
-  data: ITaskMessagesStore;
-  towerTitle: TowersTypes;
-}
-
 export const createMockupOfMessages = TaskMessagesDomain.event();
+
+export const setTaskId = TaskMessagesDomain.event<ISetTaskId>();
+
+export const clearChat = TaskMessagesDomain.event<IClearChat>();
 
 export const consumeUserTaskAction = TaskMessagesDomain.effect(
   'submit user answer as action',
@@ -41,9 +40,23 @@ export const consumeUserTaskAction = TaskMessagesDomain.effect(
   }
 );
 
+export const resetTaskMessagesStore = TaskMessagesDomain.event();
+
 interface IConsumeUserTaskAction {
-  data: ITaskMessagesStore;
+  data: ICurrentTowerTaskMessagesStore;
+  towerTitle: TowersTypes;
+}
+interface ISetTaskId {
+  taskId: number;
   towerTitle: TowersTypes;
 }
 
-export const resetTaskMessagesStore = TaskMessagesDomain.event();
+interface IClearChat {
+  towerTitle: TowersTypes;
+}
+
+interface IChatTaskSession {
+  data: ICurrentTowerTaskMessagesStore;
+  towerTitle: TowersTypes;
+  taskId: number;
+}

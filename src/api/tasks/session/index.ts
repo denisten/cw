@@ -1,6 +1,6 @@
 import { get } from '../../requests';
 import { apiRoutes } from '../../index';
-import { ITaskMessagesStore } from '../../../effector/task-messages/store';
+import { ICurrentTowerTaskMessagesStore } from '../../../effector/task-messages/store';
 
 export const chatTaskSessionRequest = async (id: number) => {
   return await get<IChatTaskSessionRequest>(
@@ -15,7 +15,7 @@ export enum Sender {
 
 export interface IChatTaskSessionRequest {
   state: string;
-  data: ITaskMessagesStore;
+  data: ICurrentTowerTaskMessagesStore;
 }
 
 export interface IMessage {
