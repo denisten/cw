@@ -49,7 +49,7 @@ const MoveWrapper = styled.div<ImoveCoin>`
   position: absolute;
   left: ${props => props.x}px;
   top: ${props => props.y}px;
-  z-index: ${ZIndexes.UI_BUTTON};
+  z-index: ${ZIndexes.COIN};
   animation: ${props => props.keyframe} ${coinMoveAnimationDuration}ms linear
     forwards;
   user-select: none;

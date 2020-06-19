@@ -31,6 +31,7 @@ import { hideMarker, setMarker } from '../../../effector/towers-marker/events';
 import { TypeOfMarkers } from '../../markers';
 import { TowersTypes } from '../../../effector/towers-progress/store';
 import { TaskStatuses } from '../../../api/tasks/get-tasks';
+import { pushMoveElems } from '../../../effector/reward/events';
 
 enum TaskWrapperHeight {
   opened = 149,
@@ -226,7 +227,13 @@ const markerHandler = (status: TaskStatuses, productTitle: TowersTypes) => {
   }
 };
 
-const handleClick = async (id: number) => {
+const animateTaskReward = (reward: number, e: React.MouseEvent) => {
+  if (reward > 0) {
+    pushMoveElems({ x: e.clientX, y: e.clientY, id: 0 });
+  }
+};
+
+const handleClick = async (id: number, e: React.MouseEvent) => {
   const state = MissionsStore.getState();
   const { selectedMenuItem } = AppCondition.getState();
   const currentMissionIdx = state.findIndex(el => el.id === id);
@@ -257,6 +264,7 @@ const handleClick = async (id: number) => {
       markerHandler(status, productTitle);
       break;
     case TaskStatuses.DONE:
+      animateTaskReward(currentMission.task.reward, e);
       await takeReward(id);
       markerHandler(status, productTitle);
       break;
@@ -304,7 +312,7 @@ export const Task: React.FC<ITasksRow> = ({
   const [isOpened, setIsOpened] = useState(false);
   const handleWrapperClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    handleClick(id);
+    handleClick(id, e);
   };
 
   return (
