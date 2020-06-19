@@ -1,13 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import { zoomInOut } from '../../utils/zoomInOut';
+import { scaleHandler } from '../../utils/zoomInOut';
 import plus from './plus.svg';
 import minus from './minus.svg';
 import plusHover from './plus-hover.svg';
 import minusHover from './minus-hover.svg';
 import body from './zoom.png';
-import { useStore } from 'effector-react';
-import { AppCondition } from '../../effector/app-condition/store';
 
 const ButtonContainer = styled.div`
   display: flex;
@@ -49,12 +47,22 @@ const ButtonContainer = styled.div`
   }
 `;
 
-export const ZoomInOutButtons: React.FC = () => {
-  const { scaleValue } = useStore(AppCondition);
+export enum ScaleDirection {
+  ZOOM_IN = 'zoomIn',
+  ZOOM_OUT = 'zoomOut',
+}
+
+export const ZoomInOutButtons: React.FC<IZoomInOutButtons> = ({
+  scaleValue,
+}) => {
   return (
     <ButtonContainer>
-      <i onClick={() => zoomInOut(-1, scaleValue)} />
-      <i onClick={() => zoomInOut(1, scaleValue)} />
+      <i onClick={() => scaleHandler(ScaleDirection.ZOOM_IN, scaleValue)} />
+      <i onClick={() => scaleHandler(ScaleDirection.ZOOM_OUT, scaleValue)} />
     </ButtonContainer>
   );
 };
+
+interface IZoomInOutButtons {
+  scaleValue: number;
+}

@@ -7,7 +7,7 @@ import { TypesOfPopUps } from '../../UI/pop-up';
 export enum ScaleValues {
   SCALE_STEP = 0.1,
   MAX_SCALE = 1.5,
-  MIN_SCALE = 0.5,
+  MIN_SCALE = 1,
 }
 
 export const extraTowerInfoModalOpen = AppDomain.event<TowersTypes | null>(
@@ -21,7 +21,7 @@ export const toggleExtraTowerInfoModal = AppDomain.event<number[]>(
 );
 export const menuOpened = AppDomain.event<MenuItems>();
 export const menuClosed = AppDomain.event();
-export const updateScaleValue = AppDomain.event<ScaleValues>();
+export const updateScaleValue = AppDomain.event<number>();
 export const showUpgradeIcon = AppDomain.event<TowersTypes | null>();
 export const editIsAuthorizedFlag = AppDomain.event<boolean>();
 export const setCancelAuthorizationStatus = AppDomain.event<string>();
@@ -32,7 +32,3 @@ export const setDataReceived = AppDomain.event<boolean>();
 export const setTowerInfoContent = AppDomain.event<TowerInfoContentValues>();
 export const setTowerInfoShift = AppDomain.event<number>();
 export const setOpenPopUpState = AppDomain.event<TypesOfPopUps>();
-
-export interface IUserSelectedTower {
-  towerTitle: TowersTypes | null;
-}

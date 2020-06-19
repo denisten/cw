@@ -4,10 +4,10 @@ import { ZoomInOutButtons } from '.';
 
 describe('<ZoomInOutButtons />', () => {
   it('render zoom buttons is successfully', () => {
-    shallow(<ZoomInOutButtons />);
+    shallow(<ZoomInOutButtons scaleValue={1} />);
   });
   it('have found two zoom buttons', () => {
-    const buttonWrapper = mount(<ZoomInOutButtons />);
+    const buttonWrapper = mount(<ZoomInOutButtons scaleValue={1} />);
     const buttonCollection = buttonWrapper.find('i');
     expect(buttonCollection.length).toEqual(2);
   });

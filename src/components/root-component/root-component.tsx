@@ -32,9 +32,12 @@ const ComponentWrapper = styled.div<{ visible: boolean }>`
 `;
 
 export const RootComponent = (): React.ReactElement => {
-  const { isExtraTowerInfoModalOpen, selectedMenuItem, DOMLoaded } = useStore(
-    AppCondition
-  );
+  const {
+    isExtraTowerInfoModalOpen,
+    selectedMenuItem,
+    DOMLoaded,
+    scaleValue,
+  } = useStore(AppCondition);
   const { isCoinRelocateAnimationEnded } = useStore(RewardStore);
 
   const [showSkipTutorialUI, setShowSkipTutorialUI] = useState(true);
@@ -49,7 +52,7 @@ export const RootComponent = (): React.ReactElement => {
         isCoinRelocateAnimationEnded={isCoinRelocateAnimationEnded}
       />
       <MoveCoinCollection />
-      <ZoomInOutButtons />
+      <ZoomInOutButtons scaleValue={scaleValue} />
       <TaskButton />
       <TowerInfo opened={isExtraTowerInfoModalOpen} />
       <TutorialToolsSelector
