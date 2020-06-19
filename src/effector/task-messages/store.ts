@@ -1,14 +1,17 @@
 import { TaskMessagesDomain } from './domain';
 import {
   chatTaskSession,
+  clearChat,
   consumeUserTaskAction,
   createMockupOfMessages,
   resetTaskMessagesStore,
+  setTaskId,
 } from './events';
 import { IAction, IMessage, Sender } from '../../api/tasks/session';
 import { TowersTypes } from '../towers-progress/store';
 
 const initChatData = {
+  taskId: 0,
   masterMessageId: 0,
   currentAction: {
     id: 0,
@@ -16,7 +19,7 @@ const initChatData = {
   },
   messages: [],
   actions: [],
-  ended: true,
+  ended: false,
 };
 
 const initStore = {
@@ -55,14 +58,31 @@ const mockupOfMessages = [
   { text: 'Сообщение от бота #2', direction: Sender.BACKEND },
 ];
 
-export const TaskMessagesStore = TaskMessagesDomain.store<It>(initStore)
+export const TaskMessagesStore = TaskMessagesDomain.store<ITaskMessagesStore>(
+  initStore
+)
+  .on(setTaskId, (state, { towerTitle, taskId }) => {
+    return {
+      ...state,
+      [towerTitle]: {
+        ...state[towerTitle],
+        taskId,
+      },
+    };
+  })
   .on(createMockupOfMessages, state => ({
     ...state,
-    messages: mockupOfMessages,
+    [TowersTypes.MAIN_TOWER]: {
+      ...state[TowersTypes.MAIN_TOWER],
+      messages: mockupOfMessages,
+    },
   }))
-  .on(chatTaskSession.doneData, (state, { towerTitle, data }) => ({
+  .on(chatTaskSession.doneData, (state, { towerTitle, data, taskId }) => ({
     ...state,
-    [towerTitle]: data,
+    [towerTitle]: {
+      ...data,
+      taskId,
+    },
   }))
   .on(consumeUserTaskAction.doneData, (state, { data, towerTitle }) => {
     if (data.ended) {
@@ -82,9 +102,14 @@ export const TaskMessagesStore = TaskMessagesDomain.store<It>(initStore)
       },
     };
   })
+  .on(clearChat, (state, { towerTitle }) => ({
+    ...state,
+    [towerTitle]: initChatData,
+  }))
   .reset(resetTaskMessagesStore);
 
-export interface ITaskMessagesStore {
+export interface ICurrentTowerTaskMessagesStore {
+  taskId: number;
   masterMessageId: number;
   currentAction: {
     id: number;
@@ -95,4 +120,4 @@ export interface ITaskMessagesStore {
   ended: boolean;
 }
 
-type It = Record<TowersTypes, ITaskMessagesStore>;
+type ITaskMessagesStore = Record<TowersTypes, ICurrentTowerTaskMessagesStore>;

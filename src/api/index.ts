@@ -13,7 +13,6 @@ export enum apiRoutes {
   USER_ACCOUNT = '/api/users/current/account',
   CHAT_SESSION = '/api/users/current/tasks',
   CONSUME_USER_TASK_ACTION = '/api/users/current/tasks',
-  GENERATE_TASKS = '/api/dev/tasks/generate',
   LOGOUT = '/api/auth/logout',
   GET_WS_TOKEN = '/api/ws/connection',
   WS_SUBSCRIBE = '/api/ws/subscribe',
@@ -22,7 +21,6 @@ export enum apiRoutes {
   PRODUCTS = '/api/users/current/products/',
   COMMIT_PROGRESS = '/progress/commit',
   GET_TASKS = '/api/users/current/tasks',
-  REFRESH_BD = '/api/dev/refreshDb',
   COMMIT_INCOMES = '/incomes/commit',
   CENTRIFUGE = '/centrifugo/connection/websocket',
 }
