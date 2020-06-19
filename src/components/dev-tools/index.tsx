@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Button, ButtonClassNames } from '../../UI/button';
-import { refreshBD } from '../../api/dev-api/refresh-bd';
 import { fetchTasks } from '../../effector/missions-store/events';
 import { RowWrapper } from '../../UI/row-wrapper';
 import { devLogin } from '../../effector/user-data/events';
@@ -52,8 +51,8 @@ export const DevTools = () => {
 
       <Button
         className={ButtonClassNames.NORMAL}
-        content="Refresh BD"
-        callback={refreshBD}
+        content="Get coins"
+        callback={() => createCoinMarkers()}
       />
       <Button
         className={ButtonClassNames.NORMAL}
@@ -78,11 +77,6 @@ export const DevTools = () => {
           className={ButtonClassNames.NORMAL}
           content="Login"
           callback={() => devLogin(phone)}
-        />
-        <Button
-          className={ButtonClassNames.NORMAL}
-          content="Get coins"
-          callback={() => createCoinMarkers()}
         />
       </RowWrapper>
     </DevToolsWrapper>

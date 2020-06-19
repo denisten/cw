@@ -1,7 +1,10 @@
 import React, { memo, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
-import { setHideTowerInfo } from '../../effector/app-condition/events';
+import {
+  setHideTowerInfo,
+  setTowerInfoContent,
+} from '../../effector/app-condition/events';
 import { Bubble } from '../../UI/bubble';
 import { ChatButtons } from '../../UI/chat-buttons';
 import { ChatAvatar } from '../../UI/chat-avatar';
@@ -14,7 +17,7 @@ import {
 } from '../../effector/task-messages/events';
 import { TowersTypes } from '../../effector/towers-progress/store';
 import { ITask, MissionsStore } from '../../effector/missions-store/store';
-import { takeReward, verifyTask } from '../../effector/missions-store/events';
+import { TowerInfoContentValues } from '../../effector/app-condition/store';
 
 const ChatWrapper = styled.div<IFullSize>`
   width: 100%;
@@ -97,10 +100,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
             actionId,
             towerTitle,
           });
-        else {
-          await verifyTask(currentMission.id);
-          await takeReward(currentMission.id);
-        }
+        else setTowerInfoContent(TowerInfoContentValues.TASK);
       }
     };
 

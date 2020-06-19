@@ -14,15 +14,11 @@ export const chatTaskSession = TaskMessagesDomain.effect(
   }
 );
 
-interface IChatTaskSession {
-  data: ICurrentTowerTaskMessagesStore;
-  towerTitle: TowersTypes;
-  taskId: number;
-}
-
 export const createMockupOfMessages = TaskMessagesDomain.event();
 
 export const setTaskId = TaskMessagesDomain.event<ISetTaskId>();
+
+export const clearChat = TaskMessagesDomain.event<IClearChat>();
 
 export const consumeUserTaskAction = TaskMessagesDomain.effect(
   'submit user answer as action',
@@ -44,6 +40,8 @@ export const consumeUserTaskAction = TaskMessagesDomain.effect(
   }
 );
 
+export const resetTaskMessagesStore = TaskMessagesDomain.event();
+
 interface IConsumeUserTaskAction {
   data: ICurrentTowerTaskMessagesStore;
   towerTitle: TowersTypes;
@@ -53,4 +51,12 @@ interface ISetTaskId {
   towerTitle: TowersTypes;
 }
 
-export const resetTaskMessagesStore = TaskMessagesDomain.event();
+interface IClearChat {
+  towerTitle: TowersTypes;
+}
+
+interface IChatTaskSession {
+  data: ICurrentTowerTaskMessagesStore;
+  towerTitle: TowersTypes;
+  taskId: number;
+}

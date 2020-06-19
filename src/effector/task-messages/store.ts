@@ -1,6 +1,7 @@
 import { TaskMessagesDomain } from './domain';
 import {
   chatTaskSession,
+  clearChat,
   consumeUserTaskAction,
   createMockupOfMessages,
   resetTaskMessagesStore,
@@ -101,6 +102,10 @@ export const TaskMessagesStore = TaskMessagesDomain.store<ITaskMessagesStore>(
       },
     };
   })
+  .on(clearChat, (state, { towerTitle }) => ({
+    ...state,
+    [towerTitle]: initChatData,
+  }))
   .reset(resetTaskMessagesStore);
 
 export interface ICurrentTowerTaskMessagesStore {
