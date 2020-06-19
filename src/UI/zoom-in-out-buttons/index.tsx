@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { scaleHandler } from '../../utils/zoomInOut';
+import { scaleHandler } from '../../utils/zoom-in-out';
 import plus from './plus.svg';
 import minus from './minus.svg';
 import plusHover from './plus-hover.svg';
@@ -48,8 +48,8 @@ const ButtonContainer = styled.div`
 `;
 
 export enum ScaleDirection {
-  ZOOM_IN = 'zoomIn',
-  ZOOM_OUT = 'zoomOut',
+  ZOOM_IN = 0.05,
+  ZOOM_OUT = -0.05,
 }
 
 export const ZoomInOutButtons: React.FC<IZoomInOutButtons> = ({
@@ -57,8 +57,8 @@ export const ZoomInOutButtons: React.FC<IZoomInOutButtons> = ({
 }) => {
   return (
     <ButtonContainer>
-      <i onClick={() => scaleHandler(ScaleDirection.ZOOM_IN, scaleValue)} />
-      <i onClick={() => scaleHandler(ScaleDirection.ZOOM_OUT, scaleValue)} />
+      <i onClick={() => scaleHandler(scaleValue, ScaleDirection.ZOOM_IN)} />
+      <i onClick={() => scaleHandler(scaleValue, ScaleDirection.ZOOM_OUT)} />
     </ButtonContainer>
   );
 };

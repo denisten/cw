@@ -17,6 +17,7 @@ import { Decorations } from '../decorations';
 import { CentralBanner } from '../central-banner';
 import { useInitDragscroll } from '../../hooks/use-init-dragscroll';
 import { scrollToCurrentTower } from '../../utils/scroll-to-current-tower';
+import { scaleHandler } from '../../utils/zoom-in-out';
 
 export enum MapSize {
   WIDTH = 7680,
@@ -46,6 +47,8 @@ const scrollToCurrentTowerOptions = {
   inline: 'center',
 } as ScrollIntoViewOptions;
 
+const _smoothScrollValue = -0.005;
+
 export const ScrollContainer: React.FC<{
   tutorialCondition: TutorialConditions;
   zIndex: number;
@@ -54,6 +57,11 @@ export const ScrollContainer: React.FC<{
 
   const { scaleValue } = useStore(AppCondition);
   const { ref } = BuildingsService.getConfigForTower(TowersTypes.MY_MTS);
+
+  const wheelHandler = (e: React.WheelEvent) => {
+    e.preventDefault();
+    scaleHandler(scaleValue, e.deltaY * _smoothScrollValue);
+  };
 
   useInitDragscroll();
   useCheckDisableTutorial([]);
@@ -67,7 +75,11 @@ export const ScrollContainer: React.FC<{
       className={_scrollContainerClassName}
       ref={scrollContainerWrapperRef}
     >
-      <MapWrapper scaleValue={scaleValue} zIndex={zIndex}>
+      <MapWrapper
+        scaleValue={scaleValue}
+        zIndex={zIndex}
+        onWheel={wheelHandler}
+      >
         <TutorialToolsSelector
           tutorialCondition={tutorialCondition}
           isInsideScrollContainer={true}
