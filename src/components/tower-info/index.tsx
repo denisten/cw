@@ -11,7 +11,10 @@ import {
   TowerInfoContentValues,
 } from '../../effector/app-condition/store';
 import { TowerInfoContent } from '../tower-info-content';
-import { TowersTypes } from '../../effector/towers-progress/store';
+import {
+  TowersProgressStore,
+  TowersTypes,
+} from '../../effector/towers-progress/store';
 import { BuildingsService } from '../../buildings/config';
 import { BuildingsDescriptionService } from '../../buildings/descriptions';
 import { ButtonClassNames, Button } from '../../UI/button';
@@ -25,7 +28,6 @@ import {
   nextTutorDescriptionStep,
   nextTutorStep,
 } from '../../effector/tutorial-store/events';
-import { UserDataStore } from '../../effector/user-data/store';
 import { device } from '../../UI/media';
 import { TowerInfoHeader } from './tower-info-header';
 import { TowerInfoTitle } from './tower-info-title';
@@ -115,20 +117,23 @@ const grownLineAndNextStep = (towerTitle: TowersTypes) => {
 };
 
 export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
+  const localDescriptionService = new BuildingsDescriptionService();
   const {
     focusOn: notVerifiedTowerTitle,
     hideTowerInfo,
     selectTowerInfoContent,
   } = useStore(AppCondition);
-  const { money } = useStore(UserDataStore);
   const towerInfoRef = useRef<HTMLDivElement>(null);
   const { tutorialCondition } = useStore(TutorialStore);
   const towerTitle = notVerifiedTowerTitle || TowersTypes.MAIN_TOWER;
-  const localDescriptionService = new BuildingsDescriptionService();
   const descriptionText: string[] = localDescriptionService.getAllDescriptionForCurrentTower(
     towerTitle
   );
-
+  const {
+    level: { level },
+    productIncome,
+  } = useStore(TowersProgressStore)[towerTitle];
+  const productIncomeValue = productIncome ? productIncome.value : 0;
   const { ended } = useStore(TaskMessagesStore)[towerTitle];
   const { tutorialTower } = BuildingsService.getConfigForTower(towerTitle);
 
@@ -194,8 +199,8 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
             towerTitle={towerTitle}
           />
           <TowerInfoIndicators
-            towerTitle={towerTitle}
-            money={money}
+            level={level}
+            income={productIncomeValue}
             hideTowerInfo={hideTowerInfo}
           />
         </TowerInfoHeader1>
