@@ -1,7 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { useStore } from 'effector-react';
-import { AppCondition } from '../../effector/app-condition/store';
 import { useCheckDisableTutorial } from '../../hooks/use-check-disable-tutorial';
 import { TowersTypes } from '../../effector/towers-progress/store';
 import { TutorialToolsSelector } from '../../utils/arrows-container';
@@ -17,7 +15,14 @@ import { Decorations } from '../decorations';
 import { CentralBanner } from '../central-banner';
 import { useInitDragscroll } from '../../hooks/use-init-dragscroll';
 import { scrollToCurrentTower } from '../../utils/scroll-to-current-tower';
-import { scaleHandler } from '../../utils/zoom-in-out';
+import { ZoomInOutButtons } from '../../UI/zoom-in-out-buttons';
+
+export enum ScaleValues {
+  ZOOM_IN = 0.05,
+  ZOOM_OUT = -0.05,
+  MAX_SCALE = 1.5,
+  MIN_SCALE = 1,
+}
 
 export enum MapSize {
   WIDTH = 7680,
@@ -35,7 +40,6 @@ const MapWrapper = styled.div<IMapWrapper>`
   width: ${MapSize.WIDTH}px;
   height: ${MapSize.HEIGHT}px;
   position: relative;
-  transform: scale(${props => props.scaleValue});
   z-index: ${props => props.zIndex};
 `;
 
@@ -54,13 +58,31 @@ export const ScrollContainer: React.FC<{
   zIndex: number;
 }> = React.memo(({ tutorialCondition, zIndex }) => {
   const scrollContainerWrapperRef = useRef<HTMLDivElement>(null);
-
-  const { scaleValue } = useStore(AppCondition);
+  const mapWrapperRef = useRef<HTMLDivElement>(null);
+  const scaleValue = useRef(1);
   const { ref } = BuildingsService.getConfigForTower(TowersTypes.MY_MTS);
 
+  const runScrollAnimation = () => {
+    if (mapWrapperRef.current)
+      mapWrapperRef.current.style.transform = `scale(${scaleValue.current})`;
+  };
+
+  const scaleHandler = (payload: number) => {
+    if (
+      (payload < 0 && scaleValue.current + payload >= ScaleValues.MIN_SCALE) ||
+      (payload > 0 && scaleValue.current + payload <= ScaleValues.MAX_SCALE)
+    ) {
+      scaleValue.current += payload;
+      runScrollAnimation();
+    }
+  };
+
   const wheelHandler = (e: React.WheelEvent) => {
-    e.preventDefault();
-    scaleHandler(scaleValue, e.deltaY * _smoothScrollValue);
+    e.persist();
+    requestAnimationFrame(() => {
+      e.preventDefault();
+      scaleHandler(e.deltaY * _smoothScrollValue);
+    });
   };
 
   useInitDragscroll();
@@ -75,11 +97,8 @@ export const ScrollContainer: React.FC<{
       className={_scrollContainerClassName}
       ref={scrollContainerWrapperRef}
     >
-      <MapWrapper
-        scaleValue={scaleValue}
-        zIndex={zIndex}
-        onWheel={wheelHandler}
-      >
+      <ZoomInOutButtons callback={scaleHandler} />
+      <MapWrapper ref={mapWrapperRef} zIndex={zIndex} onWheel={wheelHandler}>
         <TutorialToolsSelector
           tutorialCondition={tutorialCondition}
           isInsideScrollContainer={true}
@@ -98,6 +117,6 @@ export const ScrollContainer: React.FC<{
 });
 
 interface IMapWrapper {
-  scaleValue: number;
+  scaleValue?: number;
   zIndex: number;
 }

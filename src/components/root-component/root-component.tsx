@@ -13,7 +13,6 @@ import {
   TutorialConditions,
 } from '../../effector/tutorial-store/store';
 import { ScrollContainer } from '../scroll-container';
-import { ZoomInOutButtons } from '../../UI/zoom-in-out-buttons';
 import { TutorialOverlay } from '../tutorial-overlay';
 import { zIndexForInheritOverlay } from '../../constants';
 import { SkipTutorial } from '../skip-tutorial';
@@ -32,12 +31,9 @@ const ComponentWrapper = styled.div<{ visible: boolean }>`
 `;
 
 export const RootComponent = (): React.ReactElement => {
-  const {
-    isExtraTowerInfoModalOpen,
-    selectedMenuItem,
-    DOMLoaded,
-    scaleValue,
-  } = useStore(AppCondition);
+  const { isExtraTowerInfoModalOpen, selectedMenuItem, DOMLoaded } = useStore(
+    AppCondition
+  );
   const { isCoinRelocateAnimationEnded } = useStore(RewardStore);
 
   const [showSkipTutorialUI, setShowSkipTutorialUI] = useState(true);
@@ -52,7 +48,6 @@ export const RootComponent = (): React.ReactElement => {
         isCoinRelocateAnimationEnded={isCoinRelocateAnimationEnded}
       />
       <MoveCoinCollection />
-      <ZoomInOutButtons scaleValue={scaleValue} />
       <TaskButton />
       <TowerInfo opened={isExtraTowerInfoModalOpen} />
       <TutorialToolsSelector
