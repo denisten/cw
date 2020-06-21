@@ -115,7 +115,9 @@ const styleConfig = {
   backButton: {
     width: 252,
     height: 50,
-    margin: '0 23px 0 0',
+    style: {
+      margin: '0 23px 0 0',
+    },
   },
   forwardButton: {
     width: 252,
@@ -233,29 +235,31 @@ export const TutorialDialog: React.FC<{ mustBeAsAnimated?: boolean }> = ({
             {printedText}
           </TutorialDialogText>
           <ButtonWrapper>
-            <Button
-              className={
-                isNowFirstStepOfTutorial(dialogStep, tutorialCondition) ||
-                dialogStep
-                  ? ButtonClassNames.OUTLINE_NORMAL
-                  : ButtonClassNames.OUTLINE_DISABLED
-              }
-              displayFlag={!isPrinting}
-              callback={handleBackButtonClick}
-              content={
-                isNowFirstStepOfTutorial(dialogStep, tutorialCondition)
-                  ? 'Пропустить обучение'
-                  : 'Назад'
-              }
-              {...styleConfig.backButton}
-            />
-            <Button
-              displayFlag={!isPrinting}
-              callback={handleClick}
-              className={ButtonClassNames.NORMAL}
-              content={buttonContent[dialogStep]}
-              {...styleConfig.forwardButton}
-            />
+            {!isPrinting && (
+              <>
+                <Button
+                  className={
+                    isNowFirstStepOfTutorial(dialogStep, tutorialCondition) ||
+                    dialogStep
+                      ? ButtonClassNames.OUTLINE_NORMAL
+                      : ButtonClassNames.OUTLINE_DISABLED
+                  }
+                  callback={handleBackButtonClick}
+                  content={
+                    isNowFirstStepOfTutorial(dialogStep, tutorialCondition)
+                      ? 'Пропустить обучение'
+                      : 'Назад'
+                  }
+                  {...styleConfig.backButton}
+                />
+                <Button
+                  callback={handleClick}
+                  className={ButtonClassNames.NORMAL}
+                  content={buttonContent[dialogStep]}
+                  {...styleConfig.forwardButton}
+                />
+              </>
+            )}
           </ButtonWrapper>
         </TextWrapper>
       </TutorialDialogWrapper>

@@ -153,7 +153,9 @@ export const NotAuthorizedProfile: React.FC<INotAuthorizedProfile> = ({
         }
       >
         <Button
-          animFlag={tutorialCondition === TutorialConditions.PULSE_AUTH_BUTTON}
+          pulseAnimFlag={
+            tutorialCondition === TutorialConditions.PULSE_AUTH_BUTTON
+          }
           className={ButtonClassNames.NORMAL}
           content="Войти"
           callback={handleButtonClick}

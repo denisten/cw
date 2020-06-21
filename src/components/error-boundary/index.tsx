@@ -48,18 +48,20 @@ export const ErrorBoundary = () => {
     resetErrorStore();
   };
 
+  const isOnlineStatus = networkStatus === NetworkStatuses.ONLINE;
   useEffect(() => {
     window.addEventListener('offline', setNetworkStatusOffline);
     window.addEventListener('online', setNetworkStatusOnline);
   }, []);
   return (
     <ErrorWrapper errorFlag={errorFlag} text={text} {...StyledConfig.overlay}>
-      <Button
-        displayFlag={networkStatus === NetworkStatuses.ONLINE}
-        className={ButtonClassNames.OUTLINE_NORMAL}
-        callback={closeErrorPopup}
-        {...StyledConfig.closeButton}
-      />
+      {isOnlineStatus && (
+        <Button
+          className={ButtonClassNames.OUTLINE_NORMAL}
+          callback={closeErrorPopup}
+          {...StyledConfig.closeButton}
+        />
+      )}
     </ErrorWrapper>
   );
 };
