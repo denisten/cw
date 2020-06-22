@@ -246,7 +246,7 @@ const handleClick = async (id: number, e: React.MouseEvent) => {
   const currentMissionType = currentMission.task.content.taskType.slug;
   const currentTowerTitle = currentMission.task.content.product.slug;
   const productTitle = state[currentMissionIdx].task.content.product.slug;
-  const status = state[currentMissionIdx].status;
+  const { status } = state[currentMissionIdx];
   switch (status) {
     case TaskStatuses.CREATED:
       activateTask(id);
