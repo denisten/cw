@@ -9,9 +9,7 @@ import { useStore } from 'effector-react';
 import { AppCondition } from './effector/app-condition/store';
 import { errorStringsParsingHOF } from './utils/error-handler';
 import { Preloader } from './components/preloader';
-import { useFetchDataAfterAuth } from './hooks/use-fetch-data-after-auth';
 import { useCheckUserAuthStatus } from './hooks/use-check-user-auth-status';
-import { UserDataStore } from './effector/user-data/store';
 
 export enum Routes {
   MAIN = '/',
@@ -26,8 +24,7 @@ enum EventCodes {
 }
 
 export const App: React.FC = () => {
-  const { isAuthorized, authCancelledStatus } = useStore(AppCondition);
-  const { id } = useStore(UserDataStore);
+  const { authCancelledStatus } = useStore(AppCondition);
 
   const wheelPreventDefault = (e: WheelEvent) => {
     if (e.ctrlKey) {
@@ -46,8 +43,6 @@ export const App: React.FC = () => {
       e.preventDefault();
     }
   };
-
-  useFetchDataAfterAuth(isAuthorized, id);
 
   useEffect(() => {
     if (authCancelledStatus) {
