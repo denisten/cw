@@ -150,7 +150,6 @@ export const PopUp: React.FC<IPopUp> = ({
         }
       } else {
         editCurrentUserDataField({ key: UserDataStoreKeys.WORLD_NAME, value });
-        localStorage.setItem(UserDataStoreKeys.WORLD_NAME, value);
       }
     } else if (popUpType === TypesOfPopUps.EDIT_ASSISTANT_NAME) {
       if (isAuthorized) {

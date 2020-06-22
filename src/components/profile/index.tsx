@@ -12,9 +12,13 @@ import { getIncome, TowersTypesAsObjectLiteral } from '../../api/get-income';
 import { setMarker } from '../../effector/towers-marker/events';
 import { TypeOfMarkers } from '../markers';
 import { TowersTypes } from '../../effector/towers-progress/store';
-import { getAccountData } from '../../effector/user-data/events';
-import { UserDataStore } from '../../effector/user-data/store';
+import { getAccountData, fetchUserData } from '../../effector/user-data/events';
+import {
+  UserDataStore,
+  defaultNameValue,
+} from '../../effector/user-data/store';
 import { saveUserData } from '../../api/save-user-data';
+import { fetchTasks } from '../../effector/missions-store/events';
 
 const ProfileWrapper = styled.div`
   width: 100%;
@@ -41,7 +45,11 @@ const handleAuth = async (
   worldName: string
 ) => {
   if (isAuthorized && !dataReceived) {
-    await saveUserData({ worldName });
+    if (worldName !== defaultNameValue) {
+      await saveUserData({ worldName });
+    }
+    await fetchUserData('');
+    await fetchTasks('');
     await fetchAllProductsData('');
     await openWsConnection();
     await progressRefresh();

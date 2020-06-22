@@ -27,15 +27,12 @@ export enum UserDataStoreKeys {
   ENERGY = 'energy',
   AVATAR = 'avatar',
 }
-let worldNameInLS = '';
-worldNameInLS =
-  localStorage.getItem(UserDataStoreKeys.WORLD_NAME) || 'Неизвестно';
-
+export const defaultNameValue = 'Неизвестно';
 const initData = {
   id: 0,
-  name: 'Неизвестно',
-  worldName: worldNameInLS,
-  assistantName: 'Неизвестно',
+  name: defaultNameValue,
+  worldName: defaultNameValue,
+  assistantName: defaultNameValue,
   money: 0,
   energy: 0,
   coins: 0,
