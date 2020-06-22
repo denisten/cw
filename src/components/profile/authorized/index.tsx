@@ -105,12 +105,12 @@ const WorldTitle = styled(StyledSpan)<ISpan>`
   }
 `;
 
-const InputTitle = styled(StyledSpan)<ISpan>`
+export const InputTitle = styled(StyledSpan)<ISpan>`
   font-family: ${MTSSans.REGULAR};
   font-size: 14px;
   color: #02adc9;
   height: 20px;
-  margin-right: 21px;
+  margin-right: ${props => props.marginRight || 21}px;
   &::after {
     content: "${props => props.content}"
   }
@@ -325,8 +325,6 @@ export const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
           <InputTitle content="Дата рождения" />
           <Dropdown
             options={DaysNumArr}
-            optionsHeight={329}
-            top={40}
             style={{ marginRight: '16px' }}
             value={birthdayParser(birthdayDate.dd)}
             onChangeCallback={el =>
@@ -335,8 +333,6 @@ export const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
           />
           <Dropdown
             options={MonthsStringArr}
-            optionsHeight={329}
-            top={40}
             width={149}
             value={MonthsStringArr[+birthdayDate.mm - 1]}
             onChangeCallback={el =>
@@ -360,6 +356,7 @@ export const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
 
 interface ISpan {
   content?: string;
+  marginRight?: number;
 }
 
 interface IAuthorizedProfile {

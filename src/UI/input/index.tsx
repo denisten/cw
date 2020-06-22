@@ -3,10 +3,12 @@ import styled from 'styled-components';
 import { MTSSans } from '../../fonts';
 import { StyledSpan } from '../span';
 
-const defaultWidth = 273,
-  defaultHeight = 44;
+export const defaultWidth = 273,
+  defaultHeight = 44,
+  defaultOptionHeight = 46,
+  defaultInputWrapperPadding = '0 0 0 15px';
 
-const Form = styled.form<IFormInput>`
+export const Form = styled.form<IFormInput>`
   border-radius: 4px;
   border: solid 2px rgba(2, 173, 201, 0.2);
   padding-left: ${props => props.formPadding}px;
@@ -26,8 +28,8 @@ const Form = styled.form<IFormInput>`
   }
 `;
 
-const InputWrapper = styled.input`
-  height: 24px;
+const InputWrapper = styled.input<IInputWrapper>`
+  height: ${props => props.height}px;
   outline: none;
   border: none;
   font-family: ${MTSSans.REGULAR};
@@ -38,12 +40,13 @@ const InputWrapper = styled.input`
   line-height: 1.5;
   letter-spacing: normal;
   box-sizing: border-box;
+  padding: ${props => props.inputWrapperPadding};
   ::placeholder {
     color: #9198a0;
   }
 `;
 
-const HintWrapper = styled(StyledSpan)<{ hasError: boolean }>`
+const HintWrapper = styled(StyledSpan)<IHintWrapper>`
   font-family: ${MTSSans.REGULAR};
   font-size: 12px;
   line-height: 1.33;
@@ -54,6 +57,7 @@ const HintWrapper = styled(StyledSpan)<{ hasError: boolean }>`
 `;
 
 export const Input: React.FC<IInput> = ({
+  height = defaultOptionHeight,
   style,
   onChangeHandler,
   value,
@@ -62,19 +66,24 @@ export const Input: React.FC<IInput> = ({
   hint,
   formPadding,
   describer,
+  placeholder = 'Заполните поле',
+  inputWrapperPadding = defaultInputWrapperPadding,
 }) => {
   return (
     <div>
       <Form
+        height={height}
         formPadding={formPadding}
         onSubmit={onSubmitHandler}
         style={style}
         className={hasError ? 'error' : ''}
       >
         <InputWrapper
+          inputWrapperPadding={inputWrapperPadding}
           value={value}
+          height={height}
           onChange={onChangeHandler}
-          placeholder="Заполните поле"
+          placeholder={placeholder}
         />
       </Form>
 
@@ -86,6 +95,7 @@ export const Input: React.FC<IInput> = ({
 };
 
 interface IInput {
+  height?: number;
   style?: React.CSSProperties;
   title?: string;
   onChangeHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -95,6 +105,8 @@ interface IInput {
   hint?: string;
   formPadding?: number;
   describer?: string;
+  placeholder?: string;
+  inputWrapperPadding?: string;
 }
 
 interface IFormInput {
@@ -103,4 +115,13 @@ interface IFormInput {
   width?: number;
   height?: number;
   background?: string;
+}
+
+interface IHintWrapper {
+  hasError: boolean;
+}
+
+interface IInputWrapper {
+  inputWrapperPadding?: string;
+  height: number;
 }

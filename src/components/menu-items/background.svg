@@ -1,24 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="273px" height="456px" viewBox="0 0 273 456" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 64 (93537) - https://sketch.com -->
-    <title>Group 3</title>
-    <desc>Created with Sketch.</desc>
-    <defs>
-        <polygon id="path-1" points="-90 92 -90 154.383405 -71.6001371 172.995511 -71.6001371 338.458007 -48.2014359 362 236.822667 362 248.794589 350.130988 334.213027 349.515044 364 319.361328 363.869052 92"></polygon>
-    </defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="MW_Profiles_normal_Error" transform="translate(-196.000000, -172.000000)">
-            <g id="bg" transform="translate(175.000000, 140.000000)">
-                <g id="Mask" transform="translate(20.000000, 33.000000)">
-                    <g id="Group-3" transform="translate(0.500000, -0.001831)">
-                        <mask id="mask-2" fill="white">
-                            <use xlink:href="#path-1"></use>
-                        </mask>
-                        <use id="Mask" stroke="#FFFFFF" stroke-width="2" fill="#02ACC8" transform="translate(137.000000, 227.000000) rotate(-270.000000) translate(-137.000000, -227.000000) " xlink:href="#path-1"></use>
-                        <polygon id="Rectangle" fill="#FFFFFF" points="0.961303711 324.218384 14.9152832 338.408692 15.5 426.646607 1.5 412.720825"></polygon>
-                    </g>
-                </g>
-            </g>
-        </g>
-    </g>
+<svg width="274" height="456" viewBox="0 0 274 456" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M190.068 19.4809H190.479L190.771 19.1925L209.195 1L273 1L273 454.869L43.2887 455L13.2738 425.386L1 412.109V328.262L1 42.3991L24.0865 19.4809L190.068 19.4809Z" fill="white" stroke="white" stroke-width="2"/>
+<path d="M190.068 19.4809H190.479L190.771 19.1925L209.195 1L273 1L273 454.869L43.2887 455L13.5522 425.661L12.9358 340.28L12.9328 339.872L12.6455 339.583L1 327.85L1 42.3991L24.0865 19.4809L190.068 19.4809Z" fill="#02ACC8" stroke="white" stroke-width="2"/>
+<rect x="270" y="2" width="4" height="452" fill="#02ACC8"/>
 </svg>
