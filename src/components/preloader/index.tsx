@@ -115,6 +115,7 @@ const LoadingLine = styled.div<{ persentOfLoad?: number }>`
   justify-content: center;
   align-items: center;
   position: relative;
+  border-radius: 4px;
 
   span {
     text-shadow: 1px 1px 0 #233742;
@@ -126,6 +127,7 @@ const LoadingLine = styled.div<{ persentOfLoad?: number }>`
     transform: skew(30deg);
     z-index: 2;
     transition: 0.1s;
+    margin-top: 4px;
   }
 
   &::before {
@@ -136,13 +138,7 @@ const LoadingLine = styled.div<{ persentOfLoad?: number }>`
     height: 100%;
     width: ${props => props.persentOfLoad}%;
     box-shadow: inset 0 1px 3px 0 rgba(255, 255, 255, 0.5);
-    background-image: linear-gradient(
-      to bottom,
-      #bfdcff 1%,
-      #8bd2ff 38%,
-      #7ec7ff 53%,
-      #8ad1ff 99%
-    );
+    background-color: #04b5d2;
     z-index: 1;
   }
 `;
