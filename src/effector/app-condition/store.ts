@@ -3,8 +3,6 @@ import {
   extraTowerInfoModalClosed,
   extraTowerInfoModalOpen,
   toggleExtraTowerInfoModal,
-  updateScaleValue,
-  ScaleValues,
   menuOpened,
   menuClosed,
   showUpgradeIcon,
@@ -28,7 +26,6 @@ import { TypesOfPopUps } from '../../UI/pop-up';
 
 export const maxProgressValue = 100;
 
-const initScaleValue = 0.9;
 export enum TowerInfoContentValues {
   DESCRIPTION = 0,
   CHAT = 1,
@@ -37,7 +34,6 @@ export enum TowerInfoContentValues {
 
 const initState = {
   isExtraTowerInfoModalOpen: false,
-  scaleValue: initScaleValue,
   focusOn: null,
   selectedMenuItem: null,
   upgradingTowerTitle: null,
@@ -75,14 +71,6 @@ export const AppCondition = AppDomain.store<AppConditionType>(initState)
     ...state,
     isExtraTowerInfoModalOpen: !state.isExtraTowerInfoModalOpen,
   }))
-  .on(updateScaleValue, (state, payload) => {
-    let localScaleValue = payload;
-    if (state.scaleValue === payload) localScaleValue = initScaleValue;
-    return {
-      ...state,
-      scaleValue: Number((state.scaleValue + localScaleValue).toFixed(2)),
-    };
-  })
   .on(menuOpened, (state, payload) => ({
     ...state,
     selectedMenuItem: payload,
@@ -153,7 +141,6 @@ export type AppConditionType = {
   isExtraTowerInfoModalOpen: boolean;
   selectedMenuItem: MenuItems | null;
   focusOn: TowersTypes | null;
-  scaleValue: ScaleValues;
   upgradingTowerTitle: TowersTypes | null;
   isAuthorized: boolean;
   authCancelledStatus: string;

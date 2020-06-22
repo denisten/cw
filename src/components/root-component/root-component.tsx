@@ -13,7 +13,6 @@ import {
   TutorialConditions,
 } from '../../effector/tutorial-store/store';
 import { ScrollContainer } from '../scroll-container';
-import { ZoomInOutButtons } from '../../UI/zoom-in-out-buttons';
 import { TutorialOverlay } from '../tutorial-overlay';
 import { zIndexForInheritOverlay } from '../../constants';
 import { SkipTutorial } from '../skip-tutorial';
@@ -49,7 +48,6 @@ export const RootComponent = (): React.ReactElement => {
         isCoinRelocateAnimationEnded={isCoinRelocateAnimationEnded}
       />
       <MoveCoinCollection />
-      <ZoomInOutButtons />
       <TaskButton />
       <TowerInfo opened={isExtraTowerInfoModalOpen} />
       <TutorialToolsSelector
