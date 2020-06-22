@@ -41,7 +41,9 @@ const handleAuth = async (
   worldName: string
 ) => {
   if (isAuthorized && !dataReceived) {
-    await saveUserData({ worldName });
+    if (worldName !== 'Неизвестно') {
+      await saveUserData({ worldName });
+    }
     await fetchAllProductsData('');
     await openWsConnection();
     await progressRefresh();
