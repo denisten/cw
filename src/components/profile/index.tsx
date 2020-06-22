@@ -48,10 +48,10 @@ const handleAuth = async (
     if (worldName !== defaultNameValue) {
       await saveUserData({ worldName });
     }
-    await fetchUserData('');
+    const { id } = await fetchUserData('');
     await fetchTasks('');
     await fetchAllProductsData('');
-    await openWsConnection();
+    await openWsConnection(id);
     await progressRefresh();
     await getAccountData('');
     const incomes = await getIncome();
