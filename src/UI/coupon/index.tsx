@@ -18,7 +18,7 @@ const Polygon = styled.div`
   width: 17px;
   height: 17px;
   position: absolute;
-  top: -4px;
+  top: 3px;
   right: -8px;
   font-family: ${MTSSans.BOLD};
   font-size: 11px;
@@ -31,6 +31,9 @@ const Polygon = styled.div`
 
 const CouponWrapper = styled.div`
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const styledConfig = {
