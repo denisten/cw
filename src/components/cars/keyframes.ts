@@ -335,11 +335,32 @@ const iterationsForCarMed = [
   },
 ];
 
+const iterationsForCarMed2 = [
+  { animation: [`background: url(${carMedTopRight}) no-repeat center;`] },
+  {
+    animation: [`background: url(${carMedTopRight}) no-repeat center;`],
+    transition: true,
+  },
+  {
+    animation: [
+      `transform: translate3d(1288px,-647px,0px);`,
+      `background: url(${carMedBottomLeft}) no-repeat center;`,
+    ],
+  },
+  {
+    animation: [
+      `transform: translate3d(0px,0px,0px);`,
+      `background: url(${carMedBottomLeft}) no-repeat center;`,
+    ],
+  },
+];
+
 export const animForCar1 = keyframesCreator(iterationsForCarOne);
 export const animForCar2 = keyframesCreator(iterationsForCarTwo);
 export const animForCar3 = keyframesCreator(iterationsForCarThree);
 export const animForCar4 = keyframesCreator(iterationsForCarFour);
 export const animCarMed = keyframesCreator(iterationsForCarMed);
+export const animCarMed2 = keyframesCreator(iterationsForCarMed2);
 
 interface IiterationsArray {
   animation: string[];
