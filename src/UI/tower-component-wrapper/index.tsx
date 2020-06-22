@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useRef, useState } from 'react';
+import React, { memo, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { extraTowerInfoModalOpen } from '../../effector/app-condition/events';
 import { LazyImage } from '@tsareff/lazy-image';
@@ -16,6 +16,11 @@ import { Markers } from '../../components/markers';
 import { IMarker } from '../../effector/towers-marker/store';
 import { BuildingsService, IAnimSize } from '../../buildings/config';
 
+enum strokeClassNames {
+  STROKE = 'stroke',
+  STROKE_ACTIVE = 'strokeActive',
+}
+
 const TowerStyledWrapper = styled.div<ITowerStyledWrapper>`
   display: flex;
   position: absolute;
@@ -26,6 +31,14 @@ const TowerStyledWrapper = styled.div<ITowerStyledWrapper>`
   height: ${props => props.height}px;
   scroll-margin-right: ${props =>
     props.scrollShift && props.DOMLoaded ? props.scrollShift : 0}px;
+
+  .${strokeClassNames.STROKE} {
+    display: none;
+  }
+
+  .${strokeClassNames.STROKE_ACTIVE} {
+    display: block;
+  }
 `;
 
 const StyledConfig = {
@@ -72,17 +85,13 @@ export const TowerWrapper = memo(
     const [posX, posY] = position;
     let mouseDownFlag = false,
       mouseMoveFlag = 0;
-    const [hoverState, setHoverState] = useState(false);
     const towerRef = useRef<HTMLDivElement>(null);
+    const strokeRef = useRef<HTMLImageElement>(null);
     const TowerStyleConfig = {
       width: `${width}px`,
       height: `${height}px`,
       position: 'absolute',
     } as React.CSSProperties;
-    const mouseOverHandle = () => {
-      if (!(focusOnTowerTitle && focusOnTowerTitle === towerTitle))
-        setHoverState(false);
-    };
 
     const handleClick = () => {
       if (
@@ -114,7 +123,15 @@ export const TowerWrapper = memo(
       }
     };
 
-    useEffect(() => mouseOverHandle(), [focusOnTowerTitle]);
+    const mouseOverHandle = () => {
+      strokeRef.current &&
+        strokeRef.current.classList.add(strokeClassNames.STROKE_ACTIVE);
+    };
+    const mouseOutHandle = () => {
+      strokeRef.current &&
+        strokeRef.current.classList.remove(strokeClassNames.STROKE_ACTIVE);
+    };
+
     useEffect(() => {
       BuildingsService.setRefForTower(towerTitle, towerRef);
     }, []);
@@ -169,22 +186,22 @@ export const TowerWrapper = memo(
             alt="area"
             onMouseDown={handleMouseDown}
             onMouseUp={handleMouseUp}
-            onMouseOver={() => setHoverState(true)}
-            onMouseOut={mouseOverHandle}
             onMouseMove={handleMouseMove}
             coords={areaCoords}
+            onMouseOver={mouseOverHandle}
+            onMouseOut={mouseOutHandle}
             shape="rect"
           />
         </map>
         <img
+          ref={strokeRef}
+          className={
+            !upgradeFlag && focusOnTowerTitle === towerTitle
+              ? strokeClassNames.STROKE_ACTIVE
+              : strokeClassNames.STROKE
+          }
           src={shadowImg}
           alt="shadow"
-          style={{
-            display:
-              !upgradeFlag && (hoverState || focusOnTowerTitle === towerTitle)
-                ? 'block'
-                : 'none',
-          }}
         />
       </TowerStyledWrapper>
     );

@@ -19,7 +19,7 @@ const initChatData = {
   },
   messages: [],
   actions: [],
-  ended: false,
+  ended: true,
 };
 
 const initStore = {

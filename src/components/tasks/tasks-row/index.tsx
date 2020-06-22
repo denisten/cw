@@ -5,10 +5,7 @@ import { MTSSans } from '../../../fonts';
 import { StyledSpan } from '../../../UI/span';
 import { TaskLoot } from '../../../UI/task-loot';
 import { Coupon } from '../../../UI/coupon';
-import {
-  MissionsStore,
-  TaskStatuses,
-} from '../../../effector/missions-store/store';
+import { MissionsStore } from '../../../effector/missions-store/store';
 import {
   activateTask,
   fetchTasks,
@@ -35,6 +32,9 @@ import {
 } from '../../../effector/app-condition/store';
 import { hideMarker, setMarker } from '../../../effector/towers-marker/events';
 import { TypeOfMarkers } from '../../markers';
+import { TowersTypes } from '../../../effector/towers-progress/store';
+import { TaskStatuses } from '../../../api/tasks/get-tasks';
+import { pushMoveElems } from '../../../effector/reward/events';
 
 enum TaskWrapperHeight {
   opened = 149,
@@ -211,7 +211,34 @@ const HintWrapper = styled.div`
   }
 `;
 
-const handleClick = (id: number) => {
+const markerHandler = (status: TaskStatuses, productTitle: TowersTypes) => {
+  const state = MissionsStore.getState();
+  const numberOfDoneTasksInCurrentProduct = state.filter(
+    el =>
+      el.task.content.product.slug === productTitle &&
+      el.status === TaskStatuses.DONE
+  ).length;
+
+  if (
+    status === TaskStatuses.ACTIVE ||
+    (status === TaskStatuses.DONE && numberOfDoneTasksInCurrentProduct)
+  ) {
+    setMarker({
+      towerTitle: productTitle,
+      type: TypeOfMarkers.SUCCESS,
+    });
+  } else {
+    hideMarker({ towerTitle: productTitle, type: TypeOfMarkers.SUCCESS });
+  }
+};
+
+const animateTaskReward = (reward: number, e: React.MouseEvent) => {
+  if (reward > 0) {
+    pushMoveElems({ x: e.clientX, y: e.clientY, id: 0 });
+  }
+};
+
+const handleClick = async (id: number, e: React.MouseEvent) => {
   const state = MissionsStore.getState();
   const { selectedMenuItem } = AppCondition.getState();
   const currentMissionIdx = state.findIndex(el => el.id === id);
@@ -219,7 +246,8 @@ const handleClick = (id: number) => {
   const currentMissionType = currentMission.task.content.taskType.slug;
   const currentTowerTitle = currentMission.task.content.product.slug;
   const productTitle = state[currentMissionIdx].task.content.product.slug;
-  switch (state[currentMissionIdx].status) {
+  const { status } = state[currentMissionIdx];
+  switch (status) {
     case TaskStatuses.CREATED:
       activateTask(id);
       if (currentMissionType !== TasksType.COSMETIC) {
@@ -237,10 +265,15 @@ const handleClick = (id: number) => {
       );
       return;
     case TaskStatuses.ACTIVE:
-      return verifyTask(id);
+      await verifyTask(id);
+      markerHandler(status, productTitle);
+      break;
     case TaskStatuses.DONE:
+      animateTaskReward(currentMission.task.reward, e);
+      await takeReward(id);
+      markerHandler(status, productTitle);
       clearChat({ towerTitle: productTitle });
-      return takeReward(id);
+      break;
     case TaskStatuses.VERIFICATION:
       hideMarker({
         towerTitle: currentTowerTitle,
@@ -285,7 +318,7 @@ export const Task: React.FC<ITasksRow> = ({
   const [isOpened, setIsOpened] = useState(false);
   const handleWrapperClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    handleClick(id);
+    handleClick(id, e);
   };
 
   return (

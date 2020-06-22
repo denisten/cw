@@ -17,6 +17,7 @@ import {
 } from '../../effector/task-messages/events';
 import { TowersTypes } from '../../effector/towers-progress/store';
 import { ITask, MissionsStore } from '../../effector/missions-store/store';
+
 import { TowerInfoContentValues } from '../../effector/app-condition/store';
 
 const ChatWrapper = styled.div<IFullSize>`

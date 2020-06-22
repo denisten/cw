@@ -8,6 +8,15 @@ import { setTaskId } from '../../../effector/task-messages/events';
 
 let interval = 0;
 const second = 1000;
+export enum TaskStatuses {
+  CREATED = 'created',
+  ACTIVE = 'active',
+  VERIFICATION = 'verification',
+  DONE = 'done',
+  REJECTED = 'reject',
+  REWARDED = 'rewarded',
+  EXPIRED = 'expired',
+}
 
 export const getTasks = async () => {
   const response = await get<IGetTasks>(apiRoutes.GET_TASKS);
@@ -21,6 +30,13 @@ export const getTasks = async () => {
       towerTitle: el.task.content.product.slug,
       type: TypeOfMarkers.TASK,
     });
+
+    if (el.status === TaskStatuses.DONE) {
+      setMarker({
+        towerTitle: el.task.content.product.slug,
+        type: TypeOfMarkers.SUCCESS,
+      });
+    }
   });
   return response.data.data;
 };
