@@ -74,6 +74,9 @@ export const Feedback = () => {
   );
   const [question, setQuestion] = useState('');
   const submitHandler = () => {
+    setLocalName('');
+    setEmail('');
+    setQuestion('');
     // const data = {
     //   name: localName,
     //   email,
