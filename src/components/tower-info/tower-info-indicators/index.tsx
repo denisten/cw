@@ -4,13 +4,8 @@ import { MoneyWrapper } from '../../../UI/money-wrapper';
 import React from 'react';
 import styled from 'styled-components';
 import { MTSSans } from '../../../fonts';
-import { useStore } from 'effector-react';
-import {
-  TowersProgressStore,
-  TowersTypes,
-} from '../../../effector/towers-progress/store';
 
-const HeaderLine = styled.div<{ sizeContent: boolean }>`
+const HeaderLine = styled.div<IHeaderLine>`
   width: 100%;
   display: flex;
   margin-top: ${props => (props.sizeContent ? '0' : '32px')};
@@ -19,11 +14,7 @@ const HeaderLine = styled.div<{ sizeContent: boolean }>`
   transition: 0.2s;
 `;
 
-const HeaderLineElement = styled.div<{
-  width?: number;
-  marginLeft?: string;
-  paddingBottom?: string;
-}>`
+const HeaderLineElement = styled.div<IHeaderLineElement>`
   width: ${props => props.width}%;
   display: flex;
   justify-content: space-between;
@@ -40,11 +31,9 @@ const HeaderLineElement = styled.div<{
     letter-spacing: normal;
     color: #6e7782;
     font-family: ${MTSSans.REGULAR};
-
     + div {
       margin-top: 4px;
     }
-
     @media (max-resolution: 0.8dppx) {
       font-size: 1.5vh;
     }
@@ -66,23 +55,20 @@ const styledConfig = {
 };
 export const TowerInfoIndicators: React.FC<ITowerInfoIndicators> = ({
   hideTowerInfo,
-  towerTitle,
-  money,
+  level,
+  income,
 }) => {
-  const LocalTowerProgressStore = useStore(TowersProgressStore);
   return (
     <HeaderLine sizeContent={hideTowerInfo}>
       <HeaderLineElement {...styledConfig.firstHeaderLine}>
         <span>Уровень эволюции</span>
-
-        <ProgressBar progress={LocalTowerProgressStore[towerTitle].points} />
+        <ProgressBar level={level} />
       </HeaderLineElement>
 
       <HeaderLineElement {...styledConfig.secondHeaderLine}>
-        <span>Еженедельный доход</span>
-
+        <span>Ежедневный доход</span>
         <RowWrapper>
-          <MoneyWrapper count={money} {...styledConfig.money} />
+          <MoneyWrapper count={income} {...styledConfig.money} />
         </RowWrapper>
       </HeaderLineElement>
     </HeaderLine>
@@ -91,6 +77,16 @@ export const TowerInfoIndicators: React.FC<ITowerInfoIndicators> = ({
 
 interface ITowerInfoIndicators {
   hideTowerInfo: boolean;
-  towerTitle: TowersTypes;
-  money: number;
+  level: number;
+  income: number;
+}
+
+interface IHeaderLine {
+  sizeContent: boolean;
+}
+
+interface IHeaderLineElement {
+  width?: number;
+  marginLeft?: string;
+  paddingBottom?: string;
 }

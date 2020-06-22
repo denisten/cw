@@ -10,7 +10,6 @@ const ProgressBarWrapper = styled.div`
   overflow: hidden;
   justify-content: flex-start;
   background-color: #d6f0f4;
-  border: 1px solid none;
   transform: skew(-31deg);
   border-radius: 4px 2px 4px 2px;
   box-shadow: inset 0 0 2px 0 rgba(32, 189, 218, 0.18);
@@ -34,9 +33,9 @@ const ProgressBarWrapper = styled.div`
     left: 66%;
   }
 `;
-
-const ProgressBarGreenLine = styled.div<ProgressBarProps>`
-  width: ${props => props.progress}%;
+const divisionValue = 33.3;
+const ProgressBarGreenLine = styled.div<IProgressBar>`
+  width: ${props => (props.level ? props.level * divisionValue : 0)}%;
   height: 100%;
 
   box-shadow: inset 0 1px 3px 0 rgba(255, 255, 255, 0.5);
@@ -54,14 +53,14 @@ const ProgressBarGreenLine = styled.div<ProgressBarProps>`
   transition-timing-function: ease-in-out;
 `;
 
-type ProgressBarProps = {
-  progress?: number;
-};
-
-export const ProgressBar: React.FC<ProgressBarProps> = ({ progress }) => {
+export const ProgressBar: React.FC<IProgressBar> = ({ level }) => {
   return (
     <ProgressBarWrapper>
-      <ProgressBarGreenLine progress={progress} />
+      <ProgressBarGreenLine level={level} />
     </ProgressBarWrapper>
   );
 };
+
+interface IProgressBar {
+  level?: number;
+}
