@@ -6,6 +6,8 @@ import { StyledSpan } from '../span';
 import { RowWrapper } from '../row-wrapper';
 import { ZIndexes } from '../../components/root-component/z-indexes-enum';
 
+const defaultOptionsHeight = 329,
+  defaultWidth = 109;
 const DropdownWrapper = styled.div<IDropdownWrapper>`
   width: ${props => props.width}px;
   height: 44px;
@@ -33,7 +35,7 @@ const MainWrapper = styled.div`
 `;
 
 const Options = styled(StyledSpan)`
-  width: 149px;
+  width: 100%;
   height: 47px;
   background-color: #f7f7f7;
   position: relative;
@@ -52,7 +54,7 @@ const Options = styled(StyledSpan)`
 
 const OptionsWrapper = styled.div<IOptionsWrapper>`
   position: absolute;
-  top: ${props => props.top}px;
+  top: 40px;
   width: ${props => props.width}px;
   height: ${props => props.optionsHeight}px;
   display: ${props => (props.displayFlag ? 'flex' : 'none')};
@@ -95,11 +97,6 @@ const Input = styled.input`
     cursor: pointer;
   }
 `;
-
-const defaultOptionsHeight = 100,
-  defaultWidth = 109,
-  defaultTop = 0;
-
 const styledConfig = {
   rowWrapper: {
     justifyContent: 'space-between',
@@ -110,9 +107,8 @@ const styledConfig = {
 
 export const Dropdown: React.FC<IDropDown> = ({
   options,
-  optionsHeight = defaultOptionsHeight,
-  top = defaultTop,
   width = defaultWidth,
+  optionsHeight = defaultOptionsHeight,
   style = {},
   onChangeCallback,
   value,
@@ -157,9 +153,9 @@ export const Dropdown: React.FC<IDropDown> = ({
   return (
     <MainWrapper ref={wrapperRef} style={style}>
       <DropdownWrapper
+        width={width}
         opened={showOptions}
         onClick={() => setShowOptions(!showOptions)}
-        width={width}
       >
         <RowWrapper style={styledConfig.rowWrapper}>
           <Input
@@ -173,10 +169,9 @@ export const Dropdown: React.FC<IDropDown> = ({
       </DropdownWrapper>
 
       <OptionsWrapper
+        width={width}
         displayFlag={showOptions}
         optionsHeight={optionsHeight}
-        top={top}
-        width={width}
       >
         {options.map(el => (
           <Options
@@ -198,7 +193,6 @@ export const Dropdown: React.FC<IDropDown> = ({
 interface IDropDown {
   options: string[];
   optionsHeight?: number;
-  top?: number;
   width?: number;
   style?: React.CSSProperties;
   onChangeCallback: (el: string) => void;
@@ -208,7 +202,6 @@ interface IDropDown {
 interface IOptionsWrapper {
   displayFlag: boolean;
   optionsHeight?: number;
-  top?: number;
   width: number;
 }
 
