@@ -20,7 +20,7 @@ import { TowersTypes } from '../towers-progress/store';
 import { upgradeTower } from '../towers-progress/events';
 import { MenuItems } from '../../UI/menu-paragraph';
 import connectLocalStorage from 'effector-localstorage/sync';
-import { devLogin, fetchUserData } from '../user-data/events';
+import { devLogin, fetchUserData, getUserName } from '../user-data/events';
 import { ErrorBoundaryStore } from '../error-boundary-store/store';
 import { TypesOfPopUps } from '../../UI/pop-up';
 
@@ -45,6 +45,7 @@ const initState = {
   towerInfoShift: 0,
   dataReceived: false,
   openPopUpState: TypesOfPopUps.DISABLED,
+  haveCorrectCookie: false,
 };
 
 const appConditionLocalStorage = connectLocalStorage('AppCondition').onChange(
@@ -123,6 +124,13 @@ export const AppCondition = AppDomain.store<AppConditionType>(initState)
       isAuthorized: !errorFlag,
     };
   })
+  .on(getUserName, state => {
+    const { errorFlag } = ErrorBoundaryStore.getState();
+    return {
+      ...state,
+      haveCorrectCookie: !errorFlag,
+    };
+  })
   .on(devLogin.doneData, state => {
     const { errorFlag } = ErrorBoundaryStore.getState();
     return {
@@ -150,4 +158,5 @@ export type AppConditionType = {
   towerInfoShift: number;
   dataReceived: boolean;
   openPopUpState: TypesOfPopUps;
+  haveCorrectCookie: boolean;
 };

@@ -1,5 +1,4 @@
 import Centrifuge from 'centrifuge';
-import { getProfile } from '../get-profile';
 import { getCookie } from '../../utils/get-cookie';
 import { getWsToken } from '../get-ws-token';
 import { apiRoutes } from '../index';
@@ -9,7 +8,6 @@ import {
   TowersTypes,
   TowersProgressStoreType,
 } from '../../effector/towers-progress/store';
-import { UserDataStore } from '../../effector/user-data/store';
 
 let wsProxyUrl = '';
 const wsUrlLocalDevelopment = 'web.cwmts.dev-stream.ru';
@@ -23,7 +21,7 @@ const centrifugeUrl =
     : apiRoutes.CENTRIFUGE;
 const wsConnectionRoute =
   'ws://' + (wsProxyUrl || window.location.hostname) + centrifugeUrl;
-export const openWsConnection = async () => {
+export const openWsConnection = async (userId: number) => {
   const centrifuge = new Centrifuge(wsConnectionRoute, {
     subscribeEndpoint: apiRoutes.WS_SUBSCRIBE,
     subscribeHeaders: {
@@ -34,13 +32,9 @@ export const openWsConnection = async () => {
   centrifuge.setToken(token);
   centrifuge.connect();
   setUserSessionSocket(centrifuge);
-  let userIdFromStore = UserDataStore.getState().id;
-  if (!userIdFromStore) {
-    const { id } = await getProfile();
-    userIdFromStore = id;
-  }
+
   const subscription = centrifuge.subscribe(
-    'progress:updates#' + userIdFromStore,
+    'progress:updates#' + userId,
     item => {
       const towerTitless = Object.keys(item.data) as TowersTypes[];
       const towerDatas = item.data as TowersProgressStoreType;
