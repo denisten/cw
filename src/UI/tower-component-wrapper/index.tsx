@@ -31,13 +31,12 @@ const TowerStyledWrapper = styled.div<ITowerStyledWrapper>`
   height: ${props => props.height}px;
   scroll-margin-right: ${props =>
     props.scrollShift && props.DOMLoaded ? props.scrollShift : 0}px;
-  cursor: pointer;
 
   .${strokeClassNames.STROKE} {
     display: none;
   }
 
-  &:hover .${strokeClassNames.STROKE}, .${strokeClassNames.STROKE_ACTIVE} {
+  .${strokeClassNames.STROKE_ACTIVE} {
     display: block;
   }
 `;
@@ -87,6 +86,7 @@ export const TowerWrapper = memo(
     let mouseDownFlag = false,
       mouseMoveFlag = 0;
     const towerRef = useRef<HTMLDivElement>(null);
+    const strokeRef = useRef<HTMLImageElement>(null);
     const TowerStyleConfig = {
       width: `${width}px`,
       height: `${height}px`,
@@ -121,6 +121,15 @@ export const TowerWrapper = memo(
         handleClick();
         mouseMoveFlag = 0;
       }
+    };
+
+    const mouseOverHandle = () => {
+      strokeRef.current &&
+        strokeRef.current.classList.add(strokeClassNames.STROKE_ACTIVE);
+    };
+    const mouseOutHandle = () => {
+      strokeRef.current &&
+        strokeRef.current.classList.remove(strokeClassNames.STROKE_ACTIVE);
     };
 
     useEffect(() => {
@@ -179,10 +188,13 @@ export const TowerWrapper = memo(
             onMouseUp={handleMouseUp}
             onMouseMove={handleMouseMove}
             coords={areaCoords}
+            onMouseOver={mouseOverHandle}
+            onMouseOut={mouseOutHandle}
             shape="rect"
           />
         </map>
         <img
+          ref={strokeRef}
           className={
             !upgradeFlag && focusOnTowerTitle === towerTitle
               ? strokeClassNames.STROKE_ACTIVE
