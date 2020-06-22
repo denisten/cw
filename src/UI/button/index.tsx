@@ -1,58 +1,40 @@
-import React, { useRef, useState } from 'react';
-import styled, { Keyframes, keyframes } from 'styled-components';
+import React, { RefObject, useRef } from 'react';
+import styled from 'styled-components';
 import { defaultScaleSize, scaleAnimation } from '../../hoc/scale-anim';
+import { MTSSans } from '../../fonts';
 
 export enum ButtonClassNames {
   DISABLED = 'disabled',
   OUTLINE_DISABLED = 'outline-disabled',
   NORMAL = 'normal',
   OUTLINE_NORMAL = 'outline-normal',
+  SCALE_ANIMATED = 'scale-animated',
+  HOVERED = 'hovered',
 }
-
-const rippleAnimation = keyframes`
-  from {
-    opacity: 1;
-    width: 0;
-    height: 0;
-  } 
-  to {
-    opacity: 0;
-    width: 300px;
-    height: 300px;
-  }
-`;
 
 const doubleBorderWidth = 4;
 
-const Ripple = styled.div<IRipple>`
+const Ripple = styled.div`
   width: 0;
   height: 0;
   background-color: #02acc8;
   border-radius: 100%;
   position: absolute;
-  top: ${props => props.top}px;
-  left: ${props => props.left}px;
   z-index: 200;
   transform: translate(-50%, -50%);
-  animation-name: ${props => props.animationName};
-  animation-duration: 0.5s;
-  animation-iteration-count: 1;
-  animation-timing-function: ease-in-out;
-  display: ${props => (props.animationPlayState ? 'block' : 'none')};
+  transition-property: width, height, opacity;
+  transition-timing-function: ease-in-out;
+  display: flex;
+  opacity: 1;
 `;
 
 const ButtonWrapper = styled.div<IButtonWrapper>`
   flex-shrink: 0;
   width: ${props => props.width}px;
   height: ${props => props.height}px;
-  display: ${props => (props.displayFlag ? 'flex' : 'none')};
-  position: ${props => props.position || 'relative'};
-  top: ${props => props.top}%;
-  left: ${props => props.left}%;
-  right: ${props => props.right}%;
-  bottom: ${props => props.bottom}%;
-  margin: ${props => props.margin};
-  font-family: MTSSansBold;
+  display: flex;
+  position: relative;
+  font-family: ${MTSSans.BOLD};
   font-size: 16px;
   font-weight: bold;
   font-stretch: normal;
@@ -62,29 +44,23 @@ const ButtonWrapper = styled.div<IButtonWrapper>`
   text-align: center;
   color: #ffffff;
   overflow: hidden;
-  animation-name: ${props =>
-    props.animFlag
-      ? scaleAnimation(props.scaleSize || defaultScaleSize)
-      : 'none'};
-  animation-fill-mode: both;
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: infinite;
-  animation-duration: 1s;
   box-sizing: border-box;
-  box-shadow: ${props => {
-    switch (props.className) {
-      case ButtonClassNames.NORMAL:
-        return props.isHover ? '0 6px 12px 0 #bbc1c7' : '1px 1px 4px 0 #bbc1c7';
-      case ButtonClassNames.OUTLINE_NORMAL:
-        return 'none';
-    }
-  }};
+  &.${ButtonClassNames.SCALE_ANIMATED} {
+    animation-name: ${scaleAnimation(defaultScaleSize)};
+    animation-fill-mode: both;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-duration: 1s;
+  }
   .${ButtonClassNames.NORMAL} {
-    border-radius: 2px;
-    box-shadow: ${props =>
-        props.isHover ? '0 3px 8px 0 #bbc1c7' : '1px 1px 4px 0 #bbc1c7'},
+    box-shadow: 1px 1px 4px 0 #bbc1c7,
       inset 0 1px 3px 0 rgba(255, 255, 255, 0.5);
-    background-color: #${props => (props.isHover ? '129eb5' : '02acc8')};
+    border-radius: 2px;
+    background-color: #02acc8;
+  }
+  .${ButtonClassNames.NORMAL}.${ButtonClassNames.HOVERED} {
+    box-shadow: 0 3px 8px 0 #bbc1c7, inset 0 1px 3px 0 rgba(255, 255, 255, 0.5);
+    background-color: #129eb5;
   }
 
   .${ButtonClassNames.DISABLED} {
@@ -103,136 +79,121 @@ const ButtonWrapper = styled.div<IButtonWrapper>`
     width: ${props => props.width - doubleBorderWidth}px;
     height: ${props => props.height - doubleBorderWidth}px;
     border: solid 2px #02acc8;
-    color: #${props => (props.isHover ? 'ffffff' : '02acc8')};
+    color: #02acc8;
     box-shadow: none;
-    background-color: #${props => (props.isHover ? '129eb5' : '')};
+    background-color: initial;
+  }
+
+  .${ButtonClassNames.OUTLINE_NORMAL}.${ButtonClassNames.HOVERED} {
+    color: #ffffff;
+    background-color: #129eb5;
   }
 `;
 
-const CustomButtonWrapper = styled.div<ICustomButtonWrapper>`
+const CustomButtonWrapper = styled.div`
   display: flex;
   width: 100%;
   height: 100%;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  font-size: ${props => props.fontSize}px;
   border-radius: 2px;
   white-space: nowrap;
 `;
 
 const defaultButtonWidth = 200,
-  defaultButtonHeight = 44,
-  defaultFontSize = 16;
+  defaultButtonHeight = 44;
+
+const onMouseOverHandler = (ref: RefObject<HTMLDivElement>) => {
+  ref.current && ref.current.classList.add('hovered');
+};
+
+const onMouseOutHandler = (ref: RefObject<HTMLDivElement>) => {
+  ref.current && ref.current.classList.remove('hovered');
+};
+
+const animateRipple = (node: HTMLElement) => {
+  requestAnimationFrame(() => {
+    node.style.width = '400px';
+    node.style.height = '400px';
+    node.style.opacity = '0';
+    node.style.transitionDuration = '0.5s';
+  });
+};
+
+const onRippleAnimationEnd = (node: HTMLElement) => {
+  requestAnimationFrame(() => {
+    node.style.width = '0';
+    node.style.height = '0';
+    node.style.opacity = '1';
+    node.style.transitionDuration = '0s';
+  });
+};
 
 export const Button: React.FC<IButton> = ({
   content,
   callback,
-  animFlag = false,
-  scaleSize,
-  displayFlag = true,
   className,
   style,
+  pulseAnimFlag = false,
   width = defaultButtonWidth,
   height = defaultButtonHeight,
-  fontSize = defaultFontSize,
-  ...props
 }) => {
-  const [clickPos, setClickPos] = useState({ top: 0, left: 0 });
-  const [animationPlayState, setAnimationPlayState] = useState(false);
-  const [isHover, setIsHover] = useState(false);
-  const myRef = useRef<HTMLDivElement>(null);
+  const buttonWrapperRef = useRef<HTMLDivElement>(null);
+  const rippleDivRef = useRef<HTMLDivElement>(null);
+  const animStartedFlag = useRef(false);
+  const buttonLayoutRef = useRef<HTMLDivElement>(null);
 
   const handleClick = (e: React.MouseEvent) => {
-    if (myRef.current) {
-      const { x, y } = myRef.current.getBoundingClientRect();
-      setClickPos({
-        top: Math.abs(y - e.clientY),
-        left: Math.abs(x - e.clientX),
-      });
-      setAnimationPlayState(true);
+    if (buttonWrapperRef.current && rippleDivRef.current && animStartedFlag) {
+      const { x, y } = buttonWrapperRef.current.getBoundingClientRect();
+      rippleDivRef.current.style.top = Math.abs(y - e.clientY) + 'px';
+      rippleDivRef.current.style.left = Math.abs(x - e.clientX) + 'px';
+      animateRipple(rippleDivRef.current);
+      animStartedFlag.current = true;
     }
   };
-
   const handleAnimationEnd = () => {
-    setClickPos({ top: 0, left: 0 });
-    setAnimationPlayState(false);
-    if (callback) {
-      callback();
+    if (rippleDivRef.current && animStartedFlag.current) {
+      animStartedFlag.current = false;
+      onRippleAnimationEnd(rippleDivRef.current);
+      callback && callback();
     }
   };
 
   return (
     <ButtonWrapper
-      displayFlag={displayFlag}
       onClick={handleClick}
-      ref={myRef}
-      isHover={isHover}
-      onMouseOver={() => setIsHover(true)}
-      onMouseOut={() => setIsHover(false)}
-      className={className}
+      onMouseOver={() => onMouseOverHandler(buttonLayoutRef)}
+      onMouseOut={() => onMouseOutHandler(buttonLayoutRef)}
+      className={
+        className + (pulseAnimFlag ? ` ${ButtonClassNames.SCALE_ANIMATED}` : '')
+      }
       width={width}
       height={height}
       style={style}
-      animFlag={animFlag}
-      scaleSize={scaleSize}
-      {...props}
+      ref={buttonWrapperRef}
     >
-      <Ripple
-        {...clickPos}
-        animationName={rippleAnimation}
-        animationPlayState={animationPlayState}
-        onAnimationEnd={handleAnimationEnd}
-      />
-      <CustomButtonWrapper
-        displayFlag={displayFlag}
-        className={className}
-        fontSize={fontSize}
-      >
+      <Ripple onTransitionEnd={handleAnimationEnd} ref={rippleDivRef} />
+      <CustomButtonWrapper className={className} ref={buttonLayoutRef}>
         {content}
       </CustomButtonWrapper>
     </ButtonWrapper>
   );
 };
 
-interface ICustomButtonWrapper {
-  src?: number;
-  animFlag?: boolean;
-  scaleSize?: number;
-  className: string;
-  displayFlag?: boolean;
-  fontSize?: number;
-}
-
-interface IButton extends ICustomButtonWrapper {
+interface IButton {
+  pulseAnimFlag?: boolean;
+  className: ButtonClassNames;
   content?: string;
-  color?: string;
   callback?: () => void;
   style?: React.CSSProperties;
   height?: number;
   width?: number;
-  margin?: string;
-}
-
-interface IRipple {
-  animationPlayState: boolean;
-  animationName: Keyframes | null;
-  top: number;
-  left: number;
 }
 
 interface IButtonWrapper {
-  isHover: boolean;
-  position?: string;
-  top?: number;
-  left?: number;
-  right?: number;
-  bottom?: number;
-  displayFlag?: boolean;
-  margin?: string;
   className?: string;
   width: number;
   height: number;
-  animFlag?: boolean;
-  scaleSize?: number;
 }

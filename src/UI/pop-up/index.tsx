@@ -226,8 +226,8 @@ export const PopUp: React.FC<IPopUp> = ({
             style={styleConfig.button}
             className={ButtonClassNames.NORMAL}
             content="Сохранить"
+            pulseAnimFlag={tutorialDesiredState(tutorialCondition)}
             callback={handleSubmit}
-            animFlag={tutorialDesiredState(tutorialCondition)}
           />
         </TutorialOverlayTopLayer>
         <AssistantSprite

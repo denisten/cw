@@ -172,6 +172,11 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
     }
   };
 
+  const showButton =
+    !tutorialCondition ||
+    (tutorialCondition === TutorialConditions.NEXT_BUTTON_TOWER_INFO &&
+      tutorialTower);
+
   useEffect(() => {
     if (towerInfoRef && towerInfoRef.current) {
       setTowerInfoShift(towerInfoRef.current?.offsetWidth);
@@ -212,19 +217,16 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
           towerTitle={towerTitle}
         />
 
-        <Button
-          displayFlag={
-            !tutorialCondition ||
-            (tutorialCondition === TutorialConditions.NEXT_BUTTON_TOWER_INFO &&
-              tutorialTower)
-          }
-          className={ButtonClassNames.OUTLINE_NORMAL}
-          animFlag={
-            tutorialCondition === TutorialConditions.NEXT_BUTTON_TOWER_INFO
-          }
-          callback={nextTowerTutorialStep}
-          {...StyleConfig.enterButton}
-        />
+        {showButton && (
+          <Button
+            pulseAnimFlag={
+              tutorialCondition === TutorialConditions.NEXT_BUTTON_TOWER_INFO
+            }
+            className={ButtonClassNames.OUTLINE_NORMAL}
+            callback={nextTowerTutorialStep}
+            {...StyleConfig.enterButton}
+          />
+        )}
       </ModalWindowContentWrapper>
     </TowerInfoWrapper>
   );
