@@ -39,6 +39,19 @@ const TowerStyledWrapper = styled.div<ITowerStyledWrapper>`
   .${strokeClassNames.STROKE_ACTIVE} {
     display: block;
   }
+
+  &[data-towertype=${TowersTypes.PARTNER_ONE}] canvas {
+    top: 60% !important;
+  }
+
+  &[data-towertype=${TowersTypes.WASD_TV}] canvas {
+    top: 55% !important;
+  }
+  &[data-towertype=${TowersTypes.CASHBACK}] canvas {
+    width: 700px !important;
+    height: 660px !important;
+  }
+
 `;
 
 const StyledConfig = {
@@ -145,6 +158,7 @@ export const TowerWrapper = memo(
         ref={towerRef}
         scrollShift={towerInfoShift}
         DOMLoaded={DOMLoaded}
+        data-towertype={towerTitle}
       >
         <Markers
           towerRef={towerRef}
