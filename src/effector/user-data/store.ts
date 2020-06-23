@@ -21,7 +21,6 @@ export enum UserDataStoreKeys {
   ASSISTANT_NAME = 'assistantName',
   BIRTHDAY = 'birthday',
   MONEY = 'money',
-  COINS = 'coins',
   COUPONS_COUNT = 'couponsCount',
   USER_SESSION_SOCKET = 'userSessionSocket',
   ENERGY = 'energy',
@@ -35,7 +34,6 @@ const initData = {
   assistantName: defaultNameValue,
   money: 0,
   energy: 0,
-  coins: 0,
   birthday: {
     dd: '00',
     mm: '00',
@@ -52,7 +50,6 @@ const initState: IUserDataStore = {
   [UserDataStoreKeys.ASSISTANT_NAME]: initData.assistantName,
   [UserDataStoreKeys.MONEY]: initData.money,
   [UserDataStoreKeys.ENERGY]: initData.energy,
-  [UserDataStoreKeys.COINS]: initData.coins,
   [UserDataStoreKeys.BIRTHDAY]: initData.birthday,
   [UserDataStoreKeys.COUPONS_COUNT]: initData.couponsCount,
   [UserDataStoreKeys.USER_SESSION_SOCKET]: initData.userSessionSocket,
@@ -112,7 +109,6 @@ export interface IUserDataStore {
   [UserDataStoreKeys.ASSISTANT_NAME]: string;
   [UserDataStoreKeys.MONEY]: number;
   [UserDataStoreKeys.ENERGY]: number;
-  [UserDataStoreKeys.COINS]: number;
   [UserDataStoreKeys.COUPONS_COUNT]: number;
   [UserDataStoreKeys.BIRTHDAY]: IBirthday;
   [UserDataStoreKeys.COUPONS_COUNT]: number;
