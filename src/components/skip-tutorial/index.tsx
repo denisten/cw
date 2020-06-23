@@ -11,7 +11,6 @@ import { handleAuthButtonClick } from '../../utils/handle-auth-button-click';
 import { nextTutorStep } from '../../effector/tutorial-store/events';
 import { logout, resetUserDataStore } from '../../effector/user-data/events';
 import { UserDataStore } from '../../effector/user-data/store';
-import { CookieService } from '../../sevices/cookies';
 
 const Title = styled.div`
   font-family: ${MTSSans.MEDIUM};
@@ -113,9 +112,7 @@ export const SkipTutorial: React.FC<ISkipTutorial> = memo(
 
     const handleClickCreateNewWorld = async () => {
       if (createNewWorld) {
-        if (CookieService.idToken) {
-          await logout('');
-        }
+        await logout('');
         resetUserDataStore();
         nextTutorStep();
         setDisplayFlag();
