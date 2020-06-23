@@ -1,5 +1,5 @@
 build:
-	 DOCKER_BUILDKIT=1 docker build . --tag cwmts-docker.artifactory.prostream.ru/images/frontend/app/master:local -f docker/app/local/Dockerfile
+	 DOCKER_BUILDKIT=1 docker build . --tag cwmts-docker.artifactory.prostream.ru/images/frontend/app/master:local -f deploy/docker/app/local/Dockerfile
 	 docker-compose build
 
 up:
