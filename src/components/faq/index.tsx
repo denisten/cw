@@ -26,12 +26,13 @@ const FAQBody = styled.div`
   }
 `;
 
-const FAQScroll = styled.div`
+export const ScrollContainer = styled.div`
   overflow: auto;
   width: 100%;
   height: 100%;
   flex-direction: column;
   display: flex;
+  box-sizing: border-box;
 
   div:last-child {
     z-index: 2;
@@ -40,11 +41,11 @@ const FAQScroll = styled.div`
 export const Faq: React.FC = () => {
   return (
     <FAQBody>
-      <FAQScroll>
+      <ScrollContainer>
         {faqText.map((faq, ind) => (
           <FAQItem key={ind} {...faq} />
         ))}
-      </FAQScroll>
+      </ScrollContainer>
     </FAQBody>
   );
 };
