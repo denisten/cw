@@ -21,6 +21,8 @@ import {
   getResult,
   setCurrentTaskStatus,
 } from '../../effector/missions-store/events';
+import { hideMarker } from '../../effector/towers-marker/events';
+import { TypeOfMarkers } from '../markers';
 
 const ChatWrapper = styled.div<IFullSize>`
   width: 100%;
@@ -117,6 +119,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
             } else {
               setCurrentTaskStatus({ taskId, status: TaskStatuses.DONE });
             }
+            hideMarker({ towerTitle, type: TypeOfMarkers.ACTIVE_TASK });
             switchers.openTasksTab();
           }
         }
