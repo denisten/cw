@@ -1,0 +1,18 @@
+# Default values for cw-frontend.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+namespace: stage
+
+imagePullSecret: cw-docker-ro
+
+deployment:
+  replicaCount: 1
+  image:
+    registry: cwmts-docker.stream-store.msk.mts.ru
+    repository: images/frontend/app/master
+    tag: "latest"
+  containerPort: 5000 
+
+service:
+  port: 5000 

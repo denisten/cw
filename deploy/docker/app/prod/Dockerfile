@@ -5,7 +5,7 @@ RUN yarn install
 RUN yarn build
 
 FROM nginx:1.17-alpine
-COPY docker/app/prod/prod.conf /etc/nginx/conf.d/default.conf
+COPY deploy/docker/app/prod/prod.conf /etc/nginx/conf.d/default.conf
 COPY --from=builder /app/dist/ /usr/share/nginx/html
 EXPOSE 5000
 CMD ["nginx", "-g", "daemon off;"]
