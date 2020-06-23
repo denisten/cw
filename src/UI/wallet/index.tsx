@@ -1,8 +1,8 @@
 import React from 'react';
-import { parseSum } from '../../../utils/parse-sum';
-import { WalletCounter, WalletWrapper } from '../money';
 import coinImg from './coins.svg';
 import plusImg from './plus.svg';
+import styled from 'styled-components';
+import { parseSum } from '../../utils/parse-sum';
 
 const styledConfig = {
   coinImg: {
@@ -20,9 +20,25 @@ const styledConfig = {
   },
 };
 
-export const CoinsWallet: React.FC<IWalletCounter> = ({ sum }) => {
+export const WalletWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const WalletCounter = styled.div<IWalletCounter>`
+  width: 100px;
+  height: 22px;
+  border-radius: 4px;
+  background-color: #d6f0f4;
+  &::after {
+    margin-left: 13px;
+    content: "${props => props.sum}";
+  }
+`;
+
+export const CoinsWallet: React.FC<IWalletCounter> = ({ sum, style = {} }) => {
   return (
-    <WalletWrapper>
+    <WalletWrapper style={style}>
       <img src={coinImg} alt="coins" style={styledConfig.coinImg} />
       <WalletCounter sum={parseSum(sum)} {...styledConfig.wallet} />
       <img src={plusImg} alt="plus" style={styledConfig.plusImg} />
@@ -32,4 +48,5 @@ export const CoinsWallet: React.FC<IWalletCounter> = ({ sum }) => {
 
 interface IWalletCounter {
   sum: string;
+  style?: React.CSSProperties;
 }
