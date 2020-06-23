@@ -7,6 +7,7 @@ import { ZIndexes } from '../root-component/z-indexes-enum';
 import { Tasks } from '../tasks';
 import { DevTools } from '../dev-tools';
 import { Feedback } from '../feedback';
+import { Faq } from '../faq';
 
 const MenuContentWrapper = styled.div<{ activeTaskElem: boolean }>`
   flex: 1;
@@ -34,6 +35,8 @@ const MenuContentSelector: React.FC<MenuContentProps> = ({ content }) => {
       return <DevTools />;
     case MenuItems.FEEDBACK:
       return <Feedback />;
+    case MenuItems.QA:
+      return <Faq />;
     default:
       return <h1>In Progress...</h1>;
   }
