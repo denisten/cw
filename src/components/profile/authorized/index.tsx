@@ -105,12 +105,14 @@ const WorldTitle = styled(StyledSpan)<ISpan>`
   }
 `;
 
+const defaultInputTitleMarginRight = 21;
+
 export const InputTitle = styled(StyledSpan)<ISpan>`
   font-family: ${MTSSans.REGULAR};
   font-size: 14px;
   color: #02adc9;
   height: 20px;
-  margin-right: ${props => props.marginRight || 21}px;
+  margin-right: ${props => props.marginRight || defaultInputTitleMarginRight}px;
   &::after {
     content: "${props => props.content}"
   }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { Icon } from '../../../UI/icons';
 import { MTSSans } from '../../../fonts';
@@ -41,11 +41,6 @@ enum TaskWrapperHeight {
   closed = 64,
 }
 
-enum TaskWrapperWidth {
-  inTower = 474,
-  notInTower = 674,
-}
-
 enum TitleMarginLeft {
   inTowerInfo = 16,
   notInTowerInfo = 14,
@@ -60,13 +55,9 @@ enum TitleMarginRight {
   notInTowerInfo = 45,
 }
 
-const TaskWrapper = styled.div<ITaskWrapper>`
-  width: ${props =>
-    props.isInTowerInfo
-      ? TaskWrapperWidth.inTower
-      : TaskWrapperWidth.notInTower}px;
-  height: ${props =>
-    props.isOpened ? TaskWrapperHeight.opened : TaskWrapperHeight.closed}px;
+const TaskWrapper = styled.div<ITaskLocation>`
+  width: 100%;
+  height: ${TaskWrapperHeight.closed}px;
   border-radius: 4px;
   border: 1px solid #ebecef;
   background-color: #ffffff;
@@ -79,7 +70,8 @@ const TaskWrapper = styled.div<ITaskWrapper>`
   overflow: hidden;
   position: relative;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  flex-direction: column;
 `;
 
 const Title = styled(StyledSpan)<ITaskLocation>`
@@ -174,7 +166,7 @@ const Border = styled.div`
 `;
 
 const TaskDescription = styled.div`
-  width: 464px;
+  width: 560px;
   height: 60px;
   font-family: ${MTSSans.REGULAR};
   font-size: 14px;
@@ -189,6 +181,8 @@ const TaskDescription = styled.div`
 `;
 
 const TaskDescriptionWrapper = styled.div`
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: space-between;
 `;
@@ -236,6 +230,20 @@ const animateTaskReward = (reward: number, e: React.MouseEvent) => {
   if (reward > 0) {
     pushMoveElems({ x: e.clientX, y: e.clientY, id: 0 });
   }
+};
+const styledConfig = {
+  img: {
+    position: 'relative',
+    bottom: '10px',
+  } as React.CSSProperties,
+  columnWrapper: {
+    position: 'relative',
+    displayFlag: true,
+  },
+  coupon: {
+    marginRight: '12px',
+  },
+  columnWrapperAdditionalStyle: { alignItems: 'center' },
 };
 
 const handleClick = async (id: number, e: React.MouseEvent) => {
@@ -287,21 +295,6 @@ const handleClick = async (id: number, e: React.MouseEvent) => {
   }
 };
 
-const styledConfig = {
-  img: {
-    position: 'relative',
-    bottom: '10px',
-  } as React.CSSProperties,
-  columnWrapper: {
-    position: 'relative',
-    displayFlag: true,
-  },
-  coupon: {
-    marginRight: '12px',
-  },
-  columnWrapperAdditionalStyle: { alignItems: 'center' },
-};
-
 export const Task: React.FC<ITasksRow> = ({
   type,
   taskTitle,
@@ -315,16 +308,31 @@ export const Task: React.FC<ITasksRow> = ({
   id,
   expireInSeconds,
 }) => {
-  const [isOpened, setIsOpened] = useState(false);
+  const isOpened = useRef(false);
+  const taskWrapperRef = useRef<HTMLDivElement>(null);
   const handleWrapperClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     handleClick(id, e);
   };
 
+  const handleTaskWrapperClick = () => {
+    requestAnimationFrame(() => {
+      if (taskWrapperRef.current) {
+        if (isOpened.current) {
+          taskWrapperRef.current.style.height = TaskWrapperHeight.closed + 'px';
+          isOpened.current = false;
+        } else {
+          taskWrapperRef.current.style.height = TaskWrapperHeight.opened + 'px';
+          isOpened.current = true;
+        }
+      }
+    });
+  };
+
   return (
     <TaskWrapper
-      isOpened={isOpened}
-      onClick={() => setIsOpened(!isOpened)}
+      ref={taskWrapperRef}
+      onClick={handleTaskWrapperClick}
       isInTowerInfo={isInTowerInfo}
     >
       <TaskInfo>
@@ -379,11 +387,6 @@ interface ITasksRow {
   couponsCount: number;
   width?: number;
   isInTowerInfo: boolean;
-}
-
-interface ITaskWrapper extends ITaskLocation {
-  isOpened: boolean;
-  width?: number;
 }
 
 export interface ITaskLocation {
