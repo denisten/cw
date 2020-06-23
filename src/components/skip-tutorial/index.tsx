@@ -11,6 +11,7 @@ import { handleAuthButtonClick } from '../../utils/handle-auth-button-click';
 import { nextTutorStep } from '../../effector/tutorial-store/events';
 import { logout, resetUserDataStore } from '../../effector/user-data/events';
 import { UserDataStore } from '../../effector/user-data/store';
+import { editIsAuthorizedFlag } from '../../effector/app-condition/events';
 
 const Title = styled.div`
   font-family: ${MTSSans.MEDIUM};
@@ -106,7 +107,7 @@ const Alarm: React.FC<IDisplayFlag> = ({ displayFlag }) => (
 
 export const SkipTutorial: React.FC<ISkipTutorial> = memo(
   ({ displayFlag, setDisplayFlag }) => {
-    const { isAuthorized } = useStore(AppCondition);
+    const { haveCorrectCookie } = useStore(AppCondition);
     const [createNewWorld, setCreateNewWorld] = useState(false);
     const { name } = useStore(UserDataStore);
 
@@ -122,11 +123,12 @@ export const SkipTutorial: React.FC<ISkipTutorial> = memo(
     };
 
     const handleClick = () => {
-      if (isAuthorized) {
+      if (haveCorrectCookie) {
         if (createNewWorld) {
           setCreateNewWorld(false);
         } else {
           setDisplayFlag();
+          editIsAuthorizedFlag(true);
         }
       } else {
         if (createNewWorld) {
@@ -141,14 +143,14 @@ export const SkipTutorial: React.FC<ISkipTutorial> = memo(
     return (
       <PopUpContentWrapper displayFlag={displayFlag}>
         <Title style={styledConfig.title}>
-          {titleContent(createNewWorld, isAuthorized, name)}
+          {titleContent(createNewWorld, haveCorrectCookie, name)}
         </Title>
         <Alarm displayFlag={createNewWorld} />
         <Button
           style={styledConfig.button}
           className={ButtonClassNames.NORMAL}
           callback={handleClick}
-          content={buttonContent(createNewWorld, isAuthorized)}
+          content={buttonContent(createNewWorld, haveCorrectCookie)}
         />
         <Title className="alternative" onClick={handleClickCreateNewWorld}>
           Создать новый город

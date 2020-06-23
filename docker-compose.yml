@@ -28,7 +28,7 @@ services:
         container_name: cwmts_redis
     frontend:
         working_dir: "/app"
-        entrypoint: "./docker/app/webpack/entrypoint.sh"
+        entrypoint: "./deploy/docker/app/webpack/entrypoint.sh"
         image: node:alpine
         container_name: cwmts_frontend
         restart: always
