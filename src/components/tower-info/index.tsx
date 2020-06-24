@@ -69,7 +69,7 @@ export const TowerInfoWrapper = styled.div<ModalWindowProps>`
   transition-property: margin-right;
   display: flex;
   flex-direction: column;
-
+  border: 3px solid red;
   @media screen and (max-width: 1440px) {
     width: 547px;
   }
@@ -130,6 +130,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
     towerTitle
   );
   const {
+    points,
     level: { level },
     productIncome,
   } = useStore(TowersProgressStore)[towerTitle];
@@ -205,6 +206,8 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
           />
           <TowerInfoIndicators
             level={level}
+            towerTitle={towerTitle}
+            progress={points}
             income={productIncomeValue}
             hideTowerInfo={hideTowerInfo}
           />

@@ -476,14 +476,14 @@ export const TowersProgressStore = TowersProgressDomain.store<
     ...state,
     ...payload,
   }))
-  .on(addTowerProgressData, (state, { towerTitle, levelOnServer }) => ({
+  .on(addTowerProgressData, (state, { towerTitle, levelOnServer, points }) => ({
     ...state,
     [towerTitle]: {
       ...state[towerTitle],
-      points:
-        state[towerTitle].level.level < levelOnServer
-          ? maxPersent
-          : state[towerTitle].points,
+      points,
+      // state[towerTitle].level.level < levelOnServer
+      //   ? maxPersent * 10
+      //   : state[towerTitle].points,
       level: {
         ...state[towerTitle].level,
         levelOnServer,

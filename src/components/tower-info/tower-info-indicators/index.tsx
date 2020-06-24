@@ -4,6 +4,7 @@ import { MoneyWrapper } from '../../../UI/money-wrapper';
 import React from 'react';
 import styled from 'styled-components';
 import { MTSSans } from '../../../fonts';
+import { TowersTypes } from '../../../effector/towers-progress/store';
 
 const HeaderLine = styled.div<IHeaderLine>`
   width: 100%;
@@ -31,6 +32,14 @@ const HeaderLineElement = styled.div<IHeaderLineElement>`
     letter-spacing: normal;
     color: #6e7782;
     font-family: ${MTSSans.REGULAR};
+    .evolution {
+      font-family: ${MTSSans.BOLD};
+      font-style: normal;
+      font-weight: 900;
+      font-size: 24px;
+      line-height: 24px;
+      color: #04b5d2;
+    }
     + div {
       margin-top: 4px;
     }
@@ -53,18 +62,22 @@ const styledConfig = {
     color: '#001424',
   },
 };
+
 export const TowerInfoIndicators: React.FC<ITowerInfoIndicators> = ({
   hideTowerInfo,
   level,
   income,
+  progress,
+  towerTitle,
 }) => {
   return (
     <HeaderLine sizeContent={hideTowerInfo}>
       <HeaderLineElement {...styledConfig.firstHeaderLine}>
-        <span>Уровень эволюции</span>
-        <ProgressBar level={level} />
+        <span>
+          <span className="evolution">{level}</span> Уровень эволюции
+        </span>
+        <ProgressBar progress={progress} towerTitle={towerTitle} />
       </HeaderLineElement>
-
       <HeaderLineElement {...styledConfig.secondHeaderLine}>
         <span>Ежедневный доход</span>
         <RowWrapper>
@@ -79,6 +92,8 @@ interface ITowerInfoIndicators {
   hideTowerInfo: boolean;
   level: number;
   income: number;
+  progress: number;
+  towerTitle: TowersTypes;
 }
 
 interface IHeaderLine {
