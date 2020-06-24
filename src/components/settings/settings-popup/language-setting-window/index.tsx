@@ -28,6 +28,7 @@ const RadioButton = styled.div<{ active: boolean }>`
   box-sizing: border-box;
   border-radius: 50%;
   margin-right: 24px;
+  transition: 0.2s;
 `;
 
 const switchLangIcon = (type: LanguageType) => {

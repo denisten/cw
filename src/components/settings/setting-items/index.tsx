@@ -36,6 +36,8 @@ const Option = styled.div<IOption>`
   &:not(:last-child) {
     margin-right: 20px;
   }
+  cursor: pointer;
+  transition: 0.4s;
 `;
 
 export const SettingItems: React.FC<ISettingItems> = ({
