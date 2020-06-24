@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useStore } from 'effector-react';
 import { SettingsStore, SettingsType } from '../../effector/settings/store';
 import { SettingItems } from './setting-items';
+import { SettingsPopUp } from './settings-popup';
 
 const SettingWrapper = styled.div`
   width: 100%;
@@ -17,16 +18,13 @@ const SettingPopUpWrapper = styled.div`
   height: 200px;
   width: 100%;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
+  justify-content: center;
 `;
 
 const SettingOptionsWrapper = styled.div`
   display: flex;
 `;
-
-// const SettingPopUp = styled.div`
-//   width: 300px;
-// `;
 
 export const Settings: React.FC = () => {
   const { sound, music } = useStore(SettingsStore);
@@ -47,7 +45,9 @@ export const Settings: React.FC = () => {
 
   return (
     <SettingWrapper>
-      <SettingPopUpWrapper></SettingPopUpWrapper>
+      <SettingPopUpWrapper>
+        <SettingsPopUp />
+      </SettingPopUpWrapper>
       <SettingOptionsWrapper>
         <SettingItems
           callback={selectPopUpItem}
@@ -59,8 +59,3 @@ export const Settings: React.FC = () => {
     </SettingWrapper>
   );
 };
-
-interface IOption {
-  active: boolean;
-  type: SettingsType;
-}

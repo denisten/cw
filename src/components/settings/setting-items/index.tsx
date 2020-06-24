@@ -44,54 +44,56 @@ export const SettingItems: React.FC<ISettingItems> = ({
   soundState,
   musicState,
 }) => {
-  const items = Object.values(SettingsType).map((elem, ind) => {
-    switch (elem) {
-      case SettingsType.NOTIFICATION:
-        return (
-          <Option
-            key={ind}
-            active={selectOptionPopUpType === SettingsType.NOTIFICATION}
-            onClick={() => callback(SettingsType.NOTIFICATION)}
-            type={elem}
-          />
-        );
-      case SettingsType.SOUND:
-        return (
-          <Option
-            key={ind}
-            active={soundState}
-            type={elem}
-            onClick={() =>
-              musicAndSoundToggle({ settingType: elem, flag: !soundState })
-            }
-          />
-        );
-      case SettingsType.MUSIC:
-        return (
-          <Option
-            key={ind}
-            active={musicState}
-            type={elem}
-            onClick={() =>
-              musicAndSoundToggle({ settingType: elem, flag: !musicState })
-            }
-          />
-        );
-      case SettingsType.LANGUAGE:
-        return (
-          <Option
-            key={ind}
-            active={selectOptionPopUpType === SettingsType.LANGUAGE}
-            onClick={() => callback(SettingsType.LANGUAGE)}
-            type={elem}
-          />
-        );
-      default:
-        break;
-    }
-  });
-
-  return <>{items}</>;
+  return (
+    <>
+      {Object.values(SettingsType).map((elem, ind) => {
+        switch (elem) {
+          case SettingsType.NOTIFICATION:
+            return (
+              <Option
+                key={ind}
+                active={selectOptionPopUpType === SettingsType.NOTIFICATION}
+                onClick={() => callback(SettingsType.NOTIFICATION)}
+                type={elem}
+              />
+            );
+          case SettingsType.SOUND:
+            return (
+              <Option
+                key={ind}
+                active={soundState}
+                type={elem}
+                onClick={() =>
+                  musicAndSoundToggle({ settingType: elem, flag: !soundState })
+                }
+              />
+            );
+          case SettingsType.MUSIC:
+            return (
+              <Option
+                key={ind}
+                active={musicState}
+                type={elem}
+                onClick={() =>
+                  musicAndSoundToggle({ settingType: elem, flag: !musicState })
+                }
+              />
+            );
+          case SettingsType.LANGUAGE:
+            return (
+              <Option
+                key={ind}
+                active={selectOptionPopUpType === SettingsType.LANGUAGE}
+                onClick={() => callback(SettingsType.LANGUAGE)}
+                type={elem}
+              />
+            );
+          default:
+            break;
+        }
+      })}
+    </>
+  );
 };
 
 interface ISettingItems {
