@@ -29,7 +29,7 @@ export const Tasks: React.FC<{ active: boolean }> = ({ active }) => {
             couponsCount={couponsCount}
             type={el.task.content.taskType.slug}
             taskTitle={`${el.task.content.name.slice(0, maxTaskLength)}...`}
-            key={el.task.id}
+            key={el.id}
             status={el.status}
             money={el.task.reward}
             energy={el.task.energy}

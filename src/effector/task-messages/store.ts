@@ -86,7 +86,14 @@ export const TaskMessagesStore = TaskMessagesDomain.store<ITaskMessagesStore>(
   }))
   .on(consumeUserTaskAction.doneData, (state, { data, towerTitle }) => {
     if (data.ended) {
-      return state;
+      return {
+        ...state,
+        [towerTitle]: {
+          ...state[towerTitle],
+          ended: true,
+          actions: [],
+        },
+      };
     }
     const userAction = {
       text: data.currentAction.text,

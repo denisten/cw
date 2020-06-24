@@ -35,6 +35,7 @@ import { TypeOfMarkers } from '../../markers';
 import { TowersTypes } from '../../../effector/towers-progress/store';
 import { TaskStatuses } from '../../../api/tasks/get-tasks';
 import { pushMoveElems } from '../../../effector/reward/events';
+import { TaskMessagesStore } from '../../../effector/task-messages/store';
 
 enum TaskWrapperHeight {
   opened = 149,
@@ -154,6 +155,7 @@ const TaskButton = styled.div<{
 `;
 
 const TaskInfo = styled.div`
+  height: 100%;
   display: flex;
   align-items: center;
 `;
@@ -198,6 +200,7 @@ const HintWrapper = styled.div`
   align-items: center;
   letter-spacing: -0.4px;
   text-decoration-line: underline;
+  cursor: pointer;
 
   color: #03adc9;
   ::after {
@@ -255,22 +258,31 @@ const handleClick = async (id: number, e: React.MouseEvent) => {
   const currentTowerTitle = currentMission.task.content.product.slug;
   const productTitle = state[currentMissionIdx].task.content.product.slug;
   const { status } = state[currentMissionIdx];
+  const { taskId } = TaskMessagesStore.getState()[productTitle];
   switch (status) {
     case TaskStatuses.CREATED:
-      activateTask(id);
-      if (currentMissionType !== TasksType.COSMETIC) {
-        chatTaskSession({ id, towerTitle: productTitle });
-        setMarker({
-          towerTitle: currentTowerTitle,
-          type: TypeOfMarkers.ACTIVE_TASK,
-        });
-        if (!selectedMenuItem) {
-          setTowerInfoContent(TowerInfoContentValues.CHAT);
-        } else menuClosed();
+      if (!taskId) {
+        if (
+          currentMissionType !== TasksType.COSMETIC &&
+          state[currentMissionIdx].status === TaskStatuses.CREATED
+        ) {
+          chatTaskSession({ id, towerTitle: productTitle });
+          setMarker({
+            towerTitle: currentTowerTitle,
+            type: TypeOfMarkers.ACTIVE_TASK,
+          });
+          if (!selectedMenuItem) {
+            setTowerInfoContent(TowerInfoContentValues.CHAT);
+          } else menuClosed();
+        } else {
+          activateTask(id);
+        }
+        scrollToCurrentTower(
+          BuildingsService.getConfigForTower(productTitle).ref
+        );
+      } else if (taskId) {
+        alert('нельзя');
       }
-      scrollToCurrentTower(
-        BuildingsService.getConfigForTower(productTitle).ref
-      );
       return;
     case TaskStatuses.ACTIVE:
       await verifyTask(id);
@@ -293,6 +305,11 @@ const handleClick = async (id: number, e: React.MouseEvent) => {
     case TaskStatuses.EXPIRED:
     // do smth
   }
+};
+
+const handleHintClick = (e: React.MouseEvent) => {
+  e.stopPropagation();
+  fetchTasks('');
 };
 
 export const Task: React.FC<ITasksRow> = ({
@@ -358,7 +375,9 @@ export const Task: React.FC<ITasksRow> = ({
             className={status}
             onClick={handleWrapperClick}
           />
-          {status === TaskStatuses.REJECTED && <HintWrapper />}
+          {status === TaskStatuses.REJECTED && (
+            <HintWrapper onClick={handleHintClick} />
+          )}
         </ColumnWrapper>
       </TaskInfo>
       <Border />

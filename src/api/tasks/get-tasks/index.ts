@@ -13,7 +13,7 @@ export enum TaskStatuses {
   ACTIVE = 'active',
   VERIFICATION = 'verification',
   DONE = 'done',
-  REJECTED = 'reject',
+  REJECTED = 'rejected',
   REWARDED = 'rewarded',
   EXPIRED = 'expired',
 }
@@ -25,7 +25,9 @@ export const getTasks = async () => {
     decreaseTimer();
   }, second);
   response.data.data.userTasks.map(el => {
-    setTaskId({ towerTitle: el.task.content.product.slug, taskId: el.id });
+    if (el.status !== TaskStatuses.CREATED) {
+      setTaskId({ towerTitle: el.task.content.product.slug, taskId: el.id });
+    }
     setMarker({
       towerTitle: el.task.content.product.slug,
       type: TypeOfMarkers.TASK,
