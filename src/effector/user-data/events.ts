@@ -22,6 +22,12 @@ export const fetchUserData = UserDataDomain.effect('fetch after auth', {
   },
 });
 
+export const getUserName = UserDataDomain.effect('fetch after auth', {
+  handler: async () => {
+    return await getProfile();
+  },
+});
+
 export const resetUserDataStore = UserDataDomain.event('reset user data');
 export const devLogin = UserDataDomain.effect('dev login for users', {
   handler: async (phone: string) => {
