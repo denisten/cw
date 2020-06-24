@@ -46,7 +46,7 @@ export const Settings: React.FC = () => {
   return (
     <SettingWrapper>
       <SettingPopUpWrapper>
-        <SettingsPopUp />
+        <SettingsPopUp settingPopUpType={selectOptionPopUpType} />
       </SettingPopUpWrapper>
       <SettingOptionsWrapper>
         <SettingItems
