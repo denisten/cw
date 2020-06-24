@@ -9,8 +9,6 @@ import penImg from './pen.svg';
 import { PopUp, TypesOfPopUps } from '../../../UI/pop-up';
 import { useStore } from 'effector-react';
 import { RowWrapper } from '../../../UI/row-wrapper';
-import { MoneyWallet } from '../../../UI/wallet/money';
-import { CoinsWallet } from '../../../UI/wallet/coins';
 import {
   TutorialConditions,
   TutorialStore,
@@ -27,6 +25,7 @@ import {
 } from '../../tutorial-overlay';
 import { zIndexForInheritOverlay, maxCityNameLength } from '../../../constants';
 import { setOpenPopUpState } from '../../../effector/app-condition/events';
+import { CoinsWallet } from '../../../UI/wallet';
 
 const ProfileWrapper = styled.div`
   width: 100%;
@@ -61,13 +60,10 @@ const WorldTitle = styled(StyledSpan)`
   margin-right: 9px;
 `;
 
-const MoneyWalletWrapper = styled.div`
-  display: flex;
-  position: relative;
-  left: 156px;
-`;
-
 const styledConfig = {
+  coinsWallet: {
+    marginRight: '60px',
+  } as React.CSSProperties,
   profileIcon: {
     paddingBottom: '32px',
   },
@@ -78,7 +74,8 @@ const styledConfig = {
     background: 'white',
   },
   moneyWallet: {
-    marginRight: '4px',
+    width: '100%',
+    justifyContent: 'flex-end',
   },
   popUpStyles: {
     width: 487,
@@ -94,7 +91,7 @@ const styledConfig = {
 export const NotAuthorizedProfile: React.FC<INotAuthorizedProfile> = ({
   openPopUpState,
 }) => {
-  const { worldName, money, coins } = useStore(UserDataStore);
+  const { worldName, money } = useStore(UserDataStore);
   const { tutorialCondition } = useStore(TutorialStore);
 
   const handleButtonClick = () => {
@@ -120,10 +117,9 @@ export const NotAuthorizedProfile: React.FC<INotAuthorizedProfile> = ({
         title="Введите название города"
         initValue={worldName}
       />
-      <MoneyWalletWrapper>
-        <MoneyWallet sum={String(money)} style={styledConfig.moneyWallet} />
-        <CoinsWallet sum={String(coins)} />
-      </MoneyWalletWrapper>
+      <RowWrapper style={styledConfig.moneyWallet}>
+        <CoinsWallet sum={String(money)} style={styledConfig.coinsWallet} />
+      </RowWrapper>
       <TutorialOverlayTopLayer
         zIndex={
           tutorialCondition === TutorialConditions.PULSE_EDIT_CHANGE_CITY_NAME

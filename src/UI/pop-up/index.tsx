@@ -67,7 +67,6 @@ const styleConfig = {
     displayFlag: true,
   },
   input: {
-    padding: '0 0 0 16px',
     background: 'white',
   },
   sprite: {

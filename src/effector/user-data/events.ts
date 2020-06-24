@@ -21,6 +21,7 @@ export const fetchUserData = UserDataDomain.effect('fetch after auth', {
     return await getProfile();
   },
 });
+
 export const getUserName = UserDataDomain.effect('fetch after auth', {
   handler: async () => {
     return await getProfile();
