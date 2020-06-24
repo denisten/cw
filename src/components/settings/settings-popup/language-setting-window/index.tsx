@@ -8,6 +8,7 @@ import styled from 'styled-components';
 import { SettingsRow, popUpSettingItemsTranslate } from '..';
 import ru from './ru.svg';
 import eng from './eng.svg';
+import { languageToggle } from '../../../../effector/settings/events';
 
 const LangSettingRow = styled(props => <SettingsRow {...props} />)`
   justify-content: flex-start !important;
@@ -53,7 +54,10 @@ export const LanguageSettingWindow: React.FC = () => {
   return (
     <>
       {Object.values(LanguageType).map((langSettingType, ind) => (
-        <LangSettingRow key={ind}>
+        <LangSettingRow
+          key={ind}
+          onClick={() => languageToggle(langSettingType)}
+        >
           <RadioButton active={language === langSettingType} />
           <Flag type={langSettingType} />
           <span>{popUpSettingItemsTranslate[langSettingType]}</span>
