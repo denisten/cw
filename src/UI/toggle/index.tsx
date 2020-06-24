@@ -17,6 +17,7 @@ const ToggleBody = styled.div<{ enable: boolean }>`
     top: 0;
     left: ${props => (props.enable ? '50%' : '0%')};
     position: absolute;
+    transition: 0.4s;
   }
 `;
 
