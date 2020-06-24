@@ -26,12 +26,34 @@ const SettingOptionsWrapper = styled.div`
   display: flex;
 `;
 
+const SettingFooter = styled.div`
+  box-sizing: border-box;
+  margin-top: 71px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  a {
+    font-size: 14px;
+    line-height: 20px;
+    text-decoration-line: underline;
+    color: #02adc9;
+    margin-bottom: 10px;
+  }
+
+  span {
+    font-size: 12px;
+    line-height: 20px;
+    color: #001424;
+    opacity: 0.5;
+  }
+`;
+
 export const Settings: React.FC = () => {
   const { sound, music } = useStore(SettingsStore);
   const [selectOptionPopUpType, setSelectOptionPopUpType] = useState<
     SettingsType | ''
   >('');
-  // const { tasks, building, other } = notification;
 
   const selectPopUpItem = (elem: SettingsType) => {
     if (selectOptionPopUpType === elem) {
@@ -40,8 +62,6 @@ export const Settings: React.FC = () => {
       setSelectOptionPopUpType(elem);
     }
   };
-
-  // console.log(notification, sound, music, language);
 
   return (
     <SettingWrapper>
@@ -56,6 +76,23 @@ export const Settings: React.FC = () => {
           musicState={music}
         />
       </SettingOptionsWrapper>
+      <SettingFooter>
+        <a
+          target="_blank"
+          href="https://moskva.mts.ru/personal"
+          rel="noreferrer"
+        >
+          Условия пользования
+        </a>
+        <a
+          target="_blank"
+          href="https://moskva.mts.ru/personal"
+          rel="noreferrer"
+        >
+          Политика конфидециальности
+        </a>
+        <span>Мир Клиента. Все права защищены. 2020.</span>
+      </SettingFooter>
     </SettingWrapper>
   );
 };
