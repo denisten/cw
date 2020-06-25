@@ -2,6 +2,8 @@ import React from 'react';
 import {
   SettingsStore,
   LanguageType,
+  ISettingStore,
+  SettingsType,
 } from '../../../../effector/settings/store';
 import { useStore } from 'effector-react';
 import styled from 'styled-components';
@@ -49,9 +51,9 @@ const Flag = styled.div<{ type: LanguageType }>`
   background-size: 100% 100%;
 `;
 
-export const LanguageSettingWindow: React.FC = () => {
-  const { language } = useStore(SettingsStore);
-
+export const LanguageSettingWindow: React.FC<ILanguageSettingWindow> = ({
+  language,
+}) => {
   return (
     <>
       {Object.values(LanguageType).map((langSettingType, ind) => (
@@ -67,3 +69,7 @@ export const LanguageSettingWindow: React.FC = () => {
     </>
   );
 };
+
+interface ILanguageSettingWindow {
+  language: ISettingStore[SettingsType.LANGUAGE];
+}

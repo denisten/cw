@@ -2,15 +2,16 @@ import React from 'react';
 import {
   NotificationType,
   SettingsStore,
+  SettingsType,
+  ISettingStore,
 } from '../../../../effector/settings/store';
 import { Toggle } from '../../../../UI/toggle';
-import { useStore } from 'effector-react';
 import { setNotificationSetting } from '../../../../effector/settings/events';
 import { popUpSettingItemsTranslate, SettingsRow } from '..';
 
-export const NotificationSettingWindow: React.FC = () => {
-  const { notification } = useStore(SettingsStore);
-
+export const NotificationSettingWindow: React.FC<INotificationSettingWindow> = ({
+  notification,
+}) => {
   return (
     <>
       {Object.values(NotificationType).map((notifiSettingType, ind) => (
@@ -30,3 +31,7 @@ export const NotificationSettingWindow: React.FC = () => {
     </>
   );
 };
+
+interface INotificationSettingWindow {
+  notification: ISettingStore[SettingsType.NOTIFICATION];
+}

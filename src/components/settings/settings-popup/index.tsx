@@ -4,10 +4,12 @@ import {
   SettingsType,
   NotificationType,
   LanguageType,
+  SettingsStore,
 } from '../../../effector/settings/store';
 import { NotificationSettingWindow } from './notification-setting-window';
 import { IDisplayFlag } from '../../skip-tutorial';
 import { LanguageSettingWindow } from './language-setting-window';
+import { useStore } from 'effector-react';
 
 const SettingsPopUpWrapper = styled.div<IDisplayFlag>`
   width: 300px;
@@ -55,17 +57,18 @@ export const SettingsRow = styled.div`
 export const SettingsPopUp: React.FC<ISettingsPopUp> = ({
   settingPopUpType,
 }) => {
+  const { language, notification } = useStore(SettingsStore);
   return (
     <>
       <SettingsPopUpWrapper
         displayFlag={settingPopUpType === SettingsType.NOTIFICATION}
       >
-        <NotificationSettingWindow />
+        <NotificationSettingWindow notification={notification} />
       </SettingsPopUpWrapper>
       <SettingsPopUpWrapper
         displayFlag={settingPopUpType === SettingsType.LANGUAGE}
       >
-        <LanguageSettingWindow />
+        <LanguageSettingWindow language={language} />
       </SettingsPopUpWrapper>
     </>
   );
