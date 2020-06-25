@@ -80,14 +80,14 @@ export const Settings: React.FC = () => {
         <a
           target="_blank"
           href="https://moskva.mts.ru/personal"
-          rel="noreferrer"
+          rel="noopener noreferrer"
         >
           Условия пользования
         </a>
         <a
           target="_blank"
           href="https://moskva.mts.ru/personal"
-          rel="noreferrer"
+          rel="noopener noreferrer"
         >
           Политика конфидециальности
         </a>
