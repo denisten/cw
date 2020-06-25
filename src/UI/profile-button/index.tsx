@@ -77,13 +77,13 @@ const CoinsCountWrapper = styled.div`
 const NickNameWrapper = styled.div<INickNameWrapper>`
   background-image: url(${nameBackground});
   background-size: 100%;
-  padding: 12px 38px 0 0;
+  padding: 12px 40px 0 74px;
   min-width: 289.91px;
   min-height: 58px; 
   z-index: 2; 
   position: relative;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   box-sizing: border-box;
   top: 6px;
@@ -94,7 +94,6 @@ const NickNameWrapper = styled.div<INickNameWrapper>`
     line-height: 32px;
     letter-spacing: normal;
     color: #fff;    
-    padding-left: 71px;
   }
 `;
 
