@@ -51,11 +51,12 @@ export const SettingItems: React.FC<ISettingItems> = ({
       {Object.values(SettingsType).map((elem, ind) => {
         switch (elem) {
           case SettingsType.NOTIFICATION:
+          case SettingsType.LANGUAGE:
             return (
               <Option
                 key={ind}
-                active={selectOptionPopUpType === SettingsType.NOTIFICATION}
-                onClick={() => callback(SettingsType.NOTIFICATION)}
+                active={selectOptionPopUpType === elem}
+                onClick={() => callback(elem)}
                 type={elem}
               />
             );
@@ -79,15 +80,6 @@ export const SettingItems: React.FC<ISettingItems> = ({
                 onClick={() =>
                   musicAndSoundToggle({ settingType: elem, flag: !musicState })
                 }
-              />
-            );
-          case SettingsType.LANGUAGE:
-            return (
-              <Option
-                key={ind}
-                active={selectOptionPopUpType === SettingsType.LANGUAGE}
-                onClick={() => callback(SettingsType.LANGUAGE)}
-                type={elem}
               />
             );
           default:

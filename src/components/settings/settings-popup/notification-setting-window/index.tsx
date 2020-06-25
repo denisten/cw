@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   NotificationType,
-  SettingsStore,
   SettingsType,
   ISettingStore,
 } from '../../../../effector/settings/store';
