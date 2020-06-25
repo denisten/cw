@@ -42,11 +42,11 @@ export const UnauthorizeTaskZone = () => {
         isAllowedToChange={false}
         couponsCount={0}
         type={TasksType.TUTORIAL_TASK}
-        taskTitle={`Войти в мир клиента`}
+        taskTitle="Войти в мир клиента"
         status={TaskStatuses.CREATED}
         money={400}
         energy={0}
-        description={``}
+        description=""
       />
       <Title>
         Новые задания будут доступны после
