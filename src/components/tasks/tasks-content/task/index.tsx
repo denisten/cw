@@ -4,6 +4,9 @@ import styled from 'styled-components';
 import { useStore } from 'effector-react';
 import { MissionsStore } from '../../../../effector/missions-store/store';
 import { UserDataStore } from '../../../../effector/user-data/store';
+import { TasksType } from '../..';
+import { TaskStatuses } from '../../../../api/tasks/get-tasks';
+import { UnauthorizeTaskZone } from './unauthorize-task-zone';
 
 const TasksWrapper = styled.div<ITask>`
   display: ${props => (props.hidden ? 'hidden' : 'block')};
@@ -14,11 +17,15 @@ const TasksWrapper = styled.div<ITask>`
 
 const maxTaskLength = 32;
 
-export const Tasks: React.FC<{ active: boolean }> = ({ active }) => {
+export const Tasks: React.FC<{ active: boolean; isAuthorized: boolean }> = ({
+  active,
+  isAuthorized,
+}) => {
   const missions = useStore(MissionsStore);
   const { couponsCount } = useStore(UserDataStore);
   return (
     <TasksWrapper hidden={!active}>
+      {!isAuthorized && <UnauthorizeTaskZone />}
       {missions.map(el => {
         return (
           <Task

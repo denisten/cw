@@ -13,6 +13,7 @@ const TasksBody = styled.div`
 `;
 
 export enum TasksType {
+  TUTORIAL_TASK = 'tutorial-task',
   TASKS = 'tasks',
   CHALLENGE = 'challenge',
   MISSION = 'mission',
@@ -44,7 +45,7 @@ export const Tasks = () => {
         taskTypes={taskTypes}
         isAuthorized={isAuthorized}
       />
-      <TasksContent activeType={taskType} />
+      <TasksContent activeType={taskType} isAuthorized={isAuthorized} />
     </TasksBody>
   );
 };

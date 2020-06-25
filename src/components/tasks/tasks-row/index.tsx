@@ -329,12 +329,16 @@ export const Task: React.FC<ITasksRow> = ({
   const taskWrapperRef = useRef<HTMLDivElement>(null);
   const handleWrapperClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    handleClick(id, e);
+    if (type === TasksType.TUTORIAL_TASK) {
+      // do next tutorial step in future
+    } else {
+      handleClick(id, e);
+    }
   };
 
   const handleTaskWrapperClick = () => {
     requestAnimationFrame(() => {
-      if (taskWrapperRef.current) {
+      if (taskWrapperRef.current && type !== TasksType.TUTORIAL_TASK) {
         if (isOpened.current) {
           taskWrapperRef.current.style.height = TaskWrapperHeight.closed + 'px';
           isOpened.current = false;
