@@ -5,11 +5,13 @@ import nbo from './nbo.svg';
 import cosmetics from './cosmetics.svg';
 import energy from './energy.svg';
 import coin from './coin.svg';
+import login from './login.svg';
 import { TasksType } from '../../components/tasks';
 
 export enum TypeOfIcons {
   ENERGY = 'energy',
   COIN = 'coin',
+  LOGIN = 'login',
 }
 
 const defaultStyle = {
@@ -35,6 +37,8 @@ export const Icon: React.FC<IIcon> = ({ style = defaultStyle, type }) => {
         return energy;
       case TypeOfIcons.COIN:
         return coin;
+      case TasksType.TUTORIAL_TASK:
+        return login;
       default:
         break;
     }
