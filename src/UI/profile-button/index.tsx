@@ -121,13 +121,13 @@ const CoinImg = styled.img<{ isCoinRelocateAnimationEnded: boolean }>`
   height: 30px;
   position: relative;
   left: 90px;
-  top: 18px;
-  bottom: 8px;
+  top: 20px;
   margin-right: 12px;
   transition: 0.3s;
   transform: ${props =>
       props.isCoinRelocateAnimationEnded ? 'scale(1.2)' : ''}
     translate(-50%, -50%);
+  transform-origin: top center;
 `;
 
 const moneyCircleAnim = keyframes`
@@ -142,8 +142,8 @@ to {
 
 const MoneyCircle = styled.div<IDisplayFlag>`
   position: absolute;
-  top: -27px;
-  left: 49px;
+  top: -40px;
+  left: 27.5px;
   width: 120px;
   height: 120px;
   margin-right: 7px;
