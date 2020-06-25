@@ -5,7 +5,7 @@ import { useStore } from 'effector-react';
 import { AppCondition } from '../../effector/app-condition/store';
 import mapTile from '../../img/roads/map-tile.png';
 import { Menu } from '../menu';
-import { TaskButton } from '../../UI/task-button';
+import { Toolbar } from '../../UI/toolbar';
 import { ProfileButton } from '../../UI/profile-button';
 import { TutorialToolsSelector } from '../../utils/arrows-container';
 import {
@@ -48,7 +48,7 @@ export const RootComponent = (): React.ReactElement => {
         isCoinRelocateAnimationEnded={isCoinRelocateAnimationEnded}
       />
       <MoveCoinCollection />
-      <TaskButton />
+      <Toolbar />
       <TowerInfo opened={isExtraTowerInfoModalOpen} />
       <TutorialToolsSelector
         tutorialCondition={tutorialCondition}
