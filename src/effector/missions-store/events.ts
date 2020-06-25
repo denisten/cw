@@ -1,8 +1,12 @@
 import { MissionsDomain } from './domain';
-import { getTasks } from '../../api/tasks/get-tasks';
+import { getTasks, TaskStatuses } from '../../api/tasks/get-tasks';
 import { activateTaskRequest } from '../../api/tasks/activate';
 import { verifyTaskRequest } from '../../api/tasks/verify';
 import { rewardRequest } from '../../api/tasks/reward';
+import {
+  getTaskResultRequest,
+  IGetTaskResultRequest,
+} from '../../api/tasks/result';
 
 export const fetchTasks = MissionsDomain.effect('fetch missions', {
   handler: async () => {
@@ -31,6 +35,16 @@ export const takeReward = MissionsDomain.effect({
   },
 });
 
+export const getResult = MissionsDomain.effect({
+  handler: async (id: number): Promise<IGetResult> => {
+    const response = await getTaskResultRequest(id);
+    return { ...response, id: id };
+  },
+});
+
+export const setCurrentTaskStatus = MissionsDomain.event<
+  ISetCurrentTaskStatus
+>();
 export const decreaseTimer = MissionsDomain.event();
 
 export const finishTask = MissionsDomain.event<number>(
@@ -38,3 +52,12 @@ export const finishTask = MissionsDomain.event<number>(
 );
 
 export const resetMissionsStore = MissionsDomain.event();
+
+interface ISetCurrentTaskStatus {
+  taskId: number;
+  status: TaskStatuses;
+}
+
+interface IGetResult extends IGetTaskResultRequest {
+  id: number;
+}

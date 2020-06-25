@@ -14,8 +14,6 @@ import {
 } from '../../../UI/pop-up';
 import { useStore } from 'effector-react';
 import { RowWrapper } from '../../../UI/row-wrapper';
-import { MoneyWallet } from '../../../UI/wallet/money';
-import { CoinsWallet } from '../../../UI/wallet/coins';
 import userAvatarIcon from './user-avatar.svg';
 import { ColumnWrapper } from '../../../UI/column-wrapper';
 import { Input } from '../../../UI/input';
@@ -35,6 +33,7 @@ import { setOpenPopUpState } from '../../../effector/app-condition/events';
 import { Assistent } from '../../../UI/assistent';
 import camera from './camera.svg';
 import { logout } from '../../../effector/user-data/events';
+import { CoinsWallet } from '../../../UI/wallet';
 
 const ExitText = styled(StyledSpan)<ISpan>`
   font-family: ${MTSSans.REGULAR};
@@ -75,7 +74,7 @@ const NickNameWrapper = styled(StyledSpan)<ISpan>`
   font-family: ${MTSSans.REGULAR};
   line-height: 1.2;
   color: #001424;
-  width: 252px;
+  width: 140px;
   &::after {
   content: "${props => props.content}"
   }
@@ -118,9 +117,11 @@ export const InputTitle = styled(StyledSpan)<ISpan>`
   }
 `;
 
-const UserAvatar = styled.label<{ avatar: string | null }>`
-  width: 60px;
-  height: 60px;
+const defaultUserAvatarSize = 60;
+
+const UserAvatar = styled.label<IUserAvatar>`
+  width: ${props => props.width || defaultUserAvatarSize}px;
+  height: ${props => props.height || defaultUserAvatarSize}px;
   margin: 0 16px 0 4px;
   background: url(${props => props.avatar || userAvatarIcon}) no-repeat;
   background-size: cover;
@@ -150,6 +151,13 @@ const UserAvatar = styled.label<{ avatar: string | null }>`
 `;
 
 const styledConfig = {
+  userLogo: {
+    marginRight: '120px',
+  },
+  header: {
+    justifyContent: 'space-around',
+    width: '100%',
+  },
   profileIcon: {
     marginLeft: '4px',
   },
@@ -159,9 +167,6 @@ const styledConfig = {
   },
   penImg: {
     cursor: 'pointer',
-  },
-  moneyWallet: {
-    marginRight: '4px',
   },
   profileDataColumnWrapper: {
     displayFlag: true,
@@ -212,7 +217,6 @@ export const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
   const {
     worldName,
     money,
-    coins,
     name,
     birthday,
     userSessionSocket,
@@ -283,21 +287,20 @@ export const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
         {...popUpConfig[openPopUpState]}
         displayFlag={openPopUpState !== TypesOfPopUps.DISABLED}
       />
-      <RowWrapper>
-        <UserAvatar avatar={avatar}>
-          <input type="file" accept="image/jpeg,image/png,image/svg" />
-        </UserAvatar>
-        <ColumnWrapper {...styledConfig.profileDataColumnWrapper}>
-          <NickNameWrapper content={name || 'sss'} />
-          <ProgressBar />
-        </ColumnWrapper>
-        <RowWrapper>
-          <MoneyWallet sum={String(money)} style={styledConfig.moneyWallet} />
-          <CoinsWallet sum={String(coins)} />
+      <RowWrapper style={styledConfig.header}>
+        <RowWrapper style={styledConfig.userLogo}>
+          <UserAvatar avatar={avatar}>
+            <input type="file" accept="image/jpeg,image/png,image/svg" />
+          </UserAvatar>
+          <ColumnWrapper {...styledConfig.profileDataColumnWrapper}>
+            <NickNameWrapper content={name} />
+            <ProgressBar />
+          </ColumnWrapper>
         </RowWrapper>
+        <CoinsWallet sum={String(money)} />
       </RowWrapper>
       <RowWrapper {...styledConfig.rowWrapper}>
-        <WorldTitle content={worldName || 'Мой мир'} />
+        <WorldTitle content={worldName} />
         <img
           src={penImg}
           alt="pen"
@@ -314,7 +317,6 @@ export const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
         <RowWrapper {...styledConfig.nameRowWrapper}>
           <InputTitle content="Имя" />
           <Input
-            formPadding={13}
             value={localName}
             onSubmitHandler={onSubmitHandler}
             onChangeHandler={e => handleChangeNameInput(e.target.value)}
@@ -367,4 +369,10 @@ interface IAuthorizedProfile {
 
 interface IPopUpConfig {
   [key: string]: IPopUp;
+}
+
+export interface IUserAvatar {
+  avatar?: string | null;
+  width?: number;
+  height?: number;
 }

@@ -1,10 +1,7 @@
 import React, { memo, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
-import {
-  setHideTowerInfo,
-  setTowerInfoContent,
-} from '../../effector/app-condition/events';
+import { setHideTowerInfo } from '../../effector/app-condition/events';
 import { Bubble } from '../../UI/bubble';
 import { ChatButtons } from '../../UI/chat-buttons';
 import { ChatAvatar } from '../../UI/chat-avatar';
@@ -17,8 +14,15 @@ import {
 } from '../../effector/task-messages/events';
 import { TowersTypes } from '../../effector/towers-progress/store';
 import { ITask, MissionsStore } from '../../effector/missions-store/store';
-
-import { TowerInfoContentValues } from '../../effector/app-condition/store';
+import { TaskStatuses } from '../../api/tasks/get-tasks';
+import { TasksType } from '../tasks';
+import { ITabSwitchers } from '../tower-info';
+import {
+  getResult,
+  setCurrentTaskStatus,
+} from '../../effector/missions-store/events';
+import { hideMarker } from '../../effector/towers-marker/events';
+import { TypeOfMarkers } from '../markers';
 
 const ChatWrapper = styled.div<IFullSize>`
   width: 100%;
@@ -76,14 +80,18 @@ const yScrollValue = 344;
 let currentMission: null | ITask;
 
 export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
-  ({ hideContent, towerTitle }) => {
+  ({ hideContent, towerTitle, switchers }) => {
     const chatContainer = useRef<HTMLDivElement>(null);
     const {
-      [towerTitle]: { messages, actions, masterMessageId, ended, taskId },
+      [towerTitle]: { masterMessageId, taskId, actions, messages },
     } = useStore(TaskMessagesStore);
     const missions = useStore(MissionsStore);
     const currentTaskIndex = missions.findIndex(el => {
-      return el.id === taskId;
+      if (el?.task?.content?.product?.slug)
+        return (
+          el.status !== TaskStatuses.CREATED &&
+          el.task.content.product.slug === towerTitle
+        );
     });
 
     try {
@@ -91,17 +99,30 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
     } catch (e) {
       currentMission = null;
     }
-
     const sendAnswerId = async (actionId: number) => {
       if (currentMission) {
-        if (!ended)
-          await consumeUserTaskAction({
+        if (currentTaskIndex !== -1) {
+          const response = await consumeUserTaskAction({
             taskId: currentMission.id,
             messageId: masterMessageId,
             actionId,
             towerTitle,
           });
-        else setTowerInfoContent(TowerInfoContentValues.TASK);
+          if (response.data.ended) {
+            if (
+              currentMission.task.content.taskType.slug ===
+                TasksType.PRODUCT_QUIZ ||
+              currentMission.task.content.taskType.slug ===
+                TasksType.RELATED_QUIZ
+            ) {
+              getResult(taskId);
+            } else {
+              setCurrentTaskStatus({ taskId, status: TaskStatuses.DONE });
+            }
+            hideMarker({ towerTitle, type: TypeOfMarkers.ACTIVE_TASK });
+            switchers.openTasksTab();
+          }
+        }
       }
     };
 
@@ -116,8 +137,16 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
     };
 
     useEffect(() => {
-      if (taskId && messages.length === 0)
+      if (
+        currentTaskIndex !== -1 &&
+        missions[currentTaskIndex].task.content.taskType.slug !==
+          TasksType.COSMETIC &&
+        missions[currentTaskIndex].status !== TaskStatuses.DONE &&
+        missions[currentTaskIndex].status !== TaskStatuses.CREATED &&
+        missions[currentTaskIndex].status !== TaskStatuses.REJECTED
+      ) {
         chatTaskSession({ id: taskId, towerTitle });
+      }
       return () => {
         setHideTowerInfo(false);
       };
@@ -161,6 +190,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
 interface ITowerInfoChat {
   hideContent: boolean;
   towerTitle: TowersTypes;
+  switchers: ITabSwitchers;
 }
 
 export interface IFullSize {

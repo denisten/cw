@@ -122,12 +122,6 @@ export const AppCondition = AppDomain.store<AppConditionType>(initState)
     return {
       ...state,
       isAuthorized: !errorFlag,
-    };
-  })
-  .on(getUserName, state => {
-    const { errorFlag } = ErrorBoundaryStore.getState();
-    return {
-      ...state,
       haveCorrectCookie: !errorFlag,
     };
   })
@@ -136,6 +130,13 @@ export const AppCondition = AppDomain.store<AppConditionType>(initState)
     return {
       ...state,
       isAuthorized: !errorFlag,
+    };
+  })
+  .on(getUserName, state => {
+    const { errorFlag } = ErrorBoundaryStore.getState();
+    return {
+      ...state,
+      haveCorrectCookie: !errorFlag,
     };
   })
   .on(setOpenPopUpState, (state, payload) => ({

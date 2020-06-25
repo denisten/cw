@@ -1,11 +1,9 @@
 import React from 'react';
 import {
-  SettingsStore,
   LanguageType,
   ISettingStore,
   SettingsType,
 } from '../../../../effector/settings/store';
-import { useStore } from 'effector-react';
 import styled from 'styled-components';
 import { SettingsRow, popUpSettingItemsTranslate } from '..';
 import ru from './ru.svg';

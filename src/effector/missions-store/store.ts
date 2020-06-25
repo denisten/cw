@@ -3,7 +3,9 @@ import {
   activateTask,
   decreaseTimer,
   fetchTasks,
+  getResult,
   resetMissionsStore,
+  setCurrentTaskStatus,
   takeReward,
   verifyTask,
 } from './events';
@@ -11,13 +13,7 @@ import { editUserProperty } from '../user-data/events';
 import { TasksType } from '../../components/tasks';
 import { TowersTypes } from '../towers-progress/store';
 import { TaskStatuses } from '../../api/tasks/get-tasks';
-
-export enum TaskSubType {
-  CHALLENGE = 'challenge',
-  MISSIONS = 'missions',
-  NBO = 'nbo',
-  COSMETICS = 'cosmetics',
-}
+import { chatTaskSession } from '../task-messages/events';
 
 const initStore: ITask[] = [];
 
@@ -46,6 +42,46 @@ export const MissionsStore = MissionsDomain.store(initStore)
         expireInSeconds: el.expireInSeconds ? el.expireInSeconds - 1 : null,
       };
     });
+  })
+  .on(setCurrentTaskStatus, (state, { taskId, status }) => {
+    const currentTaskIndex = state.findIndex(el => el.id === taskId);
+    return [
+      ...state.slice(0, currentTaskIndex),
+      { ...state[currentTaskIndex], status },
+      ...state.slice(currentTaskIndex + 1),
+    ];
+  })
+  .on(chatTaskSession.doneData, (state, { taskId }) => {
+    const currentTaskIndex = state.findIndex(el => el.id === taskId);
+    return [
+      ...state.slice(0, currentTaskIndex),
+      {
+        ...state[currentTaskIndex],
+        status: TaskStatuses.ACTIVE,
+      },
+      ...state.slice(currentTaskIndex + 1),
+    ];
+  })
+  .on(getResult.doneData, (state, payload) => {
+    const { success } = payload.quizResult;
+    const currentTaskIndex = state.findIndex(el => el.id === payload.id);
+    let editedTask;
+    if (success) {
+      editedTask = {
+        ...state[currentTaskIndex],
+        status: TaskStatuses.DONE,
+      };
+    } else {
+      editedTask = {
+        ...state[currentTaskIndex],
+        status: TaskStatuses.REJECTED,
+      };
+    }
+    return [
+      ...state.slice(0, currentTaskIndex),
+      editedTask,
+      ...state.slice(currentTaskIndex + 1),
+    ];
   })
   .reset(resetMissionsStore);
 

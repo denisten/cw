@@ -144,19 +144,19 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
 
   const [towerTutorialStep, setTowerTutorialStep] = useState(0);
 
-  const showDescription = () => {
+  const openDescriptionTab = () => {
     setTowerInfoContent(TowerInfoContentValues.DESCRIPTION);
     setTowerTutorialStep(TowerTutorialSteps.DESCRIPTION_OPENED);
     grownLineAndNextStep(towerTitle);
   };
 
-  const showChat = () => {
+  const openChatTab = () => {
     setTowerInfoContent(TowerInfoContentValues.CHAT);
     setTowerTutorialStep(TowerTutorialSteps.CHAT_OPENED);
     grownLineAndNextStep(towerTitle);
   };
 
-  const showTasks = () => {
+  const openTasksTab = () => {
     setTowerInfoContent(TowerInfoContentValues.TASK);
     setTowerTutorialStep(TowerTutorialSteps.TASKS_OPENED);
     grownLineAndNextStep(towerTitle);
@@ -168,11 +168,11 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
     } else if (
       towerTutorialStep === TowerTutorialSteps.DESCRIPTION_DONT_OPENED
     ) {
-      showDescription();
+      openDescriptionTab();
     } else if (towerTutorialStep === TowerTutorialSteps.DESCRIPTION_OPENED) {
-      showChat();
+      openChatTab();
     } else if (towerTutorialStep === TowerTutorialSteps.CHAT_OPENED) {
-      showTasks();
+      openTasksTab();
       nextTutorStep();
     }
   };
@@ -216,6 +216,11 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
         />
 
         <TowerInfoContent
+          switchers={{
+            openChatTab,
+            openDescriptionTab,
+            openTasksTab,
+          }}
           selectedMenu={selectTowerInfoContent}
           text={towerInfoContentText}
           hideContent={hideTowerInfo}
@@ -236,3 +241,9 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
     </TowerInfoWrapper>
   );
 };
+
+export interface ITabSwitchers {
+  openDescriptionTab: () => void;
+  openChatTab: () => void;
+  openTasksTab: () => void;
+}

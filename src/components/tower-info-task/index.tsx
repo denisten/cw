@@ -20,13 +20,15 @@ const maxTaskLength = 16;
 export const TowerInfoTask: React.FC<ITowerInfoTask> = ({ towerTitle }) => {
   const missions = useStore(MissionsStore);
   const { couponsCount } = useStore(UserDataStore);
-  const sortedMissions = missions.filter(
-    el => el.task.content.product.slug === towerTitle
-  );
+  if (!missions.length) return null;
+  const filteredMissionsArray = missions.filter(el => {
+    if (el?.task?.content?.product?.slug)
+      return el.task.content.product.slug === towerTitle;
+  });
   return (
     <TowerInfoTaskWrapper>
-      {sortedMissions.length
-        ? sortedMissions.map(el => {
+      {filteredMissionsArray.length
+        ? filteredMissionsArray.map(el => {
             return (
               <Task
                 expireInSeconds={el.expireInSeconds}
@@ -36,7 +38,7 @@ export const TowerInfoTask: React.FC<ITowerInfoTask> = ({ towerTitle }) => {
                 isAllowedToChange={true}
                 type={el.task.content.taskType.slug}
                 taskTitle={`${el.task.content.name.slice(0, maxTaskLength)}...`}
-                key={el.task.id}
+                key={el.id}
                 status={el.status}
                 money={el.task.reward}
                 energy={el.task.energy}

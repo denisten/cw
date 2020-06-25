@@ -6,6 +6,7 @@ import {
   TutorialConditions,
 } from '../../effector/tutorial-store/store';
 import { device } from '../../UI/media';
+import { MTSSans } from '../../fonts';
 
 const TowerInfoDescriptionWrapper = styled.div<{ fullView?: boolean }>`
   color: #001424;
@@ -13,7 +14,7 @@ const TowerInfoDescriptionWrapper = styled.div<{ fullView?: boolean }>`
   overflow: hidden;
   display: flex;
   position: relative;
-  font-family: 'MTSSansRegular';
+  font-family: ${MTSSans.REGULAR};
   letter-spacing: 0;
   margin-bottom: 30px;
   margin-top: 40px;
