@@ -1,5 +1,5 @@
 import { StoreDomain } from './domain';
-import { fetchUserPurchases } from './events';
+import { fetchUserPurchases, editCouponCount } from './events';
 
 export enum CouponTypes {
   COUPON_REPLACE = 'coupon-replace',
@@ -21,9 +21,8 @@ interface IUserStore {
   };
 }
 
-export const UserStore = StoreDomain.store<IUserStore>(initState).on(
-  fetchUserPurchases.doneData,
-  (state, payload) => {
+export const UserStore = StoreDomain.store<IUserStore>(initState)
+  .on(fetchUserPurchases.doneData, (state, payload) => {
     const stateClone = { ...state };
     if (payload.items.length > 0) {
       payload.items.forEach(purchasesItem => {
@@ -35,5 +34,11 @@ export const UserStore = StoreDomain.store<IUserStore>(initState).on(
       });
     }
     return stateClone;
-  }
-);
+  })
+  .on(editCouponCount, (state, { couponType, count }) => ({
+    ...state,
+    userCoupons: {
+      ...state.userCoupons,
+      [couponType]: { count: count },
+    },
+  }));

@@ -11,6 +11,7 @@ import { Sender } from '../../api/tasks/session';
 import {
   chatTaskSession,
   consumeUserTaskAction,
+  clearChat,
 } from '../../effector/task-messages/events';
 import { TowersTypes } from '../../effector/towers-progress/store';
 import { ITask, MissionsStore } from '../../effector/missions-store/store';
@@ -20,6 +21,7 @@ import { ITabSwitchers } from '../tower-info';
 import {
   getResult,
   setCurrentTaskStatus,
+  fetchTasks,
 } from '../../effector/missions-store/events';
 import { hideMarker } from '../../effector/towers-marker/events';
 import { TypeOfMarkers } from '../markers';
@@ -28,6 +30,7 @@ import { UserStore, CouponTypes } from '../../effector/store/store';
 import { activateCoupon } from '../../api/activate-coupon';
 import { responseStates } from '../../constants';
 import { coughtError } from '../../effector/error-boundary-store/events';
+import { editCouponCount } from '../../effector/store/events';
 
 const ChatWrapper = styled.div<IFullSize>`
   width: 100%;
@@ -153,7 +156,13 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
           taskId
         );
         if (response.state === responseStates.SUCCESS) {
-          await getResult(taskId);
+          await fetchTasks('');
+          editCouponCount({
+            couponType: CouponTypes.COUPON_REPLACE,
+            count: count - 1,
+          });
+          clearChat({ towerTitle });
+          switchers.openTasksTab();
         } else {
           coughtError({
             text: response.data.msg,
