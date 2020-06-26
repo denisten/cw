@@ -23,6 +23,7 @@ import {
 } from '../../effector/missions-store/events';
 import { hideMarker } from '../../effector/towers-marker/events';
 import { TypeOfMarkers } from '../markers';
+import { ModalWindow } from '../modal-window';
 
 const ChatWrapper = styled.div<IFullSize>`
   width: 100%;
@@ -78,6 +79,17 @@ const START_HIDE_POS = 200;
 const yScrollValue = 344;
 
 let currentMission: null | ITask;
+
+const couponModalConfig = {
+  title: 'Вы уверены, что хотите использовать купон?',
+  minorText: 'Если вы примените купон, отменить действие будет не возможно.',
+  popUpStyles: {
+    width: 487,
+    padding: '68px 80px',
+  },
+  submitButtonText: 'Да, использовать',
+  cancellButtonText: 'Нет, не хочу',
+};
 
 export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
   ({ hideContent, towerTitle, switchers }) => {
@@ -182,6 +194,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
             ))}
         </ChatWrapper>
         <ChatButtons actions={actions} callback={sendAnswerId} />
+        <ModalWindow {...couponModalConfig} displayFlag={false}></ModalWindow>
       </>
     );
   }
