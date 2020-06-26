@@ -64,7 +64,7 @@ export const ChatButtons: React.FC<IChatButtons> = ({
   callback,
   haveCoupon = false,
   couponCount = 0,
-  useCouponCallback,
+  couponCallback,
 }) => {
   return (
     <ButtonBody>
@@ -74,7 +74,7 @@ export const ChatButtons: React.FC<IChatButtons> = ({
             {el.text}
           </Button>
         ))}
-      <ChatCouponButton displayFlag={haveCoupon} onClick={useCouponCallback}>
+      <ChatCouponButton displayFlag={haveCoupon} onClick={couponCallback}>
         <Coupon
           couponsCount={couponCount}
           isAllowedToChange={true}
@@ -91,5 +91,5 @@ interface IChatButtons {
   callback: (id: number) => void;
   haveCoupon: boolean;
   couponCount: number;
-  useCouponCallback?: () => void;
+  couponCallback?: () => void;
 }
