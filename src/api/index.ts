@@ -23,6 +23,10 @@ export enum apiRoutes {
   GET_TASKS = '/api/users/current/tasks',
   COMMIT_INCOMES = '/incomes/commit',
   CENTRIFUGE = '/centrifugo/connection/websocket',
+  GET_PURCHASES = '/api/users/current/purchases',
+  STORE_ITEMS = '/api/store/items/',
+  STORE_PURCHASES = '/api/store/purchases/',
+  REDEEM = '/redeem?entity_id=',
 }
 
 export {

@@ -8,6 +8,8 @@ import { createMockupOfMessages } from '../../effector/task-messages/events';
 import { TowersTypes } from '../../effector/towers-progress/store';
 import { TypeOfMarkers } from '../markers';
 import { setMarker } from '../../effector/towers-marker/events';
+import { apiRoutes } from '../../api';
+import { post } from '../../api/requests';
 
 const DevToolsWrapper = styled.div`
   width: 100%;
@@ -35,6 +37,10 @@ const createCoinMarkers = () => {
     },
   ];
   coinsCollection.forEach(item => setMarker(item));
+};
+
+const getCoupon = () => {
+  post(apiRoutes.STORE_ITEMS + 'coupon-replace' + '/buy');
 };
 
 export const DevTools = () => {
@@ -77,6 +83,11 @@ export const DevTools = () => {
           className={ButtonClassNames.NORMAL}
           content="Login"
           callback={() => devLogin(phone)}
+        />
+        <Button
+          className={ButtonClassNames.NORMAL}
+          content="get coupon"
+          callback={() => getCoupon()}
         />
       </RowWrapper>
     </DevToolsWrapper>

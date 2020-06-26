@@ -24,6 +24,10 @@ import {
 import { hideMarker } from '../../effector/towers-marker/events';
 import { TypeOfMarkers } from '../markers';
 import { ModalWindow } from '../modal-window';
+import { UserStore, CouponTypes } from '../../effector/store/store';
+import { activateCoupon } from '../../api/activate-coupon';
+import { responseStates } from '../../constants';
+import { coughtError } from '../../effector/error-boundary-store/events';
 
 const ChatWrapper = styled.div<IFullSize>`
   width: 100%;
@@ -95,9 +99,13 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
   ({ hideContent, towerTitle, switchers }) => {
     const chatContainer = useRef<HTMLDivElement>(null);
     const {
-      [towerTitle]: { masterMessageId, taskId, actions, messages },
+      [towerTitle]: { masterMessageId, taskId, actions, messages, ended },
     } = useStore(TaskMessagesStore);
     const missions = useStore(MissionsStore);
+
+    const { userCoupons } = useStore(UserStore);
+    const { count } = userCoupons[CouponTypes.COUPON_REPLACE];
+
     const currentTaskIndex = missions.findIndex(el => {
       if (el?.task?.content?.product?.slug)
         return (
@@ -134,6 +142,22 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
             hideMarker({ towerTitle, type: TypeOfMarkers.ACTIVE_TASK });
             switchers.openTasksTab();
           }
+        }
+      }
+    };
+
+    const useCoupon = async (taskId?: number) => {
+      if (taskId) {
+        const response = await activateCoupon(
+          CouponTypes.COUPON_REPLACE,
+          taskId
+        );
+        if (response.state === responseStates.SUCCESS) {
+          await getResult(taskId);
+        } else {
+          coughtError({
+            text: response.data.msg,
+          });
         }
       }
     };
@@ -193,7 +217,14 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
               </MessageRow>
             ))}
         </ChatWrapper>
-        <ChatButtons actions={actions} callback={sendAnswerId} />
+        <ChatButtons
+          haveCoupon={!!count && !ended}
+          couponCount={count}
+          actions={actions}
+          callback={sendAnswerId}
+          useCouponCallback={() => useCoupon(currentMission?.id)}
+        ></ChatButtons>
+
         <ModalWindow {...couponModalConfig} displayFlag={false}></ModalWindow>
       </>
     );
