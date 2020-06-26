@@ -40,11 +40,7 @@ export const ModalWindow: React.FC<IModalWindow> = ({
     <>
       <PopUpContentWrapper displayFlag={displayFlag} {...popUpStyles}>
         <PopUpTitle>{title}</PopUpTitle>
-        {minorText && (
-          <MinorText>
-            Если вы примените купон, отменить действие будет не возможно.
-          </MinorText>
-        )}
+        {minorText && <MinorText>{minorText}</MinorText>}
         <ButtonWrapper>
           <Button
             className={ButtonClassNames.NORMAL}
