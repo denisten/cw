@@ -21,8 +21,11 @@ import tree31 from '../../img/trees/3.1.png';
 import tree32 from '../../img/trees/3.2.png';
 import tree33 from '../../img/trees/3.3.png';
 import decor12 from '../../img/decorations/1.2.png';
+import decor13 from '../../img/decorations/1.3.png';
 import decor21 from '../../img/decorations/2.1.png';
 import decor22 from '../../img/decorations/2.2.png';
+import decor23 from '../../img/decorations/2.3.png';
+import decor32 from '../../img/decorations/3.2.png';
 
 const MapWrapper = styled.div`
   width: 100%;
@@ -81,6 +84,7 @@ export const Map: React.FC = () => {
         style={styleConfig.img13}
         roadImg={road13}
         treeImg={tree13}
+        decorationImg={decor13}
       />
       <MapFragment
         style={styleConfig.img21}
@@ -99,6 +103,7 @@ export const Map: React.FC = () => {
         style={styleConfig.img23}
         roadImg={road23}
         treeImg={tree23}
+        decorationImg={decor23}
       />
       <MapFragment
         style={styleConfig.img21}
@@ -109,6 +114,7 @@ export const Map: React.FC = () => {
         style={styleConfig.img22}
         roadImg={road32}
         treeImg={tree32}
+        decorationImg={decor32}
       />
       <MapFragment
         style={styleConfig.img23}
