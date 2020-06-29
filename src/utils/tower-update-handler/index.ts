@@ -9,12 +9,17 @@ import {
 } from '../../effector/app-condition/events';
 import { nextTutorStep } from '../../effector/tutorial-store/events';
 
+const delayMS = 2000;
+const delayBeforeUpgrade = () =>
+  new Promise(resolve => setTimeout(resolve, delayMS));
+
 export const towerUpdateHandler = async (
   tutorialCondition: TutorialConditions,
   towerTitle: TowersTypes
 ) => {
   extraTowerInfoModalClosed();
   if (!tutorialCondition) {
+    await delayBeforeUpgrade();
     const resp = await updateTowerRequest(towerTitle);
     if (resp.status === statusOk) {
       upgradeTower(towerTitle);
