@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { IAction } from '../../api/tasks/session';
+import { Coupon } from '../coupon';
+import { IDisplayFlag } from '../../components/skip-tutorial';
 
 const ButtonBody = styled.div`
   margin-top: 20px;
@@ -8,6 +10,7 @@ const ButtonBody = styled.div`
   flex-wrap: wrap;
   width: 100%;
   flex-shrink: 0;
+  margin-bottom: 30px;
 `;
 
 const Button = styled.div`
@@ -25,7 +28,44 @@ const Button = styled.div`
   }
 `;
 
-export const ChatButtons: React.FC<IChatButtons> = ({ actions, callback }) => {
+const ChatCouponButton = styled.div<IDisplayFlag>`
+  width: 210px;
+  height: 28px;
+  background: #04b5d2;
+  box-shadow: 0px 1px 3px #bbc1c7;
+  border-radius: 4px;
+  position: relative;
+  font-size: 16px;
+  line-height: 20px;
+  color: #ffffff;
+  display: ${props => (props.displayFlag ? 'flex' : 'none')};
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-left: 20px;
+  transition: 0.4s;
+
+  &:hover {
+    box-shadow: 0 3px 6px 0 #bbc1c7;
+  }
+`;
+
+const styleConfig = {
+  coupon: {
+    width: '38px',
+    position: 'absolute',
+    left: '-20px',
+    top: '-5px',
+  } as React.CSSProperties,
+};
+
+export const ChatButtons: React.FC<IChatButtons> = ({
+  actions,
+  callback,
+  haveCoupon = false,
+  couponCount = 0,
+  couponCallback,
+}) => {
   return (
     <ButtonBody>
       {actions &&
@@ -34,6 +74,14 @@ export const ChatButtons: React.FC<IChatButtons> = ({ actions, callback }) => {
             {el.text}
           </Button>
         ))}
+      <ChatCouponButton displayFlag={haveCoupon} onClick={couponCallback}>
+        <Coupon
+          couponsCount={couponCount}
+          isAllowedToChange={true}
+          style={styleConfig.coupon}
+        />
+        Использовать купон
+      </ChatCouponButton>
     </ButtonBody>
   );
 };
@@ -41,4 +89,7 @@ export const ChatButtons: React.FC<IChatButtons> = ({ actions, callback }) => {
 interface IChatButtons {
   actions: IAction[];
   callback: (id: number) => void;
+  haveCoupon: boolean;
+  couponCount: number;
+  couponCallback?: () => void;
 }

@@ -34,7 +34,7 @@ import { PopUpContentWrapper } from '../pop-up-content-wrapper';
 import { IDisplayFlag } from '../../components/skip-tutorial';
 import { AppCondition } from '../../effector/app-condition/store';
 
-const Title = styled(StyledSpan)`
+export const PopUpTitle = styled(StyledSpan)`
   font-family: ${MTSSans.BLACK};
   font-weight: 900;
   line-height: 1.2;
@@ -195,7 +195,7 @@ export const PopUp: React.FC<IPopUp> = ({
     <Fragment>
       <PopUpContentWrapper displayFlag={displayFlag} {...popUpStyles}>
         <ExitButton callBack={callback} {...styleConfig.exitButton} />
-        <Title>{title}</Title>
+        <PopUpTitle>{title}</PopUpTitle>
         <TutorialOverlayTopLayer
           zIndex={
             tutorialDesiredState(tutorialCondition)

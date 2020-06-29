@@ -11,6 +11,7 @@ import { setDataReceived } from '../../effector/app-condition/events';
 import { TowersTypes } from '../../effector/towers-progress/store';
 import { TypeOfMarkers } from '../../components/markers';
 import { setMarker } from '../../effector/towers-marker/events';
+import { fetchUserPurchases } from '../../effector/store/events';
 
 const markersEnumeration = (incomes: TowersTypesAsObjectLiteral) => {
   const iterableArrayOfIncomesData = Object.entries(incomes);
@@ -40,6 +41,7 @@ const handleAuth = async (
     await openWsConnection(id);
     await progressRefresh();
     await getAccountData('');
+    await fetchUserPurchases('');
     const incomes = await getIncome();
     markersEnumeration(incomes);
     setDataReceived(true);
