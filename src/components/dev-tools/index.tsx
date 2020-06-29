@@ -40,7 +40,7 @@ const createCoinMarkers = () => {
 };
 
 const getCoupon = () => {
-  post(apiRoutes.STORE_ITEMS + 'coupon-replace' + '/buy');
+  post(apiRoutes.BUY_COUPON);
 };
 
 export const DevTools = () => {

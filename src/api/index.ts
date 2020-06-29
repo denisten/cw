@@ -24,7 +24,7 @@ export enum apiRoutes {
   COMMIT_INCOMES = '/incomes/commit',
   CENTRIFUGE = '/centrifugo/connection/websocket',
   GET_PURCHASES = '/api/users/current/purchases',
-  STORE_ITEMS = '/api/store/items/',
+  BUY_COUPON = '/api/store/items/coupon-replace/buy',
   STORE_PURCHASES = '/api/store/purchases/',
   REDEEM = '/redeem?entity_id=',
 }

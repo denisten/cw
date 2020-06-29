@@ -25,10 +25,10 @@ export const UserStore = StoreDomain.store<IUserStore>(initState)
   .on(fetchUserPurchases.doneData, (state, payload) => {
     const stateClone = { ...state };
     if (payload.items.length > 0) {
-      payload.items.forEach(purchasesItem => {
-        if (purchasesItem.storeItem.type.slug === PurchasesType.COUPON) {
-          stateClone.userCoupons[purchasesItem.storeItem.slug] = {
-            count: purchasesItem.count,
+      payload.items.forEach(({ storeItem, count }) => {
+        if (storeItem.type.slug === PurchasesType.COUPON) {
+          stateClone.userCoupons[storeItem.slug] = {
+            count: count,
           };
         }
       });
@@ -39,6 +39,6 @@ export const UserStore = StoreDomain.store<IUserStore>(initState)
     ...state,
     userCoupons: {
       ...state.userCoupons,
-      [couponType]: { count: count },
+      [couponType]: { count },
     },
   }));
