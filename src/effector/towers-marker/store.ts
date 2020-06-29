@@ -44,7 +44,7 @@ const initState: TowersMarkerStoreType = {
     markers: [],
   },
   [TowersTypes.MOBILE_NETWORK]: {
-    markers: [{ type: TypeOfMarkers.SUCCESS }],
+    markers: [],
   },
   [TowersTypes.THEATER]: {
     markers: [],
