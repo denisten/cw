@@ -35,4 +35,5 @@ export const minNameLength = 3,
 
 export enum responseStates {
   SUCCESS = 'success',
+  FAILURE = 'failure',
 }
