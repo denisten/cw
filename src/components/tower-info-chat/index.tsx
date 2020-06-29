@@ -21,7 +21,7 @@ import {
   getResult,
   setCurrentTaskStatus,
 } from '../../effector/missions-store/events';
-import { hideMarker } from '../../effector/towers-marker/events';
+import { hideMarker, setMarker } from '../../effector/towers-marker/events';
 import { TypeOfMarkers } from '../markers';
 import { ModalWindow } from '../modal-window';
 import { UserStore, CouponTypes } from '../../effector/store/store';
@@ -138,6 +138,10 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
               setCurrentTaskStatus({ taskId, status: TaskStatuses.DONE });
             }
             hideMarker({ towerTitle, type: TypeOfMarkers.ACTIVE_TASK });
+            setMarker({
+              towerTitle: towerTitle,
+              type: TypeOfMarkers.SUCCESS,
+            });
             switchers.openTasksTab();
           }
         }
