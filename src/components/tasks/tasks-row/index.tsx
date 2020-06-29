@@ -215,7 +215,9 @@ const markerHandler = (status: TaskStatuses, productTitle: TowersTypes) => {
       el.task.content.product.slug === productTitle &&
       el.status === TaskStatuses.DONE
   ).length;
-
+  const numberOfTasksInCurrentProduct = state.filter(
+    el => el.task.content.product.slug === productTitle
+  ).length;
   if (
     status === TaskStatuses.ACTIVE ||
     (status === TaskStatuses.DONE && numberOfDoneTasksInCurrentProduct)
@@ -226,6 +228,10 @@ const markerHandler = (status: TaskStatuses, productTitle: TowersTypes) => {
     });
   } else {
     hideMarker({ towerTitle: productTitle, type: TypeOfMarkers.SUCCESS });
+  }
+
+  if (!numberOfTasksInCurrentProduct) {
+    hideMarker({ towerTitle: productTitle, type: TypeOfMarkers.TASK });
   }
 };
 
