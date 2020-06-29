@@ -9,6 +9,7 @@ import { MenuItems } from '../../UI/menu-paragraph';
 import {
   menuOpened,
   setOpenPopUpState,
+  extraTowerInfoModalClosed,
 } from '../../effector/app-condition/events';
 import { TypesOfPopUps } from '../../UI/pop-up';
 import { mouseMoveProtect } from '../../utils/mouse-move-protect';
@@ -78,6 +79,7 @@ export const CentralBanner: React.FC<{
 
   const openAndEditCityName = () => {
     if (!tutorialCondition) {
+      extraTowerInfoModalClosed();
       menuOpened(MenuItems.PROFILE);
       setOpenPopUpState(TypesOfPopUps.EDIT_WORLD_NAME);
     }
