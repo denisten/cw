@@ -84,6 +84,7 @@ export const ProgressBar: React.FC<IProgressBar> = ({
   towerTitle,
 }) => {
   const progressBarWrapperRef = useRef<HTMLDivElement>(null);
+  const isAnimationEnd = useRef(false);
   const handleClick = () => {
     {
       showUpgradeIcon(towerTitle);
@@ -93,9 +94,12 @@ export const ProgressBar: React.FC<IProgressBar> = ({
 
   useEffect(() => {
     if (progressBarWrapperRef.current) {
-      if (progress && progress >= maxPercent) {
+      if (progress && progress >= maxPercent && isAnimationEnd.current) {
         progressBarWrapperRef.current.classList.add('task');
-      } else {
+        // debugger;
+      } else if (progress && progress < maxPercent) {
+        // debugger;
+        isAnimationEnd.current = false;
         progressBarWrapperRef.current.classList.remove('task');
       }
     }
@@ -107,8 +111,11 @@ export const ProgressBar: React.FC<IProgressBar> = ({
 
   return (
     <ProgressBarWrapper ref={progressBarWrapperRef}>
-      {progress < maxPercent ? (
-        <ProgressBarGreenLine progress={progress} />
+      {progress < maxPercent && isAnimationEnd.current ? (
+        <ProgressBarGreenLine
+          progress={progress}
+          onTransitionEnd={() => (isAnimationEnd.current = true)}
+        />
       ) : (
         <UpgradeButton onClick={handleClick}>
           <img src={upgradeImg} alt="upgrade" /> Повысить здание

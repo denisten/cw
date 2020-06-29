@@ -69,7 +69,6 @@ export const TowerInfoWrapper = styled.div<ModalWindowProps>`
   transition-property: margin-right;
   display: flex;
   flex-direction: column;
-  border: 3px solid red;
   @media screen and (max-width: 1440px) {
     width: 547px;
   }
@@ -111,9 +110,14 @@ const StyleConfig = {
   },
 };
 
-const grownLineAndNextStep = (towerTitle: TowersTypes) => {
-  nextTutorDescriptionStep();
-  addProgressPoints({ points: 33.34, towerTitle });
+const grownLineAndNextStep = (
+  towerTitle: TowersTypes,
+  tutorialCondition: TutorialConditions
+) => {
+  if (tutorialCondition) {
+    nextTutorDescriptionStep();
+    addProgressPoints({ points: 33.34, towerTitle });
+  }
 };
 
 export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
@@ -148,23 +152,24 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
   const openDescriptionTab = () => {
     setTowerInfoContent(TowerInfoContentValues.DESCRIPTION);
     setTowerTutorialStep(TowerTutorialSteps.DESCRIPTION_OPENED);
-    grownLineAndNextStep(towerTitle);
+    grownLineAndNextStep(towerTitle, tutorialCondition);
   };
 
   const openChatTab = () => {
     setTowerInfoContent(TowerInfoContentValues.CHAT);
     setTowerTutorialStep(TowerTutorialSteps.CHAT_OPENED);
-    grownLineAndNextStep(towerTitle);
+    grownLineAndNextStep(towerTitle, tutorialCondition);
   };
 
   const openTasksTab = () => {
     setTowerInfoContent(TowerInfoContentValues.TASK);
     setTowerTutorialStep(TowerTutorialSteps.TASKS_OPENED);
-    grownLineAndNextStep(towerTitle);
+    grownLineAndNextStep(towerTitle, tutorialCondition);
   };
 
   const nextTowerTutorialStep = () => {
     if (!tutorialCondition) {
+      // debugger;
       addProgressPoints({ points: 33.34, towerTitle: towerTitle });
     } else if (
       towerTutorialStep === TowerTutorialSteps.DESCRIPTION_DONT_OPENED

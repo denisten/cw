@@ -481,9 +481,6 @@ export const TowersProgressStore = TowersProgressDomain.store<
     [towerTitle]: {
       ...state[towerTitle],
       points,
-      // state[towerTitle].level.level < levelOnServer
-      //   ? maxPersent * 10
-      //   : state[towerTitle].points,
       level: {
         ...state[towerTitle].level,
         levelOnServer,
