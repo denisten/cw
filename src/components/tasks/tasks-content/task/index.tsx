@@ -4,6 +4,9 @@ import styled from 'styled-components';
 import { useStore } from 'effector-react';
 import { MissionsStore } from '../../../../effector/missions-store/store';
 import { UserDataStore } from '../../../../effector/user-data/store';
+import { UnauthorizeTaskZone } from './unauthorize-task-zone';
+import { AppCondition } from '../../../../effector/app-condition/store';
+import { useHandleAuth } from '../../../../hooks/use-handle-auth';
 
 const TasksWrapper = styled.div<ITask>`
   display: ${props => (props.hidden ? 'hidden' : 'block')};
@@ -14,11 +17,18 @@ const TasksWrapper = styled.div<ITask>`
 
 const maxTaskLength = 32;
 
-export const Tasks: React.FC<{ active: boolean }> = ({ active }) => {
+export const Tasks: React.FC<{ active: boolean; isAuthorized: boolean }> = ({
+  active,
+  isAuthorized,
+}) => {
   const missions = useStore(MissionsStore);
-  const { couponsCount } = useStore(UserDataStore);
+  const { couponsCount, worldName } = useStore(UserDataStore);
+  const { dataReceived } = useStore(AppCondition);
+  useHandleAuth({ isAuthorized, dataReceived, worldName });
+
   return (
     <TasksWrapper hidden={!active}>
+      {!isAuthorized && <UnauthorizeTaskZone />}
       {missions.map(el => {
         return (
           <Task

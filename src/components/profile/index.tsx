@@ -1,24 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useStore } from 'effector-react';
 import styled from 'styled-components';
 import { AppCondition } from '../../effector/app-condition/store';
 import { NotAuthorizedProfile } from './not-authorized';
 import { AuthorizedProfile } from './authorized';
-import { fetchAllProductsData } from '../../effector/towers-progress/events';
-import { openWsConnection } from '../../api/centrifuge';
-import { progressRefresh } from '../../api';
-import { setDataReceived } from '../../effector/app-condition/events';
-import { getIncome, TowersTypesAsObjectLiteral } from '../../api/get-income';
-import { setMarker } from '../../effector/towers-marker/events';
-import { TypeOfMarkers } from '../markers';
-import { TowersTypes } from '../../effector/towers-progress/store';
-import { getAccountData, fetchUserData } from '../../effector/user-data/events';
-import {
-  UserDataStore,
-  defaultNameValue,
-} from '../../effector/user-data/store';
-import { saveUserData } from '../../api/save-user-data';
-import { fetchTasks } from '../../effector/missions-store/events';
+import { UserDataStore } from '../../effector/user-data/store';
+import { useHandleAuth } from '../../hooks/use-handle-auth';
 
 const ProfileWrapper = styled.div`
   width: 100%;
@@ -26,46 +13,11 @@ const ProfileWrapper = styled.div`
   position: relative;
 `;
 
-const markersEnumeration = (incomes: TowersTypesAsObjectLiteral) => {
-  const iterableArrayOfIncomesData = Object.entries(incomes);
-  iterableArrayOfIncomesData.forEach(item => {
-    const towerTitle = item[0] as TowersTypes;
-    const markerData = {
-      towerTitle: towerTitle,
-      type: TypeOfMarkers.TAKE_REWARD,
-      coins: item[1],
-    };
-    setMarker(markerData);
-  });
-};
-
-const handleAuth = async (
-  isAuthorized: boolean,
-  dataReceived: boolean,
-  worldName: string
-) => {
-  if (isAuthorized && !dataReceived) {
-    if (worldName !== defaultNameValue) {
-      await saveUserData({ worldName });
-    }
-    const { id } = await fetchUserData('');
-    await fetchTasks('');
-    await fetchAllProductsData('');
-    await openWsConnection(id);
-    await progressRefresh();
-    await getAccountData('');
-    const incomes = await getIncome();
-    markersEnumeration(incomes);
-    setDataReceived(true);
-  }
-};
-
 export const Profile = React.memo(() => {
   const { isAuthorized, dataReceived, openPopUpState } = useStore(AppCondition);
   const { worldName } = useStore(UserDataStore);
-  useEffect(() => {
-    handleAuth(isAuthorized, dataReceived, worldName);
-  }, [isAuthorized]);
+  useHandleAuth({ isAuthorized, dataReceived, worldName });
+
   return (
     <ProfileWrapper>
       {isAuthorized ? (

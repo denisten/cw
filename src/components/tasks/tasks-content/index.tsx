@@ -16,12 +16,16 @@ const Body = styled.div`
   box-sizing: border-box;
 `;
 
-export const TasksContent: React.FC<{ activeType: TasksType }> = ({
-  activeType,
-}) => {
+export const TasksContent: React.FC<{
+  activeType: TasksType;
+  isAuthorized: boolean;
+}> = ({ activeType, isAuthorized }) => {
   return (
     <Body>
-      <Tasks active={activeType === TasksType.TASKS} />
+      <Tasks
+        active={activeType === TasksType.TASKS}
+        isAuthorized={isAuthorized}
+      />
       <Challenge active={activeType === TasksType.CHALLENGE} />
       <Mission active={activeType === TasksType.MISSION} />
     </Body>

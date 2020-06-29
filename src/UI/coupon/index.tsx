@@ -89,7 +89,7 @@ export const Coupon: React.FC<ICoupon> = ({
 };
 
 interface ICoupon {
-  style: React.CSSProperties;
+  style?: React.CSSProperties;
   couponsCount: number;
   isAllowedToChange?: boolean;
 }

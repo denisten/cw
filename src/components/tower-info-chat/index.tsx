@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useRef } from 'react';
+import React, { memo, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import { setHideTowerInfo } from '../../effector/app-condition/events';
@@ -23,6 +23,9 @@ import {
 } from '../../effector/missions-store/events';
 import { hideMarker } from '../../effector/towers-marker/events';
 import { TypeOfMarkers } from '../markers';
+import { ModalWindow } from '../modal-window';
+import { UserStore, CouponTypes } from '../../effector/store/store';
+import { couponHandler } from '../../utils/coupon-handler';
 
 const ChatWrapper = styled.div<IFullSize>`
   width: 100%;
@@ -79,13 +82,28 @@ const yScrollValue = 344;
 
 let currentMission: null | ITask;
 
+const couponModalConfig = {
+  title: 'Вы уверены, что хотите использовать купон?',
+  minorText: 'Если вы примените купон, отменить действие будет не возможно.',
+  popUpStyles: {
+    width: 487,
+    padding: '68px 80px',
+  },
+  submitButtonText: 'Да, использовать',
+  cancellButtonText: 'Нет, не хочу',
+};
+
 export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
   ({ hideContent, towerTitle, switchers }) => {
     const chatContainer = useRef<HTMLDivElement>(null);
     const {
-      [towerTitle]: { masterMessageId, taskId, actions, messages },
+      [towerTitle]: { masterMessageId, taskId, actions, messages, ended },
     } = useStore(TaskMessagesStore);
     const missions = useStore(MissionsStore);
+    const [openCouponModal, setOpenCouponModal] = useState(false);
+    const { userCoupons } = useStore(UserStore);
+    const { count } = userCoupons[CouponTypes.COUPON_REPLACE];
+
     const currentTaskIndex = missions.findIndex(el => {
       if (el?.task?.content?.product?.slug)
         return (
@@ -181,7 +199,23 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
               </MessageRow>
             ))}
         </ChatWrapper>
-        <ChatButtons actions={actions} callback={sendAnswerId} />
+        <ChatButtons
+          haveCoupon={!!count && !ended}
+          couponCount={count}
+          actions={actions}
+          callback={sendAnswerId}
+          couponCallback={() => setOpenCouponModal(true)}
+        ></ChatButtons>
+
+        <ModalWindow
+          {...couponModalConfig}
+          displayFlag={openCouponModal}
+          cancellHandler={() => setOpenCouponModal(false)}
+          submitHandler={() => {
+            couponHandler(currentMission?.id, count, towerTitle, switchers);
+            setOpenCouponModal(false);
+          }}
+        ></ModalWindow>
       </>
     );
   }
