@@ -454,13 +454,10 @@ export const TowersProgressStore = TowersProgressDomain.store<
       ...state,
       [payload]: {
         ...state[payload],
-        points:
-          state[payload].level.level + 1 < state[payload].level.levelOnServer
-            ? maxPersent
-            : 0,
+        points: 0,
         level: {
           ...state[payload].level,
-          level: state[payload].level.level + 1,
+          level: state[payload].level.levelOnServer,
         },
       },
     };
