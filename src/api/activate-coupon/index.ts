@@ -1,6 +1,6 @@
 import { get } from '../requests';
 import { apiRoutes } from '..';
-import { CouponTypes } from '../../effector/store/store';
+import { CouponTypes } from '../../effector/coupons/store';
 
 export const activateCoupon = async (item: CouponTypes, entityId: number) => {
   const response = await get<IActivateCoupon>(

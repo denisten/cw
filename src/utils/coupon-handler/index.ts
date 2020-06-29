@@ -1,8 +1,8 @@
 import { activateCoupon } from '../../api/activate-coupon';
-import { CouponTypes } from '../../effector/store/store';
+import { CouponTypes } from '../../effector/coupons/store';
 import { responseStates } from '../../constants';
 import { fetchTasks } from '../../effector/missions-store/events';
-import { editCouponCount } from '../../effector/store/events';
+import { editCouponCount } from '../../effector/coupons/events';
 import { clearChat } from '../../effector/task-messages/events';
 import { coughtError } from '../../effector/error-boundary-store/events';
 import { TowersTypes } from '../../effector/towers-progress/store';

@@ -1,6 +1,6 @@
 import { get } from '../requests/get';
 import { apiRoutes } from '..';
-import { PurchasesType, CouponTypes } from '../../effector/store/store';
+import { PurchasesType, CouponTypes } from '../../effector/coupons/store';
 
 export const getUserPurchases = async () => {
   const response = await get<{ data: IUserPurchases }>(apiRoutes.GET_PURCHASES);

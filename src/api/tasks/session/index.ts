@@ -7,6 +7,11 @@ export const chatTaskSessionRequest = async (id: number) => {
     `${apiRoutes.CHAT_SESSION}/${id}/chat/session`
   );
 };
+export const chatTaskSessionRetryRequest = async (id: number) => {
+  return await get<IChatTaskSessionRequest>(
+    `${apiRoutes.CHAT_SESSION}/${id}/chat/session/retry`
+  );
+};
 
 export enum Sender {
   FRONTEND = 'in',

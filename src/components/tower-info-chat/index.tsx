@@ -24,7 +24,7 @@ import {
 import { hideMarker } from '../../effector/towers-marker/events';
 import { TypeOfMarkers } from '../markers';
 import { ModalWindow } from '../modal-window';
-import { UserStore, CouponTypes } from '../../effector/store/store';
+import { CouponTypes, UserStore } from '../../effector/coupons/store';
 import { couponHandler } from '../../utils/coupon-handler';
 
 const ChatWrapper = styled.div<IFullSize>`
@@ -164,6 +164,14 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
         missions[currentTaskIndex].status !== TaskStatuses.REJECTED
       ) {
         chatTaskSession({ id: taskId, towerTitle });
+      } else if (
+        currentTaskIndex !== -1 &&
+        missions[currentTaskIndex].task.content.taskType.slug !==
+          TasksType.COSMETIC &&
+        missions[currentTaskIndex].status === TaskStatuses.REJECTED
+      ) {
+        // console.log('retry');
+        chatTaskSession({ id: taskId, towerTitle, retry: true });
       }
       return () => {
         setHideTowerInfo(false);
@@ -205,7 +213,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
           actions={actions}
           callback={sendAnswerId}
           couponCallback={() => setOpenCouponModal(true)}
-        ></ChatButtons>
+        />
 
         <ModalWindow
           {...couponModalConfig}
@@ -215,7 +223,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
             couponHandler(currentMission?.id, count, towerTitle, switchers);
             setOpenCouponModal(false);
           }}
-        ></ModalWindow>
+        />
       </>
     );
   }

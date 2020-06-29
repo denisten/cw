@@ -1,5 +1,8 @@
 import { TaskMessagesDomain } from './domain';
-import { chatTaskSessionRequest } from '../../api/tasks/session';
+import {
+  chatTaskSessionRequest,
+  chatTaskSessionRetryRequest,
+} from '../../api/tasks/session';
 import { consumeUserTaskActionRequest } from '../../api/tasks/consume-user-task-action';
 import { TowersTypes } from '../towers-progress/store';
 import { ICurrentTowerTaskMessagesStore } from './store';
@@ -7,13 +10,21 @@ import { ICurrentTowerTaskMessagesStore } from './store';
 export const chatTaskSession = TaskMessagesDomain.effect(
   'download chat session data',
   {
-    handler: async ({ id, towerTitle }): Promise<IChatTaskSession> => {
-      const request = await chatTaskSessionRequest(id);
-      return { data: request.data.data, towerTitle, taskId: id };
+    handler: async ({
+      id,
+      towerTitle,
+      retry = false,
+    }): Promise<IChatTaskSession> => {
+      if (retry) {
+        const request = await chatTaskSessionRetryRequest(id);
+        return { data: request.data.data, towerTitle, taskId: id };
+      } else {
+        const request = await chatTaskSessionRequest(id);
+        return { data: request.data.data, towerTitle, taskId: id };
+      }
     },
   }
 );
-
 export const createMockupOfMessages = TaskMessagesDomain.event();
 
 export const setTaskId = TaskMessagesDomain.event<ISetTaskId>();

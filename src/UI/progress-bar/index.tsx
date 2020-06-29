@@ -20,7 +20,7 @@ const ProgressBarWrapper = styled.div`
   transform: skew(-31deg);
   border-radius: 4px 2px 4px 2px;
   box-shadow: inset 0 0 2px 0 rgba(32, 189, 218, 0.18);
-  &.task {
+  &.upgradable {
     background: #04b5d2;
     justify-content: center;
     &::before,
@@ -75,7 +75,7 @@ const ProgressBarGreenLine = styled.div<IProgressBarGreenLine>`
     #5edffc
   );
   transition-property: width;
-  transition-duration: 0.5s;
+  transition-duration: 5s;
   transition-timing-function: ease-in-out;
 `;
 
@@ -84,37 +84,39 @@ export const ProgressBar: React.FC<IProgressBar> = ({
   towerTitle,
 }) => {
   const progressBarWrapperRef = useRef<HTMLDivElement>(null);
-  const isAnimationEnd = useRef(false);
   const handleClick = () => {
     {
+      progressBarWrapperRef.current?.classList.remove('upgradable');
       showUpgradeIcon(towerTitle);
       towerUpdateHandler(TutorialConditions.OFF, towerTitle);
     }
   };
 
+  const handleAnimationEnd = () => {
+    // console.log('animation ended');
+  };
+
   useEffect(() => {
+    // console.log({ progress });
     if (progressBarWrapperRef.current) {
-      if (progress && progress >= maxPercent && isAnimationEnd.current) {
-        progressBarWrapperRef.current.classList.add('task');
-        // debugger;
+      if (progress && progress >= maxPercent) {
+        progressBarWrapperRef.current.classList.add('upgradable');
       } else if (progress && progress < maxPercent) {
-        // debugger;
-        isAnimationEnd.current = false;
-        progressBarWrapperRef.current.classList.remove('task');
+        progressBarWrapperRef.current.classList.remove('upgradable');
       }
     }
     return () => {
       progressBarWrapperRef.current &&
-        progressBarWrapperRef.current.classList.remove('task');
+        progressBarWrapperRef.current.classList.remove('upgradable');
     };
   }, [progress]);
-
+  // console.log({ progress });
   return (
     <ProgressBarWrapper ref={progressBarWrapperRef}>
-      {progress < maxPercent && isAnimationEnd.current ? (
+      {progress < maxPercent ? (
         <ProgressBarGreenLine
           progress={progress}
-          onTransitionEnd={() => (isAnimationEnd.current = true)}
+          onTransitionEnd={handleAnimationEnd}
         />
       ) : (
         <UpgradeButton onClick={handleClick}>
