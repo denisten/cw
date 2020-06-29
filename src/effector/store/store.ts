@@ -27,9 +27,7 @@ export const UserStore = StoreDomain.store<IUserStore>(initState)
     if (payload.items.length > 0) {
       payload.items.forEach(({ storeItem, count }) => {
         if (storeItem.type.slug === PurchasesType.COUPON) {
-          stateClone.userCoupons[storeItem.slug] = {
-            count: count,
-          };
+          stateClone.userCoupons[storeItem.slug] = { count };
         }
       });
     }
