@@ -9,9 +9,11 @@ import { MenuItems } from '../../UI/menu-paragraph';
 import {
   menuOpened,
   setOpenPopUpState,
+  extraTowerInfoModalClosed,
 } from '../../effector/app-condition/events';
 import { TypesOfPopUps } from '../../UI/pop-up';
 import { mouseMoveProtect } from '../../utils/mouse-move-protect';
+import { TutorialConditions } from '../../effector/tutorial-store/store';
 
 const Banner = styled.div`
   width: 175px;
@@ -66,7 +68,9 @@ const returnFontSize = (wordLength: number) => {
   }
 };
 
-export const CentralBanner: React.FC = () => {
+export const CentralBanner: React.FC<{
+  tutorialCondition: TutorialConditions;
+}> = ({ tutorialCondition }) => {
   const { worldName } = useStore(UserDataStore);
   const [wordLength, setWordLength] = useState(0);
   useEffect(() => {
@@ -74,8 +78,11 @@ export const CentralBanner: React.FC = () => {
   }, [worldName]);
 
   const openAndEditCityName = () => {
-    menuOpened(MenuItems.PROFILE);
-    setOpenPopUpState(TypesOfPopUps.EDIT_WORLD_NAME);
+    if (!tutorialCondition) {
+      extraTowerInfoModalClosed();
+      menuOpened(MenuItems.PROFILE);
+      setOpenPopUpState(TypesOfPopUps.EDIT_WORLD_NAME);
+    }
   };
 
   const maxMouseMoveFaultAfterClick = 5;

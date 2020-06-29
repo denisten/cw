@@ -109,7 +109,7 @@ export const ScrollContainer: React.FC<{
         <Buildings />
         <Waves />
         <Decorations />
-        <CentralBanner />
+        <CentralBanner tutorialCondition={tutorialCondition} />
         <Bridges showBridges={true} />
       </MapWrapper>
     </ScrollContainerWrapper>
