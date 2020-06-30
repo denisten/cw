@@ -11,12 +11,13 @@ import { towerUpdateHandler } from '../../../utils/tower-update-handler';
 import { useStore } from 'effector-react';
 import { AppCondition } from '../../../effector/app-condition/store';
 import {
+  TowerLevel,
   TowersProgressStore,
   TowersTypes,
 } from '../../../effector/towers-progress/store';
 import { upgradeTower } from '../../../effector/towers-progress/events';
 
-const Title = styled.div<{ sizeContent: boolean }>`
+const Title = styled.div<ITitle>`
   font-size: ${props => (props.sizeContent ? '29px' : '32px')};
   font-weight: normal;
   font-stretch: normal;
@@ -26,6 +27,11 @@ const Title = styled.div<{ sizeContent: boolean }>`
   color: #001424;
   font-family: ${MTSSans.ULTRA_WIDE};
   transition: ${COMMON_TRANSITION}s;
+  user-select: none;
+  :hover {
+    color: #04b5d2;
+    cursor: pointer;
+  }
 `;
 
 const styledConfig = {
@@ -42,35 +48,44 @@ const upgradeTowerAndShowAnimation = (towerTitle: TowersTypes) => {
   }, delayBeforeAnimationEnd);
 };
 
+const canUpgrade = (points: number, maxLevel: TowerLevel, level: TowerLevel) =>
+  points >= MAX_POINTS && level < maxLevel;
+
+const pulseAnim = (tutorialCondition: TutorialConditions) =>
+  tutorialCondition === TutorialConditions.UPGRADE_BUTTON_TOWER_INFO;
+
 export const TowerInfoTitle: React.FC<ITowerInfoTitle> = ({
   tutorialCondition,
   towerTitle,
 }) => {
   const { hideTowerInfo } = useStore(AppCondition);
-  const LocalTowerProgressStore = useStore(TowersProgressStore);
-  const { title, maxLevel } = BuildingsService.getConfigForTower(towerTitle);
-  const handleClick = () => {
-    if (towerTitle) {
-      showUpgradeIcon(towerTitle);
-      towerUpdateHandler(tutorialCondition, towerTitle);
-    }
-  };
   const {
+    points,
     level: { level },
   } = useStore(TowersProgressStore)[towerTitle];
+  const { title, maxLevel, link } = BuildingsService.getConfigForTower(
+    towerTitle
+  );
 
+  const handleClick = async () => {
+    if (towerTitle) {
+      showUpgradeIcon(towerTitle);
+      await towerUpdateHandler(tutorialCondition, towerTitle);
+    }
+  };
+
+  const handleTitleClick = () => {
+    link && window.open(link);
+  };
   return (
     <RowWrapper {...styledConfig}>
-      <Title sizeContent={hideTowerInfo}>{title}</Title>
+      <Title sizeContent={hideTowerInfo} onClick={handleTitleClick}>
+        {title}
+      </Title>
       <TowerInfoUpgradeButton
         handleClick={handleClick}
-        pulseAnim={
-          tutorialCondition === TutorialConditions.UPGRADE_BUTTON_TOWER_INFO
-        }
-        canUpgrade={
-          LocalTowerProgressStore[towerTitle].points >= MAX_POINTS &&
-          level < maxLevel
-        }
+        pulseAnim={pulseAnim(tutorialCondition)}
+        canUpgrade={canUpgrade(points, maxLevel, level)}
         hide={hideTowerInfo}
       />
       <TowerInfoUpgradeButton
@@ -84,4 +99,8 @@ export const TowerInfoTitle: React.FC<ITowerInfoTitle> = ({
 interface ITowerInfoTitle {
   towerTitle: TowersTypes;
   tutorialCondition: TutorialConditions;
+}
+
+interface ITitle {
+  sizeContent: boolean;
 }
