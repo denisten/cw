@@ -26,7 +26,6 @@ import { TypeOfMarkers } from '../markers';
 import { ModalWindow } from '../modal-window';
 import { UserStore, CouponTypes } from '../../effector/store/store';
 import { couponHandler } from '../../utils/coupon-handler';
-import { responseStates } from '../../constants';
 
 const ChatWrapper = styled.div<IFullSize>`
   width: 100%;
