@@ -148,7 +148,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
     }
     const sendAnswerId = async (actionId: number) => {
       if (currentMission) {
-        if (currentTaskIndex !== -1) {
+        if (currentTaskIndex !== -1 && !pendingOfResponse) {
           setPendingOfResponse(true);
           const response = await consumeUserTaskAction({
             taskId: currentMission.id,
@@ -164,17 +164,17 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
               currentMission.task.content.taskType.slug ===
                 TasksType.RELATED_QUIZ
             ) {
-              const quizResult = await getResult(taskId);
-              if (quizResult.quizResult.success) {
+              const data = await getResult(taskId);
+              if (data.quizResult.success) {
                 setMarker({
-                  towerTitle: towerTitle,
+                  towerTitle,
                   type: TypeOfMarkers.SUCCESS,
                 });
               }
             } else {
               setCurrentTaskStatus({ taskId, status: TaskStatuses.DONE });
               setMarker({
-                towerTitle: towerTitle,
+                towerTitle,
                 type: TypeOfMarkers.SUCCESS,
               });
             }
