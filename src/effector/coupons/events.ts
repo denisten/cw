@@ -1,6 +1,6 @@
 import { StoreDomain } from './domain';
-import { getUserPurchases } from '../../api/get-user-purchases';
 import { CouponTypes } from './store';
+import { getUserPurchases } from '../../api/get-user-purchases';
 
 export const fetchUserPurchases = StoreDomain.effect('fetch purchases', {
   handler: async () => {

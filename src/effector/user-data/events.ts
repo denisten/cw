@@ -7,7 +7,7 @@ import { getAccount } from '../../api/get-account';
 import { logoutRequest } from '../../api';
 import { editIsAuthorizedFlag, setDataReceived } from '../app-condition/events';
 import { resetMissionsStore } from '../missions-store/events';
-import { resetTaskMessagesStore } from '../task-messages/events';
+import { resetTaskMessagesStore } from '../chat-messages/events';
 import { resetTowersMarker } from '../towers-marker/events';
 import { resetTowerProgress } from '../towers-progress/events';
 
