@@ -17,10 +17,19 @@ const TowerInfoTaskWrapper = styled.div`
 
 const maxTaskLength = 16;
 
+const towerInfoTaskPlaceholderStyle = {
+  height: '370px',
+} as React.CSSProperties;
+
 export const TowerInfoTask: React.FC<ITowerInfoTask> = ({ towerTitle }) => {
   const missions = useStore(MissionsStore);
   const { couponsCount } = useStore(UserDataStore);
-  if (!missions.length) return null;
+  if (!missions.length)
+    return (
+      <TowerInfoTaskWrapper style={towerInfoTaskPlaceholderStyle}>
+        Заданий нет.
+      </TowerInfoTaskWrapper>
+    );
   const filteredMissionsArray = missions.filter(el => {
     if (el?.task?.content?.product?.slug)
       return el.task.content.product.slug === towerTitle;
