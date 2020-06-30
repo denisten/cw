@@ -26,6 +26,7 @@ import { TypeOfMarkers } from '../markers';
 import { ModalWindow } from '../modal-window';
 import { UserStore, CouponTypes } from '../../effector/store/store';
 import { couponHandler } from '../../utils/coupon-handler';
+import { responseStates } from '../../constants';
 
 const ChatWrapper = styled.div<IFullSize>`
   width: 100%;
@@ -133,15 +134,21 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
               currentMission.task.content.taskType.slug ===
                 TasksType.RELATED_QUIZ
             ) {
-              getResult(taskId);
+              const quizResult = await getResult(taskId);
+              if (quizResult.quizResult.success) {
+                setMarker({
+                  towerTitle: towerTitle,
+                  type: TypeOfMarkers.SUCCESS,
+                });
+              }
             } else {
               setCurrentTaskStatus({ taskId, status: TaskStatuses.DONE });
+              setMarker({
+                towerTitle: towerTitle,
+                type: TypeOfMarkers.SUCCESS,
+              });
             }
             hideMarker({ towerTitle, type: TypeOfMarkers.ACTIVE_TASK });
-            setMarker({
-              towerTitle: towerTitle,
-              type: TypeOfMarkers.SUCCESS,
-            });
             switchers.openTasksTab();
           }
         }
