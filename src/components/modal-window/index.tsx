@@ -31,9 +31,9 @@ export const ModalWindow: React.FC<IModalWindow> = ({
   minorText,
   popUpStyles,
   submitButtonText,
-  cancellButtonText,
+  cancelButtonText,
   submitHandler,
-  cancellHandler,
+  cancelHandler,
   displayFlag,
 }) => {
   return (
@@ -47,8 +47,8 @@ export const ModalWindow: React.FC<IModalWindow> = ({
             content={submitButtonText}
             callback={submitHandler}
           />
-          <CancellButton onClick={cancellHandler}>
-            {cancellButtonText}
+          <CancellButton onClick={cancelHandler}>
+            {cancelButtonText}
           </CancellButton>
         </ButtonWrapper>
       </PopUpContentWrapper>
@@ -61,8 +61,9 @@ interface IModalWindow {
   minorText?: string;
   popUpStyles?: IPopUpStyles;
   submitButtonText: string;
-  cancellButtonText?: string;
+  cancelButtonText?: string;
   submitHandler?: () => void;
-  cancellHandler?: () => void;
+  cancelHandler?: () => void;
   displayFlag: boolean;
+  style?: React.CSSProperties;
 }

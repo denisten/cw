@@ -4,11 +4,11 @@ import { Button, ButtonClassNames } from '../../UI/button';
 import { fetchTasks } from '../../effector/missions-store/events';
 import { RowWrapper } from '../../UI/row-wrapper';
 import { devLogin } from '../../effector/user-data/events';
-import { createMockupOfMessages } from '../../effector/task-messages/events';
+import { createMockupOfMessages } from '../../effector/chat-messages/events';
 import { TowersTypes } from '../../effector/towers-progress/store';
 import { TypeOfMarkers } from '../markers';
 import { setMarker } from '../../effector/towers-marker/events';
-import { getCoupon } from '../../api/get-coupon';
+import { devGetCoupons } from '../../api/dev-api/get-coupons';
 
 const DevToolsWrapper = styled.div`
   width: 100%;
@@ -81,8 +81,8 @@ export const DevTools = () => {
         />
         <Button
           className={ButtonClassNames.NORMAL}
-          content="get coupon"
-          callback={() => getCoupon()}
+          content="get inf coupon"
+          callback={() => devGetCoupons()}
         />
       </RowWrapper>
     </DevToolsWrapper>

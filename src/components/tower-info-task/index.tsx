@@ -31,6 +31,7 @@ export const TowerInfoTask: React.FC<ITowerInfoTask> = ({ towerTitle }) => {
         ? filteredMissionsArray.map(el => {
             return (
               <Task
+                towerTitle={towerTitle}
                 expireInSeconds={el.expireInSeconds}
                 id={el.id}
                 isInTowerInfo={true}

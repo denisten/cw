@@ -1,6 +1,6 @@
 import { get } from '../../requests';
 import { apiRoutes } from '../../index';
-import { ICurrentTowerTaskMessagesStore } from '../../../effector/task-messages/store';
+import { ICurrentTowerTaskMessagesStore } from '../../../effector/chat-messages/store';
 
 export const chatTaskSessionRequest = async (id: number) => {
   return await get<IChatTaskSessionRequest>(

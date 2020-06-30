@@ -33,7 +33,7 @@ import { TowerInfoHeader } from './tower-info-header';
 import { TowerInfoTitle } from './tower-info-title';
 import { TowerInfoIndicators } from './tower-info-indicators';
 import { TowerInfoMenu } from './tower-info-menu';
-import { TaskMessagesStore } from '../../effector/task-messages/store';
+import { TaskMessagesStore } from '../../effector/chat-messages/store';
 
 export type ModalWindowProps = {
   opened?: boolean;

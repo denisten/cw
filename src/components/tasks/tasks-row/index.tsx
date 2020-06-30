@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { Icon } from '../../../UI/icons';
 import { MTSSans } from '../../../fonts';
@@ -18,7 +18,7 @@ import { TaskTimer } from '../../../UI/task-timer';
 import {
   chatTaskSession,
   clearChat,
-} from '../../../effector/task-messages/events';
+} from '../../../effector/chat-messages/events';
 import {
   menuClosed,
   setTowerInfoContent,
@@ -35,7 +35,10 @@ import { TypeOfMarkers } from '../../markers';
 import { TowersTypes } from '../../../effector/towers-progress/store';
 import { TaskStatuses } from '../../../api/tasks/get-tasks';
 import { pushMoveElems } from '../../../effector/reward/events';
-import { TaskMessagesStore } from '../../../effector/task-messages/store';
+import { TaskMessagesStore } from '../../../effector/chat-messages/store';
+import { ModalWindow } from '../../modal-window';
+import { couponModalConfig } from '../../tower-info-chat';
+import { couponHandler } from '../../../utils/coupon-handler';
 
 enum TaskWrapperHeight {
   opened = 149,
@@ -204,7 +207,7 @@ const HintWrapper = styled.div`
 
   color: #03adc9;
   ::after {
-    content: 'Проверить еще раз';
+    content: 'Использовате купон';
   }
 `;
 
@@ -313,11 +316,6 @@ const handleClick = async (id: number, e: React.MouseEvent) => {
   }
 };
 
-const handleHintClick = (e: React.MouseEvent) => {
-  e.stopPropagation();
-  fetchTasks('');
-};
-
 export const Task: React.FC<ITasksRow> = ({
   type,
   taskTitle,
@@ -326,6 +324,7 @@ export const Task: React.FC<ITasksRow> = ({
   energy,
   description,
   couponsCount,
+  towerTitle,
   isAllowedToChange,
   isInTowerInfo,
   id,
@@ -333,6 +332,7 @@ export const Task: React.FC<ITasksRow> = ({
 }) => {
   const isOpened = useRef(false);
   const taskWrapperRef = useRef<HTMLDivElement>(null);
+  const [isCouponModalWindowOpen, setIsCouponModalWindowOpen] = useState(false);
   const handleWrapperClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (type === TasksType.TUTORIAL_TASK) {
@@ -356,12 +356,32 @@ export const Task: React.FC<ITasksRow> = ({
     });
   };
 
+  const handleHintClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIsCouponModalWindowOpen(true);
+  };
+
   return (
     <TaskWrapper
       ref={taskWrapperRef}
       onClick={handleTaskWrapperClick}
       isInTowerInfo={isInTowerInfo}
     >
+      <ModalWindow
+        popUpStyles={{
+          position: 'absolute',
+          width: '100vw',
+          height: '100vh',
+          border: '2px solid',
+        }}
+        {...couponModalConfig}
+        displayFlag={isCouponModalWindowOpen}
+        cancelHandler={() => setIsCouponModalWindowOpen(false)}
+        submitHandler={() => {
+          couponHandler(id, 1, towerTitle ? towerTitle : undefined);
+          setIsCouponModalWindowOpen(false);
+        }}
+      />
       <TaskInfo>
         <Icon type={type} />
         <Title isInTowerInfo={isInTowerInfo}>{taskTitle}</Title>
@@ -404,6 +424,7 @@ export const Task: React.FC<ITasksRow> = ({
 };
 
 interface ITasksRow {
+  towerTitle: TowersTypes | null;
   id: number;
   type: TasksType;
   taskTitle: string;
