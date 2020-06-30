@@ -8,6 +8,7 @@ import { ZIndexes } from '../../components/root-component/z-indexes-enum';
 
 const defaultOptionsHeight = 329,
   defaultWidth = 109;
+
 const DropdownWrapper = styled.div<IDropdownWrapper>`
   width: ${props => props.width}px;
   height: 44px;

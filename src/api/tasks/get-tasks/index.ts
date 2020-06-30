@@ -4,7 +4,7 @@ import { ITask } from '../../../effector/missions-store/store';
 import { decreaseTimer } from '../../../effector/missions-store/events';
 import { setMarker } from '../../../effector/towers-marker/events';
 import { TypeOfMarkers } from '../../../components/markers';
-import { setTaskId } from '../../../effector/task-messages/events';
+import { setTaskId } from '../../../effector/chat-messages/events';
 
 let interval = 0;
 const second = 1000;

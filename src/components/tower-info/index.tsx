@@ -33,7 +33,7 @@ import { TowerInfoHeader } from './tower-info-header';
 import { TowerInfoTitle } from './tower-info-title';
 import { TowerInfoIndicators } from './tower-info-indicators';
 import { TowerInfoMenu } from './tower-info-menu';
-import { TaskMessagesStore } from '../../effector/task-messages/store';
+import { TaskMessagesStore } from '../../effector/chat-messages/store';
 
 export type ModalWindowProps = {
   opened?: boolean;
@@ -69,7 +69,6 @@ export const TowerInfoWrapper = styled.div<ModalWindowProps>`
   transition-property: margin-right;
   display: flex;
   flex-direction: column;
-
   @media screen and (max-width: 1440px) {
     width: 547px;
   }
@@ -111,9 +110,14 @@ const StyleConfig = {
   },
 };
 
-const grownLineAndNextStep = (towerTitle: TowersTypes) => {
-  nextTutorDescriptionStep();
-  addProgressPoints({ points: 33.34, towerTitle });
+const grownLineAndNextStep = (
+  towerTitle: TowersTypes,
+  tutorialCondition: TutorialConditions
+) => {
+  if (tutorialCondition) {
+    nextTutorDescriptionStep();
+    addProgressPoints({ points: 33.34, towerTitle });
+  }
 };
 
 export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
@@ -130,6 +134,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
     towerTitle
   );
   const {
+    points,
     level: { level },
     productIncome,
   } = useStore(TowersProgressStore)[towerTitle];
@@ -147,19 +152,19 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
   const openDescriptionTab = () => {
     setTowerInfoContent(TowerInfoContentValues.DESCRIPTION);
     setTowerTutorialStep(TowerTutorialSteps.DESCRIPTION_OPENED);
-    grownLineAndNextStep(towerTitle);
+    grownLineAndNextStep(towerTitle, tutorialCondition);
   };
 
   const openChatTab = () => {
     setTowerInfoContent(TowerInfoContentValues.CHAT);
     setTowerTutorialStep(TowerTutorialSteps.CHAT_OPENED);
-    grownLineAndNextStep(towerTitle);
+    grownLineAndNextStep(towerTitle, tutorialCondition);
   };
 
   const openTasksTab = () => {
     setTowerInfoContent(TowerInfoContentValues.TASK);
     setTowerTutorialStep(TowerTutorialSteps.TASKS_OPENED);
-    grownLineAndNextStep(towerTitle);
+    grownLineAndNextStep(towerTitle, tutorialCondition);
   };
 
   const nextTowerTutorialStep = () => {
@@ -205,6 +210,8 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
           />
           <TowerInfoIndicators
             level={level}
+            towerTitle={towerTitle}
+            progress={points}
             income={productIncomeValue}
             hideTowerInfo={hideTowerInfo}
           />

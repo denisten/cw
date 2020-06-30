@@ -6,12 +6,12 @@ import { Bubble } from '../../UI/bubble';
 import { ChatButtons } from '../../UI/chat-buttons';
 import { ChatAvatar } from '../../UI/chat-avatar';
 import { useStore } from 'effector-react';
-import { TaskMessagesStore } from '../../effector/task-messages/store';
+import { TaskMessagesStore } from '../../effector/chat-messages/store';
 import { Sender } from '../../api/tasks/session';
 import {
   chatTaskSession,
   consumeUserTaskAction,
-} from '../../effector/task-messages/events';
+} from '../../effector/chat-messages/events';
 import { TowersTypes } from '../../effector/towers-progress/store';
 import { ITask, MissionsStore } from '../../effector/missions-store/store';
 import { TaskStatuses } from '../../api/tasks/get-tasks';
@@ -24,7 +24,7 @@ import {
 import { hideMarker, setMarker } from '../../effector/towers-marker/events';
 import { TypeOfMarkers } from '../markers';
 import { ModalWindow } from '../modal-window';
-import { UserStore, CouponTypes } from '../../effector/store/store';
+import { CouponTypes, UserStore } from '../../effector/coupons/store';
 import { couponHandler } from '../../utils/coupon-handler';
 import { IDisplayFlag } from '../skip-tutorial';
 
@@ -110,7 +110,7 @@ const START_HIDE_POS = 200;
 
 let currentMission: null | ITask;
 
-const couponModalConfig = {
+export const couponModalConfig = {
   title: 'Вы уверены, что хотите использовать купон?',
   minorText: 'Если вы примените купон, отменить действие будет не возможно.',
   popUpStyles: {
@@ -118,7 +118,7 @@ const couponModalConfig = {
     padding: '68px 80px',
   },
   submitButtonText: 'Да, использовать',
-  cancellButtonText: 'Нет, не хочу',
+  cancelButtonText: 'Нет, не хочу',
 };
 
 export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
@@ -205,6 +205,13 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
         missions[currentTaskIndex].status !== TaskStatuses.REJECTED
       ) {
         chatTaskSession({ id: taskId, towerTitle });
+      } else if (
+        currentTaskIndex !== -1 &&
+        missions[currentTaskIndex].task.content.taskType.slug !==
+          TasksType.COSMETIC &&
+        missions[currentTaskIndex].status === TaskStatuses.REJECTED
+      ) {
+        chatTaskSession({ id: taskId, towerTitle, retry: true });
       }
       return () => {
         setHideTowerInfo(false);
@@ -254,17 +261,17 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
           actions={actions}
           callback={sendAnswerId}
           couponCallback={() => setOpenCouponModal(true)}
-        ></ChatButtons>
+        />
 
         <ModalWindow
           {...couponModalConfig}
           displayFlag={openCouponModal}
-          cancellHandler={() => setOpenCouponModal(false)}
+          cancelHandler={() => setOpenCouponModal(false)}
           submitHandler={() => {
             couponHandler(currentMission?.id, count, towerTitle, switchers);
             setOpenCouponModal(false);
           }}
-        ></ModalWindow>
+        />
       </>
     );
   }

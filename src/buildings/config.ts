@@ -384,6 +384,8 @@ class BuildingsService {
     [TowersTypes.MUSIC]: {
       info: 'info',
       title: 'МТС Music',
+      link:
+        'https://moskva.mts.ru/personal/mobilnaya-svyaz/uslugi/mobilnaya-svyaz/mts-music',
       wideTower: false,
       animSize: animSize.medium,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
@@ -674,6 +676,8 @@ class BuildingsService {
     [TowersTypes.ROAMING]: {
       info: 'info',
       title: 'Роуминг',
+      link:
+        'https://moskva.mts.ru/personal/mobilnaya-svyaz/rouming-i-mezhgorod/poezdki-po-rossii',
       wideTower: true,
       animSize: animSize.medium,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
@@ -938,6 +942,7 @@ class BuildingsService {
     [TowersTypes.SHOP]: {
       info: 'info',
       title: 'Салон-магазин МТС',
+      link: 'https://shop.mts.ru',
       wideTower: false,
       animSize: animSize.small,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
@@ -1074,6 +1079,7 @@ type BuildingServiceConfigTypes = Record<
 type CurrentTowerServiceConfigTypes = {
   info: string;
   title: string;
+  link?: string;
   zIndex: number;
   wideTower: boolean;
   animSize: IAnimSize;

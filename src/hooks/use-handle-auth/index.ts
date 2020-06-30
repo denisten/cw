@@ -11,7 +11,7 @@ import { setDataReceived } from '../../effector/app-condition/events';
 import { TowersTypes } from '../../effector/towers-progress/store';
 import { TypeOfMarkers } from '../../components/markers';
 import { setMarker } from '../../effector/towers-marker/events';
-import { fetchUserPurchases } from '../../effector/store/events';
+import { fetchUserPurchases } from '../../effector/coupons/events';
 
 const markersEnumeration = (incomes: TowersTypesAsObjectLiteral) => {
   const iterableArrayOfIncomesData = Object.entries(incomes);

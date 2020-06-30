@@ -8,6 +8,7 @@ import { progressRefresh } from './progress-refresh';
 export enum apiRoutes {
   GET_INCOMES = '/api/users/current/products/incomes',
   DEV_LOGIN = '/api/dev/login',
+  DEV_GET_COUPONS = '/api/dev/store/coupons',
   GET_URL = '/api/auth/url',
   USER_DATA = '/api/users/current',
   USER_ACCOUNT = '/api/users/current/account',

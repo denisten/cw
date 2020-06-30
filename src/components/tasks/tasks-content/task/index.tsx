@@ -23,7 +23,7 @@ export const Tasks: React.FC<{ active: boolean; isAuthorized: boolean }> = ({
 }) => {
   const missions = useStore(MissionsStore);
   const { couponsCount, worldName } = useStore(UserDataStore);
-  const { dataReceived } = useStore(AppCondition);
+  const { dataReceived, focusOn } = useStore(AppCondition);
   useHandleAuth({ isAuthorized, dataReceived, worldName });
 
   return (
@@ -32,6 +32,7 @@ export const Tasks: React.FC<{ active: boolean; isAuthorized: boolean }> = ({
       {missions.map(el => {
         return (
           <Task
+            towerTitle={focusOn || undefined}
             expireInSeconds={el.expireInSeconds}
             id={el.id}
             isInTowerInfo={false}
