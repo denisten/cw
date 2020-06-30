@@ -86,7 +86,6 @@ export const ProgressBar: React.FC<IProgressBar> = ({
   const progressBarWrapperRef = useRef<HTMLDivElement>(null);
 
   const handleClick = async () => {
-    progressBarWrapperRef.current?.classList.remove(UPGRADABLE);
     showUpgradeIcon(towerTitle);
     await towerUpdateHandler(TutorialConditions.OFF, towerTitle);
   };
