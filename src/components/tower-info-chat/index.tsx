@@ -1,5 +1,5 @@
 import React, { memo, useEffect, useRef, useState } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 import { setHideTowerInfo } from '../../effector/app-condition/events';
 import { Bubble } from '../../UI/bubble';
@@ -26,6 +26,7 @@ import { TypeOfMarkers } from '../markers';
 import { ModalWindow } from '../modal-window';
 import { UserStore, CouponTypes } from '../../effector/store/store';
 import { couponHandler } from '../../utils/coupon-handler';
+import { IDisplayFlag } from '../skip-tutorial';
 
 const ChatWrapper = styled.div<IFullSize>`
   width: 100%;
@@ -68,6 +69,34 @@ const ChatWrapper = styled.div<IFullSize>`
   }
 `;
 
+const writing = keyframes`
+    0% {
+        opacity: .2;
+    }
+
+    100% {
+        opacity: 1;
+    }
+`;
+
+const Writing = styled.div`
+  font-size: 36px;
+  animation: ${writing} 0.5s infinite;
+  letter-spacing: 6px;
+  margin-left: 10px;
+  line-height: 1.1;
+`;
+
+const BotIsWrittingWrap = styled.div<IDisplayFlag>`
+  width: 100%;
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  z-index: 3;
+  display: ${props => (props.displayFlag ? 'flex' : 'none')};
+  align-items: flex-end;
+`;
+
 const MessageRow = styled.div<{ sender?: Sender }>`
   display: flex;
   height: auto;
@@ -78,7 +107,6 @@ const MessageRow = styled.div<{ sender?: Sender }>`
 `;
 
 const START_HIDE_POS = 200;
-const yScrollValue = 344;
 
 let currentMission: null | ITask;
 
@@ -101,6 +129,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
     } = useStore(TaskMessagesStore);
     const missions = useStore(MissionsStore);
     const [openCouponModal, setOpenCouponModal] = useState(false);
+    const [pendingOfResponse, setPendingOfResponse] = useState(false);
     const { userCoupons } = useStore(UserStore);
     const { count } = userCoupons[CouponTypes.COUPON_REPLACE];
 
@@ -119,13 +148,15 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
     }
     const sendAnswerId = async (actionId: number) => {
       if (currentMission) {
-        if (currentTaskIndex !== -1) {
+        if (currentTaskIndex !== -1 && !pendingOfResponse) {
+          setPendingOfResponse(true);
           const response = await consumeUserTaskAction({
             taskId: currentMission.id,
             messageId: masterMessageId,
             actionId,
             towerTitle,
           });
+          setPendingOfResponse(false);
           if (response.data.ended) {
             if (
               currentMission.task.content.taskType.slug ===
@@ -133,15 +164,21 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
               currentMission.task.content.taskType.slug ===
                 TasksType.RELATED_QUIZ
             ) {
-              getResult(taskId);
+              const data = await getResult(taskId);
+              if (data.quizResult.success) {
+                setMarker({
+                  towerTitle,
+                  type: TypeOfMarkers.SUCCESS,
+                });
+              }
             } else {
               setCurrentTaskStatus({ taskId, status: TaskStatuses.DONE });
+              setMarker({
+                towerTitle,
+                type: TypeOfMarkers.SUCCESS,
+              });
             }
             hideMarker({ towerTitle, type: TypeOfMarkers.ACTIVE_TASK });
-            setMarker({
-              towerTitle: towerTitle,
-              type: TypeOfMarkers.SUCCESS,
-            });
             switchers.openTasksTab();
           }
         }
@@ -176,7 +213,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
 
     useEffect(() => {
       if (chatContainer.current) {
-        chatContainer.current.scrollTo(0, yScrollValue);
+        chatContainer.current.scrollTo(0, chatContainer.current.scrollHeight);
       }
     }, [messages]);
 
@@ -202,6 +239,14 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
                 />
               </MessageRow>
             ))}
+          <BotIsWrittingWrap displayFlag={pendingOfResponse}>
+            <ChatAvatar
+              sender={Sender.BACKEND}
+              userAvatar={''}
+              towerTitle={towerTitle}
+            />
+            <Writing>...</Writing>
+          </BotIsWrittingWrap>
         </ChatWrapper>
         <ChatButtons
           haveCoupon={!!count && !ended}
