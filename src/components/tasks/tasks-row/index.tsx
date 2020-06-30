@@ -5,40 +5,16 @@ import { MTSSans } from '../../../fonts';
 import { StyledSpan } from '../../../UI/span';
 import { TaskLoot } from '../../../UI/task-loot';
 import { Coupon } from '../../../UI/coupon';
-import { MissionsStore } from '../../../effector/missions-store/store';
-import {
-  activateTask,
-  fetchTasks,
-  takeReward,
-  verifyTask,
-} from '../../../effector/missions-store/events';
 import notDoneImg from './not-done.svg';
 import { ColumnWrapper } from '../../../UI/column-wrapper';
 import { TaskTimer } from '../../../UI/task-timer';
-import {
-  chatTaskSession,
-  clearChat,
-} from '../../../effector/chat-messages/events';
-import {
-  menuClosed,
-  setTowerInfoContent,
-} from '../../../effector/app-condition/events';
-import { BuildingsService } from '../../../buildings/config';
-import { scrollToCurrentTower } from '../../../utils/scroll-to-current-tower';
 import { TasksType } from '../index';
-import {
-  AppCondition,
-  TowerInfoContentValues,
-} from '../../../effector/app-condition/store';
-import { hideMarker, setMarker } from '../../../effector/towers-marker/events';
-import { TypeOfMarkers } from '../../markers';
 import { TowersTypes } from '../../../effector/towers-progress/store';
 import { TaskStatuses } from '../../../api/tasks/get-tasks';
-import { pushMoveElems } from '../../../effector/reward/events';
-import { TaskMessagesStore } from '../../../effector/chat-messages/store';
 import { ModalWindow } from '../../modal-window';
 import { couponModalConfig } from '../../tower-info-chat';
 import { couponHandler } from '../../../utils/coupon-handler';
+import { handleTaskClick } from '../../../utils/handle-task-click';
 
 enum TaskWrapperHeight {
   opened = 149,
@@ -97,9 +73,7 @@ const Title = styled(StyledSpan)<ITaskLocation>`
       : TitleMarginRight.notInTowerInfo}px;
 `;
 
-const TaskButton = styled.div<{
-  expireInSeconds: number | null;
-}>`
+const TaskButton = styled.div<ITaskButton>`
   width: 120px;
   height: 30px;
   display: flex;
@@ -211,38 +185,6 @@ const HintWrapper = styled.div`
   }
 `;
 
-const markerHandler = (status: TaskStatuses, productTitle: TowersTypes) => {
-  const state = MissionsStore.getState();
-  const numberOfDoneTasksInCurrentProduct = state.filter(
-    el =>
-      el.task.content.product.slug === productTitle &&
-      el.status === TaskStatuses.DONE
-  ).length;
-  const numberOfTasksInCurrentProduct = state.filter(
-    el => el.task.content.product.slug === productTitle
-  ).length;
-  if (
-    status === TaskStatuses.ACTIVE ||
-    (status === TaskStatuses.DONE && numberOfDoneTasksInCurrentProduct)
-  ) {
-    setMarker({
-      towerTitle: productTitle,
-      type: TypeOfMarkers.SUCCESS,
-    });
-  } else {
-    hideMarker({ towerTitle: productTitle, type: TypeOfMarkers.SUCCESS });
-  }
-
-  if (!numberOfTasksInCurrentProduct) {
-    hideMarker({ towerTitle: productTitle, type: TypeOfMarkers.TASK });
-  }
-};
-
-const animateTaskReward = (reward: number, e: React.MouseEvent) => {
-  if (reward > 0) {
-    pushMoveElems({ x: e.clientX, y: e.clientY, id: 0 });
-  }
-};
 const styledConfig = {
   img: {
     position: 'relative',
@@ -256,64 +198,11 @@ const styledConfig = {
     marginRight: '12px',
   },
   columnWrapperAdditionalStyle: { alignItems: 'center' },
-};
-
-const handleClick = async (id: number, e: React.MouseEvent) => {
-  const state = MissionsStore.getState();
-  const { selectedMenuItem } = AppCondition.getState();
-  const currentMissionIdx = state.findIndex(el => el.id === id);
-  const currentMission = state[currentMissionIdx];
-  const currentMissionType = currentMission.task.content.taskType.slug;
-  const currentTowerTitle = currentMission.task.content.product.slug;
-  const productTitle = state[currentMissionIdx].task.content.product.slug;
-  const { status } = state[currentMissionIdx];
-  const { taskId } = TaskMessagesStore.getState()[productTitle];
-  switch (status) {
-    case TaskStatuses.CREATED:
-      if (!taskId) {
-        if (
-          currentMissionType !== TasksType.COSMETIC &&
-          state[currentMissionIdx].status === TaskStatuses.CREATED
-        ) {
-          chatTaskSession({ id, towerTitle: productTitle });
-          setMarker({
-            towerTitle: currentTowerTitle,
-            type: TypeOfMarkers.ACTIVE_TASK,
-          });
-          if (!selectedMenuItem) {
-            setTowerInfoContent(TowerInfoContentValues.CHAT);
-          } else menuClosed();
-        } else {
-          activateTask(id);
-        }
-        scrollToCurrentTower(
-          BuildingsService.getConfigForTower(productTitle).ref
-        );
-      } else if (taskId) {
-        alert('нельзя');
-      }
-      return;
-    case TaskStatuses.ACTIVE:
-      await verifyTask(id);
-      markerHandler(status, productTitle);
-      break;
-    case TaskStatuses.DONE:
-      animateTaskReward(currentMission.task.reward, e);
-      await takeReward(id);
-      markerHandler(status, productTitle);
-      clearChat({ towerTitle: productTitle });
-      break;
-    case TaskStatuses.VERIFICATION:
-      hideMarker({
-        towerTitle: currentTowerTitle,
-        type: TypeOfMarkers.TAKE_REWARD,
-      });
-      return fetchTasks('');
-    case TaskStatuses.REWARDED:
-    case TaskStatuses.REJECTED:
-    case TaskStatuses.EXPIRED:
-    // do smth
-  }
+  modalWindow: {
+    position: 'absolute',
+    width: '100vw',
+    height: '100vh',
+  },
 };
 
 export const Task: React.FC<ITasksRow> = ({
@@ -333,12 +222,13 @@ export const Task: React.FC<ITasksRow> = ({
   const isOpened = useRef(false);
   const taskWrapperRef = useRef<HTMLDivElement>(null);
   const [isCouponModalWindowOpen, setIsCouponModalWindowOpen] = useState(false);
-  const handleWrapperClick = (e: React.MouseEvent) => {
+
+  const handleWrapperClick = async (e: React.MouseEvent) => {
     e.stopPropagation();
     if (type === TasksType.TUTORIAL_TASK) {
       // do next tutorial step in future
     } else {
-      handleClick(id, e);
+      await handleTaskClick(id, e);
     }
   };
 
@@ -356,6 +246,11 @@ export const Task: React.FC<ITasksRow> = ({
     });
   };
 
+  const modalWindowSubmitHandler = async () => {
+    await couponHandler(id, 1, towerTitle);
+    setIsCouponModalWindowOpen(false);
+  };
+
   const handleHintClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     setIsCouponModalWindowOpen(true);
@@ -368,19 +263,11 @@ export const Task: React.FC<ITasksRow> = ({
       isInTowerInfo={isInTowerInfo}
     >
       <ModalWindow
-        popUpStyles={{
-          position: 'absolute',
-          width: '100vw',
-          height: '100vh',
-          border: '2px solid',
-        }}
+        popUpStyles={styledConfig.modalWindow}
         {...couponModalConfig}
         displayFlag={isCouponModalWindowOpen}
         cancelHandler={() => setIsCouponModalWindowOpen(false)}
-        submitHandler={() => {
-          couponHandler(id, 1, towerTitle ? towerTitle : undefined);
-          setIsCouponModalWindowOpen(false);
-        }}
+        submitHandler={modalWindowSubmitHandler}
       />
       <TaskInfo>
         <Icon type={type} />
@@ -424,7 +311,7 @@ export const Task: React.FC<ITasksRow> = ({
 };
 
 interface ITasksRow {
-  towerTitle: TowersTypes | null;
+  towerTitle: TowersTypes | undefined;
   id: number;
   type: TasksType;
   taskTitle: string;
@@ -441,4 +328,8 @@ interface ITasksRow {
 
 export interface ITaskLocation {
   isInTowerInfo: boolean;
+}
+
+interface ITaskButton {
+  expireInSeconds: number | null;
 }

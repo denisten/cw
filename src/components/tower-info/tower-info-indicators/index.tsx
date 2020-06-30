@@ -6,6 +6,8 @@ import styled from 'styled-components';
 import { MTSSans } from '../../../fonts';
 import { TowersTypes } from '../../../effector/towers-progress/store';
 
+const EVOLUTION = 'evolution';
+
 const HeaderLine = styled.div<IHeaderLine>`
   width: 100%;
   display: flex;
@@ -32,7 +34,7 @@ const HeaderLineElement = styled.div<IHeaderLineElement>`
     letter-spacing: normal;
     color: #6e7782;
     font-family: ${MTSSans.REGULAR};
-    .evolution {
+    .${EVOLUTION} {
       font-family: ${MTSSans.BOLD};
       font-style: normal;
       font-weight: 900;
@@ -74,7 +76,7 @@ export const TowerInfoIndicators: React.FC<ITowerInfoIndicators> = ({
     <HeaderLine sizeContent={hideTowerInfo}>
       <HeaderLineElement {...styledConfig.firstHeaderLine}>
         <span>
-          <span className="evolution">{level}</span> Уровень эволюции
+          <span className={EVOLUTION}>{level}</span> Уровень эволюции
         </span>
         <ProgressBar progress={progress} towerTitle={towerTitle} />
       </HeaderLineElement>

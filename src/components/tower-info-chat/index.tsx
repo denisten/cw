@@ -174,7 +174,6 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
           TasksType.COSMETIC &&
         missions[currentTaskIndex].status === TaskStatuses.REJECTED
       ) {
-        // console.log('retry');
         chatTaskSession({ id: taskId, towerTitle, retry: true });
       }
       return () => {

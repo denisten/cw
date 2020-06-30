@@ -169,7 +169,6 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
 
   const nextTowerTutorialStep = () => {
     if (!tutorialCondition) {
-      // debugger;
       addProgressPoints({ points: 33.34, towerTitle: towerTitle });
     } else if (
       towerTutorialStep === TowerTutorialSteps.DESCRIPTION_DONT_OPENED

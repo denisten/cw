@@ -32,7 +32,7 @@ export const Tasks: React.FC<{ active: boolean; isAuthorized: boolean }> = ({
       {missions.map(el => {
         return (
           <Task
-            towerTitle={focusOn}
+            towerTitle={focusOn || undefined}
             expireInSeconds={el.expireInSeconds}
             id={el.id}
             isInTowerInfo={false}

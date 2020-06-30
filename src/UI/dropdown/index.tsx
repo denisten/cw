@@ -58,10 +58,7 @@ const OptionsWrapper = styled.div<IOptionsWrapper>`
   top: 40px;
   width: ${props => props.width}px;
   height: ${props => props.optionsHeight}px;
-  opacity: ${props => (props.displayFlag ? 1 : 0)};
-  transition-duration: 0.3s;
-  transition-property: opacity;
-  transition-timing-function: ease-in-out;
+  display: ${props => (props.displayFlag ? 'flex' : 'none')};
   flex-direction: column;
   overflow: auto;
   border: solid 2px #02acc8;

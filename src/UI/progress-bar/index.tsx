@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { MTSSans } from '../../fonts';
 import upgradeImg from './upgrade.svg';
@@ -7,6 +7,9 @@ import { showUpgradeIcon } from '../../effector/app-condition/events';
 import { towerUpdateHandler } from '../../utils/tower-update-handler';
 import { TowersTypes } from '../../effector/towers-progress/store';
 import { TutorialConditions } from '../../effector/tutorial-store/store';
+import { useEditProgressbarClassname } from '../../hooks/use-edit-progressbar-classname';
+
+export const UPGRADABLE = 'upgradable';
 
 const ProgressBarWrapper = styled.div`
   position: relative;
@@ -20,7 +23,7 @@ const ProgressBarWrapper = styled.div`
   transform: skew(-31deg);
   border-radius: 4px 2px 4px 2px;
   box-shadow: inset 0 0 2px 0 rgba(32, 189, 218, 0.18);
-  &.upgradable {
+  &.${UPGRADABLE} {
     background: #04b5d2;
     justify-content: center;
     &::before,
@@ -45,9 +48,6 @@ const ProgressBarWrapper = styled.div`
     content: '';
     top: 0;
     left: 66%;
-    .task {
-      display: none;
-    }
   }
 `;
 
@@ -75,7 +75,7 @@ const ProgressBarGreenLine = styled.div<IProgressBarGreenLine>`
     #5edffc
   );
   transition-property: width;
-  transition-duration: 5s;
+  transition-duration: 0.5s;
   transition-timing-function: ease-in-out;
 `;
 
@@ -84,45 +84,26 @@ export const ProgressBar: React.FC<IProgressBar> = ({
   towerTitle,
 }) => {
   const progressBarWrapperRef = useRef<HTMLDivElement>(null);
-  const handleClick = () => {
-    {
-      progressBarWrapperRef.current?.classList.remove('upgradable');
-      showUpgradeIcon(towerTitle);
-      towerUpdateHandler(TutorialConditions.OFF, towerTitle);
-    }
-  };
 
-  const handleAnimationEnd = () => {
-    // console.log('animation ended');
+  const handleClick = async () => {
+    progressBarWrapperRef.current?.classList.remove(UPGRADABLE);
+    showUpgradeIcon(towerTitle);
+    await towerUpdateHandler(TutorialConditions.OFF, towerTitle);
   };
+  useEditProgressbarClassname(progressBarWrapperRef.current, progress);
 
-  useEffect(() => {
-    // console.log({ progress });
-    if (progressBarWrapperRef.current) {
-      if (progress && progress >= maxPercent) {
-        progressBarWrapperRef.current.classList.add('upgradable');
-      } else if (progress && progress < maxPercent) {
-        progressBarWrapperRef.current.classList.remove('upgradable');
-      }
-    }
-    return () => {
-      progressBarWrapperRef.current &&
-        progressBarWrapperRef.current.classList.remove('upgradable');
-    };
-  }, [progress]);
-  // console.log({ progress });
+  const content =
+    progress < maxPercent ? (
+      <ProgressBarGreenLine progress={progress} />
+    ) : (
+      <UpgradeButton onClick={handleClick}>
+        <img src={upgradeImg} alt="upgrade" /> Повысить здание
+      </UpgradeButton>
+    );
+
   return (
     <ProgressBarWrapper ref={progressBarWrapperRef}>
-      {progress < maxPercent ? (
-        <ProgressBarGreenLine
-          progress={progress}
-          onTransitionEnd={handleAnimationEnd}
-        />
-      ) : (
-        <UpgradeButton onClick={handleClick}>
-          <img src={upgradeImg} alt="upgrade" /> Повысить здание
-        </UpgradeButton>
-      )}
+      {content}
     </ProgressBarWrapper>
   );
 };

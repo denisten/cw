@@ -36,7 +36,7 @@ export const UnauthorizeTaskZone = () => {
   return (
     <UnauthorizeTaskZoneWrapper>
       <Task
-        towerTitle={null}
+        towerTitle={undefined}
         expireInSeconds={null}
         id={1}
         isInTowerInfo={false}
