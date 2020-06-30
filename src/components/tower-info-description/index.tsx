@@ -73,21 +73,16 @@ const TowerInfoDescriptionScrollContainer = styled.div`
   overflow: auto;
 `;
 
-type TowerInfoDescriptionProps = {
-  text: Array<string>;
-};
+const isFullView = (tutorialCondition: TutorialConditions) =>
+  tutorialCondition === TutorialConditions.UPGRADE_BUTTON_TOWER_INFO ||
+  !tutorialCondition;
 
-export const TowerInfoDescription: React.FC<TowerInfoDescriptionProps> = ({
+export const TowerInfoDescription: React.FC<ITowerInfoDescription> = ({
   text,
 }) => {
   const { tutorialCondition } = useStore(TutorialStore);
   return (
-    <TowerInfoDescriptionWrapper
-      fullView={
-        tutorialCondition === TutorialConditions.UPGRADE_BUTTON_TOWER_INFO ||
-        !tutorialCondition
-      }
-    >
+    <TowerInfoDescriptionWrapper fullView={isFullView(tutorialCondition)}>
       <TowerInfoDescriptionScrollContainer>
         {text.map((elem, ind) => (
           <span key={ind}>{elem}</span>
@@ -96,3 +91,7 @@ export const TowerInfoDescription: React.FC<TowerInfoDescriptionProps> = ({
     </TowerInfoDescriptionWrapper>
   );
 };
+
+interface ITowerInfoDescription {
+  text: string[];
+}
