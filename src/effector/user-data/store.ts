@@ -91,7 +91,7 @@ export const UserDataStore = UserDataDomain.store<IUserDataStore>(initState)
       avatar,
     })
   )
-  .on(getUserName.doneData, (state, { name }) => ({
+  .on(getUserName.doneData, (state, { name = defaultNameValue }) => ({
     ...state,
     name,
   }))

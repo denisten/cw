@@ -1,8 +1,8 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
-const domain = 'cwmts.dev-stream.ru';
+const domain = 'cwmts.prostream.ru';
 const host = 'web.' + domain;
-const backend = 'http://stage.' + domain;
+const backend = 'https://stage.' + domain;
 
 module.exports = {
   mode: 'development',
@@ -91,12 +91,12 @@ module.exports = {
     },
     proxy: {
       '/api': {
-        target: backend + ':8080',
+        target: backend,
         secure: false,
         changeOrigin: true,
       },
       '/centrifugo': {
-        target: backend + ':8008',
+        target: backend,
         secure: false,
         changeOrigin: true,
       },

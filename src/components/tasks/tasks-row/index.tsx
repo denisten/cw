@@ -198,11 +198,6 @@ const styledConfig = {
     marginRight: '12px',
   },
   columnWrapperAdditionalStyle: { alignItems: 'center' },
-  modalWindow: {
-    position: 'absolute',
-    width: '100vw',
-    height: '100vh',
-  },
 };
 
 export const Task: React.FC<ITasksRow> = ({
@@ -263,7 +258,6 @@ export const Task: React.FC<ITasksRow> = ({
       isInTowerInfo={isInTowerInfo}
     >
       <ModalWindow
-        popUpStyles={styledConfig.modalWindow}
         {...couponModalConfig}
         displayFlag={isCouponModalWindowOpen}
         cancelHandler={() => setIsCouponModalWindowOpen(false)}

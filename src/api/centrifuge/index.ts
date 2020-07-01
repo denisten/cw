@@ -10,10 +10,10 @@ import {
 } from '../../effector/towers-progress/store';
 
 let wsProxyUrl = '';
-const wsUrlLocalDevelopment = 'web.cwmts.dev-stream.ru';
+const wsUrlLocalDevelopment = 'stage.cwmts.prostream.ru';
 
 if (window.location.hostname === wsUrlLocalDevelopment) {
-  wsProxyUrl = 'stage.cwmts.dev-stream.ru';
+  wsProxyUrl = 'stage.cwmts.prostream.ru';
 }
 const centrifugeUrl =
   window.location.hostname === 'dev.city.mts.ru'

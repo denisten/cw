@@ -942,7 +942,7 @@ class BuildingsService {
     [TowersTypes.SHOP]: {
       info: 'info',
       title: 'Салон-магазин МТС',
-      link: 'https://shop.mts.ru',
+      link: 'https://shop.mts.ru/den-rozhdenie-10-let/',
       wideTower: false,
       animSize: animSize.small,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
