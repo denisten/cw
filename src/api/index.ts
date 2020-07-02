@@ -23,7 +23,6 @@ export enum apiRoutes {
   COMMIT_PROGRESS = '/progress/commit',
   GET_TASKS = '/api/users/current/tasks',
   COMMIT_INCOMES = '/incomes/commit',
-  CENTRIFUGE = '/centrifugo/connection/websocket',
   GET_PURCHASES = '/api/users/current/purchases',
   BUY_COUPON = '/api/store/items/coupon-replace/buy',
   STORE_PURCHASES = '/api/store/purchases/',

@@ -9,18 +9,16 @@ import {
   TowersProgressStoreType,
 } from '../../effector/towers-progress/store';
 
-let wsProxyUrl = '';
-const wsUrlLocalDevelopment = 'stage.cwmts.prostream.ru';
+const cityMtsDomain = 'city.mts.ru';
 
-if (window.location.hostname === wsUrlLocalDevelopment) {
-  wsProxyUrl = 'stage.cwmts.prostream.ru';
-}
-const centrifugeUrl =
-  window.location.hostname === 'dev.city.mts.ru'
-    ? '/ws/connection/websocket'
-    : apiRoutes.CENTRIFUGE;
+const centrifugeUrl = '/ws/connection/websocket';
+
+const wsConnectionProtocol =
+  (window.location.hostname !== cityMtsDomain ? 'ws' : 'wss') + '://';
+
 const wsConnectionRoute =
-  'ws://' + (wsProxyUrl || window.location.hostname) + centrifugeUrl;
+  wsConnectionProtocol + window.location.host + centrifugeUrl;
+
 export const openWsConnection = async (userId: number) => {
   const centrifuge = new Centrifuge(wsConnectionRoute, {
     subscribeEndpoint: apiRoutes.WS_SUBSCRIBE,
@@ -36,13 +34,13 @@ export const openWsConnection = async (userId: number) => {
   const subscription = centrifuge.subscribe(
     'progress:updates#' + userId,
     item => {
-      const towerTitless = Object.keys(item.data) as TowersTypes[];
-      const towerDatas = item.data as TowersProgressStoreType;
-      towerTitless.forEach(tower =>
+      const towerTitles = Object.keys(item.data) as TowersTypes[];
+      const towerData = item.data as TowersProgressStoreType;
+      towerTitles.forEach(tower =>
         addTowerProgressData({
           towerTitle: tower,
-          levelOnServer: towerDatas[tower].level.level,
-          points: towerDatas[tower].points,
+          levelOnServer: towerData[tower].level.level,
+          points: towerData[tower].points,
         })
       );
     }
