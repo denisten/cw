@@ -1,35 +1,56 @@
 import { TaskStatuses } from '../../api/tasks/get-tasks';
 import { TowersTypes } from '../../effector/towers-progress/store';
 import { MissionsStore } from '../../effector/missions-store/store';
-import { hideMarker, setMarker } from '../../effector/towers-marker/events';
+import {
+  setMarker,
+  clearTaskMarkersOnCurrentTower,
+  hideMarker,
+} from '../../effector/towers-marker/events';
 import { TypeOfMarkers } from '../../components/markers';
+import { TasksType } from '../../components/tasks';
 
-export const markerHandler = (
-  status: TaskStatuses,
-  productTitle: TowersTypes
-) => {
-  const state = MissionsStore.getState();
-  const numberOfDoneTasksInCurrentProduct = state.filter(
-    el =>
-      el.task.content.product.slug === productTitle &&
-      el.status === TaskStatuses.DONE
-  ).length;
-  const numberOfTasksInCurrentProduct = state.filter(
-    el => el.task.content.product.slug === productTitle
-  ).length;
-  if (
-    status === TaskStatuses.ACTIVE ||
-    (status === TaskStatuses.DONE && numberOfDoneTasksInCurrentProduct)
-  ) {
-    setMarker({
-      towerTitle: productTitle,
-      type: TypeOfMarkers.SUCCESS,
+export const markerHandler = () => {
+  const missions = MissionsStore.getState().map(missionItem => {
+    return {
+      status: missionItem.status,
+      productType: missionItem.task.content.product.slug,
+      taskType: missionItem.task.content.taskType.slug,
+    };
+  });
+  Object.values(TowersTypes).forEach(towerTitle => {
+    clearTaskMarkersOnCurrentTower(towerTitle);
+    missions.forEach(mission => {
+      const { status } = mission;
+      if (mission.productType === towerTitle) {
+        if (status === TaskStatuses.CREATED || status === TaskStatuses.ACTIVE) {
+          setMarker({
+            towerTitle,
+            type: TypeOfMarkers.TASK,
+          });
+        }
+        if (status === TaskStatuses.DONE) {
+          setMarker({
+            towerTitle,
+            type: TypeOfMarkers.SUCCESS,
+          });
+        }
+
+        if (status === TaskStatuses.ACTIVE) {
+          if (mission.taskType !== TasksType.COSMETIC) {
+            setMarker({
+              towerTitle,
+              type: TypeOfMarkers.ACTIVE_TASK,
+            });
+          }
+        }
+
+        if (status === TaskStatuses.VERIFICATION) {
+          hideMarker({
+            towerTitle,
+            type: TypeOfMarkers.TAKE_REWARD,
+          });
+        }
+      }
     });
-  } else {
-    hideMarker({ towerTitle: productTitle, type: TypeOfMarkers.SUCCESS });
-  }
-
-  if (!numberOfTasksInCurrentProduct) {
-    hideMarker({ towerTitle: productTitle, type: TypeOfMarkers.TASK });
-  }
+  });
 };

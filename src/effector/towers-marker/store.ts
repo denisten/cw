@@ -1,7 +1,12 @@
 import { TowersTypes } from '../towers-progress/store';
 import { TypeOfMarkers } from '../../components/markers';
 import { TowersMarkerDomain } from './domain';
-import { hideMarker, resetTowersMarker, setMarker } from './events';
+import {
+  hideMarker,
+  resetTowersMarker,
+  setMarker,
+  clearTaskMarkersOnCurrentTower,
+} from './events';
 
 const initState: TowersMarkerStoreType = {
   [TowersTypes.POISK]: {
@@ -100,7 +105,17 @@ const initState: TowersMarkerStoreType = {
 export const TowersMarkerStore = TowersMarkerDomain.store<
   TowersMarkerStoreType
 >(initState)
-
+  .on(clearTaskMarkersOnCurrentTower, (state, payload) => ({
+    ...state,
+    [payload]: {
+      markers: state[payload].markers.filter(
+        marker =>
+          marker.type !== TypeOfMarkers.ACTIVE_TASK &&
+          marker.type !== TypeOfMarkers.TASK &&
+          marker.type !== TypeOfMarkers.SUCCESS
+      ),
+    },
+  }))
   .on(hideMarker, (state, { towerTitle, type }) => ({
     ...state,
     [towerTitle]: {

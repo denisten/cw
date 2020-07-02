@@ -2,8 +2,6 @@ import { get } from '../../requests';
 import { apiRoutes } from '../../index';
 import { ITask } from '../../../effector/missions-store/store';
 import { decreaseTimer } from '../../../effector/missions-store/events';
-import { setMarker } from '../../../effector/towers-marker/events';
-import { TypeOfMarkers } from '../../../components/markers';
 import { setTaskId } from '../../../effector/chat-messages/events';
 
 let interval = 0;
@@ -27,17 +25,6 @@ export const getTasks = async () => {
   response.data.data.userTasks.map(el => {
     if (el.status !== TaskStatuses.CREATED) {
       setTaskId({ towerTitle: el.task.content.product.slug, taskId: el.id });
-    }
-    setMarker({
-      towerTitle: el.task.content.product.slug,
-      type: TypeOfMarkers.TASK,
-    });
-
-    if (el.status === TaskStatuses.DONE) {
-      setMarker({
-        towerTitle: el.task.content.product.slug,
-        type: TypeOfMarkers.SUCCESS,
-      });
     }
   });
   return response.data.data;
