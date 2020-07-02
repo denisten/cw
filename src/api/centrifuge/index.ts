@@ -9,15 +9,9 @@ import {
   TowersProgressStoreType,
 } from '../../effector/towers-progress/store';
 
-const cityMtsDomain = 'city.mts.ru';
-
 const centrifugeUrl = '/ws/connection/websocket';
 
-const wsConnectionProtocol =
-  (window.location.hostname !== cityMtsDomain ? 'ws' : 'wss') + '://';
-
-const wsConnectionRoute =
-  wsConnectionProtocol + window.location.host + centrifugeUrl;
+const wsConnectionRoute = 'ws://' + window.location.host + centrifugeUrl;
 
 export const openWsConnection = async (userId: number) => {
   const centrifuge = new Centrifuge(wsConnectionRoute, {
