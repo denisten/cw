@@ -69,31 +69,37 @@ export const ScrollContainer: React.FC<{
       mapWrapperRef.current.style.transform = `scale(${scaleValue.current})`;
   };
 
+  const enableFixSizeMod = () => {
+    scaleValue.current = ScaleValues.FIX_SIZE;
+    const { ref } = BuildingsService.getConfigForTower(TowersTypes.THEATER);
+    runScrollAnimation();
+    scrollToCurrentTower(ref, {
+      ...scrollToCurrentTowerOptions,
+      block: 'center',
+    });
+
+    scrollContainerWrapperRef.current?.classList.remove(
+      _scrollContainerClassName
+    );
+
+    dragscroll.reset();
+  };
+
+  const disableFixSizeMod = () => {
+    scaleValue.current = ScaleValues.MIN_SCALE;
+    runScrollAnimation();
+    scrollContainerWrapperRef.current?.classList.add(_scrollContainerClassName);
+    dragscroll.reset();
+  };
+
   const scaleHandler = (payload: number) => {
     if (scaleValue.current === ScaleValues.FIX_SIZE) {
-      scaleValue.current = ScaleValues.MIN_SCALE;
-      runScrollAnimation();
-      scrollContainerWrapperRef.current?.classList.add(
-        _scrollContainerClassName
-      );
-      dragscroll.reset();
+      disableFixSizeMod();
       return;
     }
 
     if (payload < 0 && scaleValue.current + payload < ScaleValues.MIN_SCALE) {
-      scaleValue.current = ScaleValues.FIX_SIZE;
-      const { ref } = BuildingsService.getConfigForTower(TowersTypes.THEATER);
-      runScrollAnimation();
-      scrollToCurrentTower(ref, {
-        ...scrollToCurrentTowerOptions,
-        block: 'center',
-      });
-
-      scrollContainerWrapperRef.current?.classList.remove(
-        _scrollContainerClassName
-      );
-
-      dragscroll.reset();
+      enableFixSizeMod();
     }
 
     if (
