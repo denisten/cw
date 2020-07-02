@@ -45,7 +45,7 @@ const MapWrapper = styled.div<IMapWrapper>`
   z-index: ${props => props.zIndex};
 `;
 
-const _scrollContainerClassName = 'dragscroll';
+export const _scrollContainerClassName = 'dragscroll';
 
 const scrollToCurrentTowerOptions = {
   behavior: 'smooth',
@@ -134,7 +134,7 @@ export const ScrollContainer: React.FC<{
         <Planes />
         <Cars />
         <Map />
-        <Buildings />
+        <Buildings scrollDiv={scrollContainerWrapperRef.current} />
         <Waves />
         <Decorations />
         <CentralBanner tutorialCondition={tutorialCondition} />
