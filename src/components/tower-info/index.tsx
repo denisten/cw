@@ -183,9 +183,8 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
   };
 
   const showButton =
-    !tutorialCondition ||
-    (tutorialCondition === TutorialConditions.NEXT_BUTTON_TOWER_INFO &&
-      tutorialTower);
+    tutorialCondition === TutorialConditions.NEXT_BUTTON_TOWER_INFO &&
+    tutorialTower;
 
   useEffect(() => {
     if (towerInfoRef && towerInfoRef.current) {

@@ -8,7 +8,8 @@ const UpgradeButton = styled.div<ITowerInfoUpgradeButton>`
   height: 34px;
   border-radius: 1px;
   background: url(${background}) no-repeat center;
-  display: ${props => (props.hide ? 'none' : 'flex')};
+  /* display: ${props => (props.hide ? 'none' : 'flex')}; */
+  display: none;
   justify-content: center;
   align-items: center;
   animation-name: ${props =>

@@ -12,6 +12,7 @@ import { TowersTypes } from '../../effector/towers-progress/store';
 import { TypeOfMarkers } from '../../components/markers';
 import { setMarker } from '../../effector/towers-marker/events';
 import { fetchUserPurchases } from '../../effector/coupons/events';
+import { devGetCoupons } from '../../api/dev-api/get-coupons';
 
 const markersEnumeration = (incomes: TowersTypesAsObjectLiteral) => {
   const iterableArrayOfIncomesData = Object.entries(incomes);
@@ -42,6 +43,7 @@ const handleAuth = async (
     await progressRefresh();
     await getAccountData('');
     await fetchUserPurchases('');
+    await devGetCoupons();
     const incomes = await getIncome();
     markersEnumeration(incomes);
     setDataReceived(true);
