@@ -7,6 +7,7 @@ import { clearChat } from '../../effector/chat-messages/events';
 import { coughtError } from '../../effector/error-boundary-store/events';
 import { TowersTypes } from '../../effector/towers-progress/store';
 import { ITabSwitchers } from '../../components/tower-info';
+import { markerHandler } from '../marker-handler';
 
 export const couponHandler = async (
   taskId: number | undefined,
@@ -22,6 +23,7 @@ export const couponHandler = async (
         couponType: CouponTypes.COUPON_REPLACE,
         count: count - 1,
       });
+      markerHandler();
       towerTitle && clearChat({ towerTitle });
       switchers && switchers.openTasksTab();
     } else {

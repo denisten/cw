@@ -11,8 +11,6 @@ import {
   chatTaskSession,
   clearChat,
 } from '../../effector/chat-messages/events';
-import { hideMarker, setMarker } from '../../effector/towers-marker/events';
-import { TypeOfMarkers } from '../../components/markers';
 import {
   menuClosed,
   setTowerInfoContent,
@@ -34,7 +32,6 @@ export const handleTaskClick = async (id: number, e: React.MouseEvent) => {
   const currentMissionIdx = state.findIndex(el => el.id === id);
   const currentMission = state[currentMissionIdx];
   const currentMissionType = currentMission.task.content.taskType.slug;
-  const currentTowerTitle = currentMission.task.content.product.slug;
   const productTitle = state[currentMissionIdx].task.content.product.slug;
   const { status } = state[currentMissionIdx];
   const { taskId } = TaskMessagesStore.getState()[productTitle];
@@ -46,10 +43,6 @@ export const handleTaskClick = async (id: number, e: React.MouseEvent) => {
           state[currentMissionIdx].status === TaskStatuses.CREATED
         ) {
           await chatTaskSession({ id, towerTitle: productTitle });
-          setMarker({
-            towerTitle: currentTowerTitle,
-            type: TypeOfMarkers.ACTIVE_TASK,
-          });
           if (!selectedMenuItem) {
             setTowerInfoContent(TowerInfoContentValues.CHAT);
           } else menuClosed();
@@ -62,22 +55,20 @@ export const handleTaskClick = async (id: number, e: React.MouseEvent) => {
       } else if (taskId) {
         alert('нельзя');
       }
+      markerHandler();
       return;
     case TaskStatuses.ACTIVE:
       await verifyTask(id);
-      markerHandler(status, productTitle);
+      markerHandler();
       break;
     case TaskStatuses.DONE:
       animateTaskReward(currentMission.task.reward, e);
       await takeReward(id);
-      markerHandler(status, productTitle);
+      markerHandler();
       clearChat({ towerTitle: productTitle });
       break;
     case TaskStatuses.VERIFICATION:
-      hideMarker({
-        towerTitle: currentTowerTitle,
-        type: TypeOfMarkers.TAKE_REWARD,
-      });
+      markerHandler();
       return fetchTasks('');
     case TaskStatuses.REWARDED:
     case TaskStatuses.REJECTED:

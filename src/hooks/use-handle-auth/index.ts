@@ -13,6 +13,7 @@ import { TypeOfMarkers } from '../../components/markers';
 import { setMarker } from '../../effector/towers-marker/events';
 import { fetchUserPurchases } from '../../effector/coupons/events';
 import { devGetCoupons } from '../../api/dev-api/get-coupons';
+import { markerHandler } from '../../utils/marker-handler';
 
 const markersEnumeration = (incomes: TowersTypesAsObjectLiteral) => {
   const iterableArrayOfIncomesData = Object.entries(incomes);
@@ -38,6 +39,7 @@ const handleAuth = async (
     }
     const { id } = await fetchUserData('');
     await fetchTasks('');
+
     await fetchAllProductsData('');
     await openWsConnection(id);
     await progressRefresh();
@@ -46,6 +48,7 @@ const handleAuth = async (
     await devGetCoupons();
     const incomes = await getIncome();
     markersEnumeration(incomes);
+    markerHandler();
     setDataReceived(true);
   }
 };
