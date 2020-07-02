@@ -16,12 +16,14 @@ import { CentralBanner } from '../central-banner';
 import { useInitDragscroll } from '../../hooks/use-init-dragscroll';
 import { scrollToCurrentTower } from '../../utils/scroll-to-current-tower';
 import { ZoomInOutButtons } from '../../UI/zoom-in-out-buttons';
+import dragscroll from 'dragscroll';
 
 export enum ScaleValues {
   ZOOM_IN = 0.05,
   ZOOM_OUT = -0.05,
   MAX_SCALE = 1.5,
   MIN_SCALE = 1,
+  FIX_SIZE = 0.3,
 }
 
 export enum MapSize {
@@ -68,6 +70,32 @@ export const ScrollContainer: React.FC<{
   };
 
   const scaleHandler = (payload: number) => {
+    if (scaleValue.current === ScaleValues.FIX_SIZE) {
+      scaleValue.current = ScaleValues.MIN_SCALE;
+      runScrollAnimation();
+      scrollContainerWrapperRef.current?.classList.add(
+        _scrollContainerClassName
+      );
+      dragscroll.reset();
+      return;
+    }
+
+    if (payload < 0 && scaleValue.current + payload < ScaleValues.MIN_SCALE) {
+      scaleValue.current = ScaleValues.FIX_SIZE;
+      const { ref } = BuildingsService.getConfigForTower(TowersTypes.THEATER);
+      runScrollAnimation();
+      scrollToCurrentTower(ref, {
+        ...scrollToCurrentTowerOptions,
+        block: 'center',
+      });
+
+      scrollContainerWrapperRef.current?.classList.remove(
+        _scrollContainerClassName
+      );
+
+      dragscroll.reset();
+    }
+
     if (
       (payload < 0 && scaleValue.current + payload >= ScaleValues.MIN_SCALE) ||
       (payload > 0 && scaleValue.current + payload <= ScaleValues.MAX_SCALE)
