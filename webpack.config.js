@@ -1,8 +1,9 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
-const domain = 'cwmts.prostream.ru';
+const domain = 'dev.city.mts.ru';
 const host = 'web.' + domain;
-const backend = 'https://stage.' + domain;
+const backend = 'http://' + domain;
+const wsConnectionProtocol = 'ws://' + domain;
 
 module.exports = {
   mode: 'development',
@@ -95,10 +96,10 @@ module.exports = {
         secure: false,
         changeOrigin: true,
       },
-      '/centrifugo': {
-        target: backend,
-        secure: false,
+      '/ws': {
+        target: wsConnectionProtocol,
         changeOrigin: true,
+        ws: true,
       },
     },
   },
