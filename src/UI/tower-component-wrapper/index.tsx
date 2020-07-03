@@ -15,6 +15,7 @@ import { scrollToCurrentTower } from '../../utils/scroll-to-current-tower';
 import { Markers } from '../../components/markers';
 import { IMarker } from '../../effector/towers-marker/store';
 import { BuildingsService, IAnimSize } from '../../buildings/config';
+import { _scrollContainerClassName } from '../../components/scroll-container';
 
 enum strokeClassNames {
   STROKE = 'stroke',
@@ -94,6 +95,7 @@ export const TowerWrapper = memo(
     towerInfoShift,
     DOMLoaded,
     animSize,
+    scrollDiv,
   }: ITowerWrapper): React.ReactElement => {
     const [posX, posY] = position;
     let mouseDownFlag = false,
@@ -113,7 +115,12 @@ export const TowerWrapper = memo(
       ) {
         nextTutorStep();
       } else if (!tutorialCondition || tutorialPause) {
-        scrollToCurrentTower(towerRef);
+        if (
+          scrollDiv &&
+          scrollDiv.classList.contains(_scrollContainerClassName)
+        ) {
+          scrollToCurrentTower(towerRef);
+        }
 
         extraTowerInfoModalOpen(towerTitle);
       }
@@ -244,6 +251,7 @@ interface ITowerWrapper {
   markers: IMarker[];
   towerInfoShift: number;
   DOMLoaded: boolean;
+  scrollDiv: HTMLDivElement | null;
 }
 
 interface ITowerStyledWrapper {
