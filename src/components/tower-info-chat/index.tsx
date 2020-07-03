@@ -211,7 +211,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
           TasksType.COSMETIC &&
         missions[currentTaskIndex].status === TaskStatuses.REJECTED
       ) {
-        chatTaskSession({ id: taskId, towerTitle, retry: true });
+        chatTaskSession({ id: taskId, towerTitle, retry: false });
       }
       return () => {
         setHideTowerInfo(false);
@@ -255,13 +255,15 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
             <Writing>...</Writing>
           </BotIsWrittingWrap>
         </ChatWrapper>
-        <ChatButtons
-          haveCoupon={!!count && !ended}
-          couponCount={count}
-          actions={actions}
-          callback={sendAnswerId}
-          couponCallback={() => setOpenCouponModal(true)}
-        />
+        {!ended && (
+          <ChatButtons
+            haveCoupon={!!count}
+            couponCount={count}
+            actions={actions}
+            callback={sendAnswerId}
+            couponCallback={() => setOpenCouponModal(true)}
+          />
+        )}
 
         <ModalWindow
           {...couponModalConfig}
