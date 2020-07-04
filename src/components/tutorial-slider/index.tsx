@@ -97,6 +97,7 @@ const StepViewElement = styled.div`
   margin-right: 7px;
   background: #e0eaee;
   border-radius: 100%;
+  cursor: pointer;
   &.selected {
     background: #01acc8;
   }
@@ -152,7 +153,13 @@ export const TutorialSlider: React.FC<ITutorialSlider> = memo(
               {imgArray.map((el, id) => {
                 let className = '';
                 if (id === currentStep) className = 'selected';
-                return <StepViewElement className={className} key={el} />;
+                return (
+                  <StepViewElement
+                    className={className}
+                    key={el}
+                    onClick={() => setStep(id)}
+                  />
+                );
               })}
             </StepView>
           </DescriptionWrapper>
