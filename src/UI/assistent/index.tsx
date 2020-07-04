@@ -42,10 +42,13 @@ const Title = styled.div`
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  cursor: pointer;
 `;
 
 const penStyleConfig = {
   cursor: 'pointer',
+  marginLeft: '12px',
+  position: 'absolute',
 } as React.CSSProperties;
 
 export const Assistent: React.FC<IAssistent> = ({
@@ -58,8 +61,10 @@ export const Assistent: React.FC<IAssistent> = ({
       <AssistentAvatar src={assistentAvatar} alt="assistent" />
       <span>Робот помощник</span>
       <RowWrapper>
-        <Title>{assistantName}</Title>
-        <img src={penImg} alt="pen" style={penStyleConfig} onClick={callBack} />
+        <Title onClick={callBack}>
+          {assistantName}
+          <img src={penImg} alt="pen" style={penStyleConfig} />
+        </Title>
       </RowWrapper>
     </AssistentWrapper>
   );

@@ -114,6 +114,7 @@ const ProfileButtonWrapper = styled.div<IProfileButtonWrapper>`
   font-stretch: normal;
   font-style: normal;
   font-family: ${MTSSans.BOLD};
+  cursor: pointer;
 `;
 
 const CoinImg = styled.img<{ isCoinRelocateAnimationEnded: boolean }>`

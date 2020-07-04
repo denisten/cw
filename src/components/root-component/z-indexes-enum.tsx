@@ -14,4 +14,5 @@ export enum ZIndexes {
   COIN = 31,
   ERROR = 40,
   PRELOADER = 50,
+  MAX = 60,
 }

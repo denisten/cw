@@ -15,7 +15,8 @@ import {
 import { ScrollContainer } from '../scroll-container';
 import { TutorialOverlay } from '../tutorial-overlay';
 import { zIndexForInheritOverlay } from '../../constants';
-import { IDisplayFlag, SkipTutorial } from '../skip-tutorial';
+// import { SkipTutorial } from '../skip-tutorial';
+import { IDisplayFlag } from '../skip-tutorial';
 import { MoveCoinCollection } from '../move-coin-collection';
 import { RewardStore } from '../../effector/reward/store';
 import { TutorialSlider } from '../tutorial-slider';
@@ -59,7 +60,7 @@ export const RootComponent = (): React.ReactElement => {
   );
   const { isCoinRelocateAnimationEnded } = useStore(RewardStore);
 
-  const [showSkipTutorialUI, setShowSkipTutorialUI] = useState(true);
+  // const [showSkipTutorialUI, setShowSkipTutorialUI] = useState(true);
   const { tutorialCondition, tutorialPause } = useStore(TutorialStore);
   const [tutorialSliderDisplayFlag, setTutorialSliderDisplayFlag] = useState(
     false
@@ -102,10 +103,10 @@ export const RootComponent = (): React.ReactElement => {
         tutorialCondition={tutorialCondition}
         isInsideScrollContainer={false}
       />
-      <SkipTutorial
+      {/* <SkipTutorial
         displayFlag={showSkipTutorialUI}
         setDisplayFlag={() => setShowSkipTutorialUI(!showSkipTutorialUI)}
-      />
+      /> */}
       <ScrollContainer
         tutorialCondition={tutorialCondition}
         zIndex={

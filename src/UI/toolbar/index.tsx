@@ -14,6 +14,8 @@ import { ToolbarElementAlert } from '../toolbar-element-alert';
 import { useStore } from 'effector-react';
 import { MissionsStore } from '../../effector/missions-store/store';
 import { TutorialStore } from '../../effector/tutorial-store/store';
+import { coughtError } from '../../effector/error-boundary-store/events';
+import { pulseAnimationHOF } from '../../hoc/pulse-anim';
 
 const Left = styled.img`
   position: absolute;
@@ -43,7 +45,7 @@ const ToolbarWrapper = styled.div`
   user-select: none;
 `;
 
-const ToolbarElementWrapper = styled.div`
+const ToolbarElementWrapper = styled.div<{ canPulse: boolean }>`
   width: 63.29px;
   height: 63.29px;
   margin-right: 12px;
@@ -55,6 +57,7 @@ const ToolbarElementWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
   :hover {
     background: rgba(2, 173, 201, 0.1);
   }
@@ -62,9 +65,16 @@ const ToolbarElementWrapper = styled.div`
     background: rgba(2, 173, 201, 0.2);
     border: 1px solid rgba(2, 173, 201, 0.5);
   }
+
+  animation: ${props => props.canPulse && pulseAnimationHOF('230, 53, 53')} 0.5s
+    infinite linear;
 `;
 
-const handleToolbarElementClick = (type: ToolbarElements) => {
+const handleToolbarElementClick = (
+  e: React.MouseEvent,
+  type: ToolbarElements
+) => {
+  e.stopPropagation();
   const { tutorialCondition } = TutorialStore.getState();
   if (!tutorialCondition) {
     extraTowerInfoModalClosed();
@@ -75,6 +85,9 @@ const handleToolbarElementClick = (type: ToolbarElements) => {
       case ToolbarElements.SHOP:
       case ToolbarElements.NOTIFICATIONS:
       case ToolbarElements.FEED:
+        coughtError({
+          text: 'Инструмент в разработке',
+        });
         return;
     }
   }
@@ -87,15 +100,20 @@ export const Toolbar = () => {
     [ToolbarElements.FEED]: 0,
     [ToolbarElements.SHOP]: 0,
   };
+
   return (
     <ToolbarWrapper>
       <Left src={leftImg} />
       <Right src={rightImg} />
       {Object.values(ToolbarElements).map(el => {
         return (
-          <ToolbarElementWrapper key={el}>
+          <ToolbarElementWrapper
+            key={el}
+            onClick={e => handleToolbarElementClick(e, el)}
+            canPulse={count[el] > 0 && el === ToolbarElements.TASK}
+          >
             <ToolbarElementAlert count={count[el]} />
-            <ToolbarElement type={el} callback={handleToolbarElementClick} />
+            <ToolbarElement type={el} />
           </ToolbarElementWrapper>
         );
       })}

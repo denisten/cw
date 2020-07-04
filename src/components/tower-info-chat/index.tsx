@@ -11,6 +11,7 @@ import { Sender } from '../../api/tasks/session';
 import {
   chatTaskSession,
   consumeUserTaskAction,
+  pushBotMessageToCurrentChat,
 } from '../../effector/chat-messages/events';
 import { TowersTypes } from '../../effector/towers-progress/store';
 import { ITask, MissionsStore } from '../../effector/missions-store/store';
@@ -106,8 +107,6 @@ const MessageRow = styled.div<{ sender?: Sender }>`
   margin-bottom: 24px;
 `;
 
-const START_HIDE_POS = 200;
-
 let currentMission: null | ITask;
 
 export const couponModalConfig = {
@@ -170,6 +169,29 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
                   towerTitle,
                   type: TypeOfMarkers.SUCCESS,
                 });
+                const resultObject = {
+                  message: {
+                    direction: Sender.BACKEND,
+                    text: `Молодец! Задание выполнено!
+                    Правильных ответов ${data.quizResult.correct} из ${data
+                      .quizResult.correct + data.quizResult.incorrect}.
+                    В заданиях тебя ждёт награда.`,
+                  },
+                  towerTitle,
+                };
+                pushBotMessageToCurrentChat(resultObject);
+              } else {
+                const resultObject = {
+                  message: {
+                    direction: Sender.BACKEND,
+                    text: `Увы! Задание не выполнено.
+                  Правильных ответов ${data.quizResult.correct} из ${data
+                      .quizResult.correct + data.quizResult.incorrect}. 
+                  Попробуй еще раз или воспользуйся купоном во вкладке "Задания".`,
+                  },
+                  towerTitle,
+                };
+                pushBotMessageToCurrentChat(resultObject);
               }
             } else {
               setCurrentTaskStatus({ taskId, status: TaskStatuses.DONE });
@@ -177,23 +199,17 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
                 towerTitle,
                 type: TypeOfMarkers.SUCCESS,
               });
+              switchers.openTasksTab();
             }
             hideMarker({ towerTitle, type: TypeOfMarkers.ACTIVE_TASK });
-            switchers.openTasksTab();
           }
         }
       }
     };
 
-    const chatWheelHandler = () => {
-      if (chatContainer.current) {
-        if (chatContainer.current.scrollTop > START_HIDE_POS && !hideContent) {
-          setHideTowerInfo(true);
-        } else if (chatContainer.current.scrollTop === 0 && hideContent) {
-          setHideTowerInfo(false);
-        }
-      }
-    };
+    useEffect(() => {
+      setHideTowerInfo(true);
+    }, []);
 
     useEffect(() => {
       if (
@@ -211,7 +227,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
           TasksType.COSMETIC &&
         missions[currentTaskIndex].status === TaskStatuses.REJECTED
       ) {
-        chatTaskSession({ id: taskId, towerTitle, retry: true });
+        chatTaskSession({ id: taskId, towerTitle, retry: false });
       }
       return () => {
         setHideTowerInfo(false);
@@ -226,11 +242,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
 
     return (
       <>
-        <ChatWrapper
-          onScroll={chatWheelHandler}
-          fullSize={hideContent}
-          ref={chatContainer}
-        >
+        <ChatWrapper fullSize={hideContent} ref={chatContainer}>
           {messages &&
             messages.map((item, idx) => (
               <MessageRow key={idx} sender={item.direction}>
@@ -255,13 +267,15 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
             <Writing>...</Writing>
           </BotIsWrittingWrap>
         </ChatWrapper>
-        <ChatButtons
-          haveCoupon={!!count && !ended}
-          couponCount={count}
-          actions={actions}
-          callback={sendAnswerId}
-          couponCallback={() => setOpenCouponModal(true)}
-        />
+        {!ended && (
+          <ChatButtons
+            haveCoupon={!!count}
+            couponCount={count}
+            actions={actions}
+            callback={sendAnswerId}
+            couponCallback={() => setOpenCouponModal(true)}
+          />
+        )}
 
         <ModalWindow
           {...couponModalConfig}

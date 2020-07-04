@@ -15,6 +15,7 @@ import {
   setTowerInfoShift,
   setDataReceived,
   setOpenPopUpState,
+  setFullSizeMode,
 } from './events';
 import { TowersTypes } from '../towers-progress/store';
 import { upgradeTower } from '../towers-progress/events';
@@ -46,6 +47,7 @@ const initState = {
   dataReceived: false,
   openPopUpState: TypesOfPopUps.DISABLED,
   haveCorrectCookie: false,
+  fullSizeMode: false,
 };
 
 const appConditionLocalStorage = connectLocalStorage('AppCondition').onChange(
@@ -53,6 +55,10 @@ const appConditionLocalStorage = connectLocalStorage('AppCondition').onChange(
 );
 
 export const AppCondition = AppDomain.store<AppConditionType>(initState)
+  .on(setFullSizeMode, (state, payload) => ({
+    ...state,
+    fullSizeMode: payload,
+  }))
 
   .on(setTowerInfoContent, (state, payload) => ({
     ...state,
@@ -160,4 +166,5 @@ export type AppConditionType = {
   dataReceived: boolean;
   openPopUpState: TypesOfPopUps;
   haveCorrectCookie: boolean;
+  fullSizeMode: boolean;
 };

@@ -16,16 +16,8 @@ import { nextTutorStep } from '../../effector/tutorial-store/events';
 import { menuClosed } from '../../effector/app-condition/events';
 import { ZIndexes } from '../../components/root-component/z-indexes-enum';
 import { ExitButton } from '../exit-button';
-import {
-  TutorialOverlay,
-  TutorialOverlayTopLayer,
-} from '../../components/tutorial-overlay';
-import {
-  zIndexForInheritOverlay,
-  maxCityNameLength,
-  minNameLength,
-  statusOk,
-} from '../../constants';
+
+import { maxCityNameLength, minNameLength, statusOk } from '../../constants';
 import { saveUserData } from '../../api/save-user-data';
 import { contains } from '../../utils/check-include';
 import supportSprite from '../../img/assistant/assistant.png';
@@ -196,47 +188,29 @@ export const PopUp: React.FC<IPopUp> = ({
       <PopUpContentWrapper displayFlag={displayFlag} {...popUpStyles}>
         <ExitButton callBack={callback} {...styleConfig.exitButton} />
         <PopUpTitle>{title}</PopUpTitle>
-        <TutorialOverlayTopLayer
-          zIndex={
-            tutorialDesiredState(tutorialCondition)
-              ? zIndexForInheritOverlay + 1
-              : zIndexForInheritOverlay - 1
-          }
-        >
-          <Input
-            onChangeHandler={handleOnChange}
-            onSubmitHandler={handleSubmit}
-            value={value}
-            hasError={inputHasError}
-            hint={worldInputHint}
-            style={styleConfig.input}
-            describer={'Максимальное число символов ' + maxInputValueLength}
-          />
-        </TutorialOverlayTopLayer>
-        <TutorialOverlayTopLayer
-          zIndex={
-            tutorialDesiredState(tutorialCondition)
-              ? zIndexForInheritOverlay + 1
-              : zIndexForInheritOverlay - 1
-          }
-        >
-          <Button
-            style={styleConfig.button}
-            className={ButtonClassNames.NORMAL}
-            content="Сохранить"
-            pulseAnimFlag={tutorialDesiredState(tutorialCondition)}
-            callback={handleSubmit}
-          />
-        </TutorialOverlayTopLayer>
+        <Input
+          onChangeHandler={handleOnChange}
+          onSubmitHandler={handleSubmit}
+          value={value}
+          hasError={inputHasError}
+          hint={worldInputHint}
+          style={styleConfig.input}
+          describer={'Максимальное число символов ' + maxInputValueLength}
+        />
+
+        <Button
+          style={styleConfig.button}
+          className={ButtonClassNames.NORMAL}
+          content="Сохранить"
+          pulseAnimFlag={tutorialDesiredState(tutorialCondition)}
+          callback={handleSubmit}
+        />
+
         <AssistantSprite
           displayFlag={popUpType === TypesOfPopUps.EDIT_ASSISTANT_NAME}
         >
           <Sprite img={supportSprite} {...styleConfig.sprite} />
         </AssistantSprite>
-        <TutorialOverlay
-          displayFlag={tutorialDesiredState(tutorialCondition)}
-          zIndex={zIndexForInheritOverlay}
-        />
       </PopUpContentWrapper>
     </Fragment>
   );

@@ -2,6 +2,7 @@ import { TaskMessagesDomain } from './domain';
 import {
   chatTaskSessionRequest,
   chatTaskSessionRetryRequest,
+  IMessage,
 } from '../../api/tasks/session';
 import { consumeUserTaskActionRequest } from '../../api/tasks/consume-user-task-action';
 import { TowersTypes } from '../towers-progress/store';
@@ -52,6 +53,14 @@ export const consumeUserTaskAction = TaskMessagesDomain.effect(
 );
 
 export const resetTaskMessagesStore = TaskMessagesDomain.event();
+export const pushBotMessageToCurrentChat = TaskMessagesDomain.event<
+  IBotMessageInCurrentChat
+>();
+
+interface IBotMessageInCurrentChat {
+  message: IMessage;
+  towerTitle: TowersTypes;
+}
 
 interface IConsumeUserTaskAction {
   data: ICurrentTowerTaskMessagesStore;

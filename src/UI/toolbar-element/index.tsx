@@ -24,24 +24,10 @@ const toolbarElementImgSelector = (el: ToolbarElements) => {
   }
 };
 
-export const ToolbarElement: React.FC<IToolbarElement> = ({
-  type,
-  callback,
-}) => {
-  const handleClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    callback(type);
-  };
-  return (
-    <img
-      src={toolbarElementImgSelector(type)}
-      alt={type}
-      onClick={handleClick}
-    />
-  );
+export const ToolbarElement: React.FC<IToolbarElement> = ({ type }) => {
+  return <img src={toolbarElementImgSelector(type)} alt={type} />;
 };
 
 interface IToolbarElement {
   type: ToolbarElements;
-  callback: (type: ToolbarElements) => void;
 }
