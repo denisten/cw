@@ -11,9 +11,7 @@ import { TutorialStore } from '../effector/tutorial-store/store';
 import { TowersMarkerStore } from '../effector/towers-marker/store';
 import { errorStringsParsingHOF } from '../utils/error-handler';
 
-export const Buildings: React.FC<{ scrollDiv: HTMLDivElement | null }> = ({
-  scrollDiv,
-}) => {
+export const Buildings: React.FC = () => {
   const localTowersProgressStore = useStore(TowersProgressStore);
   const markers = useStore(TowersMarkerStore);
   const towersKeys = Object.keys(localTowersProgressStore) as TowersTypes[];
@@ -37,7 +35,6 @@ export const Buildings: React.FC<{ scrollDiv: HTMLDivElement | null }> = ({
             return (
               <TowerWrapper
                 fullSizeMode={fullSizeMode}
-                scrollDiv={scrollDiv}
                 animSize={towerLayoutData.animSize}
                 DOMLoaded={DOMLoaded}
                 towerInfoShift={towerInfoShift}

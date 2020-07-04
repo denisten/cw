@@ -144,7 +144,7 @@ export const ScrollContainer: React.FC<{
         <Planes />
         <Cars />
         <Map />
-        <Buildings scrollDiv={scrollContainerWrapperRef.current} />
+        <Buildings />
         <Waves />
         <Decorations />
         <CentralBanner tutorialCondition={tutorialCondition} />

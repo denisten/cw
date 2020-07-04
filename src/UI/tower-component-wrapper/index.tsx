@@ -95,7 +95,6 @@ export const TowerWrapper = memo(
     towerInfoShift,
     DOMLoaded,
     animSize,
-    scrollDiv,
     fullSizeMode,
   }: ITowerWrapper): React.ReactElement => {
     const [posX, posY] = position;
@@ -116,10 +115,7 @@ export const TowerWrapper = memo(
       ) {
         nextTutorStep();
       } else if (!tutorialCondition || tutorialPause) {
-        if (
-          scrollDiv &&
-          scrollDiv.classList.contains(_scrollContainerClassName)
-        ) {
+        if (!fullSizeMode) {
           scrollToCurrentTower(towerRef);
         }
 
@@ -254,7 +250,6 @@ interface ITowerWrapper {
   markers: IMarker[];
   towerInfoShift: number;
   DOMLoaded: boolean;
-  scrollDiv: HTMLDivElement | null;
   fullSizeMode: boolean;
 }
 
