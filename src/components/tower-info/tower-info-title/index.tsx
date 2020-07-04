@@ -90,7 +90,21 @@ export const TowerInfoTitle: React.FC<ITowerInfoTitle> = ({
   };
 
   const handleTitleClick = () => {
-    link && window.open(link);
+    if (link) {
+      const width = 1000;
+      const height = 660;
+      const left = window.innerWidth / 2 - width / 2;
+      const top = window.innerHeight / 2 - height / 2;
+      const linkWindow = window.open(
+        undefined,
+        '',
+        `height=${height},width=${width},left=${left}, top=${top}`
+      );
+
+      if (linkWindow) {
+        linkWindow.location.href = link;
+      }
+    }
   };
   return (
     <RowWrapper {...styledConfig}>
