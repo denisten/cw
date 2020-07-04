@@ -20,6 +20,7 @@ import { Span, StyledSpan } from '../../UI/span';
 import { MTSSans } from '../../fonts';
 import { AppCondition } from '../../effector/app-condition/store';
 import { delayBeforePreloaderOff } from '../../constants';
+import { handleAuthButtonClick } from '../../utils/handle-auth-button-click';
 
 const TutorialDialogWrapper = styled.div`
   width: 1128px;
@@ -197,6 +198,7 @@ export const TutorialDialog: React.FC<{ mustBeAsAnimated?: boolean }> = ({
   const handleBackButtonClick = () => {
     if (isNowFirstStepOfTutorial(dialogStep, tutorialCondition)) {
       turnOffTutorialMode();
+      handleAuthButtonClick();
     } else if (dialogStep) {
       setDialogStep(dialogStep - 1);
     }

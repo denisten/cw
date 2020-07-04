@@ -107,8 +107,6 @@ const MessageRow = styled.div<{ sender?: Sender }>`
   margin-bottom: 24px;
 `;
 
-const START_HIDE_POS = 200;
-
 let currentMission: null | ITask;
 
 export const couponModalConfig = {

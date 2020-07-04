@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { TowerInfo } from '../tower-info';
 import { useStore } from 'effector-react';
@@ -15,7 +15,7 @@ import {
 import { ScrollContainer } from '../scroll-container';
 import { TutorialOverlay } from '../tutorial-overlay';
 import { zIndexForInheritOverlay } from '../../constants';
-import { SkipTutorial } from '../skip-tutorial';
+// import { SkipTutorial } from '../skip-tutorial';
 import { MoveCoinCollection } from '../move-coin-collection';
 import { RewardStore } from '../../effector/reward/store';
 
@@ -36,7 +36,7 @@ export const RootComponent = (): React.ReactElement => {
   );
   const { isCoinRelocateAnimationEnded } = useStore(RewardStore);
 
-  const [showSkipTutorialUI, setShowSkipTutorialUI] = useState(true);
+  // const [showSkipTutorialUI, setShowSkipTutorialUI] = useState(true);
   const { tutorialCondition, tutorialPause } = useStore(TutorialStore);
 
   return (
@@ -54,10 +54,10 @@ export const RootComponent = (): React.ReactElement => {
         tutorialCondition={tutorialCondition}
         isInsideScrollContainer={false}
       />
-      <SkipTutorial
+      {/* <SkipTutorial
         displayFlag={showSkipTutorialUI}
         setDisplayFlag={() => setShowSkipTutorialUI(!showSkipTutorialUI)}
-      />
+      /> */}
       <ScrollContainer
         tutorialCondition={tutorialCondition}
         zIndex={
