@@ -7,6 +7,7 @@ import increaseImg from './increase.svg';
 import { MTSSans } from '../../fonts';
 import { ExitButton } from '../../UI/exit-button';
 import { ZIndexes } from '../root-component/z-indexes-enum';
+import { ImagesCollection } from '../../UI/images-collection';
 
 const defaultImgWrapperWidth = 781;
 
@@ -27,18 +28,13 @@ const ImageWrapper = styled.div`
   overflow: hidden;
 `;
 
-const ImageCollection = styled.div`
+const ImageCollectionWrapper = styled.div`
   height: 100%;
   display: flex;
   transition-timing-function: ease-in-out;
   transition-property: transform;
   transform: translateX(0);
   transition-duration: 0.3s;
-`;
-
-const ImageCollectionElement = styled.img`
-  width: 781px;
-  height: 301px;
 `;
 
 const DescriptionWrapper = styled.div`
@@ -120,10 +116,6 @@ export const TutorialSlider: React.FC<ITutorialSlider> = memo(
     const [step, setStep] = useState(0);
     const currentStep = Math.abs(step % imgArray.length);
 
-    const imagesCollection = imgArray.map(el => {
-      return <ImageCollectionElement src={el} key={el} alt="imgContent" />;
-    });
-
     useEffect(() => {
       const request = requestAnimationFrame(() => {
         if (imageWrapperRef.current) {
@@ -139,9 +131,9 @@ export const TutorialSlider: React.FC<ITutorialSlider> = memo(
         <TutorialSliderWrapper>
           <ExitButton callBack={callback} {...styledConfig.exitButton} />
           <ImageWrapper>
-            <ImageCollection ref={imageWrapperRef}>
-              {imagesCollection}
-            </ImageCollection>
+            <ImageCollectionWrapper ref={imageWrapperRef}>
+              <ImagesCollection imgArray={imgArray} />
+            </ImageCollectionWrapper>
           </ImageWrapper>
           <DescriptionWrapper>
             <Title content={content[currentStep].title} />
