@@ -1,13 +1,14 @@
 import { editUserData, IEditUserData } from '../../effector/user-data/events';
 import { saveUserData } from '../../api/save-user-data';
 import { birthdayParser } from '../birthday-parser';
+import { coughtError } from '../../effector/error-boundary-store/events';
 
 const checkBirthdayDate = (date: string | number) => {
   if (!+date) return null;
   return date;
 };
 
-export const updateUserData = (data: IEditUserData) => {
+export const updateUserData = async (data: IEditUserData) => {
   editUserData({
     name: data.name,
     birthday: data.birthday,
@@ -19,9 +20,9 @@ export const updateUserData = (data: IEditUserData) => {
       !checkBirthdayDate(parsedBirthdayDd) ||
       !checkBirthdayDate(parsedBirthdayMm)
     ) {
-      saveUserData({ name: data.name });
+      await saveUserData({ name: data.name });
     } else {
-      saveUserData({
+      await saveUserData({
         name: data.name,
         birthday: `${birthdayParser(data.birthday.dd)}.${birthdayParser(
           data.birthday.mm
@@ -29,4 +30,7 @@ export const updateUserData = (data: IEditUserData) => {
       });
     }
   }
+  coughtError({
+    text: 'Данные пользователя успешно сохранены',
+  });
 };
