@@ -11,6 +11,7 @@ import { Sender } from '../../api/tasks/session';
 import {
   chatTaskSession,
   consumeUserTaskAction,
+  pushBotMessageToCurrentChat,
 } from '../../effector/chat-messages/events';
 import { TowersTypes } from '../../effector/towers-progress/store';
 import { ITask, MissionsStore } from '../../effector/missions-store/store';
@@ -170,6 +171,29 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
                   towerTitle,
                   type: TypeOfMarkers.SUCCESS,
                 });
+                const resultObject = {
+                  message: {
+                    direction: Sender.BACKEND,
+                    text: `Молодец! Задание выполнено!
+                    Правильных ответов ${data.quizResult.correct} из ${data
+                      .quizResult.correct + data.quizResult.incorrect}.
+                    В заданиях тебя ждёт награда.`,
+                  },
+                  towerTitle,
+                };
+                pushBotMessageToCurrentChat(resultObject);
+              } else {
+                const resultObject = {
+                  message: {
+                    direction: Sender.BACKEND,
+                    text: `Увы! Задание не выполнено.
+                  Правильных ответов ${data.quizResult.correct} из ${data
+                      .quizResult.correct + data.quizResult.incorrect}. 
+                  Попробуй еще раз или воспользуйся купоном во вкладке "Задания".`,
+                  },
+                  towerTitle,
+                };
+                pushBotMessageToCurrentChat(resultObject);
               }
             } else {
               setCurrentTaskStatus({ taskId, status: TaskStatuses.DONE });
@@ -177,9 +201,9 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
                 towerTitle,
                 type: TypeOfMarkers.SUCCESS,
               });
+              switchers.openTasksTab();
             }
             hideMarker({ towerTitle, type: TypeOfMarkers.ACTIVE_TASK });
-            switchers.openTasksTab();
           }
         }
       }
