@@ -15,7 +15,6 @@ import { scrollToCurrentTower } from '../../utils/scroll-to-current-tower';
 import { Markers } from '../../components/markers';
 import { IMarker } from '../../effector/towers-marker/store';
 import { BuildingsService, IAnimSize } from '../../buildings/config';
-import { _scrollContainerClassName } from '../../components/scroll-container';
 
 enum strokeClassNames {
   STROKE = 'stroke',
@@ -51,6 +50,10 @@ const TowerStyledWrapper = styled.div<ITowerStyledWrapper>`
   &[data-towertype=${TowersTypes.CASHBACK}] canvas {
     width: 700px !important;
     height: 660px !important;
+  }
+
+  &:hover {
+    z-index: ${ZIndexes.MAX} !important;
   }
 
 `;

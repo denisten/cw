@@ -50,8 +50,8 @@ export const MarkerView = styled.div<IMarkerView>`
     center;
   background-size: 100% 100%;
   cursor: pointer;
-  width: ${props => (props.fullSizeMode ? '264px' : '64px')};
-  height: ${props => (props.fullSizeMode ? '268px' : '68px')};
+  width: ${props => (props.fullSizeMode ? '204px' : '64px')};
+  height: ${props => (props.fullSizeMode ? '208px' : '68px')};
   transition: 0.5s;
   animation-name: ${props => selectAnimation(props.animFlag)};
   animation-fill-mode: both;
@@ -81,10 +81,10 @@ export const MarkerWrapper = styled.div<{ displayFlag: boolean }>`
   z-index: ${ZIndexes.UI_BUTTON};
 
   ${MarkerView}:nth-child(2) {
-    transform: translate3d(-25px, 25px, 0);
+    transform: translate3d(-10%, 20%, 0);
 
     &:hover {
-      transform: translate3d(-25px, 25px, 0) scale(1.2);
+      transform: translate3d(-10%, 20%, 0) scale(1.2);
     }
   }
 
