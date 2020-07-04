@@ -6,6 +6,7 @@ import {
   createMockupOfMessages,
   resetTaskMessagesStore,
   setTaskId,
+  pushBotMessageToCurrentChat,
 } from './events';
 import { IAction, IMessage, Sender } from '../../api/tasks/session';
 import { TowersTypes } from '../towers-progress/store';
@@ -70,6 +71,13 @@ export const TaskMessagesStore = TaskMessagesDomain.store<ITaskMessagesStore>(
       },
     };
   })
+  .on(pushBotMessageToCurrentChat, (state, { message, towerTitle }) => ({
+    ...state,
+    [towerTitle]: {
+      ...state[towerTitle],
+      messages: [...state[towerTitle].messages, message],
+    },
+  }))
   .on(createMockupOfMessages, state => ({
     ...state,
     [TowersTypes.MAIN_TOWER]: {

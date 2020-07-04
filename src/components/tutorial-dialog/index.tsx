@@ -11,7 +11,6 @@ import {
   TutorialConditions,
   TutorialStore,
 } from '../../effector/tutorial-store/store';
-import { ExitButton } from '../../UI/exit-button';
 import { TutorialDialogTextsService } from './dialog-messages-service';
 import { Sprite } from '../sprite';
 import supportSprite from '../../img/assistant/assistant.png';
@@ -21,6 +20,7 @@ import { Span, StyledSpan } from '../../UI/span';
 import { MTSSans } from '../../fonts';
 import { AppCondition } from '../../effector/app-condition/store';
 import { delayBeforePreloaderOff } from '../../constants';
+import { handleAuthButtonClick } from '../../utils/handle-auth-button-click';
 
 const TutorialDialogWrapper = styled.div`
   width: 1128px;
@@ -100,11 +100,6 @@ const delayBetweenDialogMessages = 600;
 const delayBetweenLetterAppearing = 12;
 
 const styleConfig = {
-  exitButton: {
-    position: 'absolute',
-    top: '4%',
-    right: '0%',
-  },
   sprite: {
     canvasWidth: 224,
     canvasHeight: 304,
@@ -203,6 +198,7 @@ export const TutorialDialog: React.FC<{ mustBeAsAnimated?: boolean }> = ({
   const handleBackButtonClick = () => {
     if (isNowFirstStepOfTutorial(dialogStep, tutorialCondition)) {
       turnOffTutorialMode();
+      handleAuthButtonClick();
     } else if (dialogStep) {
       setDialogStep(dialogStep - 1);
     }
@@ -210,11 +206,6 @@ export const TutorialDialog: React.FC<{ mustBeAsAnimated?: boolean }> = ({
   return (
     <MainWrapper firstLoaded={DOMLoaded} mustBeAsAnimated={mustBeAsAnimated}>
       <TutorialDialogWrapper>
-        <ExitButton
-          displayFlag={true}
-          callBack={() => turnOffTutorialMode()}
-          {...styleConfig.exitButton}
-        />
         <SupportSpriteWrapper>
           <Sprite img={supportSprite} {...styleConfig.sprite} />
         </SupportSpriteWrapper>

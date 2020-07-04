@@ -15,7 +15,6 @@ import { scrollToCurrentTower } from '../../utils/scroll-to-current-tower';
 import { Markers } from '../../components/markers';
 import { IMarker } from '../../effector/towers-marker/store';
 import { BuildingsService, IAnimSize } from '../../buildings/config';
-import { _scrollContainerClassName } from '../../components/scroll-container';
 
 enum strokeClassNames {
   STROKE = 'stroke',
@@ -51,6 +50,10 @@ const TowerStyledWrapper = styled.div<ITowerStyledWrapper>`
   &[data-towertype=${TowersTypes.CASHBACK}] canvas {
     width: 700px !important;
     height: 660px !important;
+  }
+
+  &:hover {
+    z-index: ${ZIndexes.MAX} !important;
   }
 
 `;
@@ -95,7 +98,7 @@ export const TowerWrapper = memo(
     towerInfoShift,
     DOMLoaded,
     animSize,
-    scrollDiv,
+    fullSizeMode,
   }: ITowerWrapper): React.ReactElement => {
     const [posX, posY] = position;
     let mouseDownFlag = false,
@@ -115,10 +118,7 @@ export const TowerWrapper = memo(
       ) {
         nextTutorStep();
       } else if (!tutorialCondition || tutorialPause) {
-        if (
-          scrollDiv &&
-          scrollDiv.classList.contains(_scrollContainerClassName)
-        ) {
+        if (!fullSizeMode) {
           scrollToCurrentTower(towerRef);
         }
 
@@ -168,6 +168,7 @@ export const TowerWrapper = memo(
         data-towertype={towerTitle}
       >
         <Markers
+          fullSizeMode={fullSizeMode}
           towerRef={towerRef}
           towerLevel={currentLevel}
           markersCollection={markers}
@@ -177,6 +178,7 @@ export const TowerWrapper = memo(
           }
         />
         <UpgradeButton
+          fullSizeMode={fullSizeMode}
           tutorialCondition={tutorialCondition}
           displayFlag={progress >= maxProgressValue && currentLevel < maxLevel}
           towerTitle={towerTitle}
@@ -251,7 +253,7 @@ interface ITowerWrapper {
   markers: IMarker[];
   towerInfoShift: number;
   DOMLoaded: boolean;
-  scrollDiv: HTMLDivElement | null;
+  fullSizeMode: boolean;
 }
 
 interface ITowerStyledWrapper {
