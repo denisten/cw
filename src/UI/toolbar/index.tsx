@@ -14,6 +14,7 @@ import { ToolbarElementAlert } from '../toolbar-element-alert';
 import { useStore } from 'effector-react';
 import { MissionsStore } from '../../effector/missions-store/store';
 import { TutorialStore } from '../../effector/tutorial-store/store';
+import { coughtError } from '../../effector/error-boundary-store/events';
 
 const Left = styled.img`
   position: absolute;
@@ -55,6 +56,7 @@ const ToolbarElementWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
   :hover {
     background: rgba(2, 173, 201, 0.1);
   }
@@ -64,7 +66,11 @@ const ToolbarElementWrapper = styled.div`
   }
 `;
 
-const handleToolbarElementClick = (type: ToolbarElements) => {
+const handleToolbarElementClick = (
+  e: React.MouseEvent,
+  type: ToolbarElements
+) => {
+  e.stopPropagation();
   const { tutorialCondition } = TutorialStore.getState();
   if (!tutorialCondition) {
     extraTowerInfoModalClosed();
@@ -75,6 +81,9 @@ const handleToolbarElementClick = (type: ToolbarElements) => {
       case ToolbarElements.SHOP:
       case ToolbarElements.NOTIFICATIONS:
       case ToolbarElements.FEED:
+        coughtError({
+          text: 'Инструмент в разработке',
+        });
         return;
     }
   }
@@ -87,15 +96,19 @@ export const Toolbar = () => {
     [ToolbarElements.FEED]: 0,
     [ToolbarElements.SHOP]: 0,
   };
+
   return (
     <ToolbarWrapper>
       <Left src={leftImg} />
       <Right src={rightImg} />
       {Object.values(ToolbarElements).map(el => {
         return (
-          <ToolbarElementWrapper key={el}>
+          <ToolbarElementWrapper
+            key={el}
+            onClick={e => handleToolbarElementClick(e, el)}
+          >
             <ToolbarElementAlert count={count[el]} />
-            <ToolbarElement type={el} callback={handleToolbarElementClick} />
+            <ToolbarElement type={el} />
           </ToolbarElementWrapper>
         );
       })}
