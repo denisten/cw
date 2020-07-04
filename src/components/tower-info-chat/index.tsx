@@ -209,15 +209,9 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
       }
     };
 
-    const chatWheelHandler = () => {
-      if (chatContainer.current) {
-        if (chatContainer.current.scrollTop > START_HIDE_POS && !hideContent) {
-          setHideTowerInfo(true);
-        } else if (chatContainer.current.scrollTop === 0 && hideContent) {
-          setHideTowerInfo(false);
-        }
-      }
-    };
+    useEffect(() => {
+      setHideTowerInfo(true);
+    }, []);
 
     useEffect(() => {
       if (
@@ -250,11 +244,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
 
     return (
       <>
-        <ChatWrapper
-          onScroll={chatWheelHandler}
-          fullSize={hideContent}
-          ref={chatContainer}
-        >
+        <ChatWrapper fullSize={hideContent} ref={chatContainer}>
           {messages &&
             messages.map((item, idx) => (
               <MessageRow key={idx} sender={item.direction}>
