@@ -90,7 +90,7 @@ const ProfileWrapper = styled.div`
   box-sizing: border-box;
 `;
 
-const WorldTitle = styled(StyledSpan)<ISpan>`
+const WorldTitle = styled(StyledSpan)`
   font-family: ${MTSSans.BLACK};
   font-size: 24px;
   font-weight: 900;
