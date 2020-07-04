@@ -17,9 +17,13 @@ export const Buildings: React.FC<{ scrollDiv: HTMLDivElement | null }> = ({
   const localTowersProgressStore = useStore(TowersProgressStore);
   const markers = useStore(TowersMarkerStore);
   const towersKeys = Object.keys(localTowersProgressStore) as TowersTypes[];
-  const { focusOn, upgradingTowerTitle, towerInfoShift, DOMLoaded } = useStore(
-    AppCondition
-  );
+  const {
+    focusOn,
+    upgradingTowerTitle,
+    towerInfoShift,
+    DOMLoaded,
+    fullSizeMode,
+  } = useStore(AppCondition);
   const { tutorialCondition, tutorialPause } = useStore(TutorialStore);
   return (
     <Fragment>
@@ -32,6 +36,7 @@ export const Buildings: React.FC<{ scrollDiv: HTMLDivElement | null }> = ({
           if (towerParams) {
             return (
               <TowerWrapper
+                fullSizeMode={fullSizeMode}
                 scrollDiv={scrollDiv}
                 animSize={towerLayoutData.animSize}
                 DOMLoaded={DOMLoaded}

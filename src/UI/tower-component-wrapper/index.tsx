@@ -96,6 +96,7 @@ export const TowerWrapper = memo(
     DOMLoaded,
     animSize,
     scrollDiv,
+    fullSizeMode,
   }: ITowerWrapper): React.ReactElement => {
     const [posX, posY] = position;
     let mouseDownFlag = false,
@@ -168,6 +169,7 @@ export const TowerWrapper = memo(
         data-towertype={towerTitle}
       >
         <Markers
+          fullSizeMode={fullSizeMode}
           towerRef={towerRef}
           towerLevel={currentLevel}
           markersCollection={markers}
@@ -177,6 +179,7 @@ export const TowerWrapper = memo(
           }
         />
         <UpgradeButton
+          fullSizeMode={fullSizeMode}
           tutorialCondition={tutorialCondition}
           displayFlag={progress >= maxProgressValue && currentLevel < maxLevel}
           towerTitle={towerTitle}
@@ -252,6 +255,7 @@ interface ITowerWrapper {
   towerInfoShift: number;
   DOMLoaded: boolean;
   scrollDiv: HTMLDivElement | null;
+  fullSizeMode: boolean;
 }
 
 interface ITowerStyledWrapper {

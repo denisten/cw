@@ -17,6 +17,7 @@ import { useInitDragscroll } from '../../hooks/use-init-dragscroll';
 import { scrollToCurrentTower } from '../../utils/scroll-to-current-tower';
 import { ZoomInOutButtons } from '../../UI/zoom-in-out-buttons';
 import dragscroll from 'dragscroll';
+import { setFullSizeMode } from '../../effector/app-condition/events';
 
 export enum ScaleValues {
   ZOOM_IN = 0.05,
@@ -83,6 +84,7 @@ export const ScrollContainer: React.FC<{
     );
 
     dragscroll.reset();
+    setFullSizeMode(true);
   };
 
   const disableFixSizeMod = () => {
@@ -90,6 +92,7 @@ export const ScrollContainer: React.FC<{
     runScrollAnimation();
     scrollContainerWrapperRef.current?.classList.add(_scrollContainerClassName);
     dragscroll.reset();
+    setFullSizeMode(false);
   };
 
   const scaleHandler = (payload: number) => {

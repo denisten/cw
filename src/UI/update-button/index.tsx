@@ -16,6 +16,7 @@ export const UpgradeButton: React.FC<UpgradeButtonProps> = ({
   displayFlag,
   towerLevel,
   tutorialCondition,
+  fullSizeMode,
 }) => {
   return (
     <MarkerWrapper
@@ -24,6 +25,7 @@ export const UpgradeButton: React.FC<UpgradeButtonProps> = ({
       data-towerlevel={towerLevel}
     >
       <MarkerView
+        fullSizeMode={fullSizeMode}
         markerType={TypeOfMarkers.UPGRADE_TOWER}
         animFlag={animFlag}
         onClick={() => {
@@ -41,4 +43,5 @@ type UpgradeButtonProps = {
   displayFlag: boolean;
   towerLevel: number;
   tutorialCondition: TutorialConditions;
+  fullSizeMode: boolean;
 };
