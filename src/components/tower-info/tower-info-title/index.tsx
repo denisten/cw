@@ -16,6 +16,15 @@ import {
   TowersTypes,
 } from '../../../effector/towers-progress/store';
 import { upgradeTower } from '../../../effector/towers-progress/events';
+import arrow from './arrow.svg';
+import arrowHover from './arrow-hover.svg';
+
+const Arrow = styled.div`
+  width: 35px;
+  height: 35px;
+  margin-left: 12px;
+  background-image: url(${arrow});
+`;
 
 const Title = styled.div<ITitle>`
   font-size: ${props => (props.sizeContent ? '29px' : '32px')};
@@ -28,9 +37,15 @@ const Title = styled.div<ITitle>`
   font-family: ${MTSSans.ULTRA_WIDE};
   transition: ${COMMON_TRANSITION}s;
   user-select: none;
+  display: flex;
+  align-items: center;
   :hover {
     color: #04b5d2;
     cursor: pointer;
+  }
+
+  &:hover ${Arrow} {
+    background-image: url(${arrowHover});
   }
 `;
 
@@ -81,6 +96,7 @@ export const TowerInfoTitle: React.FC<ITowerInfoTitle> = ({
     <RowWrapper {...styledConfig}>
       <Title sizeContent={hideTowerInfo} onClick={handleTitleClick}>
         {title}
+        <Arrow />
       </Title>
       <TowerInfoUpgradeButton
         handleClick={handleClick}
