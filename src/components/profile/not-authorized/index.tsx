@@ -47,6 +47,7 @@ const PenWrapper = styled.img<IPenWrapper>`
   animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;
   animation-duration: 1s;
+  margin-left: 12px;
 `;
 
 const WorldTitle = styled(StyledSpan)`
@@ -58,6 +59,7 @@ const WorldTitle = styled(StyledSpan)`
   text-align: center;
   color: #001424;
   margin-right: 9px;
+  cursor: pointer;
 `;
 
 const styledConfig = {
@@ -128,16 +130,17 @@ export const NotAuthorizedProfile: React.FC<INotAuthorizedProfile> = ({
         }
       >
         <RowWrapper {...styledConfig.rowWrapper}>
-          <WorldTitle>{worldName}</WorldTitle>
-          <PenWrapper
-            {...styledConfig.penWrapper}
-            src={penImg}
-            onClick={handlePenClick}
-            animFlag={
-              tutorialCondition ===
-              TutorialConditions.PULSE_EDIT_CHANGE_CITY_NAME
-            }
-          />
+          <WorldTitle onClick={handlePenClick}>
+            {worldName}
+            <PenWrapper
+              {...styledConfig.penWrapper}
+              src={penImg}
+              animFlag={
+                tutorialCondition ===
+                TutorialConditions.PULSE_EDIT_CHANGE_CITY_NAME
+              }
+            />
+          </WorldTitle>
         </RowWrapper>
       </TutorialOverlayTopLayer>
       <img src={profileIcon} alt="profile" style={styledConfig.profileIcon} />

@@ -99,9 +99,7 @@ const WorldTitle = styled(StyledSpan)<ISpan>`
   text-align: center;
   color: #001424;
   margin-right: 9px;
-  &::after {
-  content: "${props => props.content}"
-  }
+  cursor: pointer;
 `;
 
 const defaultInputTitleMarginRight = 21;
@@ -167,6 +165,7 @@ const styledConfig = {
   },
   penImg: {
     cursor: 'pointer',
+    marginLeft: '12px',
   },
   profileDataColumnWrapper: {
     displayFlag: true,
@@ -300,13 +299,12 @@ export const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
         <CoinsWallet sum={String(money)} />
       </RowWrapper>
       <RowWrapper {...styledConfig.rowWrapper}>
-        <WorldTitle content={worldName} />
-        <img
-          src={penImg}
-          alt="pen"
+        <WorldTitle
           onClick={() => setOpenPopUpState(TypesOfPopUps.EDIT_WORLD_NAME)}
-          style={styledConfig.penImg}
-        />
+        >
+          {worldName}
+          <img src={penImg} alt="pen" style={styledConfig.penImg} />
+        </WorldTitle>
       </RowWrapper>
       <ColumnWrapper {...styledConfig.inputWrapper}>
         <Assistent
