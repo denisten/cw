@@ -15,6 +15,7 @@ import { useStore } from 'effector-react';
 import { MissionsStore } from '../../effector/missions-store/store';
 import { TutorialStore } from '../../effector/tutorial-store/store';
 import { coughtError } from '../../effector/error-boundary-store/events';
+import { pulseAnimationHOF } from '../../hoc/pulse-anim';
 
 const Left = styled.img`
   position: absolute;
@@ -44,7 +45,7 @@ const ToolbarWrapper = styled.div`
   user-select: none;
 `;
 
-const ToolbarElementWrapper = styled.div`
+const ToolbarElementWrapper = styled.div<{ canPulse: boolean }>`
   width: 63.29px;
   height: 63.29px;
   margin-right: 12px;
@@ -64,6 +65,9 @@ const ToolbarElementWrapper = styled.div`
     background: rgba(2, 173, 201, 0.2);
     border: 1px solid rgba(2, 173, 201, 0.5);
   }
+
+  animation: ${props => props.canPulse && pulseAnimationHOF('230, 53, 53')} 0.5s
+    infinite linear;
 `;
 
 const handleToolbarElementClick = (
@@ -106,6 +110,7 @@ export const Toolbar = () => {
           <ToolbarElementWrapper
             key={el}
             onClick={e => handleToolbarElementClick(e, el)}
+            canPulse={count[el] > 0 && el === ToolbarElements.TASK}
           >
             <ToolbarElementAlert count={count[el]} />
             <ToolbarElement type={el} />
