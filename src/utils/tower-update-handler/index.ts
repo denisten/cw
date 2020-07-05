@@ -1,6 +1,6 @@
 import { TutorialConditions } from '../../effector/tutorial-store/store';
 import { TowersTypes } from '../../effector/towers-progress/store';
-import { statusOk, delayBeforeUpdateTower } from '../../constants';
+import { statusOk } from '../../constants';
 import { updateTowerRequest } from '../../api/updateTower';
 import { upgradeTower } from '../../effector/towers-progress/events';
 import {
@@ -8,6 +8,7 @@ import {
   extraTowerInfoModalClosed,
 } from '../../effector/app-condition/events';
 import { nextTutorStep } from '../../effector/tutorial-store/events';
+import { upgradeTowerAndShowAnimation } from '../upgrade-tower-and-show-animation';
 
 const delayMS = 2000;
 const delayBeforeUpgrade = () =>
@@ -27,9 +28,7 @@ export const towerUpdateHandler = async (
       showUpgradeIcon(null);
     }
   } else {
-    setTimeout(() => {
-      nextTutorStep();
-      upgradeTower(towerTitle);
-    }, delayBeforeUpdateTower);
+    upgradeTowerAndShowAnimation(towerTitle);
+    nextTutorStep();
   }
 };

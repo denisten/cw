@@ -21,6 +21,7 @@ import { MTSSans } from '../../fonts';
 import { AppCondition } from '../../effector/app-condition/store';
 import { delayBeforePreloaderOff } from '../../constants';
 import { handleAuthButtonClick } from '../../utils/handle-auth-button-click';
+import { ExitButton } from '../../UI/exit-button';
 
 const TutorialDialogWrapper = styled.div`
   width: 1128px;
@@ -100,6 +101,11 @@ const delayBetweenDialogMessages = 600;
 const delayBetweenLetterAppearing = 12;
 
 const styleConfig = {
+  exitButton: {
+    position: 'absolute',
+    top: '4%',
+    right: '0%',
+  },
   sprite: {
     canvasWidth: 224,
     canvasHeight: 304,
@@ -128,7 +134,7 @@ const styleConfig = {
   },
 };
 
-const minStepsCountToSkipTutorial = 3;
+const minStepsCountToSkipTutorial = 1;
 
 const isNowFirstStepOfTutorial = (
   dialogStep: number,
@@ -206,6 +212,13 @@ export const TutorialDialog: React.FC<{ mustBeAsAnimated?: boolean }> = ({
   return (
     <MainWrapper firstLoaded={DOMLoaded} mustBeAsAnimated={mustBeAsAnimated}>
       <TutorialDialogWrapper>
+        {!isNowFirstStepOfTutorial(dialogStep, tutorialCondition) && (
+          <ExitButton
+            displayFlag={true}
+            callBack={() => turnOffTutorialMode()}
+            {...styleConfig.exitButton}
+          />
+        )}
         <SupportSpriteWrapper>
           <Sprite img={supportSprite} {...styleConfig.sprite} />
         </SupportSpriteWrapper>
@@ -228,21 +241,19 @@ export const TutorialDialog: React.FC<{ mustBeAsAnimated?: boolean }> = ({
           <ButtonWrapper>
             {!isPrinting && (
               <>
-                <Button
-                  className={
-                    isNowFirstStepOfTutorial(dialogStep, tutorialCondition) ||
-                    dialogStep
-                      ? ButtonClassNames.OUTLINE_NORMAL
-                      : ButtonClassNames.OUTLINE_DISABLED
-                  }
-                  callback={handleBackButtonClick}
-                  content={
-                    isNowFirstStepOfTutorial(dialogStep, tutorialCondition)
-                      ? 'Пропустить обучение'
-                      : 'Назад'
-                  }
-                  {...styleConfig.backButton}
-                />
+                {(dialogStep ||
+                  tutorialCondition === TutorialConditions.DIALOG_HELLO) && (
+                  <Button
+                    className={ButtonClassNames.OUTLINE_NORMAL}
+                    callback={handleBackButtonClick}
+                    content={
+                      isNowFirstStepOfTutorial(dialogStep, tutorialCondition)
+                        ? 'У меня уже есть город'
+                        : 'Назад'
+                    }
+                    {...styleConfig.backButton}
+                  />
+                )}
                 <Button
                   callback={handleClick}
                   className={ButtonClassNames.NORMAL}

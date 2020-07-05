@@ -15,9 +15,9 @@ import {
   TowersProgressStore,
   TowersTypes,
 } from '../../../effector/towers-progress/store';
-import { upgradeTower } from '../../../effector/towers-progress/events';
 import arrow from './arrow.svg';
 import arrowHover from './arrow-hover.svg';
+import { upgradeTowerAndShowAnimation } from '../../../utils/upgrade-tower-and-show-animation';
 
 const Arrow = styled.div`
   width: 35px;
@@ -52,15 +52,6 @@ const Title = styled.div<ITitle>`
 const styledConfig = {
   width: '100%',
   alignItems: 'center',
-};
-
-const delayBeforeAnimationEnd = 2500;
-
-const upgradeTowerAndShowAnimation = (towerTitle: TowersTypes) => {
-  showUpgradeIcon(towerTitle);
-  setTimeout(() => {
-    upgradeTower(towerTitle);
-  }, delayBeforeAnimationEnd);
 };
 
 const canUpgrade = (points: number, maxLevel: TowerLevel, level: TowerLevel) =>
