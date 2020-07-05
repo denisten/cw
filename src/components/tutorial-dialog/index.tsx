@@ -238,7 +238,7 @@ export const TutorialDialog: React.FC<{ mustBeAsAnimated?: boolean }> = ({
                   callback={handleBackButtonClick}
                   content={
                     isNowFirstStepOfTutorial(dialogStep, tutorialCondition)
-                      ? 'Пропустить обучение'
+                      ? 'У меня уже есть город'
                       : 'Назад'
                   }
                   {...styleConfig.backButton}
