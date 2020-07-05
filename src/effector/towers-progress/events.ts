@@ -7,6 +7,7 @@ export const addProgressPoints = TowersProgressDomain.event<
 >();
 
 export const upgradeTower = TowersProgressDomain.event<TowersTypes>();
+export const tutorialTowerUpgrade = TowersProgressDomain.event<TowersTypes>();
 export const addRefForTower = TowersProgressDomain.event<IAddRefForTower>();
 export const fetchAllProductsData = TowersProgressDomain.effect(
   'fetch all products data',

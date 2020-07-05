@@ -6,6 +6,7 @@ import {
   upgradeTower,
   addTowerProgressData,
   resetTowerProgress,
+  tutorialTowerUpgrade,
 } from './events';
 
 export enum TowerLevel {
@@ -449,6 +450,19 @@ export const TowersProgressStore = TowersProgressDomain.store<
       points: state[towerTitle].points + points,
     },
   }))
+  .on(tutorialTowerUpgrade, (state, payload) => {
+    return {
+      ...state,
+      [payload]: {
+        ...state[payload],
+        points: 0,
+        level: {
+          ...state[payload].level,
+          level: state[payload].level.level + 1,
+        },
+      },
+    };
+  })
   .on(upgradeTower, (state, payload) => {
     return {
       ...state,
