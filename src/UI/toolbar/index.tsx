@@ -35,7 +35,7 @@ const ToolbarWrapper = styled.div`
   height: 108.37px;
   right: 40px;
   top: 37px;
-  z-index: ${ZIndexes.UI_BUTTON + 1};
+  z-index: ${ZIndexes.UI_BUTTON};
   box-sizing: border-box;
   display: flex;
   padding: 0 0 16px 18px;
