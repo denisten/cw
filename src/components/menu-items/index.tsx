@@ -20,28 +20,38 @@ const MenuWrapper = styled.div`
   overflow: hidden;
 `;
 
-type MenuItemsComponentProps = {
-  selectedMenuItem: MenuItems;
-  callBack: (props: MenuItems) => void;
-  currentNotifysList: Array<string>;
-};
+export const noAuthAvailableMenuItems = [
+  MenuItems.PROFILE,
+  MenuItems.SETTINGS,
+  MenuItems.TASKS,
+];
 
-export const MenuItemsComponent: React.FC<MenuItemsComponentProps> = ({
+const allMenuItems = [
+  MenuItems.PROFILE,
+  MenuItems.SETTINGS,
+  MenuItems.TASKS,
+  MenuItems.FEEDBACK,
+  MenuItems.OFFER,
+  MenuItems.QA,
+  MenuItems.DEV,
+];
+
+export const MenuItemsComponent: React.FC<IMenuItemsComponent> = ({
   selectedMenuItem,
   callBack,
-  currentNotifysList,
+  currentAlertsList,
+  isAuthorized,
 }) => {
-  const MenuItemsObjectValues = Object.values(MenuItems) as MenuItems[];
-
   return (
     <MenuWrapper>
-      {MenuItemsObjectValues.map(el => {
+      {allMenuItems.map(el => {
         return (
           <MenuNavigationElement
+            isAvailable={isAuthorized || noAuthAvailableMenuItems.includes(el)}
             key={el}
             menuElement={el}
             isItemSelected={selectedMenuItem === el}
-            haveNotify={checkHaveNotify(currentNotifysList, el)}
+            haveNotify={checkHaveNotify(currentAlertsList, el)}
             onClickHandler={() => callBack(el)}
           />
         );
@@ -49,3 +59,10 @@ export const MenuItemsComponent: React.FC<MenuItemsComponentProps> = ({
     </MenuWrapper>
   );
 };
+
+interface IMenuItemsComponent {
+  isAuthorized: boolean;
+  selectedMenuItem: MenuItems;
+  callBack: (props: MenuItems) => void;
+  currentAlertsList: Array<string>;
+}
