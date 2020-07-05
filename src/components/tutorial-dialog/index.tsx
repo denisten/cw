@@ -228,8 +228,8 @@ export const TutorialDialog: React.FC<{ mustBeAsAnimated?: boolean }> = ({
           <ButtonWrapper>
             {!isPrinting && (
               <>
-                {isNowFirstStepOfTutorial(dialogStep, tutorialCondition) ||
-                dialogStep ? (
+                {(dialogStep ||
+                  tutorialCondition === TutorialConditions.DIALOG_HELLO) && (
                   <Button
                     className={ButtonClassNames.OUTLINE_NORMAL}
                     callback={handleBackButtonClick}
@@ -240,7 +240,7 @@ export const TutorialDialog: React.FC<{ mustBeAsAnimated?: boolean }> = ({
                     }
                     {...styleConfig.backButton}
                   />
-                ) : null}
+                )}
                 <Button
                   callback={handleClick}
                   className={ButtonClassNames.NORMAL}
