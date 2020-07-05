@@ -18,6 +18,7 @@ const MenuWrapper = styled.div`
   padding-top: 42px;
   box-sizing: border-box;
   overflow: hidden;
+  user-select: none;
 `;
 
 export const noAuthAvailableMenuItems = [
