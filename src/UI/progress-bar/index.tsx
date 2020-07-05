@@ -8,6 +8,8 @@ import { towerUpdateHandler } from '../../utils/tower-update-handler';
 import { TowersTypes } from '../../effector/towers-progress/store';
 import { TutorialConditions } from '../../effector/tutorial-store/store';
 import { useEditProgressbarClassname } from '../../hooks/use-edit-progressbar-classname';
+import { nextTutorStep } from '../../effector/tutorial-store/events';
+import { upgradeTowerAndShowAnimation } from '../../utils/upgrade-tower-and-show-animation';
 
 export const UPGRADABLE = 'upgradable';
 
@@ -82,12 +84,21 @@ const ProgressBarGreenLine = styled.div<IProgressBarGreenLine>`
 export const ProgressBar: React.FC<IProgressBar> = ({
   progress,
   towerTitle,
+  tutorialCondition,
 }) => {
   const progressBarWrapperRef = useRef<HTMLDivElement>(null);
 
   const handleClick = async () => {
-    showUpgradeIcon(towerTitle);
-    await towerUpdateHandler(TutorialConditions.OFF, towerTitle);
+    if (
+      tutorialCondition &&
+      tutorialCondition === TutorialConditions.UPGRADE_BUTTON_TOWER_INFO
+    ) {
+      upgradeTowerAndShowAnimation(towerTitle);
+      nextTutorStep();
+    } else {
+      showUpgradeIcon(towerTitle);
+      await towerUpdateHandler(TutorialConditions.OFF, towerTitle);
+    }
   };
   useEditProgressbarClassname(progressBarWrapperRef.current, progress);
 
@@ -109,6 +120,7 @@ export const ProgressBar: React.FC<IProgressBar> = ({
 
 interface IProgressBar extends IProgressBarGreenLine {
   towerTitle: TowersTypes;
+  tutorialCondition: TutorialConditions;
 }
 
 interface IProgressBarGreenLine {

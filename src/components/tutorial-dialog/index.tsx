@@ -128,7 +128,7 @@ const styleConfig = {
   },
 };
 
-const minStepsCountToSkipTutorial = 3;
+const minStepsCountToSkipTutorial = 1;
 
 const isNowFirstStepOfTutorial = (
   dialogStep: number,

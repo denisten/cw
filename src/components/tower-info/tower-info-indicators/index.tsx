@@ -5,6 +5,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { MTSSans } from '../../../fonts';
 import { TowersTypes } from '../../../effector/towers-progress/store';
+import { TutorialConditions } from '../../../effector/tutorial-store/store';
 
 const EVOLUTION = 'evolution';
 
@@ -71,6 +72,7 @@ export const TowerInfoIndicators: React.FC<ITowerInfoIndicators> = ({
   income,
   progress,
   towerTitle,
+  tutorialCondition,
 }) => {
   return (
     <HeaderLine sizeContent={hideTowerInfo}>
@@ -78,7 +80,11 @@ export const TowerInfoIndicators: React.FC<ITowerInfoIndicators> = ({
         <span>
           <span className={EVOLUTION}>{level}</span> Уровень эволюции
         </span>
-        <ProgressBar progress={progress} towerTitle={towerTitle} />
+        <ProgressBar
+          progress={progress}
+          towerTitle={towerTitle}
+          tutorialCondition={tutorialCondition}
+        />
       </HeaderLineElement>
       <HeaderLineElement {...styledConfig.secondHeaderLine}>
         <span>Ежедневный доход</span>
@@ -96,6 +102,7 @@ interface ITowerInfoIndicators {
   income: number;
   progress: number;
   towerTitle: TowersTypes;
+  tutorialCondition: TutorialConditions;
 }
 
 interface IHeaderLine {

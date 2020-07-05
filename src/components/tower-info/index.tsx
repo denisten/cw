@@ -213,6 +213,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
             progress={points}
             income={productIncomeValue}
             hideTowerInfo={hideTowerInfo}
+            tutorialCondition={tutorialCondition}
           />
         </TowerInfoHeader1>
         <TowerInfoMenu
