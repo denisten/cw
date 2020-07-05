@@ -3,7 +3,10 @@ import styled from 'styled-components';
 import { MTSSans } from '../../fonts';
 import upgradeImg from './upgrade.svg';
 import { maxPercent } from '../../components/markers/timer';
-import { showUpgradeIcon } from '../../effector/app-condition/events';
+import {
+  showUpgradeIcon,
+  extraTowerInfoModalClosed,
+} from '../../effector/app-condition/events';
 import { towerUpdateHandler } from '../../utils/tower-update-handler';
 import { TowersTypes } from '../../effector/towers-progress/store';
 import { TutorialConditions } from '../../effector/tutorial-store/store';
@@ -94,6 +97,7 @@ export const ProgressBar: React.FC<IProgressBar> = ({
       tutorialCondition === TutorialConditions.UPGRADE_BUTTON_TOWER_INFO
     ) {
       upgradeTowerAndShowAnimation(towerTitle);
+      extraTowerInfoModalClosed();
       nextTutorStep();
     } else {
       showUpgradeIcon(towerTitle);

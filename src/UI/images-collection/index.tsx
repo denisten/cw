@@ -3,6 +3,10 @@ import React, { memo } from 'react';
 const defaultElementWidth = '781px',
   defaultElementHeight = '301px';
 
+const imgStyleConfig = {
+  flexShrink: 0,
+} as React.CSSProperties;
+
 export const ImagesCollection: React.FC<IImagesCollection> = memo(
   ({ imgArray }) => {
     return (
@@ -14,6 +18,7 @@ export const ImagesCollection: React.FC<IImagesCollection> = memo(
             alt="imgContent"
             width={defaultElementWidth}
             height={defaultElementHeight}
+            style={imgStyleConfig}
           />
         ))}
       </>

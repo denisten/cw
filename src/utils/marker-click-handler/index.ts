@@ -6,10 +6,7 @@ import {
   extraTowerInfoModalOpen,
   setTowerInfoContent,
 } from '../../effector/app-condition/events';
-import {
-  TowerInfoContentValues,
-  AppCondition,
-} from '../../effector/app-condition/store';
+import { TowerInfoContentValues } from '../../effector/app-condition/store';
 import { scrollToCurrentTower } from '../scroll-to-current-tower';
 import { RefObject } from 'react';
 import { editMoneyCount } from '../../effector/user-data/events';
@@ -53,13 +50,12 @@ export const markerClickHandler = (
   markerRef: RefObject<HTMLDivElement> | undefined,
   e: React.MouseEvent
 ) => {
-  const { fullSizeMode } = AppCondition.getState();
   switch (marker.type) {
     case TypeOfMarkers.TASK:
     case TypeOfMarkers.SUCCESS:
       extraTowerInfoModalOpen(towerTitle);
       setTowerInfoContent(TowerInfoContentValues.TASK);
-      if (!fullSizeMode) scrollToCurrentTower(markerRef);
+      scrollToCurrentTower(markerRef);
       break;
     case TypeOfMarkers.TAKE_REWARD:
       setIncome(towerTitle, marker, e);

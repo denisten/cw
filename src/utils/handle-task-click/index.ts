@@ -14,6 +14,7 @@ import {
 import {
   menuClosed,
   setTowerInfoContent,
+  extraTowerInfoModalOpen,
 } from '../../effector/app-condition/events';
 import {
   activateTask,
@@ -28,7 +29,7 @@ import { animateTaskReward } from '../animate-task-reward';
 
 export const handleTaskClick = async (id: number, e: React.MouseEvent) => {
   const state = MissionsStore.getState();
-  const { selectedMenuItem } = AppCondition.getState();
+  const { selectedMenuItem, fullSizeMode } = AppCondition.getState();
   const currentMissionIdx = state.findIndex(el => el.id === id);
   const currentMission = state[currentMissionIdx];
   const currentMissionType = currentMission.task.content.taskType.slug;
@@ -48,6 +49,9 @@ export const handleTaskClick = async (id: number, e: React.MouseEvent) => {
           } else menuClosed();
         } else {
           await activateTask(id);
+        }
+        if (fullSizeMode) {
+          extraTowerInfoModalOpen(productTitle);
         }
         scrollToCurrentTower(
           BuildingsService.getConfigForTower(productTitle).ref
