@@ -186,7 +186,9 @@ export const PopUp: React.FC<IPopUp> = ({
   return (
     <Fragment>
       <PopUpContentWrapper displayFlag={displayFlag} {...popUpStyles}>
-        <ExitButton callBack={callback} {...styleConfig.exitButton} />
+        {!tutorialCondition && (
+          <ExitButton callBack={callback} {...styleConfig.exitButton} />
+        )}
         <PopUpTitle>{title}</PopUpTitle>
         <Input
           onChangeHandler={handleOnChange}
