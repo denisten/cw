@@ -128,8 +128,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
   );
   const {
     points,
-    level: { level },
-    productIncome,
+    level: { level, income },
   } = useStore(TowersProgressStore)[towerTitle];
   const { ended } = useStore(TaskMessagesStore)[towerTitle];
 
@@ -139,8 +138,6 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
   );
 
   const [towerTutorialStep, setTowerTutorialStep] = useState(0);
-
-  const productIncomeValue = productIncome ? productIncome.value : 0;
   const towerInfoRef = useRef<HTMLDivElement>(null);
 
   const openDescriptionTab = () => {
@@ -204,7 +201,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
             level={level}
             towerTitle={towerTitle}
             progress={points}
-            income={productIncomeValue}
+            income={income}
             hideTowerInfo={hideTowerInfo}
             tutorialCondition={tutorialCondition}
           />
