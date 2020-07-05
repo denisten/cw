@@ -52,11 +52,10 @@ export const handleTaskClick = async (id: number, e: React.MouseEvent) => {
         }
         if (fullSizeMode) {
           extraTowerInfoModalOpen(productTitle);
-        } else {
-          scrollToCurrentTower(
-            BuildingsService.getConfigForTower(productTitle).ref
-          );
         }
+        scrollToCurrentTower(
+          BuildingsService.getConfigForTower(productTitle).ref
+        );
       } else if (taskId) {
         alert('нельзя');
       }

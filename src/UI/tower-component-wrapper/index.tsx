@@ -118,10 +118,7 @@ export const TowerWrapper = memo(
       ) {
         nextTutorStep();
       } else if (!tutorialCondition || tutorialPause) {
-        if (!fullSizeMode) {
-          scrollToCurrentTower(towerRef);
-        }
-
+        scrollToCurrentTower(towerRef);
         extraTowerInfoModalOpen(towerTitle);
       }
     };
