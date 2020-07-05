@@ -181,7 +181,7 @@ interface ITutorialSlider {
   callback: () => void;
 }
 
-interface ITitle {
+export interface ITitle {
   content: string;
 }
 

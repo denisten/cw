@@ -3,6 +3,7 @@ import { PopUpContentWrapper } from '../../UI/pop-up-content-wrapper';
 import { PopUpTitle, IPopUpStyles } from '../../UI/pop-up';
 import styled from 'styled-components';
 import { Button, ButtonClassNames } from '../../UI/button';
+import { ITitle } from '../tutorial-slider';
 
 const MinorText = styled.span`
   font-size: 16px;
@@ -16,14 +17,17 @@ const ButtonWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 32px;
+  margin-top: 17px;
 `;
 
-const CancellButton = styled.div`
+const CancelButton = styled.div<ITitle>`
   font-size: 14px;
   line-height: 20px;
   color: #02adc9;
   cursor: pointer;
+  :after {
+    content:"${props => props.content}";
+  }
 `;
 
 export const ModalWindow: React.FC<IModalWindow> = ({
@@ -31,7 +35,7 @@ export const ModalWindow: React.FC<IModalWindow> = ({
   minorText,
   popUpStyles,
   submitButtonText,
-  cancelButtonText,
+  cancelButtonText = '',
   submitHandler,
   cancelHandler,
   displayFlag,
@@ -47,9 +51,7 @@ export const ModalWindow: React.FC<IModalWindow> = ({
             content={submitButtonText}
             callback={submitHandler}
           />
-          <CancellButton onClick={cancelHandler}>
-            {cancelButtonText}
-          </CancellButton>
+          <CancelButton onClick={cancelHandler} content={cancelButtonText} />
         </ButtonWrapper>
       </PopUpContentWrapper>
     </>

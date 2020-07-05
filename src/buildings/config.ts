@@ -942,7 +942,8 @@ class BuildingsService {
     [TowersTypes.SHOP]: {
       info: 'info',
       title: 'Салон-магазин МТС',
-      link: 'https://shop.mts.ru/den-rozhdenie-10-let/',
+      playButtonLink: 'https://shop.mts.ru/den-rozhdenie-10-let/',
+      link: 'https://shop.mts.ru',
       wideTower: false,
       animSize: animSize.small,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
@@ -1080,6 +1081,7 @@ type CurrentTowerServiceConfigTypes = {
   info: string;
   title: string;
   link?: string;
+  playButtonLink?: string;
   zIndex: number;
   wideTower: boolean;
   animSize: IAnimSize;

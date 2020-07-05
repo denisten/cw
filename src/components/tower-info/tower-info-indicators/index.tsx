@@ -1,19 +1,22 @@
 import { ProgressBar } from '../../../UI/progress-bar';
-import { RowWrapper } from '../../../UI/row-wrapper';
-import { MoneyWrapper } from '../../../UI/money-wrapper';
 import React from 'react';
 import styled from 'styled-components';
 import { MTSSans } from '../../../fonts';
 import { TowersTypes } from '../../../effector/towers-progress/store';
 import { TutorialConditions } from '../../../effector/tutorial-store/store';
+import playButtonHoveredImg from './play-button-hovered.svg';
+import playButtonImg from './play-button.svg';
+import { BuildingsService } from '../../../buildings/config';
+import { windowOpen } from '../../../utils/window-open';
+import coinIncomeImg from './coin-income.svg';
 
 const EVOLUTION = 'evolution';
 
 const HeaderLine = styled.div<IHeaderLine>`
   width: 100%;
   display: flex;
-  margin-top: ${props => (props.sizeContent ? '0' : '32px')};
-  height: ${props => (props.sizeContent ? '0px' : '55px')};
+  margin-top: ${props => (props.sizeContent ? '0' : '17px')};
+  height: ${props => (props.sizeContent ? '0px' : '84px')};
   overflow: ${props => (props.sizeContent ? 'hidden' : 'inherit')};
   transition: 0.2s;
 `;
@@ -52,17 +55,44 @@ const HeaderLineElement = styled.div<IHeaderLineElement>`
   }
 `;
 
+const IncomeWrapper = styled.div`
+  display: flex;
+  position: relative;
+  top: 6px;
+  font-family: ${MTSSans.REGULAR};
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 24px;
+  color: #6e7782;
+  span {
+    font-size: 16px;
+    color: #001424;
+  }
+`;
+
+const PlayButton = styled.div`
+  position: relative;
+  top: 8px;
+  width: 146px;
+  height: 61px;
+  background-image: url(${playButtonImg});
+  background-size: contain;
+  cursor: pointer;
+  :hover {
+    background-image: url(${playButtonHoveredImg});
+  }
+`;
+
 const styledConfig = {
   firstHeaderLine: {
     paddingBottom: '4px',
   },
   secondHeaderLine: {
-    marginLeft: '10%',
+    marginLeft: '151px',
   },
   money: {
-    fontSize: '20px',
-    margin: '0px 13px 0 0px',
-    color: '#001424',
+    marginRight: '6px',
   },
 };
 
@@ -74,6 +104,11 @@ export const TowerInfoIndicators: React.FC<ITowerInfoIndicators> = ({
   towerTitle,
   tutorialCondition,
 }) => {
+  const { playButtonLink } = BuildingsService.getConfigForTower(towerTitle);
+
+  const handlePlayButtonClick = () =>
+    playButtonLink && windowOpen(playButtonLink);
+
   return (
     <HeaderLine sizeContent={hideTowerInfo}>
       <HeaderLineElement {...styledConfig.firstHeaderLine}>
@@ -85,12 +120,19 @@ export const TowerInfoIndicators: React.FC<ITowerInfoIndicators> = ({
           towerTitle={towerTitle}
           tutorialCondition={tutorialCondition}
         />
+        <IncomeWrapper>
+          <img
+            src={coinIncomeImg}
+            alt="coin-income"
+            style={styledConfig.money}
+          />
+          <div>
+            +<span>{income}</span> в день
+          </div>
+        </IncomeWrapper>
       </HeaderLineElement>
       <HeaderLineElement {...styledConfig.secondHeaderLine}>
-        <span>Ежедневный доход</span>
-        <RowWrapper>
-          <MoneyWrapper count={income} {...styledConfig.money} />
-        </RowWrapper>
+        {playButtonLink && <PlayButton onClick={handlePlayButtonClick} />}
       </HeaderLineElement>
     </HeaderLine>
   );

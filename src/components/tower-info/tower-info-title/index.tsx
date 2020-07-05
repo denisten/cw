@@ -18,6 +18,7 @@ import {
 import arrow from './arrow.svg';
 import arrowHover from './arrow-hover.svg';
 import { upgradeTowerAndShowAnimation } from '../../../utils/upgrade-tower-and-show-animation';
+import { windowOpen } from '../../../utils/window-open';
 
 const Arrow = styled.div`
   width: 35px;
@@ -80,23 +81,7 @@ export const TowerInfoTitle: React.FC<ITowerInfoTitle> = ({
     }
   };
 
-  const handleTitleClick = () => {
-    if (link) {
-      const width = 1000;
-      const height = 660;
-      const left = window.innerWidth / 2 - width / 2;
-      const top = window.innerHeight / 2 - height / 2;
-      const linkWindow = window.open(
-        undefined,
-        '',
-        `height=${height},width=${width},left=${left}, top=${top}`
-      );
-
-      if (linkWindow) {
-        linkWindow.location.href = link;
-      }
-    }
-  };
+  const handleTitleClick = () => link && windowOpen(link);
   return (
     <RowWrapper {...styledConfig}>
       <Title sizeContent={hideTowerInfo} onClick={handleTitleClick}>
