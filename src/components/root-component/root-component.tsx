@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { TowerInfo } from '../tower-info';
 import { useStore } from 'effector-react';
@@ -23,7 +23,7 @@ import { TutorialSlider } from '../tutorial-slider';
 import cat1 from './cat1.jpg';
 import cat2 from './cat2.jpg';
 import cat3 from './cat3.jpg';
-import { ExitButton } from '../../UI/exit-button';
+import { useDisplayTutorialSlider } from '../../hooks/use-display-tutorial-slider';
 
 const RootComponentWrapper = styled.div<IDisplayFlag>`
   background-image: url(${mapTile});
@@ -35,7 +35,6 @@ const RootComponentWrapper = styled.div<IDisplayFlag>`
   position: relative;
   visibility: ${props => (props.displayFlag ? 'visible' : 'hidden')};
 `;
-const tutorialSliderTimerDelay = 5000;
 const tutorialSliderContent = [
   {
     title: 'Тайтл 1',
@@ -54,10 +53,15 @@ const tutorialSliderContent = [
   },
 ];
 
+const catImgArray = [cat1, cat2, cat3];
+
 export const RootComponent = (): React.ReactElement => {
-  const { isExtraTowerInfoModalOpen, selectedMenuItem, DOMLoaded } = useStore(
-    AppCondition
-  );
+  const {
+    isExtraTowerInfoModalOpen,
+    selectedMenuItem,
+    DOMLoaded,
+    isAuthorized,
+  } = useStore(AppCondition);
   const { isCoinRelocateAnimationEnded } = useStore(RewardStore);
 
   // const [showSkipTutorialUI, setShowSkipTutorialUI] = useState(true);
@@ -65,31 +69,23 @@ export const RootComponent = (): React.ReactElement => {
   const [tutorialSliderDisplayFlag, setTutorialSliderDisplayFlag] = useState(
     false
   );
-  let tutorialSliderTimer: number;
 
-  useEffect(() => {
-    if (!selectedMenuItem && !isExtraTowerInfoModalOpen && DOMLoaded) {
-      tutorialSliderTimer = setTimeout(() => {
-        setTutorialSliderDisplayFlag(true);
-      }, tutorialSliderTimerDelay);
-    } else {
-      clearTimeout(tutorialSliderTimer);
-    }
-    return () => clearTimeout(tutorialSliderTimer);
-  }, [selectedMenuItem, isExtraTowerInfoModalOpen, DOMLoaded]);
+  useDisplayTutorialSlider({
+    selectedMenuItem,
+    isExtraTowerInfoModalOpen,
+    DOMLoaded,
+    isAuthorized,
+    callBack: () => setTutorialSliderDisplayFlag(true),
+  });
 
   return (
     <RootComponentWrapper id="rootScroll" displayFlag={DOMLoaded}>
       <Menu displayFlag={!!selectedMenuItem} />
       <TutorialSlider
-        imgArray={[cat1, cat2, cat3]}
+        imgArray={catImgArray}
         displayFlag={tutorialSliderDisplayFlag}
         callback={() => setTutorialSliderDisplayFlag(false)}
         content={tutorialSliderContent}
-      />
-      <ExitButton
-        displayFlag={true}
-        callBack={() => setTutorialSliderDisplayFlag(false)}
       />
       <ProfileButton
         tutorialCondition={tutorialCondition}

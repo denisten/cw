@@ -111,12 +111,17 @@ const styledConfig = {
   },
 };
 
+const calculateCurrentStep = (step: number, arrLength: number) => {
+  return step >= 0
+    ? Math.abs(step % arrLength)
+    : arrLength - 1 + (step % arrLength);
+};
+
 export const TutorialSlider: React.FC<ITutorialSlider> = memo(
   ({ displayFlag, content, imgArray, callback }) => {
     const imageWrapperRef = useRef<HTMLDivElement>(null);
     const [step, setStep] = useState(0);
-    const currentStep = Math.abs(step % imgArray.length);
-
+    const currentStep = calculateCurrentStep(step, imgArray.length);
     useEffect(() => {
       const request = requestAnimationFrame(() => {
         if (imageWrapperRef.current) {
@@ -128,7 +133,7 @@ export const TutorialSlider: React.FC<ITutorialSlider> = memo(
     }, [step]);
 
     return (
-      <Overlay displayFlag={displayFlag} zIndex={ZIndexes.UI_BUTTON + 1}>
+      <Overlay displayFlag={displayFlag} zIndex={ZIndexes.TUTORIAL_SLIDER}>
         <TutorialSliderWrapper>
           <ExitButton callBack={callback} {...styledConfig.exitButton} />
           <ImageWrapper>
