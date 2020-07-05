@@ -25,6 +25,7 @@ const TranslatedMenuItems = {
 };
 
 const notSelectedItemFontWeight = 500;
+const notAvailableOpacity = 0.5;
 
 const MenuParagraphWrapper = styled.div<IMenuParagraphWrapper>`
   height: 56px;
@@ -34,6 +35,7 @@ const MenuParagraphWrapper = styled.div<IMenuParagraphWrapper>`
   align-items: center;
   font-size: 20px;
   color: #fff;
+  opacity: ${props => (props.isAvailable ? 1 : notAvailableOpacity)};
   font-family: ${props =>
     props.isItemSelected ? MTSSans.MEDIUM : MTSSans.REGULAR};
   font-weight: ${props =>
@@ -47,11 +49,6 @@ const MenuParagraphWrapper = styled.div<IMenuParagraphWrapper>`
   padding-left: 48px;
   box-sizing: border-box;
   pointer-events: auto;
-  p {
-    &:hover {
-      cursor: pointer;
-    }
-  }
 `;
 const Notify = styled.div`
   margin-left: 13px;
@@ -62,7 +59,7 @@ const Notify = styled.div`
   flex-shrink: 0;
 `;
 const MenuParagraphTitleWrapper = styled.div<IMenuParagraphTitleWrapper>`
-  cursor: pointer;
+  cursor: ${props => (props.isAvailable ? 'pointer' : 'default')};
   animation-name: ${props =>
     props.pulseAnim ? pulseAnimationHOF('159, 169, 176') : 'none'};
   animation-fill-mode: both;
@@ -78,6 +75,7 @@ export const MenuNavigationElement: React.FC<IMenuParagraph> = ({
   onClickHandler,
   haveNotify,
   pulseAnim = false,
+  isAvailable,
   ...props
 }) => {
   const notifications = haveNotify ? <Notify /> : null;
@@ -86,9 +84,14 @@ export const MenuNavigationElement: React.FC<IMenuParagraph> = ({
     <MenuParagraphWrapper
       menuElement={menuElement}
       isItemSelected={isItemSelected}
+      isAvailable={isAvailable}
       {...props}
     >
-      <MenuParagraphTitleWrapper pulseAnim={pulseAnim} onClick={onClickHandler}>
+      <MenuParagraphTitleWrapper
+        pulseAnim={pulseAnim}
+        onClick={onClickHandler}
+        isAvailable={isAvailable}
+      >
         {TranslatedMenuItems[menuElement]}
       </MenuParagraphTitleWrapper>
       {notifications}
@@ -98,11 +101,13 @@ export const MenuNavigationElement: React.FC<IMenuParagraph> = ({
 
 interface IMenuParagraphTitleWrapper {
   pulseAnim?: boolean;
+  isAvailable: boolean;
 }
 
 interface IMenuParagraphWrapper {
   menuElement: MenuItems;
   isItemSelected: boolean;
+  isAvailable: boolean;
 }
 
 interface IMenuParagraph extends IMenuParagraphWrapper {
