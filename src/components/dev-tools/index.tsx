@@ -42,29 +42,6 @@ export const DevTools = () => {
   const [phone, setPhone] = useState('');
   return (
     <DevToolsWrapper>
-      <p>
-        Если хочешь получить задания: <br />
-        1 - рефреш
-        <br />
-        2 - авторизоваться
-        <br />3 - сгенерировать <br />4 - получить задания
-      </p>
-
-      <Button
-        className={ButtonClassNames.NORMAL}
-        content="Get coins"
-        callback={() => createCoinMarkers()}
-      />
-      <Button
-        className={ButtonClassNames.NORMAL}
-        content="Get tasks"
-        callback={() => fetchTasks('')}
-      />
-      <Button
-        className={ButtonClassNames.NORMAL}
-        content="Get messages in chat"
-        callback={() => createMockupOfMessages()}
-      />
       <RowWrapper>
         <input
           type="text"
@@ -78,11 +55,6 @@ export const DevTools = () => {
           className={ButtonClassNames.NORMAL}
           content="Login"
           callback={() => devLogin(phone)}
-        />
-        <Button
-          className={ButtonClassNames.NORMAL}
-          content="get inf coupon"
-          callback={() => devGetCoupons()}
         />
       </RowWrapper>
     </DevToolsWrapper>
