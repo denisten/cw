@@ -266,6 +266,8 @@ class BuildingsService {
     [TowersTypes.GOODOK]: {
       hide: true,
       info: 'info',
+      link:
+        'https://moskva.mts.ru/personal/mobilnaya-svyaz/uslugi/mobilnie-prilozheniya/android/3287330',
       title: 'SmartMed',
       wideTower: false,
       animSize: animSize.small,
@@ -300,6 +302,8 @@ class BuildingsService {
       animSize: animSize.small,
       zIndex: ZIndexes.BUILDING_THREE_LEVEL,
       maxLevel: TowerLevel.high,
+      link:
+        'https://moskva.mts.ru/personal/mobilnaya-svyaz/uslugi/mobilnie-prilozheniya/android/3286955',
       width: 313,
       height: 655,
       areaCoords: '55,82,259,651',
@@ -334,6 +338,7 @@ class BuildingsService {
       areaCoords: '58,161,585,653',
       position: [35.5, 24.7],
       ref: null,
+      link: 'https://smart-university.ru/',
       [TowerLevel.deactive]: {
         img: universityLevel0Img,
         shadowImg: universityLevel0Stroke,
@@ -364,6 +369,8 @@ class BuildingsService {
       areaCoords: '50,194,228,621',
       position: [28.5, 50.3],
       ref: null,
+      link:
+        'https://moskva.mts.ru/personal/mobilnaya-svyaz/tarifi/vse-tarifi/dla-smartfona',
       [TowerLevel.deactive]: {
         img: mainTowerLevel0Img,
         shadowImg: mainTowerLevel0Stroke,
@@ -424,6 +431,8 @@ class BuildingsService {
       areaCoords: '46,119,606,425',
       position: [41, 34.4],
       ref: null,
+      link:
+        'https://moskva.mts.ru/personal/mobilnaya-svyaz/uslugi/mobilnaya-svyaz/mts-live',
       [TowerLevel.deactive]: {
         img: arenaTowerLevel0Img,
         shadowImg: arenaTowerLevel0Stroke,
@@ -452,6 +461,8 @@ class BuildingsService {
       height: 546,
       areaCoords: '52,94,630,508',
       ref: null,
+      link:
+        'https://cashback.mts.ru/?_ga=2.186836266.344992564.1593939415-68812577.1592818765',
       position: [40.6, 52.7],
       [TowerLevel.deactive]: {
         img: mollTowerLevel0Img,
@@ -482,6 +493,8 @@ class BuildingsService {
       areaCoords: '45,77,316,444',
       position: [29.1, 45.9],
       ref: null,
+      link:
+        'https://moskva.mts.ru/personal/mobilnaya-svyaz/uslugi/mobilnie-prilozheniya/android/3286523',
       [TowerLevel.deactive]: {
         img: eggTowerLevel0Img,
         shadowImg: eggTowerLevel0Stroke,
@@ -511,6 +524,8 @@ class BuildingsService {
       areaCoords: '44,46,411,406',
       position: [27.6, 60.95],
       ref: null,
+      link:
+        'https://moskva.mts.ru/personal/mobilnaya-svyaz/uslugi/mobilnaya-svyaz/mts-knigi',
       [TowerLevel.deactive]: {
         img: libraryTowerLevel0Img,
         shadowImg: libraryTowerLevel0Stroke,
@@ -569,6 +584,8 @@ class BuildingsService {
       areaCoords: '44,102,240,481',
       position: [30.75, 42.8],
       ref: null,
+      link:
+        'https://moskva.mts.ru/personal/mobilnaya-svyaz/mobilniy-internet/podklyuchit',
       [TowerLevel.deactive]: {
         img: tariffTowerLevel0Img,
         shadowImg: tariffTowerLevel0Stroke,
@@ -598,6 +615,8 @@ class BuildingsService {
       areaCoords: '46,85,475,396',
       position: [34.2, 34.1],
       ref: null,
+      link:
+        'https://moskva.mts.ru/personal/mobilnaya-svyaz/uslugi/mobilnaya-svyaz/mts-live',
       [TowerLevel.deactive]: {
         img: theaterTowerLevel0Img,
         shadowImg: theaterTowerLevel0Stroke,
@@ -627,6 +646,8 @@ class BuildingsService {
       areaCoords: '59,165,372,926',
       position: [19.7, 29.45],
       ref: null,
+      link:
+        'https://moskva.mts.ru/personal/mobilnaya-svyaz/uslugi/mobilnaya-svyaz/mts-tv',
       [TowerLevel.deactive]: {
         img: TVTowerLevel0Img,
         shadowImg: TVTowerLevel0Stroke,
@@ -656,6 +677,8 @@ class BuildingsService {
       areaCoords: '97,55,575,380',
       position: [20.4, 60.5],
       ref: null,
+      link:
+        'https://moskva.mts.ru/personal/mobilnaya-svyaz/uslugi/mobilnaya-svyaz/mts_fitnes',
       [TowerLevel.deactive]: {
         img: stadiumLevel0Img,
         shadowImg: stadiumLevel0Stroke,
@@ -745,6 +768,7 @@ class BuildingsService {
       areaCoords: '42,49,478,344',
       position: [34, 65.25],
       ref: null,
+      link: 'https://wasd.tv/',
       [TowerLevel.deactive]: {
         img: cyberArenaLevel0Img,
         shadowImg: cyberArenaLevel1Stroke,
@@ -805,6 +829,8 @@ class BuildingsService {
       areaCoords: '45,132,340,454',
       position: [20.1, 32.9],
       ref: null,
+      link:
+        'https://moskva.mts.ru/personal/mobilnaya-svyaz/uslugi/mobilnaya-svyaz/mts-tv',
       [TowerLevel.deactive]: {
         img: satelliteTvLevel0Img,
         shadowImg: satelliteTvLevel0Stroke,
@@ -1040,6 +1066,8 @@ class BuildingsService {
       height: 391,
       areaCoords: '47,70,245,362',
       position: [26.2, 37.5],
+      link:
+        'https://moskva.mts.ru/personal/mobilnaya-svyaz/uslugi/mobilnaya-svyaz/prilozhenie_mts_vtoraya_pamyat',
       ref: null,
       [TowerLevel.deactive]: {
         img: cloudLevel0Img,
