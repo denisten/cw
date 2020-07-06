@@ -290,7 +290,7 @@ export const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
       <RowWrapper style={styledConfig.header}>
         <RowWrapper style={styledConfig.userLogo}>
           <UserAvatar avatar={avatar}>
-            <input type="file" accept="image/jpeg,image/png,image/svg" />
+            {/* <input type="file" accept="image/jpeg,image/png,image/svg" /> */}
           </UserAvatar>
           <ColumnWrapper {...styledConfig.profileDataColumnWrapper}>
             <NickNameWrapper content={name} />
