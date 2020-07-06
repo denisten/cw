@@ -101,7 +101,11 @@ export const ScrollContainer: React.FC<{
       return;
     }
 
-    if (payload < 0 && scaleValue.current + payload < ScaleValues.MIN_SCALE) {
+    if (
+      scaleValue.current !== ScaleValues.FIX_SIZE &&
+      payload < 0 &&
+      scaleValue.current + payload < ScaleValues.MIN_SCALE
+    ) {
       enableFixSizeMod();
       return;
     }
