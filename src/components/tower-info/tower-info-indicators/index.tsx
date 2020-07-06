@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { MTSSans } from '../../../fonts';
 import { TowersTypes } from '../../../effector/towers-progress/store';
 import { TutorialConditions } from '../../../effector/tutorial-store/store';
-import playButtonHoveredImg from './play-button-hovered.svg';
 import playButtonImg from './play-button.svg';
 import { BuildingsService } from '../../../buildings/config';
 import { windowOpen } from '../../../utils/window-open';
@@ -72,15 +71,33 @@ const IncomeWrapper = styled.div`
 `;
 
 const PlayButton = styled.div`
+  padding-left: 12px;
+  box-sizing: border-box;
   position: relative;
   top: 8px;
-  width: 146px;
-  height: 61px;
-  background-image: url(${playButtonImg});
-  background-size: contain;
+  width: 132px;
+  height: 43px;
   cursor: pointer;
+  box-shadow: none;
+  border: none;
+  background: #04b5d2;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  transition-duration: 0.3s;
+  transition-property: transform;
   :hover {
-    background-image: url(${playButtonHoveredImg});
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 4px 15px #04b5d2;
+  }
+  span {
+    font-family: ${MTSSans.BOLD};
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 22px;
+    color: #ffffff;
+    margin-left: 10px;
   }
 `;
 
@@ -132,7 +149,12 @@ export const TowerInfoIndicators: React.FC<ITowerInfoIndicators> = ({
         </IncomeWrapper>
       </HeaderLineElement>
       <HeaderLineElement {...styledConfig.secondHeaderLine}>
-        {playButtonLink && <PlayButton onClick={handlePlayButtonClick} />}
+        {playButtonLink && (
+          <PlayButton onClick={handlePlayButtonClick}>
+            <img src={playButtonImg} alt="play-button" />
+            <span>Играть</span>
+          </PlayButton>
+        )}
       </HeaderLineElement>
     </HeaderLine>
   );
