@@ -9,22 +9,22 @@ import { ExitButton } from '../../UI/exit-button';
 import { ZIndexes } from '../root-component/z-indexes-enum';
 import { ImagesCollection } from '../../UI/images-collection';
 
-const defaultImgWrapperWidth = 781;
+const defaultImgWrapperWidth = 713;
 
 const TutorialSliderWrapper = styled.div`
-  width: 781px;
-  height: 527px;
+  width: 713px;
+  height: 481px;
   background-image: url(${background});
   background-repeat: no-repeat;
   background-size: contain;
-  padding-top: 36px;
+  padding-top: 33px;
   box-sizing: border-box;
   position: relative;
 `;
 
 const ImageWrapper = styled.div`
-  height: 301px;
-  width: 781px;
+  width: 713px;
+  height: 275px;
   overflow: hidden;
 `;
 
@@ -38,9 +38,9 @@ const ImageCollectionWrapper = styled.div`
 `;
 
 const DescriptionWrapper = styled.div`
-  width: 781px;
+  width: 713px;
   height: 190px;
-  padding: 21px 47px 55px 73px;
+  padding: 26px 0 0 39px;
   box-sizing: border-box;
 `;
 
@@ -48,7 +48,7 @@ const Title = styled.div<ITitle>`
   font-family: ${MTSSans.BOLD};
   font-style: normal;
   font-weight: bold;
-  font-size: 24px;
+  font-size: 22px;
   line-height: 32px;
   margin-bottom: 2px;
   :after {
@@ -60,7 +60,7 @@ const Description = styled.div<ITitle>`
   font-family: ${MTSSans.REGULAR};
   font-style: normal;
   font-weight: normal;
-  font-size: 15px;
+  font-size: 14px;
   line-height: 20px;
   margin-bottom: 21px;
   :after {
