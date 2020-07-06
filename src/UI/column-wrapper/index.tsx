@@ -14,6 +14,7 @@ const ParentDivWrapper = styled.div<IColumnWrapper>`
   transform: translate(${props => props.transformTranslate});
   width: ${props => props.width};
   margin: ${props => props.margin};
+  justify-content: ${props => props.justifyContent};
 `;
 
 export const ColumnWrapper: React.FC<IColumnWrapper> = ({
@@ -41,4 +42,5 @@ interface IColumnWrapper {
   width?: string;
   displayFlag?: boolean;
   margin?: string;
+  justifyContent?: string;
 }
