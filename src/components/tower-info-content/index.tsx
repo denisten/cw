@@ -10,19 +10,12 @@ export const TowerInfoContent: React.FC<ITowerInfoContent> = memo(
   ({
     selectedMenu = TowerInfoContentValues.DESCRIPTION,
     text,
-    hideContent,
     towerTitle,
     switchers,
   }) => {
     switch (selectedMenu) {
       case TowerInfoContentValues.CHAT:
-        return (
-          <TowerInfoChat
-            hideContent={hideContent}
-            towerTitle={towerTitle}
-            switchers={switchers}
-          />
-        );
+        return <TowerInfoChat towerTitle={towerTitle} switchers={switchers} />;
       case TowerInfoContentValues.DESCRIPTION:
         return <TowerInfoDescription text={text} />;
       default:
@@ -34,7 +27,6 @@ export const TowerInfoContent: React.FC<ITowerInfoContent> = memo(
 interface ITowerInfoContent {
   selectedMenu: TowerInfoContentValues;
   text: Array<string>;
-  hideContent: boolean;
   towerTitle: TowersTypes;
   switchers: ITabSwitchers;
 }

@@ -230,7 +230,6 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
           }}
           selectedMenu={selectTowerInfoContent}
           text={towerInfoContentText}
-          hideContent={hideTowerInfo}
           towerTitle={towerTitle}
         />
 

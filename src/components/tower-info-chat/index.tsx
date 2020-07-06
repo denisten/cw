@@ -29,9 +29,9 @@ import { CouponTypes, UserStore } from '../../effector/coupons/store';
 import { couponHandler } from '../../utils/coupon-handler';
 import { IDisplayFlag } from '../skip-tutorial';
 
-const ChatWrapper = styled.div<IFullSize>`
+const ChatWrapper = styled.div`
   width: 100%;
-  height: ${props => (props.fullSize ? 'auto' : '344px')};
+  height: 394px;
   box-sizing: border-box;
   overflow: auto;
   border-bottom: solid 1px #e2e5eb;
@@ -121,7 +121,7 @@ export const couponModalConfig = {
 };
 
 export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
-  ({ hideContent, towerTitle, switchers }) => {
+  ({ towerTitle, switchers }) => {
     const chatContainer = useRef<HTMLDivElement>(null);
     const {
       [towerTitle]: { masterMessageId, taskId, actions, messages, ended },
@@ -242,7 +242,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
 
     return (
       <>
-        <ChatWrapper fullSize={hideContent} ref={chatContainer}>
+        <ChatWrapper ref={chatContainer}>
           {messages &&
             messages.map((item, idx) => (
               <MessageRow key={idx} sender={item.direction}>
@@ -292,11 +292,6 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
 );
 
 interface ITowerInfoChat {
-  hideContent: boolean;
   towerTitle: TowersTypes;
   switchers: ITabSwitchers;
-}
-
-export interface IFullSize {
-  fullSize: boolean;
 }

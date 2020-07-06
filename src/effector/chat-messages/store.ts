@@ -93,6 +93,10 @@ export const TaskMessagesStore = TaskMessagesDomain.store<ITaskMessagesStore>(
     },
   }))
   .on(consumeUserTaskAction.doneData, (state, { data, towerTitle }) => {
+    const userAction = {
+      text: data.currentAction.text,
+      direction: Sender.FRONTEND,
+    };
     if (data.ended) {
       return {
         ...state,
@@ -100,13 +104,14 @@ export const TaskMessagesStore = TaskMessagesDomain.store<ITaskMessagesStore>(
           ...state[towerTitle],
           ended: true,
           actions: [],
+          messages: [
+            ...state[towerTitle].messages,
+            userAction,
+            ...data.messages,
+          ],
         },
       };
     }
-    const userAction = {
-      text: data.currentAction.text,
-      direction: Sender.FRONTEND,
-    };
     return {
       ...state,
       [towerTitle]: {
