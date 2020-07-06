@@ -15,7 +15,6 @@ import {
   TowersProgressStore,
   TowersTypes,
 } from '../../effector/towers-progress/store';
-import { BuildingsService } from '../../buildings/config';
 import { BuildingsDescriptionService } from '../../buildings/descriptions';
 import { ButtonClassNames, Button } from '../../UI/button';
 import { ZIndexes } from '../root-component/z-indexes-enum';
@@ -28,7 +27,6 @@ import {
   nextTutorDescriptionStep,
   nextTutorStep,
 } from '../../effector/tutorial-store/events';
-import { device } from '../../UI/media';
 import { TowerInfoHeader } from './tower-info-header';
 import { TowerInfoTitle } from './tower-info-title';
 import { TowerInfoIndicators } from './tower-info-indicators';
@@ -93,13 +91,9 @@ const ModalWindowContentWrapper = styled.div`
 
 const TowerInfoHeader1 = styled.div<{ sizeContent: boolean }>`
   width: 100%;
-  margin-bottom: ${props => (props.sizeContent ? '24px' : '32px')};
+  margin-bottom: ${props => (props.sizeContent ? '24px' : '21px')};
   flex-shrink: 0;
   transition: ${COMMON_TRANSITION}s;
-
-  @media ${device.laptopS} {
-    margin-bottom: 30px;
-  }
 `;
 
 const StyleConfig = {
@@ -127,7 +121,6 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
     hideTowerInfo,
     selectTowerInfoContent,
   } = useStore(AppCondition);
-  const towerInfoRef = useRef<HTMLDivElement>(null);
   const { tutorialCondition } = useStore(TutorialStore);
   const towerTitle = notVerifiedTowerTitle || TowersTypes.MAIN_TOWER;
   const descriptionText: string[] = localDescriptionService.getAllDescriptionForCurrentTower(
@@ -135,12 +128,9 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
   );
   const {
     points,
-    level: { level },
-    productIncome,
+    level: { level, income },
   } = useStore(TowersProgressStore)[towerTitle];
-  const productIncomeValue = productIncome ? productIncome.value : 0;
   const { ended } = useStore(TaskMessagesStore)[towerTitle];
-  const { tutorialTower } = BuildingsService.getConfigForTower(towerTitle);
 
   const refsCollection: Array<React.RefObject<HTMLDivElement>> = useMemo(
     () => Array.from({ length: 3 }).map(() => createRef()),
@@ -148,6 +138,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
   );
 
   const [towerTutorialStep, setTowerTutorialStep] = useState(0);
+  const towerInfoRef = useRef<HTMLDivElement>(null);
 
   const openDescriptionTab = () => {
     setTowerInfoContent(TowerInfoContentValues.DESCRIPTION);
@@ -183,11 +174,10 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
   };
 
   const showButton =
-    tutorialCondition === TutorialConditions.NEXT_BUTTON_TOWER_INFO &&
-    tutorialTower;
+    tutorialCondition === TutorialConditions.NEXT_BUTTON_TOWER_INFO;
 
   useEffect(() => {
-    if (towerInfoRef && towerInfoRef.current) {
+    if (towerInfoRef.current) {
       setTowerInfoShift(towerInfoRef.current?.offsetWidth);
     }
   }, [towerInfoRef]);
@@ -211,7 +201,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
             level={level}
             towerTitle={towerTitle}
             progress={points}
-            income={productIncomeValue}
+            income={income}
             hideTowerInfo={hideTowerInfo}
             tutorialCondition={tutorialCondition}
           />
@@ -235,9 +225,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
 
         {showButton && (
           <Button
-            pulseAnimFlag={
-              tutorialCondition === TutorialConditions.NEXT_BUTTON_TOWER_INFO
-            }
+            pulseAnimFlag={showButton}
             className={ButtonClassNames.OUTLINE_NORMAL}
             callback={nextTowerTutorialStep}
             {...StyleConfig.enterButton}

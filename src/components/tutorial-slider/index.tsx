@@ -112,9 +112,10 @@ const styledConfig = {
 };
 
 const calculateCurrentStep = (step: number, arrLength: number) => {
-  return step >= 0
-    ? Math.abs(step % arrLength)
-    : arrLength - 1 + (step % arrLength);
+  const currentStep: number = step % arrLength;
+  if (currentStep === 0) return 0;
+  else if (currentStep < 0) return arrLength + currentStep;
+  else return step > 0 ? Math.abs(currentStep) : arrLength - 1 + currentStep;
 };
 
 export const TutorialSlider: React.FC<ITutorialSlider> = memo(
@@ -181,7 +182,7 @@ interface ITutorialSlider {
   callback: () => void;
 }
 
-interface ITitle {
+export interface ITitle {
   content: string;
 }
 
