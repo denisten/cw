@@ -3,6 +3,8 @@ import coinImg from './coins.svg';
 import plusImg from './plus.svg';
 import styled from 'styled-components';
 import { parseSum } from '../../utils/parse-sum';
+import { menuOpened } from '../../effector/app-condition/events';
+import { MenuItems } from '../menu-paragraph';
 
 const styledConfig = {
   coinImg: {
@@ -41,7 +43,12 @@ export const CoinsWallet: React.FC<IWalletCounter> = ({ sum, style = {} }) => {
     <WalletWrapper style={style}>
       <img src={coinImg} alt="coins" style={styledConfig.coinImg} />
       <WalletCounter sum={parseSum(sum)} {...styledConfig.wallet} />
-      <img src={plusImg} alt="plus" style={styledConfig.plusImg} />
+      <img
+        src={plusImg}
+        alt="plus"
+        style={styledConfig.plusImg}
+        onClick={() => menuOpened(MenuItems.TASKS)}
+      />
     </WalletWrapper>
   );
 };
