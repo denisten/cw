@@ -17,7 +17,7 @@ export const useDisplayTutorialSlider = ({
       !selectedMenuItem &&
       !isExtraTowerInfoModalOpen &&
       DOMLoaded &&
-      !isAuthorized &&
+      isAuthorized &&
       showTutorialSlider
     ) {
       tutorialSliderTimer = setTimeout(() => {
