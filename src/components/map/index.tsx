@@ -5,7 +5,7 @@ import road12 from '../../img/roads/1.2.png';
 import road13 from '../../img/roads/1.3.png';
 import road21 from '../../img/roads/2.1.png';
 import road22 from '../../img/roads/2.2.png';
-import road23 from '../../img/roads/2.3.png';
+import road23 from '../../img/roads/2.3.jpg';
 import road31 from '../../img/roads/3.1.png';
 import road32 from '../../img/roads/3.2.png';
 import road33 from '../../img/roads/3.3.png';
