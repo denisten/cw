@@ -8,43 +8,44 @@ import {
 } from '../../effector/app-condition/events';
 import { TowerInfoContentValues } from '../../effector/app-condition/store';
 import { scrollToCurrentTower } from '../scroll-to-current-tower';
-import { RefObject } from 'react';
+import React, { RefObject } from 'react';
 import { editMoneyCount } from '../../effector/user-data/events';
 import { commitIncomes } from '../../api/commit-income';
 import { responseStates } from '../../constants';
 import { pushMoveElems } from '../../effector/reward/events';
 
 const tmpDelay = 3000;
+
 const setIncome = async (
   towerTitle: TowersTypes,
   marker: IMarker,
   e: React.MouseEvent
 ) => {
-  if (marker.forTesting) {
-    hideMarker({ towerTitle: towerTitle, type: marker.type });
+  const { type, forTesting } = marker;
+  hideMarker({ towerTitle, type });
+  if (forTesting) {
     pushMoveElems({ x: e.clientX, y: e.clientY, id: 0 });
     setTimeout(() => {
       setMarker({
-        towerTitle: towerTitle,
-        type: marker.type,
-        forTesting: true,
+        towerTitle,
+        type,
+        forTesting,
       });
     }, tmpDelay);
     return;
   }
 
-  hideMarker({ towerTitle: towerTitle, type: marker.type });
   pushMoveElems({ x: e.clientX, y: e.clientY, id: 0 });
   const response = await commitIncomes(towerTitle);
   if (response.state === responseStates.SUCCESS) {
     const { balance } = response.data;
     editMoneyCount(balance);
   } else {
-    setMarker({ towerTitle: towerTitle, type: marker.type });
+    setMarker({ towerTitle, type });
   }
 };
 
-export const markerClickHandler = (
+export const markerClickHandler = async (
   marker: IMarker,
   towerTitle: TowersTypes,
   markerRef: RefObject<HTMLDivElement> | undefined,
@@ -58,12 +59,12 @@ export const markerClickHandler = (
       scrollToCurrentTower(markerRef);
       break;
     case TypeOfMarkers.TAKE_REWARD:
-      setIncome(towerTitle, marker, e);
+      await setIncome(towerTitle, marker, e);
       break;
     case TypeOfMarkers.ACTIVE_TASK:
       extraTowerInfoModalOpen(towerTitle);
       setTowerInfoContent(TowerInfoContentValues.CHAT);
-      hideMarker({ towerTitle: towerTitle, type: marker.type });
+      hideMarker({ towerTitle, type: marker.type });
       break;
     default:
       break;

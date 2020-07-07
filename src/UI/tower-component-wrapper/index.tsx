@@ -75,9 +75,19 @@ const StyledConfig = {
 };
 
 const maxMouseMoveFaultAfterClick = 20;
+
+const createTowerStyleConfig = (
+  width: number,
+  height: number
+): React.CSSProperties => ({
+  width: `${width}px`,
+  height: `${height}px`,
+  position: 'absolute',
+});
+
 export const TowerWrapper = memo(
   ({
-    position,
+    position: [posX, posY],
     tutorialCondition,
     maxLevel,
     currentLevel,
@@ -100,16 +110,11 @@ export const TowerWrapper = memo(
     animSize,
     fullSizeMode,
   }: ITowerWrapper): React.ReactElement => {
-    const [posX, posY] = position;
     let mouseDownFlag = false,
       mouseMoveFlag = 0;
     const towerRef = useRef<HTMLDivElement>(null);
     const strokeRef = useRef<HTMLImageElement>(null);
-    const TowerStyleConfig = {
-      width: `${width}px`,
-      height: `${height}px`,
-      position: 'absolute',
-    } as React.CSSProperties;
+    const TowerStyleConfig = createTowerStyleConfig(width, height);
 
     const handleClick = () => {
       if (
@@ -152,6 +157,7 @@ export const TowerWrapper = memo(
     useEffect(() => {
       BuildingsService.setRefForTower(towerTitle, towerRef);
     }, []);
+
     return (
       <TowerStyledWrapper
         posX={posX}
@@ -185,15 +191,13 @@ export const TowerWrapper = memo(
           }
         />
 
-        {upgradeFlag ? (
+        {upgradeFlag && (
           <Sprite
             canvasHeight={animSize.y}
             canvasWidth={animSize.x}
             img={wideTower ? upgradeWideTowerImg : upgradeThinTowerImg}
             {...StyledConfig.sprite}
           />
-        ) : (
-          ''
         )}
         <LazyImage
           src={tower}

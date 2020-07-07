@@ -30,11 +30,11 @@ export const openWsConnection = async (userId: number) => {
     item => {
       const towerTitles = Object.keys(item.data) as TowersTypes[];
       const towerData = item.data as TowersProgressStoreType;
-      towerTitles.forEach(tower =>
+      towerTitles.forEach(towerTitle =>
         addTowerProgressData({
-          towerTitle: tower,
-          levelOnServer: towerData[tower].level.level,
-          points: towerData[tower].points,
+          ...towerData[towerTitle],
+          towerTitle,
+          // levelOnServer: towerData[towerTitle].level.level,
         })
       );
     }

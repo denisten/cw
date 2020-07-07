@@ -11,6 +11,7 @@ import { Timer } from './timer';
 import { scaleAnimation } from '../../hoc/scale-anim';
 import { IMarker } from '../../effector/towers-marker/store';
 import { markerClickHandler } from '../../utils/marker-click-handler';
+import { IDisplayFlag } from '../skip-tutorial';
 
 export enum TypeOfMarkers {
   TASK = 'task',
@@ -67,14 +68,13 @@ export const MarkerView = styled.div<IMarkerView>`
   }
 `;
 
-export const MarkerWrapper = styled.div<{ displayFlag: boolean }>`
+export const MarkerWrapper = styled.div<IDisplayFlag>`
   height: auto;
   width: auto;
   top: 10px;
   left: 50%;
   position: absolute;
   transform: translate(-50%, -50%);
-
   display: ${props => (props.displayFlag ? 'flex' : 'none')};
   align-items: center;
   justify-content: center;

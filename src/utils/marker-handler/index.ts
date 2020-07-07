@@ -13,7 +13,7 @@ export const markerHandler = () => {
   const missions = MissionsStore.getState().map(missionItem => {
     return {
       status: missionItem.status,
-      productType: missionItem.task.content.product.slug,
+      towerTitle: missionItem.task.content.product.slug,
       taskType: missionItem.task.content.taskType.slug,
     };
   });
@@ -21,7 +21,7 @@ export const markerHandler = () => {
     clearTaskMarkersOnCurrentTower(towerTitle);
     missions.forEach(mission => {
       const { status } = mission;
-      if (mission.productType === towerTitle) {
+      if (mission.towerTitle === towerTitle) {
         if (status === TaskStatuses.CREATED || status === TaskStatuses.ACTIVE) {
           setMarker({
             towerTitle,
