@@ -1,5 +1,5 @@
 import { TowersProgressDomain } from './domain';
-import { ITowerProgress, TowersTypes } from './store';
+import { TowersTypes } from './store';
 import { RefObject } from 'react';
 import { getAllProgress } from '../../api';
 export const addProgressPoints = TowersProgressDomain.event<
@@ -26,9 +26,10 @@ export interface IAddProgressPoints {
   towerTitle: TowersTypes;
 }
 
-interface IAddTowerProgressData extends ITowerProgress {
+interface IAddTowerProgressData {
   levelOnServer: number;
   towerTitle: TowersTypes;
+  levelUpPercentage: number;
 }
 
 export interface IAddRefForTower {
