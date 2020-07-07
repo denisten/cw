@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Button, ButtonClassNames } from '../../UI/button';
 import { RowWrapper } from '../../UI/row-wrapper';
 import { devLogin } from '../../effector/user-data/events';
+import { editIsAuthorizedFlag } from '../../effector/app-condition/events';
 
 const DevToolsWrapper = styled.div`
   width: 100%;
@@ -29,7 +30,10 @@ export const DevTools = () => {
         <Button
           className={ButtonClassNames.NORMAL}
           content="Login"
-          callback={() => devLogin(phone)}
+          callback={async () => {
+            await devLogin(phone);
+            editIsAuthorizedFlag(true);
+          }}
         />
       </RowWrapper>
     </DevToolsWrapper>

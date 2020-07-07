@@ -25,6 +25,7 @@ export const noAuthAvailableMenuItems = [
   MenuItems.PROFILE,
   MenuItems.SETTINGS,
   MenuItems.TASKS,
+  MenuItems.DEV,
 ];
 
 const allMenuItems = [

@@ -295,11 +295,13 @@ export const Task: React.FC<ITasksRow> = ({
       <Border />
       <TaskDescriptionWrapper>
         <TaskDescription>{description}</TaskDescription>
-        <Coupon
-          style={styledConfig.coupon}
-          couponsCount={couponsCount}
-          isAllowedToChange={isAllowedToChange}
-        />
+        {type !== TasksType.INFORMATIONAL && (
+          <Coupon
+            style={styledConfig.coupon}
+            couponsCount={couponsCount}
+            isAllowedToChange={isAllowedToChange}
+          />
+        )}
       </TaskDescriptionWrapper>
     </TaskWrapper>
   );
