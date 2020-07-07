@@ -92,7 +92,7 @@ const TaskButton = styled.div<ITaskButton>`
     box-sizing: border-box;
     background: #fff;
     ::after {
-      content: 'Проверить';
+      content: 'Выполняется';
       color: #76a2a9;
     }
   }

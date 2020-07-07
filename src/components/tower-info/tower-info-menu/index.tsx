@@ -6,11 +6,21 @@ import React from 'react';
 import { useMoveTo } from '../../../hooks/useMoveTo';
 import styled from 'styled-components';
 import { MTSSans } from '../../../fonts';
+import { useStore } from 'effector-react';
+import { MissionsStore } from '../../../effector/missions-store/store';
+import { TowersTypes } from '../../../effector/towers-progress/store';
+import { filteredMissionsArray } from '../../../utils/filtered-missions-array';
 
 enum SelectedColorValue {
   TRUE = '001424',
   FALSE = '6e7782',
 }
+
+enum dataTypesMenu {
+  CHAT = 'chat',
+  TASK = 'task',
+}
+
 const TowerInfoMenuWrapper = styled.div`
   display: flex;
   justify-content: flex-start;
@@ -25,7 +35,8 @@ const TowerInfoMenuElement = styled.div<ISelected>`
   cursor: pointer;
   z-index: 2;
   margin-right: 40px;
-  color: #${props => (props.selected ? SelectedColorValue.TRUE : SelectedColorValue.FALSE)};
+  color: #${props =>
+    props.selected ? SelectedColorValue.TRUE : SelectedColorValue.FALSE};
   font-size: 20px;
   font-family: ${props => (props.selected ? MTSSans.MEDIUM : MTSSans.REGULAR)};
   position: relative;
@@ -40,9 +51,10 @@ const TowerInfoMenuElement = styled.div<ISelected>`
     font-size: 1.5vh;
   }
 
-  &[data-type='chat']::before {
+  &[data-type=${dataTypesMenu.CHAT}]::before,
+  &[data-type=${dataTypesMenu.TASK}]::before {
     content: '';
-    display: ${props => (props.chatNotify ? 'block' : 'none')};
+    display: ${props => (props.notify ? 'block' : 'none')};
     width: 10px;
     height: 10px;
     border-radius: 50%;
@@ -60,6 +72,7 @@ export const TowerInfoMenu: React.FC<ITowerInfoMenu> = ({
   refsCollection,
   selectTowerInfoContent,
   isChatEnded,
+  towerTitle,
 }) => {
   const {
     left,
@@ -70,7 +83,8 @@ export const TowerInfoMenu: React.FC<ITowerInfoMenu> = ({
     handleMouseOver,
     handleMouseOut,
   } = useMoveTo(FIRST_ELEM_WIDTH, refsCollection, selectTowerInfoContent);
-
+  // filteredMissionsArray(missions, towerTitle);
+  const missions = useStore(MissionsStore);
   return (
     <TowerInfoMenuWrapper>
       <RowWrapper onMouseOut={() => handleMouseOut()}>
@@ -93,8 +107,8 @@ export const TowerInfoMenu: React.FC<ITowerInfoMenu> = ({
           }}
           onMouseOver={handleMouseOver}
           ref={refsCollection[1]}
-          chatNotify={!isChatEnded}
-          data-type="chat"
+          notify={!isChatEnded}
+          data-type={dataTypesMenu.CHAT}
         >
           Чат
         </TowerInfoMenuElement>
@@ -105,6 +119,8 @@ export const TowerInfoMenu: React.FC<ITowerInfoMenu> = ({
           }}
           onMouseOver={handleMouseOver}
           ref={refsCollection[2]}
+          data-type={dataTypesMenu.TASK}
+          notify={!!filteredMissionsArray(missions, towerTitle).length}
         >
           Задания
         </TowerInfoMenuElement>
@@ -121,9 +137,10 @@ interface ITowerInfoMenu {
   refsCollection: React.RefObject<HTMLDivElement>[];
   selectTowerInfoContent: TowerInfoContentValues;
   isChatEnded?: boolean;
+  towerTitle: TowersTypes;
 }
 
 interface ISelected {
   selected: boolean;
-  chatNotify?: boolean;
+  notify?: boolean;
 }

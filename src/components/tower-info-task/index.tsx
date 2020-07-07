@@ -5,6 +5,7 @@ import { useStore } from 'effector-react';
 import { MissionsStore } from '../../effector/missions-store/store';
 import { Task } from '../tasks/tasks-row';
 import { UserDataStore } from '../../effector/user-data/store';
+import { filteredMissionsArray } from '../../utils/filtered-missions-array';
 
 const TowerInfoTaskWrapper = styled.div`
   margin-top: 24px;
@@ -32,14 +33,11 @@ export const TowerInfoTask: React.FC<ITowerInfoTask> = ({ towerTitle }) => {
         Заданий нет.
       </TowerInfoTaskWrapper>
     );
-  const filteredMissionsArray = missions.filter(el => {
-    if (el?.task?.content?.product?.slug)
-      return el.task.content.product.slug === towerTitle;
-  });
+  const filteredMissions = filteredMissionsArray(missions, towerTitle);
   return (
     <TowerInfoTaskWrapper>
-      {filteredMissionsArray.length
-        ? filteredMissionsArray.map(el => {
+      {filteredMissions.length
+        ? filteredMissions.map(el => {
             return (
               <Task
                 towerTitle={towerTitle}

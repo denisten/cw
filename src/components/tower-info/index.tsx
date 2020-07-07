@@ -210,6 +210,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
           isChatEnded={ended}
           refsCollection={refsCollection}
           selectTowerInfoContent={selectTowerInfoContent}
+          towerTitle={towerTitle}
         />
 
         <TowerInfoContent
