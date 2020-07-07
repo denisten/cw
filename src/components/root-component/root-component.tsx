@@ -24,6 +24,7 @@ import cat1 from './cat1.jpg';
 import cat2 from './cat2.jpg';
 import cat3 from './cat3.jpg';
 import { useDisplayTutorialSlider } from '../../hooks/use-display-tutorial-slider';
+import { disableTutorialSlider } from '../../effector/app-condition/events';
 
 const RootComponentWrapper = styled.div<IDisplayFlag>`
   background-image: url(${mapTile});
@@ -61,6 +62,7 @@ export const RootComponent = (): React.ReactElement => {
     selectedMenuItem,
     DOMLoaded,
     isAuthorized,
+    showTutorialSlider,
   } = useStore(AppCondition);
   const { isCoinRelocateAnimationEnded } = useStore(RewardStore);
 
@@ -75,7 +77,11 @@ export const RootComponent = (): React.ReactElement => {
     isExtraTowerInfoModalOpen,
     DOMLoaded,
     isAuthorized,
-    callBack: () => setTutorialSliderDisplayFlag(true),
+    showTutorialSlider,
+    callBack: () => {
+      setTutorialSliderDisplayFlag(true);
+      disableTutorialSlider();
+    },
   });
 
   return (

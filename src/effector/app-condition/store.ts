@@ -16,6 +16,7 @@ import {
   setDataReceived,
   setOpenPopUpState,
   setFullSizeMode,
+  disableTutorialSlider,
 } from './events';
 import { TowersTypes } from '../towers-progress/store';
 import { upgradeTower } from '../towers-progress/events';
@@ -35,6 +36,7 @@ export enum TowerInfoContentValues {
 
 const initState = {
   isExtraTowerInfoModalOpen: false,
+  showTutorialSlider: true,
   focusOn: null,
   selectedMenuItem: null,
   upgradingTowerTitle: null,
@@ -148,11 +150,16 @@ export const AppCondition = AppDomain.store<AppConditionType>(initState)
   .on(setOpenPopUpState, (state, payload) => ({
     ...state,
     openPopUpState: payload,
+  }))
+  .on(disableTutorialSlider, state => ({
+    ...state,
+    showTutorialSlider: false,
   }));
 
 AppCondition.watch(appConditionLocalStorage);
 
 export type AppConditionType = {
+  showTutorialSlider: boolean;
   isExtraTowerInfoModalOpen: boolean;
   selectedMenuItem: MenuItems | null;
   focusOn: TowersTypes | null;

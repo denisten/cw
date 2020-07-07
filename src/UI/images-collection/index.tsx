@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 
-const defaultElementWidth = '781px',
-  defaultElementHeight = '301px';
+const defaultElementWidth = '713px',
+  defaultElementHeight = '275px';
 
 const imgStyleConfig = {
   flexShrink: 0,

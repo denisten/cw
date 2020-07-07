@@ -26,3 +26,4 @@ export const setTowerInfoContent = AppDomain.event<TowerInfoContentValues>();
 export const setTowerInfoShift = AppDomain.event<number>();
 export const setOpenPopUpState = AppDomain.event<TypesOfPopUps>();
 export const setFullSizeMode = AppDomain.event<boolean>();
+export const disableTutorialSlider = AppDomain.event();
