@@ -92,7 +92,7 @@ const TaskButton = styled.div<ITaskButton>`
     box-sizing: border-box;
     background: #fff;
     ::after {
-      content: 'Проверить';
+      content: 'Выполняется';
       color: #76a2a9;
     }
   }
@@ -295,11 +295,13 @@ export const Task: React.FC<ITasksRow> = ({
       <Border />
       <TaskDescriptionWrapper>
         <TaskDescription>{description}</TaskDescription>
-        <Coupon
-          style={styledConfig.coupon}
-          couponsCount={couponsCount}
-          isAllowedToChange={isAllowedToChange}
-        />
+        {type !== TasksType.INFORMATIONAL && (
+          <Coupon
+            style={styledConfig.coupon}
+            couponsCount={couponsCount}
+            isAllowedToChange={isAllowedToChange}
+          />
+        )}
       </TaskDescriptionWrapper>
     </TaskWrapper>
   );

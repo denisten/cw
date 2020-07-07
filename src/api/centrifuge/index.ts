@@ -34,7 +34,8 @@ export const openWsConnection = async (userId: number) => {
         addTowerProgressData({
           ...towerData[towerTitle],
           towerTitle,
-          // levelOnServer: towerData[towerTitle].level.level,
+          levelOnServer: towerData[towerTitle].level.level,
+          levelUpPercentage: towerData[towerTitle].level.levelUpPercentage,
         })
       );
     }

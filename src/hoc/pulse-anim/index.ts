@@ -6,7 +6,7 @@ export const pulseAnimationHOF = (bcg: string) => {
     box-shadow: 0 0 0 0 rgba(${bcg}, 0.4);
   }
   70% {
-      box-shadow: 0 0 0 10px rgba(${bcg}, 0);
+      box-shadow: 0 0 0 12.5px rgba(${bcg}, 0);
   }
   100% {
       box-shadow: 0 0 0 0 rgba(${bcg}, 0);

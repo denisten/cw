@@ -13,6 +13,7 @@ import { TutorialConditions } from '../../effector/tutorial-store/store';
 import { useEditProgressbarClassname } from '../../hooks/use-edit-progressbar-classname';
 import { nextTutorStep } from '../../effector/tutorial-store/events';
 import { upgradeTowerAndShowAnimation } from '../../utils/upgrade-tower-and-show-animation';
+import { pulseAnimationHOF } from '../../hoc/pulse-anim';
 
 export const UPGRADABLE = 'upgradable';
 
@@ -31,6 +32,7 @@ const ProgressBarWrapper = styled.div`
   &.${UPGRADABLE} {
     background: #04b5d2;
     justify-content: center;
+    animation: ${pulseAnimationHOF('4, 181, 210')} 0.5s infinite;
     &::before,
     &::after {
       display: none;
@@ -111,7 +113,7 @@ export const ProgressBar: React.FC<IProgressBar> = ({
       <ProgressBarGreenLine progress={progress} />
     ) : (
       <UpgradeButton onClick={handleClick}>
-        <img src={upgradeImg} alt="upgrade" /> Повысить здание
+        <img src={upgradeImg} alt="upgrade" /> Улучшить
       </UpgradeButton>
     );
 

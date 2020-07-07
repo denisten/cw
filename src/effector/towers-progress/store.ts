@@ -15,6 +15,7 @@ export enum TowerLevel {
   mid = 2,
   high = 3,
 }
+const maxPercent = 100;
 export enum TowersTypes {
   MAIN_TOWER = 'cellular',
   MUSIC = 'music',
@@ -417,7 +418,7 @@ export const TowersProgressStore = TowersProgressDomain.store<
       level: {
         ...state[towerTitle].level,
         levelUpPercentage: 0,
-        level: state[towerTitle].level.level + 1,
+        level: state[towerTitle].levelOnServer,
       },
     },
   }))
@@ -432,16 +433,24 @@ export const TowersProgressStore = TowersProgressDomain.store<
     ...state,
     ...payload,
   }))
-  .on(addTowerProgressData, (state, { towerTitle, ...payload }) => {
-    const a = {
+  .on(
+    addTowerProgressData,
+    (state, { towerTitle, levelOnServer, levelUpPercentage }) => ({
       ...state,
       [towerTitle]: {
         ...state[towerTitle],
-        ...payload,
+        levelOnServer,
+        points:
+          levelOnServer > state[towerTitle].level.level
+            ? maxPercent
+            : levelUpPercentage,
+        level: {
+          ...state[towerTitle].level,
+          levelUpPercentage,
+        },
       },
-    };
-    return a;
-  })
+    })
+  )
   .reset(resetTowerProgress);
 
 export type TowersProgressStoreType = Record<TowersTypes, ITowerProgress>;

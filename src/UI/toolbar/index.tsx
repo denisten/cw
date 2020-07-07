@@ -66,7 +66,7 @@ const ToolbarElementWrapper = styled.div<{ canPulse: boolean }>`
     border: 1px solid rgba(2, 173, 201, 0.5);
   }
 
-  animation: ${props => props.canPulse && pulseAnimationHOF('230, 53, 53')} 0.5s
+  animation: ${props => props.canPulse && pulseAnimationHOF('2, 173, 201')} 1.5s
     infinite linear;
 `;
 
