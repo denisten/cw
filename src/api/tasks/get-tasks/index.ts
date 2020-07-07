@@ -1,11 +1,9 @@
 import { get } from '../../requests';
 import { apiRoutes } from '../../index';
 import { ITask } from '../../../effector/missions-store/store';
-import { decreaseTimer } from '../../../effector/missions-store/events';
 import { setTaskId } from '../../../effector/chat-messages/events';
+import { timerClosure } from '../../../utils/timer-closure';
 
-let interval = 0;
-const second = 1000;
 export enum TaskStatuses {
   CREATED = 'created',
   ACTIVE = 'active',
@@ -18,14 +16,14 @@ export enum TaskStatuses {
 
 export const getTasks = async () => {
   const response = await get<IGetTasks>(apiRoutes.GET_TASKS);
-  if (interval) clearInterval(interval);
-  interval = setInterval(() => {
-    decreaseTimer();
-  }, second);
-  response.data.data.userTasks.map(el => {
+  response.data.data.userTasks = response.data.data.userTasks.map(el => {
     if (el.status !== TaskStatuses.CREATED) {
       setTaskId({ towerTitle: el.task.content.product.slug, taskId: el.id });
     }
+    if (el.expireInSeconds) {
+      el.taskTimer = timerClosure(el.expireInSeconds);
+    }
+    return el;
   });
   return response.data.data;
 };

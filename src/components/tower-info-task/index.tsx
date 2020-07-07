@@ -55,6 +55,7 @@ export const TowerInfoTask: React.FC<ITowerInfoTask> = ({ towerTitle }) => {
                 money={el.task.reward}
                 energy={el.task.energy}
                 description={el.task.content.description}
+                taskTimer={el.taskTimer}
               />
             );
           })

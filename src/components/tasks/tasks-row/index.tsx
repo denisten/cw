@@ -213,6 +213,7 @@ export const Task: React.FC<ITasksRow> = ({
   isInTowerInfo,
   id,
   expireInSeconds,
+  taskTimer,
 }) => {
   const isOpened = useRef(false);
   const taskWrapperRef = useRef<HTMLDivElement>(null);
@@ -272,7 +273,7 @@ export const Task: React.FC<ITasksRow> = ({
             energy={energy}
             isInTowerInfo={isInTowerInfo}
           />
-          <TaskTimer secondsLeft={expireInSeconds} />
+          {expireInSeconds && <TaskTimer taskTimer={taskTimer} />}
         </ColumnWrapper>
         {status === TaskStatuses.REJECTED && (
           <img src={notDoneImg} alt="reject" style={styledConfig.img} />
@@ -318,6 +319,7 @@ interface ITasksRow {
   couponsCount: number;
   width?: number;
   isInTowerInfo: boolean;
+  taskTimer?: () => number;
 }
 
 export interface ITaskLocation {

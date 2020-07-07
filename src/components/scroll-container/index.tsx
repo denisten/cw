@@ -109,7 +109,6 @@ export const ScrollContainer: React.FC<{
       enableFixSizeMod();
       return;
     }
-
     if (
       (payload < 0 && scaleValue.current + payload >= ScaleValues.MIN_SCALE) ||
       (payload > 0 && scaleValue.current + payload <= ScaleValues.MAX_SCALE)
@@ -119,13 +118,13 @@ export const ScrollContainer: React.FC<{
     }
   };
 
-  const wheelHandler = (e: React.WheelEvent) => {
-    e.persist();
-    requestAnimationFrame(() => {
-      e.preventDefault();
-      scaleHandler(e.deltaY * _smoothScrollValue);
-    });
-  };
+  // const wheelHandler = (e: React.WheelEvent) => {
+  //   e.persist();
+  //   requestAnimationFrame(() => {
+  //     e.preventDefault();
+  //     scaleHandler(e.deltaY * _smoothScrollValue);
+  //   });
+  // };
 
   useInitDragscroll();
   useCheckDisableTutorial([]);
@@ -140,7 +139,7 @@ export const ScrollContainer: React.FC<{
       ref={scrollContainerWrapperRef}
     >
       <ZoomInOutButtons callback={scaleHandler} />
-      <MapWrapper ref={mapWrapperRef} zIndex={zIndex} onWheel={wheelHandler}>
+      <MapWrapper ref={mapWrapperRef} zIndex={zIndex}>
         <TutorialToolsSelector
           tutorialCondition={tutorialCondition}
           isInsideScrollContainer={true}
