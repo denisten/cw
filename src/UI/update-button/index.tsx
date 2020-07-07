@@ -10,7 +10,15 @@ import {
 import { TutorialConditions } from '../../effector/tutorial-store/store';
 import { towerUpdateHandler } from '../../utils/tower-update-handler';
 
-export const UpgradeButton: React.FC<UpgradeButtonProps> = ({
+const handleClick = async (
+  towerTitle: TowersTypes,
+  tutorialCondition: TutorialConditions
+) => {
+  showUpgradeIcon(towerTitle);
+  await towerUpdateHandler(tutorialCondition, towerTitle);
+};
+
+export const UpgradeButton: React.FC<IUpgradeButton> = ({
   towerTitle,
   animFlag = false,
   displayFlag,
@@ -28,20 +36,17 @@ export const UpgradeButton: React.FC<UpgradeButtonProps> = ({
         fullSizeMode={fullSizeMode}
         markerType={TypeOfMarkers.UPGRADE_TOWER}
         animFlag={animFlag}
-        onClick={() => {
-          showUpgradeIcon(towerTitle);
-          towerUpdateHandler(tutorialCondition, towerTitle);
-        }}
+        onClick={() => handleClick(towerTitle, tutorialCondition)}
       />
     </MarkerWrapper>
   );
 };
 
-type UpgradeButtonProps = {
+interface IUpgradeButton {
   towerTitle: TowersTypes;
   animFlag?: boolean;
   displayFlag: boolean;
   towerLevel: number;
   tutorialCondition: TutorialConditions;
   fullSizeMode: boolean;
-};
+}
