@@ -45,7 +45,6 @@ export const getResult = MissionsDomain.effect({
 export const setCurrentTaskStatus = MissionsDomain.event<
   ISetCurrentTaskStatus
 >();
-export const decreaseTimer = MissionsDomain.event();
 
 export const finishTask = MissionsDomain.event<number>(
   'take reward and delete from store'

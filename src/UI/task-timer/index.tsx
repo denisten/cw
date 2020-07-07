@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { MTSSans } from '../../fonts';
 import timerIcon from './timer.svg';
@@ -36,18 +36,35 @@ const parseSecondsLeft = (secondsLeft: number | null) => {
   answer += (secondsLeft % secondsPerMinute) + 'сек.';
   return answer;
 };
+const second = 1000;
+export const TaskTimer: React.FC<ITaskTimer> = ({ taskTimer }) => {
+  const [timer, setTimer] = useState((taskTimer && taskTimer()) || null);
+  const timerRef = useRef(0);
 
-export const TaskTimer: React.FC<ITaskTimer> = ({ secondsLeft }) => {
+  useEffect(() => {
+    if (timer) {
+      timerRef.current = setTimeout(() => {
+        setTimer(timer - 1);
+      }, second);
+    } else if (timer === 0) {
+      clearTimeout(timerRef.current);
+      // TODO dispatch event
+    }
+
+    return () => {
+      clearTimeout(timerRef.current);
+    };
+  }, [timer]);
   return (
     <TaskTimerWrapper>
-      <RowWrapper displayFlag={!!secondsLeft}>
+      <RowWrapper displayFlag={true}>
         <img src={timerIcon} alt="timer" style={styledConfig.img} />
-        {parseSecondsLeft(secondsLeft)}
+        {parseSecondsLeft(timer)}
       </RowWrapper>
     </TaskTimerWrapper>
   );
 };
 
 interface ITaskTimer {
-  secondsLeft: number | null;
+  taskTimer?: () => number;
 }

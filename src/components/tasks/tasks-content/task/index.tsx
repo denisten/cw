@@ -45,6 +45,7 @@ export const Tasks: React.FC<{ active: boolean; isAuthorized: boolean }> = ({
             money={el.task.reward}
             energy={el.task.energy}
             description={el.task.content.description}
+            taskTimer={el.taskTimer}
           />
         );
       })}

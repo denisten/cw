@@ -1,7 +1,6 @@
 import { MissionsDomain } from './domain';
 import {
   activateTask,
-  decreaseTimer,
   fetchTasks,
   getResult,
   resetMissionsStore,
@@ -30,19 +29,7 @@ export const MissionsStore = MissionsDomain.store(initStore)
     });
     return userTasks;
   })
-  .on(decreaseTimer, state => {
-    const newState = [...state];
-    state.forEach((el, id) => {
-      if (el.expireInSeconds && el.expireInSeconds - 1 === 0)
-        newState.splice(id, 1);
-    });
-    return newState.map(el => {
-      return {
-        ...el,
-        expireInSeconds: el.expireInSeconds ? el.expireInSeconds - 1 : null,
-      };
-    });
-  })
+
   .on(setCurrentTaskStatus, (state, { taskId, status }) => {
     const currentTaskIndex = state.findIndex(el => el.id === taskId);
     return [
@@ -90,6 +77,7 @@ export interface ITask {
   id: number;
   expireAt: string;
   expireInSeconds: number | null;
+  taskTimer?: () => number;
   task: {
     id: number;
     parentId: number;
