@@ -435,24 +435,21 @@ export const TowersProgressStore = TowersProgressDomain.store<
   }))
   .on(
     addTowerProgressData,
-    (state, { towerTitle, levelOnServer, levelUpPercentage }) => {
-      const a = {
-        ...state,
-        [towerTitle]: {
-          ...state[towerTitle],
-          levelOnServer,
-          points:
-            levelOnServer > state[towerTitle].level.level
-              ? maxPercent
-              : levelUpPercentage,
-          level: {
-            ...state[towerTitle].level,
-            levelUpPercentage,
-          },
+    (state, { towerTitle, levelOnServer, levelUpPercentage }) => ({
+      ...state,
+      [towerTitle]: {
+        ...state[towerTitle],
+        levelOnServer,
+        points:
+          levelOnServer > state[towerTitle].level.level
+            ? maxPercent
+            : levelUpPercentage,
+        level: {
+          ...state[towerTitle].level,
+          levelUpPercentage,
         },
-      };
-      return a;
-    }
+      },
+    })
   )
   .reset(resetTowerProgress);
 
