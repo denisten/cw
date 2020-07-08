@@ -8,7 +8,6 @@ import {
   resetTowerProgress,
   tutorialTowerUpgrade,
 } from './events';
-import { maxPercent } from '../../constants';
 
 export enum TowerLevel {
   deactive = 0,
@@ -52,6 +51,7 @@ const initState: TowersProgressStoreType = {
     productId: 1,
     points: 0,
     levelOnServer: 0,
+    needUpgrade: false,
     level: {
       id: 0,
       name: '0 уровень',
@@ -64,6 +64,7 @@ const initState: TowersProgressStoreType = {
     productId: 1,
     points: 0,
     levelOnServer: 0,
+    needUpgrade: false,
     level: {
       id: 0,
       name: '0 уровень',
@@ -76,6 +77,7 @@ const initState: TowersProgressStoreType = {
     productId: 1,
     points: 0,
     levelOnServer: 0,
+    needUpgrade: false,
     level: {
       id: 0,
       name: '0 уровень',
@@ -88,6 +90,7 @@ const initState: TowersProgressStoreType = {
     productId: 1,
     points: 0,
     levelOnServer: 0,
+    needUpgrade: false,
     level: {
       id: 0,
       name: '0 уровень',
@@ -100,6 +103,7 @@ const initState: TowersProgressStoreType = {
     productId: 1,
     points: 0,
     levelOnServer: 0,
+    needUpgrade: false,
     level: {
       id: 0,
       name: '0 уровень',
@@ -112,6 +116,7 @@ const initState: TowersProgressStoreType = {
     productId: 1,
     points: 0,
     levelOnServer: 0,
+    needUpgrade: false,
     level: {
       id: 0,
       name: '0 уровень',
@@ -124,6 +129,7 @@ const initState: TowersProgressStoreType = {
     productId: 1,
     points: 0,
     levelOnServer: 0,
+    needUpgrade: false,
     level: {
       id: 0,
       name: '0 уровень',
@@ -136,6 +142,7 @@ const initState: TowersProgressStoreType = {
     productId: 1,
     points: 0,
     levelOnServer: 0,
+    needUpgrade: false,
     level: {
       id: 0,
       name: '0 уровень',
@@ -148,6 +155,7 @@ const initState: TowersProgressStoreType = {
     productId: 1,
     points: 0,
     levelOnServer: 0,
+    needUpgrade: false,
     level: {
       id: 0,
       name: '0 уровень',
@@ -160,6 +168,7 @@ const initState: TowersProgressStoreType = {
     productId: 1,
     points: 0,
     levelOnServer: 0,
+    needUpgrade: false,
     level: {
       id: 0,
       name: '0 уровень',
@@ -172,6 +181,7 @@ const initState: TowersProgressStoreType = {
     productId: 1,
     points: 0,
     levelOnServer: 0,
+    needUpgrade: false,
     level: {
       id: 0,
       name: '0 уровень',
@@ -184,6 +194,7 @@ const initState: TowersProgressStoreType = {
     productId: 1,
     points: 0,
     levelOnServer: 0,
+    needUpgrade: false,
     level: {
       id: 0,
       name: '0 уровень',
@@ -196,6 +207,7 @@ const initState: TowersProgressStoreType = {
     productId: 1,
     points: 0,
     levelOnServer: 0,
+    needUpgrade: false,
     level: {
       id: 0,
       name: '0 уровень',
@@ -208,6 +220,7 @@ const initState: TowersProgressStoreType = {
     productId: 1,
     points: 0,
     levelOnServer: 0,
+    needUpgrade: false,
     level: {
       id: 0,
       name: '0 уровень',
@@ -220,6 +233,7 @@ const initState: TowersProgressStoreType = {
     productId: 1,
     points: 0,
     levelOnServer: 0,
+    needUpgrade: false,
     level: {
       id: 0,
       name: '0 уровень',
@@ -232,6 +246,7 @@ const initState: TowersProgressStoreType = {
     productId: 1,
     points: 0,
     levelOnServer: 0,
+    needUpgrade: false,
     level: {
       id: 0,
       name: '0 уровень',
@@ -244,6 +259,7 @@ const initState: TowersProgressStoreType = {
     productId: 1,
     points: 0,
     levelOnServer: 0,
+    needUpgrade: false,
     level: {
       id: 0,
       name: '0 уровень',
@@ -256,6 +272,7 @@ const initState: TowersProgressStoreType = {
     productId: 1,
     points: 0,
     levelOnServer: 0,
+    needUpgrade: false,
     level: {
       id: 0,
       name: '0 уровень',
@@ -269,6 +286,7 @@ const initState: TowersProgressStoreType = {
     productId: 1,
     points: 0,
     levelOnServer: 0,
+    needUpgrade: false,
     level: {
       id: 0,
       name: '0 уровень',
@@ -281,6 +299,7 @@ const initState: TowersProgressStoreType = {
     productId: 1,
     points: 0,
     levelOnServer: 0,
+    needUpgrade: false,
     level: {
       id: 0,
       name: '0 уровень',
@@ -293,6 +312,7 @@ const initState: TowersProgressStoreType = {
     productId: 1,
     points: 0,
     levelOnServer: 0,
+    needUpgrade: false,
     level: {
       id: 0,
       name: '0 уровень',
@@ -305,6 +325,7 @@ const initState: TowersProgressStoreType = {
     productId: 1,
     points: 0,
     levelOnServer: 0,
+    needUpgrade: false,
     level: {
       id: 0,
       name: '0 уровень',
@@ -317,6 +338,7 @@ const initState: TowersProgressStoreType = {
     productId: 1,
     points: 0,
     levelOnServer: 0,
+    needUpgrade: false,
     level: {
       id: 0,
       name: '0 уровень',
@@ -329,6 +351,7 @@ const initState: TowersProgressStoreType = {
     productId: 1,
     points: 0,
     levelOnServer: 0,
+    needUpgrade: false,
     level: {
       id: 0,
       name: '0 уровень',
@@ -341,6 +364,7 @@ const initState: TowersProgressStoreType = {
     productId: 1,
     points: 0,
     levelOnServer: 0,
+    needUpgrade: false,
     level: {
       id: 0,
       name: '0 уровень',
@@ -353,6 +377,7 @@ const initState: TowersProgressStoreType = {
     productId: 1,
     points: 0,
     levelOnServer: 0,
+    needUpgrade: false,
     level: {
       id: 0,
       name: '0 уровень',
@@ -365,6 +390,7 @@ const initState: TowersProgressStoreType = {
     productId: 1,
     points: 0,
     levelOnServer: 0,
+    needUpgrade: false,
     level: {
       id: 0,
       name: '0 уровень',
@@ -377,6 +403,7 @@ const initState: TowersProgressStoreType = {
     productId: 1,
     points: 0,
     levelOnServer: 0,
+    needUpgrade: false,
     level: {
       id: 0,
       name: '0 уровень',
@@ -415,11 +442,11 @@ export const TowersProgressStore = TowersProgressDomain.store<
     ...state,
     [towerTitle]: {
       ...state[towerTitle],
-      points: 0,
+      needUpgrade: false,
+      levelOnServer: state[towerTitle].level.level + 1,
       level: {
         ...state[towerTitle].level,
         level: state[towerTitle].level.level + 1,
-        levelUpPercentage: 0,
       },
     },
   }))
@@ -436,16 +463,17 @@ export const TowersProgressStore = TowersProgressDomain.store<
   }))
   .on(
     addTowerProgressData,
-    (state, { towerTitle, newLevel, levelUpPercentage }) => {
+    (state, { towerTitle, newLevel, levelUpPercentage, income }) => {
       if (newLevel > state[towerTitle].level.level)
         return {
           ...state,
           [towerTitle]: {
             ...state[towerTitle],
-            points: maxPercent,
+            needUpgrade: true,
             level: {
               ...state[towerTitle].level,
-              levelUpPercentage: maxPercent,
+              levelUpPercentage,
+              income,
             },
           },
         };
@@ -457,6 +485,7 @@ export const TowersProgressStore = TowersProgressDomain.store<
             level: {
               ...state[towerTitle].level,
               levelUpPercentage,
+              income,
             },
           },
         };
@@ -470,6 +499,7 @@ export interface ITowerProgress {
   productId: number;
   points: number;
   levelOnServer: number;
+  needUpgrade: boolean;
   level: {
     levelUpPercentage: number;
     id: number;

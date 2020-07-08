@@ -7,7 +7,6 @@ import { addTowerProgressData } from '../../effector/towers-progress/events';
 import {
   TowersTypes,
   TowersProgressStoreType,
-  TowersProgressStore,
 } from '../../effector/towers-progress/store';
 
 const centrifugeUrl = '/ws/connection/websocket';
@@ -32,10 +31,14 @@ export const openWsConnection = async (userId: number) => {
       const towerTitles = Object.keys(item.data) as TowersTypes[];
       const towerData = item.data as TowersProgressStoreType;
       towerTitles.forEach(towerTitle => {
+        const { income, level, levelUpPercentage } = towerData[
+          towerTitle
+        ].level;
         addTowerProgressData({
           towerTitle,
-          newLevel: towerData[towerTitle].level.level,
-          levelUpPercentage: towerData[towerTitle].level.levelUpPercentage,
+          income,
+          newLevel: level,
+          levelUpPercentage,
         });
       });
     }

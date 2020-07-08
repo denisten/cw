@@ -2,12 +2,16 @@ import { ProgressBar } from '../../../UI/progress-bar';
 import React from 'react';
 import styled from 'styled-components';
 import { MTSSans } from '../../../fonts';
-import { TowersTypes } from '../../../effector/towers-progress/store';
+import {
+  TowersProgressStore,
+  TowersTypes,
+} from '../../../effector/towers-progress/store';
 import { TutorialConditions } from '../../../effector/tutorial-store/store';
 import playButtonImg from './play-button.svg';
 import { BuildingsService } from '../../../buildings/config';
 import { windowOpen } from '../../../utils/window-open';
 import coinIncomeImg from './coin-income.svg';
+import { useStore } from 'effector-react';
 
 const EVOLUTION = 'evolution';
 
@@ -122,6 +126,7 @@ export const TowerInfoIndicators: React.FC<ITowerInfoIndicators> = ({
   tutorialCondition,
 }) => {
   const { playButtonLink } = BuildingsService.getConfigForTower(towerTitle);
+  const { needUpgrade } = useStore(TowersProgressStore)[towerTitle];
 
   const handlePlayButtonClick = () =>
     playButtonLink && windowOpen(playButtonLink);
@@ -133,6 +138,7 @@ export const TowerInfoIndicators: React.FC<ITowerInfoIndicators> = ({
           <span className={EVOLUTION}>{level}</span> Уровень эволюции
         </span>
         <ProgressBar
+          needUpgrade={needUpgrade}
           progress={progress}
           towerTitle={towerTitle}
           tutorialCondition={tutorialCondition}

@@ -44,9 +44,7 @@ export const Buildings: React.FC = () => {
                 upgradeFlag={upgradingTowerTitle === towerTitle}
                 maxLevel={towerLayoutData.maxLevel}
                 currentLevel={localTowersProgressStore[towerTitle].level.level}
-                progress={
-                  localTowersProgressStore[towerTitle].level.levelUpPercentage
-                }
+                needUpgrade={localTowersProgressStore[towerTitle].needUpgrade}
                 focusOnTowerTitle={focusOn}
                 towerTitle={towerTitle}
                 wideTower={towerLayoutData.wideTower}

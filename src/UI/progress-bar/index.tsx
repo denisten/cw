@@ -2,7 +2,6 @@ import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { MTSSans } from '../../fonts';
 import upgradeImg from './upgrade.svg';
-import { maxPercent } from '../../components/markers/timer';
 import {
   showUpgradeIcon,
   extraTowerInfoModalClosed,
@@ -90,6 +89,7 @@ export const ProgressBar: React.FC<IProgressBar> = ({
   progress,
   towerTitle,
   tutorialCondition,
+  needUpgrade,
 }) => {
   const progressBarWrapperRef = useRef<HTMLDivElement>(null);
 
@@ -106,16 +106,15 @@ export const ProgressBar: React.FC<IProgressBar> = ({
       await towerUpdateHandler(TutorialConditions.OFF, towerTitle);
     }
   };
-  useEditProgressbarClassname(progressBarWrapperRef.current, progress);
+  useEditProgressbarClassname(progressBarWrapperRef.current, needUpgrade);
 
-  const content =
-    progress < maxPercent ? (
-      <ProgressBarGreenLine progress={progress} />
-    ) : (
-      <UpgradeButton onClick={handleClick}>
-        <img src={upgradeImg} alt="upgrade" /> Улучшить
-      </UpgradeButton>
-    );
+  const content = !needUpgrade ? (
+    <ProgressBarGreenLine progress={progress} />
+  ) : (
+    <UpgradeButton onClick={handleClick}>
+      <img src={upgradeImg} alt="upgrade" /> Улучшить
+    </UpgradeButton>
+  );
 
   return (
     <ProgressBarWrapper ref={progressBarWrapperRef}>
@@ -127,6 +126,7 @@ export const ProgressBar: React.FC<IProgressBar> = ({
 interface IProgressBar extends IProgressBarGreenLine {
   towerTitle: TowersTypes;
   tutorialCondition: TutorialConditions;
+  needUpgrade: boolean;
 }
 
 interface IProgressBarGreenLine {

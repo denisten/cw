@@ -1,21 +1,20 @@
 import { useEffect } from 'react';
-import { maxPercent } from '../../components/markers/timer';
 import { UPGRADABLE } from '../../UI/progress-bar';
 
 export const useEditProgressbarClassname = (
   node: Element | null,
-  progress: number
+  needUpgrade: boolean
 ) => {
   useEffect(() => {
     if (node) {
-      if (progress && progress >= maxPercent) {
+      if (needUpgrade) {
         node.classList.add(UPGRADABLE);
-      } else if (progress && progress < maxPercent) {
+      } else {
         node.classList.remove(UPGRADABLE);
       }
     }
     return () => {
       node && node.classList.remove(UPGRADABLE);
     };
-  }, [progress]);
+  }, [needUpgrade]);
 };

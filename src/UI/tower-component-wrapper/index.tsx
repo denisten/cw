@@ -6,7 +6,6 @@ import { TowerLevel, TowersTypes } from '../../effector/towers-progress/store';
 import { UpgradeButton } from '../update-button';
 import upgradeThinTowerImg from '../../img/tower-updrade/thin-tower.png';
 import upgradeWideTowerImg from '../../img/tower-updrade/wide-tower.png';
-import { maxProgressValue } from '../../effector/app-condition/store';
 import { TutorialConditions } from '../../effector/tutorial-store/store';
 import { nextTutorStep } from '../../effector/tutorial-store/events';
 import { Sprite } from '../../components/sprite';
@@ -89,7 +88,6 @@ export const TowerWrapper = memo(
   ({
     position: [posX, posY],
     tutorialCondition,
-    maxLevel,
     currentLevel,
     areaCoords,
     shadowImg,
@@ -99,7 +97,7 @@ export const TowerWrapper = memo(
     zIndex,
     towerTitle,
     focusOnTowerTitle,
-    progress,
+    needUpgrade,
     upgradeFlag,
     tutorialTower,
     tutorialPause,
@@ -176,14 +174,12 @@ export const TowerWrapper = memo(
           towerLevel={currentLevel}
           markersCollection={markers}
           towerTitle={towerTitle}
-          displayFlag={
-            progress < maxProgressValue && markers && markers.length > 0
-          }
+          displayFlag={!needUpgrade && markers && markers.length > 0}
         />
         <UpgradeButton
           fullSizeMode={fullSizeMode}
           tutorialCondition={tutorialCondition}
-          displayFlag={progress >= maxProgressValue && currentLevel < maxLevel}
+          displayFlag={needUpgrade}
           towerTitle={towerTitle}
           towerLevel={currentLevel}
           animFlag={
@@ -247,7 +243,7 @@ interface ITowerWrapper {
   zIndex?: number;
   towerTitle: TowersTypes;
   focusOnTowerTitle: TowersTypes | null;
-  progress: number;
+  needUpgrade: boolean;
   upgradeFlag: boolean;
   tutorialTower?: boolean;
   tutorialPause?: boolean;
