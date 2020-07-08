@@ -8,6 +8,7 @@ import {
   resetTowerProgress,
   tutorialTowerUpgrade,
 } from './events';
+import { maxPercent } from '../../constants';
 
 export enum TowerLevel {
   deactive = 0,
@@ -416,21 +417,39 @@ const initState: TowersProgressStoreType = {
 export const TowersProgressStore = TowersProgressDomain.store<
   TowersProgressStoreType
 >(initState)
-  .on(addProgressPoints, (state, { towerTitle, points }) => ({
-    ...state,
-    [towerTitle]: {
-      ...state[towerTitle],
-      level: {
-        ...state[towerTitle].level,
-        levelUpPercentage: state[towerTitle].level.levelUpPercentage + points,
-      },
-    },
-  }))
+  .on(addProgressPoints, (state, { towerTitle, points }) => {
+    if (state[towerTitle].level.levelUpPercentage + points >= maxPercent) {
+      return {
+        ...state,
+        [towerTitle]: {
+          ...state[towerTitle],
+          needUpgrade: true,
+          level: {
+            ...state[towerTitle].level,
+            levelUpPercentage: maxPercent,
+          },
+        },
+      };
+    } else {
+      return {
+        ...state,
+        [towerTitle]: {
+          ...state[towerTitle],
+          level: {
+            ...state[towerTitle].level,
+            levelUpPercentage:
+              state[towerTitle].level.levelUpPercentage + points,
+          },
+        },
+      };
+    }
+  })
   .on(tutorialTowerUpgrade, (state, payload) => ({
     ...state,
     [payload]: {
       ...state[payload],
       points: 0,
+      needUpgrade: false,
       level: {
         ...state[payload].level,
         level: state[payload].level.level + 1,
