@@ -6,13 +6,13 @@ import { Bubble } from '../../UI/bubble';
 import { ChatButtons } from '../../UI/chat-buttons';
 import { ChatAvatar } from '../../UI/chat-avatar';
 import { useStore } from 'effector-react';
-import { TaskMessagesStore } from '../../effector/chat-messages/store';
+import { ChatStore } from '../../effector/chat/store';
 import { Sender } from '../../api/tasks/session';
 import {
   chatTaskSession,
   consumeUserTaskAction,
   pushBotMessageToCurrentChat,
-} from '../../effector/chat-messages/events';
+} from '../../effector/chat/events';
 import { TowersTypes } from '../../effector/towers-progress/store';
 import { ITask, MissionsStore } from '../../effector/missions-store/store';
 import { TaskStatuses } from '../../api/tasks/get-tasks';
@@ -125,7 +125,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
     const chatContainer = useRef<HTMLDivElement>(null);
     const {
       [towerTitle]: { masterMessageId, taskId, actions, messages, ended },
-    } = useStore(TaskMessagesStore);
+    } = useStore(ChatStore);
     const missions = useStore(MissionsStore);
     const [openCouponModal, setOpenCouponModal] = useState(false);
     const [pendingOfResponse, setPendingOfResponse] = useState(false);

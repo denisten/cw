@@ -27,7 +27,7 @@ export interface IAddProgressPoints {
 }
 
 interface IAddTowerProgressData {
-  levelOnServer: number;
+  newLevel: number;
   towerTitle: TowersTypes;
   levelUpPercentage: number;
 }

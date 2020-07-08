@@ -1,10 +1,10 @@
-import { TaskMessagesDomain } from './domain';
+import { ChatDomain } from './domain';
 import {
   chatTaskSession,
   clearChat,
   consumeUserTaskAction,
   createMockupOfMessages,
-  resetTaskMessagesStore,
+  resetChatStore,
   setTaskId,
   pushBotMessageToCurrentChat,
 } from './events';
@@ -59,18 +59,14 @@ const mockupOfMessages = [
   { text: 'Сообщение от бота #2', direction: Sender.BACKEND },
 ];
 
-export const TaskMessagesStore = TaskMessagesDomain.store<ITaskMessagesStore>(
-  initStore
-)
-  .on(setTaskId, (state, { towerTitle, taskId }) => {
-    return {
-      ...state,
-      [towerTitle]: {
-        ...state[towerTitle],
-        taskId,
-      },
-    };
-  })
+export const ChatStore = ChatDomain.store<ITaskMessagesStore>(initStore)
+  .on(setTaskId, (state, { towerTitle, taskId }) => ({
+    ...state,
+    [towerTitle]: {
+      ...state[towerTitle],
+      taskId,
+    },
+  }))
   .on(pushBotMessageToCurrentChat, (state, { message, towerTitle }) => ({
     ...state,
     [towerTitle]: {
@@ -126,9 +122,9 @@ export const TaskMessagesStore = TaskMessagesDomain.store<ITaskMessagesStore>(
     ...state,
     [towerTitle]: initChatData,
   }))
-  .reset(resetTaskMessagesStore);
+  .reset(resetChatStore);
 
-export interface ICurrentTowerTaskMessagesStore {
+export interface ICurrentTowerChatStore {
   taskId: number;
   masterMessageId: number;
   currentAction: {
@@ -140,4 +136,4 @@ export interface ICurrentTowerTaskMessagesStore {
   ended: boolean;
 }
 
-type ITaskMessagesStore = Record<TowersTypes, ICurrentTowerTaskMessagesStore>;
+type ITaskMessagesStore = Record<TowersTypes, ICurrentTowerChatStore>;

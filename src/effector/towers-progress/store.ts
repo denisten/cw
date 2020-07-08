@@ -8,6 +8,7 @@ import {
   resetTowerProgress,
   tutorialTowerUpgrade,
 } from './events';
+import { maxPercent } from '../../constants';
 
 export enum TowerLevel {
   deactive = 0,
@@ -15,7 +16,7 @@ export enum TowerLevel {
   mid = 2,
   high = 3,
 }
-const maxPercent = 100;
+
 export enum TowersTypes {
   MAIN_TOWER = 'cellular',
   MUSIC = 'music',
@@ -392,7 +393,6 @@ export const TowersProgressStore = TowersProgressDomain.store<
     ...state,
     [towerTitle]: {
       ...state[towerTitle],
-
       level: {
         ...state[towerTitle].level,
         levelUpPercentage: state[towerTitle].level.levelUpPercentage + points,
@@ -406,8 +406,8 @@ export const TowersProgressStore = TowersProgressDomain.store<
       points: 0,
       level: {
         ...state[payload].level,
-        levelUpPercentage: 0,
         level: state[payload].level.level + 1,
+        levelUpPercentage: 0,
       },
     },
   }))
@@ -418,8 +418,8 @@ export const TowersProgressStore = TowersProgressDomain.store<
       points: 0,
       level: {
         ...state[towerTitle].level,
+        level: state[towerTitle].level.level + 1,
         levelUpPercentage: 0,
-        level: state[towerTitle].levelOnServer,
       },
     },
   }))
@@ -436,21 +436,31 @@ export const TowersProgressStore = TowersProgressDomain.store<
   }))
   .on(
     addTowerProgressData,
-    (state, { towerTitle, levelOnServer, levelUpPercentage }) => ({
-      ...state,
-      [towerTitle]: {
-        ...state[towerTitle],
-        levelOnServer,
-        points:
-          levelOnServer > state[towerTitle].level.level
-            ? maxPercent
-            : levelUpPercentage,
-        level: {
-          ...state[towerTitle].level,
-          levelUpPercentage,
-        },
-      },
-    })
+    (state, { towerTitle, newLevel, levelUpPercentage }) => {
+      if (newLevel > state[towerTitle].level.level)
+        return {
+          ...state,
+          [towerTitle]: {
+            ...state[towerTitle],
+            points: maxPercent,
+            level: {
+              ...state[towerTitle].level,
+              levelUpPercentage: maxPercent,
+            },
+          },
+        };
+      else
+        return {
+          ...state,
+          [towerTitle]: {
+            ...state[towerTitle],
+            level: {
+              ...state[towerTitle].level,
+              levelUpPercentage,
+            },
+          },
+        };
+    }
   )
   .reset(resetTowerProgress);
 

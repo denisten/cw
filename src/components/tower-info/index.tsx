@@ -31,7 +31,7 @@ import { TowerInfoHeader } from './tower-info-header';
 import { TowerInfoTitle } from './tower-info-title';
 import { TowerInfoIndicators } from './tower-info-indicators';
 import { TowerInfoMenu } from './tower-info-menu';
-import { TaskMessagesStore } from '../../effector/chat-messages/store';
+import { ChatStore } from '../../effector/chat/store';
 
 export type ModalWindowProps = {
   opened?: boolean;
@@ -129,7 +129,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
   const {
     level: { level, income, levelUpPercentage },
   } = useStore(TowersProgressStore)[towerTitle];
-  const { ended } = useStore(TaskMessagesStore)[towerTitle];
+  const { ended } = useStore(ChatStore)[towerTitle];
 
   const refsCollection: Array<React.RefObject<HTMLDivElement>> = useMemo(
     () => Array.from({ length: 3 }).map(() => createRef()),

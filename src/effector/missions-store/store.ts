@@ -12,7 +12,7 @@ import { editUserProperty } from '../user-data/events';
 import { TasksType } from '../../components/tasks';
 import { TowersTypes } from '../towers-progress/store';
 import { TaskStatuses } from '../../api/tasks/get-tasks';
-import { chatTaskSession } from '../chat-messages/events';
+import { chatTaskSession } from '../chat/events';
 
 const initStore: ITask[] = [];
 
