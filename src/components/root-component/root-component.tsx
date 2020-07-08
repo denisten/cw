@@ -20,9 +20,9 @@ import { IDisplayFlag } from '../skip-tutorial';
 import { MoveCoinCollection } from '../move-coin-collection';
 import { RewardStore } from '../../effector/reward/store';
 import { TutorialSlider } from '../tutorial-slider';
-import cat1 from './cat1.jpg';
-import cat2 from './cat2.jpg';
-import cat3 from './cat3.jpg';
+import slider1 from './slider-1.png';
+import slider2 from './slider-2.png';
+import slider3 from './slider-3.png';
 import { useDisplayTutorialSlider } from '../../hooks/use-display-tutorial-slider';
 import { disableTutorialSlider } from '../../effector/app-condition/events';
 
@@ -38,23 +38,23 @@ const RootComponentWrapper = styled.div<IDisplayFlag>`
 `;
 const tutorialSliderContent = [
   {
-    title: 'Тайтл 1',
+    title: 'Выполняй задания, чтобы развивать город!',
     description:
-      'Разнообразный и богатый опыт начало повседневной работы по формированию позиции требуют определения и уточнения системы обучения кадров, */ ',
+      'В продуктах ежедневно появляются задания. Выполняя их, ты будешь получать валюту, опыт и еще много интересного!',
   },
   {
-    title: 'Выполняй задания, чтобы улучшить здания',
+    title: 'Играй и получай достяжения!',
     description:
-      'С другой стороны консультация с широким активом требуют определения и уточнения существенных финансовых и административных условий. Разнообразный и богатый опыт начало повседневной работы по формированию позиции требуют определения и уточнения системы обучения кадров',
+      'В продуктах иногда появляются игры. Не упусти шанс выиграть кое-что интересное!',
   },
   {
-    title: 'Заходи каждый день и будет весело',
+    title: 'Не забывай улучшать здания!',
     description:
-      'Всё что я писал выше про свойство а применимо так же и к нему. При отрицательном значении отражает по вертикали.',
+      'По ходу выполнения заданий, каждый продукт и город растет. Нажми на такой маркер и твое здание станет лучше!',
   },
 ];
 
-const catImgArray = [cat1, cat2, cat3];
+const catImgArray = [slider1, slider2, slider3];
 
 export const RootComponent = (): React.ReactElement => {
   const {
@@ -62,7 +62,7 @@ export const RootComponent = (): React.ReactElement => {
     selectedMenuItem,
     DOMLoaded,
     isAuthorized,
-    showTutorialSlider,
+    neverShowTutorialSlider,
   } = useStore(AppCondition);
   const { isCoinRelocateAnimationEnded } = useStore(RewardStore);
 
@@ -77,7 +77,7 @@ export const RootComponent = (): React.ReactElement => {
     isExtraTowerInfoModalOpen,
     DOMLoaded,
     isAuthorized,
-    showTutorialSlider,
+    neverShowTutorialSlider,
     callBack: () => {
       setTutorialSliderDisplayFlag(true);
       disableTutorialSlider();

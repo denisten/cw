@@ -910,6 +910,7 @@ class BuildingsService {
     [TowersTypes.IGROTEKA]: {
       info: 'info',
       title: 'МТС Игротека',
+      playButtonLink: 'http://priz.mts.ru/?source=mymts&device=ios',
       wideTower: false,
       animSize: animSize.medium,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,

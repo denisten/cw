@@ -36,7 +36,7 @@ export enum TowerInfoContentValues {
 
 const initState = {
   isExtraTowerInfoModalOpen: false,
-  showTutorialSlider: true,
+  neverShowTutorialSlider: false,
   focusOn: null,
   selectedMenuItem: null,
   upgradingTowerTitle: null,
@@ -153,13 +153,13 @@ export const AppCondition = AppDomain.store<AppConditionType>(initState)
   }))
   .on(disableTutorialSlider, state => ({
     ...state,
-    showTutorialSlider: false,
+    neverShowTutorialSlider: true,
   }));
 
 AppCondition.watch(appConditionLocalStorage);
 
 export type AppConditionType = {
-  showTutorialSlider: boolean;
+  neverShowTutorialSlider: boolean;
   isExtraTowerInfoModalOpen: boolean;
   selectedMenuItem: MenuItems | null;
   focusOn: TowersTypes | null;
