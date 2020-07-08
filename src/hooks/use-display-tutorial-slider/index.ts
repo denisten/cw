@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { MenuItems } from '../../UI/menu-paragraph';
 
-const tutorialSliderTimerDelay = 100;
+const tutorialSliderTimerDelay = 5000;
 
 export const useDisplayTutorialSlider = ({
   selectedMenuItem,
@@ -9,7 +9,7 @@ export const useDisplayTutorialSlider = ({
   DOMLoaded,
   isAuthorized,
   callBack,
-  showTutorialSlider,
+  neverShowTutorialSlider,
 }: IUseDisplayTutorialSlider) => {
   let tutorialSliderTimer: number;
   useEffect(() => {
@@ -18,7 +18,7 @@ export const useDisplayTutorialSlider = ({
       !isExtraTowerInfoModalOpen &&
       DOMLoaded &&
       isAuthorized &&
-      showTutorialSlider
+      !neverShowTutorialSlider
     ) {
       tutorialSliderTimer = setTimeout(() => {
         callBack();
@@ -36,5 +36,5 @@ interface IUseDisplayTutorialSlider {
   DOMLoaded: boolean;
   isAuthorized: boolean;
   callBack: () => void;
-  showTutorialSlider: boolean;
+  neverShowTutorialSlider: boolean;
 }

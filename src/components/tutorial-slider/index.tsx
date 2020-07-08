@@ -40,7 +40,7 @@ const ImageCollectionWrapper = styled.div`
 const DescriptionWrapper = styled.div`
   width: 713px;
   height: 190px;
-  padding: 26px 0 0 39px;
+  padding: 26px 38px 0 39px;
   box-sizing: border-box;
 `;
 
