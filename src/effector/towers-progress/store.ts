@@ -8,6 +8,7 @@ import {
   resetTowerProgress,
   tutorialTowerUpgrade,
 } from './events';
+import { maxPercent } from '../../constants';
 
 export enum TowerLevel {
   deactive = 0,
@@ -15,7 +16,6 @@ export enum TowerLevel {
   mid = 2,
   high = 3,
 }
-const maxPercent = 100;
 
 export enum TowersTypes {
   MAIN_TOWER = 'cellular',

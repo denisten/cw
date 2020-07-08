@@ -27,20 +27,18 @@ import { animateTaskReward } from '../animate-task-reward';
 export const handleTaskClick = async (id: number, e: React.MouseEvent) => {
   const tasks = MissionsStore.getState();
   const { selectedMenuItem, fullSizeMode } = AppCondition.getState();
-  const task = {
-    id: tasks.findIndex(el => el.id === id), //currentTaskIdx
-    ...tasks[tasks.findIndex(el => el.id === id)], // currentTask
+  const taskData = {
+    id: tasks.findIndex(el => el.id === id),
+    ...tasks[tasks.findIndex(el => el.id === id)],
   };
-  const currentTaskIdx = tasks.findIndex(el => el.id === id);
-  const currentTask = tasks[currentTaskIdx];
-  const towerTitle = tasks[currentTaskIdx].task.content.product.slug;
+  const towerTitle = taskData.task.content.product.slug;
   const { taskId: chatTaskId } = ChatStore.getState()[towerTitle];
-  switch (task.status) {
+  switch (taskData.status) {
     case TaskStatuses.CREATED:
       if (!chatTaskId) {
         if (
-          task.task.content.taskType.slug !== TasksType.COSMETIC &&
-          task.status === TaskStatuses.CREATED
+          taskData.task.content.taskType.slug !== TasksType.COSMETIC &&
+          taskData.status === TaskStatuses.CREATED
         ) {
           await chatTaskSession({ id, towerTitle });
           if (!selectedMenuItem) {
@@ -65,7 +63,7 @@ export const handleTaskClick = async (id: number, e: React.MouseEvent) => {
       markerHandler();
       break;
     case TaskStatuses.DONE:
-      animateTaskReward(currentTask.task.reward, e);
+      animateTaskReward(taskData.task.reward, e);
       await takeReward(id);
       markerHandler();
       clearChat({ towerTitle });
