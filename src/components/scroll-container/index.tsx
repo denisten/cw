@@ -54,6 +54,8 @@ const scrollToCurrentTowerOptions = {
   inline: 'center',
 } as ScrollIntoViewOptions;
 
+// const _smoothScrollValue = -0.005;
+
 export const ScrollContainer: React.FC<{
   tutorialCondition: TutorialConditions;
   zIndex: number;
