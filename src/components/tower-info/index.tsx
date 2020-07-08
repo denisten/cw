@@ -127,8 +127,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
     towerTitle
   );
   const {
-    points,
-    level: { level, income },
+    level: { level, income, levelUpPercentage },
   } = useStore(TowersProgressStore)[towerTitle];
   const { ended } = useStore(TaskMessagesStore)[towerTitle];
 
@@ -200,7 +199,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
           <TowerInfoIndicators
             level={level}
             towerTitle={towerTitle}
-            progress={points}
+            progress={levelUpPercentage}
             income={income}
             hideTowerInfo={hideTowerInfo}
             tutorialCondition={tutorialCondition}
