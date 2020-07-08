@@ -90,6 +90,7 @@ const PlayButton = styled.div`
   align-items: center;
   transition-duration: 0.3s;
   transition-property: transform;
+
   :hover {
     transform: translateY(-5px) scale(1.1);
     box-shadow: 0 4px 15px #04b5d2;
