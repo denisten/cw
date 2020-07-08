@@ -146,9 +146,9 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
       currentMission = null;
     }
 
-    const informationalTask =
-      currentMission &&
-      currentMission.task.content.taskType.slug === TasksType.INFORMATIONAL;
+    // const informationalTask =
+    //   currentMission &&
+    //   currentMission.task.content.taskType.slug === TasksType.INFORMATIONAL;
     const sendAnswerId = async (actionId: number) => {
       if (currentMission) {
         if (currentTaskIndex !== -1 && !pendingOfResponse) {
@@ -273,7 +273,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
         </ChatWrapper>
         {!ended && (
           <ChatButtons
-            haveCoupon={!!count && !informationalTask}
+            haveCoupon={false}
             couponCount={count}
             actions={actions}
             callback={sendAnswerId}

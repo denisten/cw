@@ -392,10 +392,11 @@ export const TowersProgressStore = TowersProgressDomain.store<
     ...state,
     [towerTitle]: {
       ...state[towerTitle],
-      level: {
-        ...state[towerTitle].level,
-        levelUpPercentage: state[towerTitle].level.levelUpPercentage + points,
-      },
+      points: state[towerTitle].points + points,
+      // level: {
+      //   ...state[towerTitle].level,
+      //   levelUpPercentage: state[towerTitle].level.levelUpPercentage + points,
+      // },
     },
   }))
   .on(tutorialTowerUpgrade, (state, payload) => ({
