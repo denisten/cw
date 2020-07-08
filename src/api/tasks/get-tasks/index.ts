@@ -1,7 +1,7 @@
 import { get } from '../../requests';
 import { apiRoutes } from '../../index';
 import { ITask } from '../../../effector/missions-store/store';
-import { setTaskId } from '../../../effector/chat-messages/events';
+import { setTaskId } from '../../../effector/chat/events';
 import { timerClosure } from '../../../utils/timer-closure';
 
 export enum TaskStatuses {

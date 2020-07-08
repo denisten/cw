@@ -4,13 +4,10 @@ import {
   AppCondition,
   TowerInfoContentValues,
 } from '../../effector/app-condition/store';
-import { TaskMessagesStore } from '../../effector/chat-messages/store';
+import { ChatStore } from '../../effector/chat/store';
 import { TaskStatuses } from '../../api/tasks/get-tasks';
 import { TasksType } from '../../components/tasks';
-import {
-  chatTaskSession,
-  clearChat,
-} from '../../effector/chat-messages/events';
+import { chatTaskSession, clearChat } from '../../effector/chat/events';
 import {
   menuClosed,
   setTowerInfoContent,
@@ -28,22 +25,24 @@ import { markerHandler } from '../marker-handler';
 import { animateTaskReward } from '../animate-task-reward';
 
 export const handleTaskClick = async (id: number, e: React.MouseEvent) => {
-  const state = MissionsStore.getState();
+  const tasks = MissionsStore.getState();
   const { selectedMenuItem, fullSizeMode } = AppCondition.getState();
-  const currentMissionIdx = state.findIndex(el => el.id === id);
-  const currentMission = state[currentMissionIdx];
-  const currentMissionType = currentMission.task.content.taskType.slug;
-  const productTitle = state[currentMissionIdx].task.content.product.slug;
-  const { status } = state[currentMissionIdx];
-  const { taskId } = TaskMessagesStore.getState()[productTitle];
-  switch (status) {
+  const task = {
+    id: tasks.findIndex(el => el.id === id), //currentTaskIdx
+    ...tasks[tasks.findIndex(el => el.id === id)], // currentTask
+  };
+  const currentTaskIdx = tasks.findIndex(el => el.id === id);
+  const currentTask = tasks[currentTaskIdx];
+  const towerTitle = tasks[currentTaskIdx].task.content.product.slug;
+  const { taskId: chatTaskId } = ChatStore.getState()[towerTitle];
+  switch (task.status) {
     case TaskStatuses.CREATED:
-      if (!taskId) {
+      if (!chatTaskId) {
         if (
-          currentMissionType !== TasksType.COSMETIC &&
-          state[currentMissionIdx].status === TaskStatuses.CREATED
+          task.task.content.taskType.slug !== TasksType.COSMETIC &&
+          task.status === TaskStatuses.CREATED
         ) {
-          await chatTaskSession({ id, towerTitle: productTitle });
+          await chatTaskSession({ id, towerTitle });
           if (!selectedMenuItem) {
             setTowerInfoContent(TowerInfoContentValues.CHAT);
           } else menuClosed();
@@ -51,12 +50,12 @@ export const handleTaskClick = async (id: number, e: React.MouseEvent) => {
           await activateTask(id);
         }
         if (fullSizeMode) {
-          extraTowerInfoModalOpen(productTitle);
+          extraTowerInfoModalOpen(towerTitle);
         }
         scrollToCurrentTower(
-          BuildingsService.getConfigForTower(productTitle).ref
+          BuildingsService.getConfigForTower(towerTitle).ref
         );
-      } else if (taskId) {
+      } else if (chatTaskId) {
         alert('нельзя');
       }
       markerHandler();
@@ -66,10 +65,10 @@ export const handleTaskClick = async (id: number, e: React.MouseEvent) => {
       markerHandler();
       break;
     case TaskStatuses.DONE:
-      animateTaskReward(currentMission.task.reward, e);
+      animateTaskReward(currentTask.task.reward, e);
       await takeReward(id);
       markerHandler();
-      clearChat({ towerTitle: productTitle });
+      clearChat({ towerTitle });
       break;
     case TaskStatuses.VERIFICATION:
       markerHandler();
