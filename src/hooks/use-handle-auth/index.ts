@@ -5,7 +5,6 @@ import { fetchUserData, getAccountData } from '../../effector/user-data/events';
 import { fetchTasks } from '../../effector/missions-store/events';
 import { fetchAllProductsData } from '../../effector/towers-progress/events';
 import { openWsConnection } from '../../api/centrifuge';
-import { progressRefresh } from '../../api';
 import { getIncome, TowersTypesAsObjectLiteral } from '../../api/get-income';
 import { setDataReceived } from '../../effector/app-condition/events';
 import { TowersTypes } from '../../effector/towers-progress/store';
@@ -42,7 +41,6 @@ const handleAuth = async (
 
     await fetchAllProductsData('');
     await openWsConnection(id);
-    await progressRefresh();
     await getAccountData('');
     await fetchUserPurchases('');
     await devGetCoupons();
