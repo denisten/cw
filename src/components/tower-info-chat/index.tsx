@@ -28,6 +28,7 @@ import { ModalWindow } from '../modal-window';
 import { CouponTypes, UserStore } from '../../effector/coupons/store';
 import { couponHandler } from '../../utils/coupon-handler';
 import { IDisplayFlag } from '../skip-tutorial';
+import { ChatPreview } from '../../UI/chat-preview';
 
 const ChatWrapper = styled.div`
   width: 100%;
@@ -146,6 +147,8 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
       currentMission = null;
     }
 
+    const haveMessages = messages.length > 0;
+
     // const informationalTask =
     //   currentMission &&
     //   currentMission.task.content.taskType.slug === TasksType.INFORMATIONAL;
@@ -246,9 +249,10 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
 
     return (
       <>
-        <ChatWrapper ref={chatContainer}>
-          {messages &&
-            messages.map((item, idx) => (
+        {!haveMessages && <ChatPreview />}
+        {haveMessages && (
+          <ChatWrapper ref={chatContainer}>
+            {messages.map((item, idx) => (
               <MessageRow key={idx} sender={item.direction}>
                 <ChatAvatar
                   sender={item.direction}
@@ -262,15 +266,16 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
                 />
               </MessageRow>
             ))}
-          <BotIsWrittingWrap displayFlag={pendingOfResponse}>
-            <ChatAvatar
-              sender={Sender.BACKEND}
-              userAvatar={''}
-              towerTitle={towerTitle}
-            />
-            <Writing>...</Writing>
-          </BotIsWrittingWrap>
-        </ChatWrapper>
+            <BotIsWrittingWrap displayFlag={pendingOfResponse}>
+              <ChatAvatar
+                sender={Sender.BACKEND}
+                userAvatar={''}
+                towerTitle={towerTitle}
+              />
+              <Writing>...</Writing>
+            </BotIsWrittingWrap>
+          </ChatWrapper>
+        )}
         {!ended && (
           <ChatButtons
             haveCoupon={false}
