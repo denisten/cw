@@ -11,36 +11,21 @@ import { scrollToCurrentTower } from '../scroll-to-current-tower';
 import React, { RefObject } from 'react';
 import { editMoneyCount } from '../../effector/user-data/events';
 import { commitIncomes } from '../../api/commit-income';
-import { responseStates } from '../../constants';
-import { pushMoveElems } from '../../effector/reward/events';
-
-const tmpDelay = 3000;
+import { pushMoveElements } from '../../effector/reward/events';
 
 const setIncome = async (
   towerTitle: TowersTypes,
-  marker: IMarker,
+  { type }: IMarker,
   e: React.MouseEvent
 ) => {
-  const { type, forTesting } = marker;
   hideMarker({ towerTitle, type });
-  if (forTesting) {
-    pushMoveElems({ x: e.clientX, y: e.clientY, id: 0 });
-    setTimeout(() => {
-      setMarker({
-        towerTitle,
-        type,
-        forTesting,
-      });
-    }, tmpDelay);
-    return;
-  }
-
-  pushMoveElems({ x: e.clientX, y: e.clientY, id: 0 });
-  const response = await commitIncomes(towerTitle);
-  if (response.state === responseStates.SUCCESS) {
-    const { balance } = response.data;
+  pushMoveElements({ x: e.clientX, y: e.clientY, id: 0 });
+  try {
+    const {
+      data: { balance },
+    } = await commitIncomes(towerTitle);
     editMoneyCount(balance);
-  } else {
+  } catch {
     setMarker({ towerTitle, type });
   }
 };

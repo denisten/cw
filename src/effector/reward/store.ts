@@ -1,5 +1,9 @@
 import { RewardDomain } from './domain';
-import { setMoveCoinFinished, removeMoveElems, pushMoveElems } from './events';
+import {
+  setMoveCoinFinished,
+  removeMoveElems,
+  pushMoveElements,
+} from './events';
 import { generateUniqueID } from '../../utils/generate-unique-id';
 
 const initState = {
@@ -20,7 +24,7 @@ export const RewardStore = RewardDomain.store<RewardCordinatesStoreType>(
       item => item.id !== id
     ),
   }))
-  .on(pushMoveElems, (state, payload) => {
+  .on(pushMoveElements, (state, payload) => {
     const newState = { ...state };
     const coinObject = { ...payload };
     if (newState.lootRewardCordinatesQueue.length === 0) {
