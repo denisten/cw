@@ -28,7 +28,6 @@ export const handleTaskClick = async (id: number, e: React.MouseEvent) => {
   const tasks = MissionsStore.getState();
   const { selectedMenuItem, fullSizeMode } = AppCondition.getState();
   const taskData = {
-    id: tasks.findIndex(el => el.id === id),
     ...tasks[tasks.findIndex(el => el.id === id)],
   };
   const towerTitle = taskData.task.content.product.slug;

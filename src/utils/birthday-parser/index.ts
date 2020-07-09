@@ -7,8 +7,8 @@ export const birthdayParser = (date: string) => {
 export const birthdayParserToJSON = (date: string) => {
   if (!date)
     return {
-      dd: '00',
-      mm: '00',
+      dd: '01',
+      mm: '01',
     };
   const birthdayDate = date.split('.');
   return {
