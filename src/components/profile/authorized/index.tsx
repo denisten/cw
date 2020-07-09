@@ -45,31 +45,6 @@ const ExitText = styled(StyledSpan)<ISpan>`
   }
 `;
 
-// const ProgressBar = styled.div`
-//   width: 135px;
-//   height: 14px;
-//   border-radius: 5.8px;
-//   box-shadow: inset 0 0 1px 0 rgba(32, 189, 218, 0.18);
-//   background-color: #d6f0f4;
-//   position: relative;
-//   overflow: hidden;
-//   &::after {
-//     content: '';
-//     position: absolute;
-//     width: 55px;
-//     height: 14px;
-//     border-radius: 5.8px;
-//     box-shadow: inset 0 1px 2px 0 rgba(255, 255, 255, 0.5);
-//     background-image: linear-gradient(
-//       to bottom,
-//       #5adcf9,
-//       #43d0ed 40%,
-//       #3acbe8 44%,
-//       #5edffc
-//     );
-//   }
-// `;
-
 const NickNameWrapper = styled(StyledSpan)<ISpan>`
   font-family: ${MTSSans.REGULAR};
   line-height: 1.2;
@@ -156,9 +131,9 @@ const styledConfig = {
     justifyContent: 'space-around',
     width: '100%',
   },
-  profileIcon: {
-    marginLeft: '4px',
-  },
+  // profileIcon: {
+  //   marginLeft: '4px',
+  // },
   rowWrapper: {
     padding: '36px 0 22px 0',
     left: '12px',
@@ -211,6 +186,9 @@ const styledConfig = {
 
 let nameInputHint = '';
 
+const checkUserName = (nameLength: number) =>
+  nameLength >= minNameLength && nameLength <= maxUserNameLength;
+
 export const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
   openPopUpState,
 }) => {
@@ -228,8 +206,8 @@ export const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
   const [nameInputHasError, setNameInputHasError] = useState(false);
 
   useEffect(() => {
-    if (localName !== name) setLocalName(name);
-    if (birthdayDate !== birthday) setBirthdayDate(birthday);
+    localName !== name && setLocalName(name);
+    birthdayDate !== birthday && setBirthdayDate(birthday);
   }, [name, birthday]);
 
   const handleChangeNameInput = (value: string) => {
@@ -245,13 +223,10 @@ export const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
     }
   };
 
-  const onSubmitHandler = (e?: FormEvent) => {
-    if (e) e.preventDefault();
-    if (
-      localName.length >= minNameLength &&
-      localName.length <= maxUserNameLength
-    ) {
-      updateUserData({ birthday: birthdayDate, name: localName });
+  const onSubmitHandler = async (e?: FormEvent) => {
+    e && e.preventDefault();
+    if (checkUserName(localName.length)) {
+      await updateUserData({ birthday: birthdayDate, name: localName });
     } else {
       setNameInputHasError(true);
     }
@@ -294,7 +269,7 @@ export const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
           </UserAvatar>
           <ColumnWrapper {...styledConfig.profileDataColumnWrapper}>
             <NickNameWrapper content={name} />
-            {/* <ProgressBar /> */}
+            {/*<ProgressBar /> */}
           </ColumnWrapper>
         </RowWrapper>
         <CoinsWallet sum={String(money)} />
