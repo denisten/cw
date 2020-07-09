@@ -48,20 +48,21 @@ const DescText = styled.span`
   opacity: 0.6;
 `;
 
+const taskPreview = (tutorialCondition: TutorialConditions) => (
+  <TowerInfoTaskWrapper style={styledConfig.towerInfoTaskWrapper}>
+    <Title>Заданий нет.</Title>
+    {tutorialCondition === TutorialConditions.UPGRADE_BUTTON_TOWER_INFO && (
+      <DescText>Первые задания появятся после улучшения здания!</DescText>
+    )}
+  </TowerInfoTaskWrapper>
+);
+
 export const TowerInfoTask: React.FC<ITowerInfoTask> = ({ towerTitle }) => {
   const missions = useStore(MissionsStore);
   const { couponsCount } = useStore(UserDataStore);
   const { tutorialCondition } = TutorialStore.getState();
 
-  const taskPreview = (
-    <TowerInfoTaskWrapper style={styledConfig.towerInfoTaskWrapper}>
-      <Title>Заданий нет.</Title>
-      {tutorialCondition === TutorialConditions.UPGRADE_BUTTON_TOWER_INFO && (
-        <DescText>Первые задания появятся после улучшения здания!</DescText>
-      )}
-    </TowerInfoTaskWrapper>
-  );
-  if (!missions.length || tutorialCondition) return taskPreview;
+  if (!missions.length || tutorialCondition) taskPreview(tutorialCondition);
   const filteredMissions = filteredMissionsArray(missions, towerTitle);
   return (
     <TowerInfoTaskWrapper>
@@ -86,7 +87,7 @@ export const TowerInfoTask: React.FC<ITowerInfoTask> = ({ towerTitle }) => {
               />
             );
           })
-        : taskPreview}
+        : taskPreview(tutorialCondition)}
     </TowerInfoTaskWrapper>
   );
 };
