@@ -37,7 +37,6 @@ const handleAuth = async (
       await saveUserData({ worldName });
     }
     const { id } = await fetchUserData('');
-    await fetchTasks('');
 
     await fetchAllProductsData('');
     await openWsConnection(id);
@@ -45,6 +44,7 @@ const handleAuth = async (
     await fetchUserPurchases('');
     await devGetCoupons();
     const incomes = await getIncome();
+    await fetchTasks('');
     markersEnumeration(incomes);
     markerHandler();
     setDataReceived(true);
