@@ -101,6 +101,21 @@ const StyleConfig = {
     width: 160,
     height: 40,
     content: 'Что дальше?',
+    style: {
+      position: 'absolute',
+      bottom: '66px',
+      left: '32px',
+    } as React.CSSProperties,
+  },
+  unblockButton: {
+    width: 234,
+    height: 50,
+    content: 'Разблокировать',
+    style: {
+      position: 'absolute',
+      bottom: '140px',
+      left: '140px',
+    } as React.CSSProperties,
   },
 };
 
@@ -173,7 +188,12 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
   };
 
   const showButton =
-    tutorialCondition === TutorialConditions.NEXT_BUTTON_TOWER_INFO;
+    tutorialCondition === TutorialConditions.NEXT_BUTTON_TOWER_INFO &&
+    towerTutorialStep !== TowerTutorialSteps.DESCRIPTION_DONT_OPENED;
+
+  const showUnblockButton =
+    tutorialCondition === TutorialConditions.NEXT_BUTTON_TOWER_INFO &&
+    towerTutorialStep === TowerTutorialSteps.DESCRIPTION_DONT_OPENED;
 
   useEffect(() => {
     if (towerInfoRef.current) {
@@ -229,6 +249,14 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
             className={ButtonClassNames.OUTLINE_NORMAL}
             callback={nextTowerTutorialStep}
             {...StyleConfig.enterButton}
+          />
+        )}
+        {showUnblockButton && (
+          <Button
+            pulseAnimFlag={showUnblockButton}
+            className={ButtonClassNames.NORMAL}
+            callback={nextTowerTutorialStep}
+            {...StyleConfig.unblockButton}
           />
         )}
       </ModalWindowContentWrapper>

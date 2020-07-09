@@ -44,7 +44,10 @@ const TowerInfoDescriptionWrapper = styled.div<{ fullView?: boolean }>`
   span:first-child {
     font-size: 20px;
     line-height: 1.3;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
+    line-height: 26px;
+    letter-spacing: -0.5px;
+    color: #02acc8;
   }
 
   &::before {
