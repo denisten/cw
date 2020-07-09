@@ -18,8 +18,7 @@ import { scrollToCurrentTower } from '../../utils/scroll-to-current-tower';
 import { ZoomInOutButtons } from '../../UI/zoom-in-out-buttons';
 import dragscroll from 'dragscroll';
 import { setFullSizeMode } from '../../effector/app-condition/events';
-import { useStore } from 'effector-react';
-import { AppCondition } from '../../effector/app-condition/store';
+import { useEnableSizeMod } from '../../hooks/use-enable-size-mod';
 
 export enum ScaleValues {
   ZOOM_IN = 0.05,
@@ -66,7 +65,6 @@ export const ScrollContainer: React.FC<{
   const mapWrapperRef = useRef<HTMLDivElement>(null);
   const scaleValue = useRef(ScaleValues.MIN_SCALE);
   const { ref } = BuildingsService.getConfigForTower(TowersTypes.MY_MTS);
-  const { isAuthorized } = useStore(AppCondition);
 
   const runScrollAnimation = () => {
     if (mapWrapperRef.current)
@@ -131,16 +129,11 @@ export const ScrollContainer: React.FC<{
 
   useInitDragscroll();
   useCheckDisableTutorial([]);
+  useEnableSizeMod(enableFixSizeMod);
 
   useEffect(() => {
     scrollToCurrentTower(ref, scrollToCurrentTowerOptions);
   }, [ref]);
-
-  useEffect(() => {
-    if (isAuthorized) {
-      enableFixSizeMod();
-    }
-  }, [isAuthorized]);
 
   return (
     <ScrollContainerWrapper
