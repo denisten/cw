@@ -9,6 +9,7 @@ const ChatPreviewWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  border-bottom: 1px solid #e2e5eb;
 `;
 
 const Title = styled.span`

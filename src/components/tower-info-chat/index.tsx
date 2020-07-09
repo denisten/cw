@@ -147,7 +147,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
       currentMission = null;
     }
 
-    const haveMessages = messages.length > 0;
+    const haveMessages = messages && messages.length > 0;
 
     // const informationalTask =
     //   currentMission &&

@@ -6,6 +6,11 @@ import { MissionsStore } from '../../effector/missions-store/store';
 import { Task } from '../tasks/tasks-row';
 import { UserDataStore } from '../../effector/user-data/store';
 import { filteredMissionsArray } from '../../utils/filtered-missions-array';
+import { MTSSans } from '../../fonts';
+import {
+  TutorialStore,
+  TutorialConditions,
+} from '../../effector/tutorial-store/store';
 
 const TowerInfoTaskWrapper = styled.div`
   margin-top: 24px;
@@ -14,6 +19,8 @@ const TowerInfoTaskWrapper = styled.div`
   overflow: auto;
   overflow-x: hidden;
   overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
 `;
 
 const maxTaskLength = 16;
@@ -24,15 +31,37 @@ const styledConfig = {
   } as React.CSSProperties,
 };
 
+const Title = styled.span`
+  font-family: ${MTSSans.BOLD};
+  font-size: 32px;
+  line-height: 40px;
+  letter-spacing: -0.5px;
+  color: #001424;
+  opacity: 0.4;
+  margin: 14px 0 8px 0;
+`;
+
+const DescText = styled.span`
+  font-size: 16px;
+  line-height: 20px;
+  color: #001424;
+  opacity: 0.6;
+`;
+
 export const TowerInfoTask: React.FC<ITowerInfoTask> = ({ towerTitle }) => {
   const missions = useStore(MissionsStore);
   const { couponsCount } = useStore(UserDataStore);
-  if (!missions.length)
-    return (
-      <TowerInfoTaskWrapper style={styledConfig.towerInfoTaskWrapper}>
-        Заданий нет.
-      </TowerInfoTaskWrapper>
-    );
+  const { tutorialCondition } = TutorialStore.getState();
+
+  const taskPreview = (
+    <TowerInfoTaskWrapper style={styledConfig.towerInfoTaskWrapper}>
+      <Title>Заданий нет.</Title>
+      {tutorialCondition === TutorialConditions.UPGRADE_BUTTON_TOWER_INFO && (
+        <DescText>Первые задания появятся после улучшения здания!</DescText>
+      )}
+    </TowerInfoTaskWrapper>
+  );
+  if (!missions.length || tutorialCondition) return taskPreview;
   const filteredMissions = filteredMissionsArray(missions, towerTitle);
   return (
     <TowerInfoTaskWrapper>
@@ -57,7 +86,7 @@ export const TowerInfoTask: React.FC<ITowerInfoTask> = ({ towerTitle }) => {
               />
             );
           })
-        : 'Заданий нет.'}
+        : taskPreview}
     </TowerInfoTaskWrapper>
   );
 };
