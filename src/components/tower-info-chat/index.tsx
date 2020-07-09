@@ -256,7 +256,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
               <MessageRow key={idx} sender={item.direction}>
                 <ChatAvatar
                   sender={item.direction}
-                  userAvatar={''}
+                  userAvatar=""
                   towerTitle={towerTitle}
                 />
                 <Bubble
@@ -269,7 +269,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
             <BotIsWrittingWrap displayFlag={pendingOfResponse}>
               <ChatAvatar
                 sender={Sender.BACKEND}
-                userAvatar={''}
+                userAvatar=""
                 towerTitle={towerTitle}
               />
               <Writing>...</Writing>
