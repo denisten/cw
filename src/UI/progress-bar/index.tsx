@@ -114,7 +114,7 @@ export const ProgressBar: React.FC<IProgressBar> = ({
   const content = !needUpgrade ? (
     <ProgressBarGreenLine progress={progress} />
   ) : (
-    <UpgradeButton onClick={handleClick}>
+    <UpgradeButton>
       <img src={upgradeImg} alt="upgrade" /> Улучшить
     </UpgradeButton>
   );
