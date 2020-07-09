@@ -81,10 +81,10 @@ export const MarkerWrapper = styled.div<IDisplayFlag>`
   z-index: ${ZIndexes.UI_BUTTON};
 
   ${MarkerView}:nth-child(2) {
-    transform: translate3d(-10%, 20%, 0);
+    transform: translate3d(-50%,0%, 0);
 
     &:hover {
-      transform: translate3d(-10%, 20%, 0) scale(1.2);
+      transform: translate3d(-50%,0%, 0) scale(1.2);
     }
   }
 
