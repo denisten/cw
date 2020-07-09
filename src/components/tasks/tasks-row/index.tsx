@@ -15,25 +15,15 @@ import { ModalWindow } from '../../modal-window';
 import { couponModalConfig } from '../../tower-info-chat';
 import { couponHandler } from '../../../utils/coupon-handler';
 import { handleTaskClick } from '../../../utils/handle-task-click';
-
-enum TaskWrapperHeight {
-  opened = 149,
-  closed = 64,
-}
-
-enum TitleMarginLeft {
-  inTowerInfo = 16,
-  notInTowerInfo = 14,
-}
-
-enum TitleWidth {
-  inTowerInfo = 124,
-  notInTowerInfo = 274,
-}
-enum TitleMarginRight {
-  inTowerInfo = 19,
-  notInTowerInfo = 45,
-}
+import { useStore } from 'effector-react';
+import { UserDataStore } from '../../../effector/user-data/store';
+import {
+  TaskWrapperHeight,
+  TitleMarginLeft,
+  TitleMarginRight,
+  TitleWidth,
+} from '../../../utils/handle-task-click/const';
+import { coughtError } from '../../../effector/error-boundary-store/events';
 
 const TaskWrapper = styled.div<ITaskLocation>`
   width: 100%;
@@ -172,13 +162,11 @@ const HintWrapper = styled.div`
   font-weight: 500;
   font-size: 12px;
   line-height: 20px;
-
   display: flex;
   align-items: center;
   letter-spacing: -0.4px;
   text-decoration-line: underline;
   cursor: pointer;
-
   color: #03adc9;
   ::after {
     content: 'Использовате купон';
@@ -200,6 +188,11 @@ const styledConfig = {
   columnWrapperAdditionalStyle: { alignItems: 'center' },
 };
 
+const checkTaskStatus = (status: TaskStatuses) =>
+  status === TaskStatuses.REJECTED;
+
+const checkTaskType = (type: TasksType) => type !== TasksType.INFORMATIONAL;
+
 export const Task: React.FC<ITasksRow> = ({
   type,
   taskTitle,
@@ -207,7 +200,6 @@ export const Task: React.FC<ITasksRow> = ({
   money,
   energy,
   description,
-  couponsCount,
   towerTitle,
   isAllowedToChange,
   isInTowerInfo,
@@ -218,6 +210,7 @@ export const Task: React.FC<ITasksRow> = ({
   const isOpened = useRef(false);
   const taskWrapperRef = useRef<HTMLDivElement>(null);
   const [isCouponModalWindowOpen, setIsCouponModalWindowOpen] = useState(false);
+  const { couponsCount } = useStore(UserDataStore);
 
   const handleWrapperClick = async (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -243,8 +236,12 @@ export const Task: React.FC<ITasksRow> = ({
   };
 
   const modalWindowSubmitHandler = async () => {
-    await couponHandler(id, 1, towerTitle);
-    setIsCouponModalWindowOpen(false);
+    if (couponsCount - 1 > 0) {
+      await couponHandler(id, 1, towerTitle);
+      setIsCouponModalWindowOpen(false);
+    } else {
+      coughtError({ text: 'Кончились купоны.' });
+    }
   };
 
   const handleHintClick = (e: React.MouseEvent) => {
@@ -275,7 +272,7 @@ export const Task: React.FC<ITasksRow> = ({
           />
           {expireInSeconds && <TaskTimer taskTimer={taskTimer} />}
         </ColumnWrapper>
-        {status === TaskStatuses.REJECTED && (
+        {checkTaskStatus(status) && (
           <img src={notDoneImg} alt="reject" style={styledConfig.img} />
         )}
         <ColumnWrapper
@@ -287,15 +284,13 @@ export const Task: React.FC<ITasksRow> = ({
             className={status}
             onClick={handleWrapperClick}
           />
-          {status === TaskStatuses.REJECTED && (
-            <HintWrapper onClick={handleHintClick} />
-          )}
+          {checkTaskStatus(status) && <HintWrapper onClick={handleHintClick} />}
         </ColumnWrapper>
       </TaskInfo>
       <Border />
       <TaskDescriptionWrapper>
         <TaskDescription>{description}</TaskDescription>
-        {type !== TasksType.INFORMATIONAL && (
+        {checkTaskType(type) && (
           <Coupon
             style={styledConfig.coupon}
             couponsCount={couponsCount}
@@ -318,7 +313,6 @@ interface ITasksRow {
   energy: number;
   description: string;
   isAllowedToChange: boolean;
-  couponsCount: number;
   width?: number;
   isInTowerInfo: boolean;
   taskTimer?: () => number;

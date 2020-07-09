@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { useStore } from 'effector-react';
 import { MissionsStore } from '../../effector/missions-store/store';
 import { Task } from '../tasks/tasks-row';
-import { UserDataStore } from '../../effector/user-data/store';
 import { filteredMissionsArray } from '../../utils/filtered-missions-array';
 
 const TowerInfoTaskWrapper = styled.div`
@@ -26,7 +25,6 @@ const styledConfig = {
 
 export const TowerInfoTask: React.FC<ITowerInfoTask> = ({ towerTitle }) => {
   const missions = useStore(MissionsStore);
-  const { couponsCount } = useStore(UserDataStore);
   if (!missions.length)
     return (
       <TowerInfoTaskWrapper style={styledConfig.towerInfoTaskWrapper}>
@@ -44,7 +42,6 @@ export const TowerInfoTask: React.FC<ITowerInfoTask> = ({ towerTitle }) => {
                 expireInSeconds={el.expireInSeconds}
                 id={el.id}
                 isInTowerInfo={true}
-                couponsCount={couponsCount}
                 isAllowedToChange={true}
                 type={el.task.content.taskType.slug}
                 taskTitle={`${el.task.content.name.slice(0, maxTaskLength)}...`}
