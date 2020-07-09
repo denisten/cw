@@ -247,35 +247,38 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
       }
     }, [messages]);
 
+    const chatWrapperContent = haveMessages ? (
+      <ChatWrapper ref={chatContainer}>
+        {messages.map((item, idx) => (
+          <MessageRow key={idx} sender={item.direction}>
+            <ChatAvatar
+              sender={item.direction}
+              userAvatar=""
+              towerTitle={towerTitle}
+            />
+            <Bubble
+              sender={item.direction}
+              text={item.text}
+              botName="Имя бота"
+            />
+          </MessageRow>
+        ))}
+        <BotIsWrittingWrap displayFlag={pendingOfResponse}>
+          <ChatAvatar
+            sender={Sender.BACKEND}
+            userAvatar=""
+            towerTitle={towerTitle}
+          />
+          <Writing>...</Writing>
+        </BotIsWrittingWrap>
+      </ChatWrapper>
+    ) : (
+      <ChatPreview />
+    );
+
     return (
       <>
-        {!haveMessages && <ChatPreview />}
-        {haveMessages && (
-          <ChatWrapper ref={chatContainer}>
-            {messages.map((item, idx) => (
-              <MessageRow key={idx} sender={item.direction}>
-                <ChatAvatar
-                  sender={item.direction}
-                  userAvatar=""
-                  towerTitle={towerTitle}
-                />
-                <Bubble
-                  sender={item.direction}
-                  text={item.text}
-                  botName="Имя бота"
-                />
-              </MessageRow>
-            ))}
-            <BotIsWrittingWrap displayFlag={pendingOfResponse}>
-              <ChatAvatar
-                sender={Sender.BACKEND}
-                userAvatar=""
-                towerTitle={towerTitle}
-              />
-              <Writing>...</Writing>
-            </BotIsWrittingWrap>
-          </ChatWrapper>
-        )}
+        {chatWrapperContent}
         {!ended && (
           <ChatButtons
             haveCoupon={false}
