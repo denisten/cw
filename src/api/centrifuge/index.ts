@@ -1,7 +1,7 @@
 import Centrifuge from 'centrifuge';
 import { getCookie } from '../../utils/get-cookie';
 import { getWsToken } from '../get-ws-token';
-import { apiRoutes } from '../index';
+import { apiRoutes, progressRefresh } from '../index';
 import { setUserSessionSocket } from '../../effector/user-data/events';
 import { addTowerProgressData } from '../../effector/towers-progress/events';
 import {
@@ -43,6 +43,7 @@ export const openWsConnection = async (userId: number) => {
       });
     }
   );
+  subscription.on('subscribe', () => progressRefresh());
   centrifuge.on('disconnect', () => {
     subscription.unsubscribe();
   });

@@ -42,7 +42,6 @@ const handleAuth = async (
 
     await fetchAllProductsData('');
     await openWsConnection(id);
-    await progressRefresh();
     await getAccountData('');
     await fetchUserPurchases('');
     await devGetCoupons();
