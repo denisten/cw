@@ -31,17 +31,20 @@ const BuildingPreloaderAnimationStep = styled.img<
   height: 100%;
   transform-origin: bottom;
   animation-delay: ${props => props.delay || '0s'};
+  animation-timing-function: ease-in-out;
+  animation-duration: ${preloaderTowersAnimationDuration}ms;
+  animation-fill-mode: both;
   &.${AnimationSteps.ONE} {
     opacity: 1;
-    animation: ${growAnim} ${preloaderTowersAnimationDuration}ms both;
+    animation-name: ${growAnim};
   }
   &.${AnimationSteps.TWO} {
     opacity: 1;
-    animation: ${growAnim} ${preloaderTowersAnimationDuration}ms both;
+    animation-name: ${growAnim};
   }
   &.${AnimationSteps.THREE} {
     opacity: 1;
-    animation: ${finallyAnim} ${preloaderTowersAnimationDuration}ms both;
+    animation-name: ${finallyAnim};
   }
 `;
 
@@ -62,6 +65,14 @@ export const PreloaderBuilding: React.FC<IPreloaderBuilding> = ({
   const ref0 = useRef<HTMLImageElement>(null);
   const ref1 = useRef<HTMLImageElement>(null);
   const ref2 = useRef<HTMLImageElement>(null);
+
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     if (ref1.current && animationStartFlag) {
+  //       ref1.current.classList.add(AnimationSteps.ONE);
+  //     }
+  //   }, styles.delay);
+  // }, [animationStartFlag]);
 
   const handleFirstStepAnimationEnd = () => {
     if (ref1.current && ref0.current && animationStartFlag) {

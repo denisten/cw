@@ -169,7 +169,7 @@ enum CloudsState {
 }
 export const Preloader: React.FC = () => {
   const loadingProgress = useCalculateLoadingProgress();
-  const [animationStartFlag, setAnimationStartFlag] = useState(false);
+  const [isAnimationStarted, setIsAnimationStarted] = useState(false);
   const [isAnimationEnded, setIsAnimationEnded] = useState(false);
   const preloaderRef = useRef<HTMLDivElement>(null);
   const buildingRef = useRef<HTMLDivElement>(null);
@@ -187,28 +187,30 @@ export const Preloader: React.FC = () => {
         }, delayBeforePreloaderOff);
       }
 
-      if (animationStartFlag) {
+      if (isAnimationStarted) {
         cloudClassName.current = CloudsState.HIDE;
-        setAnimationStartFlag(false);
         if (buildingRef.current) {
           buildingRef.current.style.transform = 'scale(1.07)';
         }
       }
     });
     return () => cancelAnimationFrame(request);
-  }, [loadingProgress, isAnimationEnded, animationStartFlag]);
+  }, [loadingProgress, isAnimationEnded, isAnimationStarted]);
 
   const onAnimationEnd = () => {
-    setAnimationStartFlag(true);
+    setIsAnimationStarted(true);
   };
 
   return (
     <PreloaderWrapper ref={preloaderRef}>
-      <BuildingWrapper ref={buildingRef}>
+      <BuildingWrapper
+        ref={buildingRef}
+        onTransitionEnd={() => setIsAnimationStarted(false)}
+      >
         {preloaderBuildingsConfig.map((building, ind) => (
           <PreloaderBuilding
             imgArray={building.imgArray}
-            animationStartFlag={animationStartFlag}
+            animationStartFlag={isAnimationStarted}
             onAnimationEndCallback={() =>
               !isAnimationEnded && setIsAnimationEnded(true)
             }
