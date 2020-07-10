@@ -74,22 +74,28 @@ export const PreloaderBuilding: React.FC<IPreloaderBuilding> = ({
   const ref2 = useRef<HTMLImageElement>(null);
 
   const initAnimation = () => {
-    if (ref0.current && animationStartFlag) {
-      ref0.current.classList.add(AnimationSteps.ONE);
-    }
+    requestAnimationFrame(() => {
+      if (ref0.current && animationStartFlag) {
+        ref0.current.classList.add(AnimationSteps.ONE);
+      }
+    });
   };
 
   const handleFirstStepAnimationEnd = () => {
-    if (ref1.current && ref0.current) {
-      ref0.current.classList.remove(AnimationSteps.ONE);
-      ref1.current.classList.add(AnimationSteps.TWO);
-    }
+    requestAnimationFrame(() => {
+      if (ref1.current && ref0.current) {
+        ref0.current.classList.remove(AnimationSteps.ONE);
+        ref1.current.classList.add(AnimationSteps.TWO);
+      }
+    });
   };
   const handleSecondStepAnimationEnd = () => {
-    if (ref2.current && ref1.current) {
-      ref1.current.classList.remove(AnimationSteps.TWO);
-      ref2.current.classList.add(AnimationSteps.THREE);
-    }
+    requestAnimationFrame(() => {
+      if (ref2.current && ref1.current) {
+        ref1.current.classList.remove(AnimationSteps.TWO);
+        ref2.current.classList.add(AnimationSteps.THREE);
+      }
+    });
   };
 
   const handleThirdStepAnimationEnd = () =>
