@@ -1,9 +1,9 @@
-import { useStore } from 'effector-react';
-import { AppCondition } from '../../effector/app-condition/store';
 import { useEffect } from 'react';
 
-export const useEnableSizeMod = (callBack: () => void) => {
-  const { isAuthorized } = useStore(AppCondition);
+export const useEnableSizeMod = (
+  callBack: () => void,
+  isAuthorized: boolean
+) => {
   useEffect(() => {
     isAuthorized && callBack();
   }, [isAuthorized]);
