@@ -34,12 +34,9 @@ const initState: TowersMarkerStoreType = {
     markers: [],
   },
   [TowersTypes.MY_MTS]: {
-    markers: [],
+    markers: [{ type: TypeOfMarkers.PLAY }],
   },
   [TowersTypes.CASHBACK]: {
-    markers: [],
-  },
-  [TowersTypes.MY_MTS]: {
     markers: [],
   },
   [TowersTypes.LIBRARY]: {
@@ -80,7 +77,7 @@ const initState: TowersMarkerStoreType = {
     markers: [],
   },
   [TowersTypes.IGROTEKA]: {
-    markers: [],
+    markers: [{ type: TypeOfMarkers.PLAY }],
   },
   [TowersTypes.HOME_INTERNET]: {
     markers: [],
@@ -89,7 +86,7 @@ const initState: TowersMarkerStoreType = {
     markers: [],
   },
   [TowersTypes.SHOP]: {
-    markers: [],
+    markers: [{ type: TypeOfMarkers.PLAY }],
   },
   [TowersTypes.PARTNER_THREE]: {
     markers: [],
