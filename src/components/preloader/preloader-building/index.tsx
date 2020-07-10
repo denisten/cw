@@ -31,7 +31,7 @@ const BuildingPreloaderAnimationStep = styled.img<
   width: 100%;
   height: 100%;
   transform-origin: bottom;
-  animation-delay: ${props => props.delay || '0s'};
+  animation-delay: 0s;
   animation-timing-function: ease-in-out;
   animation-duration: ${preloaderTowersAnimationDuration}ms;
   animation-fill-mode: both;
@@ -41,17 +41,17 @@ const BuildingPreloaderAnimationStep = styled.img<
   &.${AnimationSteps.ONE} {
     opacity: 1;
     animation-name: ${growAnim};
-    animation-delay: 0s;
+    animation-delay: ${props => props.delay || '0s'};
   }
   &.${AnimationSteps.TWO} {
     opacity: 1;
     animation-name: ${growAnim};
-    animation-delay: 0s;
+    animation-delay: 100ms;
   }
   &.${AnimationSteps.THREE} {
     opacity: 1;
     animation-name: ${finallyAnim};
-    animation-delay: 0s;
+    animation-delay: 100ms;
   }
 `;
 
