@@ -28,6 +28,7 @@ import { ModalWindow } from '../modal-window';
 import { CouponTypes, UserStore } from '../../effector/coupons/store';
 import { couponHandler } from '../../utils/coupon-handler';
 import { IDisplayFlag } from '../skip-tutorial';
+import { ChatPreview } from '../../UI/chat-preview';
 
 const ChatWrapper = styled.div`
   width: 100%;
@@ -146,6 +147,8 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
       currentMission = null;
     }
 
+    const haveMessages = messages && messages.length > 0;
+
     // const informationalTask =
     //   currentMission &&
     //   currentMission.task.content.taskType.slug === TasksType.INFORMATIONAL;
@@ -244,33 +247,38 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
       }
     }, [messages]);
 
-    return (
-      <>
-        <ChatWrapper ref={chatContainer}>
-          {messages &&
-            messages.map((item, idx) => (
-              <MessageRow key={idx} sender={item.direction}>
-                <ChatAvatar
-                  sender={item.direction}
-                  userAvatar={''}
-                  towerTitle={towerTitle}
-                />
-                <Bubble
-                  sender={item.direction}
-                  text={item.text}
-                  botName="Имя бота"
-                />
-              </MessageRow>
-            ))}
-          <BotIsWrittingWrap displayFlag={pendingOfResponse}>
+    const chatWrapperContent = haveMessages ? (
+      <ChatWrapper ref={chatContainer}>
+        {messages.map((item, idx) => (
+          <MessageRow key={idx} sender={item.direction}>
             <ChatAvatar
-              sender={Sender.BACKEND}
-              userAvatar={''}
+              sender={item.direction}
+              userAvatar=""
               towerTitle={towerTitle}
             />
-            <Writing>...</Writing>
-          </BotIsWrittingWrap>
-        </ChatWrapper>
+            <Bubble
+              sender={item.direction}
+              text={item.text}
+              botName="Имя бота"
+            />
+          </MessageRow>
+        ))}
+        <BotIsWrittingWrap displayFlag={pendingOfResponse}>
+          <ChatAvatar
+            sender={Sender.BACKEND}
+            userAvatar=""
+            towerTitle={towerTitle}
+          />
+          <Writing>...</Writing>
+        </BotIsWrittingWrap>
+      </ChatWrapper>
+    ) : (
+      <ChatPreview />
+    );
+
+    return (
+      <>
+        {chatWrapperContent}
         {!ended && (
           <ChatButtons
             haveCoupon={false}

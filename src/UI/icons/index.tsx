@@ -6,12 +6,14 @@ import cosmetics from './cosmetics.svg';
 import energy from './energy.svg';
 import coin from './coin.svg';
 import login from './login.svg';
+import chat from './chat.svg';
 import { TasksType } from '../../components/tasks';
 
 export enum TypeOfIcons {
   ENERGY = 'energy',
   COIN = 'coin',
   LOGIN = 'login',
+  CHAT = 'chat',
 }
 
 const defaultStyle = {
@@ -22,6 +24,8 @@ const defaultStyle = {
 export const Icon: React.FC<IIcon> = ({ style = defaultStyle, type }) => {
   const switchSrc = (type: TypeOfIcons | TasksType) => {
     switch (type) {
+      case TypeOfIcons.CHAT:
+        return chat;
       case TasksType.CHALLENGE:
       case TasksType.PRODUCT_QUIZ:
         return challenge;
