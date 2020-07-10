@@ -58,6 +58,8 @@ const ProgressBarWrapper = styled.div`
 `;
 
 const UpgradeButton = styled.div`
+  width: 100%;
+  height: 100%;
   transform: skew(31deg);
   font-family: ${MTSSans.REGULAR};
   font-style: normal;
@@ -96,7 +98,8 @@ export const ProgressBar: React.FC<IProgressBar> = ({
   const handleClick = async () => {
     if (
       tutorialCondition &&
-      tutorialCondition === TutorialConditions.UPGRADE_BUTTON_TOWER_INFO
+      tutorialCondition === TutorialConditions.UPGRADE_BUTTON_TOWER_INFO &&
+      needUpgrade
     ) {
       upgradeTowerAndShowAnimation(towerTitle);
       extraTowerInfoModalClosed();
@@ -111,13 +114,13 @@ export const ProgressBar: React.FC<IProgressBar> = ({
   const content = !needUpgrade ? (
     <ProgressBarGreenLine progress={progress} />
   ) : (
-    <UpgradeButton onClick={handleClick}>
+    <UpgradeButton>
       <img src={upgradeImg} alt="upgrade" /> Улучшить
     </UpgradeButton>
   );
 
   return (
-    <ProgressBarWrapper ref={progressBarWrapperRef}>
+    <ProgressBarWrapper ref={progressBarWrapperRef} onClick={handleClick}>
       {content}
     </ProgressBarWrapper>
   );

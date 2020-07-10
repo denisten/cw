@@ -30,7 +30,7 @@ enum AnimationOrder {
 
 export const preloaderBuildingsConfig: IBuildingWrapper[] = [
   {
-    imgs: [egg, egg2, egg3],
+    imgArray: [egg, egg2, egg3],
     left: '44%',
     top: '17%',
     width: '12.71%',
@@ -38,7 +38,7 @@ export const preloaderBuildingsConfig: IBuildingWrapper[] = [
     delay: totalAnimationPreloaderTowerDuration * AnimationOrder.THIRD + 'ms',
   },
   {
-    imgs: [main, main2, main3],
+    imgArray: [main, main2, main3],
     left: '57.5%',
     top: '13.5%',
     width: '9%',
@@ -46,7 +46,7 @@ export const preloaderBuildingsConfig: IBuildingWrapper[] = [
     delay: totalAnimationPreloaderTowerDuration * AnimationOrder.THIRD + 'ms',
   },
   {
-    imgs: [tarif, tarif2, tarif3],
+    imgArray: [tarif, tarif2, tarif3],
     left: '33.8%',
     top: '20.5%',
     width: '9.42%',
@@ -55,7 +55,7 @@ export const preloaderBuildingsConfig: IBuildingWrapper[] = [
     lastBuilding: true,
   },
   {
-    imgs: [cloud, cloud2, cloud3],
+    imgArray: [cloud, cloud2, cloud3],
     left: '19%',
     top: '8.6%',
     width: '9.8%',
@@ -63,7 +63,7 @@ export const preloaderBuildingsConfig: IBuildingWrapper[] = [
     delay: totalAnimationPreloaderTowerDuration * AnimationOrder.SECOND + 'ms',
   },
   {
-    imgs: [moll, moll2, moll3],
+    imgArray: [moll, moll2, moll3],
     left: '64.6%',
     top: '64.2%',
     width: '23.2%',
@@ -71,7 +71,7 @@ export const preloaderBuildingsConfig: IBuildingWrapper[] = [
   },
 
   {
-    imgs: [arena, arena2, arena3],
+    imgArray: [arena, arena2, arena3],
     left: '9.8%',
     top: '67.5%',
     width: '22.39%',
@@ -79,7 +79,7 @@ export const preloaderBuildingsConfig: IBuildingWrapper[] = [
   },
 
   {
-    imgs: [theater, theater2, theater3],
+    imgArray: [theater, theater2, theater3],
     left: '7%',
     top: '37%',
     width: '19.63%',

@@ -140,7 +140,6 @@ export interface IMarker {
   startTime?: Date;
   endTime?: Date;
   coins?: number;
-  forTesting?: boolean;
 }
 
 type TowersMarkerStoreType = Record<TowersTypes, MarkerData>;

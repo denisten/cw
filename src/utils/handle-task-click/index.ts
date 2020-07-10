@@ -15,7 +15,6 @@ import {
 } from '../../effector/app-condition/events';
 import {
   activateTask,
-  fetchTasks,
   takeReward,
   verifyTask,
 } from '../../effector/missions-store/events';
@@ -23,6 +22,7 @@ import { scrollToCurrentTower } from '../scroll-to-current-tower';
 import { BuildingsService } from '../../buildings/config';
 import { markerHandler } from '../marker-handler';
 import { animateTaskReward } from '../animate-task-reward';
+import { coughtError } from '../../effector/error-boundary-store/events';
 
 export const handleTaskClick = async (id: number, e: React.MouseEvent) => {
   const tasks = MissionsStore.getState();
@@ -53,7 +53,9 @@ export const handleTaskClick = async (id: number, e: React.MouseEvent) => {
           BuildingsService.getConfigForTower(towerTitle).ref
         );
       } else if (chatTaskId) {
-        alert('нельзя');
+        coughtError({
+          text: 'Сначала нужно закончить начатое задание.',
+        });
       }
       markerHandler();
       return;
@@ -68,8 +70,7 @@ export const handleTaskClick = async (id: number, e: React.MouseEvent) => {
       clearChat({ towerTitle });
       break;
     case TaskStatuses.VERIFICATION:
-      markerHandler();
-      return fetchTasks('');
+      return markerHandler();
     case TaskStatuses.REWARDED:
     case TaskStatuses.REJECTED:
     case TaskStatuses.EXPIRED:
