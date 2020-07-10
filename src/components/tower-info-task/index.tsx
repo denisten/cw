@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { useStore } from 'effector-react';
 import { MissionsStore } from '../../effector/missions-store/store';
 import { Task } from '../tasks/tasks-row';
-import { UserDataStore } from '../../effector/user-data/store';
 import { filteredMissionsArray } from '../../utils/filtered-missions-array';
 import { MTSSans } from '../../fonts';
 import {
@@ -59,7 +58,6 @@ const taskPreview = (tutorialCondition: TutorialConditions) => (
 
 export const TowerInfoTask: React.FC<ITowerInfoTask> = ({ towerTitle }) => {
   const missions = useStore(MissionsStore);
-  const { couponsCount } = useStore(UserDataStore);
   const { tutorialCondition } = TutorialStore.getState();
 
   if (!missions.length || tutorialCondition) taskPreview(tutorialCondition);
@@ -74,7 +72,6 @@ export const TowerInfoTask: React.FC<ITowerInfoTask> = ({ towerTitle }) => {
                 expireInSeconds={el.expireInSeconds}
                 id={el.id}
                 isInTowerInfo={true}
-                couponsCount={couponsCount}
                 isAllowedToChange={true}
                 type={el.task.content.taskType.slug}
                 taskTitle={`${el.task.content.name.slice(0, maxTaskLength)}...`}
