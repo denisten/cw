@@ -41,8 +41,8 @@ const PreloaderWrapper = styled.div`
     display: none;
   }
   &.active {
-    animation: ${appearAnim} ${delayBeforePreloaderOff / 2}ms
-      ${delayBeforePreloaderOff / 2}ms linear both reverse;
+    animation: ${appearAnim} ${delayBeforePreloaderOff / 2}ms linear both
+      reverse;
   }
   &::before {
     content: '';

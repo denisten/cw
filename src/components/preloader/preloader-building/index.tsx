@@ -41,14 +41,17 @@ const BuildingPreloaderAnimationStep = styled.img<
   &.${AnimationSteps.ONE} {
     opacity: 1;
     animation-name: ${growAnim};
+    animation-delay: 0s;
   }
   &.${AnimationSteps.TWO} {
     opacity: 1;
     animation-name: ${growAnim};
+    animation-delay: 0s;
   }
   &.${AnimationSteps.THREE} {
     opacity: 1;
     animation-name: ${finallyAnim};
+    animation-delay: 0s;
   }
 `;
 
@@ -69,14 +72,6 @@ export const PreloaderBuilding: React.FC<IPreloaderBuilding> = ({
   const ref0 = useRef<HTMLImageElement>(null);
   const ref1 = useRef<HTMLImageElement>(null);
   const ref2 = useRef<HTMLImageElement>(null);
-
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     if (ref1.current && animationStartFlag) {
-  //       ref1.current.classList.add(AnimationSteps.ONE);
-  //     }
-  //   }, styles.delay);
-  // }, [animationStartFlag]);
 
   const initAnimation = () => {
     if (ref0.current && animationStartFlag) {
