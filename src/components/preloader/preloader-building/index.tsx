@@ -3,6 +3,7 @@ import styled, { keyframes } from 'styled-components';
 import { preloaderTowersAnimationDuration } from '../../../constants';
 
 enum AnimationSteps {
+  INIT = 'init',
   ONE = 'stepOne',
   TWO = 'stepTwo',
   THREE = 'stepThree',
@@ -34,6 +35,9 @@ const BuildingPreloaderAnimationStep = styled.img<
   animation-timing-function: ease-in-out;
   animation-duration: ${preloaderTowersAnimationDuration}ms;
   animation-fill-mode: both;
+  &.${AnimationSteps.INIT} {
+    opacity: 1;
+  }
   &.${AnimationSteps.ONE} {
     opacity: 1;
     animation-name: ${growAnim};
@@ -74,23 +78,29 @@ export const PreloaderBuilding: React.FC<IPreloaderBuilding> = ({
   //   }, styles.delay);
   // }, [animationStartFlag]);
 
+  const initAnimation = () => {
+    if (ref0.current && animationStartFlag) {
+      ref0.current.classList.add(AnimationSteps.ONE);
+    }
+  };
+
   const handleFirstStepAnimationEnd = () => {
-    if (ref1.current && ref0.current && animationStartFlag) {
+    if (ref1.current && ref0.current) {
       ref0.current.classList.remove(AnimationSteps.ONE);
       ref1.current.classList.add(AnimationSteps.TWO);
     }
   };
   const handleSecondStepAnimationEnd = () => {
     if (ref2.current && ref1.current) {
-      ref2.current.classList.add(AnimationSteps.THREE);
       ref1.current.classList.remove(AnimationSteps.TWO);
+      ref2.current.classList.add(AnimationSteps.THREE);
     }
   };
 
   const handleThirdStepAnimationEnd = () =>
     styles.lastBuilding && onAnimationEndCallback();
 
-  useEffect(handleFirstStepAnimationEnd, [animationStartFlag]);
+  useEffect(initAnimation, [animationStartFlag]);
 
   return (
     <BuildingWrapper {...styles}>
@@ -98,7 +108,7 @@ export const PreloaderBuilding: React.FC<IPreloaderBuilding> = ({
         ref={ref0}
         src={imgArray[0]}
         alt="building"
-        className={AnimationSteps.ONE}
+        className={AnimationSteps.INIT}
         onAnimationEnd={handleFirstStepAnimationEnd}
         {...styles}
       />
