@@ -485,6 +485,7 @@ class BuildingsService {
       info: 'info',
       title: 'Мой МТС',
       wideTower: false,
+      playButtonLink: 'https://kruti.mts.ru/play',
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
       width: 370,

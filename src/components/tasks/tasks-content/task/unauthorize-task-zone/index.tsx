@@ -41,7 +41,6 @@ export const UnauthorizeTaskZone = () => {
         id={1}
         isInTowerInfo={false}
         isAllowedToChange={false}
-        couponsCount={0}
         type={TasksType.TUTORIAL_TASK}
         taskTitle="Войти в мир клиента"
         status={TaskStatuses.CREATED}
