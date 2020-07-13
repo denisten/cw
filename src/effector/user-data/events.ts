@@ -1,6 +1,6 @@
 import { UserDataDomain } from './domain';
 import { IBirthday, UserDataStoreKeys } from './store';
-import { getProfile, IGetProfile } from '../../api/get-profile';
+import { getProfile } from '../../api/get-profile';
 import Centrifuge from 'centrifuge';
 import { devLoginRequest } from '../../api/dev-api/login';
 import { getAccount } from '../../api/get-account';

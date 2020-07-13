@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { TowerInfo } from '../tower-info';
 import { useStore } from 'effector-react';
@@ -26,7 +26,10 @@ import slider3 from './slider-3.png';
 import slider4 from './slider-4.png';
 import slider5 from './slider-5.png';
 import { useDisplayTutorialSlider } from '../../hooks/use-display-tutorial-slider';
-import { disableTutorialSlider } from '../../effector/app-condition/events';
+import {
+  disableTutorialSlider,
+  editTutorialSliderDisplayFlag,
+} from '../../effector/app-condition/events';
 
 const RootComponentWrapper = styled.div<IDisplayFlag>`
   background-image: url(${mapTile});
@@ -73,14 +76,12 @@ export const RootComponent = (): React.ReactElement => {
     DOMLoaded,
     isAuthorized,
     neverShowTutorialSlider,
+    tutorialSliderDisplayFlag,
   } = useStore(AppCondition);
   const { isCoinRelocateAnimationEnded } = useStore(RewardStore);
 
   // const [showSkipTutorialUI, setShowSkipTutorialUI] = useState(true);
   const { tutorialCondition, tutorialPause } = useStore(TutorialStore);
-  const [tutorialSliderDisplayFlag, setTutorialSliderDisplayFlag] = useState(
-    false
-  );
 
   useDisplayTutorialSlider({
     selectedMenuItem,
@@ -89,7 +90,7 @@ export const RootComponent = (): React.ReactElement => {
     isAuthorized,
     neverShowTutorialSlider,
     callBack: () => {
-      setTutorialSliderDisplayFlag(true);
+      editTutorialSliderDisplayFlag(true);
       disableTutorialSlider();
     },
   });
@@ -100,7 +101,7 @@ export const RootComponent = (): React.ReactElement => {
       <TutorialSlider
         imgArray={catImgArray}
         displayFlag={tutorialSliderDisplayFlag}
-        callback={() => setTutorialSliderDisplayFlag(false)}
+        callback={() => editTutorialSliderDisplayFlag(false)}
         content={tutorialSliderContent}
       />
       <ProfileButton
