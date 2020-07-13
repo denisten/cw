@@ -4,7 +4,7 @@ import { ZIndexes } from '../root-component/z-indexes-enum';
 import tutorialBackground from './tutorial-background.svg';
 import {
   nextTutorStep,
-  turnOffTutorialMode,
+  disableTutorialMode,
 } from '../../effector/tutorial-store/events';
 import { useStore } from 'effector-react';
 import {
@@ -203,7 +203,7 @@ export const TutorialDialog: React.FC<{ mustBeAsAnimated?: boolean }> = ({
 
   const handleBackButtonClick = () => {
     if (isNowFirstStepOfTutorial(dialogStep, tutorialCondition)) {
-      turnOffTutorialMode();
+      disableTutorialMode();
       handleAuthButtonClick();
     } else if (dialogStep) {
       setDialogStep(dialogStep - 1);
@@ -215,7 +215,7 @@ export const TutorialDialog: React.FC<{ mustBeAsAnimated?: boolean }> = ({
         {!isNowFirstStepOfTutorial(dialogStep, tutorialCondition) && (
           <ExitButton
             displayFlag={true}
-            callBack={() => turnOffTutorialMode()}
+            callBack={() => disableTutorialMode()}
             {...styleConfig.exitButton}
           />
         )}
