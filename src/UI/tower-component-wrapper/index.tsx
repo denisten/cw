@@ -14,11 +14,14 @@ import { scrollToCurrentTower } from '../../utils/scroll-to-current-tower';
 import { Markers } from '../../components/markers';
 import { IMarker } from '../../effector/towers-marker/store';
 import { BuildingsService, IAnimSize } from '../../buildings/config';
+import { MTSSans } from '../../fonts';
 
 enum strokeClassNames {
   STROKE = 'stroke',
   STROKE_ACTIVE = 'strokeActive',
 }
+export const mutedClassName = 'muted';
+export const fixSizeClassName = 'fixSize';
 
 const TowerStyledWrapper = styled.div<ITowerStyledWrapper>`
   display: flex;
@@ -30,6 +33,26 @@ const TowerStyledWrapper = styled.div<ITowerStyledWrapper>`
   height: ${props => props.height}px;
   scroll-margin-right: ${props =>
     props.scrollShift && props.DOMLoaded ? props.scrollShift : 0}px;
+
+
+  &.${mutedClassName} {
+    &::before {
+      content: 'На карантине';
+      position: absolute;
+      top: 85%;
+      left: 50%;
+      transform: translate(-50%, 0%);
+      padding: 6px;
+      background-color: rgba(0, 0, 0, 0.6);
+      color: white;
+      font-size: 18px;
+      font-family: ${MTSSans.BOLD};
+      white-space: nowrap;
+      border-radius: 4px;
+      z-index: 2;
+    }
+    
+  }
 
   .${strokeClassNames.STROKE} {
     display: none;
@@ -107,6 +130,7 @@ export const TowerWrapper = memo(
     DOMLoaded,
     animSize,
     fullSizeMode,
+    mutedImg,
   }: ITowerWrapper): React.ReactElement => {
     let mouseDownFlag = false,
       mouseMoveFlag = 0;
@@ -115,6 +139,7 @@ export const TowerWrapper = memo(
     const TowerStyleConfig = createTowerStyleConfig(width, height);
 
     const handleClick = () => {
+      if (mutedImg) return;
       if (
         tutorialCondition === TutorialConditions.ARROW_TOWER_INFO &&
         tutorialTower
@@ -144,10 +169,17 @@ export const TowerWrapper = memo(
     };
 
     const mouseOverHandle = () => {
+      if (mutedImg) {
+        towerRef.current && towerRef.current.classList.add(mutedClassName);
+        return;
+      }
       strokeRef.current &&
         strokeRef.current.classList.add(strokeClassNames.STROKE_ACTIVE);
     };
     const mouseOutHandle = () => {
+      if (mutedImg) {
+        towerRef.current && towerRef.current.classList.remove(mutedClassName);
+      }
       strokeRef.current &&
         strokeRef.current.classList.remove(strokeClassNames.STROKE_ACTIVE);
     };
@@ -174,7 +206,9 @@ export const TowerWrapper = memo(
           towerLevel={currentLevel}
           markersCollection={markers}
           towerTitle={towerTitle}
-          displayFlag={!needUpgrade && markers && markers.length > 0}
+          displayFlag={
+            !mutedImg && !needUpgrade && markers && markers.length > 0
+          }
         />
         <UpgradeButton
           fullSizeMode={fullSizeMode}
@@ -196,7 +230,7 @@ export const TowerWrapper = memo(
           />
         )}
         <LazyImage
-          src={tower}
+          src={mutedImg ? mutedImg : tower}
           alt="tower"
           useMap={'#' + tower}
           style={TowerStyleConfig}
@@ -229,6 +263,7 @@ export const TowerWrapper = memo(
 );
 
 interface ITowerWrapper {
+  mutedImg?: string;
   animSize: IAnimSize;
   position: number[];
   tutorialCondition: TutorialConditions;

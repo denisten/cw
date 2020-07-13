@@ -21,6 +21,7 @@ import { setFullSizeMode } from '../../effector/app-condition/events';
 import { useEnableSizeMod } from '../../hooks/use-enable-size-mod';
 import { useStore } from 'effector-react';
 import { AppCondition } from '../../effector/app-condition/store';
+import { fixSizeClassName } from '../../UI/tower-component-wrapper';
 
 export enum ScaleValues {
   ZOOM_IN = 0.05,
@@ -86,6 +87,7 @@ export const ScrollContainer: React.FC<{
     scrollContainerWrapperRef.current?.classList.remove(
       _scrollContainerClassName
     );
+    scrollContainerWrapperRef.current?.classList.add(fixSizeClassName);
 
     dragscroll.reset();
     setFullSizeMode(true);
@@ -95,6 +97,7 @@ export const ScrollContainer: React.FC<{
     scaleValue.current = ScaleValues.MIN_SCALE;
     runScrollAnimation();
     scrollContainerWrapperRef.current?.classList.add(_scrollContainerClassName);
+    scrollContainerWrapperRef.current?.classList.remove(fixSizeClassName);
     dragscroll.reset();
     setFullSizeMode(false);
   };
