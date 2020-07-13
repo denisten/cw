@@ -47,4 +47,10 @@ export const GlobalStyle = createGlobalStyle`
       }
   }
 
+
+     .fixSize .muted::before {
+        transform: scale(3);
+      }
+  
+
 `;

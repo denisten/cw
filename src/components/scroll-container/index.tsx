@@ -50,6 +50,7 @@ const MapWrapper = styled.div<IMapWrapper>`
 `;
 
 export const _scrollContainerClassName = 'dragscroll';
+const fixSizeClassName = 'fixSize';
 
 const scrollToCurrentTowerOptions = {
   behavior: 'smooth',
@@ -86,6 +87,7 @@ export const ScrollContainer: React.FC<{
     scrollContainerWrapperRef.current?.classList.remove(
       _scrollContainerClassName
     );
+    scrollContainerWrapperRef.current?.classList.add(fixSizeClassName);
 
     dragscroll.reset();
     setFullSizeMode(true);
@@ -95,6 +97,7 @@ export const ScrollContainer: React.FC<{
     scaleValue.current = ScaleValues.MIN_SCALE;
     runScrollAnimation();
     scrollContainerWrapperRef.current?.classList.add(_scrollContainerClassName);
+    scrollContainerWrapperRef.current?.classList.remove(fixSizeClassName);
     dragscroll.reset();
     setFullSizeMode(false);
   };
