@@ -391,8 +391,7 @@ class BuildingsService {
     [TowersTypes.MUSIC]: {
       info: 'info',
       title: 'МТС Music',
-      link:
-        'https://moskva.mts.ru/personal/mobilnaya-svyaz/uslugi/mobilnaya-svyaz/mts-music',
+      link: 'https://music.mts.ru/mix/mts_new_year_2020',
       wideTower: false,
       animSize: animSize.medium,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
@@ -461,8 +460,7 @@ class BuildingsService {
       height: 546,
       areaCoords: '52,94,630,508',
       ref: null,
-      link:
-        'https://cashback.mts.ru/?_ga=2.186836266.344992564.1593939415-68812577.1592818765',
+      link: 'https://cashback.mts.ru/',
       position: [40.6, 52.7],
       [TowerLevel.deactive]: {
         img: mollTowerLevel0Img,
@@ -525,8 +523,7 @@ class BuildingsService {
       areaCoords: '44,46,411,406',
       position: [27.6, 60.95],
       ref: null,
-      link:
-        'https://moskva.mts.ru/personal/mobilnaya-svyaz/uslugi/mobilnaya-svyaz/mts-knigi',
+      link: 'https://books.mts.ru/',
       [TowerLevel.deactive]: {
         img: libraryTowerLevel0Img,
         shadowImg: libraryTowerLevel0Stroke,
@@ -740,6 +737,7 @@ class BuildingsService {
       areaCoords: '399,410,48,92',
       position: [37.3, 60.3],
       ref: null,
+      link: 'https://www.mtsbank.ru/',
       [TowerLevel.deactive]: {
         img: bankLevel0Img,
         shadowImg: bankLevel0Stroke,
