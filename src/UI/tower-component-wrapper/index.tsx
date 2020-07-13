@@ -107,6 +107,7 @@ export const TowerWrapper = memo(
     DOMLoaded,
     animSize,
     fullSizeMode,
+    muted,
   }: ITowerWrapper): React.ReactElement => {
     let mouseDownFlag = false,
       mouseMoveFlag = 0;
@@ -115,6 +116,7 @@ export const TowerWrapper = memo(
     const TowerStyleConfig = createTowerStyleConfig(width, height);
 
     const handleClick = () => {
+      if (muted) return;
       if (
         tutorialCondition === TutorialConditions.ARROW_TOWER_INFO &&
         tutorialTower
@@ -144,6 +146,7 @@ export const TowerWrapper = memo(
     };
 
     const mouseOverHandle = () => {
+      if (muted) return;
       strokeRef.current &&
         strokeRef.current.classList.add(strokeClassNames.STROKE_ACTIVE);
     };
@@ -229,6 +232,7 @@ export const TowerWrapper = memo(
 );
 
 interface ITowerWrapper {
+  muted?: boolean;
   animSize: IAnimSize;
   position: number[];
   tutorialCondition: TutorialConditions;
