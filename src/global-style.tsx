@@ -50,6 +50,8 @@ export const GlobalStyle = createGlobalStyle`
 
      .fixSize .muted::before {
         transform: scale(3);
+        top: 100%;
+        left: 40%;
       }
   
 

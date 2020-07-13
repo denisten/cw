@@ -34,14 +34,14 @@ const TowerStyledWrapper = styled.div<ITowerStyledWrapper>`
   scroll-margin-right: ${props =>
     props.scrollShift && props.DOMLoaded ? props.scrollShift : 0}px;
 
+
   &.${mutedClassName} {
     &::before {
       content: 'На карантине';
       position: absolute;
-      top: 80%;
+      top: 85%;
       left: 50%;
       transform: translate(-50%, 0%);
-      z-index: 100;
       padding: 6px;
       background-color: rgba(0, 0, 0, 0.6);
       color: white;
@@ -49,6 +49,7 @@ const TowerStyledWrapper = styled.div<ITowerStyledWrapper>`
       font-family: ${MTSSans.BOLD};
       white-space: nowrap;
       border-radius: 4px;
+      z-index: 2;
     }
     
   }
