@@ -77,7 +77,7 @@ export const ScrollContainer: React.FC<{
 
   const enableFixSizeMod = () => {
     scaleValue.current = ScaleValues.FIX_SIZE;
-    const { ref } = BuildingsService.getConfigForTower(TowersTypes.THEATER);
+    const { ref } = BuildingsService.getConfigForTower(TowersTypes.SHOP);
     runScrollAnimation();
     scrollToCurrentTower(ref, {
       ...scrollToCurrentTowerOptions,

@@ -70,7 +70,6 @@ export const RootComponent = () => {
     DOMLoaded,
     tutorialSliderDisplayFlag,
   } = useStore(AppCondition);
-
   // const [showSkipTutorialUI, setShowSkipTutorialUI] = useState(true);
   const { tutorialCondition } = useStore(TutorialStore);
 
