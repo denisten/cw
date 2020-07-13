@@ -2,8 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { Icon, TypeOfIcons } from '../icons';
 import { MTSSans } from '../../fonts';
-import { useStore } from 'effector-react';
-import { TutorialStore } from '../../effector/tutorial-store/store';
 
 const ChatPreviewWrapper = styled.div`
   height: 498px;
@@ -32,15 +30,12 @@ const DescriptionText = styled.span`
 `;
 
 export const ChatPreview = () => {
-  const { tutorialCondition } = useStore(TutorialStore);
   return (
     <ChatPreviewWrapper>
       <Icon type={TypeOfIcons.CHAT} />
       <Title>Это чат</Title>
       <DescriptionText>
-        {tutorialCondition
-          ? `Здесь вы найдёте помощника, который готов помочь с любой задачей!`
-          : `Чат предназначен для выполнения заданий и прохождения викторин`}
+        Чат предназначен для выполнения заданий и прохождения викторин
       </DescriptionText>
     </ChatPreviewWrapper>
   );
