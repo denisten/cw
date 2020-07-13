@@ -22,8 +22,6 @@ const TowerInfoTaskWrapper = styled.div`
   flex-direction: column;
 `;
 
-const maxTaskLength = 16;
-
 const styledConfig = {
   towerInfoTaskWrapper: {
     height: '370px',

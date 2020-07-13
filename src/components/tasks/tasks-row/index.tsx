@@ -123,8 +123,10 @@ const TaskButton = styled.div<ITaskButton>`
 
 const TaskInfo = styled.div`
   height: 100%;
+  width: 100%;
   display: flex;
   align-items: center;
+  justify-content: space-around;
 `;
 
 const Border = styled.div`
@@ -185,7 +187,9 @@ const styledConfig = {
   coupon: {
     marginRight: '12px',
   },
-  columnWrapperAdditionalStyle: { alignItems: 'center' },
+  columnWrapperAdditionalStyle: {
+    alignItems: 'center',
+  },
 };
 
 const checkTaskStatus = (status: TaskStatuses) =>

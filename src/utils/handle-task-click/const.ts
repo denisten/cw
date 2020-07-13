@@ -9,10 +9,10 @@ export enum TitleMarginLeft {
 }
 
 export enum TitleWidth {
-  inTowerInfo = 124,
+  inTowerInfo = 'auto',
   notInTowerInfo = 274,
 }
 export enum TitleMarginRight {
-  inTowerInfo = 19,
+  inTowerInfo = 8,
   notInTowerInfo = 45,
 }

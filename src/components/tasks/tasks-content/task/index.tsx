@@ -15,8 +15,6 @@ const TasksWrapper = styled.div<ITask>`
   overflow-x: hidden;
 `;
 
-const maxTaskLength = 32;
-
 export const Tasks: React.FC<{ active: boolean; isAuthorized: boolean }> = ({
   active,
   isAuthorized,
