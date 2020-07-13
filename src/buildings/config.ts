@@ -608,7 +608,7 @@ class BuildingsService {
       info: 'info',
       title: 'МТС Афиша',
       wideTower: true,
-      muted: true,
+      mutedImg: 'true',
       animSize: animSize.big,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
@@ -1109,7 +1109,7 @@ type BuildingServiceConfigTypes = Record<
 >;
 
 type CurrentTowerServiceConfigTypes = {
-  muted?: boolean;
+  mutedImg?: string;
   info: string;
   title: string;
   link?: string;

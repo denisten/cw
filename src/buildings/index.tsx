@@ -36,7 +36,7 @@ export const Buildings: React.FC = () => {
               <TowerWrapper
                 fullSizeMode={fullSizeMode}
                 animSize={towerLayoutData.animSize}
-                muted={towerLayoutData.muted}
+                mutedImg={towerLayoutData.mutedImg}
                 DOMLoaded={DOMLoaded}
                 towerInfoShift={towerInfoShift}
                 key={towerTitle}
