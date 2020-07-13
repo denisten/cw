@@ -89,7 +89,7 @@ const Writing = styled.div`
   line-height: 1.1;
 `;
 
-const BotIsWrittingWrap = styled.div<IDisplayFlag>`
+const BotIsWritingWrap = styled.div<IDisplayFlag>`
   width: 100%;
   position: sticky;
   bottom: 0;
@@ -149,9 +149,6 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
 
     const haveMessages = messages && messages.length > 0;
 
-    // const informationalTask =
-    //   currentMission &&
-    //   currentMission.task.content.taskType.slug === TasksType.INFORMATIONAL;
     const sendAnswerId = async (actionId: number) => {
       if (currentMission) {
         if (currentTaskIndex !== -1 && !pendingOfResponse) {
@@ -263,14 +260,14 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
             />
           </MessageRow>
         ))}
-        <BotIsWrittingWrap displayFlag={pendingOfResponse}>
+        <BotIsWritingWrap displayFlag={pendingOfResponse}>
           <ChatAvatar
             sender={Sender.BACKEND}
             userAvatar=""
             towerTitle={towerTitle}
           />
           <Writing>...</Writing>
-        </BotIsWrittingWrap>
+        </BotIsWritingWrap>
       </ChatWrapper>
     ) : (
       <ChatPreview />
