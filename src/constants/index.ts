@@ -32,7 +32,7 @@ export const minNameLength = 3,
   maxCityNameLength = 12,
   maxUserNameLength = 14;
 
-export enum responseStates {
+export enum ResponseStatuses {
   SUCCESS = 'success',
   FAILURE = 'failure',
 }

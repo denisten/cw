@@ -15,7 +15,7 @@ import {
 } from '../../../effector/tutorial-store/store';
 import {
   nextTutorStep,
-  turnOffTutorialMode,
+  disableTutorialMode,
 } from '../../../effector/tutorial-store/events';
 import { handleAuthButtonClick } from '../../../utils/handle-auth-button-click';
 import { defaultScaleSize, scaleAnimation } from '../../../hoc/scale-anim';
@@ -98,7 +98,7 @@ export const NotAuthorizedProfile: React.FC<INotAuthorizedProfile> = ({
 
   const handleButtonClick = () => {
     if (tutorialCondition === TutorialConditions.PULSE_AUTH_BUTTON) {
-      turnOffTutorialMode();
+      disableTutorialMode();
     }
     handleAuthButtonClick();
   };

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router';
-import { turnOffTutorialMode } from '../../effector/tutorial-store/events';
+import { disableTutorialMode } from '../../effector/tutorial-store/events';
 enum hashValues {
   DISABLE_TUTORIAL = 'disableTutorial',
 }
@@ -11,7 +11,7 @@ export const useCheckDisableTutorial = (
   const location = useLocation();
   useEffect(() => {
     if (location.search.replace('?', '') === hashValues.DISABLE_TUTORIAL) {
-      turnOffTutorialMode();
+      disableTutorialMode();
     }
   }, dependency);
 };

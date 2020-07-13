@@ -2,7 +2,7 @@ import { TutorialDomain } from './domain';
 import {
   nextTutorDescriptionStep,
   nextTutorStep,
-  turnOffTutorialMode,
+  disableTutorialMode,
   pauseTutorialMode,
 } from './events';
 
@@ -56,7 +56,7 @@ export const TutorialStore = TutorialDomain.store<ITutorialStore>(initState)
     ...state,
     tutorialTextId: state.tutorialTextId + 1,
   }))
-  .on(turnOffTutorialMode, state => ({
+  .on(disableTutorialMode, state => ({
     ...state,
     tutorialCondition: TutorialConditions.OFF,
     tutorialConditionIdx: 0,
