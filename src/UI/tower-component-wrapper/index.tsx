@@ -15,13 +15,12 @@ import { Markers } from '../../components/markers';
 import { IMarker } from '../../effector/towers-marker/store';
 import { BuildingsService, IAnimSize } from '../../buildings/config';
 import { MTSSans } from '../../fonts';
+import { mutedClassName } from '../../constants';
 
 enum strokeClassNames {
   STROKE = 'stroke',
   STROKE_ACTIVE = 'strokeActive',
 }
-
-const mutedClassName = 'muted';
 
 const TowerStyledWrapper = styled.div<ITowerStyledWrapper>`
   display: flex;

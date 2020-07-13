@@ -21,6 +21,7 @@ import { setFullSizeMode } from '../../effector/app-condition/events';
 import { useEnableSizeMod } from '../../hooks/use-enable-size-mod';
 import { useStore } from 'effector-react';
 import { AppCondition } from '../../effector/app-condition/store';
+import { fixSizeClassName } from '../../constants';
 
 export enum ScaleValues {
   ZOOM_IN = 0.05,
@@ -50,7 +51,6 @@ const MapWrapper = styled.div<IMapWrapper>`
 `;
 
 export const _scrollContainerClassName = 'dragscroll';
-const fixSizeClassName = 'fixSize';
 
 const scrollToCurrentTowerOptions = {
   behavior: 'smooth',
