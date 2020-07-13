@@ -3,17 +3,15 @@ import {
   editIsAuthorizedFlag,
   setCancelAuthorizationStatus,
 } from '../../effector/app-condition/events';
+import { responseStates } from '../../constants';
 
 const delayBeforeAuthWindowClose = 100;
-enum authStatuses {
-  SUCCESS = 'success',
-}
 
 export const AuthLandingPage = () => {
   useEffect(() => {
     const locationSearch = window.location.search;
     const state = new URLSearchParams(locationSearch).get('state');
-    if (state === authStatuses.SUCCESS) {
+    if (state === responseStates.SUCCESS) {
       editIsAuthorizedFlag(true);
     } else if (state) {
       setCancelAuthorizationStatus(state.replace('_', ''));

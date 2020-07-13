@@ -3,7 +3,6 @@ import {
   editCurrentUserDataField,
   editUserData,
   fetchUserData,
-  saveUserDataAfterAuth,
   editMoneyCount,
   setUserSessionSocket,
   editUserProperty,
@@ -11,7 +10,6 @@ import {
   resetUserDataStore,
   getUserName,
 } from './events';
-import connectLocalStorage from 'effector-localstorage/sync';
 import Centrifuge from 'centrifuge';
 import { birthdayParserToJSON } from '../../utils/birthday-parser';
 
@@ -27,44 +25,26 @@ export enum UserDataStoreKeys {
   ENERGY = 'energy',
   AVATAR = 'avatar',
 }
+
 export const defaultNameValue = 'Неизвестно';
-const initData = {
-  id: 0,
-  name: defaultNameValue,
-  worldName: defaultNameValue,
-  assistantName: defaultNameValue,
-  money: 0,
-  energy: 0,
-  birthday: {
-    dd: '00',
-    mm: '00',
-  },
-  couponsCount: 2,
-  userSessionSocket: null,
-  avatar: null,
-};
 
 const initState: IUserDataStore = {
-  [UserDataStoreKeys.ID]: initData.id,
-  [UserDataStoreKeys.NAME]: initData.name,
-  [UserDataStoreKeys.WORLD_NAME]: initData.worldName,
-  [UserDataStoreKeys.ASSISTANT_NAME]: initData.assistantName,
-  [UserDataStoreKeys.MONEY]: initData.money,
-  [UserDataStoreKeys.ENERGY]: initData.energy,
-  [UserDataStoreKeys.BIRTHDAY]: initData.birthday,
-  [UserDataStoreKeys.COUPONS_COUNT]: initData.couponsCount,
-  [UserDataStoreKeys.USER_SESSION_SOCKET]: initData.userSessionSocket,
-  [UserDataStoreKeys.AVATAR]: initData.avatar,
+  [UserDataStoreKeys.ID]: 0,
+  [UserDataStoreKeys.NAME]: defaultNameValue,
+  [UserDataStoreKeys.WORLD_NAME]: defaultNameValue,
+  [UserDataStoreKeys.ASSISTANT_NAME]: defaultNameValue,
+  [UserDataStoreKeys.MONEY]: 0,
+  [UserDataStoreKeys.ENERGY]: 0,
+  [UserDataStoreKeys.BIRTHDAY]: { dd: '00', mm: '00' },
+  [UserDataStoreKeys.COUPONS_COUNT]: 2,
+  [UserDataStoreKeys.USER_SESSION_SOCKET]: null,
+  [UserDataStoreKeys.AVATAR]: null,
 };
 
-const userDataStoreLocalStorage = connectLocalStorage('UserData').onChange(
-  saveUserDataAfterAuth
-);
-
 export const UserDataStore = UserDataDomain.store<IUserDataStore>(initState)
-  .on(getAccountData.doneData, (state, payload) => ({
+  .on(getAccountData.doneData, (state, { balance }) => ({
     ...state,
-    money: payload.balance,
+    money: balance,
   }))
   .on(editMoneyCount, (state, payload) => ({
     ...state,
@@ -84,28 +64,26 @@ export const UserDataStore = UserDataDomain.store<IUserDataStore>(initState)
     (state, { worldName, assistantName, name, id, birthday = '', avatar }) => ({
       ...state,
       id,
-      worldName: worldName || initData.worldName,
-      assistantName: assistantName || initData.assistantName,
-      name: name || initData.name,
+      worldName: worldName || defaultNameValue,
+      assistantName: assistantName || defaultNameValue,
+      name: name || defaultNameValue,
       birthday: birthdayParserToJSON(birthday),
       avatar,
     })
   )
-  .on(getUserName.doneData, (state, { name = defaultNameValue }) => ({
+  .on(getUserName.doneData, (state, { name }) => ({
     ...state,
-    name,
+    name: name || defaultNameValue,
   }))
   .on(setUserSessionSocket, (state, payload) => ({
-    ...state,
     userSessionSocket: payload,
+    ...state,
   }))
   .on(editUserData, (state, payload) => ({
     ...state,
     ...payload,
   }))
   .reset(resetUserDataStore);
-
-UserDataStore.watch(userDataStoreLocalStorage);
 
 export interface IUserDataStore {
   [UserDataStoreKeys.ID]: number;

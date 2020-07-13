@@ -131,9 +131,6 @@ const styledConfig = {
     justifyContent: 'space-around',
     width: '100%',
   },
-  // profileIcon: {
-  //   marginLeft: '4px',
-  // },
   rowWrapper: {
     padding: '36px 0 22px 0',
     left: '12px',
