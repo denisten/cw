@@ -20,6 +20,8 @@ enum strokeClassNames {
   STROKE_ACTIVE = 'strokeActive',
 }
 
+const mutedClassName = 'muted';
+
 const TowerStyledWrapper = styled.div<ITowerStyledWrapper>`
   display: flex;
   position: absolute;
@@ -30,6 +32,18 @@ const TowerStyledWrapper = styled.div<ITowerStyledWrapper>`
   height: ${props => props.height}px;
   scroll-margin-right: ${props =>
     props.scrollShift && props.DOMLoaded ? props.scrollShift : 0}px;
+
+  &.${mutedClassName} {
+    &::before {
+      content: 'На карантине';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 100;
+    }
+    
+  }
 
   .${strokeClassNames.STROKE} {
     display: none;
@@ -146,11 +160,17 @@ export const TowerWrapper = memo(
     };
 
     const mouseOverHandle = () => {
-      if (mutedImg) return;
+      if (mutedImg) {
+        towerRef.current && towerRef.current.classList.add(mutedClassName);
+        return;
+      }
       strokeRef.current &&
         strokeRef.current.classList.add(strokeClassNames.STROKE_ACTIVE);
     };
     const mouseOutHandle = () => {
+      if (mutedImg) {
+        towerRef.current && towerRef.current.classList.remove(mutedClassName);
+      }
       strokeRef.current &&
         strokeRef.current.classList.remove(strokeClassNames.STROKE_ACTIVE);
     };
@@ -177,7 +197,9 @@ export const TowerWrapper = memo(
           towerLevel={currentLevel}
           markersCollection={markers}
           towerTitle={towerTitle}
-          displayFlag={!needUpgrade && markers && markers.length > 0}
+          displayFlag={
+            !mutedImg && !needUpgrade && markers && markers.length > 0
+          }
         />
         <UpgradeButton
           fullSizeMode={fullSizeMode}
@@ -199,7 +221,7 @@ export const TowerWrapper = memo(
           />
         )}
         <LazyImage
-          src={tower}
+          src={mutedImg ? mutedImg : tower}
           alt="tower"
           useMap={'#' + tower}
           style={TowerStyleConfig}

@@ -6,6 +6,7 @@ import mainTowerLevel2Img from './main-tower/2.png';
 import mainTowerLevel2Stroke from './main-tower/2-stroke.png';
 import mainTowerLevel3Stroke from './main-tower/3-stroke.png';
 import mainTowerLevel3Img from './main-tower/3.png';
+import mutedMusicTower from './music/-1.png';
 import musicTowerLevel0Img from './music/0.png';
 import musicTowerLevel0Stroke from './music/0-stroke.png';
 import musicTowerLevel1Img from './music/1.png';
@@ -14,6 +15,7 @@ import musicTowerLevel2Img from './music/2.png';
 import musicTowerLevel2Stroke from './music/2-stroke.png';
 import musicTowerLevel3Img from './music/3.png';
 import musicTowerLevel3Stroke from './music/3-stroke.png';
+import mutedArenaTower from './arena/-1.png';
 import arenaTowerLevel0Img from './arena/0.png';
 import arenaTowerLevel0Stroke from './arena/0-stroke.png';
 import arenaTowerLevel1Img from './arena/1.png';
@@ -22,6 +24,7 @@ import arenaTowerLevel2Img from './arena/2.png';
 import arenaTowerLevel2Stroke from './arena/2-stroke.png';
 import arenaTowerLevel3Img from './arena/3.png';
 import arenaTowerLevel3Stroke from './arena/3-stroke.png';
+import mutedMollTower from './moll/-1.png';
 import mollTowerLevel0Img from './moll/0.png';
 import mollTowerLevel1Img from './moll/1.png';
 import mollTowerLevel2Img from './moll/2.png';
@@ -46,6 +49,7 @@ import libraryTowerLevel0Stroke from './library/0-stroke.png';
 import libraryTowerLevel1Stroke from './library/1-stroke.png';
 import libraryTowerLevel2Stroke from './library/2-stroke.png';
 import libraryTowerLevel3Stroke from './library/3-stroke.png';
+import mutedObservatoryTower from './observatory/-1.png';
 import observatoryTowerLevel0Img from './observatory/0.png';
 import observatoryTowerLevel0Stroke from './observatory/0-stroke.png';
 import observatoryTowerLevel1Img from './observatory/1.png';
@@ -62,6 +66,7 @@ import tariffTowerLevel2Img from './tariff/2.png';
 import tariffTowerLevel2Stroke from './tariff/2-stroke.png';
 import tariffTowerLevel3Img from './tariff/3.png';
 import tariffTowerLevel3Stroke from './tariff/3-stroke.png';
+import mutedTheaterTower from './theater/-1.png';
 import theaterTowerLevel0Img from './theater/0.png';
 import theaterTowerLevel0Stroke from './theater/0-stroke.png';
 import theaterTowerLevel1Img from './theater/1.png';
@@ -70,6 +75,7 @@ import theaterTowerLevel2Img from './theater/2.png';
 import theaterTowerLevel2Stroke from './theater/2-stroke.png';
 import theaterTowerLevel3Img from './theater/3.png';
 import theaterTowerLevel3Stroke from './theater/3-stroke.png';
+import mutedTVTower from './TV/-1.png';
 import TVTowerLevel0Stroke from './TV/1-stroke.png';
 import TVTowerLevel0Img from './TV/0.png';
 import TVTowerLevel1Stroke from './TV/0-stroke.png';
@@ -78,6 +84,7 @@ import TVTowerLevel2Stroke from './TV/2-stroke.png';
 import TVTowerLevel2Img from './TV/2.png';
 import TVTowerLevel3Stroke from './TV/3-stroke.png';
 import TVTowerLevel3Img from './TV/3.png';
+import mutedStadiumTower from './stadium/-1.png';
 import stadiumLevel0Img from './stadium/0.png';
 import stadiumLevel1Img from './stadium/1.png';
 import stadiumLevel2Img from './stadium/2.png';
@@ -94,6 +101,7 @@ import airportLevel0Stroke from './airport/0-stroke.png';
 import airportLevel1Stroke from './airport/1-stroke.png';
 import airportLevel2Stroke from './airport/2-stroke.png';
 import airportLevel3Stroke from './airport/3-stroke.png';
+import mutedBankTower from './bank/-1.png';
 import bankLevel0Img from './bank/0.png';
 import bankLevel0Stroke from './bank/0-stroke.png';
 import bankLevel1Img from './bank/1.png';
@@ -102,6 +110,7 @@ import bankLevel2Img from './bank/2.png';
 import bankLevel2Stroke from './bank/2-stroke.png';
 import bankLevel3Img from './bank/3.png';
 import bankLevel3Stroke from './bank/3-stroke.png';
+import mutedCyberArenaTower from './cyber-arena/-1.png';
 import cyberArenaLevel3Img from './cyber-arena/3.png';
 import cyberArenaLevel2Img from './cyber-arena/2.png';
 import cyberArenaLevel1Img from './cyber-arena/1.png';
@@ -111,6 +120,7 @@ import cyberArenaLevel2Stroke from './cyber-arena/2-stroke.png';
 import cyberArenaLevel1Stroke from './cyber-arena/1-stroke.png';
 import cyberArenaLevel0Stroke from './cyber-arena/0-stroke.png';
 import { TowerLevel, TowersTypes } from '../effector/towers-progress/store';
+import mutedSatelliteTv from './satellite-tv/-1.png';
 import satelliteTvLevel0Img from './satellite-tv/0.png';
 import satelliteTvLevel0Stroke from './satellite-tv/0-stroke.png';
 import satelliteTvLevel1Img from './satellite-tv/1.png';
@@ -119,6 +129,7 @@ import satelliteTvLevel2Img from './satellite-tv/2.png';
 import satelliteTvLevel2Stroke from './satellite-tv/2-stroke.png';
 import satelliteTvLevel3Img from './satellite-tv/3.png';
 import satelliteTvLevel3Stroke from './satellite-tv/3-stroke.png';
+import mutedPartnerOne from './partners-build/partner-one/-1.png';
 import partnerOneLevel0Img from './partners-build/partner-one/0.png';
 import partnerOneLevel0Stroke from './partners-build/partner-one/0-stroke.png';
 import partnerOneLevel1Img from './partners-build/partner-one/1.png';
@@ -127,6 +138,7 @@ import partnerOneLevel2Img from './partners-build/partner-one/2.png';
 import partnerOneLevel2Stroke from './partners-build/partner-one/2-stroke.png';
 import partnerOneLevel3Img from './partners-build/partner-one/3.png';
 import partnerOneLevel3Stroke from './partners-build/partner-one/3-stroke.png';
+import mutedPartnerTwo from './partners-build/partner-two/-1.png';
 import partnerTwoLevel0Img from './partners-build/partner-two/0.png';
 import partnerTwoLevel0Stroke from './partners-build/partner-two/0-stroke.png';
 import partnerTwoLevel1Img from './partners-build/partner-two/1.png';
@@ -135,6 +147,7 @@ import partnerTwoLevel2Img from './partners-build/partner-two/2.png';
 import partnerTwoLevel2Stroke from './partners-build/partner-two/2-stroke.png';
 import partnerTwoLevel3Img from './partners-build/partner-two/3.png';
 import partnerTwoLevel3Stroke from './partners-build/partner-two/3-stroke.png';
+import mutedSlotMachine from './slot-machine/-1.png';
 import slotMachineLevel0Img from './slot-machine/0.png';
 import slotMachineLevel0Stroke from './slot-machine/0-stroke.png';
 import slotMachineLevel1Img from './slot-machine/1.png';
@@ -151,6 +164,7 @@ import routerLevel2Img from './router/2.png';
 import routerLevel2Stroke from './router/2-stroke.png';
 import routerLevel3Img from './router/3.png';
 import routerLevel3Stroke from './router/3-stroke.png';
+import mutedAutoFactory from './auto-factory/-1.png';
 import autoFactoryLevel0Img from './auto-factory/0.png';
 import autoFactoryLevel0Stroke from './auto-factory/0-stroke.png';
 import autoFactoryLevel1Img from './auto-factory/1.png';
@@ -165,6 +179,7 @@ import rtkLevel2Img from './rtk/2.png';
 import rtkLevel3Img from './rtk/3.png';
 import rtkLevel0Stroke from './rtk/0-stroke.png';
 import rtkLevel3Stroke from './rtk/3-stroke.png';
+import mutedPartnerThree from './partners-build/partner-three/-1.png';
 import partnerThreeLevel0Img from './partners-build/partner-three/0.png';
 import partnerThreeLevel0Stroke from './partners-build/partner-three/0-stroke.png';
 import partnerThreeLevel1Img from './partners-build/partner-three/1.png';
@@ -173,6 +188,7 @@ import partnerThreeLevel2Img from './partners-build/partner-three/2.png';
 import partnerThreeLevel2Stroke from './partners-build/partner-three/2-stroke.png';
 import partnerThreeLevel3Img from './partners-build/partner-three/3.png';
 import partnerThreeLevel3Stroke from './partners-build/partner-three/3-stroke.png';
+import mutedMarvin from './marvin/-1.png';
 import marvinLevel0Img from './marvin/0.png';
 import marvinLevel1Img from './marvin/1.png';
 import marvinLevel2Img from './marvin/2.png';
@@ -181,6 +197,7 @@ import marvinLevel0Stroke from './marvin/0-stroke.png';
 import marvinLevel1Stroke from './marvin/1-stroke.png';
 import marvinLevel2Stroke from './marvin/2-stroke.png';
 import marvinLevel3Stroke from './marvin/3-stroke.png';
+import mutedCloud from './cloud/-1.png';
 import cloudLevel0Img from './cloud/0.png';
 import cloudLevel0Stroke from './cloud/0-stroke.png';
 import cloudLevel1Img from './cloud/1.png';
@@ -189,6 +206,7 @@ import cloudLevel2Img from './cloud/2.png';
 import cloudLevel2Stroke from './cloud/2-stroke.png';
 import cloudLevel3Img from './cloud/3.png';
 import cloudLevel3Stroke from './cloud/3-stroke.png';
+import mutedUniversity from './university/-1.png';
 import universityLevel0Img from './university/0.png';
 import universityLevel1Img from './university/1.png';
 import universityLevel2Img from './university/2.png';
@@ -197,7 +215,7 @@ import universityLevel0Stroke from './university/0-stroke.png';
 import universityLevel1Stroke from './university/1-stroke.png';
 import universityLevel2Stroke from './university/2-stroke.png';
 import universityLevel3Stroke from './university/3-stroke.png';
-
+import mutedSmartMed from './smartmed/-1.png';
 import smartmedLevel0Img from './smartmed/0.png';
 import smartmedLevel1Img from './smartmed/1.png';
 import smartmedLevel2Img from './smartmed/2.png';
@@ -298,6 +316,7 @@ class BuildingsService {
     [TowersTypes.SMARTMED]: {
       info: 'info',
       title: 'SmartMed',
+      mutedImg: mutedSmartMed,
       wideTower: false,
       animSize: animSize.small,
       zIndex: ZIndexes.BUILDING_THREE_LEVEL,
@@ -329,6 +348,7 @@ class BuildingsService {
     [TowersTypes.UNIVERSITY]: {
       info: 'info',
       title: 'Smart University',
+      mutedImg: mutedUniversity,
       wideTower: true,
       animSize: animSize.large,
       zIndex: ZIndexes.BUILDING_THREE_LEVEL,
@@ -395,6 +415,7 @@ class BuildingsService {
         'https://moskva.mts.ru/personal/mobilnaya-svyaz/uslugi/mobilnaya-svyaz/mts-music',
       wideTower: false,
       animSize: animSize.medium,
+      mutedImg: mutedMusicTower,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
       width: 398,
@@ -422,6 +443,7 @@ class BuildingsService {
     [TowersTypes.LIVE_ARENA]: {
       info: 'info',
       title: 'МТС Live Arena',
+      mutedImg: mutedArenaTower,
       wideTower: true,
       animSize: animSize.large,
       zIndex: ZIndexes.BUILDING_FOUR_LEVEL,
@@ -454,6 +476,7 @@ class BuildingsService {
       info: 'info',
       title: 'МТС Cashback',
       wideTower: true,
+      mutedImg: mutedMollTower,
       animSize: animSize.large,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
@@ -547,6 +570,7 @@ class BuildingsService {
     [TowersTypes.OBSERVATORY]: {
       info: 'info',
       title: 'Здание партнера 4',
+      mutedImg: mutedObservatoryTower,
       wideTower: false,
       animSize: animSize.small,
       zIndex: ZIndexes.BUILDING_THREE_LEVEL,
@@ -608,7 +632,7 @@ class BuildingsService {
       info: 'info',
       title: 'МТС Афиша',
       wideTower: true,
-      mutedImg: 'true',
+      mutedImg: mutedTheaterTower,
       animSize: animSize.big,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
@@ -639,6 +663,7 @@ class BuildingsService {
     [TowersTypes.TV]: {
       info: 'info',
       title: 'Цифровое ТВ',
+      mutedImg: mutedTVTower,
       wideTower: false,
       animSize: animSize.medium,
       zIndex: ZIndexes.BUILDING_THREE_LEVEL,
@@ -670,6 +695,7 @@ class BuildingsService {
     [TowersTypes.FITNESS]: {
       info: 'info',
       title: 'МТС Фитнес',
+      mutedImg: mutedStadiumTower,
       wideTower: true,
       animSize: animSize.big,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
@@ -732,6 +758,7 @@ class BuildingsService {
     [TowersTypes.BANK]: {
       info: 'info',
       title: 'МТС Банк',
+      mutedImg: mutedBankTower,
       wideTower: true,
       animSize: animSize.medium,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
@@ -761,6 +788,7 @@ class BuildingsService {
     [TowersTypes.WASD_TV]: {
       info: 'info',
       title: 'WASD.tv',
+      mutedImg: mutedCyberArenaTower,
       wideTower: true,
       animSize: animSize.big,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
@@ -773,7 +801,7 @@ class BuildingsService {
       link: 'https://wasd.tv/',
       [TowerLevel.deactive]: {
         img: cyberArenaLevel0Img,
-        shadowImg: cyberArenaLevel1Stroke,
+        shadowImg: cyberArenaLevel0Stroke,
       },
       [TowerLevel.low]: {
         img: cyberArenaLevel1Img,
@@ -792,6 +820,7 @@ class BuildingsService {
     [TowersTypes.AUTO]: {
       info: 'info',
       title: 'МТС Авто',
+      mutedImg: mutedAutoFactory,
       wideTower: true,
       animSize: animSize.large,
       zIndex: ZIndexes.BUILDING_FOUR_LEVEL,
@@ -822,6 +851,7 @@ class BuildingsService {
     [TowersTypes.SPUTNIK]: {
       info: 'info',
       title: 'Спутниковое ТВ',
+      mutedImg: mutedSatelliteTv,
       wideTower: false,
       animSize: animSize.medium,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
@@ -853,6 +883,7 @@ class BuildingsService {
     [TowersTypes.PARTNER_ONE]: {
       info: 'info',
       title: 'Здание партнера 1',
+      mutedImg: mutedPartnerOne,
       wideTower: false,
       animSize: animSize.small,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
@@ -883,6 +914,7 @@ class BuildingsService {
     [TowersTypes.PARTNER_TWO]: {
       info: 'info',
       title: 'Здание партнера 2',
+      mutedImg: mutedPartnerTwo,
       wideTower: true,
       animSize: animSize.medium,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
@@ -913,6 +945,7 @@ class BuildingsService {
       info: 'info',
       title: 'МТС Игротека',
       playButtonLink: 'http://priz.mts.ru/?source=mymts&device=ios',
+      mutedImg: mutedSlotMachine,
       wideTower: false,
       animSize: animSize.medium,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
@@ -942,6 +975,7 @@ class BuildingsService {
     [TowersTypes.HOME_INTERNET]: {
       info: 'info',
       title: 'Домашний интернет',
+      mutedImg: 'true',
       wideTower: false,
       animSize: animSize.big,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
@@ -1004,6 +1038,7 @@ class BuildingsService {
     [TowersTypes.PARTNER_THREE]: {
       info: 'info',
       title: 'Партнерское здание 3',
+      mutedImg: mutedPartnerThree,
       wideTower: false,
       animSize: animSize.small,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
@@ -1033,6 +1068,7 @@ class BuildingsService {
     [TowersTypes.MARVIN]: {
       info: 'info',
       title: 'Колонка Марвин',
+      mutedImg: mutedMarvin,
       wideTower: false,
       animSize: animSize.small,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
@@ -1062,6 +1098,7 @@ class BuildingsService {
     [TowersTypes.CONNECT]: {
       info: 'info',
       title: 'Вторая память',
+      mutedImg: mutedCloud,
       wideTower: false,
       animSize: animSize.small,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
