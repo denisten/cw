@@ -106,7 +106,7 @@ export const ProgressBar: React.FC<IProgressBar> = ({
       upgradeTowerAndShowAnimation(towerTitle);
       extraTowerInfoModalClosed();
       nextTutorStep();
-    } else if (progress >= maxPercent && needUpgrade) {
+    } else if (needUpgrade) {
       showUpgradeIcon(towerTitle);
       await towerUpdateHandler(TutorialConditions.OFF, towerTitle);
     }
