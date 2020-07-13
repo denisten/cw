@@ -74,7 +74,7 @@ export const TowerInfoTask: React.FC<ITowerInfoTask> = ({ towerTitle }) => {
                 isInTowerInfo={true}
                 isAllowedToChange={true}
                 type={el.task.content.taskType.slug}
-                taskTitle={`${el.task.content.name.slice(0, maxTaskLength)}...`}
+                taskTitle={el.task.content.name}
                 key={el.id}
                 status={el.status}
                 money={el.task.reward}
