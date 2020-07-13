@@ -6,7 +6,10 @@ import { fetchTasks } from '../../effector/missions-store/events';
 import { fetchAllProductsData } from '../../effector/towers-progress/events';
 import { openWsConnection } from '../../api/centrifuge';
 import { getIncome, TowersTypesAsObjectLiteral } from '../../api/get-income';
-import { setDataReceived } from '../../effector/app-condition/events';
+import {
+  editTutorialSliderDisplayFlag,
+  setDataReceived,
+} from '../../effector/app-condition/events';
 import { TowersTypes } from '../../effector/towers-progress/store';
 import { TypeOfMarkers } from '../../components/markers';
 import { setMarker } from '../../effector/towers-marker/events';
@@ -48,6 +51,7 @@ const handleAuth = async (
     markersEnumeration(incomes);
     markerHandler();
     setDataReceived(true);
+    editTutorialSliderDisplayFlag(true);
   }
 };
 
