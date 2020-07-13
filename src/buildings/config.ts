@@ -156,6 +156,7 @@ import slotMachineLevel2Img from './slot-machine/2.png';
 import slotMachineLevel2Stroke from './slot-machine/2-stroke.png';
 import slotMachineLevel3Img from './slot-machine/3.png';
 import slotMachineLevel3Stroke from './slot-machine/3-stroke.png';
+import mutedRouter from './router/-1.png';
 import routerLevel0Img from './router/0.png';
 import routerLevel0Stroke from './router/0-stroke.png';
 import routerLevel1Img from './router/1.png';
@@ -973,7 +974,7 @@ class BuildingsService {
     [TowersTypes.HOME_INTERNET]: {
       info: 'info',
       title: 'Домашний интернет',
-      mutedImg: 'true',
+      mutedImg: mutedRouter,
       wideTower: false,
       animSize: animSize.big,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
