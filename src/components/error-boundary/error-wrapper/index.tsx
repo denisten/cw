@@ -2,6 +2,7 @@ import React from 'react';
 import { Overlay } from '../../../UI/overlay';
 import styled from 'styled-components';
 import background from './background.png';
+
 const ErrorBody = styled.div`
   width: 617px;
   height: 683px;
@@ -24,6 +25,7 @@ const ErrorText = styled.span`
   height: 250px;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-align: center;
 `;
 
 export const ErrorWrapper: React.FC<IErrorWrapper> = ({

@@ -7,10 +7,10 @@ export const getProfile = async () => {
 };
 
 export interface IGetProfile {
-  assistantName: string;
+  assistantName: string | null;
   avatar: string;
   birthday: string;
   id: number;
-  name: string;
+  name: string | null;
   worldName: string;
 }
