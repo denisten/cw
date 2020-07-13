@@ -5,8 +5,6 @@ import { useStore } from 'effector-react';
 import { AppCondition } from '../../effector/app-condition/store';
 import mapTile from '../../img/roads/map-tile.png';
 import { Menu } from '../menu';
-import { Toolbar } from '../../UI/toolbar';
-import { ProfileButton } from '../../UI/profile-button';
 import { TutorialToolsSelector } from '../../utils/arrows-container';
 import {
   TutorialStore,
@@ -15,21 +13,17 @@ import {
 import { ScrollContainer } from '../scroll-container';
 import { TutorialOverlay } from '../tutorial-overlay';
 import { zIndexForInheritOverlay } from '../../constants';
-// import { SkipTutorial } from '../skip-tutorial';
 import { IDisplayFlag } from '../skip-tutorial';
 import { MoveCoinCollection } from '../move-coin-collection';
-import { RewardStore } from '../../effector/reward/store';
 import { TutorialSlider } from '../tutorial-slider';
 import slider1 from './slider-1.png';
 import slider2 from './slider-2.png';
 import slider3 from './slider-3.png';
 import slider4 from './slider-4.png';
 import slider5 from './slider-5.png';
-import { useDisplayTutorialSlider } from '../../hooks/use-display-tutorial-slider';
-import {
-  disableTutorialSlider,
-  editTutorialSliderDisplayFlag,
-} from '../../effector/app-condition/events';
+import { editTutorialSliderDisplayFlag } from '../../effector/app-condition/events';
+import { UIButtonInterface } from '../UI-buttons-interface';
+// import { SkipTutorial } from '../skip-tutorial';
 
 const RootComponentWrapper = styled.div<IDisplayFlag>`
   background-image: url(${mapTile});
@@ -41,59 +35,44 @@ const RootComponentWrapper = styled.div<IDisplayFlag>`
   position: relative;
   visibility: ${props => (props.displayFlag ? 'visible' : 'hidden')};
 `;
+
 const tutorialSliderContent = [
   {
-    title: 'Выполняй задания, чтобы развивать город!',
+    title: 'Выполняйте задания, чтобы развивать город',
     description:
-      'В продуктах ежедневно будут появляться новые дела. Выполняя их, ты будешь получать валюту, опыт и еще много интересного!',
+      'Новые задания появляются ежедневно. Выполняйте их, получайте игровую валюту, опыт и многое другое!  ',
   },
   {
-    title: 'Трать накопленную валюту на уникальные предложения!',
-    description: 'Заходи в магазин и покупай то, что нужно именно тебе.',
+    title: 'Тратьте валюту на уникальные предложения!',
+    description: 'В магазине можно купить то, что нужно именно вам.',
   },
   {
-    title: 'Нажми на название продукта и узнаешь о нем еще больше!',
-    description: 'Переходи на сайт понравившегося продукта прямо из игры.',
+    title: 'Нажмите на название здания, чтобы познакомиться поближе',
+    description: 'Из здания можно перейти прямиком на сайт сервиса',
   },
   {
-    title: 'Улучшай здания и они принесут тебе больший доход уже завтра',
+    title: 'Чем выше уровень здания, тем больше дохода оно генерирует',
+    description: 'Улучшайте здания и собирайте больше виртуальных налогов',
+  },
+  {
+    title: 'Играйте и выигрывайте',
     description:
-      'Чем выше уровень эволюции здания, тем больше налогов в копилку оно принесет.',
-  },
-  {
-    title: 'Играй и получай призы!',
-    description:
-      'В продуктах иногда появляются игры. Не упусти шанс выиграть кое-что интересное!',
+      'В некоторых зданиях можно сыграть в специальные игры. Не упустите шанс!',
   },
 ];
 
 const catImgArray = [slider1, slider2, slider3, slider4, slider5];
 
-export const RootComponent = (): React.ReactElement => {
+export const RootComponent = () => {
   const {
     isExtraTowerInfoModalOpen,
     selectedMenuItem,
     DOMLoaded,
-    isAuthorized,
-    neverShowTutorialSlider,
     tutorialSliderDisplayFlag,
   } = useStore(AppCondition);
-  const { isCoinRelocateAnimationEnded } = useStore(RewardStore);
 
   // const [showSkipTutorialUI, setShowSkipTutorialUI] = useState(true);
-  const { tutorialCondition, tutorialPause } = useStore(TutorialStore);
-
-  useDisplayTutorialSlider({
-    selectedMenuItem,
-    isExtraTowerInfoModalOpen,
-    DOMLoaded,
-    isAuthorized,
-    neverShowTutorialSlider,
-    callBack: () => {
-      editTutorialSliderDisplayFlag(true);
-      disableTutorialSlider();
-    },
-  });
+  const { tutorialCondition } = useStore(TutorialStore);
 
   return (
     <RootComponentWrapper id="rootScroll" displayFlag={DOMLoaded}>
@@ -104,13 +83,8 @@ export const RootComponent = (): React.ReactElement => {
         callback={() => editTutorialSliderDisplayFlag(false)}
         content={tutorialSliderContent}
       />
-      <ProfileButton
-        tutorialCondition={tutorialCondition}
-        tutorialPause={tutorialPause}
-        isCoinRelocateAnimationEnded={isCoinRelocateAnimationEnded}
-      />
+      <UIButtonInterface />
       <MoveCoinCollection />
-      <Toolbar />
       <TowerInfo opened={isExtraTowerInfoModalOpen} />
       <TutorialToolsSelector
         tutorialCondition={tutorialCondition}
