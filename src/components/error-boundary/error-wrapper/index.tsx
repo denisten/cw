@@ -24,6 +24,7 @@ const ErrorText = styled.span`
   max-width: 506px;
   height: 250px;
   overflow: hidden;
+
   text-overflow: ellipsis;
   text-align: center;
 `;

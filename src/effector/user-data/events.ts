@@ -15,7 +15,6 @@ export const editCurrentUserDataField = UserDataDomain.event<
   IEditCurrentUserDataField
 >();
 export const editUserData = UserDataDomain.event<IEditUserData>();
-export const saveUserDataAfterAuth = UserDataDomain.event<IGetProfile>();
 export const fetchUserData = UserDataDomain.effect('fetch after auth', {
   handler: async () => {
     return await getProfile();
