@@ -14,6 +14,7 @@ import { scrollToCurrentTower } from '../../utils/scroll-to-current-tower';
 import { Markers } from '../../components/markers';
 import { IMarker } from '../../effector/towers-marker/store';
 import { BuildingsService, IAnimSize } from '../../buildings/config';
+import { MTSSans } from '../../fonts';
 
 enum strokeClassNames {
   STROKE = 'stroke',
@@ -37,10 +38,17 @@ const TowerStyledWrapper = styled.div<ITowerStyledWrapper>`
     &::before {
       content: 'На карантине';
       position: absolute;
-      top: 50%;
+      top: 80%;
       left: 50%;
-      transform: translate(-50%, -50%);
+      transform: translate(-50%, 0%);
       z-index: 100;
+      padding: 6px;
+      background-color: rgba(0, 0, 0, 0.6);
+      color: white;
+      font-size: 18px;
+      font-family: ${MTSSans.BOLD};
+      white-space: nowrap;
+      border-radius: 4px;
     }
     
   }
