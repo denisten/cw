@@ -19,8 +19,6 @@ export const MonthsStringArr = [
   'декабрь',
 ];
 const numberOfPreloaderTowerStates = 2;
-export const mutedClassName = 'muted';
-export const fixSizeClassName = 'fixSize';
 
 export const zIndexForInheritOverlay = 2;
 export const maxPercent = 100;

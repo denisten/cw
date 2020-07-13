@@ -21,7 +21,7 @@ import { setFullSizeMode } from '../../effector/app-condition/events';
 import { useEnableSizeMod } from '../../hooks/use-enable-size-mod';
 import { useStore } from 'effector-react';
 import { AppCondition } from '../../effector/app-condition/store';
-import { fixSizeClassName } from '../../constants';
+import { fixSizeClassName } from '../../UI/tower-component-wrapper';
 
 export enum ScaleValues {
   ZOOM_IN = 0.05,

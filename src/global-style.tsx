@@ -5,7 +5,7 @@ import MTSSansBlack from './fonts/MTSSans-Black.ttf';
 import MTSSansMedium from './fonts/MTSSans-Medium.ttf';
 import MTSSansUltraWide from './fonts/MTSSans-UltraWide.ttf';
 import { MTSSans } from './fonts';
-import { mutedClassName, fixSizeClassName } from './constants';
+import { fixSizeClassName, mutedClassName } from './UI/tower-component-wrapper';
 
 export const GlobalStyle = createGlobalStyle`
     @font-face {
