@@ -5,7 +5,6 @@ import { fetchUserData, getUserName } from '../../effector/user-data/events';
 export const useCheckUserAuthStatus = () => {
   useEffect(() => {
     if (CookieService.idToken) {
-      fetchUserData('');
       getUserName('');
     }
   }, []);
