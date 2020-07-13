@@ -51,6 +51,9 @@ export const markerClickHandler = async (
       setTowerInfoContent(TowerInfoContentValues.CHAT);
       hideMarker({ towerTitle, type: marker.type });
       break;
+    case TypeOfMarkers.PLAY:
+      extraTowerInfoModalOpen(towerTitle);
+      break;
     default:
       break;
   }

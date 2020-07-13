@@ -9,9 +9,9 @@ import { TaskStatuses } from '../../api/tasks/get-tasks';
 import { TasksType } from '../../components/tasks';
 import { chatTaskSession, clearChat } from '../../effector/chat/events';
 import {
+  extraTowerInfoModalOpen,
   menuClosed,
   setTowerInfoContent,
-  extraTowerInfoModalOpen,
 } from '../../effector/app-condition/events';
 import {
   activateTask,
@@ -60,8 +60,10 @@ export const handleTaskClick = async (id: number, e: React.MouseEvent) => {
       markerHandler();
       return;
     case TaskStatuses.ACTIVE:
-      await verifyTask(id);
-      markerHandler();
+      if (taskData.task.content.taskType.slug !== TasksType.INFORMATIONAL) {
+        await verifyTask(id);
+        markerHandler();
+      }
       break;
     case TaskStatuses.DONE:
       animateTaskReward(taskData.task.reward, e);

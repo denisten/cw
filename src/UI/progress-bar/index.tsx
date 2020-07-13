@@ -13,6 +13,7 @@ import { useEditProgressbarClassname } from '../../hooks/use-edit-progressbar-cl
 import { nextTutorStep } from '../../effector/tutorial-store/events';
 import { upgradeTowerAndShowAnimation } from '../../utils/upgrade-tower-and-show-animation';
 import { pulseAnimationHOF } from '../../hoc/pulse-anim';
+import { maxPercent } from '../../constants';
 
 export const UPGRADABLE = 'upgradable';
 
@@ -99,12 +100,13 @@ export const ProgressBar: React.FC<IProgressBar> = ({
     if (
       tutorialCondition &&
       tutorialCondition === TutorialConditions.UPGRADE_BUTTON_TOWER_INFO &&
-      needUpgrade
+      needUpgrade &&
+      progress >= maxPercent
     ) {
       upgradeTowerAndShowAnimation(towerTitle);
       extraTowerInfoModalClosed();
       nextTutorStep();
-    } else {
+    } else if (progress >= maxPercent && needUpgrade) {
       showUpgradeIcon(towerTitle);
       await towerUpdateHandler(TutorialConditions.OFF, towerTitle);
     }

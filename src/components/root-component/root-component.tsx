@@ -23,6 +23,8 @@ import { TutorialSlider } from '../tutorial-slider';
 import slider1 from './slider-1.png';
 import slider2 from './slider-2.png';
 import slider3 from './slider-3.png';
+import slider4 from './slider-4.png';
+import slider5 from './slider-5.png';
 import { useDisplayTutorialSlider } from '../../hooks/use-display-tutorial-slider';
 import { disableTutorialSlider } from '../../effector/app-condition/events';
 
@@ -40,21 +42,29 @@ const tutorialSliderContent = [
   {
     title: 'Выполняй задания, чтобы развивать город!',
     description:
-      'В продуктах ежедневно появляются задания. Выполняя их, ты будешь получать валюту, опыт и еще много интересного!',
+      'В продуктах ежедневно будут появляться новые дела. Выполняя их, ты будешь получать валюту, опыт и еще много интересного!',
   },
   {
-    title: 'Играй и получай достяжения!',
+    title: 'Трать накопленную валюту на уникальные предложения!',
+    description: 'Заходи в магазин и покупай то, что нужно именно тебе.',
+  },
+  {
+    title: 'Нажми на название продукта и узнаешь о нем еще больше!',
+    description: 'Переходи на сайт понравившегося продукта прямо из игры.',
+  },
+  {
+    title: 'Улучшай здания и они принесут тебе больший доход уже завтра',
+    description:
+      'Чем выше уровень эволюции здания, тем больше налогов в копилку оно принесет.',
+  },
+  {
+    title: 'Играй и получай призы!',
     description:
       'В продуктах иногда появляются игры. Не упусти шанс выиграть кое-что интересное!',
   },
-  {
-    title: 'Не забывай улучшать здания!',
-    description:
-      'По ходу выполнения заданий, каждый продукт и город растет. Нажми на такой маркер и твое здание станет лучше!',
-  },
 ];
 
-const catImgArray = [slider1, slider2, slider3];
+const catImgArray = [slider1, slider2, slider3, slider4, slider5];
 
 export const RootComponent = (): React.ReactElement => {
   const {
