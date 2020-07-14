@@ -14,7 +14,7 @@ import {
 const TowerInfoTaskWrapper = styled.div`
   margin-top: 24px;
   width: 100%;
-  height: 580px;
+  height: auto;
   overflow: auto;
   overflow-x: hidden;
   overflow-y: scroll;

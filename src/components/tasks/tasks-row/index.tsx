@@ -37,6 +37,7 @@ const TaskWrapper = styled.div<ITaskLocation>`
 `;
 
 const Title = styled(StyledSpan)<ITaskLocation>`
+  max-width: 405px;
   font-family: ${MTSSans.MEDIUM};
   font-size: 16px;
   line-height: 24px;
@@ -164,11 +165,14 @@ const HintWrapper = styled.div`
   }
 `;
 
+const VectorImg = styled.img`
+  transition-timing-function: ease-in-out;
+  transition-property: transform;
+  transition-duration: 0.2s;
+  cursor: pointer;
+`;
+
 const styledConfig = {
-  img: {
-    position: 'relative',
-    bottom: '4px',
-  } as React.CSSProperties,
   columnWrapper: {
     position: 'relative',
     displayFlag: true,
@@ -206,6 +210,7 @@ export const Task: React.FC<ITasksRow> = ({
   const isOpened = useRef(false);
   const taskWrapperRef = useRef<HTMLDivElement>(null);
   const taskDescriptionRef = useRef<HTMLDivElement>(null);
+  const vectorRef = useRef<HTMLImageElement>(null);
 
   const [isCouponModalWindowOpen, setIsCouponModalWindowOpen] = useState(false);
   const { couponsCount } = useStore(UserDataStore);
@@ -219,23 +224,26 @@ export const Task: React.FC<ITasksRow> = ({
     }
   };
 
-  const handleTaskWrapperClick = () => {
+  const handleTaskWrapperClick = () =>
     requestAnimationFrame(() => {
-      if (taskDescriptionRef.current && type !== TasksType.TUTORIAL_TASK) {
+      if (
+        taskDescriptionRef.current &&
+        type !== TasksType.TUTORIAL_TASK &&
+        vectorRef.current
+      ) {
         if (isOpened.current) {
-          // taskWrapperRef.current.style.height = TaskWrapperHeight.closed + 'px';
           taskDescriptionRef.current.style.display = 'none';
           taskDescriptionRef.current.style.opacity = '0';
+          vectorRef.current.style.transform = 'rotate(0deg)';
           isOpened.current = false;
         } else {
-          // taskWrapperRef.current.style.height = TaskWrapperHeight.opened + 'px';
           taskDescriptionRef.current.style.display = 'flex';
           taskDescriptionRef.current.style.opacity = '1';
+          vectorRef.current.style.transform = 'rotate(180deg)';
           isOpened.current = true;
         }
       }
     });
-  };
 
   const modalWindowSubmitHandler = async () => {
     if (couponsCount - 1 > 0) {
@@ -266,7 +274,7 @@ export const Task: React.FC<ITasksRow> = ({
       <TaskInfo>
         <Icon type={type} />
         <Title isInTowerInfo={isInTowerInfo}>{taskTitle}</Title>
-        <img src={vectorImg} alt="vector" />
+        <VectorImg ref={vectorRef} src={vectorImg} alt="vector" />
       </TaskInfo>
       <TaskDescriptionWrapper ref={taskDescriptionRef}>
         <Border />
@@ -287,14 +295,14 @@ export const Task: React.FC<ITasksRow> = ({
             {...styledConfig.columnWrapper}
             style={styledConfig.columnWrapperAdditionalStyle}
           >
-            <TaskButton
-              expireInSeconds={expireInSeconds}
-              className={status}
-              onClick={handleWrapperClick}
-            />
-            {checkTaskStatus(status) && (
-              <img src={notDoneImg} alt="reject" style={styledConfig.img} />
-            )}
+            <RowWrapper>
+              <TaskButton
+                expireInSeconds={expireInSeconds}
+                className={status}
+                onClick={handleWrapperClick}
+              />
+              {checkTaskStatus(status) && <img src={notDoneImg} alt="reject" />}
+            </RowWrapper>
             {checkTaskStatus(status) && (
               <HintWrapper onClick={handleHintClick} />
             )}
