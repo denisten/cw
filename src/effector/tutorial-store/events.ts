@@ -7,3 +7,4 @@ export const nextTutorDescriptionStep = TutorialDomain.event();
 export const disableTutorialMode = TutorialDomain.event();
 
 export const pauseTutorialMode = TutorialDomain.event();
+export const enableTutorialMode = TutorialDomain.event();

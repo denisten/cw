@@ -50,6 +50,14 @@ const MapWrapper = styled.div<IMapWrapper>`
   z-index: ${props => props.zIndex};
 `;
 
+const PointForCenterScroll = styled.div`
+  position: absolute;
+  top: 39.1%;
+  left: 48.3%;
+  width: 10px;
+  height: 10px;
+`;
+
 export const _scrollContainerClassName = 'dragscroll';
 
 const scrollToCurrentTowerOptions = {
@@ -67,6 +75,7 @@ export const ScrollContainer: React.FC<{
   const scrollContainerWrapperRef = useRef<HTMLDivElement>(null);
   const mapWrapperRef = useRef<HTMLDivElement>(null);
   const scaleValue = useRef(ScaleValues.MIN_SCALE);
+  const centerScrollPoint = useRef(null);
   const { ref } = BuildingsService.getConfigForTower(TowersTypes.MY_MTS);
   const { isAuthorized } = useStore(AppCondition);
 
@@ -77,9 +86,8 @@ export const ScrollContainer: React.FC<{
 
   const enableFixSizeMod = () => {
     scaleValue.current = ScaleValues.FIX_SIZE;
-    const { ref } = BuildingsService.getConfigForTower(TowersTypes.SHOP);
     runScrollAnimation();
-    scrollToCurrentTower(ref, {
+    scrollToCurrentTower(centerScrollPoint, {
       ...scrollToCurrentTowerOptions,
       block: 'center',
     });
@@ -160,6 +168,7 @@ export const ScrollContainer: React.FC<{
         <Decorations />
         <CentralBanner tutorialCondition={tutorialCondition} />
         <Bridges showBridges={true} />
+        <PointForCenterScroll ref={centerScrollPoint} />
       </MapWrapper>
     </ScrollContainerWrapper>
   );
