@@ -4,7 +4,6 @@ import { Icon } from '../../../UI/icons';
 import { MTSSans } from '../../../fonts';
 import { StyledSpan } from '../../../UI/span';
 import { TaskLoot } from '../../../UI/task-loot';
-import { Coupon } from '../../../UI/coupon';
 import notDoneImg from './not-done.svg';
 import { ColumnWrapper } from '../../../UI/column-wrapper';
 import { TaskTimer } from '../../../UI/task-timer';
@@ -17,26 +16,19 @@ import { couponHandler } from '../../../utils/coupon-handler';
 import { handleTaskClick } from '../../../utils/handle-task-click';
 import { useStore } from 'effector-react';
 import { UserDataStore } from '../../../effector/user-data/store';
-import {
-  TaskWrapperHeight,
-  TitleMarginLeft,
-  TitleMarginRight,
-  TitleWidth,
-} from '../../../utils/handle-task-click/const';
 import { coughtError } from '../../../effector/error-boundary-store/events';
+import vectorImg from './vector.svg';
+import { RowWrapper } from '../../../UI/row-wrapper';
 
 const TaskWrapper = styled.div<ITaskLocation>`
   width: 100%;
-  height: ${TaskWrapperHeight.closed}px;
+  min-height: 125px;
   border-radius: 4px;
   border: 1px solid #ebecef;
   background-color: #ffffff;
   box-sizing: border-box;
   padding: ${props => (props.isInTowerInfo ? '16px 0 16px 16px' : '14px 18px')};
   margin-bottom: 16px;
-  transition-duration: 0.2s;
-  transition-timing-function: ease-in-out;
-  transition-property: height;
   overflow: hidden;
   position: relative;
   display: flex;
@@ -47,20 +39,13 @@ const TaskWrapper = styled.div<ITaskLocation>`
 const Title = styled(StyledSpan)<ITaskLocation>`
   font-family: ${MTSSans.MEDIUM};
   font-size: 16px;
-  line-height: 1.5;
+  line-height: 24px;
   letter-spacing: -0.4px;
   color: #001424;
-  margin-left: ${props =>
-    props.isInTowerInfo
-      ? TitleMarginLeft.inTowerInfo
-      : TitleMarginLeft.notInTowerInfo}px;
+  margin-left: 14px;
   font-weight: 500;
-  width: ${props =>
-    props.isInTowerInfo ? TitleWidth.inTowerInfo : TitleWidth.notInTowerInfo}px;
-  margin-right: ${props =>
-    props.isInTowerInfo
-      ? TitleMarginRight.inTowerInfo
-      : TitleMarginRight.notInTowerInfo}px;
+  min-width: 398px;
+  margin-right: 7px;
 `;
 
 const TaskButton = styled.div<ITaskButton>`
@@ -126,19 +111,18 @@ const TaskInfo = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-around;
 `;
 
 const Border = styled.div`
   width: 635px;
   height: 1px;
   background-color: #e2e5eb;
-  margin: 16px 0 8px 0;
+  margin: 16px 0 14px 0;
 `;
 
 const TaskDescription = styled.div`
   width: 560px;
-  height: 60px;
+  height: auto;
   font-family: ${MTSSans.REGULAR};
   font-size: 14px;
   font-weight: normal;
@@ -153,9 +137,14 @@ const TaskDescription = styled.div`
 
 const TaskDescriptionWrapper = styled.div`
   width: 100%;
-  height: 100%;
-  display: flex;
+  height: auto;
   justify-content: space-between;
+  flex-direction: column;
+  display: none;
+  opacity: 0;
+  transition-duration: 0.3s;
+  transition-property: opacity;
+  transition-timing-function: ease-in-out;
 `;
 
 const HintWrapper = styled.div`
@@ -178,24 +167,28 @@ const HintWrapper = styled.div`
 const styledConfig = {
   img: {
     position: 'relative',
-    bottom: '10px',
+    bottom: '4px',
   } as React.CSSProperties,
   columnWrapper: {
     position: 'relative',
     displayFlag: true,
   },
   coupon: {
-    marginRight: '12px',
+    marginRight: '33px',
   },
   columnWrapperAdditionalStyle: {
     alignItems: 'center',
   },
+  rowWrapper: {
+    paddingRight: '20px',
+    boxSizing: 'border-box',
+    width: '100%',
+    justifyContent: 'space-between',
+  } as React.CSSProperties,
 };
 
 const checkTaskStatus = (status: TaskStatuses) =>
   status === TaskStatuses.REJECTED;
-
-const checkTaskType = (type: TasksType) => type !== TasksType.INFORMATIONAL;
 
 export const Task: React.FC<ITasksRow> = ({
   type,
@@ -205,7 +198,6 @@ export const Task: React.FC<ITasksRow> = ({
   energy,
   description,
   towerTitle,
-  isAllowedToChange,
   isInTowerInfo,
   id,
   expireInSeconds,
@@ -213,6 +205,8 @@ export const Task: React.FC<ITasksRow> = ({
 }) => {
   const isOpened = useRef(false);
   const taskWrapperRef = useRef<HTMLDivElement>(null);
+  const taskDescriptionRef = useRef<HTMLDivElement>(null);
+
   const [isCouponModalWindowOpen, setIsCouponModalWindowOpen] = useState(false);
   const { couponsCount } = useStore(UserDataStore);
 
@@ -227,12 +221,16 @@ export const Task: React.FC<ITasksRow> = ({
 
   const handleTaskWrapperClick = () => {
     requestAnimationFrame(() => {
-      if (taskWrapperRef.current && type !== TasksType.TUTORIAL_TASK) {
+      if (taskDescriptionRef.current && type !== TasksType.TUTORIAL_TASK) {
         if (isOpened.current) {
-          taskWrapperRef.current.style.height = TaskWrapperHeight.closed + 'px';
+          // taskWrapperRef.current.style.height = TaskWrapperHeight.closed + 'px';
+          taskDescriptionRef.current.style.display = 'none';
+          taskDescriptionRef.current.style.opacity = '0';
           isOpened.current = false;
         } else {
-          taskWrapperRef.current.style.height = TaskWrapperHeight.opened + 'px';
+          // taskWrapperRef.current.style.height = TaskWrapperHeight.opened + 'px';
+          taskDescriptionRef.current.style.display = 'flex';
+          taskDescriptionRef.current.style.opacity = '1';
           isOpened.current = true;
         }
       }
@@ -268,40 +266,41 @@ export const Task: React.FC<ITasksRow> = ({
       <TaskInfo>
         <Icon type={type} />
         <Title isInTowerInfo={isInTowerInfo}>{taskTitle}</Title>
-        <ColumnWrapper {...styledConfig.columnWrapper}>
-          <TaskLoot
-            money={money}
-            energy={energy}
-            isInTowerInfo={isInTowerInfo}
-          />
-          {expireInSeconds && <TaskTimer taskTimer={taskTimer} />}
-        </ColumnWrapper>
-        {checkTaskStatus(status) && (
-          <img src={notDoneImg} alt="reject" style={styledConfig.img} />
-        )}
-        <ColumnWrapper
-          {...styledConfig.columnWrapper}
-          style={styledConfig.columnWrapperAdditionalStyle}
-        >
-          <TaskButton
-            expireInSeconds={expireInSeconds}
-            className={status}
-            onClick={handleWrapperClick}
-          />
-          {checkTaskStatus(status) && <HintWrapper onClick={handleHintClick} />}
-        </ColumnWrapper>
+        <img src={vectorImg} alt="vector" />
       </TaskInfo>
-      <Border />
-      <TaskDescriptionWrapper>
+      <TaskDescriptionWrapper ref={taskDescriptionRef}>
+        <Border />
         <TaskDescription>{description}</TaskDescription>
-        {checkTaskType(type) && (
-          <Coupon
-            style={styledConfig.coupon}
-            couponsCount={couponsCount}
-            isAllowedToChange={isAllowedToChange}
-          />
-        )}
       </TaskDescriptionWrapper>
+      <Border />
+      <RowWrapper style={styledConfig.rowWrapper}>
+        {<TaskTimer taskTimer={taskTimer} expireInSeconds={expireInSeconds} />}
+        <RowWrapper>
+          <ColumnWrapper {...styledConfig.columnWrapper}>
+            <TaskLoot
+              money={money}
+              energy={energy}
+              isInTowerInfo={isInTowerInfo}
+            />
+          </ColumnWrapper>
+          <ColumnWrapper
+            {...styledConfig.columnWrapper}
+            style={styledConfig.columnWrapperAdditionalStyle}
+          >
+            <TaskButton
+              expireInSeconds={expireInSeconds}
+              className={status}
+              onClick={handleWrapperClick}
+            />
+            {checkTaskStatus(status) && (
+              <img src={notDoneImg} alt="reject" style={styledConfig.img} />
+            )}
+            {checkTaskStatus(status) && (
+              <HintWrapper onClick={handleHintClick} />
+            )}
+          </ColumnWrapper>
+        </RowWrapper>
+      </RowWrapper>
     </TaskWrapper>
   );
 };
