@@ -79,6 +79,7 @@ let worldInputHint = '';
 export const minSymbolsAlert = 'Минимальное число символов ';
 export const maxSymbolsAlert = 'Максимальное число символов ';
 export const spaceSymbolsAlert = 'Имена с пробелом недоступны ';
+export const haveSymbolsAlert = 'Символы недоступны';
 
 export enum TypesOfPopUps {
   EDIT_WORLD_NAME = 'editWorldName',
@@ -89,6 +90,8 @@ export enum TypesOfPopUps {
 const tutorialDesiredState = (tutorialCondition: TutorialConditions) => {
   return tutorialCondition === TutorialConditions.PULSE_SAVE_CHANGE_CITY_NAME;
 };
+
+const symbolRegExp = new RegExp(/[-!$%^&*()_+|~=`{}\[\]:";'<>?,@#.\/]/g);
 
 export const PopUp: React.FC<IPopUp> = ({
   callback,
@@ -123,6 +126,9 @@ export const PopUp: React.FC<IPopUp> = ({
       setInputHasError(true);
     } else if (contains(value, ' ')) {
       worldInputHint = spaceSymbolsAlert;
+      setInputHasError(true);
+    } else if (value.search(symbolRegExp) > -1) {
+      worldInputHint = haveSymbolsAlert;
       setInputHasError(true);
     } else {
       setInputHasError(false);
