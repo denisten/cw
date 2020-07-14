@@ -462,9 +462,10 @@ export const TowersProgressStore = TowersProgressDomain.store<
     [towerTitle]: {
       ...state[towerTitle],
       needUpgrade: false,
+      levelOnServer: state[towerTitle].level.level + 1,
       level: {
         ...state[towerTitle].level,
-        level: state[towerTitle].levelOnServer,
+        level: state[towerTitle].level.level + 1,
       },
     },
   }))
@@ -488,7 +489,6 @@ export const TowersProgressStore = TowersProgressDomain.store<
           [towerTitle]: {
             ...state[towerTitle],
             needUpgrade: true,
-            levelOnServer: newLevel,
             level: {
               ...state[towerTitle].level,
               levelUpPercentage,
@@ -501,7 +501,6 @@ export const TowersProgressStore = TowersProgressDomain.store<
           ...state,
           [towerTitle]: {
             ...state[towerTitle],
-            levelOnServer: newLevel,
             level: {
               ...state[towerTitle].level,
               levelUpPercentage,
