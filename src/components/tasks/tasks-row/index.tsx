@@ -165,6 +165,13 @@ const HintWrapper = styled.div`
   }
 `;
 
+const VectorImg = styled.img`
+  transition-timing-function: ease-in-out;
+  transition-property: transform;
+  transition-duration: 0.2s;
+  cursor: pointer;
+`;
+
 const styledConfig = {
   columnWrapper: {
     position: 'relative',
@@ -203,6 +210,7 @@ export const Task: React.FC<ITasksRow> = ({
   const isOpened = useRef(false);
   const taskWrapperRef = useRef<HTMLDivElement>(null);
   const taskDescriptionRef = useRef<HTMLDivElement>(null);
+  const vectorRef = useRef<HTMLImageElement>(null);
 
   const [isCouponModalWindowOpen, setIsCouponModalWindowOpen] = useState(false);
   const { couponsCount } = useStore(UserDataStore);
@@ -216,21 +224,26 @@ export const Task: React.FC<ITasksRow> = ({
     }
   };
 
-  const handleTaskWrapperClick = () => {
+  const handleTaskWrapperClick = () =>
     requestAnimationFrame(() => {
-      if (taskDescriptionRef.current && type !== TasksType.TUTORIAL_TASK) {
+      if (
+        taskDescriptionRef.current &&
+        type !== TasksType.TUTORIAL_TASK &&
+        vectorRef.current
+      ) {
         if (isOpened.current) {
           taskDescriptionRef.current.style.display = 'none';
           taskDescriptionRef.current.style.opacity = '0';
+          vectorRef.current.style.transform = 'rotate(0deg)';
           isOpened.current = false;
         } else {
           taskDescriptionRef.current.style.display = 'flex';
           taskDescriptionRef.current.style.opacity = '1';
+          vectorRef.current.style.transform = 'rotate(180deg)';
           isOpened.current = true;
         }
       }
     });
-  };
 
   const modalWindowSubmitHandler = async () => {
     if (couponsCount - 1 > 0) {
@@ -261,7 +274,7 @@ export const Task: React.FC<ITasksRow> = ({
       <TaskInfo>
         <Icon type={type} />
         <Title isInTowerInfo={isInTowerInfo}>{taskTitle}</Title>
-        <img src={vectorImg} alt="vector" />
+        <VectorImg ref={vectorRef} src={vectorImg} alt="vector" />
       </TaskInfo>
       <TaskDescriptionWrapper ref={taskDescriptionRef}>
         <Border />
