@@ -37,6 +37,7 @@ const TaskWrapper = styled.div<ITaskLocation>`
 `;
 
 const Title = styled(StyledSpan)<ITaskLocation>`
+  max-width: 405px;
   font-family: ${MTSSans.MEDIUM};
   font-size: 16px;
   line-height: 24px;
@@ -165,10 +166,6 @@ const HintWrapper = styled.div`
 `;
 
 const styledConfig = {
-  img: {
-    position: 'relative',
-    bottom: '4px',
-  } as React.CSSProperties,
   columnWrapper: {
     position: 'relative',
     displayFlag: true,
@@ -223,12 +220,10 @@ export const Task: React.FC<ITasksRow> = ({
     requestAnimationFrame(() => {
       if (taskDescriptionRef.current && type !== TasksType.TUTORIAL_TASK) {
         if (isOpened.current) {
-          // taskWrapperRef.current.style.height = TaskWrapperHeight.closed + 'px';
           taskDescriptionRef.current.style.display = 'none';
           taskDescriptionRef.current.style.opacity = '0';
           isOpened.current = false;
         } else {
-          // taskWrapperRef.current.style.height = TaskWrapperHeight.opened + 'px';
           taskDescriptionRef.current.style.display = 'flex';
           taskDescriptionRef.current.style.opacity = '1';
           isOpened.current = true;
@@ -287,14 +282,14 @@ export const Task: React.FC<ITasksRow> = ({
             {...styledConfig.columnWrapper}
             style={styledConfig.columnWrapperAdditionalStyle}
           >
-            <TaskButton
-              expireInSeconds={expireInSeconds}
-              className={status}
-              onClick={handleWrapperClick}
-            />
-            {checkTaskStatus(status) && (
-              <img src={notDoneImg} alt="reject" style={styledConfig.img} />
-            )}
+            <RowWrapper>
+              <TaskButton
+                expireInSeconds={expireInSeconds}
+                className={status}
+                onClick={handleWrapperClick}
+              />
+              {checkTaskStatus(status) && <img src={notDoneImg} alt="reject" />}
+            </RowWrapper>
             {checkTaskStatus(status) && (
               <HintWrapper onClick={handleHintClick} />
             )}
