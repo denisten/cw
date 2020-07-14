@@ -4,7 +4,7 @@ import { MTSSans } from '../../fonts';
 import timerIcon from './timer.svg';
 import { RowWrapper } from '../row-wrapper';
 
-const TaskTimerWrapper = styled.div`
+const TaskTimerWrapper = styled.div<{ expireInSeconds: number | null }>`
   font-family: ${MTSSans.REGULAR};
   font-style: normal;
   font-weight: normal;
@@ -14,6 +14,8 @@ const TaskTimerWrapper = styled.div`
   align-items: center;
   letter-spacing: -0.4px;
   color: #76a2a9;
+  min-width: 140px;
+  visibility: ${props => (props.expireInSeconds ? 'visible' : 'hidden')};
 `;
 
 const styledConfig = {
@@ -37,7 +39,10 @@ const parseSecondsLeft = (secondsLeft: number | null) => {
   return answer;
 };
 const second = 1000;
-export const TaskTimer: React.FC<ITaskTimer> = ({ taskTimer }) => {
+export const TaskTimer: React.FC<ITaskTimer> = ({
+  taskTimer,
+  expireInSeconds,
+}) => {
   const [timer, setTimer] = useState((taskTimer && taskTimer()) || null);
   const timerRef = useRef(0);
 
@@ -50,13 +55,12 @@ export const TaskTimer: React.FC<ITaskTimer> = ({ taskTimer }) => {
       clearTimeout(timerRef.current);
       // TODO dispatch event
     }
-
     return () => {
       clearTimeout(timerRef.current);
     };
   }, [timer]);
   return (
-    <TaskTimerWrapper>
+    <TaskTimerWrapper expireInSeconds={expireInSeconds}>
       <RowWrapper displayFlag={true}>
         <img src={timerIcon} alt="timer" style={styledConfig.img} />
         {parseSecondsLeft(timer)}
@@ -67,4 +71,5 @@ export const TaskTimer: React.FC<ITaskTimer> = ({ taskTimer }) => {
 
 interface ITaskTimer {
   taskTimer?: () => number;
+  expireInSeconds: number | null;
 }
