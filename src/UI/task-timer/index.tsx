@@ -4,7 +4,7 @@ import { MTSSans } from '../../fonts';
 import timerIcon from './timer.svg';
 import { RowWrapper } from '../row-wrapper';
 
-const TaskTimerWrapper = styled.div<{ expireInSeconds: number | null }>`
+const TaskTimerWrapper = styled.div<ITaskTimerWrapper>`
   font-family: ${MTSSans.REGULAR};
   font-style: normal;
   font-weight: normal;
@@ -23,9 +23,12 @@ const styledConfig = {
     marginRight: '8px',
   },
 };
+
 const secondsPerDay = 86400,
   secondsPerHour = 3600,
-  secondsPerMinute = 60;
+  secondsPerMinute = 60,
+  second = 1000;
+
 const parseSecondsLeft = (secondsLeft: number | null) => {
   if (secondsLeft === null) return;
   const daysLeft = Math.floor(secondsLeft / secondsPerDay);
@@ -38,7 +41,7 @@ const parseSecondsLeft = (secondsLeft: number | null) => {
   answer += (secondsLeft % secondsPerMinute) + 'сек.';
   return answer;
 };
-const second = 1000;
+
 export const TaskTimer: React.FC<ITaskTimer> = ({
   taskTimer,
   expireInSeconds,
@@ -61,7 +64,7 @@ export const TaskTimer: React.FC<ITaskTimer> = ({
   }, [timer]);
   return (
     <TaskTimerWrapper expireInSeconds={expireInSeconds}>
-      <RowWrapper displayFlag={true}>
+      <RowWrapper>
         <img src={timerIcon} alt="timer" style={styledConfig.img} />
         {parseSecondsLeft(timer)}
       </RowWrapper>
@@ -69,7 +72,10 @@ export const TaskTimer: React.FC<ITaskTimer> = ({
   );
 };
 
-interface ITaskTimer {
+interface ITaskTimer extends ITaskTimerWrapper {
   taskTimer?: () => number;
+}
+
+interface ITaskTimerWrapper {
   expireInSeconds: number | null;
 }
