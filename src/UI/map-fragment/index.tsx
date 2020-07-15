@@ -15,13 +15,14 @@ const MapFragmentWrapper = styled.div`
   display: flex;
 `;
 
-const Banners = styled(LazyImage)<{ animationOff: boolean }>`
-  animation-name: ${props => (!props.animationOff ? flyingAnim : '')};
+const Banners = styled(LazyImage)<IBanners>`
+  animation-name: ${flyingAnim};
   animation-duration: 1.4s;
   animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;
   animation-fill-mode: forwards;
   animation-direction: alternate;
+  animation-play-state: ${props => (props.animationOff ? 'paused' : 'running')};
 `;
 
 export const MapFragment: React.FC<IMapFragment> = ({
@@ -77,4 +78,8 @@ interface IMapFragment {
   style: IMapFragmentCSS;
   bannerImg?: string;
   decorationImg?: string;
+}
+
+interface IBanners {
+  animationOff: boolean;
 }
