@@ -14,6 +14,7 @@ import {
   setOpenPopUpState,
   setFullSizeMode,
   editTutorialSliderDisplayFlag,
+  toggleAnimation,
 } from './events';
 import { TowersTypes } from '../towers-progress/store';
 import { upgradeTower } from '../towers-progress/events';
@@ -43,6 +44,7 @@ const initState = {
   openPopUpState: TypesOfPopUps.DISABLED,
   haveCorrectCookie: false,
   fullSizeMode: false,
+  animationOff: false,
 };
 
 const appConditionLocalStorage = connectLocalStorage('AppCondition').onChange(
@@ -50,6 +52,10 @@ const appConditionLocalStorage = connectLocalStorage('AppCondition').onChange(
 );
 
 export const AppCondition = AppDomain.store<AppConditionType>(initState)
+  .on(toggleAnimation, state => ({
+    ...state,
+    animationOff: !state.animationOff,
+  }))
   .on(setFullSizeMode, (state, payload) => ({
     ...state,
     fullSizeMode: payload,
@@ -150,4 +156,5 @@ export type AppConditionType = {
   openPopUpState: TypesOfPopUps;
   haveCorrectCookie: boolean;
   fullSizeMode: boolean;
+  animationOff: boolean;
 };

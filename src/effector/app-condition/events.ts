@@ -19,3 +19,4 @@ export const setOpenPopUpState = AppDomain.event<TypesOfPopUps>();
 export const setFullSizeMode = AppDomain.event<boolean>();
 
 export const editTutorialSliderDisplayFlag = AppDomain.event<boolean>();
+export const toggleAnimation = AppDomain.event();

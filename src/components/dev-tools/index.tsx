@@ -3,7 +3,10 @@ import styled from 'styled-components';
 import { Button, ButtonClassNames } from '../../UI/button';
 import { RowWrapper } from '../../UI/row-wrapper';
 import { devLogin } from '../../effector/user-data/events';
-import { editIsAuthorizedFlag } from '../../effector/app-condition/events';
+import {
+  editIsAuthorizedFlag,
+  toggleAnimation,
+} from '../../effector/app-condition/events';
 
 const DevToolsWrapper = styled.div`
   width: 100%;
@@ -34,6 +37,11 @@ export const DevTools = () => {
             await devLogin(phone);
             editIsAuthorizedFlag(true);
           }}
+        />
+        <Button
+          className={ButtonClassNames.NORMAL}
+          content="Toggle animation"
+          callback={() => toggleAnimation()}
         />
       </RowWrapper>
     </DevToolsWrapper>
