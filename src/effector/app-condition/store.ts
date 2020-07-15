@@ -14,7 +14,7 @@ import {
   setOpenPopUpState,
   setFullSizeMode,
   editTutorialSliderDisplayFlag,
-  toggleAnimationOff,
+  toggleAnimation,
 } from './events';
 import { TowersTypes } from '../towers-progress/store';
 import { upgradeTower } from '../towers-progress/events';
@@ -52,7 +52,7 @@ const appConditionLocalStorage = connectLocalStorage('AppCondition').onChange(
 );
 
 export const AppCondition = AppDomain.store<AppConditionType>(initState)
-  .on(toggleAnimationOff, state => ({
+  .on(toggleAnimation, state => ({
     ...state,
     animationOff: !state.animationOff,
   }))

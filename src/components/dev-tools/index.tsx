@@ -5,7 +5,7 @@ import { RowWrapper } from '../../UI/row-wrapper';
 import { devLogin } from '../../effector/user-data/events';
 import {
   editIsAuthorizedFlag,
-  toggleAnimationOff,
+  toggleAnimation,
 } from '../../effector/app-condition/events';
 
 const DevToolsWrapper = styled.div`
@@ -41,7 +41,7 @@ export const DevTools = () => {
         <Button
           className={ButtonClassNames.NORMAL}
           content="Toggle animation"
-          callback={() => toggleAnimationOff()}
+          callback={() => toggleAnimation()}
         />
       </RowWrapper>
     </DevToolsWrapper>
