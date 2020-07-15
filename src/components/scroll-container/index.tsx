@@ -77,7 +77,7 @@ export const ScrollContainer: React.FC<{
   const scaleValue = useRef(ScaleValues.MIN_SCALE);
   const centerScrollPoint = useRef(null);
   const { ref } = BuildingsService.getConfigForTower(TowersTypes.MY_MTS);
-  const { isAuthorized } = useStore(AppCondition);
+  const { isAuthorized, animationOff } = useStore(AppCondition);
 
   const runScrollAnimation = () => {
     if (mapWrapperRef.current)
@@ -161,11 +161,11 @@ export const ScrollContainer: React.FC<{
           isInsideScrollContainer={true}
         />
         <Planes />
-        <Cars />
+        {!animationOff && <Cars />}
         <Map />
         <Buildings />
-        <Waves />
-        <Decorations />
+        {!animationOff && <Waves />}
+        {!animationOff && <Decorations />}
         <CentralBanner tutorialCondition={tutorialCondition} />
         <Bridges showBridges={true} />
         <PointForCenterScroll ref={centerScrollPoint} />
