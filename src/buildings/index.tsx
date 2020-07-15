@@ -10,7 +10,6 @@ import { AppCondition } from '../effector/app-condition/store';
 import { TutorialStore } from '../effector/tutorial-store/store';
 import { TowersMarkerStore } from '../effector/towers-marker/store';
 import { errorStringsParsingHOF } from '../utils/error-handler';
-import { TowersStore } from '../effector/towers/store';
 
 export const Buildings: React.FC = () => {
   const localTowersProgressStore = useStore(TowersProgressStore);
@@ -19,7 +18,6 @@ export const Buildings: React.FC = () => {
   const { upgradingTowerTitle, towerInfoShift, DOMLoaded } = useStore(
     AppCondition
   );
-  const { focusOn } = useStore(TowersStore);
   const { tutorialCondition, tutorialPause } = useStore(TutorialStore);
   return (
     <Fragment>
@@ -43,7 +41,6 @@ export const Buildings: React.FC = () => {
                 maxLevel={towerLayoutData.maxLevel}
                 currentLevel={localTowersProgressStore[towerTitle].level.level}
                 needUpgrade={localTowersProgressStore[towerTitle].needUpgrade}
-                focusOnTowerTitle={focusOn}
                 towerTitle={towerTitle}
                 wideTower={towerLayoutData.wideTower}
                 zIndex={towerLayoutData.zIndex}

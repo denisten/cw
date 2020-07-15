@@ -15,6 +15,8 @@ import { IMarker } from '../../effector/towers-marker/store';
 import { BuildingsService, IAnimSize } from '../../buildings/config';
 import { MTSSans } from '../../fonts';
 import { extraTowerInfoModalOpen } from '../../effector/towers/events';
+import { useStore } from 'effector-react';
+import { TowersStore } from '../../effector/towers/store';
 
 enum strokeClassNames {
   STROKE = 'stroke',
@@ -119,7 +121,6 @@ export const TowerWrapper = memo(
     width,
     zIndex,
     towerTitle,
-    focusOnTowerTitle,
     needUpgrade,
     upgradeFlag,
     tutorialTower,
@@ -136,6 +137,7 @@ export const TowerWrapper = memo(
     const towerRef = useRef<HTMLDivElement>(null);
     const strokeRef = useRef<HTMLImageElement>(null);
     const TowerStyleConfig = createTowerStyleConfig(width, height);
+    const { focusOn } = useStore(TowersStore);
 
     const handleClick = () => {
       if (mutedImg) return;
@@ -182,7 +184,6 @@ export const TowerWrapper = memo(
       strokeRef.current &&
         strokeRef.current.classList.remove(strokeClassNames.STROKE_ACTIVE);
     };
-
     useEffect(() => {
       BuildingsService.setRefForTower(towerTitle, towerRef);
     }, []);
@@ -246,7 +247,7 @@ export const TowerWrapper = memo(
         <img
           ref={strokeRef}
           className={
-            !upgradeFlag && focusOnTowerTitle === towerTitle
+            !upgradeFlag && focusOn === towerTitle
               ? strokeClassNames.STROKE_ACTIVE
               : strokeClassNames.STROKE
           }
@@ -273,7 +274,6 @@ interface ITowerWrapper {
   height: number;
   zIndex?: number;
   towerTitle: TowersTypes;
-  focusOnTowerTitle: TowersTypes | null;
   needUpgrade: boolean;
   upgradeFlag: boolean;
   tutorialTower?: boolean;
