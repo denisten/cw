@@ -32,6 +32,7 @@ import { TowerInfoTitle } from './tower-info-title';
 import { TowerInfoIndicators } from './tower-info-indicators';
 import { TowerInfoMenu } from './tower-info-menu';
 import { ChatStore } from '../../effector/chat/store';
+import { TowersStore } from '../../effector/towers/store';
 
 export type ModalWindowProps = {
   opened?: boolean;
@@ -129,13 +130,13 @@ const grownLineAndNextStep = (
   }
 };
 
-export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
+export const TowerInfo: React.FC = () => {
   const localDescriptionService = new BuildingsDescriptionService();
   const {
+    isExtraTowerInfoModalOpen,
     focusOn: notVerifiedTowerTitle,
-    hideTowerInfo,
-    selectTowerInfoContent,
-  } = useStore(AppCondition);
+  } = useStore(TowersStore);
+  const { hideTowerInfo, selectTowerInfoContent } = useStore(AppCondition);
   const { tutorialCondition } = useStore(TutorialStore);
   const towerTitle = notVerifiedTowerTitle || TowersTypes.MAIN_TOWER;
   const descriptionText: string[] = localDescriptionService.getAllDescriptionForCurrentTower(
@@ -208,7 +209,7 @@ export const TowerInfo: React.FC<ModalWindowProps> = ({ opened }) => {
       : descriptionText;
 
   return (
-    <TowerInfoWrapper opened={opened} ref={towerInfoRef}>
+    <TowerInfoWrapper opened={isExtraTowerInfoModalOpen} ref={towerInfoRef}>
       <TowerInfoHeader tutorialCondition={tutorialCondition} />
       <ModalWindowContentWrapper>
         <TowerInfoHeader1 sizeContent={hideTowerInfo}>

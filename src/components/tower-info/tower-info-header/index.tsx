@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import headerBackground from '../header.png';
 import { TutorialConditions } from '../../../effector/tutorial-store/store';
 import { pauseTutorialMode } from '../../../effector/tutorial-store/events';
-import { extraTowerInfoModalClosed } from '../../../effector/app-condition/events';
 import { ExitButton } from '../../../UI/exit-button';
+import { extraTowerInfoModalClosed } from '../../../effector/towers/events';
 
 const TowerInfoHeaderWrapper = styled.div`
   width: 100%;

@@ -9,11 +9,11 @@ import { MenuItems } from '../../UI/menu-paragraph';
 import {
   menuOpened,
   setOpenPopUpState,
-  extraTowerInfoModalClosed,
 } from '../../effector/app-condition/events';
 import { TypesOfPopUps } from '../../UI/pop-up';
 import { mouseMoveProtect } from '../../utils/mouse-move-protect';
 import { TutorialConditions } from '../../effector/tutorial-store/store';
+import { extraTowerInfoModalClosed } from '../../effector/towers/events';
 
 const Banner = styled.div`
   width: 175px;

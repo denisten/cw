@@ -1,8 +1,5 @@
 import { AppDomain } from './domain';
 import {
-  extraTowerInfoModalClosed,
-  extraTowerInfoModalOpen,
-  toggleExtraTowerInfoModal,
   menuOpened,
   menuClosed,
   showUpgradeIcon,
@@ -34,8 +31,6 @@ export enum TowerInfoContentValues {
 
 const initState = {
   tutorialSliderDisplayFlag: false,
-  isExtraTowerInfoModalOpen: false,
-  focusOn: null,
   selectedMenuItem: null,
   upgradingTowerTitle: null,
   isAuthorized: false,
@@ -66,20 +61,6 @@ export const AppCondition = AppDomain.store<AppConditionType>(initState)
   .on(setTowerInfoContent, (state, payload) => ({
     ...state,
     selectTowerInfoContent: payload,
-  }))
-  .on(extraTowerInfoModalOpen, (state, payload) => ({
-    ...state,
-    isExtraTowerInfoModalOpen: true,
-    focusOn: payload,
-  }))
-  .on(extraTowerInfoModalClosed, state => ({
-    ...state,
-    isExtraTowerInfoModalOpen: false,
-    focusOn: null,
-  }))
-  .on(toggleExtraTowerInfoModal, state => ({
-    ...state,
-    isExtraTowerInfoModalOpen: !state.isExtraTowerInfoModalOpen,
   }))
   .on(menuOpened, (state, payload) => ({
     ...state,
@@ -157,9 +138,7 @@ AppCondition.watch(appConditionLocalStorage);
 
 export type AppConditionType = {
   tutorialSliderDisplayFlag: boolean;
-  isExtraTowerInfoModalOpen: boolean;
   selectedMenuItem: MenuItems | null;
-  focusOn: TowersTypes | null;
   upgradingTowerTitle: TowersTypes | null;
   isAuthorized: boolean;
   authCancelledStatus: string;

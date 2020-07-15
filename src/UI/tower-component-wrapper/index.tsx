@@ -1,6 +1,5 @@
 import React, { memo, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { extraTowerInfoModalOpen } from '../../effector/app-condition/events';
 import { LazyImage } from '@tsareff/lazy-image';
 import { TowerLevel, TowersTypes } from '../../effector/towers-progress/store';
 import { UpgradeButton } from '../update-button';
@@ -15,6 +14,9 @@ import { Markers } from '../../components/markers';
 import { IMarker } from '../../effector/towers-marker/store';
 import { BuildingsService, IAnimSize } from '../../buildings/config';
 import { MTSSans } from '../../fonts';
+import { extraTowerInfoModalOpen } from '../../effector/towers/events';
+import { useStore } from 'effector-react';
+import { TowersStore } from '../../effector/towers/store';
 
 enum strokeClassNames {
   STROKE = 'stroke',
@@ -119,7 +121,6 @@ export const TowerWrapper = memo(
     width,
     zIndex,
     towerTitle,
-    focusOnTowerTitle,
     needUpgrade,
     upgradeFlag,
     tutorialTower,
@@ -129,7 +130,6 @@ export const TowerWrapper = memo(
     towerInfoShift,
     DOMLoaded,
     animSize,
-    fullSizeMode,
     mutedImg,
   }: ITowerWrapper): React.ReactElement => {
     let mouseDownFlag = false,
@@ -137,6 +137,7 @@ export const TowerWrapper = memo(
     const towerRef = useRef<HTMLDivElement>(null);
     const strokeRef = useRef<HTMLImageElement>(null);
     const TowerStyleConfig = createTowerStyleConfig(width, height);
+    const { focusOn } = useStore(TowersStore);
 
     const handleClick = () => {
       if (mutedImg) return;
@@ -183,11 +184,9 @@ export const TowerWrapper = memo(
       strokeRef.current &&
         strokeRef.current.classList.remove(strokeClassNames.STROKE_ACTIVE);
     };
-
     useEffect(() => {
       BuildingsService.setRefForTower(towerTitle, towerRef);
     }, []);
-
     return (
       <TowerStyledWrapper
         posX={posX}
@@ -201,7 +200,6 @@ export const TowerWrapper = memo(
         data-towertype={towerTitle}
       >
         <Markers
-          fullSizeMode={fullSizeMode}
           towerRef={towerRef}
           towerLevel={currentLevel}
           markersCollection={markers}
@@ -211,7 +209,6 @@ export const TowerWrapper = memo(
           }
         />
         <UpgradeButton
-          fullSizeMode={fullSizeMode}
           tutorialCondition={tutorialCondition}
           displayFlag={needUpgrade}
           towerTitle={towerTitle}
@@ -250,7 +247,7 @@ export const TowerWrapper = memo(
         <img
           ref={strokeRef}
           className={
-            !upgradeFlag && focusOnTowerTitle === towerTitle
+            !upgradeFlag && focusOn === towerTitle
               ? strokeClassNames.STROKE_ACTIVE
               : strokeClassNames.STROKE
           }
@@ -277,7 +274,6 @@ interface ITowerWrapper {
   height: number;
   zIndex?: number;
   towerTitle: TowersTypes;
-  focusOnTowerTitle: TowersTypes | null;
   needUpgrade: boolean;
   upgradeFlag: boolean;
   tutorialTower?: boolean;
@@ -285,7 +281,6 @@ interface ITowerWrapper {
   markers: IMarker[];
   towerInfoShift: number;
   DOMLoaded: boolean;
-  fullSizeMode: boolean;
 }
 
 interface ITowerStyledWrapper {

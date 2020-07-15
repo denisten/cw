@@ -55,8 +55,8 @@ export const MarkerView = styled.div<IMarkerView>`
     center;
   background-size: 100% 100%;
   cursor: pointer;
-  width: ${props => (props.fullSizeMode ? '204px' : '64px')};
-  height: ${props => (props.fullSizeMode ? '208px' : '68px')};
+  width: 64px;
+  height: 68px;
   transition: 0.5s;
   animation-name: ${props => selectAnimation(props.animFlag)};
   animation-fill-mode: both;
@@ -215,7 +215,6 @@ export const Markers: React.FC<IMarkers> = ({
   displayFlag,
   towerLevel,
   towerRef,
-  fullSizeMode,
 }) => {
   return (
     <MarkerWrapper
@@ -226,7 +225,6 @@ export const Markers: React.FC<IMarkers> = ({
       {markersCollection.map(markItem =>
         markItem.type !== TypeOfMarkers.TIMER ? (
           <MarkerView
-            fullSizeMode={fullSizeMode}
             data-type={markItem.type}
             key={markItem.type}
             markerType={markItem.type}
@@ -251,11 +249,9 @@ interface IMarkers {
   displayFlag: boolean;
   towerLevel?: number;
   towerRef?: React.RefObject<HTMLDivElement>;
-  fullSizeMode?: boolean;
 }
 
 interface IMarkerView {
   markerType: string;
   animFlag?: boolean;
-  fullSizeMode?: boolean;
 }

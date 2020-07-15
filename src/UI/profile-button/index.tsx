@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-  menuOpened,
-  extraTowerInfoModalClosed,
-} from '../../effector/app-condition/events';
+import { menuOpened } from '../../effector/app-condition/events';
 import styled, { keyframes } from 'styled-components';
 import { MenuItems } from '../menu-paragraph';
 import { ZIndexes } from '../../components/root-component/z-indexes-enum';
@@ -20,6 +17,7 @@ import moneyCircle from './money.png';
 import { IDisplayFlag } from '../../components/skip-tutorial';
 import userAvatarIcon from '../../components/profile/authorized/user-avatar.svg';
 import { IUserAvatar } from '../../components/profile/authorized';
+import { extraTowerInfoModalClosed } from '../../effector/towers/events';
 
 const CoinsWrapper = styled.div`
   display: flex;

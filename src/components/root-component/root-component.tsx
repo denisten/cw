@@ -64,12 +64,9 @@ const tutorialSliderContent = [
 const catImgArray = [slider1, slider2, slider3, slider4, slider5];
 
 export const RootComponent = () => {
-  const {
-    isExtraTowerInfoModalOpen,
-    selectedMenuItem,
-    DOMLoaded,
-    tutorialSliderDisplayFlag,
-  } = useStore(AppCondition);
+  const { selectedMenuItem, DOMLoaded, tutorialSliderDisplayFlag } = useStore(
+    AppCondition
+  );
   // const [showSkipTutorialUI, setShowSkipTutorialUI] = useState(true);
   const { tutorialCondition } = useStore(TutorialStore);
 
@@ -84,7 +81,7 @@ export const RootComponent = () => {
       />
       <UIButtonInterface />
       <MoveCoinCollection />
-      <TowerInfo opened={isExtraTowerInfoModalOpen} />
+      <TowerInfo />
       <TutorialToolsSelector
         tutorialCondition={tutorialCondition}
         isInsideScrollContainer={false}

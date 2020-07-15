@@ -15,13 +15,9 @@ export const Buildings: React.FC = () => {
   const localTowersProgressStore = useStore(TowersProgressStore);
   const markers = useStore(TowersMarkerStore);
   const towersKeys = Object.keys(localTowersProgressStore) as TowersTypes[];
-  const {
-    focusOn,
-    upgradingTowerTitle,
-    towerInfoShift,
-    DOMLoaded,
-    fullSizeMode,
-  } = useStore(AppCondition);
+  const { upgradingTowerTitle, towerInfoShift, DOMLoaded } = useStore(
+    AppCondition
+  );
   const { tutorialCondition, tutorialPause } = useStore(TutorialStore);
   return (
     <Fragment>
@@ -34,7 +30,6 @@ export const Buildings: React.FC = () => {
           if (towerParams) {
             return (
               <TowerWrapper
-                fullSizeMode={fullSizeMode}
                 animSize={towerLayoutData.animSize}
                 mutedImg={towerLayoutData.mutedImg}
                 DOMLoaded={DOMLoaded}
@@ -46,7 +41,6 @@ export const Buildings: React.FC = () => {
                 maxLevel={towerLayoutData.maxLevel}
                 currentLevel={localTowersProgressStore[towerTitle].level.level}
                 needUpgrade={localTowersProgressStore[towerTitle].needUpgrade}
-                focusOnTowerTitle={focusOn}
                 towerTitle={towerTitle}
                 wideTower={towerLayoutData.wideTower}
                 zIndex={towerLayoutData.zIndex}

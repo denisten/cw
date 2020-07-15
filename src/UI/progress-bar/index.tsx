@@ -2,10 +2,7 @@ import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { MTSSans } from '../../fonts';
 import upgradeImg from './upgrade.svg';
-import {
-  showUpgradeIcon,
-  extraTowerInfoModalClosed,
-} from '../../effector/app-condition/events';
+import { showUpgradeIcon } from '../../effector/app-condition/events';
 import { towerUpdateHandler } from '../../utils/tower-update-handler';
 import { TowersTypes } from '../../effector/towers-progress/store';
 import { TutorialConditions } from '../../effector/tutorial-store/store';
@@ -14,6 +11,7 @@ import { nextTutorStep } from '../../effector/tutorial-store/events';
 import { upgradeTowerAndShowAnimation } from '../../utils/upgrade-tower-and-show-animation';
 import { pulseAnimationHOF } from '../../hoc/pulse-anim';
 import { maxPercent } from '../../constants';
+import { extraTowerInfoModalClosed } from '../../effector/towers/events';
 
 export const UPGRADABLE = 'upgradable';
 
