@@ -129,7 +129,6 @@ export const TowerWrapper = memo(
     towerInfoShift,
     DOMLoaded,
     animSize,
-    fullSizeMode,
     mutedImg,
   }: ITowerWrapper): React.ReactElement => {
     let mouseDownFlag = false,
@@ -201,7 +200,6 @@ export const TowerWrapper = memo(
         data-towertype={towerTitle}
       >
         <Markers
-          fullSizeMode={fullSizeMode}
           towerRef={towerRef}
           towerLevel={currentLevel}
           markersCollection={markers}
@@ -211,7 +209,6 @@ export const TowerWrapper = memo(
           }
         />
         <UpgradeButton
-          fullSizeMode={fullSizeMode}
           tutorialCondition={tutorialCondition}
           displayFlag={needUpgrade}
           towerTitle={towerTitle}
@@ -285,7 +282,6 @@ interface ITowerWrapper {
   markers: IMarker[];
   towerInfoShift: number;
   DOMLoaded: boolean;
-  fullSizeMode: boolean;
 }
 
 interface ITowerStyledWrapper {

@@ -6,6 +6,7 @@ import MTSSansMedium from './fonts/MTSSans-Medium.ttf';
 import MTSSansUltraWide from './fonts/MTSSans-UltraWide.ttf';
 import { MTSSans } from './fonts';
 import { fixSizeClassName, mutedClassName } from './UI/tower-component-wrapper';
+import { MarkerView } from './components/markers';
 
 export const GlobalStyle = createGlobalStyle`
     @font-face {
@@ -53,6 +54,13 @@ export const GlobalStyle = createGlobalStyle`
         transform: scale(3);
         top: 100%;
         left: 40%;
+      }
+
+      .${fixSizeClassName} {
+        ${MarkerView} {
+        width:  204px;
+        height:  208px;
+      }
       }
   
 
