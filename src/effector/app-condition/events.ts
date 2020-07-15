@@ -4,15 +4,6 @@ import { MenuItems } from '../../UI/menu-paragraph';
 import { AppConditionType, TowerInfoContentValues } from './store';
 import { TypesOfPopUps } from '../../UI/pop-up';
 
-export const extraTowerInfoModalOpen = AppDomain.event<TowersTypes | null>(
-  'User clicked to view extra info about building'
-);
-export const extraTowerInfoModalClosed = AppDomain.event(
-  'User clicked to close extra info about building'
-);
-export const toggleExtraTowerInfoModal = AppDomain.event<number[]>(
-  'User toggled modal window'
-);
 export const menuOpened = AppDomain.event<MenuItems>();
 export const menuClosed = AppDomain.event();
 export const showUpgradeIcon = AppDomain.event<TowersTypes | null>();

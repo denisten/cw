@@ -1,6 +1,5 @@
 import React, { memo, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { extraTowerInfoModalOpen } from '../../effector/app-condition/events';
 import { LazyImage } from '@tsareff/lazy-image';
 import { TowerLevel, TowersTypes } from '../../effector/towers-progress/store';
 import { UpgradeButton } from '../update-button';
@@ -15,6 +14,7 @@ import { Markers } from '../../components/markers';
 import { IMarker } from '../../effector/towers-marker/store';
 import { BuildingsService, IAnimSize } from '../../buildings/config';
 import { MTSSans } from '../../fonts';
+import { extraTowerInfoModalOpen } from '../../effector/towers/events';
 
 enum strokeClassNames {
   STROKE = 'stroke',
@@ -186,7 +186,6 @@ export const TowerWrapper = memo(
     useEffect(() => {
       BuildingsService.setRefForTower(towerTitle, towerRef);
     }, []);
-
     return (
       <TowerStyledWrapper
         posX={posX}

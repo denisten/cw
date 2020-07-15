@@ -2,16 +2,14 @@ import { IMarker } from '../../effector/towers-marker/store';
 import { hideMarker, setMarker } from '../../effector/towers-marker/events';
 import { TowersTypes } from '../../effector/towers-progress/store';
 import { TypeOfMarkers } from '../../components/markers';
-import {
-  extraTowerInfoModalOpen,
-  setTowerInfoContent,
-} from '../../effector/app-condition/events';
+import { setTowerInfoContent } from '../../effector/app-condition/events';
 import { TowerInfoContentValues } from '../../effector/app-condition/store';
 import { scrollToCurrentTower } from '../scroll-to-current-tower';
 import React, { RefObject } from 'react';
 import { editMoneyCount } from '../../effector/user-data/events';
 import { commitIncomes } from '../../api/commit-income';
 import { pushMoveElements } from '../../effector/reward/events';
+import { extraTowerInfoModalOpen } from '../../effector/towers/events';
 
 const setIncome = async (
   towerTitle: TowersTypes,
