@@ -323,7 +323,7 @@ class BuildingsService {
       zIndex: ZIndexes.BUILDING_THREE_LEVEL,
       maxLevel: TowerLevel.high,
       link:
-        'https://moskva.mts.ru/personal/mobilnaya-svyaz/uslugi/mobilnie-prilozheniya/android/3286955',
+        'https://www.smartmed.pro/?utm_source=city.mts.ru&utm_medium=referral&utm_campaign=about',
       width: 313,
       height: 655,
       areaCoords: '55,82,259,651',
@@ -391,7 +391,7 @@ class BuildingsService {
       position: [28.5, 50.3],
       ref: null,
       link:
-        'https://moskva.mts.ru/personal/mobilnaya-svyaz/tarifi/vse-tarifi/dla-smartfona',
+        'https://moskva.mts.ru/personal/mobilnaya-svyaz/tarifi/vse-tarifi/dla-smartfona/?utm_source=city.mts.ru&utm_medium=referral&utm_campaign=about',
       [TowerLevel.deactive]: {
         img: mainTowerLevel0Img,
         shadowImg: mainTowerLevel0Stroke,
@@ -412,7 +412,8 @@ class BuildingsService {
     [TowersTypes.MUSIC]: {
       info: 'info',
       title: 'МТС Music',
-      link: 'https://music.mts.ru/mix/mts_new_year_2020',
+      link:
+        'https://music.mts.ru/?utm_source=city.mts.ru&utm_medium=referral&utm_campaign=about',
       wideTower: false,
       animSize: animSize.medium,
       mutedImg: mutedMusicTower,
@@ -484,7 +485,8 @@ class BuildingsService {
       height: 546,
       areaCoords: '52,94,630,508',
       ref: null,
-      link: 'https://cashback.mts.ru/',
+      link:
+        'https://cashback.mts.ru/?utm_source=city.mts.ru&utm_medium=referral&utm_campaign=about',
       position: [40.6, 52.7],
       [TowerLevel.deactive]: {
         img: mollTowerLevel0Img,
@@ -517,7 +519,7 @@ class BuildingsService {
       position: [29.1, 45.9],
       ref: null,
       link:
-        'https://moskva.mts.ru/personal/mobilnaya-svyaz/uslugi/mobilnie-prilozheniya/android/3286523',
+        'https://lk.mts.ru/?utm_source=city.mts.ru&utm_medium=referral&utm_campaign=about',
       [TowerLevel.deactive]: {
         img: eggTowerLevel0Img,
         shadowImg: eggTowerLevel0Stroke,
@@ -547,7 +549,8 @@ class BuildingsService {
       areaCoords: '44,46,411,406',
       position: [27.6, 60.95],
       ref: null,
-      link: 'https://books.mts.ru/',
+      link:
+        'https://books.mts.ru/?utm_source=city.mts.ru&utm_medium=referral&utm_campaign=about',
       [TowerLevel.deactive]: {
         img: libraryTowerLevel0Img,
         shadowImg: libraryTowerLevel0Stroke,
@@ -599,6 +602,8 @@ class BuildingsService {
       info: 'info',
       title: 'Мобильный интернет',
       wideTower: false,
+      link:
+        'https://moskva.mts.ru/personal/mobilnaya-svyaz/mobilniy-internet/podklyuchit/?utm_source=city.mts.ru&utm_medium=referral&utm_campaign=about',
       animSize: animSize.small,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
@@ -607,8 +612,6 @@ class BuildingsService {
       areaCoords: '44,102,240,481',
       position: [30.75, 42.8],
       ref: null,
-      link:
-        'https://moskva.mts.ru/personal/mobilnaya-svyaz/mobilniy-internet/podklyuchit',
       [TowerLevel.deactive]: {
         img: tariffTowerLevel0Img,
         shadowImg: tariffTowerLevel0Stroke,
@@ -640,7 +643,7 @@ class BuildingsService {
       position: [34.2, 34.1],
       ref: null,
       link:
-        'https://moskva.mts.ru/personal/mobilnaya-svyaz/uslugi/mobilnaya-svyaz/mts-live',
+        'https://live.mts.ru/?utm_source=city.mts.ru&utm_medium=referral&utm_campaign=about',
       [TowerLevel.deactive]: {
         img: theaterTowerLevel0Img,
         shadowImg: theaterTowerLevel0Stroke,
@@ -704,7 +707,7 @@ class BuildingsService {
       position: [20.4, 60.5],
       ref: null,
       link:
-        'https://moskva.mts.ru/personal/mobilnaya-svyaz/uslugi/mobilnaya-svyaz/mts_fitnes',
+        'https://moskva.mts.ru/personal/mobilnaya-svyaz/uslugi/mobilnaya-svyaz/mts_fitnes/?utm_source=city.mts.ru&utm_medium=referral&utm_campaign=about',
       [TowerLevel.deactive]: {
         img: stadiumLevel0Img,
         shadowImg: stadiumLevel0Stroke,
@@ -726,7 +729,7 @@ class BuildingsService {
       info: 'info',
       title: 'Роуминг',
       link:
-        'https://moskva.mts.ru/personal/mobilnaya-svyaz/rouming-i-mezhgorod/poezdki-po-rossii',
+        'https://moskva.mts.ru/personal/mobilnaya-svyaz/rouming-i-mezhgorod/poezdki-po-rossii/?utm_source=city.mts.ru&utm_medium=referral&utm_campaign=about',
       wideTower: true,
       animSize: animSize.medium,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
@@ -766,7 +769,8 @@ class BuildingsService {
       areaCoords: '399,410,48,92',
       position: [37.3, 60.3],
       ref: null,
-      link: 'https://www.mtsbank.ru/',
+      link:
+        'https://www.mtsbank.ru/?utm_source=city.mts.ru&utm_medium=referral&utm_campaign=about',
       [TowerLevel.deactive]: {
         img: bankLevel0Img,
         shadowImg: bankLevel0Stroke,
@@ -797,7 +801,8 @@ class BuildingsService {
       areaCoords: '42,49,478,344',
       position: [34, 65.25],
       ref: null,
-      link: 'https://wasd.tv/',
+      link:
+        'https://wasd.tv/?utm_source=city.mts.ru&utm_medium=referral&utm_campaign=about',
       [TowerLevel.deactive]: {
         img: cyberArenaLevel0Img,
         shadowImg: cyberArenaLevel0Stroke,
@@ -824,6 +829,8 @@ class BuildingsService {
       animSize: animSize.large,
       zIndex: ZIndexes.BUILDING_FOUR_LEVEL,
       maxLevel: TowerLevel.high,
+      link:
+        'https://auto.mts.ru/?utm_source=city.mts.ru&utm_medium=referral&utm_campaign=about',
       width: 649,
       height: 445,
       areaCoords: '49,134,608,444',
@@ -861,7 +868,7 @@ class BuildingsService {
       position: [20.1, 32.9],
       ref: null,
       link:
-        'https://moskva.mts.ru/personal/mobilnaya-svyaz/uslugi/mobilnaya-svyaz/mts-tv',
+        'https://moskva.mts.ru/personal/stv/?utm_source=city.mts.ru&utm_medium=referral&utm_campaign=about',
       [TowerLevel.deactive]: {
         img: satelliteTvLevel0Img,
         shadowImg: satelliteTvLevel0Stroke,
@@ -979,6 +986,8 @@ class BuildingsService {
       animSize: animSize.big,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
+      link:
+        'https://moskva.mts.ru/personal/dom/?utm_source=city.mts.ru&utm_medium=referral&utm_campaign=about',
       width: 494,
       height: 500,
       areaCoords: '49,127,443,496',
@@ -1005,7 +1014,8 @@ class BuildingsService {
       info: 'info',
       title: 'Салон-магазин МТС',
       playButtonLink: 'https://shop.mts.ru/den-rozhdenie-10-let/',
-      link: 'https://shop.mts.ru',
+      link:
+        'https://shop.mts.ru/?utm_source=city.mts.ru&utm_medium=referral&utm_campaign=about',
       wideTower: false,
       animSize: animSize.small,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
@@ -1107,7 +1117,7 @@ class BuildingsService {
       areaCoords: '47,70,245,362',
       position: [26.2, 37.5],
       link:
-        'https://moskva.mts.ru/personal/mobilnaya-svyaz/uslugi/mobilnaya-svyaz/prilozhenie_mts_vtoraya_pamyat',
+        'https://2memory2.mts.ru/?utm_source=city.mts.ru&utm_medium=referral&utm_campaign=about',
       ref: null,
       [TowerLevel.deactive]: {
         img: cloudLevel0Img,
