@@ -1,4 +1,4 @@
-import { TaskStatuses } from '../../api/tasks/get-tasks';
+import { TaskStatuses } from '../../api/tasks-api/get-tasks';
 import { TowersTypes } from '../../effector/towers-progress/store';
 import { TasksStore } from '../../effector/missions-store/store';
 import {

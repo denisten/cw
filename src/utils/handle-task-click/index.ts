@@ -5,7 +5,7 @@ import {
   TowerInfoContentValues,
 } from '../../effector/app-condition/store';
 import { ChatStore } from '../../effector/chat/store';
-import { TaskStatuses } from '../../api/tasks/get-tasks';
+import { TaskStatuses } from '../../api/tasks-api/get-tasks';
 import { TasksType } from '../../components/tasks';
 import { chatTaskSession, clearChat } from '../../effector/chat/events';
 import {

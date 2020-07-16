@@ -1,7 +1,7 @@
 import React, { memo, useEffect, useRef, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { IDisplayFlag } from '../../skip-tutorial';
-import { Sender } from '../../../api/tasks/session';
+import { Sender } from '../../../api/tasks-api/session';
 import { ITask, TasksStore } from '../../../effector/missions-store/store';
 import {
   chatTaskSession,
@@ -21,7 +21,7 @@ import { setHideTowerInfo } from '../../../effector/app-condition/events';
 import { ChatStore } from '../../../effector/chat/store';
 import { Bubble } from '../../../UI/bubble';
 import { ChatPreview } from '../../../UI/chat-preview';
-import { TaskStatuses } from '../../../api/tasks/get-tasks';
+import { TaskStatuses } from '../../../api/tasks-api/get-tasks';
 import { ModalWindow } from '../../modal-window';
 import { hideMarker, setMarker } from '../../../effector/towers-marker/events';
 import { ChatButtons } from '../../../UI/chat-buttons';

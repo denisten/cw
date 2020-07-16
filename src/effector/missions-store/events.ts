@@ -1,12 +1,12 @@
 import { MissionsDomain } from './domain';
-import { getTasks, TaskStatuses } from '../../api/tasks/get-tasks';
-import { activateTaskRequest } from '../../api/tasks/activate';
-import { verifyTaskRequest } from '../../api/tasks/verify';
-import { rewardRequest } from '../../api/tasks/reward';
+import { getTasks, TaskStatuses } from '../../api/tasks-api/get-tasks';
+import { activateTaskRequest } from '../../api/tasks-api/activate';
+import { verifyTaskRequest } from '../../api/tasks-api/verify';
+import { rewardRequest } from '../../api/tasks-api/reward';
 import {
   getTaskResultRequest,
   IGetTaskResultRequest,
-} from '../../api/tasks/result';
+} from '../../api/tasks-api/result';
 
 export const fetchTasks = MissionsDomain.effect('fetch missions', {
   handler: async () => {

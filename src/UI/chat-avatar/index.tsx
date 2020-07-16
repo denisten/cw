@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import userDefault from './user-default.svg';
 import botDefault from './bot-default.svg';
-import { Sender } from '../../api/tasks/session';
+import { Sender } from '../../api/tasks-api/session';
 import { TowersTypes } from '../../effector/towers-progress/store';
 
 import myMTS from './icon_egg_building.svg';

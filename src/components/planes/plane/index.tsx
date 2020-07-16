@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { IPlaneItem } from '../plane-config';
 import { ZIndexes } from '../../root-component/z-indexes-enum';
 
-export const PlaneBody = styled.div<IPlaneItem>`
+const PlaneBody = styled.div<IPlaneItem>`
   position: absolute;
   width: ${props => props.width};
   height: ${props => props.height};

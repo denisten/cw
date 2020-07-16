@@ -9,7 +9,7 @@ import { ColumnWrapper } from '../../../UI/column-wrapper';
 import { TaskTimer } from '../../../UI/task-timer';
 import { TasksType } from '../index';
 import { TowersTypes } from '../../../effector/towers-progress/store';
-import { TaskStatuses } from '../../../api/tasks/get-tasks';
+import { TaskStatuses } from '../../../api/tasks-api/get-tasks';
 import { ModalWindow } from '../../modal-window';
 import { couponHandler } from '../../../utils/coupon-handler';
 import { handleTaskClick } from '../../../utils/handle-task-click';

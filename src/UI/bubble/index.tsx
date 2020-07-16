@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import wCorner from './corner-white.svg';
 import bCorner from './corner-b.svg';
 import { MTSSans } from '../../fonts';
-import { Sender } from '../../api/tasks/session';
+import { Sender } from '../../api/tasks-api/session';
 
 const BubbleBody = styled.div<{ sender?: Sender }>`
   margin: ${props =>
