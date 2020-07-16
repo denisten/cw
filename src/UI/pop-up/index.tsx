@@ -23,7 +23,7 @@ import supportSprite from '../../img/assistant/assistant.png';
 import { Sprite } from '../../components/sprite';
 import { PopUpContentWrapper } from '../pop-up-content-wrapper';
 import { IDisplayFlag } from '../../components/skip-tutorial';
-import { AppCondition } from '../../effector/app-condition/store';
+import { AppConditionStore } from '../../effector/app-condition/store';
 import { inputValidation } from '../../utils/input-validation';
 
 export const PopUpTitle = styled(StyledSpan)`
@@ -101,7 +101,7 @@ export const PopUp: React.FC<IPopUp> = ({
   maxInputValueLength = maxCityNameLength,
 }) => {
   const { tutorialCondition } = useStore(TutorialStore);
-  const { isAuthorized } = useStore(AppCondition);
+  const { isAuthorized } = useStore(AppConditionStore);
   const [value, setValue] = useState(initValue || '');
   const [inputHasError, setInputHasError] = useState(false);
   const valuesArr = value.split(' ');

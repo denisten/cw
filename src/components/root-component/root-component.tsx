@@ -1,7 +1,7 @@
 import React, { lazy, Suspense } from 'react';
 import styled from 'styled-components';
 import { useStore } from 'effector-react';
-import { AppCondition } from '../../effector/app-condition/store';
+import { AppConditionStore } from '../../effector/app-condition/store';
 import mapTile from '../../img/roads/map-tile.png';
 
 import {
@@ -12,7 +12,6 @@ import { ScrollContainer } from '../scroll-container';
 import { TutorialOverlay } from '../tutorial-overlay';
 import { zIndexForInheritOverlay } from '../../constants';
 import { IDisplayFlag } from '../skip-tutorial';
-// import { SkipTutorial } from '../skip-tutorial';
 const Menu = lazy(() => import('../menu'));
 const InitTutorialSlider = lazy(() => import('../tutorial-slider/init-slider'));
 const UIButtonInterface = lazy(() => import('../UI-buttons-interface'));
@@ -21,6 +20,8 @@ const TowerInfo = lazy(() => import('../tower-info'));
 const TutorialToolsSelector = lazy(() =>
   import('../../utils/arrows-container')
 );
+
+// import { SkipTutorial } from '../skip-tutorial';
 
 const RootComponentWrapper = styled.div<IDisplayFlag>`
   background-image: url(${mapTile});
@@ -35,7 +36,7 @@ const RootComponentWrapper = styled.div<IDisplayFlag>`
 
 export const RootComponent = () => {
   const { selectedMenuItem, DOMLoaded, tutorialSliderDisplayFlag } = useStore(
-    AppCondition
+    AppConditionStore
   );
   // const [showSkipTutorialUI, setShowSkipTutorialUI] = useState(true);
   const { tutorialCondition } = useStore(TutorialStore);

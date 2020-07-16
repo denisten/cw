@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { IAction } from '../../api/tasks/session';
+import { IAction } from '../../api/tasks-api/session';
 import { Coupon } from '../coupon';
 import { IDisplayFlag } from '../../components/skip-tutorial';
 

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { TasksHeader } from './tasks-header';
 import { TasksContent } from './tasks-content';
 import { useStore } from 'effector-react';
-import { AppCondition } from '../../effector/app-condition/store';
+import { AppConditionStore } from '../../effector/app-condition/store';
 
 const TasksBody = styled.div`
   width: 100%;
@@ -33,7 +33,7 @@ const taskTypes = [
 ];
 export const Tasks = () => {
   const [taskType, setTaskType] = useState(TasksType.TASKS);
-  const { isAuthorized } = useStore(AppCondition);
+  const { isAuthorized } = useStore(AppConditionStore);
   const selectTaskType = (type: TasksType) => {
     setTaskType(type);
   };

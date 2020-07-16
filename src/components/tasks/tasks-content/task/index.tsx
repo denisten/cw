@@ -2,12 +2,12 @@ import React from 'react';
 import { Task } from '../../tasks-row';
 import styled from 'styled-components';
 import { useStore } from 'effector-react';
-import { MissionsStore } from '../../../../effector/missions-store/store';
+import { TasksStore } from '../../../../effector/missions-store/store';
 import { UserDataStore } from '../../../../effector/user-data/store';
 import { UnauthorizeTaskZone } from './unauthorize-task-zone';
-import { AppCondition } from '../../../../effector/app-condition/store';
+import { AppConditionStore } from '../../../../effector/app-condition/store';
 import { useHandleAuth } from '../../../../hooks/use-handle-auth';
-import { TowersStore } from '../../../../effector/towers/store';
+import { TowerInfoModalStore } from '../../../../effector/tower-info-modal-store/store';
 
 const TasksWrapper = styled.div<ITask>`
   display: ${props => (props.hidden ? 'hidden' : 'block')};
@@ -20,10 +20,10 @@ export const Tasks: React.FC<{ active: boolean; isAuthorized: boolean }> = ({
   active,
   isAuthorized,
 }) => {
-  const missions = useStore(MissionsStore);
+  const missions = useStore(TasksStore);
   const { worldName } = useStore(UserDataStore);
-  const { dataReceived } = useStore(AppCondition);
-  const { focusOn } = useStore(TowersStore);
+  const { dataReceived } = useStore(AppConditionStore);
+  const { focusOn } = useStore(TowerInfoModalStore);
   useHandleAuth({ isAuthorized, dataReceived, worldName });
 
   return (

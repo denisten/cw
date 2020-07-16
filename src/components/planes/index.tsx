@@ -7,9 +7,8 @@ import { Plane } from './plane';
 const Planes = React.memo(() => {
   const airportLevelStoreLevel = useStore(TowersProgressStore).roaming.level
     .level;
-  if (airportLevelStoreLevel === 0) {
-    return null;
-  } else {
+  if (!airportLevelStoreLevel) return null;
+  else {
     const planesArray = planeConfig[`level${airportLevelStoreLevel}`] || null;
     return (
       <>

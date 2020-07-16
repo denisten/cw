@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Task } from '../../../tasks-row';
 import { TasksType } from '../../..';
-import { TaskStatuses } from '../../../../../api/tasks/get-tasks';
+import { TaskStatuses } from '../../../../../api/tasks-api/get-tasks';
 import { handleAuthButtonClick } from '../../../../../utils/handle-auth-button-click';
 import { Button, ButtonClassNames } from '../../../../../UI/button';
 

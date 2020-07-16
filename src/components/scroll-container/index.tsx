@@ -13,13 +13,13 @@ import dragscroll from 'dragscroll';
 import { setFullSizeMode } from '../../effector/app-condition/events';
 import { useEnableSizeMod } from '../../hooks/use-enable-size-mod';
 import { useStore } from 'effector-react';
-import { AppCondition } from '../../effector/app-condition/store';
+import { AppConditionStore } from '../../effector/app-condition/store';
 import { fixSizeClassName } from '../../UI/tower-component-wrapper';
 const ZoomInOutButtons = lazy(() => import('../../UI/zoom-in-out-buttons'));
-const CentralBanner = lazy(() => import('../central-banner'));
+const CentralBanner = lazy(() => import('../decorations/central-banner'));
 const Planes = lazy(() => import('../planes'));
-const Cars = lazy(() => import('../cars/carsArray'));
-const Waves = lazy(() => import('../waves'));
+const Cars = lazy(() => import('../decorations/cars/carsArray'));
+const Waves = lazy(() => import('../decorations/waves'));
 const Decorations = lazy(() => import('../decorations'));
 const TutorialToolsSelector = lazy(() =>
   import('../../utils/arrows-container')
@@ -79,7 +79,7 @@ export const ScrollContainer: React.FC<{
   const scaleValue = useRef(ScaleValues.MIN_SCALE);
   const centerScrollPoint = useRef(null);
   const { ref } = BuildingsService.getConfigForTower(TowersTypes.MY_MTS);
-  const { isAuthorized, animationOff, DOMLoaded } = useStore(AppCondition);
+  const { isAuthorized, animationOff, DOMLoaded } = useStore(AppConditionStore);
   const tutorialIsEnabled = DOMLoaded && tutorialCondition !== 0;
 
   const runScrollAnimation = () => {

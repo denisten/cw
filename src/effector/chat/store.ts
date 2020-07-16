@@ -8,7 +8,7 @@ import {
   setTaskId,
   pushBotMessageToCurrentChat,
 } from './events';
-import { IAction, IMessage, Sender } from '../../api/tasks/session';
+import { IAction, IMessage, Sender } from '../../api/tasks-api/session';
 import { TowersTypes } from '../towers-progress/store';
 
 const initChatData = {

@@ -3,8 +3,8 @@ import {
   chatTaskSessionRequest,
   chatTaskSessionRetryRequest,
   IMessage,
-} from '../../api/tasks/session';
-import { consumeUserTaskActionRequest } from '../../api/tasks/consume-user-task-action';
+} from '../../api/tasks-api/session';
+import { consumeUserTaskActionRequest } from '../../api/tasks-api/consume-user-task-action';
 import { TowersTypes } from '../towers-progress/store';
 import { ICurrentTowerChatStore } from './store';
 

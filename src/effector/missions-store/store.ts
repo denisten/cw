@@ -11,12 +11,12 @@ import {
 import { editUserProperty } from '../user-data/events';
 import { TasksType } from '../../components/tasks';
 import { TowersTypes } from '../towers-progress/store';
-import { TaskStatuses } from '../../api/tasks/get-tasks';
+import { TaskStatuses } from '../../api/tasks-api/get-tasks';
 import { chatTaskSession } from '../chat/events';
 
 const initStore: ITask[] = [];
 
-export const MissionsStore = MissionsDomain.store(initStore)
+export const TasksStore = MissionsDomain.store(initStore)
   .on(fetchTasks.doneData, (state, { userTasks }) => userTasks)
   .on(activateTask.doneData, (state, { userTasks }) => userTasks)
   .on(verifyTask.doneData, (state, { userTasks }) => userTasks)

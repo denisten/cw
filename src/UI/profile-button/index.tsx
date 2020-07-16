@@ -15,9 +15,9 @@ import { zIndexForInheritOverlay } from '../../constants';
 import { MTSSans } from '../../fonts';
 import moneyCircle from './money.png';
 import { IDisplayFlag } from '../../components/skip-tutorial';
-import userAvatarIcon from '../../components/profile/authorized/user-avatar.svg';
-import { IUserAvatar } from '../../components/profile/authorized';
-import { extraTowerInfoModalClosed } from '../../effector/towers/events';
+import userAvatarIcon from '../../components/menu/profile/authorized/user-avatar.svg';
+import { extraTowerInfoModalClosed } from '../../effector/tower-info-modal-store/events';
+import { IUserAvatar } from '../../components/menu/profile/authorized';
 
 const CoinsWrapper = styled.div`
   display: flex;

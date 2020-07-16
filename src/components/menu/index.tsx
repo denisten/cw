@@ -1,11 +1,9 @@
 import React, { useEffect } from 'react';
 import { ExitButton } from '../../UI/exit-button';
 import { menuClosed, menuOpened } from '../../effector/app-condition/events';
-import { MenuItemsComponent, noAuthAvailableMenuItems } from '../menu-items';
-import { MenuContent } from '../menu-content';
 import { MenuItems } from '../../UI/menu-paragraph';
 import { useStore } from 'effector-react';
-import { AppCondition } from '../../effector/app-condition/store';
+import { AppConditionStore } from '../../effector/app-condition/store';
 import { RowWrapper } from '../../UI/row-wrapper';
 import { ColumnWrapper } from '../../UI/column-wrapper';
 import { Overlay } from '../../UI/overlay';
@@ -14,7 +12,9 @@ import { TutorialStore } from '../../effector/tutorial-store/store';
 import { pauseTutorialMode } from '../../effector/tutorial-store/events';
 import styled from 'styled-components';
 import { IDisplayFlag } from '../skip-tutorial';
-import { MissionsStore } from '../../effector/missions-store/store';
+import { TasksStore } from '../../effector/missions-store/store';
+import { MenuItemsComponent, noAuthAvailableMenuItems } from './menu-items';
+import { MenuContent } from './menu-content';
 
 const StyledConfig = {
   exitButton: {
@@ -39,9 +39,9 @@ const ExpandedColumnWrapper = styled(ColumnWrapper)`
 `;
 
 const Menu: React.FC<IDisplayFlag> = ({ displayFlag }) => {
-  const { selectedMenuItem, isAuthorized } = useStore(AppCondition);
+  const { selectedMenuItem, isAuthorized } = useStore(AppConditionStore);
   const { tutorialCondition } = useStore(TutorialStore);
-  const missions = useStore(MissionsStore);
+  const missions = useStore(TasksStore);
   const currentAlertsList: MenuItems[] = [];
 
   useEffect(() => {

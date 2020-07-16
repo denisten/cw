@@ -1,5 +1,5 @@
 import { activateCoupon } from '../../api/activate-coupon';
-import { CouponTypes, UserMarket } from '../../effector/coupons/store';
+import { CouponTypes, UserMarketStore } from '../../effector/coupons/store';
 import { ResponseStatuses } from '../../constants';
 import { fetchTasks } from '../../effector/missions-store/events';
 import { editCouponCount } from '../../effector/coupons/events';
@@ -15,8 +15,10 @@ export const couponHandler = async (
   towerTitle?: TowersTypes,
   switchers?: ITabSwitchers
 ) => {
-  const { userCoupons } = UserMarket.getState();
-  if (taskId && userCoupons) {
+  const { count: couponCount } = UserMarketStore.getState().userCoupons[
+    CouponTypes.COUPON_REPLACE
+  ];
+  if (taskId && couponCount) {
     const response = await activateCoupon(CouponTypes.COUPON_REPLACE, taskId);
     if (response.state === ResponseStatuses.SUCCESS) {
       await fetchTasks('');

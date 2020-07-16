@@ -7,43 +7,41 @@ import {
 import { generateUniqueID } from '../../utils/generate-unique-id';
 
 const initState = {
-  lootRewardCordinatesQueue: [],
+  lootRewardCoordinatesQueue: [],
   isCoinRelocateAnimationEnded: false,
 };
 
-export const RewardStore = RewardDomain.store<RewardCordinatesStoreType>(
-  initState
-)
+export const RewardStore = RewardDomain.store<IRewardStore>(initState)
   .on(setMoveCoinFinished, (state, payload) => ({
     ...state,
     isCoinRelocateAnimationEnded: payload,
   }))
   .on(removeMoveElems, (state, id) => ({
     ...state,
-    lootRewardCordinatesQueue: state.lootRewardCordinatesQueue.filter(
+    lootRewardCoordinatesQueue: state.lootRewardCoordinatesQueue.filter(
       item => item.id !== id
     ),
   }))
   .on(pushMoveElements, (state, payload) => {
     const newState = { ...state };
     const coinObject = { ...payload };
-    if (newState.lootRewardCordinatesQueue.length === 0) {
+    if (newState.lootRewardCoordinatesQueue.length === 0) {
       coinObject.id = 0;
     } else {
       coinObject.id =
-        newState.lootRewardCordinatesQueue.length + generateUniqueID();
+        newState.lootRewardCoordinatesQueue.length + generateUniqueID();
     }
-    newState.lootRewardCordinatesQueue = [
-      ...newState.lootRewardCordinatesQueue,
+    newState.lootRewardCoordinatesQueue = [
+      ...newState.lootRewardCoordinatesQueue,
       coinObject,
     ];
     return newState;
   });
 
-export type RewardCordinatesStoreType = {
-  lootRewardCordinatesQueue: IMoveCoinElement[];
+export interface IRewardStore {
+  lootRewardCoordinatesQueue: IMoveCoinElement[];
   isCoinRelocateAnimationEnded: boolean;
-};
+}
 
 export interface IMoveCoinElement {
   x: number;

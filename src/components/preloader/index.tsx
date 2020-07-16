@@ -4,7 +4,7 @@ import { ZIndexes } from '../root-component/z-indexes-enum';
 import { cloudsConfig } from './clouds-config';
 import background from './background.jpg';
 import { MTSSans } from '../../fonts';
-import { useCalculateLoadingProgress } from '../../hooks/useLoadingIndication';
+import { useCalculateLoadingProgress } from '../../hooks/use-loading-indication';
 import { setDOMLoaded } from '../../effector/app-condition/events';
 import { preloaderBuildingsConfig } from './preloader-building-config';
 import { PreloaderBuilding } from './preloader-building';

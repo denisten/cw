@@ -4,11 +4,10 @@ import { MoveCoinElem } from './move-coin-elem';
 import { RewardStore } from '../../effector/reward/store';
 
 const MoveCoinCollection: React.FC = () => {
-  const { lootRewardCordinatesQueue } = useStore(RewardStore);
-
+  const { lootRewardCoordinatesQueue } = useStore(RewardStore);
   return (
     <>
-      {lootRewardCordinatesQueue.map(elem => (
+      {lootRewardCoordinatesQueue.map(elem => (
         <MoveCoinElem key={elem.id} {...elem} />
       ))}
     </>

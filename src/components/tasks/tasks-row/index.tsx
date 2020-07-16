@@ -9,9 +9,8 @@ import { ColumnWrapper } from '../../../UI/column-wrapper';
 import { TaskTimer } from '../../../UI/task-timer';
 import { TasksType } from '../index';
 import { TowersTypes } from '../../../effector/towers-progress/store';
-import { TaskStatuses } from '../../../api/tasks/get-tasks';
+import { TaskStatuses } from '../../../api/tasks-api/get-tasks';
 import { ModalWindow } from '../../modal-window';
-import { couponModalConfig } from '../../tower-info-chat';
 import { couponHandler } from '../../../utils/coupon-handler';
 import { handleTaskClick } from '../../../utils/handle-task-click';
 import { useStore } from 'effector-react';
@@ -19,6 +18,7 @@ import { UserDataStore } from '../../../effector/user-data/store';
 import { coughtError } from '../../../effector/error-boundary-store/events';
 import vectorImg from './vector.svg';
 import { RowWrapper } from '../../../UI/row-wrapper';
+import { couponModalConfig } from '../../tower-info/tower-info-chat';
 
 const TaskWrapper = styled.div<ITaskLocation>`
   width: 100%;

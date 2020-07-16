@@ -6,7 +6,7 @@ import {
   TowersProgressStore,
   TowersTypes,
 } from '../effector/towers-progress/store';
-import { AppCondition } from '../effector/app-condition/store';
+import { AppConditionStore } from '../effector/app-condition/store';
 import { TutorialStore } from '../effector/tutorial-store/store';
 import { TowersMarkerStore } from '../effector/towers-marker/store';
 import { errorStringsParsingHOF } from '../utils/error-handler';
@@ -16,7 +16,7 @@ export const Buildings: React.FC = () => {
   const markers = useStore(TowersMarkerStore);
   const towersKeys = Object.keys(localTowersProgressStore) as TowersTypes[];
   const { upgradingTowerTitle, towerInfoShift, DOMLoaded } = useStore(
-    AppCondition
+    AppConditionStore
   );
   const { tutorialCondition, tutorialPause } = useStore(TutorialStore);
   return (

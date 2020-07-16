@@ -9,11 +9,11 @@ import { menuOpened } from '../../effector/app-condition/events';
 import { MenuItems } from '../menu-paragraph';
 import { ToolbarElementAlert } from '../toolbar-element-alert';
 import { useStore } from 'effector-react';
-import { MissionsStore } from '../../effector/missions-store/store';
+import { TasksStore } from '../../effector/missions-store/store';
 import { TutorialStore } from '../../effector/tutorial-store/store';
 import { coughtError } from '../../effector/error-boundary-store/events';
 import { pulseAnimationHOF } from '../../hoc/pulse-anim';
-import { extraTowerInfoModalClosed } from '../../effector/towers/events';
+import { extraTowerInfoModalClosed } from '../../effector/tower-info-modal-store/events';
 
 const Left = styled.img`
   position: absolute;
@@ -91,7 +91,7 @@ const handleToolbarElementClick = (
   }
 };
 export const Toolbar = () => {
-  const mission = useStore(MissionsStore);
+  const mission = useStore(TasksStore);
   const count = {
     [ToolbarElements.TASK]: mission.length,
     [ToolbarElements.NOTIFICATIONS]: 0,

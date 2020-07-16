@@ -9,7 +9,7 @@ import { BuildingsService } from '../../../buildings/config';
 import { showUpgradeIcon } from '../../../effector/app-condition/events';
 import { towerUpdateHandler } from '../../../utils/tower-update-handler';
 import { useStore } from 'effector-react';
-import { AppCondition } from '../../../effector/app-condition/store';
+import { AppConditionStore } from '../../../effector/app-condition/store';
 import {
   TowerLevel,
   TowersProgressStore,
@@ -65,7 +65,7 @@ export const TowerInfoTitle: React.FC<ITowerInfoTitle> = ({
   tutorialCondition,
   towerTitle,
 }) => {
-  const { hideTowerInfo } = useStore(AppCondition);
+  const { hideTowerInfo } = useStore(AppConditionStore);
   const {
     points,
     level: { level },

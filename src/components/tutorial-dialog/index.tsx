@@ -18,7 +18,7 @@ import { UserDataStore } from '../../effector/user-data/store';
 import { Button, ButtonClassNames } from '../../UI/button';
 import { Span, StyledSpan } from '../../UI/span';
 import { MTSSans } from '../../fonts';
-import { AppCondition } from '../../effector/app-condition/store';
+import { AppConditionStore } from '../../effector/app-condition/store';
 import { delayBeforePreloaderOff } from '../../constants';
 import { handleAuthButtonClick } from '../../utils/handle-auth-button-click';
 import { ExitButton } from '../../UI/exit-button';
@@ -154,7 +154,7 @@ export const TutorialDialog: React.FC<{ mustBeAsAnimated?: boolean }> = ({
   const [isPrinting, setIsPrinting] = useState(false);
   const { tutorialCondition } = useStore(TutorialStore);
   const { worldName } = useStore(UserDataStore);
-  const { DOMLoaded } = useStore(AppCondition);
+  const { DOMLoaded } = useStore(AppConditionStore);
 
   const {
     messages,

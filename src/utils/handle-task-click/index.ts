@@ -1,11 +1,11 @@
 import React from 'react';
-import { MissionsStore } from '../../effector/missions-store/store';
+import { TasksStore } from '../../effector/missions-store/store';
 import {
-  AppCondition,
+  AppConditionStore,
   TowerInfoContentValues,
 } from '../../effector/app-condition/store';
 import { ChatStore } from '../../effector/chat/store';
-import { TaskStatuses } from '../../api/tasks/get-tasks';
+import { TaskStatuses } from '../../api/tasks-api/get-tasks';
 import { TasksType } from '../../components/tasks';
 import { chatTaskSession, clearChat } from '../../effector/chat/events';
 import {
@@ -22,11 +22,11 @@ import { BuildingsService } from '../../buildings/config';
 import { markerHandler } from '../marker-handler';
 import { animateTaskReward } from '../animate-task-reward';
 import { coughtError } from '../../effector/error-boundary-store/events';
-import { extraTowerInfoModalOpen } from '../../effector/towers/events';
+import { extraTowerInfoModalOpen } from '../../effector/tower-info-modal-store/events';
 
 export const handleTaskClick = async (id: number, e: React.MouseEvent) => {
-  const tasks = MissionsStore.getState();
-  const { selectedMenuItem, fullSizeMode } = AppCondition.getState();
+  const tasks = TasksStore.getState();
+  const { selectedMenuItem, fullSizeMode } = AppConditionStore.getState();
   const taskData = {
     ...tasks[tasks.findIndex(el => el.id === id)],
   };
