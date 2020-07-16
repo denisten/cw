@@ -11,7 +11,7 @@ import { nextTutorStep } from '../../effector/tutorial-store/events';
 import { upgradeTowerAndShowAnimation } from '../../utils/upgrade-tower-and-show-animation';
 import { pulseAnimationHOF } from '../../hoc/pulse-anim';
 import { maxPercent } from '../../constants';
-import { extraTowerInfoModalClosed } from '../../effector/towers/events';
+import { extraTowerInfoModalClosed } from '../../effector/tower-info-modal-store/events';
 
 export const UPGRADABLE = 'upgradable';
 

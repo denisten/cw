@@ -9,7 +9,7 @@ import React, { RefObject } from 'react';
 import { editMoneyCount } from '../../effector/user-data/events';
 import { commitIncomes } from '../../api/commit-income';
 import { pushMoveElements } from '../../effector/reward/events';
-import { extraTowerInfoModalOpen } from '../../effector/towers/events';
+import { extraTowerInfoModalOpen } from '../../effector/tower-info-modal-store/events';
 
 const setIncome = async (
   towerTitle: TowersTypes,

@@ -4,12 +4,11 @@ import { TowersProgressStore } from '../../effector/towers-progress/store';
 import { planeConfig } from './plane-config';
 import { Plane } from './plane';
 
-export const Planes = React.memo(() => {
+export const PlanesCollection = React.memo(() => {
   const airportLevelStoreLevel = useStore(TowersProgressStore).roaming.level
     .level;
-  if (airportLevelStoreLevel === 0) {
-    return null;
-  } else {
+  if (!airportLevelStoreLevel) return null;
+  else {
     const planesArray = planeConfig[`level${airportLevelStoreLevel}`] || null;
     return (
       <>

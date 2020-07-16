@@ -2,11 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import { TasksType } from '..';
 import { MTSSans } from '../../../fonts';
-import chellenge from './chellenge.png';
-import chellengeNotAuth from './chellenge-not-auth.png';
+import challenge from './chellenge.png';
+import challengeNotAuth from './chellenge-not-auth.png';
 import mission from './mission.png';
 import task from './task.png';
-import chellengeActive from './chellenge-active.png';
+import challengeActive from './chellenge-active.png';
 import missionActive from './mission-active.png';
 import missionNotAuth from './mission-not-auth.png';
 import taskActive from './task-active.png';
@@ -24,22 +24,13 @@ const selectBackground = (
   type: TasksType.MISSION | TasksType.CHALLENGE
 ) => {
   if (type === TasksType.CHALLENGE) {
-    if (active && !disable) {
-      return chellengeActive;
-    } else if (disable) {
-      return chellengeNotAuth;
-    } else if (!active && !disable) {
-      return chellenge;
-    }
-  }
-  if (type === TasksType.MISSION) {
-    if (active && !disable) {
-      return missionActive;
-    } else if (disable) {
-      return missionNotAuth;
-    } else if (!active && !disable) {
-      return mission;
-    }
+    if (active && !disable) return challengeActive;
+    else if (disable) return challengeNotAuth;
+    else if (!active && !disable) return challenge;
+  } else {
+    if (active && !disable) return missionActive;
+    else if (disable) return missionNotAuth;
+    else if (!active && !disable) return mission;
   }
 };
 

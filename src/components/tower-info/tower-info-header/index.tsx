@@ -4,7 +4,7 @@ import headerBackground from '../header.png';
 import { TutorialConditions } from '../../../effector/tutorial-store/store';
 import { pauseTutorialMode } from '../../../effector/tutorial-store/events';
 import { ExitButton } from '../../../UI/exit-button';
-import { extraTowerInfoModalClosed } from '../../../effector/towers/events';
+import { extraTowerInfoModalClosed } from '../../../effector/tower-info-modal-store/events';
 
 const TowerInfoHeaderWrapper = styled.div`
   width: 100%;

@@ -13,7 +13,7 @@ import { MissionsStore } from '../../effector/missions-store/store';
 import { TutorialStore } from '../../effector/tutorial-store/store';
 import { coughtError } from '../../effector/error-boundary-store/events';
 import { pulseAnimationHOF } from '../../hoc/pulse-anim';
-import { extraTowerInfoModalClosed } from '../../effector/towers/events';
+import { extraTowerInfoModalClosed } from '../../effector/tower-info-modal-store/events';
 
 const Left = styled.img`
   position: absolute;

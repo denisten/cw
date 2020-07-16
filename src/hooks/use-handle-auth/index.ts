@@ -53,7 +53,7 @@ const handleAuth = async (
   }
 };
 
-export const useHandleAuth: (args: IuseHandleAuth) => void = ({
+export const useHandleAuth: (args: IUseHandleAuth) => void = ({
   isAuthorized,
   dataReceived,
   worldName,
@@ -63,7 +63,7 @@ export const useHandleAuth: (args: IuseHandleAuth) => void = ({
   }, [isAuthorized]);
 };
 
-interface IuseHandleAuth {
+interface IUseHandleAuth {
   isAuthorized: boolean;
   dataReceived: boolean;
   worldName: string;

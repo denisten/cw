@@ -15,8 +15,10 @@ export const couponHandler = async (
   towerTitle?: TowersTypes,
   switchers?: ITabSwitchers
 ) => {
-  const { userCoupons } = UserMarket.getState();
-  if (taskId && userCoupons) {
+  const { count: couponCount } = UserMarket.getState().userCoupons[
+    CouponTypes.COUPON_REPLACE
+  ];
+  if (taskId && couponCount) {
     const response = await activateCoupon(CouponTypes.COUPON_REPLACE, taskId);
     if (response.state === ResponseStatuses.SUCCESS) {
       await fetchTasks('');

@@ -14,9 +14,9 @@ import { Markers } from '../../components/markers';
 import { IMarker } from '../../effector/towers-marker/store';
 import { BuildingsService, IAnimSize } from '../../buildings/config';
 import { MTSSans } from '../../fonts';
-import { extraTowerInfoModalOpen } from '../../effector/towers/events';
+import { extraTowerInfoModalOpen } from '../../effector/tower-info-modal-store/events';
 import { useStore } from 'effector-react';
-import { TowersStore } from '../../effector/towers/store';
+import { TowerInfoModalStore } from '../../effector/tower-info-modal-store/store';
 
 enum strokeClassNames {
   STROKE = 'stroke',
@@ -137,7 +137,7 @@ export const TowerWrapper = memo(
     const towerRef = useRef<HTMLDivElement>(null);
     const strokeRef = useRef<HTMLImageElement>(null);
     const TowerStyleConfig = createTowerStyleConfig(width, height);
-    const { focusOn } = useStore(TowersStore);
+    const { focusOn } = useStore(TowerInfoModalStore);
 
     const handleClick = () => {
       if (mutedImg) return;

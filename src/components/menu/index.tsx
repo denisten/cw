@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
 import { ExitButton } from '../../UI/exit-button';
 import { menuClosed, menuOpened } from '../../effector/app-condition/events';
-import { MenuItemsComponent, noAuthAvailableMenuItems } from '../menu-items';
-import { MenuContent } from '../menu-content';
 import { MenuItems } from '../../UI/menu-paragraph';
 import { useStore } from 'effector-react';
 import { AppCondition } from '../../effector/app-condition/store';
@@ -15,6 +13,8 @@ import { pauseTutorialMode } from '../../effector/tutorial-store/events';
 import styled from 'styled-components';
 import { IDisplayFlag } from '../skip-tutorial';
 import { MissionsStore } from '../../effector/missions-store/store';
+import { MenuItemsComponent, noAuthAvailableMenuItems } from './menu-items';
+import { MenuContent } from './menu-content';
 
 const StyledConfig = {
   exitButton: {

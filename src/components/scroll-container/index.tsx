@@ -4,12 +4,11 @@ import { useCheckDisableTutorial } from '../../hooks/use-check-disable-tutorial'
 import { TowersTypes } from '../../effector/towers-progress/store';
 import { TutorialToolsSelector } from '../../utils/arrows-container';
 import { TutorialConditions } from '../../effector/tutorial-store/store';
-import { Planes } from '../planes';
+import { PlanesCollection } from '../planes';
 import { Map } from '../map';
 import { Buildings } from '../../buildings';
 import { Bridges } from '../../buildings/bridges';
 import { BuildingsService } from '../../buildings/config';
-import { CentralBanner } from '../central-banner';
 import { useInitDragscroll } from '../../hooks/use-init-dragscroll';
 import { scrollToCurrentTower } from '../../utils/scroll-to-current-tower';
 import { ZoomInOutButtons } from '../../UI/zoom-in-out-buttons';
@@ -19,8 +18,9 @@ import { useEnableSizeMod } from '../../hooks/use-enable-size-mod';
 import { useStore } from 'effector-react';
 import { AppCondition } from '../../effector/app-condition/store';
 import { fixSizeClassName } from '../../UI/tower-component-wrapper';
-const Cars = lazy(() => import('../cars/carsArray'));
-const Waves = lazy(() => import('../waves'));
+import { CentralBanner } from '../decorations/central-banner';
+const Cars = lazy(() => import('../decorations/cars/carsArray'));
+const Waves = lazy(() => import('../decorations/waves'));
 const Decorations = lazy(() => import('../decorations'));
 
 export enum ScaleValues {
@@ -160,7 +160,7 @@ export const ScrollContainer: React.FC<{
           tutorialCondition={tutorialCondition}
           isInsideScrollContainer={true}
         />
-        <Planes />
+        <PlanesCollection />
 
         <Map />
         <Buildings />

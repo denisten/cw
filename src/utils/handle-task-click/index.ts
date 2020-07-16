@@ -22,7 +22,7 @@ import { BuildingsService } from '../../buildings/config';
 import { markerHandler } from '../marker-handler';
 import { animateTaskReward } from '../animate-task-reward';
 import { coughtError } from '../../effector/error-boundary-store/events';
-import { extraTowerInfoModalOpen } from '../../effector/towers/events';
+import { extraTowerInfoModalOpen } from '../../effector/tower-info-modal-store/events';
 
 export const handleTaskClick = async (id: number, e: React.MouseEvent) => {
   const tasks = MissionsStore.getState();

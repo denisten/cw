@@ -7,7 +7,7 @@ import { UserDataStore } from '../../../../effector/user-data/store';
 import { UnauthorizeTaskZone } from './unauthorize-task-zone';
 import { AppCondition } from '../../../../effector/app-condition/store';
 import { useHandleAuth } from '../../../../hooks/use-handle-auth';
-import { TowersStore } from '../../../../effector/towers/store';
+import { TowerInfoModalStore } from '../../../../effector/tower-info-modal-store/store';
 
 const TasksWrapper = styled.div<ITask>`
   display: ${props => (props.hidden ? 'hidden' : 'block')};
@@ -23,7 +23,7 @@ export const Tasks: React.FC<{ active: boolean; isAuthorized: boolean }> = ({
   const missions = useStore(MissionsStore);
   const { worldName } = useStore(UserDataStore);
   const { dataReceived } = useStore(AppCondition);
-  const { focusOn } = useStore(TowersStore);
+  const { focusOn } = useStore(TowerInfoModalStore);
   useHandleAuth({ isAuthorized, dataReceived, worldName });
 
   return (

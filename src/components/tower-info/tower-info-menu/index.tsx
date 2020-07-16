@@ -3,7 +3,7 @@ import { TowerInfoContentValues } from '../../../effector/app-condition/store';
 import { setTowerInfoContent } from '../../../effector/app-condition/events';
 import { MoveDivider } from '../../../UI/move-divider';
 import React from 'react';
-import { useMoveTo } from '../../../hooks/useMoveTo';
+import { useMoveTo } from '../../../hooks/use-move-to';
 import styled from 'styled-components';
 import { MTSSans } from '../../../fonts';
 import { useStore } from 'effector-react';

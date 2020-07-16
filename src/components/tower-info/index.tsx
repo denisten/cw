@@ -10,7 +10,6 @@ import {
   AppCondition,
   TowerInfoContentValues,
 } from '../../effector/app-condition/store';
-import { TowerInfoContent } from '../tower-info-content';
 import {
   TowersProgressStore,
   TowersTypes,
@@ -32,7 +31,8 @@ import { TowerInfoTitle } from './tower-info-title';
 import { TowerInfoIndicators } from './tower-info-indicators';
 import { TowerInfoMenu } from './tower-info-menu';
 import { ChatStore } from '../../effector/chat/store';
-import { TowersStore } from '../../effector/towers/store';
+import { TowerInfoModalStore } from '../../effector/tower-info-modal-store/store';
+import { TowerInfoContent } from './tower-info-content';
 
 export type ModalWindowProps = {
   opened?: boolean;
@@ -135,7 +135,7 @@ export const TowerInfo: React.FC = () => {
   const {
     isExtraTowerInfoModalOpen,
     focusOn: notVerifiedTowerTitle,
-  } = useStore(TowersStore);
+  } = useStore(TowerInfoModalStore);
   const { hideTowerInfo, selectTowerInfoContent } = useStore(AppCondition);
   const { tutorialCondition } = useStore(TutorialStore);
   const towerTitle = notVerifiedTowerTitle || TowersTypes.MAIN_TOWER;

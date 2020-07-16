@@ -6,7 +6,7 @@ import { upgradeTower } from '../../effector/towers-progress/events';
 import { showUpgradeIcon } from '../../effector/app-condition/events';
 import { nextTutorStep } from '../../effector/tutorial-store/events';
 import { upgradeTowerAndShowAnimation } from '../upgrade-tower-and-show-animation';
-import { extraTowerInfoModalClosed } from '../../effector/towers/events';
+import { extraTowerInfoModalClosed } from '../../effector/tower-info-modal-store/events';
 
 const delayMS = 2000;
 const delayBeforeUpgrade = () =>
