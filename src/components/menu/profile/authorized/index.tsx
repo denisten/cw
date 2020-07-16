@@ -182,7 +182,7 @@ const checkUserName = (nameLength: number) =>
 
 const inputLengthErrorParams = { maxSymbol: 14, minSymbol: 3 };
 
-export const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
+const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
   openPopUpState,
 }) => {
   const {
@@ -339,3 +339,5 @@ export interface IUserAvatar {
   width?: number;
   height?: number;
 }
+
+export default AuthorizedProfile;
