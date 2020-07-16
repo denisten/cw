@@ -3,12 +3,10 @@ import styled from 'styled-components';
 import { useCheckDisableTutorial } from '../../hooks/use-check-disable-tutorial';
 import { TowersTypes } from '../../effector/towers-progress/store';
 import { TutorialConditions } from '../../effector/tutorial-store/store';
-import { Planes } from '../planes';
 import { Map } from '../map';
 import { Buildings } from '../../buildings';
 import { Bridges } from '../../buildings/bridges';
 import { BuildingsService } from '../../buildings/config';
-import { CentralBanner } from '../central-banner';
 import { useInitDragscroll } from '../../hooks/use-init-dragscroll';
 import { scrollToCurrentTower } from '../../utils/scroll-to-current-tower';
 import { ZoomInOutButtons } from '../../UI/zoom-in-out-buttons';
@@ -18,6 +16,8 @@ import { useEnableSizeMod } from '../../hooks/use-enable-size-mod';
 import { useStore } from 'effector-react';
 import { AppCondition } from '../../effector/app-condition/store';
 import { fixSizeClassName } from '../../UI/tower-component-wrapper';
+const CentralBanner = lazy(() => import('../central-banner'));
+const Planes = lazy(() => import('../planes'));
 const Cars = lazy(() => import('../cars/carsArray'));
 const Waves = lazy(() => import('../waves'));
 const Decorations = lazy(() => import('../decorations'));
@@ -159,14 +159,16 @@ export const ScrollContainer: React.FC<{
     >
       <ZoomInOutButtons callback={scaleHandler} />
       <MapWrapper ref={mapWrapperRef} zIndex={zIndex}>
-        <Planes />
-
         <Map />
         <Buildings />
-        <CentralBanner tutorialCondition={tutorialCondition} />
         <Bridges showBridges={true} />
         <PointForCenterScroll ref={centerScrollPoint} />
         <Suspense fallback={<>loading</>}>
+          {DOMLoaded && (
+            <>
+              <Planes /> <CentralBanner tutorialCondition={tutorialCondition} />
+            </>
+          )}
           {DOMLoaded && !animationOff && (
             <>
               <Cars /> <Waves /> <Decorations />
