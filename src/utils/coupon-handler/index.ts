@@ -1,5 +1,5 @@
 import { activateCoupon } from '../../api/activate-coupon';
-import { CouponTypes } from '../../effector/coupons/store';
+import { CouponTypes, UserMarket } from '../../effector/coupons/store';
 import { ResponseStatuses } from '../../constants';
 import { fetchTasks } from '../../effector/missions-store/events';
 import { editCouponCount } from '../../effector/coupons/events';
@@ -15,7 +15,8 @@ export const couponHandler = async (
   towerTitle?: TowersTypes,
   switchers?: ITabSwitchers
 ) => {
-  if (taskId) {
+  const { userCoupons } = UserMarket.getState();
+  if (taskId && userCoupons) {
     const response = await activateCoupon(CouponTypes.COUPON_REPLACE, taskId);
     if (response.state === ResponseStatuses.SUCCESS) {
       await fetchTasks('');
@@ -31,5 +32,9 @@ export const couponHandler = async (
         text: response.data.msg,
       });
     }
+  } else {
+    coughtError({
+      text: 'У вас кончились купоны',
+    });
   }
 };

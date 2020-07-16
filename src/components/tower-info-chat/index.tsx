@@ -25,7 +25,7 @@ import {
 import { hideMarker, setMarker } from '../../effector/towers-marker/events';
 import { TypeOfMarkers } from '../markers';
 import { ModalWindow } from '../modal-window';
-import { CouponTypes, UserStore } from '../../effector/coupons/store';
+import { CouponTypes, UserMarket } from '../../effector/coupons/store';
 import { couponHandler } from '../../utils/coupon-handler';
 import { IDisplayFlag } from '../skip-tutorial';
 import { ChatPreview } from '../../UI/chat-preview';
@@ -130,7 +130,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
     const missions = useStore(MissionsStore);
     const [openCouponModal, setOpenCouponModal] = useState(false);
     const [pendingOfResponse, setPendingOfResponse] = useState(false);
-    const { userCoupons } = useStore(UserStore);
+    const { userCoupons } = useStore(UserMarket);
     const { count } = userCoupons[CouponTypes.COUPON_REPLACE];
 
     const currentTaskIndex = missions.findIndex(el => {
