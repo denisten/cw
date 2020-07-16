@@ -5,13 +5,7 @@ import { MTSSans } from '../../../fonts';
 import { Button, ButtonClassNames } from '../../../UI/button';
 import { IBirthday, UserDataStore } from '../../../effector/user-data/store';
 import penImg from '../not-authorized/pen.svg';
-import {
-  maxSymbolsAlert,
-  minSymbolsAlert,
-  PopUp,
-  IPopUp,
-  TypesOfPopUps,
-} from '../../../UI/pop-up';
+import { PopUp, IPopUp, TypesOfPopUps } from '../../../UI/pop-up';
 import { useStore } from 'effector-react';
 import { RowWrapper } from '../../../UI/row-wrapper';
 import userAvatarIcon from './user-avatar.svg';
@@ -34,6 +28,7 @@ import { Assistent } from '../../../UI/assistent';
 import camera from './camera.svg';
 import { logout } from '../../../effector/user-data/events';
 import { CoinsWallet } from '../../../UI/wallet';
+import { inputValidation } from '../../../utils/input-validation';
 
 const ExitText = styled(StyledSpan)<ISpan>`
   font-family: ${MTSSans.REGULAR};
@@ -186,6 +181,8 @@ let nameInputHint = '';
 const checkUserName = (nameLength: number) =>
   nameLength >= minNameLength && nameLength <= maxUserNameLength;
 
+const inputLengthErrorParams = { maxSymbol: 14, minSymbol: 3 };
+
 export const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
   openPopUpState,
 }) => {
@@ -208,16 +205,13 @@ export const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
   }, [name, birthday]);
 
   const handleChangeNameInput = (value: string) => {
+    nameInputHint = inputValidation(
+      value,
+      nameInputHint,
+      setNameInputHasError,
+      inputLengthErrorParams
+    );
     setLocalName(value);
-    if (value.length < minNameLength) {
-      nameInputHint = minSymbolsAlert + minNameLength;
-      setNameInputHasError(true);
-    } else if (value.length > maxUserNameLength) {
-      nameInputHint = maxSymbolsAlert + maxUserNameLength;
-      setNameInputHasError(true);
-    } else {
-      setNameInputHasError(false);
-    }
   };
 
   const onSubmitHandler = async (e?: FormEvent) => {
