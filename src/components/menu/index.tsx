@@ -38,7 +38,7 @@ const ExpandedColumnWrapper = styled(ColumnWrapper)`
   z-index: 20;
 `;
 
-export const Menu: React.FC<IDisplayFlag> = ({ displayFlag }) => {
+const Menu: React.FC<IDisplayFlag> = ({ displayFlag }) => {
   const { selectedMenuItem, isAuthorized } = useStore(AppConditionStore);
   const { tutorialCondition } = useStore(TutorialStore);
   const missions = useStore(TasksStore);
