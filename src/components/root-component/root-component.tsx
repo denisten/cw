@@ -16,6 +16,7 @@ import { zIndexForInheritOverlay } from '../../constants';
 import { IDisplayFlag } from '../skip-tutorial';
 import { MoveCoinCollection } from '../move-coin-collection';
 import { UIButtonInterface } from '../UI-buttons-interface';
+const InitTutorialSlider = lazy(() => import('../tutorial-slider/init-slider'));
 // import { SkipTutorial } from '../skip-tutorial';
 
 const RootComponentWrapper = styled.div<IDisplayFlag>`
@@ -28,8 +29,6 @@ const RootComponentWrapper = styled.div<IDisplayFlag>`
   position: relative;
   visibility: ${props => (props.displayFlag ? 'visible' : 'hidden')};
 `;
-
-const InitTutorialSlider = lazy(() => import('../tutorial-slider/init-slider'));
 
 export const RootComponent = () => {
   const { selectedMenuItem, DOMLoaded, tutorialSliderDisplayFlag } = useStore(
