@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { Car } from '.';
 import { keyframes } from 'styled-components';
-import { Cars } from './carsArray';
+import Cars from './carsArray';
 import { carConfig } from './carConfig';
 
 describe('<Car />', () => {

@@ -22,7 +22,7 @@ const WaveImg = styled.div<IWaveImg>`
   border-radius: ${props => props.borderRadius || '0px'};
 `;
 
-export const Waves: React.FC = React.memo(() => {
+const Waves: React.FC = React.memo(() => {
   return (
     <>
       <SpriteCollection
@@ -50,3 +50,5 @@ export interface IWaveImg {
   backgroundSize?: string;
   zIndex?: number;
 }
+
+export default Waves;
