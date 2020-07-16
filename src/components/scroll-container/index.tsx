@@ -1,17 +1,14 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, lazy, Suspense } from 'react';
 import styled from 'styled-components';
 import { useCheckDisableTutorial } from '../../hooks/use-check-disable-tutorial';
 import { TowersTypes } from '../../effector/towers-progress/store';
 import { TutorialToolsSelector } from '../../utils/arrows-container';
 import { TutorialConditions } from '../../effector/tutorial-store/store';
 import { Planes } from '../planes';
-import { Cars } from '../cars/carsArray';
 import { Map } from '../map';
 import { Buildings } from '../../buildings';
 import { Bridges } from '../../buildings/bridges';
 import { BuildingsService } from '../../buildings/config';
-import { Waves } from '../waves';
-import { Decorations } from '../decorations';
 import { CentralBanner } from '../central-banner';
 import { useInitDragscroll } from '../../hooks/use-init-dragscroll';
 import { scrollToCurrentTower } from '../../utils/scroll-to-current-tower';
@@ -22,6 +19,9 @@ import { useEnableSizeMod } from '../../hooks/use-enable-size-mod';
 import { useStore } from 'effector-react';
 import { AppCondition } from '../../effector/app-condition/store';
 import { fixSizeClassName } from '../../UI/tower-component-wrapper';
+const Cars = lazy(() => import('../cars/carsArray'));
+const Waves = lazy(() => import('../waves'));
+const Decorations = lazy(() => import('../decorations'));
 
 export enum ScaleValues {
   ZOOM_IN = 0.05,
@@ -77,7 +77,7 @@ export const ScrollContainer: React.FC<{
   const scaleValue = useRef(ScaleValues.MIN_SCALE);
   const centerScrollPoint = useRef(null);
   const { ref } = BuildingsService.getConfigForTower(TowersTypes.MY_MTS);
-  const { isAuthorized, animationOff } = useStore(AppCondition);
+  const { isAuthorized, animationOff, DOMLoaded } = useStore(AppCondition);
 
   const runScrollAnimation = () => {
     if (mapWrapperRef.current)
@@ -161,14 +161,19 @@ export const ScrollContainer: React.FC<{
           isInsideScrollContainer={true}
         />
         <Planes />
-        {!animationOff && <Cars />}
+
         <Map />
         <Buildings />
-        {!animationOff && <Waves />}
-        {!animationOff && <Decorations />}
         <CentralBanner tutorialCondition={tutorialCondition} />
         <Bridges showBridges={true} />
         <PointForCenterScroll ref={centerScrollPoint} />
+        <Suspense fallback={<>loading</>}>
+          {DOMLoaded && !animationOff && (
+            <>
+              <Cars /> <Waves /> <Decorations />
+            </>
+          )}
+        </Suspense>
       </MapWrapper>
     </ScrollContainerWrapper>
   );

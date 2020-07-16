@@ -44,7 +44,7 @@ const initState = {
   openPopUpState: TypesOfPopUps.DISABLED,
   haveCorrectCookie: false,
   fullSizeMode: false,
-  animationOff: false,
+  animationOff: true,
 };
 
 const appConditionLocalStorage = connectLocalStorage('AppCondition').onChange(
