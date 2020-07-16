@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useStore } from 'effector-react';
 import { AppCondition } from '../../effector/app-condition/store';
 import mapTile from '../../img/roads/map-tile.png';
-import { Menu } from '../menu';
+
 import {
   TutorialStore,
   TutorialConditions,
@@ -13,7 +13,7 @@ import { TutorialOverlay } from '../tutorial-overlay';
 import { zIndexForInheritOverlay } from '../../constants';
 import { IDisplayFlag } from '../skip-tutorial';
 // import { SkipTutorial } from '../skip-tutorial';
-
+const Menu = lazy(() => import('../menu'));
 const InitTutorialSlider = lazy(() => import('../tutorial-slider/init-slider'));
 const UIButtonInterface = lazy(() => import('../UI-buttons-interface'));
 const MoveCoinCollection = lazy(() => import('../move-coin-collection'));
@@ -43,12 +43,14 @@ export const RootComponent = () => {
 
   return (
     <RootComponentWrapper id="rootScroll" displayFlag={DOMLoaded}>
-      <Menu displayFlag={!!selectedMenuItem} />
       <Suspense fallback={<>loading</>}>
         {tutorialSliderDisplayFlag && <InitTutorialSlider />}
         {DOMLoaded && (
           <>
-            <UIButtonInterface /> <MoveCoinCollection /> <TowerInfo />
+            <UIButtonInterface />
+            <MoveCoinCollection />
+            <TowerInfo />
+            <Menu displayFlag={!!selectedMenuItem} />
           </>
         )}
         {tutorialIsEnabled && (

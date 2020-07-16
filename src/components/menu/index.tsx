@@ -38,7 +38,7 @@ const ExpandedColumnWrapper = styled(ColumnWrapper)`
   z-index: 20;
 `;
 
-export const Menu: React.FC<IDisplayFlag> = ({ displayFlag }) => {
+const Menu: React.FC<IDisplayFlag> = ({ displayFlag }) => {
   const { selectedMenuItem, isAuthorized } = useStore(AppCondition);
   const { tutorialCondition } = useStore(TutorialStore);
   const missions = useStore(MissionsStore);
@@ -79,3 +79,5 @@ export const Menu: React.FC<IDisplayFlag> = ({ displayFlag }) => {
     </Overlay>
   );
 };
+
+export default Menu;
