@@ -7,7 +7,7 @@ type ArrowsContainerProps = {
   tutorialCondition: TutorialConditions;
   isInsideScrollContainer: boolean;
 };
-export const TutorialToolsSelector: React.FC<ArrowsContainerProps> = ({
+const TutorialToolsSelector: React.FC<ArrowsContainerProps> = ({
   tutorialCondition,
   isInsideScrollContainer,
 }) => {
@@ -36,3 +36,5 @@ export const TutorialToolsSelector: React.FC<ArrowsContainerProps> = ({
       return <Fragment />;
   }
 };
+
+export default TutorialToolsSelector;
