@@ -67,8 +67,7 @@ const returnFontSize = (wordLength: number) => {
     return '13px';
   }
 };
-
-export const CentralBanner: React.FC<{
+const CentralBanner: React.FC<{
   tutorialCondition: TutorialConditions;
 }> = ({ tutorialCondition }) => {
   const { worldName } = useStore(UserDataStore);
@@ -103,3 +102,5 @@ export const CentralBanner: React.FC<{
     </Banner>
   );
 };
+
+export default CentralBanner;

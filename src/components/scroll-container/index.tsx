@@ -2,26 +2,28 @@ import React, { useEffect, useRef, lazy, Suspense } from 'react';
 import styled from 'styled-components';
 import { useCheckDisableTutorial } from '../../hooks/use-check-disable-tutorial';
 import { TowersTypes } from '../../effector/towers-progress/store';
-import { TutorialToolsSelector } from '../../utils/arrows-container';
 import { TutorialConditions } from '../../effector/tutorial-store/store';
-import { PlanesCollection } from '../planes';
 import { Map } from '../map';
 import { Buildings } from '../../buildings';
 import { Bridges } from '../../buildings/bridges';
 import { BuildingsService } from '../../buildings/config';
 import { useInitDragscroll } from '../../hooks/use-init-dragscroll';
 import { scrollToCurrentTower } from '../../utils/scroll-to-current-tower';
-import { ZoomInOutButtons } from '../../UI/zoom-in-out-buttons';
 import dragscroll from 'dragscroll';
 import { setFullSizeMode } from '../../effector/app-condition/events';
 import { useEnableSizeMod } from '../../hooks/use-enable-size-mod';
 import { useStore } from 'effector-react';
 import { AppConditionStore } from '../../effector/app-condition/store';
 import { fixSizeClassName } from '../../UI/tower-component-wrapper';
-import { CentralBanner } from '../decorations/central-banner';
+const ZoomInOutButtons = lazy(() => import('../../UI/zoom-in-out-buttons'));
+const CentralBanner = lazy(() => import('../decorations/central-banner'));
+const Planes = lazy(() => import('../planes'));
 const Cars = lazy(() => import('../decorations/cars/carsArray'));
 const Waves = lazy(() => import('../decorations/waves'));
 const Decorations = lazy(() => import('../decorations'));
+const TutorialToolsSelector = lazy(() =>
+  import('../../utils/arrows-container')
+);
 
 export enum ScaleValues {
   ZOOM_IN = 0.05,
@@ -78,6 +80,7 @@ export const ScrollContainer: React.FC<{
   const centerScrollPoint = useRef(null);
   const { ref } = BuildingsService.getConfigForTower(TowersTypes.MY_MTS);
   const { isAuthorized, animationOff, DOMLoaded } = useStore(AppConditionStore);
+  const tutorialIsEnabled = DOMLoaded && tutorialCondition !== 0;
 
   const runScrollAnimation = () => {
     if (mapWrapperRef.current)
@@ -154,24 +157,30 @@ export const ScrollContainer: React.FC<{
       className={_scrollContainerClassName}
       ref={scrollContainerWrapperRef}
     >
-      <ZoomInOutButtons callback={scaleHandler} />
+      <Suspense fallback={<>loading</>}>
+        {DOMLoaded && <ZoomInOutButtons callback={scaleHandler} />}
+      </Suspense>
       <MapWrapper ref={mapWrapperRef} zIndex={zIndex}>
-        <TutorialToolsSelector
-          tutorialCondition={tutorialCondition}
-          isInsideScrollContainer={true}
-        />
-        <PlanesCollection />
-
         <Map />
         <Buildings />
-        <CentralBanner tutorialCondition={tutorialCondition} />
         <Bridges showBridges={true} />
         <PointForCenterScroll ref={centerScrollPoint} />
         <Suspense fallback={<>loading</>}>
+          {DOMLoaded && (
+            <>
+              <Planes /> <CentralBanner tutorialCondition={tutorialCondition} />
+            </>
+          )}
           {DOMLoaded && !animationOff && (
             <>
               <Cars /> <Waves /> <Decorations />
             </>
+          )}
+          {tutorialIsEnabled && (
+            <TutorialToolsSelector
+              tutorialCondition={tutorialCondition}
+              isInsideScrollContainer={true}
+            />
           )}
         </Suspense>
       </MapWrapper>

@@ -130,7 +130,7 @@ const grownLineAndNextStep = (
   }
 };
 
-export const TowerInfo: React.FC = () => {
+const TowerInfo: React.FC = () => {
   const localDescriptionService = new BuildingsDescriptionService();
   const {
     isExtraTowerInfoModalOpen,
@@ -270,3 +270,5 @@ export interface ITabSwitchers {
   openChatTab: () => void;
   openTasksTab: () => void;
 }
+
+export default TowerInfo;

@@ -79,3 +79,5 @@ export const Menu: React.FC<IDisplayFlag> = ({ displayFlag }) => {
     </Overlay>
   );
 };
+
+export default Menu;

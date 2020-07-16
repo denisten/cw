@@ -3,9 +3,8 @@ import { useStore } from 'effector-react';
 import { MoveCoinElem } from './move-coin-elem';
 import { RewardStore } from '../../effector/reward/store';
 
-export const MoveCoinCollection: React.FC = () => {
+const MoveCoinCollection: React.FC = () => {
   const { lootRewardCoordinatesQueue } = useStore(RewardStore);
-
   return (
     <>
       {lootRewardCoordinatesQueue.map(elem => (
@@ -14,3 +13,4 @@ export const MoveCoinCollection: React.FC = () => {
     </>
   );
 };
+export default MoveCoinCollection;
