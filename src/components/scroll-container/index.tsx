@@ -19,6 +19,9 @@ import { useEnableSizeMod } from '../../hooks/use-enable-size-mod';
 import { useStore } from 'effector-react';
 import { AppCondition } from '../../effector/app-condition/store';
 import { fixSizeClassName } from '../../UI/tower-component-wrapper';
+const Cars = lazy(() => import('../cars/carsArray'));
+const Waves = lazy(() => import('../waves'));
+const Decorations = lazy(() => import('../decorations'));
 
 export enum ScaleValues {
   ZOOM_IN = 0.05,
@@ -64,10 +67,6 @@ const scrollToCurrentTowerOptions = {
 } as ScrollIntoViewOptions;
 
 // const _smoothScrollValue = -0.005;
-
-const Cars = lazy(() => import('../cars/carsArray'));
-const Waves = lazy(() => import('../waves'));
-const Decorations = lazy(() => import('../decorations'));
 
 export const ScrollContainer: React.FC<{
   tutorialCondition: TutorialConditions;
@@ -169,9 +168,11 @@ export const ScrollContainer: React.FC<{
         <Bridges showBridges={true} />
         <PointForCenterScroll ref={centerScrollPoint} />
         <Suspense fallback={<>loading</>}>
-          {DOMLoaded && !animationOff && <Cars />}
-          {DOMLoaded && !animationOff && <Waves />}
-          {DOMLoaded && !animationOff && <Decorations />}
+          {DOMLoaded && !animationOff && (
+            <>
+              <Cars /> <Waves /> <Decorations />
+            </>
+          )}
         </Suspense>
       </MapWrapper>
     </ScrollContainerWrapper>
