@@ -17,7 +17,7 @@
     "isolatedModules": false,
     "outDir": "./dist/",
     "noImplicitAny": true,
-    "module": "es6",
+    "module": "es2020",
     "jsx": "react",
     "sourceMap": true
   },
