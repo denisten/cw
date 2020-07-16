@@ -1,11 +1,9 @@
 import React, { lazy, Suspense } from 'react';
 import styled from 'styled-components';
-import { TowerInfo } from '../tower-info';
 import { useStore } from 'effector-react';
 import { AppCondition } from '../../effector/app-condition/store';
 import mapTile from '../../img/roads/map-tile.png';
 import { Menu } from '../menu';
-import { TutorialToolsSelector } from '../../utils/arrows-container';
 import {
   TutorialStore,
   TutorialConditions,
@@ -14,9 +12,15 @@ import { ScrollContainer } from '../scroll-container';
 import { TutorialOverlay } from '../tutorial-overlay';
 import { zIndexForInheritOverlay } from '../../constants';
 import { IDisplayFlag } from '../skip-tutorial';
-import { MoveCoinCollection } from '../move-coin-collection';
-import { UIButtonInterface } from '../UI-buttons-interface';
 // import { SkipTutorial } from '../skip-tutorial';
+
+const InitTutorialSlider = lazy(() => import('../tutorial-slider/init-slider'));
+const UIButtonInterface = lazy(() => import('../UI-buttons-interface'));
+const MoveCoinCollection = lazy(() => import('../move-coin-collection'));
+const TowerInfo = lazy(() => import('../tower-info'));
+const TutorialToolsSelector = lazy(() =>
+  import('../../utils/arrows-container')
+);
 
 const RootComponentWrapper = styled.div<IDisplayFlag>`
   background-image: url(${mapTile});
@@ -29,28 +33,32 @@ const RootComponentWrapper = styled.div<IDisplayFlag>`
   visibility: ${props => (props.displayFlag ? 'visible' : 'hidden')};
 `;
 
-const InitTutorialSlider = lazy(() => import('../tutorial-slider/init-slider'));
-
 export const RootComponent = () => {
   const { selectedMenuItem, DOMLoaded, tutorialSliderDisplayFlag } = useStore(
     AppCondition
   );
   // const [showSkipTutorialUI, setShowSkipTutorialUI] = useState(true);
   const { tutorialCondition } = useStore(TutorialStore);
+  const tutorialIsEnabled = DOMLoaded && tutorialCondition !== 0;
 
   return (
     <RootComponentWrapper id="rootScroll" displayFlag={DOMLoaded}>
       <Menu displayFlag={!!selectedMenuItem} />
       <Suspense fallback={<>loading</>}>
         {tutorialSliderDisplayFlag && <InitTutorialSlider />}
+        {DOMLoaded && (
+          <>
+            <UIButtonInterface /> <MoveCoinCollection /> <TowerInfo />
+          </>
+        )}
+        {tutorialIsEnabled && (
+          <TutorialToolsSelector
+            tutorialCondition={tutorialCondition}
+            isInsideScrollContainer={false}
+          />
+        )}
       </Suspense>
-      <UIButtonInterface />
-      <MoveCoinCollection />
-      <TowerInfo />
-      <TutorialToolsSelector
-        tutorialCondition={tutorialCondition}
-        isInsideScrollContainer={false}
-      />
+
       {/* <SkipTutorial
         displayFlag={showSkipTutorialUI}
         setDisplayFlag={() => setShowSkipTutorialUI(!showSkipTutorialUI)}

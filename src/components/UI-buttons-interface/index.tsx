@@ -12,7 +12,7 @@ const UIButtonInterfaceWrapper = styled.div`
   height: 100%;
   position: absolute;
 `;
-export const UIButtonInterface = () => {
+const UIButtonInterface = () => {
   const { isCoinRelocateAnimationEnded } = useStore(RewardStore);
   const { tutorialCondition, tutorialPause } = useStore(TutorialStore);
 
@@ -28,3 +28,4 @@ export const UIButtonInterface = () => {
     </UIButtonInterfaceWrapper>
   );
 };
+export default UIButtonInterface;

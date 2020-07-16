@@ -2,7 +2,6 @@ import React, { useEffect, useRef, lazy, Suspense } from 'react';
 import styled from 'styled-components';
 import { useCheckDisableTutorial } from '../../hooks/use-check-disable-tutorial';
 import { TowersTypes } from '../../effector/towers-progress/store';
-import { TutorialToolsSelector } from '../../utils/arrows-container';
 import { TutorialConditions } from '../../effector/tutorial-store/store';
 import { Planes } from '../planes';
 import { Map } from '../map';
@@ -22,6 +21,9 @@ import { fixSizeClassName } from '../../UI/tower-component-wrapper';
 const Cars = lazy(() => import('../cars/carsArray'));
 const Waves = lazy(() => import('../waves'));
 const Decorations = lazy(() => import('../decorations'));
+const TutorialToolsSelector = lazy(() =>
+  import('../../utils/arrows-container')
+);
 
 export enum ScaleValues {
   ZOOM_IN = 0.05,
@@ -78,6 +80,7 @@ export const ScrollContainer: React.FC<{
   const centerScrollPoint = useRef(null);
   const { ref } = BuildingsService.getConfigForTower(TowersTypes.MY_MTS);
   const { isAuthorized, animationOff, DOMLoaded } = useStore(AppCondition);
+  const tutorialIsEnabled = DOMLoaded && tutorialCondition !== 0;
 
   const runScrollAnimation = () => {
     if (mapWrapperRef.current)
@@ -156,10 +159,6 @@ export const ScrollContainer: React.FC<{
     >
       <ZoomInOutButtons callback={scaleHandler} />
       <MapWrapper ref={mapWrapperRef} zIndex={zIndex}>
-        <TutorialToolsSelector
-          tutorialCondition={tutorialCondition}
-          isInsideScrollContainer={true}
-        />
         <Planes />
 
         <Map />
@@ -172,6 +171,12 @@ export const ScrollContainer: React.FC<{
             <>
               <Cars /> <Waves /> <Decorations />
             </>
+          )}
+          {tutorialIsEnabled && (
+            <TutorialToolsSelector
+              tutorialCondition={tutorialCondition}
+              isInsideScrollContainer={true}
+            />
           )}
         </Suspense>
       </MapWrapper>
