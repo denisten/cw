@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { NotAuthorizedProfile } from './not-authorized';
 import { AuthorizedProfile } from './authorized';
 import { UserDataStore } from '../../../effector/user-data/store';
-import { AppCondition } from '../../../effector/app-condition/store';
+import { AppConditionStore } from '../../../effector/app-condition/store';
 import { useHandleAuth } from '../../../hooks/use-handle-auth';
 
 const ProfileWrapper = styled.div`
@@ -14,7 +14,9 @@ const ProfileWrapper = styled.div`
 `;
 
 export const Profile = React.memo(() => {
-  const { isAuthorized, dataReceived, openPopUpState } = useStore(AppCondition);
+  const { isAuthorized, dataReceived, openPopUpState } = useStore(
+    AppConditionStore
+  );
   const { worldName } = useStore(UserDataStore);
   useHandleAuth({ isAuthorized, dataReceived, worldName });
   const content = isAuthorized ? (

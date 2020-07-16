@@ -11,7 +11,7 @@ import {
 import { maxPercent } from '../../constants';
 
 export enum TowerLevel {
-  deactive = 0,
+  initial = 0,
   low = 1,
   mid = 2,
   high = 3,
@@ -56,7 +56,7 @@ const initState: TowersProgressStoreType = {
     level: {
       id: 0,
       name: '0 уровень',
-      level: TowerLevel.deactive,
+      level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
     },
@@ -69,7 +69,7 @@ const initState: TowersProgressStoreType = {
     level: {
       id: 0,
       name: '0 уровень',
-      level: TowerLevel.deactive,
+      level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
     },
@@ -82,7 +82,7 @@ const initState: TowersProgressStoreType = {
     level: {
       id: 0,
       name: '0 уровень',
-      level: TowerLevel.deactive,
+      level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
     },
@@ -95,7 +95,7 @@ const initState: TowersProgressStoreType = {
     level: {
       id: 0,
       name: '0 уровень',
-      level: TowerLevel.deactive,
+      level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
     },
@@ -108,7 +108,7 @@ const initState: TowersProgressStoreType = {
     level: {
       id: 0,
       name: '0 уровень',
-      level: TowerLevel.deactive,
+      level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
     },
@@ -121,7 +121,7 @@ const initState: TowersProgressStoreType = {
     level: {
       id: 0,
       name: '0 уровень',
-      level: TowerLevel.deactive,
+      level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
     },
@@ -134,7 +134,7 @@ const initState: TowersProgressStoreType = {
     level: {
       id: 0,
       name: '0 уровень',
-      level: TowerLevel.deactive,
+      level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
     },
@@ -147,7 +147,7 @@ const initState: TowersProgressStoreType = {
     level: {
       id: 0,
       name: '0 уровень',
-      level: TowerLevel.deactive,
+      level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
     },
@@ -160,7 +160,7 @@ const initState: TowersProgressStoreType = {
     level: {
       id: 0,
       name: '0 уровень',
-      level: TowerLevel.deactive,
+      level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
     },
@@ -173,7 +173,7 @@ const initState: TowersProgressStoreType = {
     level: {
       id: 0,
       name: '0 уровень',
-      level: TowerLevel.deactive,
+      level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
     },
@@ -186,7 +186,7 @@ const initState: TowersProgressStoreType = {
     level: {
       id: 0,
       name: '0 уровень',
-      level: TowerLevel.deactive,
+      level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
     },
@@ -199,7 +199,7 @@ const initState: TowersProgressStoreType = {
     level: {
       id: 0,
       name: '0 уровень',
-      level: TowerLevel.deactive,
+      level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
     },
@@ -212,7 +212,7 @@ const initState: TowersProgressStoreType = {
     level: {
       id: 0,
       name: '0 уровень',
-      level: TowerLevel.deactive,
+      level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
     },
@@ -225,7 +225,7 @@ const initState: TowersProgressStoreType = {
     level: {
       id: 0,
       name: '0 уровень',
-      level: TowerLevel.deactive,
+      level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
     },
@@ -238,7 +238,7 @@ const initState: TowersProgressStoreType = {
     level: {
       id: 0,
       name: '0 уровень',
-      level: TowerLevel.deactive,
+      level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
     },
@@ -251,7 +251,7 @@ const initState: TowersProgressStoreType = {
     level: {
       id: 0,
       name: '0 уровень',
-      level: TowerLevel.deactive,
+      level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
     },
@@ -264,7 +264,7 @@ const initState: TowersProgressStoreType = {
     level: {
       id: 0,
       name: '0 уровень',
-      level: TowerLevel.deactive,
+      level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
     },
@@ -277,7 +277,7 @@ const initState: TowersProgressStoreType = {
     level: {
       id: 0,
       name: '0 уровень',
-      level: TowerLevel.deactive,
+      level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
     },
@@ -291,7 +291,7 @@ const initState: TowersProgressStoreType = {
     level: {
       id: 0,
       name: '0 уровень',
-      level: TowerLevel.deactive,
+      level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
     },
@@ -304,7 +304,7 @@ const initState: TowersProgressStoreType = {
     level: {
       id: 0,
       name: '0 уровень',
-      level: TowerLevel.deactive,
+      level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
     },
@@ -317,7 +317,7 @@ const initState: TowersProgressStoreType = {
     level: {
       id: 0,
       name: '0 уровень',
-      level: TowerLevel.deactive,
+      level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
     },
@@ -330,7 +330,7 @@ const initState: TowersProgressStoreType = {
     level: {
       id: 0,
       name: '0 уровень',
-      level: TowerLevel.deactive,
+      level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
     },
@@ -343,7 +343,7 @@ const initState: TowersProgressStoreType = {
     level: {
       id: 0,
       name: '0 уровень',
-      level: TowerLevel.deactive,
+      level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
     },
@@ -356,7 +356,7 @@ const initState: TowersProgressStoreType = {
     level: {
       id: 0,
       name: '0 уровень',
-      level: TowerLevel.deactive,
+      level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
     },
@@ -369,7 +369,7 @@ const initState: TowersProgressStoreType = {
     level: {
       id: 0,
       name: '0 уровень',
-      level: TowerLevel.deactive,
+      level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
     },
@@ -382,7 +382,7 @@ const initState: TowersProgressStoreType = {
     level: {
       id: 0,
       name: '0 уровень',
-      level: TowerLevel.deactive,
+      level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
     },
@@ -395,7 +395,7 @@ const initState: TowersProgressStoreType = {
     level: {
       id: 0,
       name: '0 уровень',
-      level: TowerLevel.deactive,
+      level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
     },
@@ -408,7 +408,7 @@ const initState: TowersProgressStoreType = {
     level: {
       id: 0,
       name: '0 уровень',
-      level: TowerLevel.deactive,
+      level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
     },

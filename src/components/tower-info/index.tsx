@@ -7,7 +7,7 @@ import {
 import { addProgressPoints } from '../../effector/towers-progress/events';
 import { useStore } from 'effector-react';
 import {
-  AppCondition,
+  AppConditionStore,
   TowerInfoContentValues,
 } from '../../effector/app-condition/store';
 import {
@@ -136,7 +136,7 @@ export const TowerInfo: React.FC = () => {
     isExtraTowerInfoModalOpen,
     focusOn: notVerifiedTowerTitle,
   } = useStore(TowerInfoModalStore);
-  const { hideTowerInfo, selectTowerInfoContent } = useStore(AppCondition);
+  const { hideTowerInfo, selectTowerInfoContent } = useStore(AppConditionStore);
   const { tutorialCondition } = useStore(TutorialStore);
   const towerTitle = notVerifiedTowerTitle || TowersTypes.MAIN_TOWER;
   const descriptionText: string[] = localDescriptionService.getAllDescriptionForCurrentTower(

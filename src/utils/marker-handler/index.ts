@@ -1,6 +1,6 @@
 import { TaskStatuses } from '../../api/tasks/get-tasks';
 import { TowersTypes } from '../../effector/towers-progress/store';
-import { MissionsStore } from '../../effector/missions-store/store';
+import { TasksStore } from '../../effector/missions-store/store';
 import {
   setMarker,
   clearTaskMarkersOnCurrentTower,
@@ -10,7 +10,7 @@ import { TypeOfMarkers } from '../../components/markers';
 import { TasksType } from '../../components/tasks';
 
 export const markerHandler = () => {
-  const missions = MissionsStore.getState().map(missionItem => {
+  const missions = TasksStore.getState().map(missionItem => {
     return {
       status: missionItem.status,
       towerTitle: missionItem.task.content.product.slug,

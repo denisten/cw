@@ -51,7 +51,7 @@ const appConditionLocalStorage = connectLocalStorage('AppCondition').onChange(
   setAuthValue
 );
 
-export const AppCondition = AppDomain.store<AppConditionType>(initState)
+export const AppConditionStore = AppDomain.store<AppConditionType>(initState)
   .on(toggleAnimation, state => ({
     ...state,
     animationOff: !state.animationOff,
@@ -140,7 +140,7 @@ export const AppCondition = AppDomain.store<AppConditionType>(initState)
     openPopUpState: payload,
   }));
 
-AppCondition.watch(appConditionLocalStorage);
+AppConditionStore.watch(appConditionLocalStorage);
 
 export type AppConditionType = {
   tutorialSliderDisplayFlag: boolean;

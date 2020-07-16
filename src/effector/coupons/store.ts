@@ -21,7 +21,7 @@ interface IUserStore {
   };
 }
 
-export const UserMarket = StoreDomain.store<IUserStore>(initState)
+export const UserMarketStore = StoreDomain.store<IUserStore>(initState)
   .on(fetchUserPurchases.doneData, (state, payload) => {
     const stateClone = { ...state };
     if (payload.items.length > 0) {

@@ -6,7 +6,7 @@ import {
   TutorialConditions,
   TutorialStore,
 } from '../../../effector/tutorial-store/store';
-import { MissionsStore } from '../../../effector/missions-store/store';
+import { TasksStore } from '../../../effector/missions-store/store';
 import { filteredMissionsArray } from '../../../utils/filtered-missions-array';
 import { Task } from '../../tasks/tasks-row';
 import { TowersTypes } from '../../../effector/towers-progress/store';
@@ -55,7 +55,7 @@ const TaskPreview = (tutorialCondition: TutorialConditions) => (
 );
 
 export const TowerInfoTask: React.FC<ITowerInfoTask> = ({ towerTitle }) => {
-  const missions = useStore(MissionsStore);
+  const missions = useStore(TasksStore);
   const { tutorialCondition } = TutorialStore.getState();
 
   if (!missions.length || tutorialCondition) TaskPreview(tutorialCondition);

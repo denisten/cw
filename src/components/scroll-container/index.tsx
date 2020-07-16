@@ -16,7 +16,7 @@ import dragscroll from 'dragscroll';
 import { setFullSizeMode } from '../../effector/app-condition/events';
 import { useEnableSizeMod } from '../../hooks/use-enable-size-mod';
 import { useStore } from 'effector-react';
-import { AppCondition } from '../../effector/app-condition/store';
+import { AppConditionStore } from '../../effector/app-condition/store';
 import { fixSizeClassName } from '../../UI/tower-component-wrapper';
 import { CentralBanner } from '../decorations/central-banner';
 const Cars = lazy(() => import('../decorations/cars/carsArray'));
@@ -77,7 +77,7 @@ export const ScrollContainer: React.FC<{
   const scaleValue = useRef(ScaleValues.MIN_SCALE);
   const centerScrollPoint = useRef(null);
   const { ref } = BuildingsService.getConfigForTower(TowersTypes.MY_MTS);
-  const { isAuthorized, animationOff, DOMLoaded } = useStore(AppCondition);
+  const { isAuthorized, animationOff, DOMLoaded } = useStore(AppConditionStore);
 
   const runScrollAnimation = () => {
     if (mapWrapperRef.current)

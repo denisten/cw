@@ -16,7 +16,7 @@ import { chatTaskSession } from '../chat/events';
 
 const initStore: ITask[] = [];
 
-export const MissionsStore = MissionsDomain.store(initStore)
+export const TasksStore = MissionsDomain.store(initStore)
   .on(fetchTasks.doneData, (state, { userTasks }) => userTasks)
   .on(activateTask.doneData, (state, { userTasks }) => userTasks)
   .on(verifyTask.doneData, (state, { userTasks }) => userTasks)

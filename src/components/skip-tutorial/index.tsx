@@ -6,7 +6,7 @@ import { useStore } from 'effector-react';
 import { Button, ButtonClassNames } from '../../UI/button';
 import { PopUpContentWrapper } from '../../UI/pop-up-content-wrapper';
 import { maxPercent } from '../markers/timer';
-import { AppCondition } from '../../effector/app-condition/store';
+import { AppConditionStore } from '../../effector/app-condition/store';
 import { handleAuthButtonClick } from '../../utils/handle-auth-button-click';
 import { nextTutorStep } from '../../effector/tutorial-store/events';
 import { logout, resetUserDataStore } from '../../effector/user-data/events';
@@ -107,7 +107,7 @@ const Alarm: React.FC<IDisplayFlag> = ({ displayFlag }) => (
 
 export const SkipTutorial: React.FC<ISkipTutorial> = memo(
   ({ displayFlag, setDisplayFlag }) => {
-    const { haveCorrectCookie } = useStore(AppCondition);
+    const { haveCorrectCookie } = useStore(AppConditionStore);
     const [createNewWorld, setCreateNewWorld] = useState(false);
     const { name } = useStore(UserDataStore);
 

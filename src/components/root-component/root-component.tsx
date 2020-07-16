@@ -2,7 +2,7 @@ import React, { lazy, Suspense } from 'react';
 import styled from 'styled-components';
 import { TowerInfo } from '../tower-info';
 import { useStore } from 'effector-react';
-import { AppCondition } from '../../effector/app-condition/store';
+import { AppConditionStore } from '../../effector/app-condition/store';
 import mapTile from '../../img/roads/map-tile.png';
 import { Menu } from '../menu';
 import { TutorialToolsSelector } from '../../utils/arrows-container';
@@ -33,7 +33,7 @@ const InitTutorialSlider = lazy(() => import('../tutorial-slider/init-slider'));
 
 export const RootComponent = () => {
   const { selectedMenuItem, DOMLoaded, tutorialSliderDisplayFlag } = useStore(
-    AppCondition
+    AppConditionStore
   );
   // const [showSkipTutorialUI, setShowSkipTutorialUI] = useState(true);
   const { tutorialCondition } = useStore(TutorialStore);

@@ -2,7 +2,7 @@ import React, { memo, useEffect, useRef, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { IDisplayFlag } from '../../skip-tutorial';
 import { Sender } from '../../../api/tasks/session';
-import { ITask, MissionsStore } from '../../../effector/missions-store/store';
+import { ITask, TasksStore } from '../../../effector/missions-store/store';
 import {
   chatTaskSession,
   consumeUserTaskAction,
@@ -14,7 +14,7 @@ import {
   getResult,
   setCurrentTaskStatus,
 } from '../../../effector/missions-store/events';
-import { CouponTypes, UserMarket } from '../../../effector/coupons/store';
+import { CouponTypes, UserMarketStore } from '../../../effector/coupons/store';
 import { TasksType } from '../../tasks';
 import { couponHandler } from '../../../utils/coupon-handler';
 import { setHideTowerInfo } from '../../../effector/app-condition/events';
@@ -126,10 +126,10 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
     const { masterMessageId, taskId, actions, messages, ended } = useStore(
       ChatStore
     )[towerTitle];
-    const missions = useStore(MissionsStore);
+    const missions = useStore(TasksStore);
     const [openCouponModal, setOpenCouponModal] = useState(false);
     const [pendingOfResponse, setPendingOfResponse] = useState(false);
-    const { userCoupons } = useStore(UserMarket);
+    const { userCoupons } = useStore(UserMarketStore);
     const { count } = userCoupons[CouponTypes.COUPON_REPLACE];
 
     const currentTaskIndex = missions.findIndex(el => {

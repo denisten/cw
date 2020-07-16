@@ -7,7 +7,7 @@ import { useMoveTo } from '../../../hooks/use-move-to';
 import styled from 'styled-components';
 import { MTSSans } from '../../../fonts';
 import { useStore } from 'effector-react';
-import { MissionsStore } from '../../../effector/missions-store/store';
+import { TasksStore } from '../../../effector/missions-store/store';
 import { TowersTypes } from '../../../effector/towers-progress/store';
 import { filteredMissionsArray } from '../../../utils/filtered-missions-array';
 
@@ -84,7 +84,7 @@ export const TowerInfoMenu: React.FC<ITowerInfoMenu> = ({
     handleMouseOut,
   } = useMoveTo(FIRST_ELEM_WIDTH, refsCollection, selectTowerInfoContent);
   // filteredMissionsArray(missions, towerTitle);
-  const missions = useStore(MissionsStore);
+  const missions = useStore(TasksStore);
   return (
     <TowerInfoMenuWrapper>
       <RowWrapper onMouseOut={() => handleMouseOut()}>

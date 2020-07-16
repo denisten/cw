@@ -3,7 +3,7 @@ import { LazyImage } from '@tsareff/lazy-image';
 import styled, { keyframes } from 'styled-components';
 import { ZIndexes } from '../../components/root-component/z-indexes-enum';
 import { useStore } from 'effector-react';
-import { AppCondition } from '../../effector/app-condition/store';
+import { AppConditionStore } from '../../effector/app-condition/store';
 
 const flyingAnim = keyframes`
   to {
@@ -32,7 +32,7 @@ export const MapFragment: React.FC<IMapFragment> = ({
   bannerImg,
   decorationImg,
 }) => {
-  const { animationOff } = useStore(AppCondition);
+  const { animationOff } = useStore(AppConditionStore);
   const lazyImageWrapperStyle = {
     ...style,
     position: 'absolute',
