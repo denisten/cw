@@ -19,12 +19,12 @@ import { ExitButton } from '../exit-button';
 
 import { maxCityNameLength, minNameLength, statusOk } from '../../constants';
 import { saveUserData } from '../../api/save-user-data';
-import { contains } from '../../utils/check-include';
 import supportSprite from '../../img/assistant/assistant.png';
 import { Sprite } from '../../components/sprite';
 import { PopUpContentWrapper } from '../pop-up-content-wrapper';
 import { IDisplayFlag } from '../../components/skip-tutorial';
 import { AppCondition } from '../../effector/app-condition/store';
+import { inputValidation } from '../../utils/input-validation';
 
 export const PopUpTitle = styled(StyledSpan)`
   font-family: ${MTSSans.BLACK};
@@ -90,9 +90,7 @@ export enum TypesOfPopUps {
 const tutorialDesiredState = (tutorialCondition: TutorialConditions) => {
   return tutorialCondition === TutorialConditions.PULSE_SAVE_CHANGE_CITY_NAME;
 };
-
-const symbolRegExp = new RegExp(/[-!$%^&*()_+|~=`{}\[\]:";'<>?,@#.\/]/g);
-
+const inputLengthErrorParams = { minSymbol: 3 };
 export const PopUp: React.FC<IPopUp> = ({
   callback,
   displayFlag,
@@ -117,22 +115,11 @@ export const PopUp: React.FC<IPopUp> = ({
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
+    worldInputHint = inputValidation(value, worldInputHint, setInputHasError, {
+      ...inputLengthErrorParams,
+      maxSymbol: maxInputValueLength,
+    });
     setValue(e.target.value);
-    if (value.length < minNameLength) {
-      worldInputHint = minSymbolsAlert + minNameLength;
-      setInputHasError(true);
-    } else if (value.length > maxInputValueLength) {
-      worldInputHint = maxSymbolsAlert + maxInputValueLength;
-      setInputHasError(true);
-    } else if (contains(value, ' ')) {
-      worldInputHint = spaceSymbolsAlert;
-      setInputHasError(true);
-    } else if (value.search(symbolRegExp) > -1) {
-      worldInputHint = haveSymbolsAlert;
-      setInputHasError(true);
-    } else {
-      setInputHasError(false);
-    }
   };
 
   const saveData = async () => {
