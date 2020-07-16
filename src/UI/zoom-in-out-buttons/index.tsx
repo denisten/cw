@@ -47,7 +47,7 @@ const ButtonContainer = styled.div`
   }
 `;
 
-export const ZoomInOutButtons: React.FC<IZoomInOutButtons> = ({ callback }) => {
+const ZoomInOutButtons: React.FC<IZoomInOutButtons> = ({ callback }) => {
   return (
     <ButtonContainer>
       <i onClick={() => callback(ScaleValues.ZOOM_IN)} />
@@ -59,3 +59,5 @@ export const ZoomInOutButtons: React.FC<IZoomInOutButtons> = ({ callback }) => {
 interface IZoomInOutButtons {
   callback: (payload: number) => void;
 }
+
+export default ZoomInOutButtons;

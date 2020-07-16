@@ -9,13 +9,13 @@ import { Bridges } from '../../buildings/bridges';
 import { BuildingsService } from '../../buildings/config';
 import { useInitDragscroll } from '../../hooks/use-init-dragscroll';
 import { scrollToCurrentTower } from '../../utils/scroll-to-current-tower';
-import { ZoomInOutButtons } from '../../UI/zoom-in-out-buttons';
 import dragscroll from 'dragscroll';
 import { setFullSizeMode } from '../../effector/app-condition/events';
 import { useEnableSizeMod } from '../../hooks/use-enable-size-mod';
 import { useStore } from 'effector-react';
 import { AppCondition } from '../../effector/app-condition/store';
 import { fixSizeClassName } from '../../UI/tower-component-wrapper';
+const ZoomInOutButtons = lazy(() => import('../../UI/zoom-in-out-buttons'));
 const CentralBanner = lazy(() => import('../central-banner'));
 const Planes = lazy(() => import('../planes'));
 const Cars = lazy(() => import('../cars/carsArray'));
@@ -157,7 +157,9 @@ export const ScrollContainer: React.FC<{
       className={_scrollContainerClassName}
       ref={scrollContainerWrapperRef}
     >
-      <ZoomInOutButtons callback={scaleHandler} />
+      <Suspense fallback={<>loading</>}>
+        {DOMLoaded && <ZoomInOutButtons callback={scaleHandler} />}
+      </Suspense>
       <MapWrapper ref={mapWrapperRef} zIndex={zIndex}>
         <Map />
         <Buildings />
