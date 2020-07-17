@@ -5,18 +5,22 @@ import { TowerLevel, TowersTypes } from '../../effector/towers-progress/store';
 import { UpgradeButton } from '../update-button';
 import upgradeThinTowerImg from '../../img/tower-updrade/thin-tower.png';
 import upgradeWideTowerImg from '../../img/tower-updrade/wide-tower.png';
-import { TutorialConditions } from '../../effector/tutorial-store/store';
+import {
+  TutorialConditions,
+  TutorialStore,
+} from '../../effector/tutorial-store/store';
 import { nextTutorStep } from '../../effector/tutorial-store/events';
 import { Sprite } from '../../components/sprite';
 import { ZIndexes } from '../../components/root-component/z-indexes-enum';
 import { scrollToCurrentTower } from '../../utils/scroll-to-current-tower';
 import { Markers } from '../../components/markers';
-import { IMarker } from '../../effector/towers-marker/store';
+import { TowersMarkerStore } from '../../effector/towers-marker/store';
 import { BuildingsService, IAnimSize } from '../../buildings/config';
 import { MTSSans } from '../../fonts';
 import { extraTowerInfoModalOpen } from '../../effector/tower-info-modal-store/events';
 import { useStore } from 'effector-react';
 import { TowerInfoModalStore } from '../../effector/tower-info-modal-store/store';
+import { AppConditionStore } from '../../effector/app-condition/store';
 
 enum strokeClassNames {
   STROKE = 'stroke',
@@ -112,7 +116,6 @@ const createTowerStyleConfig = (
 export const TowerWrapper = memo(
   ({
     position: [posX, posY],
-    tutorialCondition,
     currentLevel,
     areaCoords,
     shadowImg,
@@ -122,13 +125,8 @@ export const TowerWrapper = memo(
     zIndex,
     towerTitle,
     needUpgrade,
-    upgradeFlag,
     tutorialTower,
-    tutorialPause,
     wideTower,
-    markers = [],
-    towerInfoShift,
-    DOMLoaded,
     animSize,
     mutedImg,
   }: ITowerWrapper): React.ReactElement => {
@@ -137,7 +135,11 @@ export const TowerWrapper = memo(
     const towerRef = useRef<HTMLDivElement>(null);
     const strokeRef = useRef<HTMLImageElement>(null);
     const TowerStyleConfig = createTowerStyleConfig(width, height);
-    const { focusOn } = useStore(TowerInfoModalStore);
+    const { focusOn, towerInfoShift } = useStore(TowerInfoModalStore);
+    const { upgradingTowerTitle, DOMLoaded } = useStore(AppConditionStore);
+    const { tutorialCondition, tutorialPause } = useStore(TutorialStore);
+    const markers = useStore(TowersMarkerStore)[towerTitle].markers || [];
+    const upgradeFlag = upgradingTowerTitle === towerTitle;
 
     const handleClick = () => {
       if (mutedImg) return;
@@ -263,7 +265,6 @@ interface ITowerWrapper {
   mutedImg?: string;
   animSize: IAnimSize;
   position: number[];
-  tutorialCondition: TutorialConditions;
   maxLevel: TowerLevel;
   wideTower: boolean;
   currentLevel: TowerLevel;
@@ -275,12 +276,7 @@ interface ITowerWrapper {
   zIndex?: number;
   towerTitle: TowersTypes;
   needUpgrade: boolean;
-  upgradeFlag: boolean;
   tutorialTower?: boolean;
-  tutorialPause?: boolean;
-  markers: IMarker[];
-  towerInfoShift: number;
-  DOMLoaded: boolean;
 }
 
 interface ITowerStyledWrapper {

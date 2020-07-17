@@ -9,7 +9,6 @@ import { BuildingsService } from '../../../buildings/config';
 import { showUpgradeIcon } from '../../../effector/app-condition/events';
 import { towerUpdateHandler } from '../../../utils/tower-update-handler';
 import { useStore } from 'effector-react';
-import { AppConditionStore } from '../../../effector/app-condition/store';
 import {
   TowerLevel,
   TowersProgressStore,
@@ -19,6 +18,7 @@ import arrow from './arrow.svg';
 import arrowHover from './arrow-hover.svg';
 import { upgradeTowerAndShowAnimation } from '../../../utils/upgrade-tower-and-show-animation';
 import { windowOpen } from '../../../utils/window-open';
+import { TowerInfoModalStore } from '../../../effector/tower-info-modal-store/store';
 
 const Arrow = styled.div`
   width: 35px;
@@ -65,7 +65,7 @@ export const TowerInfoTitle: React.FC<ITowerInfoTitle> = ({
   tutorialCondition,
   towerTitle,
 }) => {
-  const { hideTowerInfo } = useStore(AppConditionStore);
+  const { hideTowerInfo } = useStore(TowerInfoModalStore);
   const {
     points,
     level: { level },

@@ -6,10 +6,8 @@ import {
   editIsAuthorizedFlag,
   setAuthValue,
   setCancelAuthorizationStatus,
-  setHideTowerInfo,
   setDOMLoaded,
   setTowerInfoContent,
-  setTowerInfoShift,
   setDataReceived,
   setOpenPopUpState,
   setFullSizeMode,
@@ -36,10 +34,9 @@ const initState = {
   upgradingTowerTitle: null,
   isAuthorized: false,
   authCancelledStatus: '',
-  hideTowerInfo: false,
+
   DOMLoaded: false,
   selectTowerInfoContent: TowerInfoContentValues.DESCRIPTION,
-  towerInfoShift: 0,
   dataReceived: false,
   openPopUpState: TypesOfPopUps.DISABLED,
   haveCorrectCookie: false,
@@ -97,18 +94,11 @@ export const AppConditionStore = AppDomain.store<AppConditionType>(initState)
     isAuthorized,
     authCancelledStatus,
   }))
-  .on(setHideTowerInfo, (state, payload) => ({
-    ...state,
-    hideTowerInfo: payload,
-  }))
   .on(setDOMLoaded, state => ({
     ...state,
     DOMLoaded: true,
   }))
-  .on(setTowerInfoShift, (state, payload) => ({
-    ...state,
-    towerInfoShift: payload,
-  }))
+
   .on(setDataReceived, (state, payload) => ({
     ...state,
     dataReceived: payload,
@@ -148,10 +138,8 @@ export type AppConditionType = {
   upgradingTowerTitle: TowersTypes | null;
   isAuthorized: boolean;
   authCancelledStatus: string;
-  hideTowerInfo: boolean;
   DOMLoaded: boolean;
   selectTowerInfoContent: TowerInfoContentValues;
-  towerInfoShift: number;
   dataReceived: boolean;
   openPopUpState: TypesOfPopUps;
   haveCorrectCookie: boolean;

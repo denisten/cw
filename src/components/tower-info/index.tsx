@@ -1,9 +1,6 @@
 import React, { useState, useMemo, createRef, useRef, useEffect } from 'react';
 import styled from 'styled-components';
-import {
-  setTowerInfoContent,
-  setTowerInfoShift,
-} from '../../effector/app-condition/events';
+import { setTowerInfoContent } from '../../effector/app-condition/events';
 import { addProgressPoints } from '../../effector/towers-progress/events';
 import { useStore } from 'effector-react';
 import {
@@ -33,6 +30,7 @@ import { TowerInfoMenu } from './tower-info-menu';
 import { ChatStore } from '../../effector/chat/store';
 import { TowerInfoModalStore } from '../../effector/tower-info-modal-store/store';
 import { TowerInfoContent } from './tower-info-content';
+import { setTowerInfoShift } from '../../effector/tower-info-modal-store/events';
 
 export type ModalWindowProps = {
   opened?: boolean;
@@ -135,8 +133,9 @@ const TowerInfo: React.FC = () => {
   const {
     isExtraTowerInfoModalOpen,
     focusOn: notVerifiedTowerTitle,
+    hideTowerInfo,
   } = useStore(TowerInfoModalStore);
-  const { hideTowerInfo, selectTowerInfoContent } = useStore(AppConditionStore);
+  const { selectTowerInfoContent } = useStore(AppConditionStore);
   const { tutorialCondition } = useStore(TutorialStore);
   const towerTitle = notVerifiedTowerTitle || TowersTypes.MAIN_TOWER;
   const descriptionText: string[] = localDescriptionService.getAllDescriptionForCurrentTower(
