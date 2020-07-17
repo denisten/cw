@@ -212,6 +212,7 @@ const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
 
   const onSubmitHandler = async (e?: FormEvent) => {
     e && e.preventDefault();
+    if (nameInputHasError) return;
     if (checkUserName(localName.length)) {
       await updateUserData({ birthday: birthdayDate, name: localName });
     } else {
@@ -306,7 +307,11 @@ const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
         </RowWrapper>
       </ColumnWrapper>
       <Button
-        className={ButtonClassNames.NORMAL}
+        className={
+          !nameInputHasError
+            ? ButtonClassNames.NORMAL
+            : ButtonClassNames.DISABLED
+        }
         content="Сохранить"
         callback={onSubmitHandler}
       />

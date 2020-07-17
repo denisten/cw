@@ -104,7 +104,6 @@ export const PopUp: React.FC<IPopUp> = ({
   const { isAuthorized } = useStore(AppConditionStore);
   const [value, setValue] = useState(initValue || '');
   const [inputHasError, setInputHasError] = useState(false);
-  const valuesArr = value.split(' ');
 
   useEffect(() => {
     if (initValue) {
@@ -162,18 +161,11 @@ export const PopUp: React.FC<IPopUp> = ({
 
   const handleSubmit = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
-    if (
-      value.length >= minNameLength &&
-      value.length <= maxInputValueLength &&
-      valuesArr.length === 1
-    ) {
-      if (tutorialDesiredState(tutorialCondition)) {
-        popUpHandlerInTutorialMode();
-      }
-      saveData();
-    } else {
-      setInputHasError(true);
+    if (inputHasError) return;
+    if (tutorialDesiredState(tutorialCondition)) {
+      popUpHandlerInTutorialMode();
     }
+    saveData();
   };
 
   return (
@@ -195,7 +187,9 @@ export const PopUp: React.FC<IPopUp> = ({
 
         <Button
           style={styleConfig.button}
-          className={ButtonClassNames.NORMAL}
+          className={
+            !inputHasError ? ButtonClassNames.NORMAL : ButtonClassNames.DISABLED
+          }
           content="Сохранить"
           pulseAnimFlag={tutorialDesiredState(tutorialCondition)}
           callback={handleSubmit}
