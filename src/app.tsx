@@ -5,9 +5,6 @@ import history from './history';
 import { AuthLandingPage } from './components/auth-landing-page';
 import { GlobalStyle } from './global-style';
 import { ErrorBoundary } from './components/error-boundary';
-import { useStore } from 'effector-react';
-import { AppConditionStore } from './effector/app-condition/store';
-import { errorStringsParsingHOF } from './utils/error-handler';
 import { Preloader } from './components/preloader';
 import { useCheckUserAuthStatus } from './hooks/use-check-user-auth-status';
 
@@ -24,8 +21,6 @@ enum EventCodes {
 }
 
 export const App: React.FC = () => {
-  const { authCancelledStatus } = useStore(AppConditionStore);
-
   const wheelPreventDefault = (e: WheelEvent) => {
     if (e.ctrlKey) {
       e.preventDefault();
@@ -43,12 +38,6 @@ export const App: React.FC = () => {
       e.preventDefault();
     }
   };
-
-  useEffect(() => {
-    if (authCancelledStatus) {
-      errorStringsParsingHOF(authCancelledStatus);
-    }
-  }, [authCancelledStatus]);
 
   useCheckUserAuthStatus();
 

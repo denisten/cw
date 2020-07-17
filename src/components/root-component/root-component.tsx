@@ -35,9 +35,7 @@ const RootComponentWrapper = styled.div<IDisplayFlag>`
 `;
 
 export const RootComponent = () => {
-  const { selectedMenuItem, DOMLoaded, tutorialSliderDisplayFlag } = useStore(
-    AppConditionStore
-  );
+  const { DOMLoaded, tutorialSliderDisplayFlag } = useStore(AppConditionStore);
   // const [showSkipTutorialUI, setShowSkipTutorialUI] = useState(true);
   const { tutorialCondition } = useStore(TutorialStore);
   const tutorialIsEnabled = DOMLoaded && tutorialCondition !== 0;
@@ -51,7 +49,7 @@ export const RootComponent = () => {
             <UIButtonInterface />
             <MoveCoinCollection />
             <TowerInfo />
-            <Menu displayFlag={!!selectedMenuItem} />
+            <Menu />
           </>
         )}
         {tutorialIsEnabled && (
