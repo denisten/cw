@@ -133,8 +133,9 @@ const TowerInfo: React.FC = () => {
   const {
     isExtraTowerInfoModalOpen,
     focusOn: notVerifiedTowerTitle,
+    hideTowerInfo,
   } = useStore(TowerInfoModalStore);
-  const { hideTowerInfo, selectTowerInfoContent } = useStore(AppConditionStore);
+  const { selectTowerInfoContent } = useStore(AppConditionStore);
   const { tutorialCondition } = useStore(TutorialStore);
   const towerTitle = notVerifiedTowerTitle || TowersTypes.MAIN_TOWER;
   const descriptionText: string[] = localDescriptionService.getAllDescriptionForCurrentTower(

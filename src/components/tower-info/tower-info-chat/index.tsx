@@ -17,7 +17,6 @@ import {
 import { CouponTypes, UserMarketStore } from '../../../effector/coupons/store';
 import { TasksType } from '../../tasks';
 import { couponHandler } from '../../../utils/coupon-handler';
-import { setHideTowerInfo } from '../../../effector/app-condition/events';
 import { ChatStore } from '../../../effector/chat/store';
 import { Bubble } from '../../../UI/bubble';
 import { ChatPreview } from '../../../UI/chat-preview';
@@ -28,6 +27,7 @@ import { ChatButtons } from '../../../UI/chat-buttons';
 import { ChatAvatar } from '../../../UI/chat-avatar';
 import { TypeOfMarkers } from '../../markers';
 import { useStore } from 'effector-react';
+import { setHideTowerInfo } from '../../../effector/tower-info-modal-store/events';
 
 const ChatWrapper = styled.div`
   width: 100%;

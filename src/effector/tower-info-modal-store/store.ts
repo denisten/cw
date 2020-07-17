@@ -5,17 +5,23 @@ import {
   extraTowerInfoModalClosed,
   toggleExtraTowerInfoModal,
   setTowerInfoShift,
+  setHideTowerInfo,
 } from './events';
 
 const initState = {
   focusOn: null,
   isExtraTowerInfoModalOpen: false,
   towerInfoShift: 0,
+  hideTowerInfo: false,
 };
 
 export const TowerInfoModalStore = TowersDomain.store<ITowerInfoModalStore>(
   initState
 )
+  .on(setHideTowerInfo, (state, payload) => ({
+    ...state,
+    hideTowerInfo: payload,
+  }))
   .on(setTowerInfoShift, (state, payload) => ({
     ...state,
     towerInfoShift: payload,
@@ -39,4 +45,5 @@ export interface ITowerInfoModalStore {
   focusOn: TowersTypes | null;
   isExtraTowerInfoModalOpen: boolean;
   towerInfoShift: number;
+  hideTowerInfo: boolean;
 }

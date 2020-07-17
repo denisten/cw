@@ -6,7 +6,6 @@ import {
   editIsAuthorizedFlag,
   setAuthValue,
   setCancelAuthorizationStatus,
-  setHideTowerInfo,
   setDOMLoaded,
   setTowerInfoContent,
   setDataReceived,
@@ -35,7 +34,7 @@ const initState = {
   upgradingTowerTitle: null,
   isAuthorized: false,
   authCancelledStatus: '',
-  hideTowerInfo: false,
+
   DOMLoaded: false,
   selectTowerInfoContent: TowerInfoContentValues.DESCRIPTION,
   dataReceived: false,
@@ -95,10 +94,6 @@ export const AppConditionStore = AppDomain.store<AppConditionType>(initState)
     isAuthorized,
     authCancelledStatus,
   }))
-  .on(setHideTowerInfo, (state, payload) => ({
-    ...state,
-    hideTowerInfo: payload,
-  }))
   .on(setDOMLoaded, state => ({
     ...state,
     DOMLoaded: true,
@@ -143,7 +138,6 @@ export type AppConditionType = {
   upgradingTowerTitle: TowersTypes | null;
   isAuthorized: boolean;
   authCancelledStatus: string;
-  hideTowerInfo: boolean;
   DOMLoaded: boolean;
   selectTowerInfoContent: TowerInfoContentValues;
   dataReceived: boolean;
