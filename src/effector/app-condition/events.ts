@@ -14,7 +14,7 @@ export const setHideTowerInfo = AppDomain.event<boolean>();
 export const setDOMLoaded = AppDomain.event();
 export const setDataReceived = AppDomain.event<boolean>();
 export const setTowerInfoContent = AppDomain.event<TowerInfoContentValues>();
-export const setTowerInfoShift = AppDomain.event<number>();
+
 export const setOpenPopUpState = AppDomain.event<TypesOfPopUps>();
 export const setFullSizeMode = AppDomain.event<boolean>();
 

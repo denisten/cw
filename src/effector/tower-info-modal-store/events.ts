@@ -10,3 +10,4 @@ export const extraTowerInfoModalClosed = TowersDomain.event(
 export const toggleExtraTowerInfoModal = TowersDomain.event<number[]>(
   'User toggled modal window'
 );
+export const setTowerInfoShift = TowersDomain.event<number>();

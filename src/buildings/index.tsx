@@ -15,9 +15,7 @@ export const Buildings: React.FC = () => {
   const localTowersProgressStore = useStore(TowersProgressStore);
   const markers = useStore(TowersMarkerStore);
   const towersKeys = Object.keys(localTowersProgressStore) as TowersTypes[];
-  const { upgradingTowerTitle, towerInfoShift, DOMLoaded } = useStore(
-    AppConditionStore
-  );
+  const { upgradingTowerTitle, DOMLoaded } = useStore(AppConditionStore);
   const { tutorialCondition, tutorialPause } = useStore(TutorialStore);
   return (
     <Fragment>
@@ -33,7 +31,6 @@ export const Buildings: React.FC = () => {
                 animSize={towerLayoutData.animSize}
                 mutedImg={towerLayoutData.mutedImg}
                 DOMLoaded={DOMLoaded}
-                towerInfoShift={towerInfoShift}
                 key={towerTitle}
                 tutorialCondition={tutorialCondition}
                 tutorialPause={tutorialPause}

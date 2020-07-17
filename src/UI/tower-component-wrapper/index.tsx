@@ -127,7 +127,6 @@ export const TowerWrapper = memo(
     tutorialPause,
     wideTower,
     markers = [],
-    towerInfoShift,
     DOMLoaded,
     animSize,
     mutedImg,
@@ -137,7 +136,7 @@ export const TowerWrapper = memo(
     const towerRef = useRef<HTMLDivElement>(null);
     const strokeRef = useRef<HTMLImageElement>(null);
     const TowerStyleConfig = createTowerStyleConfig(width, height);
-    const { focusOn } = useStore(TowerInfoModalStore);
+    const { focusOn, towerInfoShift } = useStore(TowerInfoModalStore);
 
     const handleClick = () => {
       if (mutedImg) return;
@@ -279,7 +278,6 @@ interface ITowerWrapper {
   tutorialTower?: boolean;
   tutorialPause?: boolean;
   markers: IMarker[];
-  towerInfoShift: number;
   DOMLoaded: boolean;
 }
 

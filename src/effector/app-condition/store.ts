@@ -9,7 +9,6 @@ import {
   setHideTowerInfo,
   setDOMLoaded,
   setTowerInfoContent,
-  setTowerInfoShift,
   setDataReceived,
   setOpenPopUpState,
   setFullSizeMode,
@@ -39,7 +38,6 @@ const initState = {
   hideTowerInfo: false,
   DOMLoaded: false,
   selectTowerInfoContent: TowerInfoContentValues.DESCRIPTION,
-  towerInfoShift: 0,
   dataReceived: false,
   openPopUpState: TypesOfPopUps.DISABLED,
   haveCorrectCookie: false,
@@ -105,10 +103,7 @@ export const AppConditionStore = AppDomain.store<AppConditionType>(initState)
     ...state,
     DOMLoaded: true,
   }))
-  .on(setTowerInfoShift, (state, payload) => ({
-    ...state,
-    towerInfoShift: payload,
-  }))
+
   .on(setDataReceived, (state, payload) => ({
     ...state,
     dataReceived: payload,
@@ -151,7 +146,6 @@ export type AppConditionType = {
   hideTowerInfo: boolean;
   DOMLoaded: boolean;
   selectTowerInfoContent: TowerInfoContentValues;
-  towerInfoShift: number;
   dataReceived: boolean;
   openPopUpState: TypesOfPopUps;
   haveCorrectCookie: boolean;
