@@ -39,14 +39,11 @@ const ExitText = styled(StyledSpan)<ISpan>`
   }
 `;
 
-const NickNameWrapper = styled(StyledSpan)<ISpan>`
+const NickNameWrapper = styled(StyledSpan)`
   font-family: ${MTSSans.REGULAR};
   line-height: 1.2;
   color: #001424;
   width: 140px;
-  &::after {
-  content: "${props => props.content}"
-  }
 `;
 
 const ProfileWrapper = styled.div`
@@ -257,7 +254,7 @@ const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
             {/* <input type="file" accept="image/jpeg,image/png,image/svg" /> */}
           </UserAvatar>
           <ColumnWrapper {...styledConfig.profileDataColumnWrapper}>
-            <NickNameWrapper content={name} />
+            <NickNameWrapper>{name}</NickNameWrapper>
             {/*<ProgressBar /> */}
           </ColumnWrapper>
         </RowWrapper>
