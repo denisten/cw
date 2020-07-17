@@ -6,17 +6,11 @@ import {
   TowersProgressStore,
   TowersTypes,
 } from '../effector/towers-progress/store';
-import { AppConditionStore } from '../effector/app-condition/store';
-import { TutorialStore } from '../effector/tutorial-store/store';
-import { TowersMarkerStore } from '../effector/towers-marker/store';
 import { errorStringsParsingHOF } from '../utils/error-handler';
 
 export const Buildings: React.FC = () => {
   const localTowersProgressStore = useStore(TowersProgressStore);
-  const markers = useStore(TowersMarkerStore);
   const towersKeys = Object.keys(localTowersProgressStore) as TowersTypes[];
-  const { upgradingTowerTitle, DOMLoaded } = useStore(AppConditionStore);
-  const { tutorialCondition, tutorialPause } = useStore(TutorialStore);
   return (
     <Fragment>
       {towersKeys.map(towerTitle => {
@@ -30,11 +24,7 @@ export const Buildings: React.FC = () => {
               <TowerWrapper
                 animSize={towerLayoutData.animSize}
                 mutedImg={towerLayoutData.mutedImg}
-                DOMLoaded={DOMLoaded}
                 key={towerTitle}
-                tutorialCondition={tutorialCondition}
-                tutorialPause={tutorialPause}
-                upgradeFlag={upgradingTowerTitle === towerTitle}
                 maxLevel={towerLayoutData.maxLevel}
                 currentLevel={localTowersProgressStore[towerTitle].level.level}
                 needUpgrade={localTowersProgressStore[towerTitle].needUpgrade}
@@ -48,7 +38,6 @@ export const Buildings: React.FC = () => {
                 shadowImg={towerParams.shadowImg}
                 tower={towerParams.img}
                 tutorialTower={towerLayoutData.tutorialTower}
-                markers={markers[towerTitle].markers}
               />
             );
           }
