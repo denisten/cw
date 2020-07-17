@@ -93,7 +93,7 @@ const styledConfig = {
   },
 };
 
-export const NotAuthorizedProfile: React.FC<INotAuthorizedProfile> = ({
+ const NotAuthorizedProfile: React.FC<INotAuthorizedProfile> = ({
   openPopUpState,
 }) => {
   const { worldName, money } = useStore(UserDataStore);
@@ -181,3 +181,5 @@ interface IPenWrapper {
 interface INotAuthorizedProfile {
   openPopUpState: TypesOfPopUps;
 }
+
+export default NotAuthorizedProfile;
