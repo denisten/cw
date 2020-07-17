@@ -34,6 +34,15 @@ const RootComponentWrapper = styled.div<IDisplayFlag>`
   visibility: ${props => (props.displayFlag ? 'visible' : 'hidden')};
 `;
 
+const LoadingHideBlock = styled.div`
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: none;
+`;
+
 export const RootComponent = () => {
   const { DOMLoaded, tutorialSliderDisplayFlag } = useStore(AppConditionStore);
   // const [showSkipTutorialUI, setShowSkipTutorialUI] = useState(true);
@@ -42,7 +51,7 @@ export const RootComponent = () => {
 
   return (
     <RootComponentWrapper id="rootScroll" displayFlag={DOMLoaded}>
-      <Suspense fallback={<>loading</>}>
+      <Suspense fallback={<LoadingHideBlock />}>
         {tutorialSliderDisplayFlag && <InitTutorialSlider />}
         {DOMLoaded && (
           <>
