@@ -1,5 +1,8 @@
 import { useEffect } from 'react';
-import { defaultNameValue } from '../../effector/user-data/store';
+import {
+  defaultNameValue,
+  UserDataStore,
+} from '../../effector/user-data/store';
 import { saveUserData } from '../../api/save-user-data';
 import { fetchUserData, getAccountData } from '../../effector/user-data/events';
 import { fetchTasks } from '../../effector/missions-store/events';
@@ -29,12 +32,9 @@ const markersEnumeration = (incomes: TowersTypesAsObjectLiteral) => {
   });
 };
 
-const handleAuth = async (
-  isAuthorized: boolean,
-  dataReceived: boolean,
-  worldName?: string
-) => {
+const handleAuth = async (isAuthorized: boolean, dataReceived: boolean) => {
   if (isAuthorized && !dataReceived) {
+    const { worldName } = UserDataStore.getState();
     if (worldName && worldName !== defaultNameValue) {
       await saveUserData({ worldName });
     }
@@ -56,15 +56,13 @@ const handleAuth = async (
 export const useHandleAuth: (args: IUseHandleAuth) => void = ({
   isAuthorized,
   dataReceived,
-  worldName,
 }) => {
   useEffect(() => {
-    handleAuth(isAuthorized, dataReceived, worldName);
+    handleAuth(isAuthorized, dataReceived);
   }, [isAuthorized]);
 };
 
 interface IUseHandleAuth {
   isAuthorized: boolean;
   dataReceived: boolean;
-  worldName: string;
 }

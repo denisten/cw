@@ -15,6 +15,7 @@ import { IDisplayFlag } from '../skip-tutorial';
 import { TasksStore } from '../../effector/missions-store/store';
 import { MenuItemsComponent, noAuthAvailableMenuItems } from './menu-items';
 import { MenuContent } from './menu-content';
+import { useHandleAuth } from '../../hooks/use-handle-auth';
 
 const StyledConfig = {
   exitButton: {
@@ -39,10 +40,14 @@ const ExpandedColumnWrapper = styled(ColumnWrapper)`
 `;
 
 const Menu: React.FC<IDisplayFlag> = ({ displayFlag }) => {
-  const { selectedMenuItem, isAuthorized } = useStore(AppConditionStore);
+  const { selectedMenuItem, isAuthorized, dataReceived } = useStore(
+    AppConditionStore
+  );
   const { tutorialCondition } = useStore(TutorialStore);
   const missions = useStore(TasksStore);
   const currentAlertsList: MenuItems[] = [];
+
+  useHandleAuth({ isAuthorized, dataReceived });
 
   useEffect(() => {
     if (missions.length) currentAlertsList.push(MenuItems.TASKS);
