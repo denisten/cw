@@ -52,10 +52,10 @@ export const RootComponent = () => {
   return (
     <RootComponentWrapper id="rootScroll" displayFlag={DOMLoaded}>
       <Suspense fallback={<LoadingHideBlock />}>
+        <UIButtonInterface />
         {tutorialSliderDisplayFlag && <InitTutorialSlider />}
         {DOMLoaded && (
           <>
-            <UIButtonInterface />
             <MoveCoinCollection />
             <TowerInfo />
             <Menu />
