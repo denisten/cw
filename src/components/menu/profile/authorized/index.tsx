@@ -44,9 +44,6 @@ const NickNameWrapper = styled(StyledSpan)<ISpan>`
   line-height: 1.2;
   color: #001424;
   width: 140px;
-  &::after {
-  content: "${props => props.content}"
-  }
 `;
 
 const ProfileWrapper = styled.div`
@@ -215,6 +212,7 @@ export const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
 
   const onSubmitHandler = async (e?: FormEvent) => {
     e && e.preventDefault();
+    if (nameInputHasError) return;
     if (checkUserName(localName.length)) {
       await updateUserData({ birthday: birthdayDate, name: localName });
     } else {
@@ -257,7 +255,7 @@ export const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
             {/* <input type="file" accept="image/jpeg,image/png,image/svg" /> */}
           </UserAvatar>
           <ColumnWrapper {...styledConfig.profileDataColumnWrapper}>
-            <NickNameWrapper content={name} />
+            <NickNameWrapper>{name}</NickNameWrapper>
             {/*<ProgressBar /> */}
           </ColumnWrapper>
         </RowWrapper>
@@ -309,7 +307,11 @@ export const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
         </RowWrapper>
       </ColumnWrapper>
       <Button
-        className={ButtonClassNames.NORMAL}
+        className={
+          !nameInputHasError
+            ? ButtonClassNames.NORMAL
+            : ButtonClassNames.DISABLED
+        }
         content="Сохранить"
         callback={onSubmitHandler}
       />
