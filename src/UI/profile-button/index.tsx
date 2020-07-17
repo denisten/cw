@@ -72,27 +72,24 @@ const CoinsCountWrapper = styled.div`
   bottom: 8px;
 `;
 
-const NickNameWrapper = styled.div<INickNameWrapper>`
+const NickNameWrapper = styled.div`
   background-image: url(${nameBackground});
   background-size: 100%;
   padding: 12px 40px 0 74px;
   min-width: 289.91px;
-  min-height: 58px; 
-  z-index: 2; 
+  min-height: 58px;
+  z-index: 2;
   position: relative;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   box-sizing: border-box;
   top: 6px;
-  left:30px;
-  &::after {
-    content: "${props => props.content}";
-    font-size: 36px;
-    line-height: 32px;
-    letter-spacing: normal;
-    color: #fff;    
-  }
+  left: 30px;
+  font-size: 36px;
+  line-height: 32px;
+  letter-spacing: normal;
+  color: #fff;
 `;
 
 const ProfileButtonWrapper = styled.div<IProfileButtonWrapper>`
@@ -193,7 +190,7 @@ export const ProfileButton: React.FC<IProfileButton> = ({
         tutorialCondition === TutorialConditions.PULSE_MENU_AUTH
       }
     >
-      <NickNameWrapper content={name} />
+      <NickNameWrapper>{name}</NickNameWrapper>
       <CoinsWrapper>
         <CoinImg
           src={coins}
@@ -212,10 +209,6 @@ interface IProfileButton {
   tutorialCondition: TutorialConditions;
   tutorialPause?: boolean;
   isCoinRelocateAnimationEnded: boolean;
-}
-
-interface INickNameWrapper {
-  content?: string;
 }
 
 interface IProfileButtonWrapper {
