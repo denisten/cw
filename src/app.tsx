@@ -24,8 +24,6 @@ enum EventCodes {
 }
 
 export const App: React.FC = () => {
-  const { authCancelledStatus } = useStore(AppConditionStore);
-
   const wheelPreventDefault = (e: WheelEvent) => {
     if (e.ctrlKey) {
       e.preventDefault();
@@ -43,12 +41,6 @@ export const App: React.FC = () => {
       e.preventDefault();
     }
   };
-
-  useEffect(() => {
-    if (authCancelledStatus) {
-      errorStringsParsingHOF(authCancelledStatus);
-    }
-  }, [authCancelledStatus]);
 
   useCheckUserAuthStatus();
 

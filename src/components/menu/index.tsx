@@ -16,6 +16,7 @@ import { TasksStore } from '../../effector/missions-store/store';
 import { MenuItemsComponent, noAuthAvailableMenuItems } from './menu-items';
 import { MenuContent } from './menu-content';
 import { useHandleAuth } from '../../hooks/use-handle-auth';
+import { errorStringsParsingHOF } from '../../utils/error-handler';
 
 const StyledConfig = {
   exitButton: {
@@ -40,14 +41,22 @@ const ExpandedColumnWrapper = styled(ColumnWrapper)`
 `;
 
 const Menu: React.FC<IDisplayFlag> = ({ displayFlag }) => {
-  const { selectedMenuItem, isAuthorized, dataReceived } = useStore(
-    AppConditionStore
-  );
+  const {
+    selectedMenuItem,
+    isAuthorized,
+    dataReceived,
+    authCancelledStatus,
+  } = useStore(AppConditionStore);
   const { tutorialCondition } = useStore(TutorialStore);
   const missions = useStore(TasksStore);
   const currentAlertsList: MenuItems[] = [];
 
   useHandleAuth({ isAuthorized, dataReceived });
+  useEffect(() => {
+    if (authCancelledStatus) {
+      errorStringsParsingHOF(authCancelledStatus);
+    }
+  }, [authCancelledStatus]);
 
   useEffect(() => {
     if (missions.length) currentAlertsList.push(MenuItems.TASKS);
