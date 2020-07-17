@@ -13,11 +13,10 @@ import {
   TutorialStore,
 } from '../../effector/tutorial-store/store';
 import { nextTutorStep } from '../../effector/tutorial-store/events';
-import { menuClosed } from '../../effector/app-condition/events';
 import { ZIndexes } from '../../components/root-component/z-indexes-enum';
 import { ExitButton } from '../exit-button';
 
-import { maxCityNameLength, minNameLength, statusOk } from '../../constants';
+import { maxCityNameLength, statusOk } from '../../constants';
 import { saveUserData } from '../../api/save-user-data';
 import supportSprite from '../../img/assistant/assistant.png';
 import { Sprite } from '../../components/sprite';
@@ -25,6 +24,7 @@ import { PopUpContentWrapper } from '../pop-up-content-wrapper';
 import { IDisplayFlag } from '../../components/skip-tutorial';
 import { AppConditionStore } from '../../effector/app-condition/store';
 import { inputValidation } from '../../utils/input-validation';
+import { menuClosed } from '../../effector/menu-store/events';
 
 export const PopUpTitle = styled(StyledSpan)`
   font-family: ${MTSSans.BLACK};

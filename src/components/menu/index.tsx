@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { ExitButton } from '../../UI/exit-button';
-import { menuClosed, menuOpened } from '../../effector/app-condition/events';
 import { MenuItems } from '../../UI/menu-paragraph';
 import { useStore } from 'effector-react';
 import { AppConditionStore } from '../../effector/app-condition/store';
@@ -11,12 +10,13 @@ import { ZIndexes } from '../root-component/z-indexes-enum';
 import { TutorialStore } from '../../effector/tutorial-store/store';
 import { pauseTutorialMode } from '../../effector/tutorial-store/events';
 import styled from 'styled-components';
-import { IDisplayFlag } from '../skip-tutorial';
 import { TasksStore } from '../../effector/missions-store/store';
 import { MenuItemsComponent, noAuthAvailableMenuItems } from './menu-items';
 import { MenuContent } from './menu-content';
 import { useHandleAuth } from '../../hooks/use-handle-auth';
 import { errorStringsParsingHOF } from '../../utils/error-handler';
+import { MenuStore } from '../../effector/menu-store/store';
+import { menuOpened, menuClosed } from '../../effector/menu-store/events';
 
 const StyledConfig = {
   exitButton: {
@@ -40,13 +40,12 @@ const ExpandedColumnWrapper = styled(ColumnWrapper)`
   z-index: 20;
 `;
 
-const Menu: React.FC<IDisplayFlag> = ({ displayFlag }) => {
-  const {
-    selectedMenuItem,
-    isAuthorized,
-    dataReceived,
-    authCancelledStatus,
-  } = useStore(AppConditionStore);
+const Menu: React.FC = () => {
+  const { isAuthorized, dataReceived, authCancelledStatus } = useStore(
+    AppConditionStore
+  );
+
+  const { selectedMenuItem } = useStore(MenuStore);
   const { tutorialCondition } = useStore(TutorialStore);
   const missions = useStore(TasksStore);
   const currentAlertsList: MenuItems[] = [];
@@ -73,8 +72,8 @@ const Menu: React.FC<IDisplayFlag> = ({ displayFlag }) => {
     menuClosed();
   };
   return (
-    <Overlay displayFlag={displayFlag} {...StyledConfig.overlay}>
-      <ExpandedColumnWrapper displayFlag={displayFlag}>
+    <Overlay displayFlag={!!selectedMenuItem} {...StyledConfig.overlay}>
+      <ExpandedColumnWrapper displayFlag={!!selectedMenuItem}>
         <ExitButton
           displayFlag={!tutorialCondition}
           {...StyledConfig.exitButton}

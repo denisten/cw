@@ -1,11 +1,8 @@
 import { AppDomain } from './domain';
 import { TowersTypes } from '../towers-progress/store';
-import { MenuItems } from '../../UI/menu-paragraph';
 import { AppConditionType, TowerInfoContentValues } from './store';
 import { TypesOfPopUps } from '../../UI/pop-up';
 
-export const menuOpened = AppDomain.event<MenuItems>();
-export const menuClosed = AppDomain.event();
 export const showUpgradeIcon = AppDomain.event<TowersTypes | null>();
 export const editIsAuthorizedFlag = AppDomain.event<boolean>();
 export const setCancelAuthorizationStatus = AppDomain.event<string>();
