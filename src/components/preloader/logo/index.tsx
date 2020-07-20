@@ -27,15 +27,18 @@ enum animationStates {
   DISABLE = 'disable',
 }
 
-enum animationSteps {
-  ZERO = 'zero',
-  CLIENT_ANIM = 'clientAnim',
-  CITY_LAYER_ONE = 'cityLayerOne',
-  CITY_LAYER_TWO = 'cityLayerTwo',
-  CITY_LAYER_THREE = 'cityLayerThree',
-  ONE = 'one',
-  TWO = 'two',
-  THREE = 'three',
+enum animationGrowSteps {
+  GROW_CLIENT_ANIM = 'growClientAnim',
+  GROW_CITY_LAYER_ONE = 'growCityLayerOne',
+  GROW_CITY_LAYER_TWO = 'growCityLayerTwo',
+  GROW_CITY_LAYER_THREE = 'growCityLayerThree',
+}
+
+enum animationFadeSteps {
+  FADE_CLIENT_ANIM = 'fadeClientAnim',
+  FADE_CITY_LAYER_ONE = 'fadeCityLayerOne',
+  FADE_CITY_LAYER_TWO = 'fadeCityLayerTwo',
+  FADE_CITY_LAYER_THREE = 'fadeCityLayerThree',
 }
 
 const LogoLayer = styled.img<ILogoLayer>`
@@ -49,8 +52,10 @@ const LogoLayer = styled.img<ILogoLayer>`
   transform: scaleY(0) translateY(0);
 
   &.${animationStates.ACTIVE} {
-    animation: ${growAnim} 0.5s both linear;
+    /* animation: ${growAnim} 0.5s both linear; */
+    transform: scaleY(1) translateY(0);
   }
+
 `;
 
 const styledConfig = {
@@ -95,7 +100,12 @@ export const Logo = () => {
   const cityLayerOne = useRef<HTMLImageElement>(null);
   const cityLayerTwo = useRef<HTMLImageElement>(null);
   const cityLayerThree = useRef<HTMLImageElement>(null);
-  const [animationStep, setAnimationStep] = useState(animationSteps.ZERO);
+  const [animationStep, setAnimationStep] = useState<
+    animationGrowSteps | animationFadeSteps | null
+  >(null);
+  const [activeAnimationState, setActiveAnimationState] = useState(
+    animationStates.ACTIVE
+  );
   const animationStart = () => {
     if (layerWorld.current) {
       layerWorld.current.classList.add(animationStates.ACTIVE);
@@ -105,20 +115,42 @@ export const Logo = () => {
     animationStart();
   }, [layerWorld]);
 
+  const growAnimationHandler = () => {
+    if (animationStep === animationGrowSteps.GROW_CLIENT_ANIM) {
+      layerClient?.current?.classList.add(animationStates.ACTIVE);
+    } else if (animationStep === animationGrowSteps.GROW_CITY_LAYER_ONE) {
+      cityLayerOne?.current?.classList.add(animationStates.ACTIVE);
+    } else if (animationStep === animationGrowSteps.GROW_CITY_LAYER_TWO) {
+      cityLayerTwo?.current?.classList.add(animationStates.ACTIVE);
+    } else if (animationStep === animationGrowSteps.GROW_CITY_LAYER_THREE) {
+      cityLayerThree?.current?.classList.add(animationStates.ACTIVE);
+    }
+  };
+
+  const fadeAnimationHandler = () => {
+    if (animationStep === animationGrowSteps.GROW_CITY_LAYER_THREE) {
+      cityLayerThree?.current?.classList.remove(animationStates.ACTIVE);
+    } else if (animationStep === animationFadeSteps.FADE_CITY_LAYER_THREE) {
+      cityLayerTwo?.current?.classList.remove(animationStates.ACTIVE);
+    } else if (animationStep === animationFadeSteps.FADE_CITY_LAYER_TWO) {
+      cityLayerOne?.current?.classList.remove(animationStates.ACTIVE);
+    } else if (animationStep === animationFadeSteps.FADE_CITY_LAYER_ONE) {
+      layerClient?.current?.classList.remove(animationStates.ACTIVE);
+    } else if (animationStep === animationFadeSteps.FADE_CLIENT_ANIM) {
+      layerWorld?.current?.classList.remove(animationStates.ACTIVE);
+    }
+  };
+
   useEffect(() => {
     const request = requestAnimationFrame(() => {
-      if (animationStep === animationSteps.CLIENT_ANIM) {
-        layerClient?.current?.classList.add(animationStates.ACTIVE);
-      } else if (animationStep === animationSteps.CITY_LAYER_ONE) {
-        cityLayerOne?.current?.classList.add(animationStates.ACTIVE);
-      } else if (animationStep === animationSteps.CITY_LAYER_TWO) {
-        cityLayerTwo?.current?.classList.add(animationStates.ACTIVE);
-      } else if (animationStep === animationSteps.CITY_LAYER_THREE) {
-        cityLayerThree?.current?.classList.add(animationStates.ACTIVE);
+      if (activeAnimationState === animationStates.ACTIVE) {
+        growAnimationHandler();
+      } else {
+        fadeAnimationHandler();
       }
     });
     return () => cancelAnimationFrame(request);
-  }, [animationStep]);
+  }, [animationStep, activeAnimationState]);
 
   return (
     <Wrapper>
@@ -127,35 +159,65 @@ export const Logo = () => {
         src={world}
         alt="logolayer"
         ref={layerWorld}
-        onAnimationEnd={() => setAnimationStep(animationSteps.CLIENT_ANIM)}
+        onTransitionEnd={() => {
+          if (activeAnimationState === animationStates.ACTIVE) {
+            setAnimationStep(animationGrowSteps.GROW_CLIENT_ANIM);
+          } else {
+            //   setAnimationStep(animationFadeSteps.FADE_CLIENT_ANIM);
+          }
+        }}
       />
       <LogoLayer
         {...styledConfig.client}
         src={client}
         alt="logolayer"
         ref={layerClient}
-        onAnimationEnd={() => setAnimationStep(animationSteps.CITY_LAYER_ONE)}
+        onTransitionEnd={() => {
+          if (activeAnimationState === animationStates.ACTIVE) {
+            setAnimationStep(animationGrowSteps.GROW_CITY_LAYER_ONE);
+          } else {
+            setAnimationStep(animationFadeSteps.FADE_CLIENT_ANIM);
+          }
+        }}
       />
       <LogoLayer
         {...styledConfig.cityLayerOne}
         src={city01}
         alt="logolayer"
         ref={cityLayerOne}
-        onAnimationEnd={() => setAnimationStep(animationSteps.CITY_LAYER_TWO)}
+        onTransitionEnd={() => {
+          if (activeAnimationState === animationStates.ACTIVE) {
+            setAnimationStep(animationGrowSteps.GROW_CITY_LAYER_TWO);
+          } else {
+            setAnimationStep(animationFadeSteps.FADE_CITY_LAYER_ONE);
+          }
+        }}
       />
       <LogoLayer
         {...styledConfig.cityLayerTwo}
         src={city02}
         alt="logolayer"
         ref={cityLayerTwo}
-        onAnimationEnd={() => setAnimationStep(animationSteps.CITY_LAYER_THREE)}
+        onTransitionEnd={() => {
+          if (activeAnimationState === animationStates.ACTIVE) {
+            setAnimationStep(animationGrowSteps.GROW_CITY_LAYER_THREE);
+          } else {
+            setAnimationStep(animationFadeSteps.FADE_CITY_LAYER_TWO);
+          }
+        }}
       />
       <LogoLayer
         {...styledConfig.cityLayerThree}
         src={city03}
         alt="logolayer"
         ref={cityLayerThree}
-        onTransitionEnd={() => setAnimationStep(animationSteps.THREE)}
+        onTransitionEnd={() => {
+          if (activeAnimationState === animationStates.ACTIVE) {
+            setActiveAnimationState(animationStates.DISABLE);
+          } else {
+            setAnimationStep(animationFadeSteps.FADE_CITY_LAYER_THREE);
+          }
+        }}
       />
     </Wrapper>
   );
@@ -167,4 +229,5 @@ interface ILogoLayer {
   zIndex: number;
   bottom?: string;
   left?: string;
+  transition?: string;
 }
