@@ -8,9 +8,8 @@ import { useCalculateLoadingProgress } from '../../hooks/use-loading-indication'
 import { setDOMLoaded } from '../../effector/app-condition/events';
 import { preloaderBuildingsConfig } from './preloader-building-config';
 import { PreloaderBuilding } from './preloader-building';
-import animLogo from './anim_logo.png';
-import { Sprite } from '../sprite';
 import { delayBeforePreloaderOff, maxPercent } from '../../constants';
+import { Logo } from './logo';
 
 enum InheritZIndexes {
   BUILDINGS = 2,
@@ -37,6 +36,9 @@ const PreloaderWrapper = styled.div`
   align-items: flex-end;
   justify-content: center;
   animation: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   &.disable {
     display: none;
   }
@@ -117,6 +119,8 @@ const LoadingLine = styled.div<ILoadingLine>`
   align-items: center;
   position: relative;
   border-radius: 4px;
+  position: absolute;
+  bottom: 45px;
 
   span {
     text-shadow: 1px 1px 0 #233742;
@@ -143,25 +147,6 @@ const LoadingLine = styled.div<ILoadingLine>`
     z-index: 1;
   }
 `;
-
-const spriteStyle = {
-  canvasWidth: 700,
-  canvasHeight: 730,
-  numberOfFramesX: 6,
-  numberOfFramesY: 6,
-  ticksPerFrame: 1,
-  infinity: false,
-
-  style: {
-    width: '780px',
-    height: '694px',
-    position: 'absolute',
-    top: '40%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    zIndex: InheritZIndexes.LOGO,
-  } as React.CSSProperties,
-};
 
 enum CloudsState {
   VISIBLE = 'cloud',
@@ -219,7 +204,7 @@ export const Preloader: React.FC = () => {
           />
         ))}
       </BuildingWrapper>
-      <Sprite img={animLogo} {...spriteStyle} onAnimationEnd={onAnimationEnd} />
+      <Logo onAnimationEnd={onAnimationEnd} />
       {cloudsConfig.map(cloud => (
         <Cloud
           {...cloud}
