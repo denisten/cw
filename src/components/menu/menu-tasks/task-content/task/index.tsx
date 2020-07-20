@@ -3,10 +3,7 @@ import styled from 'styled-components';
 import { useStore } from 'effector-react';
 import { MenuTaskRow } from '../../../../tasks/menu-task-row';
 import { TasksStore } from '../../../../../effector/missions-store/store';
-import { UserDataStore } from '../../../../../effector/user-data/store';
-import { AppConditionStore } from '../../../../../effector/app-condition/store';
 import { TowerInfoModalStore } from '../../../../../effector/tower-info-modal-store/store';
-import { useHandleAuth } from '../../../../../hooks/use-handle-auth';
 import { UnauthorizedTaskZone } from './unauthorize-task-zone';
 
 const TasksWrapper = styled.div<ITask>`
@@ -21,10 +18,7 @@ export const Tasks: React.FC<{ active: boolean; isAuthorized: boolean }> = ({
   isAuthorized,
 }) => {
   const missions = useStore(TasksStore);
-  const { worldName } = useStore(UserDataStore);
-  const { dataReceived } = useStore(AppConditionStore);
   const { focusOn } = useStore(TowerInfoModalStore);
-  useHandleAuth({ isAuthorized, dataReceived, worldName });
 
   return (
     <TasksWrapper hidden={!active}>

@@ -1,7 +1,5 @@
 import { AppDomain } from './domain';
 import {
-  menuOpened,
-  menuClosed,
   showUpgradeIcon,
   editIsAuthorizedFlag,
   setAuthValue,
@@ -16,7 +14,6 @@ import {
 } from './events';
 import { TowersTypes } from '../towers-progress/store';
 import { upgradeTower } from '../towers-progress/events';
-import { MenuItems } from '../../UI/menu-paragraph';
 import connectLocalStorage from 'effector-localstorage/sync';
 import { devLogin, fetchUserData, getUserName } from '../user-data/events';
 import { ErrorBoundaryStore } from '../error-boundary-store/store';
@@ -30,7 +27,6 @@ export enum TowerInfoContentValues {
 
 const initState = {
   tutorialSliderDisplayFlag: false,
-  selectedMenuItem: null,
   upgradingTowerTitle: null,
   isAuthorized: false,
   authCancelledStatus: '',
@@ -64,14 +60,6 @@ export const AppConditionStore = AppDomain.store<AppConditionType>(initState)
   .on(setTowerInfoContent, (state, payload) => ({
     ...state,
     selectTowerInfoContent: payload,
-  }))
-  .on(menuOpened, (state, payload) => ({
-    ...state,
-    selectedMenuItem: payload,
-  }))
-  .on(menuClosed, state => ({
-    ...state,
-    selectedMenuItem: null,
   }))
   .on(showUpgradeIcon, (state, payload) => ({
     ...state,
@@ -134,7 +122,6 @@ AppConditionStore.watch(appConditionLocalStorage);
 
 export type AppConditionType = {
   tutorialSliderDisplayFlag: boolean;
-  selectedMenuItem: MenuItems | null;
   upgradingTowerTitle: TowersTypes | null;
   isAuthorized: boolean;
   authCancelledStatus: string;

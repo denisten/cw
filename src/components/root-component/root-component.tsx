@@ -34,24 +34,31 @@ const RootComponentWrapper = styled.div<IDisplayFlag>`
   visibility: ${props => (props.displayFlag ? 'visible' : 'hidden')};
 `;
 
+const LoadingHideBlock = styled.div`
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: none;
+`;
+
 export const RootComponent = () => {
-  const { selectedMenuItem, DOMLoaded, tutorialSliderDisplayFlag } = useStore(
-    AppConditionStore
-  );
+  const { DOMLoaded, tutorialSliderDisplayFlag } = useStore(AppConditionStore);
   // const [showSkipTutorialUI, setShowSkipTutorialUI] = useState(true);
   const { tutorialCondition } = useStore(TutorialStore);
   const tutorialIsEnabled = DOMLoaded && tutorialCondition !== 0;
 
   return (
     <RootComponentWrapper id="rootScroll" displayFlag={DOMLoaded}>
-      <Suspense fallback={<>loading</>}>
+      <Suspense fallback={<LoadingHideBlock />}>
+        <UIButtonInterface />
         {tutorialSliderDisplayFlag && <InitTutorialSlider />}
         {DOMLoaded && (
           <>
-            <UIButtonInterface />
             <MoveCoinCollection />
             <TowerInfo />
-            <Menu displayFlag={!!selectedMenuItem} />
+            <Menu />
           </>
         )}
         {tutorialIsEnabled && (

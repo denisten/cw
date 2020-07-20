@@ -1,9 +1,7 @@
 import React, { lazy, Suspense } from 'react';
 import { useStore } from 'effector-react';
 import styled from 'styled-components';
-import { UserDataStore } from '../../../effector/user-data/store';
 import { AppConditionStore } from '../../../effector/app-condition/store';
-import { useHandleAuth } from '../../../hooks/use-handle-auth';
 const AuthorizedProfile = lazy(() => import('./authorized'));
 const NotAuthorizedProfile = lazy(() => import('./not-authorized'));
 const ProfileWrapper = styled.div`
@@ -13,11 +11,7 @@ const ProfileWrapper = styled.div`
 `;
 
 export const Profile = React.memo(() => {
-  const { isAuthorized, dataReceived, openPopUpState } = useStore(
-    AppConditionStore
-  );
-  const { worldName } = useStore(UserDataStore);
-  useHandleAuth({ isAuthorized, dataReceived, worldName });
+  const { isAuthorized, openPopUpState } = useStore(AppConditionStore);
   const content = isAuthorized ? (
     <Suspense fallback={<>loading</>}>
       <AuthorizedProfile openPopUpState={openPopUpState} />

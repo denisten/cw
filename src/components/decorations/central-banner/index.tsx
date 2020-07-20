@@ -3,10 +3,7 @@ import banner from './banner.png';
 import styled from 'styled-components';
 import { ZIndexes } from '../../root-component/z-indexes-enum';
 import { MTSSans } from '../../../fonts';
-import {
-  menuOpened,
-  setOpenPopUpState,
-} from '../../../effector/app-condition/events';
+import { setOpenPopUpState } from '../../../effector/app-condition/events';
 import { TypesOfPopUps } from '../../../UI/pop-up';
 import { UserDataStore } from '../../../effector/user-data/store';
 import { mouseMoveProtect } from '../../../utils/mouse-move-protect';
@@ -14,6 +11,7 @@ import { TutorialConditions } from '../../../effector/tutorial-store/store';
 import { MenuItems } from '../../../UI/menu-paragraph';
 import { extraTowerInfoModalClosed } from '../../../effector/tower-info-modal-store/events';
 import { useStore } from 'effector-react';
+import { menuOpened } from '../../../effector/menu-store/events';
 
 const Banner = styled.div`
   width: 175px;

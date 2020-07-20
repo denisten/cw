@@ -3,8 +3,8 @@ import coinImg from './coins.svg';
 import plusImg from './plus.svg';
 import styled from 'styled-components';
 import { parseSum } from '../../utils/parse-sum';
-import { menuOpened } from '../../effector/app-condition/events';
 import { MenuItems } from '../menu-paragraph';
+import { menuOpened } from '../../effector/menu-store/events';
 
 const styledConfig = {
   coinImg: {
