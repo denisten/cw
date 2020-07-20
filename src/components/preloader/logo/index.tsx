@@ -22,25 +22,16 @@ const growAnim = keyframes`
         100% { transform: scaleY(1)    translateY(0);}
 `;
 
+const fadeAnim = keyframes`
+        0%   { transform: scaleY(1)    translateY(0);}
+        100% { transform: scaleY(0)    translateY(0);}
+`;
+
 enum animationStates {
-  ACTIVE = 'active',
-  DISABLE = 'disable',
+  NORMAL = 'normal',
+  FADE = 'fade',
 }
-
-enum animationGrowSteps {
-  GROW_CLIENT_ANIM = 'growClientAnim',
-  GROW_CITY_LAYER_ONE = 'growCityLayerOne',
-  GROW_CITY_LAYER_TWO = 'growCityLayerTwo',
-  GROW_CITY_LAYER_THREE = 'growCityLayerThree',
-}
-
-enum animationFadeSteps {
-  FADE_CLIENT_ANIM = 'fadeClientAnim',
-  FADE_CITY_LAYER_ONE = 'fadeCityLayerOne',
-  FADE_CITY_LAYER_TWO = 'fadeCityLayerTwo',
-  FADE_CITY_LAYER_THREE = 'fadeCityLayerThree',
-}
-
+const basicAnimationDelay = 350;
 const LogoLayer = styled.img<ILogoLayer>`
   width: ${props => props.width};
   height: ${props => props.height};
@@ -49,15 +40,22 @@ const LogoLayer = styled.img<ILogoLayer>`
   left: ${props => props.left || '0px'};
   transform-origin: bottom;
   z-index: ${props => props.zIndex};
-  transform: scaleY(0) translateY(0);
-  transition: .5s;
+  animation: ${growAnim} ${basicAnimationDelay}ms linear both;
+  animation-delay: ${props => props.animationDelay};
 
-  &.${animationStates.ACTIVE} {
-    /* animation: ${growAnim} 0.5s both linear; */
-    transform: scaleY(1) translateY(0);
+  &.${animationStates.FADE} {
+    animation: ${fadeAnim} ${basicAnimationDelay}ms linear both;
+    animation-delay: ${props => props.reverseAnimationDelay} !important;
   }
-
 `;
+
+enum animatedItemsOrder {
+  ONE = 1,
+  TWO = 2,
+  THREE = 3,
+  FOUR = 4,
+  FIVE = 5,
+}
 
 const styledConfig = {
   world: {
@@ -66,11 +64,15 @@ const styledConfig = {
     zIndex: 5,
     left: '132px',
     bottom: '138px',
+    animationDelay: `${basicAnimationDelay * animatedItemsOrder.ONE}ms`,
+    reverseAnimationDelay: `${basicAnimationDelay * animatedItemsOrder.FIVE}ms`,
   },
   client: {
     width: '637pxpx',
     height: '147pxpx',
     zIndex: 5,
+    animationDelay: `${basicAnimationDelay * animatedItemsOrder.TWO}ms`,
+    reverseAnimationDelay: `${basicAnimationDelay * animatedItemsOrder.FOUR}ms`,
   },
   cityLayerOne: {
     width: '440px',
@@ -78,6 +80,9 @@ const styledConfig = {
     zIndex: 3,
     bottom: '114px',
     left: '100px',
+    animationDelay: `${basicAnimationDelay * animatedItemsOrder.THREE}ms`,
+    reverseAnimationDelay: `${basicAnimationDelay *
+      animatedItemsOrder.THREE}ms`,
   },
   cityLayerTwo: {
     width: '536px',
@@ -85,6 +90,8 @@ const styledConfig = {
     zIndex: 2,
     bottom: '106px',
     left: '40px',
+    animationDelay: `${basicAnimationDelay * animatedItemsOrder.FOUR}ms`,
+    reverseAnimationDelay: `${basicAnimationDelay * animatedItemsOrder.TWO}ms`,
   },
   cityLayerThree: {
     width: '498px',
@@ -92,66 +99,13 @@ const styledConfig = {
     zIndex: 1,
     bottom: '124px',
     left: '88px',
+    animationDelay: `${basicAnimationDelay * animatedItemsOrder.FIVE}ms`,
+    reverseAnimationDelay: `${basicAnimationDelay * animatedItemsOrder.ONE}ms`,
   },
 };
 
-export const Logo = () => {
-  const layerWorld = useRef<HTMLImageElement>(null);
-  const layerClient = useRef<HTMLImageElement>(null);
-  const cityLayerOne = useRef<HTMLImageElement>(null);
-  const cityLayerTwo = useRef<HTMLImageElement>(null);
-  const cityLayerThree = useRef<HTMLImageElement>(null);
-  const [animationStep, setAnimationStep] = useState<
-    animationGrowSteps | animationFadeSteps | null
-  >(null);
-  const [activeAnimationState, setActiveAnimationState] = useState(
-    animationStates.ACTIVE
-  );
-  const animationStart = () => {
-    if (layerWorld.current) {
-      layerWorld.current.classList.add(animationStates.ACTIVE);
-    }
-  };
-  useEffect(() => {
-    animationStart();
-  }, [layerWorld]);
-
-  const growAnimationHandler = () => {
-    if (animationStep === animationGrowSteps.GROW_CLIENT_ANIM) {
-      layerClient?.current?.classList.add(animationStates.ACTIVE);
-    } else if (animationStep === animationGrowSteps.GROW_CITY_LAYER_ONE) {
-      cityLayerOne?.current?.classList.add(animationStates.ACTIVE);
-    } else if (animationStep === animationGrowSteps.GROW_CITY_LAYER_TWO) {
-      cityLayerTwo?.current?.classList.add(animationStates.ACTIVE);
-    } else if (animationStep === animationGrowSteps.GROW_CITY_LAYER_THREE) {
-      cityLayerThree?.current?.classList.add(animationStates.ACTIVE);
-    }
-  };
-
-  const fadeAnimationHandler = () => {
-    if (animationStep === animationGrowSteps.GROW_CITY_LAYER_THREE) {
-      cityLayerThree?.current?.classList.remove(animationStates.ACTIVE);
-    } else if (animationStep === animationFadeSteps.FADE_CITY_LAYER_THREE) {
-      cityLayerTwo?.current?.classList.remove(animationStates.ACTIVE);
-    } else if (animationStep === animationFadeSteps.FADE_CITY_LAYER_TWO) {
-      cityLayerOne?.current?.classList.remove(animationStates.ACTIVE);
-    } else if (animationStep === animationFadeSteps.FADE_CITY_LAYER_ONE) {
-      layerClient?.current?.classList.remove(animationStates.ACTIVE);
-    } else if (animationStep === animationFadeSteps.FADE_CLIENT_ANIM) {
-      layerWorld?.current?.classList.remove(animationStates.ACTIVE);
-    }
-  };
-
-  useEffect(() => {
-    const request = requestAnimationFrame(() => {
-      if (activeAnimationState === animationStates.ACTIVE) {
-        growAnimationHandler();
-      } else {
-        fadeAnimationHandler();
-      }
-    });
-    return () => cancelAnimationFrame(request);
-  }, [animationStep, activeAnimationState]);
+export const Logo: React.FC<ILogo> = ({ onAnimationEnd }) => {
+  const [animationFade, setAnimationFade] = useState(false);
 
   return (
     <Wrapper>
@@ -159,66 +113,35 @@ export const Logo = () => {
         {...styledConfig.world}
         src={world}
         alt="logolayer"
-        ref={layerWorld}
-        onTransitionEnd={() => {
-          if (activeAnimationState === animationStates.ACTIVE) {
-            setAnimationStep(animationGrowSteps.GROW_CLIENT_ANIM);
-          } else {
-            //   setAnimationStep(animationFadeSteps.FADE_CLIENT_ANIM);
-          }
+        className={animationFade ? animationStates.FADE : ''}
+        onAnimationEnd={() => {
+          animationFade && onAnimationEnd();
         }}
       />
       <LogoLayer
         {...styledConfig.client}
         src={client}
         alt="logolayer"
-        ref={layerClient}
-        onTransitionEnd={() => {
-          if (activeAnimationState === animationStates.ACTIVE) {
-            setAnimationStep(animationGrowSteps.GROW_CITY_LAYER_ONE);
-          } else {
-            setAnimationStep(animationFadeSteps.FADE_CLIENT_ANIM);
-          }
-        }}
+        className={animationFade ? animationStates.FADE : ''}
       />
       <LogoLayer
         {...styledConfig.cityLayerOne}
         src={city01}
         alt="logolayer"
-        ref={cityLayerOne}
-        onTransitionEnd={() => {
-          if (activeAnimationState === animationStates.ACTIVE) {
-            setAnimationStep(animationGrowSteps.GROW_CITY_LAYER_TWO);
-          } else {
-            setAnimationStep(animationFadeSteps.FADE_CITY_LAYER_ONE);
-          }
-        }}
+        className={animationFade ? animationStates.FADE : ''}
       />
       <LogoLayer
         {...styledConfig.cityLayerTwo}
         src={city02}
         alt="logolayer"
-        ref={cityLayerTwo}
-        onTransitionEnd={() => {
-          if (activeAnimationState === animationStates.ACTIVE) {
-            setAnimationStep(animationGrowSteps.GROW_CITY_LAYER_THREE);
-          } else {
-            setAnimationStep(animationFadeSteps.FADE_CITY_LAYER_TWO);
-          }
-        }}
+        className={animationFade ? animationStates.FADE : ''}
       />
       <LogoLayer
         {...styledConfig.cityLayerThree}
         src={city03}
         alt="logolayer"
-        ref={cityLayerThree}
-        onTransitionEnd={() => {
-          if (activeAnimationState === animationStates.ACTIVE) {
-            setActiveAnimationState(animationStates.DISABLE);
-          } else {
-            setAnimationStep(animationFadeSteps.FADE_CITY_LAYER_THREE);
-          }
-        }}
+        className={animationFade ? animationStates.FADE : ''}
+        onAnimationEnd={() => setAnimationFade(true)}
       />
     </Wrapper>
   );
@@ -231,4 +154,11 @@ interface ILogoLayer {
   bottom?: string;
   left?: string;
   transition?: string;
+  animationDelay?: string;
+  animationFade?: boolean;
+  reverseAnimationDelay?: string;
+}
+
+interface ILogo {
+  onAnimationEnd: () => void;
 }

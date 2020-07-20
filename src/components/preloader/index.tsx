@@ -121,6 +121,8 @@ const LoadingLine = styled.div<ILoadingLine>`
   align-items: center;
   position: relative;
   border-radius: 4px;
+  position: absolute;
+  bottom: 45px;
 
   span {
     text-shadow: 1px 1px 0 #233742;
@@ -224,7 +226,7 @@ export const Preloader: React.FC = () => {
         ))}
       </BuildingWrapper>
       {/* <Sprite img={animLogo} {...spriteStyle} onAnimationEnd={onAnimationEnd} /> */}
-      <Logo />
+      <Logo onAnimationEnd={onAnimationEnd} />
       {cloudsConfig.map(cloud => (
         <Cloud
           {...cloud}
@@ -234,10 +236,10 @@ export const Preloader: React.FC = () => {
           alt="cloud"
         />
       ))}
-      {/* 
+
       <LoadingLine progress={loadingProgress}>
         <span>{loadingProgress}%</span>
-      </LoadingLine> */}
+      </LoadingLine>
     </PreloaderWrapper>
   );
 };
