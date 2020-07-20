@@ -50,6 +50,7 @@ const LogoLayer = styled.img<ILogoLayer>`
   transform-origin: bottom;
   z-index: ${props => props.zIndex};
   transform: scaleY(0) translateY(0);
+  transition: .5s;
 
   &.${animationStates.ACTIVE} {
     /* animation: ${growAnim} 0.5s both linear; */
