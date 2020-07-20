@@ -148,25 +148,6 @@ const LoadingLine = styled.div<ILoadingLine>`
   }
 `;
 
-const spriteStyle = {
-  canvasWidth: 700,
-  canvasHeight: 730,
-  numberOfFramesX: 6,
-  numberOfFramesY: 6,
-  ticksPerFrame: 1,
-  infinity: false,
-
-  style: {
-    width: '780px',
-    height: '694px',
-    position: 'absolute',
-    top: '40%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    zIndex: InheritZIndexes.LOGO,
-  } as React.CSSProperties,
-};
-
 enum CloudsState {
   VISIBLE = 'cloud',
   HIDE = 'hideCloud',
