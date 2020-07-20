@@ -4,7 +4,7 @@ import city01 from './city_01.png';
 import city02 from './city_02.png';
 import city03 from './city_03.png';
 import world from './mir.png';
-import client from './klient.png';
+import client from './client.png';
 const Wrapper = styled.div`
   z-index: 8;
   width: 637px;
