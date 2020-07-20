@@ -9,10 +9,10 @@ import {
   verifyTask,
 } from './events';
 import { editUserProperty } from '../user-data/events';
-import { TasksType } from '../../components/tasks';
 import { TowersTypes } from '../towers-progress/store';
 import { TaskStatuses } from '../../api/tasks-api/get-tasks';
 import { chatTaskSession } from '../chat/events';
+import { TasksType } from '../../components/menu/menu-tasks';
 
 const initStore: ITask[] = [];
 

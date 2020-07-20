@@ -8,7 +8,7 @@ import {
 } from '../../../effector/tutorial-store/store';
 import { TasksStore } from '../../../effector/missions-store/store';
 import { filteredMissionsArray } from '../../../utils/filtered-missions-array';
-import { Task } from '../../tasks/tasks-row';
+import { TowerTaskRow } from '../../tasks/tower-task-row';
 import { TowersTypes } from '../../../effector/towers-progress/store';
 
 const TowerInfoTaskWrapper = styled.div`
@@ -65,7 +65,7 @@ export const TowerInfoTask: React.FC<ITowerInfoTask> = ({ towerTitle }) => {
       {filteredMissions.length
         ? filteredMissions.map(el => {
             return (
-              <Task
+              <TowerTaskRow
                 towerTitle={towerTitle}
                 expireInSeconds={el.expireInSeconds}
                 id={el.id}

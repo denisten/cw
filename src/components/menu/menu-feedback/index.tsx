@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { UserDataStore } from '../../../effector/user-data/store';
 import { Input } from '../../../UI/input';
 import { Button, ButtonClassNames } from '../../../UI/button';
-import { InputTitle } from '../profile/authorized';
+import { InputTitle } from '../menu-profile/authorized';
 import { Dropdown } from '../../../UI/dropdown';
 import { RowWrapper } from '../../../UI/row-wrapper';
 import { MultipleInput } from '../../../UI/muiltiple-input';

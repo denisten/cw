@@ -14,10 +14,10 @@ import { zIndexForInheritOverlay } from '../../constants';
 import { MTSSans } from '../../fonts';
 import moneyCircle from './money.png';
 import { IDisplayFlag } from '../../components/skip-tutorial';
-import userAvatarIcon from '../../components/menu/profile/authorized/user-avatar.svg';
+import userAvatarIcon from '../../components/menu/menu-profile/authorized/user-avatar.svg';
 import { extraTowerInfoModalClosed } from '../../effector/tower-info-modal-store/events';
-import { IUserAvatar } from '../../components/menu/profile/authorized';
 import { menuOpened } from '../../effector/menu-store/events';
+import { IUserAvatar } from '../../components/menu/menu-profile/authorized';
 
 const CoinsWrapper = styled.div`
   display: flex;

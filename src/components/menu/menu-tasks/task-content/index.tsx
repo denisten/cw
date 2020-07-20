@@ -9,17 +9,18 @@ const Body = styled.div`
   width: calc(100% - 28px);
   height: calc(100% - 50px);
   background: white;
-  padding: 40px 0;
+  padding: 27px 24px 0 33px;
+  //padding: 40px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
 `;
 
-export const TasksContent: React.FC<{
-  activeType: TasksType;
-  isAuthorized: boolean;
-}> = ({ activeType, isAuthorized }) => {
+export const TasksContent: React.FC<ITasksContent> = ({
+  activeType,
+  isAuthorized,
+}) => {
   return (
     <Body>
       <Tasks
@@ -31,3 +32,8 @@ export const TasksContent: React.FC<{
     </Body>
   );
 };
+
+interface ITasksContent {
+  activeType: TasksType;
+  isAuthorized: boolean;
+}

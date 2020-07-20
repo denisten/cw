@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { TasksHeader } from './tasks-header';
-import { TasksContent } from './tasks-content';
 import { useStore } from 'effector-react';
-import { AppConditionStore } from '../../effector/app-condition/store';
+import { AppConditionStore } from '../../../effector/app-condition/store';
+import { TasksContent } from './task-content';
+import { TasksHeader } from './task-header';
 
 const TasksBody = styled.div`
   width: 100%;
@@ -31,7 +31,8 @@ const taskTypes = [
   { id: TasksType.CHALLENGE, label: 'Челленджи' },
   { id: TasksType.MISSION, label: 'Миссии' },
 ];
-export const Tasks = () => {
+
+export const MenuTasks = () => {
   const [taskType, setTaskType] = useState(TasksType.TASKS);
   const { isAuthorized } = useStore(AppConditionStore);
   const selectTaskType = (type: TasksType) => {

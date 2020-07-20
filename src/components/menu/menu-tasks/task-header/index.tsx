@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { TasksType } from '..';
-import { MTSSans } from '../../../fonts';
 import challenge from './chellenge.png';
 import challengeNotAuth from './chellenge-not-auth.png';
 import mission from './mission.png';
@@ -10,6 +9,7 @@ import challengeActive from './chellenge-active.png';
 import missionActive from './mission-active.png';
 import missionNotAuth from './mission-not-auth.png';
 import taskActive from './task-active.png';
+import { MTSSans } from '../../../../fonts';
 
 const Header = styled.div`
   width: 100%;
