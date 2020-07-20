@@ -28,14 +28,16 @@ const TutorialToolsSelector = lazy(() =>
 export enum ScaleValues {
   ZOOM_IN = 0.05,
   ZOOM_OUT = -0.05,
-  MAX_SCALE = 1.5,
+  MAX_SCALE = 1,
   MIN_SCALE = 1,
-  FIX_SIZE = 0.3,
+  FIX_SIZE = 0.5,
 }
 
 export enum MapSize {
-  WIDTH = 7680,
-  HEIGHT = 5400,
+  // WIDTH = 7680,
+  WIDTH = 5600,
+  // HEIGHT = 5400,
+  HEIGHT = 2940,
 }
 
 const ScrollContainerWrapper = styled.div`
