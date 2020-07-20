@@ -115,7 +115,7 @@ export const TaskInfo = styled.div`
 `;
 
 export const Border = styled.div`
-  width: 635px;
+  width: 100%;
   height: 1px;
   background-color: #e2e5eb;
   margin: 16px 0 14px 0;
@@ -182,6 +182,7 @@ export const taskRowStyledConfig = {
   },
   columnWrapperAdditionalStyle: {
     alignItems: 'center',
+    marginRight: '7px',
   },
   rowWrapper: {
     paddingRight: '20px',

@@ -17,17 +17,46 @@ import {
   Border,
   checkTaskStatus,
   HintWrapper,
+  ITaskLocation,
   ITasksRow,
   TaskButton,
   TaskDescription,
   TaskDescriptionWrapper,
   TaskInfo,
   taskRowStyledConfig,
-  TaskWrapper,
-  Title,
   VectorImg,
 } from '../tower-task-row';
 import { TasksType } from '../../menu/menu-tasks';
+import styled from 'styled-components';
+import { StyledSpan } from '../../../UI/span';
+import { MTSSans } from '../../../fonts';
+
+const TaskWrapper = styled.div<ITaskLocation>`
+  width: 719px;
+  border-radius: 4px;
+  border: 1px solid #ebecef;
+  background-color: #ffffff;
+  box-sizing: border-box;
+  padding: 14px 18px;
+  margin-bottom: 16px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+`;
+
+const Title = styled(StyledSpan)<ITaskLocation>`
+  min-width: 316px;
+  font-family: ${MTSSans.MEDIUM};
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.4px;
+  color: #001424;
+  margin-left: 14px;
+  font-weight: 500;
+  margin-right: 34px;
+`;
 
 export const MenuTaskRow: React.FC<ITasksRow> = ({
   type,
@@ -109,15 +138,6 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
       <TaskInfo>
         <Icon type={type} />
         <Title isInTowerInfo={isInTowerInfo}>{taskTitle}</Title>
-        <VectorImg ref={vectorRef} src={vectorImg} alt="vector" />
-      </TaskInfo>
-      <TaskDescriptionWrapper ref={taskDescriptionRef}>
-        <Border />
-        <TaskDescription>{description}</TaskDescription>
-      </TaskDescriptionWrapper>
-      <Border />
-      <RowWrapper style={taskRowStyledConfig.rowWrapper}>
-        {<TaskTimer taskTimer={taskTimer} expireInSeconds={expireInSeconds} />}
         <RowWrapper>
           <ColumnWrapper {...taskRowStyledConfig.columnWrapper}>
             <TaskLoot
@@ -125,6 +145,12 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
               energy={energy}
               isInTowerInfo={isInTowerInfo}
             />
+            {
+              <TaskTimer
+                taskTimer={taskTimer}
+                expireInSeconds={expireInSeconds}
+              />
+            }
           </ColumnWrapper>
           <ColumnWrapper
             {...taskRowStyledConfig.columnWrapper}
@@ -142,8 +168,14 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
               <HintWrapper onClick={handleHintClick} />
             )}
           </ColumnWrapper>
+
+          <VectorImg ref={vectorRef} src={vectorImg} alt="vector" />
         </RowWrapper>
-      </RowWrapper>
+      </TaskInfo>
+      <TaskDescriptionWrapper ref={taskDescriptionRef}>
+        <Border />
+        <TaskDescription>{description}</TaskDescription>
+      </TaskDescriptionWrapper>
     </TaskWrapper>
   );
 };

@@ -9,7 +9,8 @@ const Body = styled.div`
   width: calc(100% - 28px);
   height: calc(100% - 50px);
   background: white;
-  padding: 40px 0;
+  padding: 27px 24px 0 33px;
+  //padding: 40px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
