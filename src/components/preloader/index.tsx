@@ -234,10 +234,10 @@ export const Preloader: React.FC = () => {
           alt="cloud"
         />
       ))}
-
+      {/* 
       <LoadingLine progress={loadingProgress}>
         <span>{loadingProgress}%</span>
-      </LoadingLine>
+      </LoadingLine> */}
     </PreloaderWrapper>
   );
 };
