@@ -11,6 +11,7 @@ import { PreloaderBuilding } from './preloader-building';
 import animLogo from './anim_logo.png';
 import { Sprite } from '../sprite';
 import { delayBeforePreloaderOff, maxPercent } from '../../constants';
+import { Logo } from './logo';
 
 enum InheritZIndexes {
   BUILDINGS = 2,
@@ -37,6 +38,9 @@ const PreloaderWrapper = styled.div`
   align-items: flex-end;
   justify-content: center;
   animation: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   &.disable {
     display: none;
   }
@@ -177,15 +181,15 @@ export const Preloader: React.FC = () => {
 
   useEffect(() => {
     const request = requestAnimationFrame(() => {
-      if (loadingProgress >= maxPercent && isAnimationEnded) {
-        setDOMLoaded();
-        preloaderRef.current?.classList.add('active');
-        preloaderRef.current?.classList.remove('disable');
-        setTimeout(() => {
-          preloaderRef.current?.classList.remove('active');
-          preloaderRef.current?.classList.add('disable');
-        }, delayBeforePreloaderOff);
-      }
+      // if (loadingProgress >= maxPercent && isAnimationEnded) {
+      //   setDOMLoaded();
+      //   preloaderRef.current?.classList.add('active');
+      //   preloaderRef.current?.classList.remove('disable');
+      //   setTimeout(() => {
+      //     preloaderRef.current?.classList.remove('active');
+      //     preloaderRef.current?.classList.add('disable');
+      //   }, delayBeforePreloaderOff);
+      // }
 
       if (isAnimationStarted) {
         cloudClassName.current = CloudsState.HIDE;
@@ -219,7 +223,8 @@ export const Preloader: React.FC = () => {
           />
         ))}
       </BuildingWrapper>
-      <Sprite img={animLogo} {...spriteStyle} onAnimationEnd={onAnimationEnd} />
+      {/* <Sprite img={animLogo} {...spriteStyle} onAnimationEnd={onAnimationEnd} /> */}
+      <Logo />
       {cloudsConfig.map(cloud => (
         <Cloud
           {...cloud}
