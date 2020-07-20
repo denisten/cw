@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import city01 from './city_01.png';
 import city02 from './city_02.png';
@@ -6,10 +6,6 @@ import city03 from './city_03.png';
 import world from './mir.png';
 import client from './klient.png';
 const Wrapper = styled.div`
-  /* position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%); */
   z-index: 8;
   width: 637px;
   height: 403px;
@@ -31,7 +27,8 @@ enum animationStates {
   NORMAL = 'normal',
   FADE = 'fade',
 }
-const basicAnimationDelay = 350;
+const basicAnimationDelay = 300;
+const magicDurationsShift = 150;
 const LogoLayer = styled.img<ILogoLayer>`
   width: ${props => props.width};
   height: ${props => props.height};
@@ -65,14 +62,16 @@ const styledConfig = {
     left: '132px',
     bottom: '138px',
     animationDelay: `${basicAnimationDelay * animatedItemsOrder.ONE}ms`,
-    reverseAnimationDelay: `${basicAnimationDelay * animatedItemsOrder.FIVE}ms`,
+    reverseAnimationDelay: `${basicAnimationDelay * animatedItemsOrder.FOUR -
+      magicDurationsShift}ms`,
   },
   client: {
     width: '637pxpx',
     height: '147pxpx',
     zIndex: 5,
     animationDelay: `${basicAnimationDelay * animatedItemsOrder.TWO}ms`,
-    reverseAnimationDelay: `${basicAnimationDelay * animatedItemsOrder.FOUR}ms`,
+    reverseAnimationDelay: `${basicAnimationDelay * animatedItemsOrder.FOUR +
+      magicDurationsShift}ms`,
   },
   cityLayerOne: {
     width: '440px',

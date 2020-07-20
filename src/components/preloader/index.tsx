@@ -8,8 +8,6 @@ import { useCalculateLoadingProgress } from '../../hooks/use-loading-indication'
 import { setDOMLoaded } from '../../effector/app-condition/events';
 import { preloaderBuildingsConfig } from './preloader-building-config';
 import { PreloaderBuilding } from './preloader-building';
-import animLogo from './anim_logo.png';
-import { Sprite } from '../sprite';
 import { delayBeforePreloaderOff, maxPercent } from '../../constants';
 import { Logo } from './logo';
 
@@ -183,15 +181,15 @@ export const Preloader: React.FC = () => {
 
   useEffect(() => {
     const request = requestAnimationFrame(() => {
-      // if (loadingProgress >= maxPercent && isAnimationEnded) {
-      //   setDOMLoaded();
-      //   preloaderRef.current?.classList.add('active');
-      //   preloaderRef.current?.classList.remove('disable');
-      //   setTimeout(() => {
-      //     preloaderRef.current?.classList.remove('active');
-      //     preloaderRef.current?.classList.add('disable');
-      //   }, delayBeforePreloaderOff);
-      // }
+      if (loadingProgress >= maxPercent && isAnimationEnded) {
+        setDOMLoaded();
+        preloaderRef.current?.classList.add('active');
+        preloaderRef.current?.classList.remove('disable');
+        setTimeout(() => {
+          preloaderRef.current?.classList.remove('active');
+          preloaderRef.current?.classList.add('disable');
+        }, delayBeforePreloaderOff);
+      }
 
       if (isAnimationStarted) {
         cloudClassName.current = CloudsState.HIDE;
@@ -225,7 +223,6 @@ export const Preloader: React.FC = () => {
           />
         ))}
       </BuildingWrapper>
-      {/* <Sprite img={animLogo} {...spriteStyle} onAnimationEnd={onAnimationEnd} /> */}
       <Logo onAnimationEnd={onAnimationEnd} />
       {cloudsConfig.map(cloud => (
         <Cloud
