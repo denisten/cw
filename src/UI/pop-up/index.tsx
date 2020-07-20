@@ -17,7 +17,7 @@ import { menuClosed } from '../../effector/app-condition/events';
 import { ZIndexes } from '../../components/root-component/z-indexes-enum';
 import { ExitButton } from '../exit-button';
 
-import { maxCityNameLength, minNameLength, statusOk } from '../../constants';
+import { maxCityNameLength, statusOk } from '../../constants';
 import { saveUserData } from '../../api/save-user-data';
 import supportSprite from '../../img/assistant/assistant.png';
 import { Sprite } from '../../components/sprite';

@@ -6,7 +6,6 @@ import {
 } from '../../effector/app-condition/store';
 import { ChatStore } from '../../effector/chat/store';
 import { TaskStatuses } from '../../api/tasks-api/get-tasks';
-import { TasksType } from '../../components/tasks';
 import { chatTaskSession, clearChat } from '../../effector/chat/events';
 import {
   menuClosed,
@@ -23,6 +22,7 @@ import { markerHandler } from '../marker-handler';
 import { animateTaskReward } from '../animate-task-reward';
 import { coughtError } from '../../effector/error-boundary-store/events';
 import { extraTowerInfoModalOpen } from '../../effector/tower-info-modal-store/events';
+import { TasksType } from '../../components/menu/menu-tasks';
 
 export const handleTaskClick = async (id: number, e: React.MouseEvent) => {
   const tasks = TasksStore.getState();

@@ -7,7 +7,7 @@ import energy from './energy.svg';
 import coin from './coin.svg';
 import login from './login.svg';
 import chat from './chat.svg';
-import { TasksType } from '../../components/tasks';
+import { TasksType } from '../../components/menu/menu-tasks';
 
 export enum TypeOfIcons {
   ENERGY = 'energy',

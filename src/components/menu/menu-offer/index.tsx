@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollContainer } from '../faq';
+import { ScrollContainer } from '../menu-faq';
 import styled from 'styled-components';
 import { MTSSans } from '../../../fonts';
 

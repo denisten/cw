@@ -7,7 +7,7 @@ import {
   hideMarker,
 } from '../../effector/towers-marker/events';
 import { TypeOfMarkers } from '../../components/markers';
-import { TasksType } from '../../components/tasks';
+import { TasksType } from '../../components/menu/menu-tasks';
 
 export const markerHandler = () => {
   const missions = TasksStore.getState().map(missionItem => {

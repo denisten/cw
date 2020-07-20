@@ -7,7 +7,6 @@ import { TaskLoot } from '../../../UI/task-loot';
 import notDoneImg from './not-done.svg';
 import { ColumnWrapper } from '../../../UI/column-wrapper';
 import { TaskTimer } from '../../../UI/task-timer';
-import { TasksType } from '../index';
 import { TowersTypes } from '../../../effector/towers-progress/store';
 import { TaskStatuses } from '../../../api/tasks-api/get-tasks';
 import { ModalWindow } from '../../modal-window';
@@ -19,8 +18,9 @@ import { coughtError } from '../../../effector/error-boundary-store/events';
 import vectorImg from './vector.svg';
 import { RowWrapper } from '../../../UI/row-wrapper';
 import { couponModalConfig } from '../../tower-info/tower-info-chat';
+import { TasksType } from '../../menu/menu-tasks';
 
-const TaskWrapper = styled.div<ITaskLocation>`
+export const TaskWrapper = styled.div<ITaskLocation>`
   width: 100%;
   min-height: 125px;
   border-radius: 4px;
@@ -36,7 +36,7 @@ const TaskWrapper = styled.div<ITaskLocation>`
   flex-direction: column;
 `;
 
-const Title = styled(StyledSpan)<ITaskLocation>`
+export const Title = styled(StyledSpan)<ITaskLocation>`
   max-width: 405px;
   font-family: ${MTSSans.MEDIUM};
   font-size: 16px;
@@ -49,7 +49,7 @@ const Title = styled(StyledSpan)<ITaskLocation>`
   margin-right: 7px;
 `;
 
-const TaskButton = styled.div<ITaskButton>`
+export const TaskButton = styled.div<ITaskButton>`
   width: 120px;
   height: 30px;
   display: flex;
@@ -107,21 +107,21 @@ const TaskButton = styled.div<ITaskButton>`
   }
 `;
 
-const TaskInfo = styled.div`
+export const TaskInfo = styled.div`
   height: 100%;
   width: 100%;
   display: flex;
   align-items: center;
 `;
 
-const Border = styled.div`
+export const Border = styled.div`
   width: 635px;
   height: 1px;
   background-color: #e2e5eb;
   margin: 16px 0 14px 0;
 `;
 
-const TaskDescription = styled.div`
+export const TaskDescription = styled.div`
   width: 560px;
   height: auto;
   font-family: ${MTSSans.REGULAR};
@@ -136,7 +136,7 @@ const TaskDescription = styled.div`
   overflow-y: scroll;
 `;
 
-const TaskDescriptionWrapper = styled.div`
+export const TaskDescriptionWrapper = styled.div`
   width: 100%;
   height: auto;
   justify-content: space-between;
@@ -148,7 +148,7 @@ const TaskDescriptionWrapper = styled.div`
   transition-timing-function: ease-in-out;
 `;
 
-const HintWrapper = styled.div`
+export const HintWrapper = styled.div`
   font-family: ${MTSSans.REGULAR};
   font-style: normal;
   font-weight: 500;
@@ -165,14 +165,14 @@ const HintWrapper = styled.div`
   }
 `;
 
-const VectorImg = styled.img`
+export const VectorImg = styled.img`
   transition-timing-function: ease-in-out;
   transition-property: transform;
   transition-duration: 0.2s;
   cursor: pointer;
 `;
 
-const styledConfig = {
+export const taskRowStyledConfig = {
   columnWrapper: {
     position: 'relative',
     displayFlag: true,
@@ -191,10 +191,10 @@ const styledConfig = {
   } as React.CSSProperties,
 };
 
-const checkTaskStatus = (status: TaskStatuses) =>
+export const checkTaskStatus = (status: TaskStatuses) =>
   status === TaskStatuses.REJECTED;
 
-export const Task: React.FC<ITasksRow> = ({
+export const TowerTaskRow: React.FC<ITasksRow> = ({
   type,
   taskTitle,
   status,
@@ -281,10 +281,10 @@ export const Task: React.FC<ITasksRow> = ({
         <TaskDescription>{description}</TaskDescription>
       </TaskDescriptionWrapper>
       <Border />
-      <RowWrapper style={styledConfig.rowWrapper}>
+      <RowWrapper style={taskRowStyledConfig.rowWrapper}>
         {<TaskTimer taskTimer={taskTimer} expireInSeconds={expireInSeconds} />}
         <RowWrapper>
-          <ColumnWrapper {...styledConfig.columnWrapper}>
+          <ColumnWrapper {...taskRowStyledConfig.columnWrapper}>
             <TaskLoot
               money={money}
               energy={energy}
@@ -292,8 +292,8 @@ export const Task: React.FC<ITasksRow> = ({
             />
           </ColumnWrapper>
           <ColumnWrapper
-            {...styledConfig.columnWrapper}
-            style={styledConfig.columnWrapperAdditionalStyle}
+            {...taskRowStyledConfig.columnWrapper}
+            style={taskRowStyledConfig.columnWrapperAdditionalStyle}
           >
             <RowWrapper>
               <TaskButton
@@ -313,7 +313,7 @@ export const Task: React.FC<ITasksRow> = ({
   );
 };
 
-interface ITasksRow {
+export interface ITasksRow {
   towerTitle: TowersTypes | undefined;
   id: number;
   type: TasksType;

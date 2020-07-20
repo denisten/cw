@@ -93,7 +93,7 @@ const styledConfig = {
   },
 };
 
- const NotAuthorizedProfile: React.FC<INotAuthorizedProfile> = ({
+const NotAuthorizedProfile: React.FC<INotAuthorizedProfile> = ({
   openPopUpState,
 }) => {
   const { worldName, money } = useStore(UserDataStore);

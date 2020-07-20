@@ -16,10 +16,10 @@ const Body = styled.div`
   box-sizing: border-box;
 `;
 
-export const TasksContent: React.FC<{
-  activeType: TasksType;
-  isAuthorized: boolean;
-}> = ({ activeType, isAuthorized }) => {
+export const TasksContent: React.FC<ITasksContent> = ({
+  activeType,
+  isAuthorized,
+}) => {
   return (
     <Body>
       <Tasks
@@ -31,3 +31,8 @@ export const TasksContent: React.FC<{
     </Body>
   );
 };
+
+interface ITasksContent {
+  activeType: TasksType;
+  isAuthorized: boolean;
+}

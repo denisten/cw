@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import assistantAvatar from './ava.svg';
 import { MTSSans } from '../../fonts';
 import { RowWrapper } from '../row-wrapper';
-import penImg from '../../components/menu/profile/not-authorized/pen.svg';
+import penImg from '../../components/menu/menu-profile/not-authorized/pen.svg';
 
 const AssistantWrapper = styled.div<IAssistantStyle>`
   width: auto;
