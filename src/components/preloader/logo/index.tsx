@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
-import city01 from './city_01.png';
-import city02 from './city_02.png';
-import city03 from './city_03.png';
-import world from './mir.png';
-import client from './client.png';
+import city01 from './city_01.svg';
+import city02 from './city_02.svg';
+import city03 from './city_03.svg';
+import world from './mir.svg';
+import client from './client.svg';
 const Wrapper = styled.div`
   z-index: 8;
   width: 637px;
