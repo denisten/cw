@@ -388,7 +388,6 @@ class BuildingsService {
       width: 293,
       height: 650,
       areaCoords: '50,194,228,621',
-      // position: [28.5, 50.3],
       position: [29.5, 50.5],
       ref: null,
       link:
@@ -517,8 +516,7 @@ class BuildingsService {
       animSize: animSize.small,
       height: 458,
       areaCoords: '45,77,316,444',
-      // position: [29.1, 45.9],
-      position: [30.5, 44.5],
+      position: [30.6, 44.4],
       ref: null,
       link:
         'https://lk.mts.ru/?utm_source=city.mts.ru&utm_medium=referral&utm_campaign=about',
