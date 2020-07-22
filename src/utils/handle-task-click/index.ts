@@ -1,11 +1,10 @@
 import React from 'react';
-import { TasksStore } from '../../effector/missions-store/store';
+import { TasksStore, TaskStatuses } from '../../effector/missions-store/store';
 import {
   AppConditionStore,
   TowerInfoContentValues,
 } from '../../effector/app-condition/store';
 import { ChatStore } from '../../effector/chat/store';
-import { TaskStatuses } from '../../api/tasks-api/get-tasks';
 import { chatTaskSession, clearChat } from '../../effector/chat/events';
 import { setTowerInfoContent } from '../../effector/app-condition/events';
 import {

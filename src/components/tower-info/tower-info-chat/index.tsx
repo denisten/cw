@@ -2,7 +2,11 @@ import React, { memo, useEffect, useRef, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { IDisplayFlag } from '../../skip-tutorial';
 import { Sender } from '../../../api/tasks-api/session';
-import { ITask, TasksStore } from '../../../effector/missions-store/store';
+import {
+  ITask,
+  TasksStore,
+  TaskStatuses,
+} from '../../../effector/missions-store/store';
 import {
   chatTaskSession,
   consumeUserTaskAction,
@@ -19,7 +23,7 @@ import { couponHandler } from '../../../utils/coupon-handler';
 import { ChatStore } from '../../../effector/chat/store';
 import { Bubble } from '../../../UI/bubble';
 import { ChatPreview } from '../../../UI/chat-preview';
-import { TaskStatuses } from '../../../api/tasks-api/get-tasks';
+
 import { ModalWindow } from '../../modal-window';
 import { hideMarker, setMarker } from '../../../effector/towers-marker/events';
 import { ChatButtons } from '../../../UI/chat-buttons';
@@ -123,9 +127,9 @@ export const couponModalConfig = {
 export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
   ({ towerTitle, switchers }) => {
     const chatContainer = useRef<HTMLDivElement>(null);
-    const { masterMessageId, taskId, actions, messages, ended } = useStore(
-      ChatStore
-    )[towerTitle];
+    const { blockId, taskId, actions, messages, ended } = useStore(ChatStore)[
+      towerTitle
+    ];
     const missions = useStore(TasksStore);
     const [openCouponModal, setOpenCouponModal] = useState(false);
     const [pendingOfResponse, setPendingOfResponse] = useState(false);
@@ -154,7 +158,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
           setPendingOfResponse(true);
           const response = await consumeUserTaskAction({
             taskId: currentMission.id,
-            messageId: masterMessageId,
+            blockId,
             actionId,
             towerTitle,
           });

@@ -1,6 +1,6 @@
 import { post } from '../../requests';
 import { apiRoutes } from '../../index';
-import { IGetTasks } from '../get-tasks';
+import { IGetTasks } from '../../../effector/missions-store/store';
 
 export const activateTaskRequest = async (id: number) => {
   const response = await post<IGetTasks>(

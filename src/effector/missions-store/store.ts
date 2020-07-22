@@ -10,14 +10,23 @@ import {
 } from './events';
 import { editUserProperty } from '../user-data/events';
 import { TowersTypes } from '../towers-progress/store';
-import { TaskStatuses } from '../../api/tasks-api/get-tasks';
 import { chatTaskSession } from '../chat/events';
 import { TasksType } from '../../components/menu/menu-tasks';
+
+export enum TaskStatuses {
+  CREATED = 'created',
+  ACTIVE = 'active',
+  VERIFICATION = 'verification',
+  DONE = 'done',
+  REJECTED = 'rejected',
+  REWARDED = 'rewarded',
+  EXPIRED = 'expired',
+}
 
 const initStore: ITask[] = [];
 
 export const TasksStore = MissionsDomain.store(initStore)
-  .on(fetchTasks.doneData, (state, { userTasks }) => userTasks)
+  .on(fetchTasks, (state, { userTasks }) => userTasks)
   .on(activateTask.doneData, (state, { userTasks }) => userTasks)
   .on(verifyTask.doneData, (state, { userTasks }) => userTasks)
   .on(takeReward.doneData, (state, { userTasks, id }) => {
@@ -109,5 +118,12 @@ export interface ITask {
     executionTime: number;
     betweenTasksTime: number;
     chat: string;
+  };
+}
+
+export interface IGetTasks {
+  data: {
+    userTasks: ITask[];
+    total: number;
   };
 }
