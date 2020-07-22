@@ -20,6 +20,7 @@ const TowerInfo = lazy(() => import('../tower-info'));
 const TutorialToolsSelector = lazy(() =>
   import('../../utils/arrows-container')
 );
+const Encyclopedia = lazy(() => import('../encyclopedia'));
 
 // import { SkipTutorial } from '../skip-tutorial';
 
@@ -59,6 +60,7 @@ export const RootComponent = () => {
             <MoveCoinCollection />
             <TowerInfo />
             <Menu />
+            <Encyclopedia />
           </>
         )}
         {tutorialIsEnabled && (
