@@ -5,7 +5,6 @@ import {
   TowerInfoContentValues,
 } from '../../effector/app-condition/store';
 import { ChatStore } from '../../effector/chat/store';
-import { TaskStatuses } from '../../api/tasks-api/get-tasks';
 import { chatTaskSession, clearChat } from '../../effector/chat/events';
 import { setTowerInfoContent } from '../../effector/app-condition/events';
 import {
@@ -22,6 +21,7 @@ import { extraTowerInfoModalOpen } from '../../effector/tower-info-modal-store/e
 import { MenuStore } from '../../effector/menu-store/store';
 import { menuClosed } from '../../effector/menu-store/events';
 import { TasksType } from '../../components/menu/menu-tasks';
+import { TaskStatuses } from '../../api/enums';
 
 export const handleTaskClick = async (id: number, e: React.MouseEvent) => {
   const tasks = TasksStore.getState();

@@ -72,7 +72,6 @@ export const openWsConnection = async (userId: number) => {
         }
         return el;
       });
-
       fetchTasks({ userTasks });
     }
   );

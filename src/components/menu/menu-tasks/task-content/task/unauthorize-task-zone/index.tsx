@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { Button, ButtonClassNames } from '../../../../../../UI/button';
 import { MenuTaskRow } from '../../../../../tasks/menu-task-row';
-import { TaskStatuses } from '../../../../../../api/tasks-api/get-tasks';
 import { TasksType } from '../../../index';
 import { handleAuthButtonClick } from '../../../../../../utils/handle-auth-button-click';
+import { TaskStatuses } from '../../../../../../api/enums';
 
 const UnauthorizedTaskZoneWrapper = styled.div`
   width: 100%;

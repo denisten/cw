@@ -1,5 +1,4 @@
 import { MissionsDomain } from './domain';
-import { TaskStatuses } from '../../api/tasks-api/get-tasks';
 import { activateTaskRequest } from '../../api/tasks-api/activate';
 import { verifyTaskRequest } from '../../api/tasks-api/verify';
 import { rewardRequest } from '../../api/tasks-api/reward';
@@ -8,6 +7,7 @@ import {
   IGetTaskResultRequest,
 } from '../../api/tasks-api/result';
 import { ITask } from './store';
+import { TaskStatuses } from '../../api/enums';
 
 export const fetchTasks = MissionsDomain.event<{ userTasks: ITask[] }>();
 

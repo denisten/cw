@@ -8,7 +8,7 @@ import notDoneImg from './not-done.svg';
 import { ColumnWrapper } from '../../../UI/column-wrapper';
 import { TaskTimer } from '../../../UI/task-timer';
 import { TowersTypes } from '../../../effector/towers-progress/store';
-import { TaskStatuses } from '../../../api/tasks-api/get-tasks';
+
 import { ModalWindow } from '../../modal-window';
 import { couponHandler } from '../../../utils/coupon-handler';
 import { handleTaskClick } from '../../../utils/handle-task-click';
@@ -19,6 +19,7 @@ import vectorImg from './vector.svg';
 import { RowWrapper } from '../../../UI/row-wrapper';
 import { couponModalConfig } from '../../tower-info/tower-info-chat';
 import { TasksType } from '../../menu/menu-tasks';
+import { TaskStatuses } from '../../../api/enums';
 
 export const TaskWrapper = styled.div<ITaskLocation>`
   width: 100%;

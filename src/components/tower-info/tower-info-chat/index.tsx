@@ -19,7 +19,7 @@ import { couponHandler } from '../../../utils/coupon-handler';
 import { ChatStore } from '../../../effector/chat/store';
 import { Bubble } from '../../../UI/bubble';
 import { ChatPreview } from '../../../UI/chat-preview';
-import { TaskStatuses } from '../../../api/tasks-api/get-tasks';
+
 import { ModalWindow } from '../../modal-window';
 import { hideMarker, setMarker } from '../../../effector/towers-marker/events';
 import { ChatButtons } from '../../../UI/chat-buttons';
@@ -28,6 +28,7 @@ import { TypeOfMarkers } from '../../markers';
 import { useStore } from 'effector-react';
 import { setHideTowerInfo } from '../../../effector/tower-info-modal-store/events';
 import { TasksType } from '../../menu/menu-tasks';
+import { TaskStatuses } from '../../../api/enums';
 
 const ChatWrapper = styled.div`
   width: 100%;
