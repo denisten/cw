@@ -1,5 +1,5 @@
 import { MissionsDomain } from './domain';
-import { getTasks, TaskStatuses } from '../../api/tasks-api/get-tasks';
+import { TaskStatuses } from '../../api/tasks-api/get-tasks';
 import { activateTaskRequest } from '../../api/tasks-api/activate';
 import { verifyTaskRequest } from '../../api/tasks-api/verify';
 import { rewardRequest } from '../../api/tasks-api/reward';
@@ -7,12 +7,9 @@ import {
   getTaskResultRequest,
   IGetTaskResultRequest,
 } from '../../api/tasks-api/result';
+import { ITask } from './store';
 
-export const fetchTasks = MissionsDomain.effect('fetch missions', {
-  handler: async () => {
-    return await getTasks();
-  },
-});
+export const fetchTasks = MissionsDomain.event<{ userTasks: ITask[] }>();
 
 export const activateTask = MissionsDomain.effect(
   'activate current task and fetch new list',

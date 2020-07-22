@@ -5,7 +5,6 @@ import {
 } from '../../effector/user-data/store';
 import { saveUserData } from '../../api/save-user-data';
 import { fetchUserData, getAccountData } from '../../effector/user-data/events';
-import { fetchTasks } from '../../effector/missions-store/events';
 import { fetchAllProductsData } from '../../effector/towers-progress/events';
 import { openWsConnection } from '../../api/centrifuge';
 import { getIncome, TowersTypesAsObjectLiteral } from '../../api/get-income';
@@ -45,7 +44,6 @@ const handleAuth = async (isAuthorized: boolean, dataReceived: boolean) => {
     await getAccountData('');
     await fetchUserPurchases('');
     const incomes = await getIncome();
-    await fetchTasks('');
     markersEnumeration(incomes);
     markerHandler();
     setDataReceived(true);

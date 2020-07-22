@@ -10,6 +10,10 @@ import {
 } from '../../effector/towers-progress/store';
 import { getWorldState } from '../get-world-state';
 import { ITask } from '../../effector/missions-store/store';
+import { setTaskId } from '../../effector/chat/events';
+import { TaskStatuses } from '../enums';
+import { timerClosure } from '../../utils/timer-closure';
+import { fetchTasks } from '../../effector/missions-store/events';
 
 const centrifugeUrl = '/ws/connection/websocket';
 
@@ -58,23 +62,27 @@ export const openWsConnection = async (userId: number) => {
     (items: IGetTasks) => {
       const { userTasks } = items.data;
 
-      // const mappedUserTasks =  userTasks.map(el => {
-      //     if (el.status !== TaskStatuses.CREATED) {
-      //       setTaskId({ towerTitle: el.task.content.product.slug, taskId: el.id });
-      //     }
-      //     if (el.expireInSeconds) {
-      //       el.taskTimer = timerClosure(el.expireInSeconds);
-      //     }
-      //     return el;
-      //   });
+      const mappedUserTasks = userTasks.map(el => {
+        if (el.status !== TaskStatuses.CREATED) {
+          setTaskId({
+            towerTitle: el.task.content.product.slug,
+            taskId: el.id,
+          });
+        }
+        if (el.expireInSeconds) {
+          el.taskTimer = timerClosure(el.expireInSeconds);
+        }
+        return el;
+      });
+      fetchTasks({ userTasks: mappedUserTasks });
     }
   );
 
   progressSubscription.on('subscribe', () => checkActiveSubscriptions());
   tasksSubscription.on('subscribe', () => checkActiveSubscriptions());
   centrifuge.on('disconnect', () => {
-    progressSubscription.unsubscribe();
-    tasksSubscription.unsubscribe();
+    progressSubscription && progressSubscription.unsubscribe();
+    tasksSubscription && tasksSubscription.unsubscribe();
   });
 };
 

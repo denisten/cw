@@ -1,7 +1,6 @@
 import { activateCoupon } from '../../api/activate-coupon';
 import { CouponTypes, UserMarketStore } from '../../effector/coupons/store';
 import { ResponseStatuses } from '../../constants';
-import { fetchTasks } from '../../effector/missions-store/events';
 import { editCouponCount } from '../../effector/coupons/events';
 import { clearChat } from '../../effector/chat/events';
 import { coughtError } from '../../effector/error-boundary-store/events';
@@ -21,7 +20,6 @@ export const couponHandler = async (
   if (taskId && couponCount) {
     const response = await activateCoupon(CouponTypes.COUPON_REPLACE, taskId);
     if (response.state === ResponseStatuses.SUCCESS) {
-      await fetchTasks('');
       editCouponCount({
         couponType: CouponTypes.COUPON_REPLACE,
         count: count - 1,

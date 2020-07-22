@@ -17,7 +17,7 @@ import { TasksType } from '../../components/menu/menu-tasks';
 const initStore: ITask[] = [];
 
 export const TasksStore = MissionsDomain.store(initStore)
-  .on(fetchTasks.doneData, (state, { userTasks }) => userTasks)
+  .on(fetchTasks, (state, { userTasks }) => userTasks)
   .on(activateTask.doneData, (state, { userTasks }) => userTasks)
   .on(verifyTask.doneData, (state, { userTasks }) => userTasks)
   .on(takeReward.doneData, (state, { userTasks, id }) => {
