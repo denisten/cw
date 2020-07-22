@@ -19,8 +19,8 @@ const Banner = styled.div`
   background: url(${banner}) no-repeat center;
   background-size: 100% 100%;
   position: absolute;
-  left: 59%;
-  top: 36%;
+  left: 62%;
+  top: 43%;
   z-index: ${ZIndexes.UI_BUTTON};
   display: flex;
   flex-direction: column;
