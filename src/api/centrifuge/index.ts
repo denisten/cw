@@ -9,15 +9,16 @@ import {
   TowersProgressStoreType,
 } from '../../effector/towers-progress/store';
 import { getWorldState } from '../get-world-state';
-import { ITask } from '../../effector/missions-store/store';
 import { setTaskId } from '../../effector/chat/events';
 import { TaskStatuses } from '../enums';
 import { timerClosure } from '../../utils/timer-closure';
 import { fetchTasks } from '../../effector/missions-store/events';
+import { IGetTasks } from '../tasks-api/get-tasks';
 
 const centrifugeUrl = '/ws/connection/websocket';
 
 const wsConnectionRoute = 'ws://' + window.location.host + centrifugeUrl;
+const numberOfSubscriptions = 2;
 
 export const openWsConnection = async (userId: number) => {
   const centrifuge = new Centrifuge(wsConnectionRoute, {
@@ -34,7 +35,7 @@ export const openWsConnection = async (userId: number) => {
 
   const checkActiveSubscriptions = () => {
     numberOfActiveSubscriptions += 1;
-    if (numberOfActiveSubscriptions === 2) {
+    if (numberOfActiveSubscriptions === numberOfSubscriptions) {
       getWorldState();
     }
   };
@@ -83,10 +84,3 @@ export const openWsConnection = async (userId: number) => {
     tasksSubscription && tasksSubscription.unsubscribe();
   });
 };
-
-interface IGetTasks {
-  data: {
-    userTasks: ITask[];
-    total: number;
-  };
-}
