@@ -24,7 +24,7 @@ export enum EncyclopediaItemIds {
   HINTS = 'hints',
   TASKS = 'tasks',
 }
-const encyclopediaItemsList: IEncyclopediaItemConfig[] = [
+export const encyclopediaItemsList: IEncyclopediaItemConfig[] = [
   {
     label: 'Легенда',
     id: EncyclopediaItemIds.LEGEND,
@@ -40,6 +40,12 @@ const encyclopediaItemsList: IEncyclopediaItemConfig[] = [
 ];
 const Encyclopedia = () => {
   const [activeItem, setActiveItem] = useState(EncyclopediaItemIds.LEGEND);
+  const activeItemObj = encyclopediaItemsList.find(
+    elem => elem.id === activeItem
+  );
+  const activeIndex = encyclopediaItemsList.findIndex(
+    elem => elem.id === activeItem
+  );
   return (
     <Overlay displayFlag={true} {...StyledConfig.overlay}>
       <Wrapper>
@@ -48,7 +54,10 @@ const Encyclopedia = () => {
           activeItem={activeItem}
           callBack={setActiveItem}
         />
-        <EncyclopediaContent />
+        <EncyclopediaContent
+          activeItem={activeItemObj}
+          activeIndex={activeIndex}
+        />
       </Wrapper>
     </Overlay>
   );
