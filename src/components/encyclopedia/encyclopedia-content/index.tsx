@@ -1,6 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { IEncyclopediaItemConfig, encyclopediaItemsList } from '..';
+import {
+  IEncyclopediaItemConfig,
+  encyclopediaItemsList,
+  EncyclopediaItemIds,
+} from '..';
 import actArrowLeft from './actArrowLeft.svg';
 import actArrowRight from './actArrowRight.svg';
 import arrowLeft from './arrowLeft.svg';
@@ -49,6 +53,7 @@ const Arrow = styled.div<IArrow>`
 export const EncyclopediaContent: React.FC<IEncyclopediaContent> = ({
   activeItem,
   activeIndex,
+  callBack,
 }) => {
   const isFirstElem = activeIndex === 0;
   const isLastElem = activeIndex === encyclopediaItemsList.length - 1;
@@ -60,12 +65,14 @@ export const EncyclopediaContent: React.FC<IEncyclopediaContent> = ({
             background={actArrowLeft}
             disableBackground={arrowLeft}
             className={isFirstElem ? disableArrowClassName : ''}
+            onClick={() => callBack(encyclopediaItemsList[activeIndex - 1].id)}
           />
           <Title>{activeItem?.label}</Title>
           <Arrow
             background={actArrowRight}
             disableBackground={arrowRight}
             className={isLastElem ? disableArrowClassName : ''}
+            onClick={() => callBack(encyclopediaItemsList[activeIndex + 1].id)}
           />
         </Slider>
       </Header>
@@ -76,6 +83,7 @@ export const EncyclopediaContent: React.FC<IEncyclopediaContent> = ({
 interface IEncyclopediaContent {
   activeItem: IEncyclopediaItemConfig | undefined;
   activeIndex: number;
+  callBack: (arg: EncyclopediaItemIds) => void;
 }
 
 interface IArrow {

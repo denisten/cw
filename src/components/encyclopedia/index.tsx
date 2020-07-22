@@ -57,6 +57,7 @@ const Encyclopedia = () => {
         <EncyclopediaContent
           activeItem={activeItemObj}
           activeIndex={activeIndex}
+          callBack={setActiveItem}
         />
       </Wrapper>
     </Overlay>
