@@ -1,13 +1,15 @@
 import Centrifuge from 'centrifuge';
 import { getCookie } from '../../utils/get-cookie';
 import { getWsToken } from '../get-ws-token';
-import { apiRoutes, progressRefresh } from '../index';
+import { apiRoutes } from '../index';
 import { setUserSessionSocket } from '../../effector/user-data/events';
 import { addTowerProgressData } from '../../effector/towers-progress/events';
 import {
   TowersTypes,
   TowersProgressStoreType,
 } from '../../effector/towers-progress/store';
+import { getWorldState } from '../get-world-state';
+import { ITask } from '../../effector/missions-store/store';
 
 const centrifugeUrl = '/ws/connection/websocket';
 
@@ -24,8 +26,16 @@ export const openWsConnection = async (userId: number) => {
   centrifuge.setToken(token);
   centrifuge.connect();
   setUserSessionSocket(centrifuge);
+  let numberOfActiveSubscriptions = 0;
 
-  const subscription = centrifuge.subscribe(
+  const checkActiveSubscriptions = () => {
+    numberOfActiveSubscriptions += 1;
+    if (numberOfActiveSubscriptions === 2) {
+      getWorldState();
+    }
+  };
+
+  const progressSubscription = centrifuge.subscribe(
     'progress:updates#' + userId,
     item => {
       const towerTitles = Object.keys(item.data) as TowersTypes[];
@@ -43,8 +53,34 @@ export const openWsConnection = async (userId: number) => {
       });
     }
   );
-  subscription.on('subscribe', () => progressRefresh());
+  const tasksSubscription = centrifuge.subscribe(
+    'user-tasks:updates#' + userId,
+    (items: IGetTasks) => {
+      const { userTasks } = items.data;
+
+      // const mappedUserTasks =  userTasks.map(el => {
+      //     if (el.status !== TaskStatuses.CREATED) {
+      //       setTaskId({ towerTitle: el.task.content.product.slug, taskId: el.id });
+      //     }
+      //     if (el.expireInSeconds) {
+      //       el.taskTimer = timerClosure(el.expireInSeconds);
+      //     }
+      //     return el;
+      //   });
+    }
+  );
+
+  progressSubscription.on('subscribe', () => checkActiveSubscriptions());
+  tasksSubscription.on('subscribe', () => checkActiveSubscriptions());
   centrifuge.on('disconnect', () => {
-    subscription.unsubscribe();
+    progressSubscription.unsubscribe();
+    tasksSubscription.unsubscribe();
   });
 };
+
+interface IGetTasks {
+  data: {
+    userTasks: ITask[];
+    total: number;
+  };
+}
