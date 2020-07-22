@@ -60,9 +60,7 @@ export const openWsConnection = async (userId: number) => {
   const tasksSubscription = centrifuge.subscribe(
     'user-tasks:updates#' + userId,
     (items: IGetTasks) => {
-      const { userTasks } = items.data;
-
-      const mappedUserTasks = userTasks.map(el => {
+      const userTasks = items.data.userTasks.map(el => {
         if (el.status !== TaskStatuses.CREATED) {
           setTaskId({
             towerTitle: el.task.content.product.slug,
@@ -74,7 +72,8 @@ export const openWsConnection = async (userId: number) => {
         }
         return el;
       });
-      fetchTasks({ userTasks: mappedUserTasks });
+
+      fetchTasks({ userTasks });
     }
   );
 
