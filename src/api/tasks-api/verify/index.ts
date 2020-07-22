@@ -1,7 +1,8 @@
 import { post } from '../../requests';
 import { apiRoutes } from '../../index';
-import { IGetTasks } from '../get-tasks';
+
 import { timerClosure } from '../../../utils/timer-closure';
+import { IGetTasks } from '../../../effector/missions-store/store';
 
 export const verifyTaskRequest = async (id: number) => {
   const response = await post<IGetTasks>(`${apiRoutes.GET_TASKS}/${id}/verify`);

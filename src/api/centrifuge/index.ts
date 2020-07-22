@@ -10,11 +10,11 @@ import {
 } from '../../effector/towers-progress/store';
 import { getWorldState } from '../get-world-state';
 import { setTaskId } from '../../effector/chat/events';
-import { TaskStatuses } from '../enums';
 import { timerClosure } from '../../utils/timer-closure';
 import { fetchTasks } from '../../effector/missions-store/events';
-import { IGetTasks } from '../tasks-api/get-tasks';
+
 import { markerHandler } from '../../utils/marker-handler';
+import { TaskStatuses, IGetTasks } from '../../effector/missions-store/store';
 
 const centrifugeUrl = '/ws/connection/websocket';
 

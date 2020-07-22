@@ -19,7 +19,7 @@ import vectorImg from './vector.svg';
 import { RowWrapper } from '../../../UI/row-wrapper';
 import { couponModalConfig } from '../../tower-info/tower-info-chat';
 import { TasksType } from '../../menu/menu-tasks';
-import { TaskStatuses } from '../../../api/enums';
+import { TaskStatuses } from '../../../effector/missions-store/store';
 
 export const TaskWrapper = styled.div<ITaskLocation>`
   width: 100%;

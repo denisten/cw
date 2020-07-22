@@ -12,7 +12,16 @@ import { editUserProperty } from '../user-data/events';
 import { TowersTypes } from '../towers-progress/store';
 import { chatTaskSession } from '../chat/events';
 import { TasksType } from '../../components/menu/menu-tasks';
-import { TaskStatuses } from '../../api/enums';
+
+export enum TaskStatuses {
+  CREATED = 'created',
+  ACTIVE = 'active',
+  VERIFICATION = 'verification',
+  DONE = 'done',
+  REJECTED = 'rejected',
+  REWARDED = 'rewarded',
+  EXPIRED = 'expired',
+}
 
 const initStore: ITask[] = [];
 
@@ -109,5 +118,12 @@ export interface ITask {
     executionTime: number;
     betweenTasksTime: number;
     chat: string;
+  };
+}
+
+export interface IGetTasks {
+  data: {
+    userTasks: ITask[];
+    total: number;
   };
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { TasksStore } from '../../effector/missions-store/store';
+import { TasksStore, TaskStatuses } from '../../effector/missions-store/store';
 import {
   AppConditionStore,
   TowerInfoContentValues,
@@ -21,7 +21,6 @@ import { extraTowerInfoModalOpen } from '../../effector/tower-info-modal-store/e
 import { MenuStore } from '../../effector/menu-store/store';
 import { menuClosed } from '../../effector/menu-store/events';
 import { TasksType } from '../../components/menu/menu-tasks';
-import { TaskStatuses } from '../../api/enums';
 
 export const handleTaskClick = async (id: number, e: React.MouseEvent) => {
   const tasks = TasksStore.getState();

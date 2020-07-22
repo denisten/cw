@@ -2,7 +2,11 @@ import React, { memo, useEffect, useRef, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { IDisplayFlag } from '../../skip-tutorial';
 import { Sender } from '../../../api/tasks-api/session';
-import { ITask, TasksStore } from '../../../effector/missions-store/store';
+import {
+  ITask,
+  TasksStore,
+  TaskStatuses,
+} from '../../../effector/missions-store/store';
 import {
   chatTaskSession,
   consumeUserTaskAction,
@@ -28,7 +32,6 @@ import { TypeOfMarkers } from '../../markers';
 import { useStore } from 'effector-react';
 import { setHideTowerInfo } from '../../../effector/tower-info-modal-store/events';
 import { TasksType } from '../../menu/menu-tasks';
-import { TaskStatuses } from '../../../api/enums';
 
 const ChatWrapper = styled.div`
   width: 100%;

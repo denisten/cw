@@ -6,8 +6,7 @@ import {
   getTaskResultRequest,
   IGetTaskResultRequest,
 } from '../../api/tasks-api/result';
-import { ITask } from './store';
-import { TaskStatuses } from '../../api/enums';
+import { ITask, TaskStatuses } from './store';
 
 export const fetchTasks = MissionsDomain.event<{ userTasks: ITask[] }>();
 

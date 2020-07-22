@@ -1,5 +1,5 @@
 import { TowersTypes } from '../../effector/towers-progress/store';
-import { TasksStore } from '../../effector/missions-store/store';
+import { TasksStore, TaskStatuses } from '../../effector/missions-store/store';
 import {
   setMarker,
   clearTaskMarkersOnCurrentTower,
@@ -7,7 +7,6 @@ import {
 } from '../../effector/towers-marker/events';
 import { TypeOfMarkers } from '../../components/markers';
 import { TasksType } from '../../components/menu/menu-tasks';
-import { TaskStatuses } from '../../api/enums';
 
 export const markerHandler = () => {
   const missions = TasksStore.getState().map(missionItem => {
