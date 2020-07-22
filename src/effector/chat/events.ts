@@ -34,14 +34,14 @@ export const consumeUserTaskAction = ChatDomain.effect(
   {
     handler: async ({
       taskId,
-      messageId,
+      blockId,
       actionId,
       towerTitle,
     }): Promise<IConsumeUserTaskAction> => {
       if (!taskId) throw new Error('No taskId');
       const response = await consumeUserTaskActionRequest(
         taskId,
-        messageId,
+        blockId,
         actionId
       );
       return { data: response.data.data, towerTitle };

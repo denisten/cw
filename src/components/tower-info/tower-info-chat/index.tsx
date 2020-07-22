@@ -123,9 +123,9 @@ export const couponModalConfig = {
 export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
   ({ towerTitle, switchers }) => {
     const chatContainer = useRef<HTMLDivElement>(null);
-    const { masterMessageId, taskId, actions, messages, ended } = useStore(
-      ChatStore
-    )[towerTitle];
+    const { blockId, taskId, actions, messages, ended } = useStore(ChatStore)[
+      towerTitle
+    ];
     const missions = useStore(TasksStore);
     const [openCouponModal, setOpenCouponModal] = useState(false);
     const [pendingOfResponse, setPendingOfResponse] = useState(false);
@@ -154,7 +154,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
           setPendingOfResponse(true);
           const response = await consumeUserTaskAction({
             taskId: currentMission.id,
-            messageId: masterMessageId,
+            blockId,
             actionId,
             towerTitle,
           });

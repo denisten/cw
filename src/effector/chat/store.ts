@@ -13,7 +13,7 @@ import { TowersTypes } from '../towers-progress/store';
 
 const initChatData = {
   taskId: 0,
-  masterMessageId: 0,
+  blockId: 0,
   currentAction: {
     id: 0,
     text: '',
@@ -114,7 +114,7 @@ export const ChatStore = ChatDomain.store<ITaskMessagesStore>(initStore)
         ...state[towerTitle],
         messages: [...state[towerTitle].messages, userAction, ...data.messages],
         actions: data.actions,
-        masterMessageId: data.masterMessageId,
+        blockId: data.blockId,
       },
     };
   })
@@ -126,7 +126,7 @@ export const ChatStore = ChatDomain.store<ITaskMessagesStore>(initStore)
 
 export interface ICurrentTowerChatStore {
   taskId: number;
-  masterMessageId: number;
+  blockId: number;
   currentAction: {
     id: number;
     text: string;
