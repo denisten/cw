@@ -100,7 +100,7 @@ const TowerStyledWrapper = styled.div<ITowerStyledWrapper>`
       padding: 6px;
       background-color: rgba(0, 0, 0, 0.6);
       color: white;
-      font-size: 18px;
+      font-size: 9px;
       font-family: ${MTSSans.BOLD};
       white-space: nowrap;
       border-radius: 4px;

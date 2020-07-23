@@ -20,67 +20,18 @@ const MapWrapper = styled.div`
   flex-wrap: wrap;
 `;
 
-const styleConfig: StyleConfigTypes = {
-  img11: {
-    width: '880px',
-    height: '398px',
-  },
-  img12: {
-    width: '3839px',
-    height: '398px',
-  },
-  img13: {
-    width: '881px',
-    height: '398px',
-  },
-  img21: {
-    width: '880px',
-    height: '2160px',
-  },
-  img22: {
-    width: '3839px',
-    height: '2160px',
-  },
-  img23: {
-    width: '881px',
-    height: '2160px',
-  },
-  img31: {
-    width: '880px',
-    height: '382px',
-  },
-  img32: {
-    width: '3839px',
-    height: '382px',
-  },
-  img33: {
-    width: '881px',
-    height: '382px',
-  },
-};
-type StyleConfigTypes = Record<string, DivStyleType>;
-type DivStyleType = {
-  width: string;
-  height: string;
-};
-
-export const Map: React.FC = () => {
+export const Map = () => {
   return (
     <MapWrapper>
-      <MapFragment style={styleConfig.img11} roadImg={road11} />
-      <MapFragment style={styleConfig.img12} roadImg={road12} />
-      <MapFragment style={styleConfig.img13} roadImg={road13} />
-      <MapFragment style={styleConfig.img21} roadImg={road21} />
-      <MapFragment
-        style={styleConfig.img22}
-        roadImg={road22}
-        treeImg={tree22}
-        decorationImg={decor22}
-      />
-      <MapFragment style={styleConfig.img23} roadImg={road23} />
-      <MapFragment style={styleConfig.img31} roadImg={road31} />
-      <MapFragment style={styleConfig.img32} roadImg={road32} />
-      <MapFragment style={styleConfig.img33} roadImg={road33} />
+      <MapFragment roadImg={road11} />
+      <MapFragment roadImg={road12} />
+      <MapFragment roadImg={road13} />
+      <MapFragment roadImg={road21} />
+      <MapFragment roadImg={road22} treeImg={tree22} decorationImg={decor22} />
+      <MapFragment roadImg={road23} />
+      <MapFragment roadImg={road31} />
+      <MapFragment roadImg={road32} />
+      <MapFragment roadImg={road33} />
     </MapWrapper>
   );
 };

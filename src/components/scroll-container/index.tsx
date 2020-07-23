@@ -15,7 +15,6 @@ import { useEnableSizeMod } from '../../hooks/use-enable-size-mod';
 import { useStore } from 'effector-react';
 import { AppConditionStore } from '../../effector/app-condition/store';
 import { fixSizeClassName } from '../../UI/tower-component-wrapper';
-const ZoomInOutButtons = lazy(() => import('../../UI/zoom-in-out-buttons'));
 const CentralBanner = lazy(() => import('../decorations/central-banner'));
 const Planes = lazy(() => import('../planes'));
 const Cars = lazy(() => import('../decorations/cars/carsArray'));
@@ -25,11 +24,10 @@ const TutorialToolsSelector = lazy(() =>
   import('../../utils/arrows-container')
 );
 
+export const _scrollContainerClassName = 'dragscroll';
 export enum ScaleValues {
-  ZOOM_IN = 0.05,
-  ZOOM_OUT = -0.05,
   MAX_SCALE = 1,
-  MIN_SCALE = 1,
+  MIN_SCALE = 0.6,
   FIX_SIZE = 0.5,
 }
 
@@ -60,15 +58,13 @@ const PointForCenterScroll = styled.div`
   height: 10px;
 `;
 
-export const _scrollContainerClassName = 'dragscroll';
-
 const scrollToCurrentTowerOptions = {
   behavior: 'smooth',
   block: 'start',
   inline: 'center',
 } as ScrollIntoViewOptions;
 
-// const _smoothScrollValue = -0.005;
+const _smoothScrollValue = -0.001;
 
 export const ScrollContainer: React.FC<{
   tutorialCondition: TutorialConditions;
@@ -83,8 +79,9 @@ export const ScrollContainer: React.FC<{
   const tutorialIsEnabled = DOMLoaded && tutorialCondition !== 0;
 
   const runScrollAnimation = () => {
-    if (mapWrapperRef.current)
-      mapWrapperRef.current.style.transform = `scale(${scaleValue.current})`;
+    if (mapWrapperRef.current) {
+      mapWrapperRef.current.style.zoom = `${scaleValue.current}`;
+    }
   };
 
   const enableFixSizeMod = () => {
@@ -94,10 +91,6 @@ export const ScrollContainer: React.FC<{
       ...scrollToCurrentTowerOptions,
       block: 'center',
     });
-
-    // scrollContainerWrapperRef.current?.classList.remove(
-    //   _scrollContainerClassName
-    // );
     scrollContainerWrapperRef.current?.classList.add(fixSizeClassName);
 
     dragscroll.reset();
@@ -118,7 +111,6 @@ export const ScrollContainer: React.FC<{
       disableFixSizeMod();
       return;
     }
-
     if (
       scaleValue.current !== ScaleValues.FIX_SIZE &&
       payload < 0 &&
@@ -136,17 +128,17 @@ export const ScrollContainer: React.FC<{
     }
   };
 
-  // const wheelHandler = (e: React.WheelEvent) => {
-  //   e.persist();
-  //   requestAnimationFrame(() => {
-  //     e.preventDefault();
-  //     scaleHandler(e.deltaY * _smoothScrollValue);
-  //   });
-  // };
-
   useInitDragscroll();
   useCheckDisableTutorial([]);
   useEnableSizeMod(enableFixSizeMod, isAuthorized);
+
+  const wheelHandler = (e: React.WheelEvent) => {
+    e.persist();
+    requestAnimationFrame(() => {
+      e.preventDefault();
+      scaleHandler(e.deltaY * _smoothScrollValue);
+    });
+  };
 
   useEffect(() => {
     scrollToCurrentTower(ref, scrollToCurrentTowerOptions);
@@ -154,12 +146,10 @@ export const ScrollContainer: React.FC<{
 
   return (
     <ScrollContainerWrapper
+      onWheel={wheelHandler}
       className={_scrollContainerClassName}
       ref={scrollContainerWrapperRef}
     >
-      <Suspense fallback={<>loading</>}>
-        {DOMLoaded && <ZoomInOutButtons callback={scaleHandler} />}
-      </Suspense>
       <MapWrapper ref={mapWrapperRef} zIndex={zIndex}>
         <Map />
         <Buildings />
@@ -189,6 +179,5 @@ export const ScrollContainer: React.FC<{
 });
 
 interface IMapWrapper {
-  scaleValue?: number;
   zIndex: number;
 }
