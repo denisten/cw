@@ -9,15 +9,19 @@ import actArrowLeft from './actArrowLeft.svg';
 import actArrowRight from './actArrowRight.svg';
 import arrowLeft from './arrowLeft.svg';
 import arrowRight from './arrowRight.svg';
+import { EncyclopediaLegendBlock } from './legend-block';
 
 const Wrapper = styled.div`
   width: 100%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
 `;
-const Header = styled.header`
-  width: 100%;
+const Header = styled.div`
   box-sizing: border-box;
-  padding: 40px 0 0 28px;
+  margin: 40px 48px 0 28px;
+  flex-shrink: 0;
+  border-bottom: 1px solid #a5b2b7;
 `;
 
 const Title = styled.span`
@@ -31,6 +35,16 @@ const Slider = styled.div`
   padding-bottom: 8px;
   display: flex;
   align-items: center;
+`;
+
+const ContentSection = styled.section`
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+
+  p {
+    height: 40px;
+  }
 `;
 
 const disableArrowClassName = 'disable';
@@ -76,6 +90,9 @@ export const EncyclopediaContent: React.FC<IEncyclopediaContent> = ({
           />
         </Slider>
       </Header>
+      <ContentSection>
+        <EncyclopediaLegendBlock />
+      </ContentSection>
     </Wrapper>
   );
 };

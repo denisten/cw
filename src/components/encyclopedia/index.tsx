@@ -18,6 +18,7 @@ const Wrapper = styled.div`
   display: flex;
   padding-top: 44px;
   box-sizing: border-box;
+  user-select: none;
 `;
 export enum EncyclopediaItemIds {
   LEGEND = 'legend',
