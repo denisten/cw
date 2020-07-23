@@ -31,7 +31,7 @@ export const mutedClassName = 'muted';
 export const fixSizeClassName = 'fixSize';
 const hoveredClassName = 'hovered';
 
-const Signature = styled.div`
+export const Signature = styled.div`
   position: absolute;
 
   min-height: 32px;
@@ -42,18 +42,29 @@ const Signature = styled.div`
   align-items: center;
   padding: 5px 10px 5px 25px;
   box-sizing: border-box;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+  opacity: 0;
+  transition: opacity 0.4s;
+  bottom: -10%;
+`;
 
-  span {
-    font-family: ${MTSSans.MEDIUM};
-    font-size: 16px;
-    line-height: 22px;
-    color: #e61818;
-    box-sizing: border-box;
-  }
+const SpanElem = styled.div<{ mtsFlag: boolean }>`
+  font-family: ${props =>
+    props.mtsFlag ? MTSSans.ULTRA_WIDE : MTSSans.MEDIUM};
+  font-size: 16px;
+  line-height: 22px;
+  color: #e61818;
+  box-sizing: border-box;
 
-  span:first-child {
-    font-family: ${MTSSans.ULTRA_WIDE};
+  &:first-child {
     margin-right: 14px;
+  }
+  &:last-child {
+    margin-right: 0px;
   }
 `;
 
@@ -68,8 +79,12 @@ const TowerStyledWrapper = styled.div<ITowerStyledWrapper>`
   scroll-margin-right: ${props =>
     props.scrollShift && props.DOMLoaded ? props.scrollShift : 0}px;
 
-justify-content: center;
-align-items: flex-end;
+  justify-content: center;
+
+
+&.${hoveredClassName} ${Signature} {
+  opacity: 1 !important;
+}
 
 
   &.${mutedClassName} {
@@ -160,6 +175,7 @@ export const TowerWrapper = memo(
     wideTower,
     animSize,
     mutedImg,
+    signConfig,
   }: ITowerWrapper): React.ReactElement => {
     let mouseDownFlag = false,
       mouseMoveFlag = 0;
@@ -291,10 +307,19 @@ export const TowerWrapper = memo(
           src={shadowImg}
           alt="shadow"
         />
-        <Signature>
-          <span>MTS</span>
-          <span>BlaBlaka</span>
-        </Signature>
+
+        {signConfig && (
+          <Signature>
+            {signConfig.map((signElem, ind) => (
+              <SpanElem
+                mtsFlag={signElem === 'МТС' || signElem === 'MTS'}
+                key={ind}
+              >
+                {signElem}
+              </SpanElem>
+            ))}
+          </Signature>
+        )}
       </TowerStyledWrapper>
     );
   }
@@ -316,6 +341,7 @@ interface ITowerWrapper {
   towerTitle: TowersTypes;
   needUpgrade: boolean;
   tutorialTower?: boolean;
+  signConfig?: string[];
 }
 
 interface ITowerStyledWrapper {

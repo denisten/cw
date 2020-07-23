@@ -5,7 +5,11 @@ import MTSSansBlack from './fonts/MTSSans-Black.ttf';
 import MTSSansMedium from './fonts/MTSSans-Medium.ttf';
 import MTSSansUltraWide from './fonts/MTSSans-UltraWide.ttf';
 import { MTSSans } from './fonts';
-import { fixSizeClassName, mutedClassName } from './UI/tower-component-wrapper';
+import {
+  fixSizeClassName,
+  mutedClassName,
+  Signature,
+} from './UI/tower-component-wrapper';
 import { MarkerView } from './components/markers';
 
 export const GlobalStyle = createGlobalStyle`
@@ -61,6 +65,10 @@ export const GlobalStyle = createGlobalStyle`
         width:  204px;
         height:  208px;
       }
+
+        ${Signature} {
+          transform: scale(2.2);
+        }
       }
   
 

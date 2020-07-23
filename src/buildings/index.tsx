@@ -22,6 +22,7 @@ export const Buildings: React.FC = () => {
           if (towerParams) {
             return (
               <TowerWrapper
+                signConfig={towerLayoutData.signConfig}
                 animSize={towerLayoutData.animSize}
                 mutedImg={towerLayoutData.mutedImg}
                 key={towerTitle}
