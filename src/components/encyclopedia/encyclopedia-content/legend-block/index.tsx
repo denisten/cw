@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import logo from './logo.svg';
 import { MTSSans } from '../../../../fonts';
 
-const Wrapper = styled.div`
+export const WrapperBlock = styled.div`
   box-sizing: border-box;
-  padding: 30px 114px 0px 114px;
+  padding: 30px 70px 0px 45px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -69,7 +69,7 @@ const content = [
 
 export const EncyclopediaLegendBlock = () => {
   return (
-    <Wrapper>
+    <WrapperBlock>
       <Header />
       {content.map((contentElem, ind) => (
         <LegendSection key={ind}>
@@ -77,6 +77,6 @@ export const EncyclopediaLegendBlock = () => {
           <span>{contentElem.text}</span>
         </LegendSection>
       ))}
-    </Wrapper>
+    </WrapperBlock>
   );
 };
