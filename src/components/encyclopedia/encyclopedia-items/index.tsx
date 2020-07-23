@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { IEncyclopediaItemConfig, EncyclopediaItemIds } from '..';
+import { IEncyclopediaItemConfig, EncyclopediaItem } from '..';
 import { MTSSans } from '../../../fonts';
 import icon from './icon.svg';
 import { editTutorialSliderDisplayFlag } from '../../../effector/app-condition/events';
@@ -15,7 +15,7 @@ const ItemsWrapper = styled.div`
   padding-bottom: 100px;
 `;
 
-const EncyclopediaItem = styled.div<{ activElem: boolean }>`
+const EncyclopediaElem = styled.div<{ activElem: boolean }>`
   width: 100%;
   height: 100px;
   display: flex;
@@ -71,13 +71,13 @@ export const EncyclopediaItems: React.FC<IEncyclopediaItems> = ({
   callBack,
 }) => {
   const list = encyclopediaItemsList.map(item => (
-    <EncyclopediaItem
+    <EncyclopediaElem
       activElem={item.id === activeItem}
       key={item.id}
       onClick={() => callBack(item.id)}
     >
       {item.label}
-    </EncyclopediaItem>
+    </EncyclopediaElem>
   ));
   return (
     <ItemsWrapper>
@@ -92,6 +92,6 @@ export const EncyclopediaItems: React.FC<IEncyclopediaItems> = ({
 
 interface IEncyclopediaItems {
   encyclopediaItemsList: IEncyclopediaItemConfig[];
-  activeItem: EncyclopediaItemIds;
-  callBack: (arg: EncyclopediaItemIds) => void;
+  activeItem: EncyclopediaItem;
+  callBack: (arg: EncyclopediaItem) => void;
 }

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import {
   IEncyclopediaItemConfig,
   encyclopediaItemsList,
-  EncyclopediaItemIds,
+  EncyclopediaItem,
 } from '..';
 import actArrowLeft from './actArrowLeft.svg';
 import actArrowRight from './actArrowRight.svg';
@@ -64,10 +64,10 @@ const Arrow = styled.div<IArrow>`
 
 const ContentSelector: React.FC<IContentSelector> = ({ activeItem }) => {
   switch (activeItem?.id) {
-    case EncyclopediaItemIds.LEGEND:
+    case EncyclopediaItem.LEGEND:
       return <EncyclopediaLegendBlock />;
 
-    case EncyclopediaItemIds.HINTS:
+    case EncyclopediaItem.HINTS:
       return <EncyclopediaHintsBlock />;
 
     default:
@@ -110,7 +110,7 @@ export const EncyclopediaContent: React.FC<IEncyclopediaContent> = ({
 
 interface IEncyclopediaContent extends IContentSelector {
   activeIndex: number;
-  callBack: (arg: EncyclopediaItemIds) => void;
+  callBack: (arg: EncyclopediaItem) => void;
 }
 
 interface IArrow {

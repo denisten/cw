@@ -25,7 +25,7 @@ const Wrapper = styled.div`
   user-select: none;
   position: relative;
 `;
-export enum EncyclopediaItemIds {
+export enum EncyclopediaItem {
   LEGEND = 'legend',
   HINTS = 'hints',
   TASKS = 'tasks',
@@ -33,15 +33,15 @@ export enum EncyclopediaItemIds {
 export const encyclopediaItemsList: IEncyclopediaItemConfig[] = [
   {
     label: 'Легенда',
-    id: EncyclopediaItemIds.LEGEND,
+    id: EncyclopediaItem.LEGEND,
   },
   {
     label: 'Подсказки',
-    id: EncyclopediaItemIds.HINTS,
+    id: EncyclopediaItem.HINTS,
   },
   {
     label: 'Задания (скоро)',
-    id: EncyclopediaItemIds.TASKS,
+    id: EncyclopediaItem.TASKS,
   },
 ];
 
@@ -57,7 +57,7 @@ const styledConfig = {
 
 const Encyclopedia = () => {
   const { openEncyclopedia } = useStore(MenuStore);
-  const [activeItem, setActiveItem] = useState(EncyclopediaItemIds.LEGEND);
+  const [activeItem, setActiveItem] = useState(EncyclopediaItem.LEGEND);
   const activeItemObj = encyclopediaItemsList.find(
     elem => elem.id === activeItem
   );
@@ -89,7 +89,7 @@ const Encyclopedia = () => {
 
 export interface IEncyclopediaItemConfig {
   label: string;
-  id: EncyclopediaItemIds;
+  id: EncyclopediaItem;
 }
 
 export default Encyclopedia;
