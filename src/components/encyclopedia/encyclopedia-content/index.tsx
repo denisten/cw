@@ -61,6 +61,19 @@ const Arrow = styled.div<IArrow>`
   }
 `;
 
+const ContentSelector: React.FC<IContentSelector> = ({ activeItem }) => {
+  switch (activeItem?.id) {
+    case EncyclopediaItemIds.LEGEND:
+      return <EncyclopediaLegendBlock />;
+
+    case EncyclopediaItemIds.HINTS:
+      return <EncyclopediaHintsBlock />;
+
+    default:
+      return <>В разработке</>;
+  }
+};
+
 export const EncyclopediaContent: React.FC<IEncyclopediaContent> = ({
   activeItem,
   activeIndex,
@@ -88,15 +101,13 @@ export const EncyclopediaContent: React.FC<IEncyclopediaContent> = ({
         </Slider>
       </Header>
       <ContentSection>
-        {/* <EncyclopediaLegendBlock /> */}
-        <EncyclopediaHintsBlock />
+        <ContentSelector activeItem={activeItem} />
       </ContentSection>
     </Wrapper>
   );
 };
 
-interface IEncyclopediaContent {
-  activeItem: IEncyclopediaItemConfig | undefined;
+interface IEncyclopediaContent extends IContentSelector {
   activeIndex: number;
   callBack: (arg: EncyclopediaItemIds) => void;
 }
@@ -104,4 +115,8 @@ interface IEncyclopediaContent {
 interface IArrow {
   background: string;
   disableBackground: string;
+}
+
+interface IContentSelector {
+  activeItem: IEncyclopediaItemConfig | undefined;
 }
