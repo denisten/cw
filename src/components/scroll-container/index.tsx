@@ -48,7 +48,6 @@ const MapWrapper = styled.div<IMapWrapper>`
   height: ${MapSize.HEIGHT}px;
   position: relative;
   z-index: ${props => props.zIndex};
-  transform-origin: 0 0;
 `;
 
 const PointForCenterScroll = styled.div`

@@ -24,25 +24,22 @@ const Banners = styled(LazyImage)<IBanners>`
   animation-direction: alternate;
   animation-play-state: ${props => (props.animationOff ? 'paused' : 'running')};
 `;
+const lazyImageWrapperStyle = {
+  position: 'absolute',
+  zIndex: ZIndexes.DECORATION,
+} as React.CSSProperties;
+const lazyBannerStyle = {
+  ...lazyImageWrapperStyle,
+  zIndex: ZIndexes.BANNERS,
+};
 
 export const MapFragment: React.FC<IMapFragment> = ({
   roadImg,
   treeImg,
-  // style,
   bannerImg,
   decorationImg,
 }) => {
   const { animationOff } = useStore(AppConditionStore);
-  const lazyImageWrapperStyle = {
-    // ...style,
-    position: 'absolute',
-    zIndex: ZIndexes.DECORATION,
-  } as React.CSSProperties;
-  const lazyBannerStyle = {
-    ...lazyImageWrapperStyle,
-    zIndex: ZIndexes.BANNERS,
-  };
-
   const Trees = treeImg ? (
     <LazyImage src={treeImg} style={lazyImageWrapperStyle} />
   ) : null;
@@ -60,10 +57,7 @@ export const MapFragment: React.FC<IMapFragment> = ({
   ) : null;
   return (
     <MapFragmentWrapper>
-      <LazyImage
-        src={roadImg}
-        // style={style}
-      />
+      <LazyImage src={roadImg} />
       {Trees}
       {Banner}
       {Decoration}
@@ -71,14 +65,9 @@ export const MapFragment: React.FC<IMapFragment> = ({
   );
 };
 
-interface IMapFragmentCSS {
-  width: string;
-  height: string;
-}
 interface IMapFragment {
   roadImg: string;
   treeImg?: string;
-  style: IMapFragmentCSS;
   bannerImg?: string;
   decorationImg?: string;
 }
