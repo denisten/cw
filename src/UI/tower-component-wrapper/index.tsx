@@ -21,6 +21,7 @@ import { extraTowerInfoModalOpen } from '../../effector/tower-info-modal-store/e
 import { useStore } from 'effector-react';
 import { TowerInfoModalStore } from '../../effector/tower-info-modal-store/store';
 import { AppConditionStore } from '../../effector/app-condition/store';
+import signBcg from './signBcg.svg';
 
 enum strokeClassNames {
   STROKE = 'stroke',
@@ -28,6 +29,33 @@ enum strokeClassNames {
 }
 export const mutedClassName = 'muted';
 export const fixSizeClassName = 'fixSize';
+const hoveredClassName = 'hovered';
+
+const Signature = styled.div`
+  position: absolute;
+
+  min-height: 32px;
+
+  z-index: 2;
+  background-image: url(${signBcg});
+  display: flex;
+  align-items: center;
+  padding: 5px 10px 5px 25px;
+  box-sizing: border-box;
+
+  span {
+    font-family: ${MTSSans.MEDIUM};
+    font-size: 16px;
+    line-height: 22px;
+    color: #e61818;
+    box-sizing: border-box;
+  }
+
+  span:first-child {
+    font-family: ${MTSSans.ULTRA_WIDE};
+    margin-right: 14px;
+  }
+`;
 
 const TowerStyledWrapper = styled.div<ITowerStyledWrapper>`
   display: flex;
@@ -39,6 +67,9 @@ const TowerStyledWrapper = styled.div<ITowerStyledWrapper>`
   height: ${props => props.height}px;
   scroll-margin-right: ${props =>
     props.scrollShift && props.DOMLoaded ? props.scrollShift : 0}px;
+
+justify-content: center;
+align-items: flex-end;
 
 
   &.${mutedClassName} {
@@ -178,6 +209,8 @@ export const TowerWrapper = memo(
       }
       strokeRef.current &&
         strokeRef.current.classList.add(strokeClassNames.STROKE_ACTIVE);
+
+      towerRef.current && towerRef.current.classList.add(hoveredClassName);
     };
     const mouseOutHandle = () => {
       if (mutedImg) {
@@ -185,6 +218,8 @@ export const TowerWrapper = memo(
       }
       strokeRef.current &&
         strokeRef.current.classList.remove(strokeClassNames.STROKE_ACTIVE);
+
+      towerRef.current && towerRef.current.classList.remove(hoveredClassName);
     };
     useEffect(() => {
       BuildingsService.setRefForTower(towerTitle, towerRef);
@@ -256,6 +291,10 @@ export const TowerWrapper = memo(
           src={shadowImg}
           alt="shadow"
         />
+        <Signature>
+          <span>MTS</span>
+          <span>BlaBlaka</span>
+        </Signature>
       </TowerStyledWrapper>
     );
   }
