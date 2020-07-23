@@ -51,6 +51,7 @@ const styledConfig = {
     right: '-4%',
     hoverFlag: true,
     zIndex: ZIndexes.UI_BUTTON,
+    displayFlag: true,
   },
 };
 
@@ -68,7 +69,6 @@ const Encyclopedia = () => {
     <Overlay displayFlag={openEncyclopedia} {...StyledConfig.overlay}>
       <Wrapper>
         <ExitButton
-          displayFlag={true}
           {...styledConfig.exitButton}
           callBack={() => setOpenEncyclopediaState(false)}
         />
