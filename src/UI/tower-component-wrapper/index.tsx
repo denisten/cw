@@ -21,13 +21,55 @@ import { extraTowerInfoModalOpen } from '../../effector/tower-info-modal-store/e
 import { useStore } from 'effector-react';
 import { TowerInfoModalStore } from '../../effector/tower-info-modal-store/store';
 import { AppConditionStore } from '../../effector/app-condition/store';
+import signBcg from './signBcg.svg';
 
 enum strokeClassNames {
   STROKE = 'stroke',
   STROKE_ACTIVE = 'strokeActive',
 }
-export const mutedClassName = 'muted';
 export const fixSizeClassName = 'fixSize';
+
+export enum TowerClassNames {
+  MUTED = 'muted',
+  HOVERED = 'hovered',
+}
+
+export const Signature = styled.div`
+  position: absolute;
+
+  min-height: 32px;
+
+  z-index: 2;
+  background-image: url(${signBcg});
+  display: flex;
+  align-items: center;
+  padding: 5px 10px 5px 25px;
+  box-sizing: border-box;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+  opacity: 0;
+  transition: opacity 0.4s;
+  bottom: -10%;
+`;
+
+const SpanElem = styled.div<{ mtsFlag: boolean }>`
+  font-family: ${props =>
+    props.mtsFlag ? MTSSans.ULTRA_WIDE : MTSSans.MEDIUM};
+  font-size: 16px;
+  line-height: 22px;
+  color: #e61818;
+  box-sizing: border-box;
+
+  &:first-child {
+    margin-right: 14px;
+  }
+  &:last-child {
+    margin-right: 0px;
+  }
+`;
 
 const TowerStyledWrapper = styled.div<ITowerStyledWrapper>`
   display: flex;
@@ -40,8 +82,15 @@ const TowerStyledWrapper = styled.div<ITowerStyledWrapper>`
   scroll-margin-right: ${props =>
     props.scrollShift && props.DOMLoaded ? props.scrollShift : 0}px;
 
+  justify-content: center;
 
-  &.${mutedClassName} {
+
+  &.${TowerClassNames.HOVERED} ${Signature} {
+    opacity: 1 !important;
+  }
+
+
+  &.${TowerClassNames.MUTED} {
     &::before {
       content: 'На карантине';
       position: absolute;
@@ -129,6 +178,7 @@ export const TowerWrapper = memo(
     wideTower,
     animSize,
     mutedImg,
+    signConfig,
   }: ITowerWrapper): React.ReactElement => {
     let mouseDownFlag = false,
       mouseMoveFlag = 0;
@@ -173,18 +223,26 @@ export const TowerWrapper = memo(
 
     const mouseOverHandle = () => {
       if (mutedImg) {
-        towerRef.current && towerRef.current.classList.add(mutedClassName);
+        towerRef.current &&
+          towerRef.current.classList.add(TowerClassNames.MUTED);
         return;
       }
       strokeRef.current &&
         strokeRef.current.classList.add(strokeClassNames.STROKE_ACTIVE);
+
+      towerRef.current &&
+        towerRef.current.classList.add(TowerClassNames.HOVERED);
     };
     const mouseOutHandle = () => {
       if (mutedImg) {
-        towerRef.current && towerRef.current.classList.remove(mutedClassName);
+        towerRef.current &&
+          towerRef.current.classList.remove(TowerClassNames.MUTED);
       }
       strokeRef.current &&
         strokeRef.current.classList.remove(strokeClassNames.STROKE_ACTIVE);
+
+      towerRef.current &&
+        towerRef.current.classList.remove(TowerClassNames.HOVERED);
     };
     useEffect(() => {
       BuildingsService.setRefForTower(towerTitle, towerRef);
@@ -256,6 +314,19 @@ export const TowerWrapper = memo(
           src={shadowImg}
           alt="shadow"
         />
+
+        {signConfig && (
+          <Signature>
+            {signConfig.map((signElem, ind) => (
+              <SpanElem
+                mtsFlag={signElem === 'МТС' || signElem === 'MTS'}
+                key={ind}
+              >
+                {signElem}
+              </SpanElem>
+            ))}
+          </Signature>
+        )}
       </TowerStyledWrapper>
     );
   }
@@ -277,6 +348,7 @@ interface ITowerWrapper {
   towerTitle: TowersTypes;
   needUpgrade: boolean;
   tutorialTower?: boolean;
+  signConfig?: string[];
 }
 
 interface ITowerStyledWrapper {
