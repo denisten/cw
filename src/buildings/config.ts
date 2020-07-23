@@ -1005,7 +1005,7 @@ class BuildingsService {
     [TowersTypes.SHOP]: {
       info: 'info',
       title: 'Салон-магазин МТС',
-      signConfig: ['Салон-магазин МТС'],
+      signConfig: ['Салон-магазин', 'МТС'],
       playButtonLink: 'https://shop.mts.ru/den-rozhdenie-10-let/',
       link:
         'https://shop.mts.ru/?utm_source=city.mts.ru&utm_medium=referral&utm_campaign=about',
