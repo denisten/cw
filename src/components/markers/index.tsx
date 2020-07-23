@@ -1,11 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import notice from './notice.svg';
-import success from './success.svg';
-import upgradeTower from './upgrade.svg';
-import activeTask from './active-task.svg';
-import coin from './coin.svg';
-import play from './play.svg';
+
 import { TowersTypes } from '../../effector/towers-progress/store';
 import { ZIndexes } from '../root-component/z-indexes-enum';
 import { Timer } from './timer';
@@ -13,6 +8,7 @@ import { scaleAnimation } from '../../hoc/scale-anim';
 import { IMarker } from '../../effector/towers-marker/store';
 import { markerClickHandler } from '../../utils/marker-click-handler';
 import { IDisplayFlag } from '../skip-tutorial';
+import { Icon } from '../../UI/icons';
 
 export enum TypeOfMarkers {
   TASK = 'task',
@@ -24,25 +20,6 @@ export enum TypeOfMarkers {
   PLAY = 'play',
 }
 
-const selectBackground = (markerType: string) => {
-  switch (markerType) {
-    case TypeOfMarkers.TASK:
-      return notice;
-    case TypeOfMarkers.SUCCESS:
-      return success;
-    case TypeOfMarkers.TAKE_REWARD:
-      return coin;
-    case TypeOfMarkers.ACTIVE_TASK:
-      return activeTask;
-    case TypeOfMarkers.UPGRADE_TOWER:
-      return upgradeTower;
-    case TypeOfMarkers.PLAY:
-      return play;
-    default:
-      break;
-  }
-};
-
 const minScale = 0.9;
 const selectAnimation = (animFlag?: boolean) => {
   if (animFlag) {
@@ -51,9 +28,6 @@ const selectAnimation = (animFlag?: boolean) => {
 };
 
 export const MarkerView = styled.div<IMarkerView>`
-  background: url(${props => selectBackground(props.markerType)}) no-repeat
-    center;
-  background-size: 100% 100%;
   cursor: pointer;
   width: 64px;
   height: 68px;
@@ -209,6 +183,13 @@ export const MarkerWrapper = styled.div<IDisplayFlag>`
   }
 `;
 
+const styleConfig = {
+  icons: {
+    width: '100%',
+    height: '100%',
+  },
+};
+
 export const Markers: React.FC<IMarkers> = ({
   markersCollection,
   towerTitle,
@@ -227,9 +208,10 @@ export const Markers: React.FC<IMarkers> = ({
           <MarkerView
             data-type={markItem.type}
             key={markItem.type}
-            markerType={markItem.type}
             onClick={e => markerClickHandler(markItem, towerTitle, towerRef, e)}
-          />
+          >
+            <Icon type={markItem.type} style={styleConfig.icons} />
+          </MarkerView>
         ) : (
           <Timer
             key={markItem.type}
@@ -252,6 +234,5 @@ interface IMarkers {
 }
 
 interface IMarkerView {
-  markerType: string;
   animFlag?: boolean;
 }

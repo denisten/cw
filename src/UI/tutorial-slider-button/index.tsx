@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import background from './background.svg';
-import { editTutorialSliderDisplayFlag } from '../../effector/app-condition/events';
 import { ZIndexes } from '../../components/root-component/z-indexes-enum';
+import { setOpenEncyclopediaState } from '../../effector/menu-store/events';
 
 const TutorialSliderButtonWrapper = styled.div`
   width: 50px;
@@ -18,7 +18,7 @@ const TutorialSliderButtonWrapper = styled.div`
 export const TutorialSliderButton = () => {
   return (
     <TutorialSliderButtonWrapper
-      onClick={() => editTutorialSliderDisplayFlag(true)}
+      onClick={() => setOpenEncyclopediaState(true)}
     />
   );
 };

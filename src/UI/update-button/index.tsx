@@ -9,6 +9,7 @@ import {
 } from '../../components/markers';
 import { TutorialConditions } from '../../effector/tutorial-store/store';
 import { towerUpdateHandler } from '../../utils/tower-update-handler';
+import { Icon } from '../icons';
 
 const handleClick = async (
   towerTitle: TowersTypes,
@@ -16,6 +17,13 @@ const handleClick = async (
 ) => {
   showUpgradeIcon(towerTitle);
   await towerUpdateHandler(tutorialCondition, towerTitle);
+};
+
+const styleConfig = {
+  icons: {
+    width: '100%',
+    height: '100%',
+  },
 };
 
 export const UpgradeButton: React.FC<IUpgradeButton> = ({
@@ -32,10 +40,11 @@ export const UpgradeButton: React.FC<IUpgradeButton> = ({
       data-towerlevel={towerLevel}
     >
       <MarkerView
-        markerType={TypeOfMarkers.UPGRADE_TOWER}
         animFlag={animFlag}
         onClick={() => handleClick(towerTitle, tutorialCondition)}
-      />
+      >
+        <Icon type={TypeOfMarkers.UPGRADE_TOWER} style={styleConfig.icons} />
+      </MarkerView>
     </MarkerWrapper>
   );
 };
