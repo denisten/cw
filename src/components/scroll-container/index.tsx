@@ -15,6 +15,7 @@ import { useEnableSizeMod } from '../../hooks/use-enable-size-mod';
 import { useStore } from 'effector-react';
 import { AppConditionStore } from '../../effector/app-condition/store';
 import { fixSizeClassName } from '../../UI/tower-component-wrapper';
+import { ZoomButton } from '../../UI/zoom-button';
 const CentralBanner = lazy(() => import('../decorations/central-banner'));
 const Planes = lazy(() => import('../planes'));
 const Cars = lazy(() => import('../decorations/cars/carsArray'));
@@ -92,7 +93,6 @@ export const ScrollContainer: React.FC<{
       block: 'center',
     });
     scrollContainerWrapperRef.current?.classList.add(fixSizeClassName);
-
     dragscroll.reset();
     setFullSizeMode(true);
   };
@@ -174,6 +174,7 @@ export const ScrollContainer: React.FC<{
           )}
         </Suspense>
       </MapWrapper>
+      <ZoomButton />
     </ScrollContainerWrapper>
   );
 });
