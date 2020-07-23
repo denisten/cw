@@ -95,9 +95,9 @@ export const ScrollContainer: React.FC<{
       block: 'center',
     });
 
-    scrollContainerWrapperRef.current?.classList.remove(
-      _scrollContainerClassName
-    );
+    // scrollContainerWrapperRef.current?.classList.remove(
+    //   _scrollContainerClassName
+    // );
     scrollContainerWrapperRef.current?.classList.add(fixSizeClassName);
 
     dragscroll.reset();
