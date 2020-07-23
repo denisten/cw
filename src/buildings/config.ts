@@ -317,7 +317,6 @@ class BuildingsService {
     [TowersTypes.SMARTMED]: {
       info: 'info',
       title: 'SmartMed',
-      mutedImg: mutedSmartMed,
       wideTower: false,
       animSize: animSize.small,
       zIndex: ZIndexes.BUILDING_THREE_LEVEL,
@@ -349,7 +348,6 @@ class BuildingsService {
     [TowersTypes.UNIVERSITY]: {
       info: 'info',
       title: 'Smart University',
-      mutedImg: mutedUniversity,
       wideTower: true,
       animSize: animSize.large,
       zIndex: ZIndexes.BUILDING_THREE_LEVEL,
@@ -416,7 +414,6 @@ class BuildingsService {
         'https://music.mts.ru/?utm_source=city.mts.ru&utm_medium=referral&utm_campaign=about',
       wideTower: false,
       animSize: animSize.medium,
-      mutedImg: mutedMusicTower,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
       width: 398,
@@ -444,7 +441,6 @@ class BuildingsService {
     [TowersTypes.LIVE_ARENA]: {
       info: 'info',
       title: 'МТС Live Arena',
-      mutedImg: mutedArenaTower,
       wideTower: true,
       animSize: animSize.large,
       zIndex: ZIndexes.BUILDING_FOUR_LEVEL,
@@ -477,7 +473,6 @@ class BuildingsService {
       info: 'info',
       title: 'МТС Cashback',
       wideTower: true,
-      mutedImg: mutedMollTower,
       animSize: animSize.large,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
@@ -633,7 +628,6 @@ class BuildingsService {
       info: 'info',
       title: 'МТС Афиша',
       wideTower: true,
-      mutedImg: mutedTheaterTower,
       animSize: animSize.big,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
@@ -664,7 +658,6 @@ class BuildingsService {
     [TowersTypes.TV]: {
       info: 'info',
       title: 'Цифровое ТВ',
-      mutedImg: mutedTVTower,
       wideTower: false,
       animSize: animSize.medium,
       zIndex: ZIndexes.BUILDING_THREE_LEVEL,
@@ -696,7 +689,6 @@ class BuildingsService {
     [TowersTypes.FITNESS]: {
       info: 'info',
       title: 'МТС Фитнес',
-      mutedImg: mutedStadiumTower,
       wideTower: true,
       animSize: animSize.big,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
@@ -759,7 +751,6 @@ class BuildingsService {
     [TowersTypes.BANK]: {
       info: 'info',
       title: 'МТС Банк',
-      mutedImg: mutedBankTower,
       wideTower: true,
       animSize: animSize.medium,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
@@ -791,7 +782,6 @@ class BuildingsService {
     [TowersTypes.WASD_TV]: {
       info: 'info',
       title: 'WASD.tv',
-      mutedImg: mutedCyberArenaTower,
       wideTower: true,
       animSize: animSize.big,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
@@ -824,7 +814,6 @@ class BuildingsService {
     [TowersTypes.AUTO]: {
       info: 'info',
       title: 'МТС Авто',
-      mutedImg: mutedAutoFactory,
       wideTower: true,
       animSize: animSize.large,
       zIndex: ZIndexes.BUILDING_FOUR_LEVEL,
@@ -857,7 +846,6 @@ class BuildingsService {
     [TowersTypes.SPUTNIK]: {
       info: 'info',
       title: 'Спутниковое ТВ',
-      mutedImg: mutedSatelliteTv,
       wideTower: false,
       animSize: animSize.medium,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
@@ -951,7 +939,6 @@ class BuildingsService {
       info: 'info',
       title: 'МТС Игротека',
       playButtonLink: 'http://priz.mts.ru/?source=mymts&device=ios',
-      mutedImg: mutedSlotMachine,
       wideTower: false,
       animSize: animSize.medium,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
@@ -981,7 +968,6 @@ class BuildingsService {
     [TowersTypes.HOME_INTERNET]: {
       info: 'info',
       title: 'Домашний интернет',
-      mutedImg: mutedRouter,
       wideTower: false,
       animSize: animSize.big,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
@@ -1077,7 +1063,6 @@ class BuildingsService {
     [TowersTypes.MARVIN]: {
       info: 'info',
       title: 'Колонка Марвин',
-      mutedImg: mutedMarvin,
       wideTower: false,
       animSize: animSize.small,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
@@ -1107,7 +1092,6 @@ class BuildingsService {
     [TowersTypes.CONNECT]: {
       info: 'info',
       title: 'Вторая память',
-      mutedImg: mutedCloud,
       wideTower: false,
       animSize: animSize.small,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
