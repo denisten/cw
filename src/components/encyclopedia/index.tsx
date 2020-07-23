@@ -48,7 +48,7 @@ const Encyclopedia = () => {
     elem => elem.id === activeItem
   );
   return (
-    <Overlay displayFlag={true} {...StyledConfig.overlay}>
+    <Overlay displayFlag={false} {...StyledConfig.overlay}>
       <Wrapper>
         <EncyclopediaItems
           encyclopediaItemsList={encyclopediaItemsList}

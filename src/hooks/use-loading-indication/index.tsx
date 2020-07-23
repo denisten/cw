@@ -12,7 +12,6 @@ export const useCalculateLoadingProgress = () => {
     );
     for (let index = 0; index < imgCollection.length; index++) {
       const image = imgCollection[index];
-
       if (
         image.complete ||
         (image.getAttribute('data-testid') === 'lazy-image' &&
