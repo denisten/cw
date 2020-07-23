@@ -28,13 +28,13 @@ const Banners = styled(LazyImage)<IBanners>`
 export const MapFragment: React.FC<IMapFragment> = ({
   roadImg,
   treeImg,
-  style,
+  // style,
   bannerImg,
   decorationImg,
 }) => {
   const { animationOff } = useStore(AppConditionStore);
   const lazyImageWrapperStyle = {
-    ...style,
+    // ...style,
     position: 'absolute',
     zIndex: ZIndexes.DECORATION,
   } as React.CSSProperties;
@@ -60,7 +60,10 @@ export const MapFragment: React.FC<IMapFragment> = ({
   ) : null;
   return (
     <MapFragmentWrapper>
-      <LazyImage src={roadImg} style={style} />
+      <LazyImage
+        src={roadImg}
+        // style={style}
+      />
       {Trees}
       {Banner}
       {Decoration}
