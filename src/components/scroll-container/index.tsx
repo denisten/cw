@@ -76,7 +76,9 @@ export const ScrollContainer: React.FC<{
   const scaleValue = useRef(ScaleValues.MIN_SCALE);
   const centerScrollPoint = useRef(null);
   const { ref } = BuildingsService.getConfigForTower(TowersTypes.MY_MTS);
-  const { isAuthorized, animationOff, DOMLoaded } = useStore(AppConditionStore);
+  const { isAuthorized, animationOff, DOMLoaded, fullSizeMode } = useStore(
+    AppConditionStore
+  );
   const tutorialIsEnabled = DOMLoaded && tutorialCondition !== 0;
 
   const runScrollAnimation = () => {
@@ -98,9 +100,12 @@ export const ScrollContainer: React.FC<{
   };
 
   const disableFixSizeMod = () => {
-    scaleValue.current = ScaleValues.MIN_SCALE;
+    scaleValue.current = ScaleValues.MAX_SCALE;
     runScrollAnimation();
-    scrollContainerWrapperRef.current?.classList.add(_scrollContainerClassName);
+    scrollToCurrentTower(centerScrollPoint, {
+      ...scrollToCurrentTowerOptions,
+      block: 'center',
+    });
     scrollContainerWrapperRef.current?.classList.remove(fixSizeClassName);
     dragscroll.reset();
     setFullSizeMode(false);
@@ -150,12 +155,20 @@ export const ScrollContainer: React.FC<{
       className={_scrollContainerClassName}
       ref={scrollContainerWrapperRef}
     >
+      <Suspense fallback={<></>}>
+        {DOMLoaded && (
+          <ZoomButton
+            fullSizeMode={fullSizeMode}
+            callBack={fullSizeMode ? disableFixSizeMod : enableFixSizeMod}
+          />
+        )}
+      </Suspense>
       <MapWrapper ref={mapWrapperRef} zIndex={zIndex}>
         <Map />
         <Buildings />
         <Bridges showBridges={true} />
         <PointForCenterScroll ref={centerScrollPoint} />
-        <Suspense fallback={<>loading</>}>
+        <Suspense fallback={<></>}>
           {DOMLoaded && (
             <>
               <Planes /> <CentralBanner tutorialCondition={tutorialCondition} />
@@ -174,7 +187,6 @@ export const ScrollContainer: React.FC<{
           )}
         </Suspense>
       </MapWrapper>
-      <ZoomButton />
     </ScrollContainerWrapper>
   );
 });
