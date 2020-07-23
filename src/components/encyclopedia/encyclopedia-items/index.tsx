@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { IEncyclopediaItemConfig, EncyclopediaItemIds } from '..';
 import { MTSSans } from '../../../fonts';
 import icon from './icon.svg';
+import { editTutorialSliderDisplayFlag } from '../../../effector/app-condition/events';
 
 const ItemsWrapper = styled.div`
   height: 100%;
@@ -21,7 +22,7 @@ const EncyclopediaItem = styled.div<{ activElem: boolean }>`
   align-items: center;
   justify-content: center;
 
-  font-weight: ${props => (props.activElem ? 'bold' : 'normal')};
+  font-family: ${props => (props.activElem ? MTSSans.BOLD : MTSSans.REGULAR)};
   font-size: 24px;
   line-height: 33px;
   color: #001424;
@@ -51,6 +52,11 @@ const ItemsButton = styled.div`
   line-height: 33px;
   color: #ffffff;
   font-family: ${MTSSans.BOLD};
+  transition: 0.4s;
+
+  &:hover {
+    background: #08c2e0;
+  }
 `;
 
 const Icon = styled.img`
@@ -76,7 +82,7 @@ export const EncyclopediaItems: React.FC<IEncyclopediaItems> = ({
   return (
     <ItemsWrapper>
       {list}
-      <ItemsButton>
+      <ItemsButton onClick={() => editTutorialSliderDisplayFlag(true)}>
         <Icon src={icon} alt="icon" />
         <span>Обзор</span>
       </ItemsButton>

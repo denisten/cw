@@ -1,5 +1,5 @@
 import { MenuDomain } from './domain';
-import { menuOpened, menuClosed } from './events';
+import { menuOpened, menuClosed, setOpenEncyclopediaState } from './events';
 import { MenuItems } from '../../UI/menu-paragraph';
 
 export enum TowerInfoContentValues {
@@ -10,9 +10,14 @@ export enum TowerInfoContentValues {
 
 const initState = {
   selectedMenuItem: null,
+  openEncyclopedia: false,
 };
 
 export const MenuStore = MenuDomain.store<AppConditionType>(initState)
+  .on(setOpenEncyclopediaState, (state, payload) => ({
+    ...state,
+    openEncyclopedia: payload,
+  }))
   .on(menuOpened, (state, payload) => ({
     ...state,
     selectedMenuItem: payload,
@@ -24,4 +29,5 @@ export const MenuStore = MenuDomain.store<AppConditionType>(initState)
 
 export type AppConditionType = {
   selectedMenuItem: MenuItems | null;
+  openEncyclopedia: boolean;
 };

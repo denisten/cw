@@ -5,9 +5,13 @@ import styled from 'styled-components';
 import wrapperBg from './wrapperbg.svg';
 import { EncyclopediaItems } from './encyclopedia-items';
 import { EncyclopediaContent } from './encyclopedia-content';
+import { useStore } from 'effector-react';
+import { MenuStore } from '../../effector/menu-store/store';
+import { ExitButton } from '../../UI/exit-button';
+import { setOpenEncyclopediaState } from '../../effector/menu-store/events';
 const StyledConfig = {
   overlay: {
-    zIndex: ZIndexes.MODAL,
+    zIndex: ZIndexes.ENCYCLOPEDIA,
   },
 };
 
@@ -19,6 +23,7 @@ const Wrapper = styled.div`
   padding-top: 44px;
   box-sizing: border-box;
   user-select: none;
+  position: relative;
 `;
 export enum EncyclopediaItemIds {
   LEGEND = 'legend',
@@ -35,11 +40,22 @@ export const encyclopediaItemsList: IEncyclopediaItemConfig[] = [
     id: EncyclopediaItemIds.HINTS,
   },
   {
-    label: 'Задания',
+    label: 'Задания (скоро)',
     id: EncyclopediaItemIds.TASKS,
   },
 ];
+
+const styledConfig = {
+  exitButton: {
+    top: '-1%',
+    right: '-4%',
+    hoverFlag: true,
+    zIndex: ZIndexes.UI_BUTTON,
+  },
+};
+
 const Encyclopedia = () => {
+  const { openEncyclopedia } = useStore(MenuStore);
   const [activeItem, setActiveItem] = useState(EncyclopediaItemIds.LEGEND);
   const activeItemObj = encyclopediaItemsList.find(
     elem => elem.id === activeItem
@@ -47,9 +63,15 @@ const Encyclopedia = () => {
   const activeIndex = encyclopediaItemsList.findIndex(
     elem => elem.id === activeItem
   );
+
   return (
-    <Overlay displayFlag={true} {...StyledConfig.overlay}>
+    <Overlay displayFlag={openEncyclopedia} {...StyledConfig.overlay}>
       <Wrapper>
+        <ExitButton
+          displayFlag={true}
+          {...styledConfig.exitButton}
+          callBack={() => setOpenEncyclopediaState(false)}
+        />
         <EncyclopediaItems
           encyclopediaItemsList={encyclopediaItemsList}
           activeItem={activeItem}

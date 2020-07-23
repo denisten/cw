@@ -11,6 +11,7 @@ import arrowLeft from './arrowLeft.svg';
 import arrowRight from './arrowRight.svg';
 import { EncyclopediaLegendBlock } from './legend-block';
 import { EncyclopediaHintsBlock } from './hints-block';
+import { MTSSans } from '../../../fonts';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -26,7 +27,7 @@ const Header = styled.div`
 `;
 
 const Title = styled.span`
-  font-weight: 900;
+  font-family: ${MTSSans.BOLD};
   font-size: 48px;
   line-height: 66px;
   color: #001424;
@@ -70,7 +71,7 @@ const ContentSelector: React.FC<IContentSelector> = ({ activeItem }) => {
       return <EncyclopediaHintsBlock />;
 
     default:
-      return <>В разработке</>;
+      return <></>;
   }
 };
 
