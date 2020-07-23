@@ -27,9 +27,12 @@ enum strokeClassNames {
   STROKE = 'stroke',
   STROKE_ACTIVE = 'strokeActive',
 }
-export const mutedClassName = 'muted';
 export const fixSizeClassName = 'fixSize';
-const hoveredClassName = 'hovered';
+
+export enum TowerClassNames {
+  MUTED = 'muted',
+  HOVERED = 'hovered',
+}
 
 export const Signature = styled.div`
   position: absolute;
@@ -82,12 +85,12 @@ const TowerStyledWrapper = styled.div<ITowerStyledWrapper>`
   justify-content: center;
 
 
-&.${hoveredClassName} ${Signature} {
-  opacity: 1 !important;
-}
+  &.${TowerClassNames.HOVERED} ${Signature} {
+    opacity: 1 !important;
+  }
 
 
-  &.${mutedClassName} {
+  &.${TowerClassNames.MUTED} {
     &::before {
       content: 'На карантине';
       position: absolute;
@@ -220,22 +223,26 @@ export const TowerWrapper = memo(
 
     const mouseOverHandle = () => {
       if (mutedImg) {
-        towerRef.current && towerRef.current.classList.add(mutedClassName);
+        towerRef.current &&
+          towerRef.current.classList.add(TowerClassNames.MUTED);
         return;
       }
       strokeRef.current &&
         strokeRef.current.classList.add(strokeClassNames.STROKE_ACTIVE);
 
-      towerRef.current && towerRef.current.classList.add(hoveredClassName);
+      towerRef.current &&
+        towerRef.current.classList.add(TowerClassNames.HOVERED);
     };
     const mouseOutHandle = () => {
       if (mutedImg) {
-        towerRef.current && towerRef.current.classList.remove(mutedClassName);
+        towerRef.current &&
+          towerRef.current.classList.remove(TowerClassNames.MUTED);
       }
       strokeRef.current &&
         strokeRef.current.classList.remove(strokeClassNames.STROKE_ACTIVE);
 
-      towerRef.current && towerRef.current.classList.remove(hoveredClassName);
+      towerRef.current &&
+        towerRef.current.classList.remove(TowerClassNames.HOVERED);
     };
     useEffect(() => {
       BuildingsService.setRefForTower(towerTitle, towerRef);

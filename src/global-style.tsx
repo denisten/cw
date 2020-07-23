@@ -7,8 +7,8 @@ import MTSSansUltraWide from './fonts/MTSSans-UltraWide.ttf';
 import { MTSSans } from './fonts';
 import {
   fixSizeClassName,
-  mutedClassName,
   Signature,
+  TowerClassNames,
 } from './UI/tower-component-wrapper';
 import { MarkerView } from './components/markers';
 
@@ -54,7 +54,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
 
-     .${fixSizeClassName} .${mutedClassName}::before {
+     .${fixSizeClassName} .${TowerClassNames.MUTED}::before {
         transform: scale(3);
         top: 100%;
         left: 40%;
@@ -62,8 +62,8 @@ export const GlobalStyle = createGlobalStyle`
 
       .${fixSizeClassName} {
         ${MarkerView} {
-        width:  204px;
-        height:  208px;
+        width:  155.04px;
+        height:  156px;
       }
 
         ${Signature} {
