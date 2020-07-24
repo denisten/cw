@@ -61,16 +61,18 @@ const PointForCenterScroll = styled.div`
   height: 10px;
 `;
 
+const isFirefox = (name: string | undefined) => name === Browsers.FIREFOX;
+
 const scrollToCurrentTowerOptions = {
   behavior: 'smooth',
   block: 'start',
   inline: 'center',
 } as ScrollIntoViewOptions;
 
-export const ScrollContainer: React.FC<{
-  tutorialCondition: TutorialConditions;
-  zIndex: number;
-}> = React.memo(({ tutorialCondition, zIndex }) => {
+export const ScrollContainer: React.FC<IScrollContainer> = ({
+  tutorialCondition,
+  zIndex,
+}) => {
   const scrollContainerWrapperRef = useRef<HTMLDivElement>(null);
   const mapWrapperRef = useRef<HTMLDivElement>(null);
   const scaleValue = useRef(ScaleValues.MIN_SCALE);
@@ -84,7 +86,7 @@ export const ScrollContainer: React.FC<{
 
   const runScrollAnimation = () => {
     if (mapWrapperRef.current) {
-      if (browserName === Browsers.FIREFOX)
+      if (isFirefox(browserName))
         mapWrapperRef.current.style.scale = `${scaleValue.current}`;
       else mapWrapperRef.current.style.zoom = `${scaleValue.current}`;
     }
@@ -162,8 +164,13 @@ export const ScrollContainer: React.FC<{
       </MapWrapper>
     </ScrollContainerWrapper>
   );
-});
+};
 
 interface IMapWrapper {
+  zIndex: number;
+}
+
+interface IScrollContainer {
+  tutorialCondition: TutorialConditions;
   zIndex: number;
 }

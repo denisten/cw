@@ -22,7 +22,6 @@ import { useStore } from 'effector-react';
 import { TowerInfoModalStore } from '../../effector/tower-info-modal-store/store';
 import { AppConditionStore } from '../../effector/app-condition/store';
 import signBcg from './signBcg.svg';
-
 enum strokeClassNames {
   STROKE = 'stroke',
   STROKE_ACTIVE = 'strokeActive',
@@ -227,7 +226,6 @@ export const TowerWrapper = memo(
         mouseMoveFlag += 1;
       }
     };
-
     const handleMouseUp = () => {
       if (mouseDownFlag && mouseMoveFlag < maxMouseMoveFaultAfterClick) {
         handleClick();
