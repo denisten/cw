@@ -181,6 +181,16 @@ export const MarkerWrapper = styled.div<IDisplayFlag>`
       top: 115px;
     }
   }
+
+  &[data-towertype=${TowersTypes.LIBRARY}] {
+    &[data-towerlevel='0'],
+    &[data-towerlevel='1'] {
+      top: 100px;
+    }
+    &[data-towerlevel='2'] {
+      top: 40px;
+    }
+  }
 `;
 
 const styleConfig = {

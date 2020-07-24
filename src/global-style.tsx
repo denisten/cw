@@ -55,7 +55,7 @@ export const GlobalStyle = createGlobalStyle`
 
 
      .${fixSizeClassName} .${TowerClassNames.MUTED}::before {
-        transform: scale(3);
+        transform: scale(2);
         top: 100%;
         left: 40%;
       }

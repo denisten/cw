@@ -53,8 +53,8 @@ const MapWrapper = styled.div<IMapWrapper>`
 
 const PointForCenterScroll = styled.div`
   position: absolute;
-  top: 39.1%;
-  left: 48.3%;
+  top: 49.1%;
+  left: 47.7%;
   width: 10px;
   height: 10px;
 `;
@@ -64,8 +64,6 @@ const scrollToCurrentTowerOptions = {
   block: 'start',
   inline: 'center',
 } as ScrollIntoViewOptions;
-
-const _smoothScrollValue = -0.001;
 
 export const ScrollContainer: React.FC<{
   tutorialCondition: TutorialConditions;
@@ -111,39 +109,9 @@ export const ScrollContainer: React.FC<{
     setFullSizeMode(false);
   };
 
-  const scaleHandler = (payload: number) => {
-    if (scaleValue.current === ScaleValues.FIX_SIZE && payload > 0) {
-      disableFixSizeMod();
-      return;
-    }
-    if (
-      scaleValue.current !== ScaleValues.FIX_SIZE &&
-      payload < 0 &&
-      scaleValue.current + payload < ScaleValues.MIN_SCALE
-    ) {
-      enableFixSizeMod();
-      return;
-    }
-    if (
-      (payload < 0 && scaleValue.current + payload >= ScaleValues.MIN_SCALE) ||
-      (payload > 0 && scaleValue.current + payload <= ScaleValues.MAX_SCALE)
-    ) {
-      scaleValue.current += payload;
-      runScrollAnimation();
-    }
-  };
-
   useInitDragscroll();
   useCheckDisableTutorial([]);
   useEnableSizeMod(enableFixSizeMod, isAuthorized);
-
-  const wheelHandler = (e: React.WheelEvent) => {
-    e.persist();
-    requestAnimationFrame(() => {
-      e.preventDefault();
-      scaleHandler(e.deltaY * _smoothScrollValue);
-    });
-  };
 
   useEffect(() => {
     scrollToCurrentTower(ref, scrollToCurrentTowerOptions);
@@ -151,7 +119,6 @@ export const ScrollContainer: React.FC<{
 
   return (
     <ScrollContainerWrapper
-      onWheel={wheelHandler}
       className={_scrollContainerClassName}
       ref={scrollContainerWrapperRef}
     >
