@@ -41,6 +41,7 @@
     "@types/jest": "^25.2.1",
     "@types/react-router": "^5.1.4",
     "axios": "^0.19.1",
+    "bowser": "^2.10.0",
     "centrifuge": "^2.6.0",
     "core-js": "^3.6.1",
     "debounce": "^1.2.0",

@@ -16,6 +16,8 @@ import { useStore } from 'effector-react';
 import { AppConditionStore } from '../../effector/app-condition/store';
 import { fixSizeClassName } from '../../UI/tower-component-wrapper';
 import { ZoomButton } from '../../UI/zoom-button';
+import { useDetectBrowser } from '../../hooks/use-detect-browser';
+import { Browsers, BrowserStore } from '../../effector/browser/store';
 const CentralBanner = lazy(() => import('../decorations/central-banner'));
 const Planes = lazy(() => import('../planes'));
 const Cars = lazy(() => import('../decorations/cars/carsArray'));
@@ -77,11 +79,14 @@ export const ScrollContainer: React.FC<{
   const { isAuthorized, animationOff, DOMLoaded, fullSizeMode } = useStore(
     AppConditionStore
   );
+  const { browserName } = useStore(BrowserStore);
   const tutorialIsEnabled = DOMLoaded && tutorialCondition !== 0;
 
   const runScrollAnimation = () => {
     if (mapWrapperRef.current) {
-      mapWrapperRef.current.style.zoom = `${scaleValue.current}`;
+      if (browserName === Browsers.FIREFOX)
+        mapWrapperRef.current.style.scale = `${scaleValue.current}`;
+      else mapWrapperRef.current.style.zoom = `${scaleValue.current}`;
     }
   };
 
@@ -112,6 +117,7 @@ export const ScrollContainer: React.FC<{
   useInitDragscroll();
   useCheckDisableTutorial([]);
   useEnableSizeMod(enableFixSizeMod, isAuthorized);
+  useDetectBrowser();
 
   useEffect(() => {
     scrollToCurrentTower(ref, scrollToCurrentTowerOptions);
