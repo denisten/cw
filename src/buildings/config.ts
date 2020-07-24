@@ -664,7 +664,7 @@ class BuildingsService {
       position: [13.3, 21.8],
       ref: null,
       link:
-        'https://moskva.mts.ru/personal/mobilnaya-svyaz/uslugi/mobilnaya-svyaz/mts-tv',
+        'https://mtstv.mts.ru/?utm_source=city.mts.ru&utm_medium=referral&utm_campaign=about',
       [TowerLevel.initial]: {
         img: TVTowerLevel0Img,
         shadowImg: TVTowerLevel0Stroke,
