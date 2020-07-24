@@ -100,7 +100,7 @@ const TowerStyledWrapper = styled.div<ITowerStyledWrapper>`
       padding: 6px;
       background-color: rgba(0, 0, 0, 0.6);
       color: white;
-      font-size: 9px;
+      font-size: 18px;
       font-family: ${MTSSans.BOLD};
       white-space: nowrap;
       border-radius: 4px;
@@ -131,6 +131,20 @@ const TowerStyledWrapper = styled.div<ITowerStyledWrapper>`
 
   &:hover {
     z-index: ${ZIndexes.MAX} !important;
+  }
+
+  &[data-towertype=${TowersTypes.UNIVERSITY}] ${Signature} {
+    bottom: 10%;
+  }
+
+  &[data-towertype=${TowersTypes.FITNESS}] ${Signature} {
+    bottom: 0%;
+  }
+
+  &[data-towertype=${TowersTypes.TV}] ${Signature},
+  &[data-towertype=${TowersTypes.THEATER}] ${Signature}
+    {
+    bottom: 5%;
   }
 
 `;
