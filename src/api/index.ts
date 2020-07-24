@@ -19,7 +19,7 @@ export enum apiRoutes {
   GET_ALL_PROGRESS = '/api/users/current/progress/current',
   PROGRESS_REFRESH = '/api/users/current/progress/refresh',
   PRODUCTS = '/api/users/current/products/',
-  COMMIT_PROGRESS = '/progress/commit',
+  COMMIT_PROGRESS = '/commit',
   GET_TASKS = '/api/users/current/tasks',
   COMMIT_INCOMES = '/incomes/commit',
   GET_PURCHASES = '/api/users/current/purchases',
