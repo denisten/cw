@@ -63,7 +63,7 @@ const SpanElem = styled.div<{ mtsFlag: boolean }>`
   box-sizing: border-box;
 
   &:first-child {
-    margin-right: 14px;
+    margin-right: 8px;
   }
   &:last-child {
     margin-right: 0px;

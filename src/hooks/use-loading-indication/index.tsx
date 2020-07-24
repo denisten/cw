@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { maxPercent } from '../../constants';
-import * as R from 'ramda';
+import { propEq, ifElse } from 'ramda';
 
 export const useCalculateLoadingProgress = () => {
   const [allImagesNumber, setAllImagesNumber] = useState(0);
@@ -43,12 +43,12 @@ export const useCalculateLoadingProgress = () => {
     setLoadingPercent(maxPercent);
   };
 
-  const checkState = R.propEq('readyState', 'loading');
+  const checkState = propEq('readyState', 'loading');
   const add = () =>
     document.addEventListener('DOMContentLoaded', checkAllImages);
 
   useEffect(() => {
-    R.ifElse(checkState, add, checkAllImages)(document);
+    ifElse(checkState, add, checkAllImages)(document);
 
     window.addEventListener('load', markAllResourcesAsLoaded);
 
