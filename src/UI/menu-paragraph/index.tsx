@@ -9,7 +9,7 @@ export enum MenuItems {
   TASKS = 'tasks',
   SETTINGS = 'settings',
   FEEDBACK = 'feedback',
-  OFFER = 'offer',
+  HELP = 'offer',
   QA = 'qa',
   DEV = 'dev',
 }
@@ -19,7 +19,7 @@ const TranslatedMenuItems = {
   [MenuItems.TASKS]: 'Задания',
   [MenuItems.SETTINGS]: 'Настройки',
   [MenuItems.FEEDBACK]: 'Обратная связь',
-  [MenuItems.OFFER]: 'Оферта',
+  [MenuItems.HELP]: 'Помощь',
   [MenuItems.QA]: 'Вопросы и ответы',
   [MenuItems.DEV]: 'Инструменты разработки',
 };

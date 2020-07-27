@@ -33,7 +33,7 @@ const allMenuItems = [
   MenuItems.SETTINGS,
   MenuItems.TASKS,
   MenuItems.FEEDBACK,
-  MenuItems.OFFER,
+  MenuItems.HELP,
   MenuItems.QA,
   MenuItems.DEV,
 ];
