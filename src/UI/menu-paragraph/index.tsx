@@ -8,8 +8,7 @@ export enum MenuItems {
   PROFILE = 'profile',
   TASKS = 'tasks',
   SETTINGS = 'settings',
-  FEEDBACK = 'feedback',
-  OFFER = 'offer',
+  HELP = 'offer',
   QA = 'qa',
   DEV = 'dev',
 }
@@ -17,15 +16,15 @@ export enum MenuItems {
 const TranslatedMenuItems = {
   [MenuItems.PROFILE]: 'Профиль',
   [MenuItems.TASKS]: 'Задания',
-  [MenuItems.SETTINGS]: 'Настройки',
-  [MenuItems.FEEDBACK]: 'Обратная связь',
-  [MenuItems.OFFER]: 'Оферта',
+  [MenuItems.SETTINGS]: 'Прочее',
+  [MenuItems.HELP]: 'Помощь',
   [MenuItems.QA]: 'Вопросы и ответы',
   [MenuItems.DEV]: 'Инструменты разработки',
 };
 
 const notSelectedItemFontWeight = 500;
 const notAvailableOpacity = 0.5;
+const otherMenuParagraphClassName = 'otherParagraph';
 
 const MenuParagraphWrapper = styled.div<IMenuParagraphWrapper>`
   height: 56px;
@@ -49,6 +48,11 @@ const MenuParagraphWrapper = styled.div<IMenuParagraphWrapper>`
   padding-left: 48px;
   box-sizing: border-box;
   pointer-events: auto;
+
+  &.${otherMenuParagraphClassName} {
+    position: absolute;
+    bottom: 40px;
+  }
 `;
 const Notify = styled.div`
   margin-left: 13px;
@@ -82,6 +86,9 @@ export const MenuNavigationElement: React.FC<IMenuParagraph> = ({
 
   return (
     <MenuParagraphWrapper
+      className={
+        menuElement === MenuItems.SETTINGS ? otherMenuParagraphClassName : ''
+      }
       menuElement={menuElement}
       isItemSelected={isItemSelected}
       isAvailable={isAvailable}
