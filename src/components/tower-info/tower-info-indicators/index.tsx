@@ -32,46 +32,17 @@ const HeaderLineElement = styled.div<IHeaderLineElement>`
   flex-direction: column;
   margin-left: ${props => props.marginLeft};
   padding-bottom: ${props => props.paddingBottom};
-  span {
-    font-size: 16px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.5;
-    letter-spacing: normal;
-    color: #6e7782;
-    font-family: ${MTSSans.REGULAR};
-    .${EVOLUTION} {
-      font-family: ${MTSSans.BOLD};
-      font-style: normal;
-      font-weight: 900;
-      font-size: 24px;
-      line-height: 24px;
-      color: #04b5d2;
-    }
-    + div {
-      margin-top: 4px;
-    }
-    @media (max-resolution: 0.8dppx) {
-      font-size: 1.5vh;
-    }
-  }
 `;
 
 const IncomeWrapper = styled.div`
   display: flex;
   position: relative;
+  align-items: center;
   top: 6px;
-  font-family: ${MTSSans.REGULAR};
-  font-style: normal;
-  font-weight: normal;
+
   font-size: 14px;
   line-height: 24px;
   color: #6e7782;
-  span {
-    font-size: 16px;
-    color: #001424;
-  }
 `;
 
 const PlayButton = styled.div`
@@ -106,6 +77,37 @@ const PlayButton = styled.div`
   }
 `;
 
+const BoldSpan = styled.span`
+  font-size: 16px;
+  line-height: 1;
+  font-family: ${MTSSans.BOLD};
+  color: #001424;
+  margin-right: 4px;
+`;
+
+const SpanElem = styled.span`
+  font-size: 16px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.5;
+  letter-spacing: normal;
+  color: #6e7782;
+  font-family: ${MTSSans.REGULAR};
+  .${EVOLUTION} {
+    font-family: ${MTSSans.BOLD};
+    font-style: normal;
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 24px;
+    color: #04b5d2;
+  }
+
+  @media (max-resolution: 0.8dppx) {
+    font-size: 1.5vh;
+  }
+`;
+
 const styledConfig = {
   firstHeaderLine: {
     paddingBottom: '4px',
@@ -135,9 +137,9 @@ export const TowerInfoIndicators: React.FC<ITowerInfoIndicators> = ({
   return (
     <HeaderLine sizeContent={hideTowerInfo}>
       <HeaderLineElement {...styledConfig.firstHeaderLine}>
-        <span>
-          <span className={EVOLUTION}>{level}</span> Уровень эволюции
-        </span>
+        <SpanElem>
+          <SpanElem className={EVOLUTION}>{level}</SpanElem> Уровень эволюции
+        </SpanElem>
         <ProgressBar
           needUpgrade={needUpgrade}
           progress={progress}
@@ -150,9 +152,7 @@ export const TowerInfoIndicators: React.FC<ITowerInfoIndicators> = ({
             alt="coin-income"
             style={styledConfig.money}
           />
-          <div>
-            +<span>{income}</span> в день
-          </div>
+          <BoldSpan>+ {income}</BoldSpan> в день
         </IncomeWrapper>
       </HeaderLineElement>
       <HeaderLineElement {...styledConfig.secondHeaderLine}>
