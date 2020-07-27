@@ -14,6 +14,7 @@ import coinIncomeImg from './coin-income.svg';
 import { useStore } from 'effector-react';
 import { Tooltip } from '../../../UI/tooltip';
 import { RowWrapper } from '../../../UI/row-wrapper';
+import { StyledSpan } from '../../../UI/span';
 
 const EVOLUTION = 'evolution';
 
@@ -91,13 +92,9 @@ const BoldSpan = styled.span`
   margin-right: 4px;
 `;
 
-const SpanElem = styled.span`
+const SpanElem = styled(StyledSpan)`
   font-size: 16px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
   line-height: 1.5;
-  letter-spacing: normal;
   color: #6e7782;
   font-family: ${MTSSans.REGULAR};
   margin-right: 6px;
