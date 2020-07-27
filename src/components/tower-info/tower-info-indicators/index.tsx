@@ -12,6 +12,8 @@ import { BuildingsService } from '../../../buildings/config';
 import { windowOpen } from '../../../utils/window-open';
 import coinIncomeImg from './coin-income.svg';
 import { useStore } from 'effector-react';
+import { Tooltip } from '../../../UI/tooltip';
+import { RowWrapper } from '../../../UI/row-wrapper';
 
 const EVOLUTION = 'evolution';
 
@@ -43,6 +45,10 @@ const IncomeWrapper = styled.div`
   font-size: 14px;
   line-height: 24px;
   color: #6e7782;
+
+  span {
+    margin-right: 6px;
+  }
 `;
 
 const PlayButton = styled.div`
@@ -94,6 +100,9 @@ const SpanElem = styled.span`
   letter-spacing: normal;
   color: #6e7782;
   font-family: ${MTSSans.REGULAR};
+  margin-right: 6px;
+  display: flex;
+  align-items: center;
   .${EVOLUTION} {
     font-family: ${MTSSans.BOLD};
     font-style: normal;
@@ -109,6 +118,9 @@ const SpanElem = styled.span`
 `;
 
 const styledConfig = {
+  rowWrapper: {
+    alignItems: 'center',
+  },
   firstHeaderLine: {
     paddingBottom: '4px',
   },
@@ -118,8 +130,17 @@ const styledConfig = {
   money: {
     marginRight: '6px',
   },
+  tooltip1: {
+    top: '-140px',
+  },
+
+  tooltip2: {
+    top: '-84px',
+  },
 };
 
+const tooltipText1 = `Это уровень прогресса здания. Чем он выше, тем больший доход можно собирать ежедневно. Выполняй задания и развивай город!`;
+const tooltipText2 = `Это ежедневно получаемый со здания доход`;
 export const TowerInfoIndicators: React.FC<ITowerInfoIndicators> = ({
   hideTowerInfo,
   level,
@@ -137,9 +158,12 @@ export const TowerInfoIndicators: React.FC<ITowerInfoIndicators> = ({
   return (
     <HeaderLine sizeContent={hideTowerInfo}>
       <HeaderLineElement {...styledConfig.firstHeaderLine}>
-        <SpanElem>
-          <SpanElem className={EVOLUTION}>{level}</SpanElem> Уровень эволюции
-        </SpanElem>
+        <RowWrapper {...styledConfig.rowWrapper}>
+          <SpanElem>
+            <SpanElem className={EVOLUTION}>{level}</SpanElem> Уровень здания
+          </SpanElem>
+          <Tooltip text={tooltipText1} style={styledConfig.tooltip1} />
+        </RowWrapper>
         <ProgressBar
           needUpgrade={needUpgrade}
           progress={progress}
@@ -152,7 +176,8 @@ export const TowerInfoIndicators: React.FC<ITowerInfoIndicators> = ({
             alt="coin-income"
             style={styledConfig.money}
           />
-          <BoldSpan>+ {income}</BoldSpan> в день
+          <BoldSpan>+ {income}</BoldSpan> <span>в день</span>
+          <Tooltip text={tooltipText2} style={styledConfig.tooltip2} />
         </IncomeWrapper>
       </HeaderLineElement>
       <HeaderLineElement {...styledConfig.secondHeaderLine}>
