@@ -38,7 +38,7 @@ const TooltipText = styled.span`
   color: #000000;
 `;
 
-export const Tooltip: React.FC<IToolTipTextElem> = ({
+export const Tooltip: React.FC<ITooltip> = ({
   style,
   text,
   active,
@@ -62,7 +62,7 @@ export const Tooltip: React.FC<IToolTipTextElem> = ({
   );
 };
 
-interface IToolTipTextElem {
+interface ITooltip {
   style?: React.CSSProperties;
   text?: string;
   callBack: React.Dispatch<React.SetStateAction<ActiveTooltip>>;
