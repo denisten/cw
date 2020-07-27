@@ -1,11 +1,11 @@
-import { TutorialSlider } from '..';
-import { editTutorialSliderDisplayFlag } from '../../../effector/app-condition/events';
 import React from 'react';
 import slider1 from './slider-1.png';
 import slider2 from './slider-2.png';
 import slider3 from './slider-3.png';
 import slider4 from './slider-4.png';
 import slider5 from './slider-5.png';
+import { TutorialSlider } from '..';
+import { editTutorialSliderDisplayFlag } from '../../../effector/app-condition/events';
 
 const tutorialSlidesArray = [slider1, slider2, slider3, slider4, slider5];
 const tutorialSliderContent = [
@@ -32,15 +32,11 @@ const tutorialSliderContent = [
       'В некоторых зданиях можно сыграть в специальные игры. Не упустите шанс!',
   },
 ];
-const InitTutorialSlider: React.FC = () => {
-  return (
-    <TutorialSlider
-      imgArray={tutorialSlidesArray}
-      displayFlag={true}
-      callback={() => editTutorialSliderDisplayFlag(false)}
-      content={tutorialSliderContent}
-    />
-  );
-};
-
-export default InitTutorialSlider;
+export const InitTutorialSlider = () => (
+  <TutorialSlider
+    imgArray={tutorialSlidesArray}
+    displayFlag={false}
+    callback={() => editTutorialSliderDisplayFlag(false)}
+    content={tutorialSliderContent}
+  />
+);

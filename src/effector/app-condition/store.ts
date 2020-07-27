@@ -30,7 +30,6 @@ const initState = {
   upgradingTowerTitle: null,
   isAuthorized: false,
   authCancelledStatus: '',
-
   DOMLoaded: false,
   selectTowerInfoContent: TowerInfoContentValues.DESCRIPTION,
   dataReceived: false,

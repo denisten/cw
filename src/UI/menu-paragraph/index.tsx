@@ -7,7 +7,9 @@ import { MTSSans } from '../../fonts';
 export enum MenuItems {
   PROFILE = 'profile',
   TASKS = 'tasks',
-  SETTINGS = 'settings',
+  OTHERS = 'others',
+  INSTRUCTION = 'instruction',
+  HELP = 'help',
   FEEDBACK = 'feedback',
   OFFER = 'offer',
   QA = 'qa',
@@ -15,13 +17,15 @@ export enum MenuItems {
 }
 
 const TranslatedMenuItems = {
-  [MenuItems.PROFILE]: 'Профиль',
+  [MenuItems.PROFILE]: 'Кабинет',
   [MenuItems.TASKS]: 'Задания',
-  [MenuItems.SETTINGS]: 'Настройки',
+  [MenuItems.HELP]: 'Помощь',
+  [MenuItems.INSTRUCTION]: 'Инструкция',
+  [MenuItems.OTHERS]: 'Прочее',
+  [MenuItems.DEV]: 'Инструменты разработки',
   [MenuItems.FEEDBACK]: 'Обратная связь',
   [MenuItems.OFFER]: 'Оферта',
   [MenuItems.QA]: 'Вопросы и ответы',
-  [MenuItems.DEV]: 'Инструменты разработки',
 };
 
 const notSelectedItemFontWeight = 500;

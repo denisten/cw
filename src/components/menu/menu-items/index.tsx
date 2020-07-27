@@ -23,14 +23,14 @@ const MenuWrapper = styled.div`
 
 export const noAuthAvailableMenuItems = [
   MenuItems.PROFILE,
-  MenuItems.SETTINGS,
+  MenuItems.OTHERS,
   MenuItems.TASKS,
   MenuItems.DEV,
 ];
 
 const allMenuItems = [
   MenuItems.PROFILE,
-  MenuItems.SETTINGS,
+  MenuItems.OTHERS,
   MenuItems.TASKS,
   MenuItems.FEEDBACK,
   MenuItems.OFFER,
