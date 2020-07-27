@@ -32,7 +32,6 @@ const allMenuItems = [
   MenuItems.PROFILE,
   MenuItems.SETTINGS,
   MenuItems.TASKS,
-  MenuItems.FEEDBACK,
   MenuItems.HELP,
   MenuItems.QA,
   MenuItems.DEV,
