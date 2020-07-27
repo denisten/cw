@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import helpBg from './help.svg';
 import helpHover from './helpHover.svg';
 import { ZIndexes } from '../../components/root-component/z-indexes-enum';
+import { ActiveTooltip } from '../../components/tower-info/tower-info-indicators';
+import * as R from 'ramda';
 
 const Icon = styled.div<{ active: boolean }>`
   width: 12.8px;
@@ -36,11 +38,22 @@ const TooltipText = styled.span`
   color: #000000;
 `;
 
-export const Tooltip: React.FC<IToolTipTextElem> = ({ style, text }) => {
-  const [active, setActive] = useState(false);
+export const Tooltip: React.FC<IToolTipTextElem> = ({
+  style,
+  text,
+  active,
+  callBack,
+  tooltipId,
+}) => {
+  const checkActiveTooltip = active === tooltipId;
+  const toggleTooltip = R.ifElse(
+    () => checkActiveTooltip,
+    () => callBack(ActiveTooltip.OFF),
+    () => callBack(tooltipId)
+  );
   return (
-    <Icon active={active} onClick={() => setActive(!active)}>
-      {active && (
+    <Icon active={checkActiveTooltip} onClick={toggleTooltip}>
+      {checkActiveTooltip && (
         <TooltipWrapper style={style}>
           <TooltipText>{text}</TooltipText>
         </TooltipWrapper>
@@ -52,4 +65,7 @@ export const Tooltip: React.FC<IToolTipTextElem> = ({ style, text }) => {
 interface IToolTipTextElem {
   style?: React.CSSProperties;
   text?: string;
+  callBack: React.Dispatch<React.SetStateAction<ActiveTooltip>>;
+  tooltipId: ActiveTooltip;
+  active: ActiveTooltip;
 }

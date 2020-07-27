@@ -1,5 +1,5 @@
 import { ProgressBar } from '../../../UI/progress-bar';
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { MTSSans } from '../../../fonts';
 import {
@@ -141,6 +141,13 @@ const styledConfig = {
 
 const tooltipText1 = `Это уровень прогресса здания. Чем он выше, тем больший доход можно собирать ежедневно. Выполняй задания и развивай город!`;
 const tooltipText2 = `Это ежедневно получаемый со здания доход`;
+
+export enum ActiveTooltip {
+  OFF = 'off',
+  ONE = 'one',
+  TWO = 'two',
+}
+
 export const TowerInfoIndicators: React.FC<ITowerInfoIndicators> = ({
   hideTowerInfo,
   level,
@@ -152,6 +159,8 @@ export const TowerInfoIndicators: React.FC<ITowerInfoIndicators> = ({
   const { playButtonLink } = BuildingsService.getConfigForTower(towerTitle);
   const { needUpgrade } = useStore(TowersProgressStore)[towerTitle];
 
+  const [activeTooltip, setActiveTooltip] = useState(ActiveTooltip.OFF);
+
   const handlePlayButtonClick = () =>
     playButtonLink && windowOpen(playButtonLink);
 
@@ -162,7 +171,13 @@ export const TowerInfoIndicators: React.FC<ITowerInfoIndicators> = ({
           <SpanElem>
             <SpanElem className={EVOLUTION}>{level}</SpanElem> Уровень здания
           </SpanElem>
-          <Tooltip text={tooltipText1} style={styledConfig.tooltip1} />
+          <Tooltip
+            tooltipId={ActiveTooltip.ONE}
+            active={activeTooltip}
+            text={tooltipText1}
+            style={styledConfig.tooltip1}
+            callBack={setActiveTooltip}
+          />
         </RowWrapper>
         <ProgressBar
           needUpgrade={needUpgrade}
@@ -177,7 +192,13 @@ export const TowerInfoIndicators: React.FC<ITowerInfoIndicators> = ({
             style={styledConfig.money}
           />
           <BoldSpan>+ {income}</BoldSpan> <span>в день</span>
-          <Tooltip text={tooltipText2} style={styledConfig.tooltip2} />
+          <Tooltip
+            tooltipId={ActiveTooltip.TWO}
+            active={activeTooltip}
+            text={tooltipText2}
+            style={styledConfig.tooltip2}
+            callBack={setActiveTooltip}
+          />
         </IncomeWrapper>
       </HeaderLineElement>
       <HeaderLineElement {...styledConfig.secondHeaderLine}>
