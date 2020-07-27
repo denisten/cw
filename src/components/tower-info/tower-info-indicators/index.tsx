@@ -1,5 +1,5 @@
 import { ProgressBar } from '../../../UI/progress-bar';
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { MTSSans } from '../../../fonts';
 import {
@@ -12,6 +12,9 @@ import { BuildingsService } from '../../../buildings/config';
 import { windowOpen } from '../../../utils/window-open';
 import coinIncomeImg from './coin-income.svg';
 import { useStore } from 'effector-react';
+import { Tooltip } from '../../../UI/tooltip';
+import { RowWrapper } from '../../../UI/row-wrapper';
+import { StyledSpan } from '../../../UI/span';
 
 const EVOLUTION = 'evolution';
 
@@ -32,45 +35,20 @@ const HeaderLineElement = styled.div<IHeaderLineElement>`
   flex-direction: column;
   margin-left: ${props => props.marginLeft};
   padding-bottom: ${props => props.paddingBottom};
-  span {
-    font-size: 16px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.5;
-    letter-spacing: normal;
-    color: #6e7782;
-    font-family: ${MTSSans.REGULAR};
-    .${EVOLUTION} {
-      font-family: ${MTSSans.BOLD};
-      font-style: normal;
-      font-weight: 900;
-      font-size: 24px;
-      line-height: 24px;
-      color: #04b5d2;
-    }
-    + div {
-      margin-top: 4px;
-    }
-    @media (max-resolution: 0.8dppx) {
-      font-size: 1.5vh;
-    }
-  }
 `;
 
 const IncomeWrapper = styled.div`
   display: flex;
   position: relative;
+  align-items: center;
   top: 6px;
-  font-family: ${MTSSans.REGULAR};
-  font-style: normal;
-  font-weight: normal;
+
   font-size: 14px;
   line-height: 24px;
   color: #6e7782;
+
   span {
-    font-size: 16px;
-    color: #001424;
+    margin-right: 6px;
   }
 `;
 
@@ -106,7 +84,40 @@ const PlayButton = styled.div`
   }
 `;
 
+const BoldSpan = styled.span`
+  font-size: 16px;
+  line-height: 1;
+  font-family: ${MTSSans.BOLD};
+  color: #001424;
+  margin-right: 4px;
+`;
+
+const SpanElem = styled(StyledSpan)`
+  font-size: 16px;
+  line-height: 1.5;
+  color: #6e7782;
+  font-family: ${MTSSans.REGULAR};
+  margin-right: 6px;
+  display: flex;
+  align-items: center;
+  .${EVOLUTION} {
+    font-family: ${MTSSans.BOLD};
+    font-style: normal;
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 24px;
+    color: #04b5d2;
+  }
+
+  @media (max-resolution: 0.8dppx) {
+    font-size: 1.5vh;
+  }
+`;
+
 const styledConfig = {
+  rowWrapper: {
+    alignItems: 'center',
+  },
   firstHeaderLine: {
     paddingBottom: '4px',
   },
@@ -116,7 +127,23 @@ const styledConfig = {
   money: {
     marginRight: '6px',
   },
+  tooltip1: {
+    top: '-140px',
+  },
+
+  tooltip2: {
+    top: '-84px',
+  },
 };
+
+const tooltipText1 = `Это уровень прогресса здания. Чем он выше, тем больший доход можно собирать ежедневно. Выполняй задания и развивай город!`;
+const tooltipText2 = `Это ежедневно получаемый со здания доход`;
+
+export enum ActiveTooltip {
+  OFF = 'off',
+  ONE = 'one',
+  TWO = 'two',
+}
 
 export const TowerInfoIndicators: React.FC<ITowerInfoIndicators> = ({
   hideTowerInfo,
@@ -129,15 +156,26 @@ export const TowerInfoIndicators: React.FC<ITowerInfoIndicators> = ({
   const { playButtonLink } = BuildingsService.getConfigForTower(towerTitle);
   const { needUpgrade } = useStore(TowersProgressStore)[towerTitle];
 
+  const [activeTooltip, setActiveTooltip] = useState(ActiveTooltip.OFF);
+
   const handlePlayButtonClick = () =>
     playButtonLink && windowOpen(playButtonLink);
 
   return (
     <HeaderLine sizeContent={hideTowerInfo}>
       <HeaderLineElement {...styledConfig.firstHeaderLine}>
-        <span>
-          <span className={EVOLUTION}>{level}</span> Уровень эволюции
-        </span>
+        <RowWrapper {...styledConfig.rowWrapper}>
+          <SpanElem>
+            <SpanElem className={EVOLUTION}>{level}</SpanElem> Уровень здания
+          </SpanElem>
+          <Tooltip
+            tooltipId={ActiveTooltip.ONE}
+            active={activeTooltip}
+            text={tooltipText1}
+            style={styledConfig.tooltip1}
+            callBack={setActiveTooltip}
+          />
+        </RowWrapper>
         <ProgressBar
           needUpgrade={needUpgrade}
           progress={progress}
@@ -150,9 +188,14 @@ export const TowerInfoIndicators: React.FC<ITowerInfoIndicators> = ({
             alt="coin-income"
             style={styledConfig.money}
           />
-          <div>
-            +<span>{income}</span> в день
-          </div>
+          <BoldSpan>+ {income}</BoldSpan> <span>в день</span>
+          <Tooltip
+            tooltipId={ActiveTooltip.TWO}
+            active={activeTooltip}
+            text={tooltipText2}
+            style={styledConfig.tooltip2}
+            callBack={setActiveTooltip}
+          />
         </IncomeWrapper>
       </HeaderLineElement>
       <HeaderLineElement {...styledConfig.secondHeaderLine}>

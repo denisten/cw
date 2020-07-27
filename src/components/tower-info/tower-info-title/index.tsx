@@ -19,6 +19,8 @@ import arrowHover from './arrow-hover.svg';
 import { upgradeTowerAndShowAnimation } from '../../../utils/upgrade-tower-and-show-animation';
 import { windowOpen } from '../../../utils/window-open';
 import { TowerInfoModalStore } from '../../../effector/tower-info-modal-store/store';
+import subsDone from './subsDone.svg';
+import * as R from 'ramda';
 
 const Arrow = styled.div`
   width: 35px;
@@ -50,6 +52,20 @@ const Title = styled.div<ITitle>`
   }
 `;
 
+const AddedSubscription = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  line-height: 28px;
+  color: #6e7782;
+
+  img {
+    height: 14px;
+    width: 14px;
+    margin-right: 6px;
+  }
+`;
+
 const styledConfig = {
   width: '100%',
   alignItems: 'center',
@@ -61,9 +77,17 @@ const canUpgrade = (points: number, maxLevel: TowerLevel, level: TowerLevel) =>
 const pulseAnim = (tutorialCondition: TutorialConditions) =>
   tutorialCondition === TutorialConditions.UPGRADE_BUTTON_TOWER_INFO;
 
+const SubscriptionElem = () => (
+  <AddedSubscription>
+    <img src={subsDone} alt="done" />
+    Подписка оформлена
+  </AddedSubscription>
+);
+
 export const TowerInfoTitle: React.FC<ITowerInfoTitle> = ({
   tutorialCondition,
   towerTitle,
+  haveSubscription = true,
 }) => {
   const { hideTowerInfo } = useStore(TowerInfoModalStore);
   const {
@@ -81,30 +105,40 @@ export const TowerInfoTitle: React.FC<ITowerInfoTitle> = ({
     }
   };
 
+  const subscription = R.ifElse(
+    () => haveSubscription,
+    () => <SubscriptionElem />,
+    () => null
+  )('');
+
   const handleTitleClick = () => link && windowOpen(link);
   return (
-    <RowWrapper {...styledConfig}>
-      <Title sizeContent={hideTowerInfo} onClick={handleTitleClick}>
-        {title}
-        <Arrow />
-      </Title>
-      <TowerInfoUpgradeButton
-        handleClick={handleClick}
-        pulseAnim={pulseAnim(tutorialCondition)}
-        canUpgrade={canUpgrade(points, maxLevel, level)}
-        hide={hideTowerInfo}
-      />
-      <TowerInfoUpgradeButton
-        handleClick={() => upgradeTowerAndShowAnimation(towerTitle)}
-        canUpgrade={level < maxLevel}
-      />
-    </RowWrapper>
+    <>
+      <RowWrapper {...styledConfig}>
+        <Title sizeContent={hideTowerInfo} onClick={handleTitleClick}>
+          {title}
+          <Arrow />
+        </Title>
+        <TowerInfoUpgradeButton
+          handleClick={handleClick}
+          pulseAnim={pulseAnim(tutorialCondition)}
+          canUpgrade={canUpgrade(points, maxLevel, level)}
+          hide={hideTowerInfo}
+        />
+        <TowerInfoUpgradeButton
+          handleClick={() => upgradeTowerAndShowAnimation(towerTitle)}
+          canUpgrade={level < maxLevel}
+        />
+      </RowWrapper>
+      {subscription}
+    </>
   );
 };
 
 interface ITowerInfoTitle {
   towerTitle: TowersTypes;
   tutorialCondition: TutorialConditions;
+  haveSubscription?: boolean;
 }
 
 interface ITitle {
