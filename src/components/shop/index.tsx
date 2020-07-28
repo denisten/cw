@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ZIndexes } from '../root-component/z-indexes-enum';
 import { Overlay } from '../../UI/overlay';
 import styled from 'styled-components';
 import { ShopContent } from './shop-content';
+
+import { fetchShopCatalog } from '../../effector/coupons/events';
 
 const StyledConfig = {
   overlay: {
@@ -19,6 +21,10 @@ const Wrapper = styled.div`
 `;
 
 const Shop: React.FC = () => {
+  useEffect(() => {
+    fetchShopCatalog('');
+  }, []);
+
   return (
     <Overlay displayFlag={true} {...StyledConfig.overlay}>
       <Wrapper>

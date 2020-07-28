@@ -41,8 +41,9 @@ const Title = styled(StyledSpan)`
   font-family: ${MTSSans.BOLD};
 `;
 
-export const ShopContent = () => {
+export const ShopContent: React.FC = () => {
   const { money } = useStore(UserDataStore);
+
   return (
     <Wrapper>
       <Header>
