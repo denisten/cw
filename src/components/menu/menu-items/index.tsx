@@ -23,19 +23,20 @@ const MenuWrapper = styled.div`
 
 export const noAuthAvailableMenuItems = [
   MenuItems.PROFILE,
-  MenuItems.OTHERS,
   MenuItems.TASKS,
+  MenuItems.HELP,
+  MenuItems.INSTRUCTION,
   MenuItems.DEV,
+  MenuItems.OTHERS,
 ];
 
 const allMenuItems = [
   MenuItems.PROFILE,
-  MenuItems.OTHERS,
   MenuItems.TASKS,
-  MenuItems.FEEDBACK,
-  MenuItems.OFFER,
-  MenuItems.QA,
+  MenuItems.HELP,
+  MenuItems.INSTRUCTION,
   MenuItems.DEV,
+  MenuItems.OTHERS,
 ];
 
 export const MenuItemsComponent: React.FC<IMenuItemsComponent> = ({

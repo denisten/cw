@@ -117,7 +117,7 @@ const styledConfig = {
     width: '100%',
   },
   rowWrapper: {
-    padding: '36px 0 22px 0',
+    padding: '53px 0 26px 0',
     left: '12px',
   },
   penImg: {
@@ -148,15 +148,6 @@ const styledConfig = {
     height: 305,
     padding: '76px 79px 0 79px',
   },
-  popUpEditAssistantNameStyles: {
-    width: 615,
-    height: 305,
-    padding: '60px 30px 0 262px',
-  },
-  assistantStyle: {
-    top: '0px',
-    left: '380px',
-  },
 };
 
 let nameInputHint = '';
@@ -175,7 +166,6 @@ const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
     name,
     birthday,
     userSessionSocket,
-    assistantName,
     avatar,
   } = useStore(UserDataStore);
   const [localName, setLocalName] = useState(name);
@@ -219,14 +209,6 @@ const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
       title: 'Введите название города',
       initValue: worldName,
       maxInputValueLength: maxCityNameLength,
-    },
-    [TypesOfPopUps.EDIT_ASSISTANT_NAME]: {
-      callback: () => setOpenPopUpState(TypesOfPopUps.DISABLED),
-      popUpStyles: styledConfig.popUpEditAssistantNameStyles,
-      title: 'Назовите вашего робота',
-      initValue: assistantName,
-      maxInputValueLength: 14,
-      popUpType: TypesOfPopUps.EDIT_ASSISTANT_NAME,
     },
   };
 

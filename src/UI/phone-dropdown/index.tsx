@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { MTSSans } from '../../fonts';
 import arrowImg from './arrow.svg';
+import { Options } from './options';
 
 const PhoneDropdownWrapper = styled.div`
   display: block;
@@ -23,17 +24,6 @@ const PhoneNumberWrapper = styled.div`
   cursor: pointer;
 `;
 
-const Options = styled.div<IOptions>`
-  display: flex;
-  flex-direction: column;
-  opacity: ${props => (props.showOptions ? 1 : 0)};
-  position: absolute;
-  width: 244px;
-  height: 100px;
-  background: yellow;
-  border-radius: 12px;
-`;
-
 const PhoneDropdown: React.FC<IPhoneDropdown> = props => {
   const [showOptions, setShowOptions] = useState(false);
   const { phone } = props;
@@ -51,8 +41,4 @@ export default PhoneDropdown;
 
 interface IPhoneDropdown {
   phone: string;
-}
-
-interface IOptions {
-  showOptions: boolean;
 }

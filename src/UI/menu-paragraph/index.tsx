@@ -7,12 +7,9 @@ import { MTSSans } from '../../fonts';
 export enum MenuItems {
   PROFILE = 'profile',
   TASKS = 'tasks',
-  OTHERS = 'others',
-  INSTRUCTION = 'instruction',
   HELP = 'help',
-  FEEDBACK = 'feedback',
-  OFFER = 'offer',
-  QA = 'qa',
+  INSTRUCTION = 'instruction',
+  OTHERS = 'others',
   DEV = 'dev',
 }
 
@@ -23,13 +20,11 @@ const TranslatedMenuItems = {
   [MenuItems.INSTRUCTION]: 'Инструкция',
   [MenuItems.OTHERS]: 'Прочее',
   [MenuItems.DEV]: 'Инструменты разработки',
-  [MenuItems.FEEDBACK]: 'Обратная связь',
-  [MenuItems.OFFER]: 'Оферта',
-  [MenuItems.QA]: 'Вопросы и ответы',
 };
 
 const notSelectedItemFontWeight = 500;
 const notAvailableOpacity = 0.5;
+const otherMenuParagraphClassName = 'otherParagraph';
 
 const MenuParagraphWrapper = styled.div<IMenuParagraphWrapper>`
   height: 56px;
@@ -53,6 +48,11 @@ const MenuParagraphWrapper = styled.div<IMenuParagraphWrapper>`
   padding-left: 48px;
   box-sizing: border-box;
   pointer-events: auto;
+
+  &.${otherMenuParagraphClassName} {
+    position: absolute;
+    bottom: 40px;
+  }
 `;
 const Notify = styled.div`
   margin-left: 13px;
@@ -86,6 +86,9 @@ export const MenuNavigationElement: React.FC<IMenuParagraph> = ({
 
   return (
     <MenuParagraphWrapper
+      className={
+        menuElement === MenuItems.INSTRUCTION ? otherMenuParagraphClassName : ''
+      }
       menuElement={menuElement}
       isItemSelected={isItemSelected}
       isAvailable={isAvailable}

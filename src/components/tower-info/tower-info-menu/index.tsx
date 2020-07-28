@@ -98,7 +98,7 @@ export const TowerInfoMenu: React.FC<ITowerInfoMenu> = ({
           onMouseOver={handleMouseOver}
           ref={refsCollection[0]}
         >
-          Описание
+          Информация
         </TowerInfoMenuElement>
         <TowerInfoMenuElement
           selected={selectTowerInfoContent === TowerInfoContentValues.CHAT}
