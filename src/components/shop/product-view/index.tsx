@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useStore } from 'effector-react';
 import { UserMarketStore } from '../../../effector/coupons/store';
 import { StyledSpan } from '../../../UI/span';
 import { MTSSans } from '../../../fonts';
 import { MoneyCounter } from '../shop-content/money-counter';
-import { Icon } from '../../../UI/icons';
+import { Icon, TypeOfIcons } from '../../../UI/icons';
+import plus from './plus.svg';
+import minus from './minus.svg';
+import warning from './warning.svg';
+import { RowWrapper } from '../../../UI/row-wrapper';
+import { UserDataStore } from '../../../effector/user-data/store';
+import { parseSum } from '../../../utils/parse-sum';
 
 const Wrapper = styled.div`
   height: 100%;
@@ -39,6 +45,14 @@ const TitleText = styled(StyledSpan)`
   margin-bottom: 30px;
 `;
 
+const NumberText = styled(StyledSpan)`
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: -0.6px;
+  color: #212527;
+  opacity: 0.6;
+`;
+
 const DescriptionText = styled(StyledSpan)`
   width: 225px;
   font-size: 16px;
@@ -56,15 +70,76 @@ const styledConfig = {
   },
 };
 
+const ChangeNumbersOfProduct = styled.div`
+  display: flex;
+  align-items: center;
+
+  span {
+    font-family: ${MTSSans.BOLD};
+    font-size: 24px;
+    line-height: 32px;
+    letter-spacing: -0.6px;
+    color: #212527;
+    margin: 0 10px;
+  }
+
+  img {
+    width: 13px;
+    height: 13px;
+    cursor: pointer;
+  }
+`;
+
+const WarningBlock = styled.div`
+  display: flex;
+  align-items: center;
+  img {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+  }
+
+  span {
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: -0.6px;
+    color: #212527;
+    opacity: 0.6;
+  }
+`;
+
+const TotalPrice = styled.div`
+  display: flex;
+  align-items: center;
+  img {
+    width: 25px;
+    height: 25px;
+    margin-right: 8px;
+  }
+`;
+
 export const ProductView = () => {
   const { selectedStoreItem } = useStore(UserMarketStore);
+  const { money } = useStore(UserDataStore);
+  const [numbersOfProduct, setNumbersOfProduct] = useState(1);
+
+  const haveBalanceForBuy =
+    selectedStoreItem && numbersOfProduct * selectedStoreItem?.price < money;
+
+  const totalSumm =
+    (selectedStoreItem && numbersOfProduct * selectedStoreItem?.price) || 0;
+
+  useEffect(() => {
+    if (numbersOfProduct < 0) {
+      setNumbersOfProduct(0);
+    }
+  }, [numbersOfProduct]);
 
   return (
     <Wrapper>
       {selectedStoreItem ? (
         <ProductBuyWrapper>
           <TitleText>{selectedStoreItem.name.replace('Купон', '')}</TitleText>
-
           <MoneyCounter
             sum={String(selectedStoreItem.price)}
             additionText=" /шт."
@@ -72,7 +147,32 @@ export const ProductView = () => {
           <DescriptionText>
             {selectedStoreItem.description || 'Описания нет'}
           </DescriptionText>
-          <Icon style={styledConfig.icon} type={selectedStoreItem.slug} />
+          <RowWrapper>
+            <Icon style={styledConfig.icon} type={selectedStoreItem.slug} />
+            <ChangeNumbersOfProduct>
+              <img
+                alt="minus"
+                src={minus}
+                onClick={() => setNumbersOfProduct(numbersOfProduct - 1)}
+              />
+              <span>{numbersOfProduct}</span>
+              <img
+                alt="minus"
+                src={plus}
+                onClick={() => setNumbersOfProduct(numbersOfProduct + 1)}
+              />
+            </ChangeNumbersOfProduct>
+          </RowWrapper>
+          {!haveBalanceForBuy && (
+            <WarningBlock>
+              <img alt="warning" src={warning} />
+              <NumberText>Не достаточно яйцекойнов.</NumberText>
+            </WarningBlock>
+          )}
+          <TotalPrice>
+            <Icon type={TypeOfIcons.COIN} />
+            <NumberText>{parseSum(String(totalSumm))}</NumberText>
+          </TotalPrice>
         </ProductBuyWrapper>
       ) : (
         <EmptyProductText>Выберите товар</EmptyProductText>
