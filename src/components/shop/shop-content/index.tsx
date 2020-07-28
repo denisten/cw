@@ -5,6 +5,7 @@ import { MTSSans } from '../../../fonts';
 import { useStore } from 'effector-react';
 import { UserDataStore } from '../../../effector/user-data/store';
 import { CoinsWallet } from '../../../UI/wallet';
+import { ClientWorldItems } from './cw-items';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -28,7 +29,7 @@ const Content = styled.div`
   overflow: auto;
   height: 449px;
   box-sizing: border-box;
-  padding: 20px 40px;
+  padding: 32px 42px;
   display: grid;
 `;
 
@@ -48,7 +49,9 @@ export const ShopContent = () => {
         <Title>Магазин</Title>
         <CoinsWallet hidePlus={true} sum={String(money)} />
       </Header>
-      <Content></Content>
+      <Content>
+        <ClientWorldItems />
+      </Content>
     </Wrapper>
   );
 };
