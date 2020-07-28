@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { ShopContent } from './shop-content';
 
 import { fetchShopCatalog } from '../../effector/coupons/events';
+import { ProductView } from './product-view';
 
 const StyledConfig = {
   overlay: {
@@ -29,6 +30,7 @@ const Shop: React.FC = () => {
     <Overlay displayFlag={true} {...StyledConfig.overlay}>
       <Wrapper>
         <ShopContent />
+        <ProductView />
       </Wrapper>
     </Overlay>
   );

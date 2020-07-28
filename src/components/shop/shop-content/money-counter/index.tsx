@@ -13,15 +13,27 @@ const Wrapper = styled.div`
     margin-right: 6px;
     font-size: 16px;
     line-height: 24px;
-
     color: #001424;
   }
+
+  span {
+    margin-right: 6px;
+  }
 `;
-export const MoneyCounter: React.FC<{ sum: string }> = ({ sum }) => {
+export const MoneyCounter: React.FC<IMoneyCounter> = ({
+  sum,
+  additionText,
+}) => {
   return (
     <Wrapper>
       <img alt="coin" src={coin} />
       <span>{parseSum(sum)}</span>
+      {additionText && additionText}
     </Wrapper>
   );
 };
+
+interface IMoneyCounter {
+  sum: string;
+  additionText?: string;
+}
