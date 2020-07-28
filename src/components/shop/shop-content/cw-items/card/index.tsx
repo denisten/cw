@@ -1,16 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ICatalogItems } from '../../../../../effector/coupons/store';
+import {
+  ICatalogItems,
+  UserMarketStore,
+} from '../../../../../effector/coupons/store';
 import { Icon } from '../../../../../UI/icons';
 import { MTSSans } from '../../../../../fonts';
 import { StyledSpan } from '../../../../../UI/span';
 import { MoneyCounter } from '../../money-counter';
+import { selectStoreItem } from '../../../../../effector/coupons/events';
+import { useStore } from 'effector-react';
 
-const CardWrapper = styled.div`
+const CardWrapper = styled.div<{ active: boolean }>`
   width: 200px;
   height: 160px;
   background: #ffffff;
-  border: 1px solid #dedede;
+  border: ${props =>
+    props.active ? '3px solid #0CB4D0' : '1px solid rgba(0, 0, 0, 0.1)'};
   box-sizing: border-box;
   border-radius: 10px;
   display: flex;
@@ -19,6 +25,7 @@ const CardWrapper = styled.div`
   align-items: center;
   margin-right: 20px;
   cursor: pointer;
+  transition: border 0.1s;
 `;
 const TitleElem = styled(StyledSpan)`
   font-family: ${MTSSans.BOLD};
@@ -39,8 +46,13 @@ const styledConfig = {
 export const Card: React.FC<{ catalogItem: ICatalogItems }> = ({
   catalogItem,
 }) => {
+  const { selectedStoreItem } = useStore(UserMarketStore);
+  const checkActiveElem = selectedStoreItem?.slug === catalogItem.slug;
   return (
-    <CardWrapper>
+    <CardWrapper
+      onClick={() => selectStoreItem(catalogItem)}
+      active={checkActiveElem}
+    >
       <Icon style={styledConfig.icon} type={catalogItem.slug} />
       <TitleElem>{catalogItem.name.replace(/Купон/gi, '')}</TitleElem>
       <MoneyCounter sum={String(catalogItem.price)} />

@@ -1,5 +1,5 @@
 import { StoreDomain } from './domain';
-import { CouponTypes } from './store';
+import { CouponTypes, ICatalogItems } from './store';
 import { getUserPurchases } from '../../api/get-user-purchases';
 import { getShopCatalog } from '../../api/shop-api/get-shop-catalog';
 
@@ -16,6 +16,7 @@ export const fetchShopCatalog = StoreDomain.effect('fetch catalog', {
 });
 
 export const editCouponCount = StoreDomain.event<IEditCouponCount>('');
+export const selectStoreItem = StoreDomain.event<ICatalogItems>('');
 
 interface IEditCouponCount {
   couponType: CouponTypes;

@@ -3,6 +3,7 @@ import {
   fetchUserPurchases,
   editCouponCount,
   fetchShopCatalog,
+  selectStoreItem,
 } from './events';
 
 export enum CouponTypes {
@@ -17,6 +18,7 @@ export enum PurchasesType {
 
 const initState = {
   catalog: [],
+  selectedStoreItem: null,
   userCoupons: {
     [CouponTypes.COUPON_REPLACE]: { count: 0 },
     [CouponTypes.COUPON_SKIP]: { count: 0 },
@@ -25,6 +27,7 @@ const initState = {
 
 interface IUserStore {
   catalog: IShopCatalog[];
+  selectedStoreItem: ICatalogItems | null;
   userCoupons: {
     [key in CouponTypes]: { count: number };
   };
@@ -47,6 +50,10 @@ export interface ICatalogItems {
 }
 
 export const UserMarketStore = StoreDomain.store<IUserStore>(initState)
+  .on(selectStoreItem, (state, payload) => ({
+    ...state,
+    selectedStoreItem: payload,
+  }))
   .on(fetchShopCatalog.doneData, (state, payload) => ({
     ...state,
     catalog: payload,
