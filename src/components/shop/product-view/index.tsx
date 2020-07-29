@@ -8,7 +8,6 @@ import {
 import { StyledSpan } from '../../../UI/span';
 import { Icon } from '../../../UI/icons';
 
-import warning from './warning.svg';
 import { RowWrapper } from '../../../UI/row-wrapper';
 import { UserDataStore } from '../../../effector/user-data/store';
 import { ifElse } from 'ramda';
@@ -16,6 +15,7 @@ import { ChangeNumberOfProduct } from './change-number-of-product';
 import { ProductDescription } from './product-description';
 import { ProductTotalPrice } from './product-total-price';
 import { ButtonClassNames, Button } from '../../../UI/button';
+import { ProductWarning } from './product-warning';
 
 const Wrapper = styled.div`
   height: 100%;
@@ -64,24 +64,6 @@ const styledConfig = {
   },
 };
 
-const WarningBlock = styled.div`
-  display: flex;
-  align-items: center;
-  img {
-    width: 18px;
-    height: 18px;
-    margin-right: 8px;
-  }
-
-  span {
-    font-size: 16px;
-    line-height: 20px;
-    letter-spacing: -0.6px;
-    color: #212527;
-    opacity: 0.6;
-  }
-`;
-
 export const ProductView = () => {
   const { selectedStoreItem } = useStore(UserMarketStore);
   const { money } = useStore(UserDataStore);
@@ -119,8 +101,8 @@ export const ProductView = () => {
   };
 
   useEffect(() => {
-    if (numberOfProduct < 0) {
-      setNumberOfProduct(0);
+    if (numberOfProduct === 0) {
+      setNumberOfProduct(1);
     }
   }, [numberOfProduct]);
 
@@ -150,12 +132,7 @@ export const ProductView = () => {
               content="Купить"
             />
           </RowWrapper>
-          {!checkLimitOfBalance() && (
-            <WarningBlock>
-              <img alt="warning" src={warning} />
-              <NumberText>Не достаточно яйцекойнов.</NumberText>
-            </WarningBlock>
-          )}
+          {!checkLimitOfBalance() && <ProductWarning />}
         </ProductBuyWrapper>
       ) : (
         <EmptyProductText>Выберите товар</EmptyProductText>

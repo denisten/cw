@@ -7,6 +7,8 @@ import { UserDataStore } from '../../../effector/user-data/store';
 import { CoinsWallet } from '../../../UI/wallet';
 import { ClientWorldItems } from './cw-items';
 import { MtsItems } from './mts-items';
+import { UserMarketStore } from '../../../effector/coupons/store';
+import { toggleShowUserPromocodes } from '../../../effector/coupons/events';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -42,13 +44,25 @@ const Title = styled(StyledSpan)`
   font-family: ${MTSSans.BOLD};
 `;
 
+const ShowUserPromocodes = styled(StyledSpan)`
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: -0.6px;
+  color: #0cb4d0;
+  cursor: pointer;
+`;
+
 export const ShopContent: React.FC = () => {
   const { money } = useStore(UserDataStore);
+  const { showUserPromocodes } = useStore(UserMarketStore);
 
   return (
     <Wrapper>
       <Header>
         <Title>Магазин</Title>
+        <ShowUserPromocodes onClick={() => toggleShowUserPromocodes()}>
+          {showUserPromocodes ? 'Мои промокоды' : 'Все промокоды'}
+        </ShowUserPromocodes>
         <CoinsWallet hidePlus={true} sum={String(money)} />
       </Header>
       <Content>
