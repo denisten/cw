@@ -13,6 +13,7 @@ const MTSCardBody = styled.div<{ active?: boolean }>`
   display: flex;
   align-items: center;
   cursor: pointer;
+  margin-bottom: 12px;
 `;
 
 export const MTSItemCard = () => {

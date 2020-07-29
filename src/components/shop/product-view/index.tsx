@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useStore } from 'effector-react';
-import {
-  UserMarketStore,
-  StoreItemTypes,
-} from '../../../effector/coupons/store';
+import { UserMarketStore } from '../../../effector/coupons/store';
 import { StyledSpan } from '../../../UI/span';
 import { Icon } from '../../../UI/icons';
 
@@ -16,6 +13,13 @@ import { ProductDescription } from './product-description';
 import { ProductTotalPrice } from './product-total-price';
 import { ButtonClassNames, Button } from '../../../UI/button';
 import { ProductWarning } from './product-warning';
+import {
+  checkCouponType,
+  checkBalansForCoupon,
+  checkBalanceForOtherType,
+  calculateTotalPriceForCoupon,
+  calculateTotalPriceForOtherPurch,
+} from '../../../utils/support-shop-functions';
 
 const Wrapper = styled.div`
   height: 100%;
@@ -70,36 +74,19 @@ export const ProductView = () => {
   const [numberOfProduct, setNumberOfProduct] = useState(1);
   const [waitingForPurchase, setWaitingForPurchase] = useState(false);
 
-  const checkCouponType = () =>
-    selectedStoreItem?.type.slug === StoreItemTypes.COUPON;
-
-  const checkLimitOfBalance = () => {
-    const checkBalansForCoupon = () =>
-      selectedStoreItem &&
-      numberOfProduct * selectedStoreItem?.price <= money &&
-      money !== 0 &&
-      numberOfProduct !== 0;
-    const checkBalanceForOtherType = () =>
-      selectedStoreItem && selectedStoreItem?.price < money && money !== 0;
-    return ifElse(
-      checkCouponType,
-      checkBalansForCoupon,
-      checkBalanceForOtherType
+  const checkLimitOfBalance = () =>
+    ifElse(
+      () => checkCouponType(selectedStoreItem),
+      () => checkBalansForCoupon(selectedStoreItem, numberOfProduct, money),
+      () => checkBalanceForOtherType(selectedStoreItem, money)
     )(numberOfProduct);
-  };
 
-  const calculateTotalPrice = () => {
-    const calculateTotalPriceForCoupon = () =>
-      (selectedStoreItem && numberOfProduct * selectedStoreItem?.price) || 0;
-    const calculateTotalPriceForOtherPurch = () =>
-      (selectedStoreItem && selectedStoreItem?.price) || 0;
-
-    return ifElse(
-      checkCouponType,
-      calculateTotalPriceForCoupon,
-      calculateTotalPriceForOtherPurch
+  const calculateTotalPrice = () =>
+    ifElse(
+      () => checkCouponType(selectedStoreItem),
+      () => calculateTotalPriceForCoupon(selectedStoreItem, numberOfProduct),
+      () => calculateTotalPriceForOtherPurch(selectedStoreItem)
     )('');
-  };
 
   const buyClickHandler = () => {
     setWaitingForPurchase(true);
@@ -119,7 +106,7 @@ export const ProductView = () => {
           <ProductDescription selectedStoreItem={selectedStoreItem} />
           <RowWrapper>
             <Icon style={styledConfig.icon} type={selectedStoreItem.slug} />
-            {checkCouponType() && (
+            {checkCouponType(selectedStoreItem) && (
               <ChangeNumberOfProduct
                 numberOfProduct={numberOfProduct}
                 callBack={setNumberOfProduct}

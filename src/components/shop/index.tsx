@@ -6,10 +6,18 @@ import { ShopContent } from './shop-content';
 
 import { fetchShopCatalog } from '../../effector/coupons/events';
 import { ProductView } from './product-view';
+import { ExitButton } from '../../UI/exit-button';
 
-const StyledConfig = {
+const styledConfig = {
   overlay: {
     zIndex: ZIndexes.MODAL,
+  },
+  exitButton: {
+    top: '-1%',
+    right: '-4%',
+    hoverFlag: true,
+    zIndex: ZIndexes.UI_BUTTON,
+    displayFlag: true,
   },
 };
 
@@ -19,6 +27,7 @@ const Wrapper = styled.div`
   display: grid;
   grid-template-columns: 632px 1fr;
   background-color: white;
+  position: relative;
 `;
 
 const Shop: React.FC = () => {
@@ -27,8 +36,9 @@ const Shop: React.FC = () => {
   }, []);
 
   return (
-    <Overlay displayFlag={true} {...StyledConfig.overlay}>
+    <Overlay displayFlag={true} {...styledConfig.overlay}>
       <Wrapper>
+        <ExitButton {...styledConfig.exitButton} />
         <ShopContent />
         <ProductView />
       </Wrapper>
