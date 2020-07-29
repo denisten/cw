@@ -1,19 +1,22 @@
 import { RefObject, useEffect } from 'react';
 
 export const useOutsideClickDetector = (
-  ref: RefObject<HTMLDivElement>,
+  refCollection: RefObject<HTMLDivElement>[],
   showOptions: boolean,
   callback: Function
 ) => {
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (ref.current && ref.current !== event.target && showOptions) {
-        callback();
-      }
+      refCollection.map(el => {
+        if (el.current && el.current !== event.target && showOptions) {
+          callback();
+          return;
+        }
+      });
     };
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [ref, showOptions]);
+  }, [refCollection, showOptions]);
 };

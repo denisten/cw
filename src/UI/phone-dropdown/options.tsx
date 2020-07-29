@@ -53,19 +53,24 @@ const OptionElement = styled.div`
 
 export const Options: React.FC<IOptions> = ({ showOptions, callback }) => {
   const { userSessionSocket } = useStore(UserDataStore);
-  const wrapperRef = useRef(null);
+  const option1 = useRef(null);
+  const option2 = useRef(null);
+
   const handleExitButtonClick = async () => {
     await logout('');
     userSessionSocket && userSessionSocket.disconnect();
   };
+
   const handleSettingClick = () => {
     windowOpen('http://profile.mts.ru');
     callback();
   };
-  useOutsideClickDetector(wrapperRef, showOptions, callback);
+
+  useOutsideClickDetector([option1, option2], showOptions, callback);
+
   return (
-    <Wrapper showOptions={showOptions} ref={wrapperRef}>
-      <OptionElement onClick={handleSettingClick}>
+    <Wrapper showOptions={showOptions}>
+      <OptionElement onClick={handleSettingClick} ref={option1}>
         <SettingIco />
         <div>
           Настроить <span className="black-font"> МТС </span>
