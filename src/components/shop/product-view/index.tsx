@@ -68,6 +68,7 @@ export const ProductView = () => {
   const { selectedStoreItem } = useStore(UserMarketStore);
   const { money } = useStore(UserDataStore);
   const [numberOfProduct, setNumberOfProduct] = useState(1);
+  const [waitingForPurchase, setWaitingForPurchase] = useState(false);
 
   const checkCouponType = () =>
     selectedStoreItem?.type.slug === StoreItemTypes.COUPON;
@@ -100,6 +101,11 @@ export const ProductView = () => {
     )('');
   };
 
+  const buyClickHandler = () => {
+    setWaitingForPurchase(true);
+    setNumberOfProduct(1);
+  };
+
   useEffect(() => {
     if (numberOfProduct === 0) {
       setNumberOfProduct(1);
@@ -125,11 +131,12 @@ export const ProductView = () => {
             <ProductTotalPrice callBack={calculateTotalPrice} />
             <Button
               className={
-                checkLimitOfBalance()
+                checkLimitOfBalance() && !waitingForPurchase
                   ? ButtonClassNames.COIN_BUTTON
                   : ButtonClassNames.COIN_BUTTON_DISABLED
               }
               content="Купить"
+              callback={buyClickHandler}
             />
           </RowWrapper>
           {!checkLimitOfBalance() && <ProductWarning />}

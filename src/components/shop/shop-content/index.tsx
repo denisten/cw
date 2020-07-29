@@ -61,7 +61,7 @@ export const ShopContent: React.FC = () => {
       <Header>
         <Title>Магазин</Title>
         <ShowUserPromocodes onClick={() => toggleShowUserPromocodes()}>
-          {showUserPromocodes ? 'Мои промокоды' : 'Все промокоды'}
+          {showUserPromocodes ? 'Все промокоды' : 'Мои промокоды'}
         </ShowUserPromocodes>
         <CoinsWallet hidePlus={true} sum={String(money)} />
       </Header>
