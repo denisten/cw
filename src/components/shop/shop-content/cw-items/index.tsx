@@ -22,7 +22,7 @@ const Content = styled.div`
 
 export const ClientWorldItems = () => {
   const clientWorldCatalog = useStore(UserMarketStore)
-    .catalog.filter(item => item.slug === PurchasesType.COUPON)
+    .catalog.filter(item => item.slug === PurchasesType.COUPONS)
     .map(item => item.items)
     .flat();
 

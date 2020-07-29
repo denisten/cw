@@ -12,8 +12,13 @@ export enum CouponTypes {
 }
 
 export enum PurchasesType {
-  COUPON = 'coupons',
+  COUPONS = 'coupons',
   MTS_PURCH = 'mtsPurch',
+  PROMO = 'promo',
+}
+
+export enum StoreItemTypes {
+  COUPON = 'coupon',
 }
 
 const initState = {
@@ -41,7 +46,7 @@ export interface IShopCatalog {
 
 export interface ICatalogItems {
   type: {
-    slug: PurchasesType;
+    slug: StoreItemTypes;
   };
   price: number;
   slug: CouponTypes;
@@ -62,7 +67,7 @@ export const UserMarketStore = StoreDomain.store<IUserStore>(initState)
     const stateClone = { ...state };
     if (payload.items.length > 0) {
       payload.items.forEach(({ storeItem, count }) => {
-        if (storeItem.type.slug === PurchasesType.COUPON) {
+        if (storeItem.type.slug === PurchasesType.COUPONS) {
           stateClone.userCoupons[storeItem.slug] = { count };
         }
       });

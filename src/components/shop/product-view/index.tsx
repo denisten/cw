@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useStore } from 'effector-react';
-import { UserMarketStore } from '../../../effector/coupons/store';
+import {
+  UserMarketStore,
+  StoreItemTypes,
+} from '../../../effector/coupons/store';
 import { StyledSpan } from '../../../UI/span';
 import { MTSSans } from '../../../fonts';
 import { MoneyCounter } from '../shop-content/money-counter';
@@ -12,6 +15,7 @@ import warning from './warning.svg';
 import { RowWrapper } from '../../../UI/row-wrapper';
 import { UserDataStore } from '../../../effector/user-data/store';
 import { parseSum } from '../../../utils/parse-sum';
+import { ifElse, has } from 'ramda';
 
 const Wrapper = styled.div`
   height: 100%;
@@ -123,11 +127,35 @@ export const ProductView = () => {
   const { money } = useStore(UserDataStore);
   const [numbersOfProduct, setNumbersOfProduct] = useState(1);
 
-  const haveBalanceForBuy =
-    selectedStoreItem && numbersOfProduct * selectedStoreItem?.price < money;
+  const checkStoreItemType = () =>
+    selectedStoreItem?.type.slug === StoreItemTypes.COUPON;
 
-  const totalSumm =
-    (selectedStoreItem && numbersOfProduct * selectedStoreItem?.price) || 0;
+  const checkLimitOfBalance = () => {
+    const checkBalansForCoupon = () =>
+      (selectedStoreItem &&
+        numbersOfProduct * selectedStoreItem?.price < money) ||
+      selectedStoreItem?.price === 0;
+    const checkBalanceForOtherType = () =>
+      selectedStoreItem && selectedStoreItem?.price < money;
+    return ifElse(
+      checkStoreItemType,
+      checkBalansForCoupon,
+      checkBalanceForOtherType
+    )(numbersOfProduct);
+  };
+
+  const calculateTotalPrice = () => {
+    const calculateTotalPriceForCoupon = () =>
+      (selectedStoreItem && numbersOfProduct * selectedStoreItem?.price) || 0;
+    const calculateTotalPriceForOtherPurch = () =>
+      (selectedStoreItem && selectedStoreItem?.price) || 0;
+
+    return ifElse(
+      checkStoreItemType,
+      calculateTotalPriceForCoupon,
+      calculateTotalPriceForOtherPurch
+    )('');
+  };
 
   useEffect(() => {
     if (numbersOfProduct < 0) {
@@ -163,7 +191,7 @@ export const ProductView = () => {
               />
             </ChangeNumbersOfProduct>
           </RowWrapper>
-          {!haveBalanceForBuy && (
+          {!checkLimitOfBalance() && (
             <WarningBlock>
               <img alt="warning" src={warning} />
               <NumberText>Не достаточно яйцекойнов.</NumberText>
@@ -171,7 +199,7 @@ export const ProductView = () => {
           )}
           <TotalPrice>
             <Icon type={TypeOfIcons.COIN} />
-            <NumberText>{parseSum(String(totalSumm))}</NumberText>
+            <NumberText>{parseSum(String(calculateTotalPrice()))}</NumberText>
           </TotalPrice>
         </ProductBuyWrapper>
       ) : (
