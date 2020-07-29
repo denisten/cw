@@ -68,7 +68,7 @@ const styledConfig = {
   },
 };
 
-export const ProductView = () => {
+const ProductView = () => {
   const { selectedStoreItem } = useStore(UserMarketStore);
   const { money } = useStore(UserDataStore);
   const [numberOfProduct, setNumberOfProduct] = useState(1);
@@ -134,3 +134,5 @@ export const ProductView = () => {
     </Wrapper>
   );
 };
+
+export default ProductView;

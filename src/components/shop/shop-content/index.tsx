@@ -52,7 +52,7 @@ const ShowUserPromocodes = styled(StyledSpan)`
   cursor: pointer;
 `;
 
-export const ShopContent: React.FC = () => {
+const ShopContent: React.FC = () => {
   const { money } = useStore(UserDataStore);
   const { showUserPromocodes } = useStore(UserMarketStore);
 
@@ -72,3 +72,5 @@ export const ShopContent: React.FC = () => {
     </Wrapper>
   );
 };
+
+export default ShopContent;

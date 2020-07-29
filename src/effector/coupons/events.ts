@@ -18,6 +18,7 @@ export const fetchShopCatalog = StoreDomain.effect('fetch catalog', {
 export const editCouponCount = StoreDomain.event<IEditCouponCount>('');
 export const selectStoreItem = StoreDomain.event<ICatalogItems>('');
 export const toggleShowUserPromocodes = StoreDomain.event('');
+export const openMarket = StoreDomain.event<boolean>('');
 
 interface IEditCouponCount {
   couponType: CouponTypes;

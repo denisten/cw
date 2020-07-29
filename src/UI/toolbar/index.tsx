@@ -14,6 +14,7 @@ import { coughtError } from '../../effector/error-boundary-store/events';
 import { pulseAnimationHOF } from '../../hoc/pulse-anim';
 import { extraTowerInfoModalClosed } from '../../effector/tower-info-modal-store/events';
 import { menuOpened } from '../../effector/menu-store/events';
+import { openMarket } from '../../effector/coupons/events';
 
 const Left = styled.img`
   position: absolute;
@@ -81,6 +82,7 @@ const handleToolbarElementClick = (
         return menuOpened(MenuItems.TASKS);
       default:
       case ToolbarElements.SHOP:
+        return openMarket(true);
       case ToolbarElements.NOTIFICATIONS:
       case ToolbarElements.FEED:
         coughtError({

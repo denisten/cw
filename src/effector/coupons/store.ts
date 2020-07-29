@@ -5,6 +5,7 @@ import {
   fetchShopCatalog,
   selectStoreItem,
   toggleShowUserPromocodes,
+  openMarket,
 } from './events';
 
 export enum CouponTypes {
@@ -30,6 +31,7 @@ const initState = {
     [CouponTypes.COUPON_SKIP]: { count: 0 },
   },
   showUserPromocodes: false,
+  openedMarket: false,
 };
 
 interface IUserStore {
@@ -39,6 +41,7 @@ interface IUserStore {
     [key in CouponTypes]: { count: number };
   };
   showUserPromocodes: boolean;
+  openedMarket: boolean;
 }
 
 export interface IShopCatalog {
@@ -58,6 +61,10 @@ export interface ICatalogItems {
 }
 
 export const UserMarketStore = StoreDomain.store<IUserStore>(initState)
+  .on(openMarket, (state, payload) => ({
+    ...state,
+    openedMarket: payload,
+  }))
   .on(toggleShowUserPromocodes, state => ({
     ...state,
     showUserPromocodes: !state.showUserPromocodes,
