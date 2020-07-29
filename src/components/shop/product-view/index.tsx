@@ -92,11 +92,12 @@ export const ProductView = () => {
 
   const checkLimitOfBalance = () => {
     const checkBalansForCoupon = () =>
-      (selectedStoreItem &&
-        numberOfProduct * selectedStoreItem?.price < money) ||
-      selectedStoreItem?.price === 0;
+      selectedStoreItem &&
+      numberOfProduct * selectedStoreItem?.price <= money &&
+      money !== 0 &&
+      numberOfProduct !== 0;
     const checkBalanceForOtherType = () =>
-      selectedStoreItem && selectedStoreItem?.price < money;
+      selectedStoreItem && selectedStoreItem?.price < money && money !== 0;
     return ifElse(
       checkCouponType,
       checkBalansForCoupon,
