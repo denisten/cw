@@ -53,7 +53,7 @@ const styledConfig = {
   },
 };
 
-export const Card: React.FC<{ catalogItem: ICatalogItems }> = ({
+export const CWItemCard: React.FC<{ catalogItem: ICatalogItems }> = ({
   catalogItem,
 }) => {
   const { selectedStoreItem, userCoupons } = useStore(UserMarketStore);

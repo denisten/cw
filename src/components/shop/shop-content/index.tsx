@@ -6,7 +6,7 @@ import { useStore } from 'effector-react';
 import { UserDataStore } from '../../../effector/user-data/store';
 import { CoinsWallet } from '../../../UI/wallet';
 import { ClientWorldItems } from './cw-items';
-import { MtsItems } from './mts-items';
+import { MTSItems } from './mts-items';
 import { UserMarketStore } from '../../../effector/coupons/store';
 import { toggleShowUserPromocodes } from '../../../effector/coupons/events';
 
@@ -67,7 +67,7 @@ export const ShopContent: React.FC = () => {
       </Header>
       <Content>
         <ClientWorldItems />
-        <MtsItems />
+        <MTSItems />
       </Content>
     </Wrapper>
   );

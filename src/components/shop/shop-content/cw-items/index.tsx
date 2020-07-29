@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { ShopItemsHeader } from '../shop-items-header';
 import headerBg from './header.svg';
-import { Card, CardWrapper, TitleElem } from './card';
+import { CWItemCard, CardWrapper, TitleElem } from './cw-item-card';
 import { useStore } from 'effector-react';
 import {
   UserMarketStore,
@@ -56,7 +56,7 @@ const CatalogInAuthZone: React.FC = () => {
       <Content>
         {clientWorldCatalog &&
           clientWorldCatalog.map((catalogItem, ind) => (
-            <Card catalogItem={catalogItem} key={ind} />
+            <CWItemCard catalogItem={catalogItem} key={ind} />
           ))}
       </Content>
     </>
