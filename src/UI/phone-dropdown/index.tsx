@@ -4,11 +4,6 @@ import { MTSSans } from '../../fonts';
 import arrowImg from './arrow.svg';
 import { Options } from './options';
 
-const PhoneDropdownWrapper = styled.div`
-  display: block;
-  z-index: 100;
-`;
-
 const Arrow = styled.img.attrs({ src: arrowImg, alt: 'arrow' })`
   position: relative;
   bottom: 2px;
@@ -25,16 +20,17 @@ const PhoneNumberWrapper = styled.div`
   cursor: pointer;
 `;
 
-const PhoneDropdown: React.FC<IPhoneDropdown> = props => {
+const PhoneDropdown: React.FC<IPhoneDropdown> = ({ phone }) => {
   const [showOptions, setShowOptions] = useState(false);
-  const { phone } = props;
+  const toggleShowOptions = () => setShowOptions(!showOptions);
+
   return (
-    <PhoneDropdownWrapper>
-      <PhoneNumberWrapper onClick={() => setShowOptions(!showOptions)}>
+    <div>
+      <PhoneNumberWrapper onClick={toggleShowOptions}>
         {phone} <Arrow />
       </PhoneNumberWrapper>
-      <Options showOptions={showOptions}>asdf asdf</Options>
-    </PhoneDropdownWrapper>
+      <Options showOptions={showOptions} callback={toggleShowOptions} />
+    </div>
   );
 };
 

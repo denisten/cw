@@ -23,7 +23,6 @@ import { logout } from '../../../../effector/user-data/events';
 import { Input } from '../../../../UI/input';
 import { Button, ButtonClassNames } from '../../../../UI/button';
 import PhoneDropdown from '../../../../UI/phone-dropdown';
-import { Options } from '../../../../UI/phone-dropdown/options';
 
 const Header = styled.div`
   display: flex;
@@ -203,7 +202,7 @@ const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
 
   const handleExitButtonClick = async () => {
     await logout('');
-    if (userSessionSocket) userSessionSocket.disconnect();
+    userSessionSocket && userSessionSocket.disconnect();
   };
 
   const popUpConfig: IPopUpConfig = {
