@@ -19,7 +19,6 @@ import { updateUserData } from '../../../../utils/update-user-data';
 import { CoinsWallet } from '../../../../UI/wallet';
 import { IPopUp, PopUp, TypesOfPopUps } from '../../../../UI/pop-up';
 import { setOpenPopUpState } from '../../../../effector/app-condition/events';
-import { logout } from '../../../../effector/user-data/events';
 import { Input } from '../../../../UI/input';
 import { Button, ButtonClassNames } from '../../../../UI/button';
 import PhoneDropdown from '../../../../UI/phone-dropdown';
@@ -29,16 +28,6 @@ const Header = styled.div`
   flex-direction: row;
   justify-content: space-around;
   width: 100%;
-`;
-
-const ExitText = styled(StyledSpan)<ISpan>`
-  font-family: ${MTSSans.REGULAR};
-  font-size: 16px;
-  color: #02acc8;
-  margin-left: 8px;
-  &::after {
-    content: "${props => props.content}"
-  }
 `;
 
 const NickNameWrapper = styled(StyledSpan)`
@@ -135,10 +124,6 @@ const styledConfig = {
     justifyContent: 'center',
   },
   nameInput: { marginRight: '16px' },
-  exitWrapper: {
-    margin: '30px 0 0 0',
-    cursor: 'pointer',
-  },
   nameRowWrapper: {
     alignItems: 'center',
     margin: '0 0 24px 0',
@@ -160,14 +145,7 @@ const inputLengthErrorParams = { maxSymbol: 14, minSymbol: 3 };
 const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
   openPopUpState,
 }) => {
-  const {
-    worldName,
-    money,
-    name,
-    birthday,
-    userSessionSocket,
-    avatar,
-  } = useStore(UserDataStore);
+  const { worldName, money, name, birthday, avatar } = useStore(UserDataStore);
   const [localName, setLocalName] = useState(name);
   const [birthdayDate, setBirthdayDate] = useState<IBirthday>(birthday);
   const [nameInputHasError, setNameInputHasError] = useState(false);
@@ -200,29 +178,20 @@ const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
     }
   };
 
-  const handleExitButtonClick = async () => {
-    await logout('');
-    userSessionSocket && userSessionSocket.disconnect();
-  };
-
-  const popUpConfig: IPopUpConfig = {
-    [TypesOfPopUps.EDIT_WORLD_NAME]: {
-      callback: () => setOpenPopUpState(TypesOfPopUps.DISABLED),
-      popUpStyles: styledConfig.popUpEditUserNameStyles,
-      title: 'Введите название города',
-      initValue: worldName,
-      maxInputValueLength: maxCityNameLength,
-    },
+  const popUpConfig = {
+    callback: () => setOpenPopUpState(TypesOfPopUps.DISABLED),
+    popUpStyles: styledConfig.popUpEditUserNameStyles,
+    title: 'Введите название города',
+    initValue: worldName,
+    maxInputValueLength: maxCityNameLength,
+    displayFlag: openPopUpState !== TypesOfPopUps.DISABLED,
   };
 
   const openPopUp = () => setOpenPopUpState(TypesOfPopUps.EDIT_WORLD_NAME);
 
   return (
     <Wrapper>
-      <PopUp
-        {...popUpConfig[openPopUpState]}
-        displayFlag={openPopUpState !== TypesOfPopUps.DISABLED}
-      />
+      <PopUp {...popUpConfig} />
       <Header>
         <RowWrapper style={styledConfig.userLogo}>
           <UserAvatar avatar={avatar} />
@@ -252,11 +221,6 @@ const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
         className={buttonClassName}
         content="Сохранить"
         callback={onSubmitHandler}
-      />
-      <ExitText
-        content="Выйти"
-        onClick={handleExitButtonClick}
-        style={styledConfig.exitWrapper}
       />
     </Wrapper>
   );
