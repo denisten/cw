@@ -6,16 +6,14 @@ import {
   StoreItemTypes,
 } from '../../../effector/coupons/store';
 import { StyledSpan } from '../../../UI/span';
-import { Icon, TypeOfIcons } from '../../../UI/icons';
+import { Icon } from '../../../UI/icons';
 
 import warning from './warning.svg';
 import { RowWrapper } from '../../../UI/row-wrapper';
 import { UserDataStore } from '../../../effector/user-data/store';
-import { parseSum } from '../../../utils/parse-sum';
 import { ifElse } from 'ramda';
 import { ChangeNumberOfProduct } from './change-number-of-product';
 import { ProductDescription } from './product-description';
-import { MTSSans } from '../../../fonts';
 import { ProductTotalPrice } from './product-total-price';
 import { ButtonClassNames, Button } from '../../../UI/button';
 

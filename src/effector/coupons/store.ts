@@ -67,7 +67,7 @@ export const UserMarketStore = StoreDomain.store<IUserStore>(initState)
     const stateClone = { ...state };
     if (payload.items.length > 0) {
       payload.items.forEach(({ storeItem, count }) => {
-        if (storeItem.type.slug === PurchasesType.COUPONS) {
+        if (storeItem.type.slug === StoreItemTypes.COUPON) {
           stateClone.userCoupons[storeItem.slug] = { count };
         }
       });

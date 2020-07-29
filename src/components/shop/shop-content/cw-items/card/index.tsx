@@ -26,6 +26,7 @@ const CardWrapper = styled.div<{ active: boolean }>`
   margin-right: 20px;
   cursor: pointer;
   transition: border 0.1s;
+  position: relative;
 `;
 const TitleElem = styled(StyledSpan)`
   font-family: ${MTSSans.BOLD};
@@ -34,6 +35,15 @@ const TitleElem = styled(StyledSpan)`
   letter-spacing: -0.6px;
   color: #212527;
   margin-top: 13px;
+`;
+
+const CouponCount = styled.span`
+  font-size: 16px;
+  line-height: 24px;
+  color: #001424;
+  position: absolute;
+  top: 13px;
+  left: 13px;
 `;
 
 const styledConfig = {
@@ -46,13 +56,16 @@ const styledConfig = {
 export const Card: React.FC<{ catalogItem: ICatalogItems }> = ({
   catalogItem,
 }) => {
-  const { selectedStoreItem } = useStore(UserMarketStore);
+  const { selectedStoreItem, userCoupons } = useStore(UserMarketStore);
+  const numberOfCoupons = userCoupons[catalogItem.slug].count || 0;
+
   const checkActiveElem = selectedStoreItem?.slug === catalogItem.slug;
   return (
     <CardWrapper
       onClick={() => selectStoreItem(catalogItem)}
       active={checkActiveElem}
     >
+      <CouponCount>{numberOfCoupons} шт.</CouponCount>
       <Icon style={styledConfig.icon} type={catalogItem.slug} />
       <TitleElem>{catalogItem.name.replace(/Купон/gi, '')}</TitleElem>
       <MoneyCounter sum={String(catalogItem.price)} />
