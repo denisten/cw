@@ -17,5 +17,7 @@ const MTSCardBody = styled.div<{ active?: boolean }>`
 `;
 
 export const MTSItemCard = () => {
-  return <MTSCardBody active={true}></MTSCardBody>;
+  return (
+    <MTSCardBody>Скоро тут появится промокод, но это не точно</MTSCardBody>
+  );
 };
