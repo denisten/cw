@@ -15,6 +15,8 @@ import { parseSum } from '../../../utils/parse-sum';
 import { ifElse } from 'ramda';
 import { ChangeNumberOfProduct } from './change-number-of-product';
 import { ProductDescription } from './product-description';
+import { MTSSans } from '../../../fonts';
+import { ProductTotalPrice } from './product-total-price';
 
 const Wrapper = styled.div`
   height: 100%;
@@ -39,7 +41,7 @@ const ProductBuyWrapper = styled.div`
   box-sizing: border-box;
 `;
 
-const NumberText = styled(StyledSpan)`
+export const NumberText = styled(StyledSpan)`
   font-size: 16px;
   line-height: 20px;
   letter-spacing: -0.6px;
@@ -51,6 +53,12 @@ const styledConfig = {
   icon: {
     width: '55px',
     height: '52px',
+  },
+  rowBlock: {
+    marginTop: '124px',
+    marginBottom: '28px',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
 };
 
@@ -69,16 +77,6 @@ const WarningBlock = styled.div`
     letter-spacing: -0.6px;
     color: #212527;
     opacity: 0.6;
-  }
-`;
-
-const TotalPrice = styled.div`
-  display: flex;
-  align-items: center;
-  img {
-    width: 25px;
-    height: 25px;
-    margin-right: 8px;
   }
 `;
 
@@ -143,10 +141,10 @@ export const ProductView = () => {
               <NumberText>Не достаточно яйцекойнов.</NumberText>
             </WarningBlock>
           )}
-          <TotalPrice>
-            <Icon type={TypeOfIcons.COIN} />
-            <NumberText>{parseSum(String(calculateTotalPrice()))}</NumberText>
-          </TotalPrice>
+
+          <RowWrapper style={styledConfig.rowBlock}>
+            <ProductTotalPrice callBack={calculateTotalPrice} />
+          </RowWrapper>
         </ProductBuyWrapper>
       ) : (
         <EmptyProductText>Выберите товар</EmptyProductText>
