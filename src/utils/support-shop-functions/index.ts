@@ -1,8 +1,6 @@
 import { ICatalogItems, StoreItemTypes } from '../../effector/coupons/store';
 
-export const checkCouponType: (
-  selectedStoreItem: ICatalogItems | null
-) => boolean = selectedStoreItem =>
+export const checkCouponType = (selectedStoreItem: ICatalogItems | null) =>
   selectedStoreItem?.type.slug === StoreItemTypes.COUPON;
 
 export const checkBalansForCoupon = (
