@@ -23,8 +23,8 @@ const TotalPriceIconBlock = styled.div`
   display: flex;
   align-items: center;
   img {
-    width: 25px;
-    height: 25px;
+    width: 25px !important;
+    height: 25px !important;
     margin-right: 8px;
   }
 `;

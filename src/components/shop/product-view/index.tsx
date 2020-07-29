@@ -17,6 +17,7 @@ import { ChangeNumberOfProduct } from './change-number-of-product';
 import { ProductDescription } from './product-description';
 import { MTSSans } from '../../../fonts';
 import { ProductTotalPrice } from './product-total-price';
+import { ButtonClassNames, Button } from '../../../UI/button';
 
 const Wrapper = styled.div`
   height: 100%;
@@ -59,6 +60,9 @@ const styledConfig = {
     marginBottom: '28px',
     alignItems: 'center',
     justifyContent: 'space-between',
+  },
+  button: {
+    width: 'auto',
   },
 };
 
@@ -135,16 +139,24 @@ export const ProductView = () => {
               />
             )}
           </RowWrapper>
+
+          <RowWrapper style={styledConfig.rowBlock}>
+            <ProductTotalPrice callBack={calculateTotalPrice} />
+            <Button
+              className={
+                checkLimitOfBalance()
+                  ? ButtonClassNames.COIN_BUTTON
+                  : ButtonClassNames.COIN_BUTTON_DISABLED
+              }
+              content="Купить"
+            />
+          </RowWrapper>
           {!checkLimitOfBalance() && (
             <WarningBlock>
               <img alt="warning" src={warning} />
               <NumberText>Не достаточно яйцекойнов.</NumberText>
             </WarningBlock>
           )}
-
-          <RowWrapper style={styledConfig.rowBlock}>
-            <ProductTotalPrice callBack={calculateTotalPrice} />
-          </RowWrapper>
         </ProductBuyWrapper>
       ) : (
         <EmptyProductText>Выберите товар</EmptyProductText>
