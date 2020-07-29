@@ -15,6 +15,7 @@ import coinMarker from './coinMarker.svg';
 import play from './play.svg';
 import replace from './replace.svg';
 import skip from './skip.svg';
+import enter from './enter.svg';
 import { TasksType } from '../../components/menu/menu-tasks';
 import { TypeOfMarkers } from '../../components/markers';
 import { CouponTypes } from '../../effector/coupons/store';
@@ -24,6 +25,7 @@ export enum TypeOfIcons {
   COIN = 'coin',
   LOGIN = 'login',
   CHAT = 'chat',
+  ENTER = 'enter',
 }
 
 const defaultStyle = {
@@ -71,6 +73,9 @@ export const Icon: React.FC<IIcon> = ({ style = defaultStyle, type }) => {
         return replace;
       case CouponTypes.COUPON_SKIP:
         return skip;
+
+      case TypeOfIcons.ENTER:
+        return enter;
 
       default:
         break;

@@ -11,7 +11,7 @@ import { MoneyCounter } from '../../money-counter';
 import { selectStoreItem } from '../../../../../effector/coupons/events';
 import { useStore } from 'effector-react';
 
-const CardWrapper = styled.div<{ active: boolean }>`
+export const CardWrapper = styled.div<{ active: boolean }>`
   width: 200px;
   height: 160px;
   background: #ffffff;
@@ -28,7 +28,7 @@ const CardWrapper = styled.div<{ active: boolean }>`
   transition: border 0.1s;
   position: relative;
 `;
-const TitleElem = styled(StyledSpan)`
+export const TitleElem = styled(StyledSpan)`
   font-family: ${MTSSans.BOLD};
   font-size: 16px;
   line-height: 24px;
