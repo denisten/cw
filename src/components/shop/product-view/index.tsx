@@ -9,13 +9,13 @@ import { StyledSpan } from '../../../UI/span';
 import { MTSSans } from '../../../fonts';
 import { MoneyCounter } from '../shop-content/money-counter';
 import { Icon, TypeOfIcons } from '../../../UI/icons';
-import plus from './plus.svg';
-import minus from './minus.svg';
+
 import warning from './warning.svg';
 import { RowWrapper } from '../../../UI/row-wrapper';
 import { UserDataStore } from '../../../effector/user-data/store';
 import { parseSum } from '../../../utils/parse-sum';
-import { ifElse, has } from 'ramda';
+import { ifElse } from 'ramda';
+import { ChangeNumberOfProduct } from './change-number-of-product';
 
 const Wrapper = styled.div`
   height: 100%;
@@ -74,26 +74,6 @@ const styledConfig = {
   },
 };
 
-const ChangeNumbersOfProduct = styled.div`
-  display: flex;
-  align-items: center;
-
-  span {
-    font-family: ${MTSSans.BOLD};
-    font-size: 24px;
-    line-height: 32px;
-    letter-spacing: -0.6px;
-    color: #212527;
-    margin: 0 10px;
-  }
-
-  img {
-    width: 13px;
-    height: 13px;
-    cursor: pointer;
-  }
-`;
-
 const WarningBlock = styled.div`
   display: flex;
   align-items: center;
@@ -125,43 +105,43 @@ const TotalPrice = styled.div`
 export const ProductView = () => {
   const { selectedStoreItem } = useStore(UserMarketStore);
   const { money } = useStore(UserDataStore);
-  const [numbersOfProduct, setNumbersOfProduct] = useState(1);
+  const [numberOfProduct, setNumberOfProduct] = useState(1);
 
-  const checkStoreItemType = () =>
+  const checkCouponType = () =>
     selectedStoreItem?.type.slug === StoreItemTypes.COUPON;
 
   const checkLimitOfBalance = () => {
     const checkBalansForCoupon = () =>
       (selectedStoreItem &&
-        numbersOfProduct * selectedStoreItem?.price < money) ||
+        numberOfProduct * selectedStoreItem?.price < money) ||
       selectedStoreItem?.price === 0;
     const checkBalanceForOtherType = () =>
       selectedStoreItem && selectedStoreItem?.price < money;
     return ifElse(
-      checkStoreItemType,
+      checkCouponType,
       checkBalansForCoupon,
       checkBalanceForOtherType
-    )(numbersOfProduct);
+    )(numberOfProduct);
   };
 
   const calculateTotalPrice = () => {
     const calculateTotalPriceForCoupon = () =>
-      (selectedStoreItem && numbersOfProduct * selectedStoreItem?.price) || 0;
+      (selectedStoreItem && numberOfProduct * selectedStoreItem?.price) || 0;
     const calculateTotalPriceForOtherPurch = () =>
       (selectedStoreItem && selectedStoreItem?.price) || 0;
 
     return ifElse(
-      checkStoreItemType,
+      checkCouponType,
       calculateTotalPriceForCoupon,
       calculateTotalPriceForOtherPurch
     )('');
   };
 
   useEffect(() => {
-    if (numbersOfProduct < 0) {
-      setNumbersOfProduct(0);
+    if (numberOfProduct < 0) {
+      setNumberOfProduct(0);
     }
-  }, [numbersOfProduct]);
+  }, [numberOfProduct]);
 
   return (
     <Wrapper>
@@ -177,19 +157,12 @@ export const ProductView = () => {
           </DescriptionText>
           <RowWrapper>
             <Icon style={styledConfig.icon} type={selectedStoreItem.slug} />
-            <ChangeNumbersOfProduct>
-              <img
-                alt="minus"
-                src={minus}
-                onClick={() => setNumbersOfProduct(numbersOfProduct - 1)}
+            {checkCouponType() && (
+              <ChangeNumberOfProduct
+                numberOfProduct={numberOfProduct}
+                callBack={setNumberOfProduct}
               />
-              <span>{numbersOfProduct}</span>
-              <img
-                alt="minus"
-                src={plus}
-                onClick={() => setNumbersOfProduct(numbersOfProduct + 1)}
-              />
-            </ChangeNumbersOfProduct>
+            )}
           </RowWrapper>
           {!checkLimitOfBalance() && (
             <WarningBlock>
