@@ -6,8 +6,6 @@ import {
   StoreItemTypes,
 } from '../../../effector/coupons/store';
 import { StyledSpan } from '../../../UI/span';
-import { MTSSans } from '../../../fonts';
-import { MoneyCounter } from '../shop-content/money-counter';
 import { Icon, TypeOfIcons } from '../../../UI/icons';
 
 import warning from './warning.svg';
@@ -16,6 +14,7 @@ import { UserDataStore } from '../../../effector/user-data/store';
 import { parseSum } from '../../../utils/parse-sum';
 import { ifElse } from 'ramda';
 import { ChangeNumberOfProduct } from './change-number-of-product';
+import { ProductDescription } from './product-description';
 
 const Wrapper = styled.div`
   height: 100%;
@@ -40,31 +39,12 @@ const ProductBuyWrapper = styled.div`
   box-sizing: border-box;
 `;
 
-const TitleText = styled(StyledSpan)`
-  font-family: ${MTSSans.BOLD};
-  font-size: 24px;
-  line-height: 32px;
-  letter-spacing: -0.6px;
-  color: #212527;
-  margin-bottom: 30px;
-`;
-
 const NumberText = styled(StyledSpan)`
   font-size: 16px;
   line-height: 20px;
   letter-spacing: -0.6px;
   color: #212527;
   opacity: 0.6;
-`;
-
-const DescriptionText = styled(StyledSpan)`
-  width: 225px;
-  font-size: 16px;
-  line-height: 20px;
-  letter-spacing: -0.6px;
-  color: #212527;
-  opacity: 0.6;
-  margin: 28px 0 44px 0;
 `;
 
 const styledConfig = {
@@ -147,14 +127,7 @@ export const ProductView = () => {
     <Wrapper>
       {selectedStoreItem ? (
         <ProductBuyWrapper>
-          <TitleText>{selectedStoreItem.name.replace('Купон', '')}</TitleText>
-          <MoneyCounter
-            sum={String(selectedStoreItem.price)}
-            additionText=" /шт."
-          />
-          <DescriptionText>
-            {selectedStoreItem.description || 'Описания нет'}
-          </DescriptionText>
+          <ProductDescription selectedStoreItem={selectedStoreItem} />
           <RowWrapper>
             <Icon style={styledConfig.icon} type={selectedStoreItem.slug} />
             {checkCouponType() && (
