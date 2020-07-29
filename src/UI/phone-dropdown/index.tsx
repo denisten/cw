@@ -6,6 +6,7 @@ import { Options } from './options';
 
 const PhoneDropdownWrapper = styled.div`
   display: block;
+  z-index: 100;
 `;
 
 const Arrow = styled.img.attrs({ src: arrowImg, alt: 'arrow' })`

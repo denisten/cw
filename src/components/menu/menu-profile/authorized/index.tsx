@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import penImg from '../not-authorized/pen.svg';
 import { useStore } from 'effector-react';
 import userAvatarIcon from './user-avatar.svg';
-import exitImg from './exit.svg';
 import camera from './camera.svg';
 import { StyledSpan } from '../../../../UI/span';
 import { MTSSans } from '../../../../fonts';
@@ -24,6 +23,14 @@ import { logout } from '../../../../effector/user-data/events';
 import { Input } from '../../../../UI/input';
 import { Button, ButtonClassNames } from '../../../../UI/button';
 import PhoneDropdown from '../../../../UI/phone-dropdown';
+import { Options } from '../../../../UI/phone-dropdown/options';
+
+const Header = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+`;
 
 const ExitText = styled(StyledSpan)<ISpan>`
   font-family: ${MTSSans.REGULAR};
@@ -43,7 +50,7 @@ const NickNameWrapper = styled(StyledSpan)`
   letter-spacing: -0.6px;
   color: #001424;
 `;
-const ProfileWrapper = styled.div`
+const Wrapper = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
@@ -53,7 +60,7 @@ const ProfileWrapper = styled.div`
   box-sizing: border-box;
 `;
 
-const WorldTitle = styled(StyledSpan)`
+const WorldTitle = styled.div`
   font-family: ${MTSSans.BLACK};
   font-size: 24px;
   font-weight: 900;
@@ -63,6 +70,8 @@ const WorldTitle = styled(StyledSpan)`
   color: #001424;
   margin-right: 9px;
   cursor: pointer;
+  padding: 53px 0 26px 0;
+  left: 12px;
 `;
 
 const defaultInputTitleMarginRight = 10;
@@ -112,10 +121,6 @@ const styledConfig = {
   userLogo: {
     marginRight: '120px',
   },
-  header: {
-    justifyContent: 'space-around',
-    width: '100%',
-  },
   rowWrapper: {
     padding: '53px 0 26px 0',
     left: '12px',
@@ -129,10 +134,6 @@ const styledConfig = {
     position: 'relative',
     margin: '0 12px 0 8px',
     justifyContent: 'center',
-  },
-  inputWrapper: {
-    position: 'relative',
-    displayFlag: true,
   },
   nameInput: { marginRight: '16px' },
   exitWrapper: {
@@ -171,6 +172,9 @@ const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
   const [localName, setLocalName] = useState(name);
   const [birthdayDate, setBirthdayDate] = useState<IBirthday>(birthday);
   const [nameInputHasError, setNameInputHasError] = useState(false);
+  const buttonClassName = !nameInputHasError
+    ? ButtonClassNames.NORMAL
+    : ButtonClassNames.DISABLED;
 
   useEffect(() => {
     localName !== name && setLocalName(name);
@@ -215,12 +219,12 @@ const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
   const openPopUp = () => setOpenPopUpState(TypesOfPopUps.EDIT_WORLD_NAME);
 
   return (
-    <ProfileWrapper>
+    <Wrapper>
       <PopUp
         {...popUpConfig[openPopUpState]}
         displayFlag={openPopUpState !== TypesOfPopUps.DISABLED}
       />
-      <RowWrapper style={styledConfig.header}>
+      <Header>
         <RowWrapper style={styledConfig.userLogo}>
           <UserAvatar avatar={avatar} />
           <ColumnWrapper {...styledConfig.profileDataColumnWrapper}>
@@ -229,40 +233,33 @@ const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
           </ColumnWrapper>
         </RowWrapper>
         <CoinsWallet sum={String(money)} />
+      </Header>
+      <WorldTitle onClick={openPopUp}>
+        {worldName}
+        <img src={penImg} alt="pen" style={styledConfig.penImg} />
+      </WorldTitle>
+      <RowWrapper {...styledConfig.nameRowWrapper}>
+        <InputTitle content="Никнейм" />
+        <Input
+          value={localName}
+          onSubmitHandler={onSubmitHandler}
+          onChangeHandler={e => handleChangeNameInput(e.target.value)}
+          style={styledConfig.nameInput}
+          hasError={nameInputHasError}
+          hint={nameInputHint}
+        />
       </RowWrapper>
-      <RowWrapper {...styledConfig.rowWrapper}>
-        <WorldTitle onClick={openPopUp}>
-          {worldName}
-          <img src={penImg} alt="pen" style={styledConfig.penImg} />
-        </WorldTitle>
-      </RowWrapper>
-      <ColumnWrapper {...styledConfig.inputWrapper}>
-        <RowWrapper {...styledConfig.nameRowWrapper}>
-          <InputTitle content="Никнейм" />
-          <Input
-            value={localName}
-            onSubmitHandler={onSubmitHandler}
-            onChangeHandler={e => handleChangeNameInput(e.target.value)}
-            style={styledConfig.nameInput}
-            hasError={nameInputHasError}
-            hint={nameInputHint}
-          />
-        </RowWrapper>
-      </ColumnWrapper>
       <Button
-        className={
-          !nameInputHasError
-            ? ButtonClassNames.NORMAL
-            : ButtonClassNames.DISABLED
-        }
+        className={buttonClassName}
         content="Сохранить"
         callback={onSubmitHandler}
       />
-      <RowWrapper style={styledConfig.exitWrapper}>
-        <img src={exitImg} alt="exit" />
-        <ExitText content="Выйти" onClick={handleExitButtonClick} />
-      </RowWrapper>
-    </ProfileWrapper>
+      <ExitText
+        content="Выйти"
+        onClick={handleExitButtonClick}
+        style={styledConfig.exitWrapper}
+      />
+    </Wrapper>
   );
 };
 
