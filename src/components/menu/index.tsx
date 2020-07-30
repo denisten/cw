@@ -11,13 +11,12 @@ import { TutorialStore } from '../../effector/tutorial-store/store';
 import { pauseTutorialMode } from '../../effector/tutorial-store/events';
 import styled from 'styled-components';
 import { TasksStore } from '../../effector/missions-store/store';
-import { MenuItemsComponent, noAuthAvailableMenuItems } from './menu-items';
+import { MenuItemsComponent } from './menu-items';
 import { MenuContent } from './menu-content';
 import { useHandleAuth } from '../../hooks/use-handle-auth';
 import { MenuStore } from '../../effector/menu-store/store';
 import { menuOpened, menuClosed } from '../../effector/menu-store/events';
 import { useAuthCanceledStatus } from '../../hooks/use-auth-canceled-status';
-import * as R from 'ramda';
 
 const ExpandedColumnWrapper = styled(ColumnWrapper)`
   height: 456px;
@@ -56,15 +55,7 @@ export const Menu = () => {
     missions.length && currentAlertsList.push(MenuItems.TASKS);
   }, []);
 
-  const checkInclude = (item: MenuItems) =>
-    noAuthAvailableMenuItems.includes(item);
-  const checkAuth = () => isAuthorized;
   const handler = (item: MenuItems) => menuOpened(item);
-
-  const menuItemsComponentCallBack = R.when(
-    R.either(checkAuth, checkInclude),
-    handler
-  );
 
   const handleExitButtonClick = () => {
     pauseTutorialMode();
@@ -81,10 +72,9 @@ export const Menu = () => {
         />
         <RowWrapper {...StyledConfig.rowWrapper}>
           <MenuItemsComponent
-            isAuthorized={isAuthorized}
             currentAlertsList={currentAlertsList}
             selectedMenuItem={selectedMenuItem || MenuItems.PROFILE}
-            callBack={menuItemsComponentCallBack}
+            callBack={handler}
           />
           <MenuContent content={selectedMenuItem || MenuItems.PROFILE} />
         </RowWrapper>

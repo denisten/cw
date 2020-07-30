@@ -17,7 +17,7 @@ import { RowWrapper } from '../../../../UI/row-wrapper';
 import { ColumnWrapper } from '../../../../UI/column-wrapper';
 import { updateUserData } from '../../../../utils/update-user-data';
 import { CoinsWallet } from '../../../../UI/wallet';
-import { IPopUp, PopUp, TypesOfPopUps } from '../../../../UI/pop-up';
+import { PopUp, TypesOfPopUps } from '../../../../UI/pop-up';
 import { setOpenPopUpState } from '../../../../effector/app-condition/events';
 import { Input } from '../../../../UI/input';
 import { Button, ButtonClassNames } from '../../../../UI/button';
@@ -233,10 +233,6 @@ interface ISpan {
 
 interface IAuthorizedProfile {
   openPopUpState: TypesOfPopUps;
-}
-
-interface IPopUpConfig {
-  [key: string]: IPopUp;
 }
 
 export interface IUserAvatar {

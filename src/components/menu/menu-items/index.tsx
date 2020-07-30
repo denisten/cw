@@ -25,32 +25,30 @@ export const noAuthAvailableMenuItems = [
   MenuItems.PROFILE,
   MenuItems.TASKS,
   MenuItems.HELP,
-  MenuItems.INSTRUCTION,
+  MenuItems.INFO,
+  MenuItems.SETTINGS,
   MenuItems.DEV,
-  MenuItems.OTHERS,
 ];
 
 const allMenuItems = [
   MenuItems.PROFILE,
   MenuItems.TASKS,
   MenuItems.HELP,
-  MenuItems.INSTRUCTION,
+  MenuItems.INFO,
+  MenuItems.SETTINGS,
   MenuItems.DEV,
-  MenuItems.OTHERS,
 ];
 
 export const MenuItemsComponent: React.FC<IMenuItemsComponent> = ({
   selectedMenuItem,
   callBack,
   currentAlertsList,
-  isAuthorized,
 }) => {
   return (
     <MenuWrapper>
       {allMenuItems.map(el => {
         return (
           <MenuNavigationElement
-            isAvailable={isAuthorized || noAuthAvailableMenuItems.includes(el)}
             key={el}
             menuElement={el}
             isItemSelected={selectedMenuItem === el}
@@ -64,7 +62,6 @@ export const MenuItemsComponent: React.FC<IMenuItemsComponent> = ({
 };
 
 interface IMenuItemsComponent {
-  isAuthorized: boolean;
   selectedMenuItem: MenuItems;
   callBack: (props: MenuItems) => void;
   currentAlertsList: Array<string>;

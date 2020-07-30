@@ -8,8 +8,8 @@ export enum MenuItems {
   PROFILE = 'profile',
   TASKS = 'tasks',
   HELP = 'help',
-  INSTRUCTION = 'instruction',
-  OTHERS = 'others',
+  INFO = 'info',
+  SETTINGS = 'settings',
   DEV = 'dev',
 }
 
@@ -17,14 +17,12 @@ const TranslatedMenuItems = {
   [MenuItems.PROFILE]: 'Кабинет',
   [MenuItems.TASKS]: 'Задания',
   [MenuItems.HELP]: 'Помощь',
-  [MenuItems.INSTRUCTION]: 'Инструкция',
-  [MenuItems.OTHERS]: 'Прочее',
+  [MenuItems.INFO]: 'Что нового?',
+  [MenuItems.SETTINGS]: 'Настройки',
   [MenuItems.DEV]: 'Инструменты разработки',
 };
 
 const notSelectedItemFontWeight = 500;
-const notAvailableOpacity = 0.5;
-const otherMenuParagraphClassName = 'otherParagraph';
 
 const MenuParagraphWrapper = styled.div<IMenuParagraphWrapper>`
   height: 56px;
@@ -34,7 +32,6 @@ const MenuParagraphWrapper = styled.div<IMenuParagraphWrapper>`
   align-items: center;
   font-size: 20px;
   color: #fff;
-  opacity: ${props => (props.isAvailable ? 1 : notAvailableOpacity)};
   font-family: ${props =>
     props.isItemSelected ? MTSSans.MEDIUM : MTSSans.REGULAR};
   font-weight: ${props =>
@@ -48,12 +45,8 @@ const MenuParagraphWrapper = styled.div<IMenuParagraphWrapper>`
   padding-left: 48px;
   box-sizing: border-box;
   pointer-events: auto;
-
-  &.${otherMenuParagraphClassName} {
-    position: absolute;
-    bottom: 40px;
-  }
 `;
+
 const Notify = styled.div`
   margin-left: 13px;
   width: 23px;
@@ -62,8 +55,9 @@ const Notify = styled.div`
   background-size: 100% 100%;
   flex-shrink: 0;
 `;
+
 const MenuParagraphTitleWrapper = styled.div<IMenuParagraphTitleWrapper>`
-  cursor: ${props => (props.isAvailable ? 'pointer' : 'default')};
+  cursor: pointer;
   animation-name: ${props =>
     props.pulseAnim ? pulseAnimationHOF('159, 169, 176') : 'none'};
   animation-fill-mode: both;
@@ -79,26 +73,17 @@ export const MenuNavigationElement: React.FC<IMenuParagraph> = ({
   onClickHandler,
   haveNotify,
   pulseAnim = false,
-  isAvailable,
   ...props
 }) => {
   const notifications = haveNotify ? <Notify /> : null;
 
   return (
     <MenuParagraphWrapper
-      className={
-        menuElement === MenuItems.INSTRUCTION ? otherMenuParagraphClassName : ''
-      }
       menuElement={menuElement}
       isItemSelected={isItemSelected}
-      isAvailable={isAvailable}
       {...props}
     >
-      <MenuParagraphTitleWrapper
-        pulseAnim={pulseAnim}
-        onClick={onClickHandler}
-        isAvailable={isAvailable}
-      >
+      <MenuParagraphTitleWrapper pulseAnim={pulseAnim} onClick={onClickHandler}>
         {TranslatedMenuItems[menuElement]}
       </MenuParagraphTitleWrapper>
       {notifications}
@@ -108,13 +93,11 @@ export const MenuNavigationElement: React.FC<IMenuParagraph> = ({
 
 interface IMenuParagraphTitleWrapper {
   pulseAnim?: boolean;
-  isAvailable: boolean;
 }
 
 interface IMenuParagraphWrapper {
   menuElement: MenuItems;
   isItemSelected: boolean;
-  isAvailable: boolean;
 }
 
 interface IMenuParagraph extends IMenuParagraphWrapper {

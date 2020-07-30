@@ -9,22 +9,25 @@ import { ExitButton } from '../../UI/exit-button';
 import { ZIndexes } from '../root-component/z-indexes-enum';
 import { ImagesCollection } from '../../UI/images-collection';
 
-const defaultImgWrapperWidth = 713;
-
-const TutorialSliderWrapper = styled.div`
-  width: 713px;
-  height: 481px;
+const defaultImgWrapperWidth = 772;
+const paddingTop = 33;
+const leftOffset = 3;
+const TutorialSliderWrapper = styled.div<ITutorialSliderWrapper>`
+  width: 772px;
+  //height: {props => (props.showOverlay ? 481 : 301)}px;
+  height: 456px;
   background-image: url(${background});
   background-repeat: no-repeat;
   background-size: contain;
-  padding-top: 33px;
+  padding-top: ${props => (props.showOverlay ? paddingTop : 0)}px;
   box-sizing: border-box;
   position: relative;
+  left: ${props => (props.showOverlay ? 0 : leftOffset)}px;
 `;
 
-const ImageWrapper = styled.div`
-  width: 713px;
-  height: 275px;
+const ImageWrapper = styled.div<ITutorialSliderWrapper>`
+  width: 772px;
+  height: 301px;
   overflow: hidden;
 `;
 
@@ -40,7 +43,8 @@ const ImageCollectionWrapper = styled.div`
 const DescriptionWrapper = styled.div`
   width: 713px;
   height: 190px;
-  padding: 26px 38px 0 39px;
+  //padding: 26px 38px 0 39px;
+  padding: 20px 46px 0 85px;
   box-sizing: border-box;
 `;
 
@@ -68,17 +72,17 @@ const Description = styled.div<ITitle>`
   }
 `;
 
-const IncreaseWrapper = styled.img`
+const IncreaseButton = styled.img.attrs({ src: increaseImg, alt: 'increase' })`
   position: absolute;
   bottom: 66px;
-  right: -24px;
+  right: 15px;
   cursor: pointer;
 `;
 
-const DecreaseWrapper = styled.img`
+const DecreaseButton = styled.img.attrs({ src: decreaseImg, alt: 'decrease' })`
   position: absolute;
   bottom: 66px;
-  left: -24px;
+  left: 15px;
   cursor: pointer;
 `;
 
@@ -107,7 +111,6 @@ const styledConfig = {
   exitButton: {
     top: '5px',
     right: '-43px',
-    displayFlag: true,
   },
 };
 
@@ -123,13 +126,13 @@ export const TutorialSlider: React.FC<ITutorialSlider> = ({
   content,
   imgArray,
   callback,
+  showOverlay = true,
 }) => {
   const imageWrapperRef = useRef<HTMLDivElement>(null);
   const stepViewCollectionRef = useRef<HTMLDivElement>(null);
   const step = useRef(0);
   let prevStep = calculateCurrentStep(step.current, imgArray.length);
   let currentStep = prevStep;
-
   const handleClick = (value: number, equal: boolean) =>
     requestAnimationFrame(() => {
       equal ? (step.current = value) : (step.current += value);
@@ -149,35 +152,43 @@ export const TutorialSlider: React.FC<ITutorialSlider> = ({
   useEffect(() => {
     stepViewCollectionRef.current?.children[0].classList.add('selected');
   }, []);
+
+  const sliderContent = (
+    <TutorialSliderWrapper showOverlay={showOverlay}>
+      <ExitButton
+        callBack={callback}
+        displayFlag={showOverlay}
+        {...styledConfig.exitButton}
+      />
+      <ImageWrapper showOverlay={showOverlay}>
+        <ImageCollectionWrapper ref={imageWrapperRef}>
+          <ImagesCollection
+            imgArray={imgArray}
+            width={defaultImgWrapperWidth}
+            height={301}
+          />
+        </ImageCollectionWrapper>
+      </ImageWrapper>
+      <DescriptionWrapper>
+        <Title content={content[currentStep].title} />
+        <Description content={content[currentStep].description} />
+        <DecreaseButton onClick={() => handleClick(-1, false)} />
+        <IncreaseButton onClick={() => handleClick(1, false)} />
+        <StepView ref={stepViewCollectionRef}>
+          {imgArray.map((el, id) => (
+            <StepViewElement key={el} onClick={() => handleClick(id, true)} />
+          ))}
+        </StepView>
+      </DescriptionWrapper>
+    </TutorialSliderWrapper>
+  );
+
+  if (!showOverlay) {
+    return sliderContent;
+  }
   return (
     <Overlay displayFlag={displayFlag} zIndex={ZIndexes.TUTORIAL_SLIDER}>
-      <TutorialSliderWrapper>
-        <ExitButton callBack={callback} {...styledConfig.exitButton} />
-        <ImageWrapper>
-          <ImageCollectionWrapper ref={imageWrapperRef}>
-            <ImagesCollection imgArray={imgArray} />
-          </ImageCollectionWrapper>
-        </ImageWrapper>
-        <DescriptionWrapper>
-          <Title content={content[currentStep].title} />
-          <Description content={content[currentStep].description} />
-          <DecreaseWrapper
-            src={decreaseImg}
-            alt="decrease"
-            onClick={() => handleClick(-1, false)}
-          />
-          <IncreaseWrapper
-            src={increaseImg}
-            alt="increase"
-            onClick={() => handleClick(1, false)}
-          />
-          <StepView ref={stepViewCollectionRef}>
-            {imgArray.map((el, id) => (
-              <StepViewElement key={el} onClick={() => handleClick(id, true)} />
-            ))}
-          </StepView>
-        </DescriptionWrapper>
-      </TutorialSliderWrapper>
+      {sliderContent}
     </Overlay>
   );
 };
@@ -187,6 +198,7 @@ interface ITutorialSlider {
   content: IContentCollection[];
   imgArray: string[];
   callback: () => void;
+  showOverlay?: boolean;
 }
 
 export interface ITitle {
@@ -196,4 +208,8 @@ export interface ITitle {
 interface IContentCollection {
   title: string;
   description: string;
+}
+
+interface ITutorialSliderWrapper {
+  showOverlay: boolean;
 }

@@ -7,7 +7,7 @@ import { MenuItems } from '../../../UI/menu-paragraph';
 import { Settings } from '../../settings';
 import { MenuTasks } from '../menu-tasks';
 import { MenuHelp } from '../menu-help';
-import { MenuInstruction } from '../menu-instruction';
+import { MenuInfo } from '../menu-info';
 
 const MenuContentWrapper = styled.div<IMenuContentWrapper>`
   flex: 1;
@@ -25,10 +25,10 @@ const MenuContentSelector: React.FC<IMenuContent> = ({ content }) => {
       return <MenuTasks />;
     case MenuItems.HELP:
       return <MenuHelp />;
-    case MenuItems.INSTRUCTION:
-      return <MenuInstruction />;
-    case MenuItems.OTHERS:
+    case MenuItems.SETTINGS:
       return <Settings />;
+    case MenuItems.INFO:
+      return <MenuInfo />;
     case MenuItems.DEV:
       return <DevTools />;
     default:

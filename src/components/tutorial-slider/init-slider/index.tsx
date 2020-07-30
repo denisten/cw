@@ -7,8 +7,14 @@ import slider5 from './slider-5.png';
 import { TutorialSlider } from '..';
 import { editTutorialSliderDisplayFlag } from '../../../effector/app-condition/events';
 
-const tutorialSlidesArray = [slider1, slider2, slider3, slider4, slider5];
-const tutorialSliderContent = [
+export const tutorialSlidesArray = [
+  slider1,
+  slider2,
+  slider3,
+  slider4,
+  slider5,
+];
+export const tutorialSliderContent = [
   {
     title: 'Выполняйте задания, чтобы развивать город',
     description:
