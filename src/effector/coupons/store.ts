@@ -9,8 +9,8 @@ import {
 } from './events';
 
 export enum CouponTypes {
-  COUPON_REPLACE = 'coupon-replace',
-  COUPON_SKIP = 'coupon-skip',
+  COUPON_REPLACE = 'coupon.task.replace',
+  COUPON_SKIP = 'coupon.task.skip',
 }
 
 export enum PurchasesType {
@@ -33,32 +33,6 @@ const initState = {
   showUserPromocodes: false,
   openedMarket: false,
 };
-
-interface IUserStore {
-  catalog: IShopCatalog[];
-  selectedStoreItem: ICatalogItems | null;
-  userCoupons: {
-    [key in CouponTypes]: { count: number };
-  };
-  showUserPromocodes: boolean;
-  openedMarket: boolean;
-}
-
-export interface IShopCatalog {
-  name: string;
-  slug: PurchasesType;
-  items: ICatalogItems[];
-}
-
-export interface ICatalogItems {
-  type: {
-    slug: StoreItemTypes;
-  };
-  price: number;
-  slug: CouponTypes;
-  name: string;
-  description: string;
-}
 
 export const UserMarketStore = StoreDomain.store<IUserStore>(initState)
   .on(openMarket, (state, payload) => ({
@@ -95,3 +69,29 @@ export const UserMarketStore = StoreDomain.store<IUserStore>(initState)
       [couponType]: { count },
     },
   }));
+
+interface IUserStore {
+  catalog: IShopCatalog[];
+  selectedStoreItem: ICatalogItems | null;
+  userCoupons: {
+    [key in CouponTypes]: { count: number };
+  };
+  showUserPromocodes: boolean;
+  openedMarket: boolean;
+}
+
+export interface IShopCatalog {
+  name: string;
+  slug: PurchasesType;
+  items: ICatalogItems[];
+}
+
+export interface ICatalogItems {
+  type: {
+    slug: StoreItemTypes;
+  };
+  price: number;
+  slug: CouponTypes;
+  name: string;
+  description: string;
+}

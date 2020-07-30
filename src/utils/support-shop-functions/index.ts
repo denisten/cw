@@ -5,13 +5,13 @@ export const checkCouponType = (selectedStoreItem: ICatalogItems | null) =>
 
 export const checkBalansForCoupon = (
   selectedStoreItem: ICatalogItems | null,
-  numberOfProduct: number,
+  quantity: number,
   money: number
 ) =>
   selectedStoreItem &&
-  numberOfProduct * selectedStoreItem?.price <= money &&
+  quantity * selectedStoreItem?.price <= money &&
   money !== 0 &&
-  numberOfProduct !== 0;
+  quantity !== 0;
 
 export const checkBalanceForOtherType = (
   selectedStoreItem: ICatalogItems | null,
@@ -20,8 +20,8 @@ export const checkBalanceForOtherType = (
 
 export const calculateTotalPriceForCoupon = (
   selectedStoreItem: ICatalogItems | null,
-  numberOfProduct: number
-) => (selectedStoreItem && numberOfProduct * selectedStoreItem?.price) || 0;
-export const calculateTotalPriceForOtherPurch = (
+  quantity: number
+) => (selectedStoreItem && quantity * selectedStoreItem?.price) || 0;
+export const calculateTotalPriceForOtherPurchases = (
   selectedStoreItem: ICatalogItems | null
 ) => (selectedStoreItem && selectedStoreItem?.price) || 0;

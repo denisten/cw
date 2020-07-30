@@ -25,26 +25,18 @@ const ChangeNumberOfProductBlock = styled.div`
 
 export const ChangeNumberOfProduct: React.FC<IChangeNumberOfProduct> = ({
   callBack,
-  numberOfProduct,
+  quantity,
 }) => {
   return (
     <ChangeNumberOfProductBlock>
-      <img
-        alt="minus"
-        src={minus}
-        onClick={() => callBack(numberOfProduct - 1)}
-      />
-      <span>{numberOfProduct}</span>
-      <img
-        alt="minus"
-        src={plus}
-        onClick={() => callBack(numberOfProduct + 1)}
-      />
+      <img alt="minus" src={minus} onClick={() => callBack(quantity - 1)} />
+      <span>{quantity}</span>
+      <img alt="minus" src={plus} onClick={() => callBack(quantity + 1)} />
     </ChangeNumberOfProductBlock>
   );
 };
 
 interface IChangeNumberOfProduct {
   callBack: (arg: number) => void;
-  numberOfProduct: number;
+  quantity: number;
 }

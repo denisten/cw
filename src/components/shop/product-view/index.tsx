@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useStore } from 'effector-react';
 import { UserMarketStore } from '../../../effector/coupons/store';
@@ -18,8 +18,9 @@ import {
   checkBalansForCoupon,
   checkBalanceForOtherType,
   calculateTotalPriceForCoupon,
-  calculateTotalPriceForOtherPurch,
+  calculateTotalPriceForOtherPurchases,
 } from '../../../utils/support-shop-functions';
+import { useCheckQuantity } from '../../../hooks/use-check-quantity';
 
 const Wrapper = styled.div`
   height: 100%;
@@ -71,33 +72,35 @@ const styledConfig = {
 const ProductView = () => {
   const { selectedStoreItem } = useStore(UserMarketStore);
   const { money } = useStore(UserDataStore);
-  const [numberOfProduct, setNumberOfProduct] = useState(1);
+  const [quantity, setQuantity] = useState(1);
   const [waitingForPurchase, setWaitingForPurchase] = useState(false);
 
-  const checkLimitOfBalance = () =>
+  const checkUserBalance = () =>
     ifElse(
       () => checkCouponType(selectedStoreItem),
-      () => checkBalansForCoupon(selectedStoreItem, numberOfProduct, money),
+      () => checkBalansForCoupon(selectedStoreItem, quantity, money),
       () => checkBalanceForOtherType(selectedStoreItem, money)
-    )(numberOfProduct);
+    )(quantity);
 
   const calculateTotalPrice = () =>
     ifElse(
       () => checkCouponType(selectedStoreItem),
-      () => calculateTotalPriceForCoupon(selectedStoreItem, numberOfProduct),
-      () => calculateTotalPriceForOtherPurch(selectedStoreItem)
+      () => calculateTotalPriceForCoupon(selectedStoreItem, quantity),
+      () => calculateTotalPriceForOtherPurchases(selectedStoreItem)
     )('');
 
   const buyClickHandler = () => {
     setWaitingForPurchase(true);
-    setNumberOfProduct(1);
+    setQuantity(1);
   };
 
-  useEffect(() => {
-    if (numberOfProduct === 0) {
-      setNumberOfProduct(1);
-    }
-  }, [numberOfProduct]);
+  useCheckQuantity(quantity, setQuantity);
+
+  const selectClassNameForButton = () => {
+    return checkUserBalance() && !waitingForPurchase
+      ? ButtonClassNames.COIN_BUTTON
+      : ButtonClassNames.COIN_BUTTON_DISABLED;
+  };
 
   return (
     <Wrapper>
@@ -108,8 +111,8 @@ const ProductView = () => {
             <Icon style={styledConfig.icon} type={selectedStoreItem.slug} />
             {checkCouponType(selectedStoreItem) && (
               <ChangeNumberOfProduct
-                numberOfProduct={numberOfProduct}
-                callBack={setNumberOfProduct}
+                quantity={quantity}
+                callBack={setQuantity}
               />
             )}
           </RowWrapper>
@@ -117,16 +120,12 @@ const ProductView = () => {
           <RowWrapper style={styledConfig.rowBlock}>
             <ProductTotalPrice callBack={calculateTotalPrice} />
             <Button
-              className={
-                checkLimitOfBalance() && !waitingForPurchase
-                  ? ButtonClassNames.COIN_BUTTON
-                  : ButtonClassNames.COIN_BUTTON_DISABLED
-              }
+              className={selectClassNameForButton()}
               content="Купить"
               callback={buyClickHandler}
             />
           </RowWrapper>
-          {!checkLimitOfBalance() && <ProductWarning />}
+          {!checkUserBalance() && <ProductWarning />}
         </ProductBuyWrapper>
       ) : (
         <EmptyProductText>Выберите товар</EmptyProductText>

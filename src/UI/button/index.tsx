@@ -12,8 +12,8 @@ export enum ButtonClassNames {
   OUTLINE_NORMAL = 'outline-normal',
   SCALE_ANIMATED = 'scale-animated',
   HOVERED = 'hovered',
-  COIN_BUTTON = 'coinButton',
-  COIN_BUTTON_DISABLED = 'coinButtonDisabled',
+  COIN_BUTTON = 'coin-button',
+  COIN_BUTTON_DISABLED = 'coin-button-disabled',
 }
 
 const doubleBorderWidth = 4;

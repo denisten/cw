@@ -53,9 +53,7 @@ const styledConfig = {
   },
 };
 
-export const CWItemCard: React.FC<{ catalogItem: ICatalogItems }> = ({
-  catalogItem,
-}) => {
+export const CWItemCard: React.FC<ICWItemCard> = ({ catalogItem }) => {
   const { selectedStoreItem, userCoupons } = useStore(UserMarketStore);
   const numberOfCoupons = userCoupons[catalogItem.slug].count || 0;
 
@@ -72,3 +70,7 @@ export const CWItemCard: React.FC<{ catalogItem: ICatalogItems }> = ({
     </CardWrapper>
   );
 };
+
+interface ICWItemCard {
+  catalogItem: ICatalogItems;
+}

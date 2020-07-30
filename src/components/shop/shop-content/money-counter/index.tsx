@@ -28,7 +28,7 @@ export const MoneyCounter: React.FC<IMoneyCounter> = ({
     <Wrapper>
       <img alt="coin" src={coin} />
       <span>{parseSum(sum)}</span>
-      {additionText && additionText}
+      {additionText}
     </Wrapper>
   );
 };

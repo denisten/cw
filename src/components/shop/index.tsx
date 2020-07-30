@@ -1,13 +1,14 @@
-import React, { useEffect, lazy, Suspense } from 'react';
+import React, { lazy, Suspense } from 'react';
 import { ZIndexes } from '../root-component/z-indexes-enum';
 import { Overlay } from '../../UI/overlay';
 import styled from 'styled-components';
 
-import { fetchShopCatalog, openMarket } from '../../effector/coupons/events';
+import { openMarket } from '../../effector/coupons/events';
 
 import { ExitButton } from '../../UI/exit-button';
 import { useStore } from 'effector-react';
 import { UserMarketStore } from '../../effector/coupons/store';
+import { useFetchShopCatalog } from '../../hooks/use-fetch-shop-catalog';
 
 const ShopContent = lazy(() => import('./shop-content'));
 const ProductView = lazy(() => import('./product-view'));
@@ -34,11 +35,9 @@ const Wrapper = styled.div`
   position: relative;
 `;
 
-const Shop: React.FC = () => {
+const Shop = () => {
   const { openedMarket, catalog } = useStore(UserMarketStore);
-  useEffect(() => {
-    openedMarket && catalog.length === 0 && fetchShopCatalog('');
-  }, [openedMarket]);
+  useFetchShopCatalog(openedMarket, catalog);
 
   return (
     <Overlay displayFlag={openedMarket} {...styledConfig.overlay}>
