@@ -58,7 +58,7 @@ const styledConfig = {
 
 export const MTSItemCard: React.FC<IMTSItemCard> = ({ catalogItem }) => {
   if (!catalogItem) return null;
-  const { selectedStoreItem } = useStore(UserMarketStore);
+  const { selectedStoreItem, showUserPromocodes } = useStore(UserMarketStore);
   const checkActiveElem = selectedStoreItem?.slug === catalogItem.slug;
   return (
     <MTSCardBody
@@ -71,7 +71,9 @@ export const MTSItemCard: React.FC<IMTSItemCard> = ({ catalogItem }) => {
       </>
       <>
         <PromoBubble>{TranslatedStoreItem[catalogItem.type.slug]}</PromoBubble>
-        <MoneyCounter sum={String(catalogItem.price)} />
+        {!showUserPromocodes && (
+          <MoneyCounter sum={String(catalogItem.price)} />
+        )}
       </>
     </MTSCardBody>
   );

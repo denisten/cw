@@ -37,6 +37,7 @@ const UserCatalogItems = () => {
     .filter(item => item === ShopItemsType.MGTS_SPECIAL)
     .map(item => {
       const userItem = item as ShopItemsType;
+
       return userItems[userItem].storeItem;
     });
 
