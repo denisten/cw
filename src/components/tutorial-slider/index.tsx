@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { Overlay } from '../../UI/overlay';
 import background from './background.svg';
@@ -8,8 +8,8 @@ import { MTSSans } from '../../fonts';
 import { ExitButton } from '../../UI/exit-button';
 import { ZIndexes } from '../root-component/z-indexes-enum';
 import { ImagesCollection } from '../../UI/images-collection';
+import { useSliderMovement } from '../../hooks/use-slider-movement';
 
-const defaultImgWrapperWidth = 772;
 const leftOffset = 3;
 
 const TutorialSliderWrapper = styled.div<ITutorialSliderWrapper>`
@@ -118,6 +118,8 @@ const calculateCurrentStep = (step: number, arrLength: number) => {
   else return step > 0 ? Math.abs(currentStep) : arrLength - 1 + currentStep;
 };
 
+let currentStep = 0;
+
 export const TutorialSlider: React.FC<ITutorialSlider> = ({
   displayFlag,
   content,
@@ -127,24 +129,26 @@ export const TutorialSlider: React.FC<ITutorialSlider> = ({
 }) => {
   const imageWrapperRef = useRef<HTMLDivElement>(null);
   const stepViewCollectionRef = useRef<HTMLDivElement>(null);
-  const step = useRef(0);
-  let prevStep = calculateCurrentStep(step.current, imgArray.length);
-  let currentStep = prevStep;
-  const handleClick = (value: number, equal: boolean) =>
-    requestAnimationFrame(() => {
-      equal ? (step.current = value) : (step.current += value);
-      prevStep = currentStep;
-      currentStep = calculateCurrentStep(step.current, imgArray.length);
-      if (imageWrapperRef.current)
-        imageWrapperRef.current.style.transform = `translateX(${-currentStep *
-          defaultImgWrapperWidth}px)`;
-      stepViewCollectionRef.current?.children[prevStep].classList.remove(
-        'selected'
-      );
-      stepViewCollectionRef.current?.children[currentStep].classList.add(
-        'selected'
-      );
-    });
+  const [step, setStep] = useState(0);
+  const [prevStep, setPrevStep] = useState(0);
+
+  currentStep = calculateCurrentStep(step, imgArray.length);
+  const handleClick = (value: number, equal: boolean) => {
+    setPrevStep(currentStep);
+    if (equal) {
+      setStep(value);
+    } else {
+      setStep(prevState => prevState + value);
+    }
+  };
+
+  useSliderMovement({
+    step,
+    imageWrapperRef,
+    currentStep,
+    prevStep,
+    stepViewCollectionRef,
+  });
 
   useEffect(() => {
     stepViewCollectionRef.current?.children[0].classList.add('selected');
