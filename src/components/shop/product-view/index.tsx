@@ -72,10 +72,12 @@ const styledConfig = {
 };
 
 const ProductView = () => {
-  const { selectedStoreItem } = useStore(UserMarketStore);
+  const { selectedStoreItem, showUserPromocodes } = useStore(UserMarketStore);
   const { money } = useStore(UserDataStore);
   const [quantity, setQuantity] = useState(1);
   const [waitingForPurchase, setWaitingForPurchase] = useState(false);
+  const itIsCoupon = checkCouponType(selectedStoreItem);
+  const canBuyThisItem = itIsCoupon || (!itIsCoupon && !showUserPromocodes);
 
   const checkUserBalance = () =>
     ifElse(
@@ -113,7 +115,7 @@ const ProductView = () => {
           <ProductDescription selectedStoreItem={selectedStoreItem} />
           <RowWrapper>
             <Icon style={styledConfig.icon} type={selectedStoreItem.slug} />
-            {checkCouponType(selectedStoreItem) && (
+            {itIsCoupon && (
               <ChangeNumberOfProduct
                 quantity={quantity}
                 callBack={setQuantity}
@@ -121,14 +123,16 @@ const ProductView = () => {
             )}
           </RowWrapper>
 
-          <RowWrapper style={styledConfig.rowBlock}>
-            <ProductTotalPrice callBack={calculateTotalPrice} />
-            <Button
-              className={selectClassNameForButton()}
-              content="Купить"
-              callback={buyClickHandler}
-            />
-          </RowWrapper>
+          {canBuyThisItem && (
+            <RowWrapper style={styledConfig.rowBlock}>
+              <ProductTotalPrice callBack={calculateTotalPrice} />
+              <Button
+                className={selectClassNameForButton()}
+                content="Купить"
+                callback={buyClickHandler}
+              />
+            </RowWrapper>
+          )}
           {!checkUserBalance() && <ProductWarning />}
         </ProductBuyWrapper>
       ) : (

@@ -37,9 +37,9 @@ export enum PurchasStatuses {
 }
 
 const defaultUserItems = {
-  [ShopItemsType.COUPON_REPLACE]: { count: 0 },
-  [ShopItemsType.COUPON_SKIP]: { count: 0 },
-  [ShopItemsType.MGTS_SPECIAL]: { count: 0, status: null },
+  [ShopItemsType.COUPON_REPLACE]: { count: 0, storeItem: null },
+  [ShopItemsType.COUPON_SKIP]: { count: 0, storeItem: null },
+  [ShopItemsType.MGTS_SPECIAL]: { count: 0, storeItem: null, status: null },
 };
 
 const initState = {
@@ -58,6 +58,7 @@ export const UserMarketStore = StoreDomain.store<IUserStore>(initState)
       [storeItem.slug]: {
         count: state.userItems[storeItem.slug].count + 1,
         status,
+        storeItem,
       },
     },
   }))
@@ -82,11 +83,11 @@ export const UserMarketStore = StoreDomain.store<IUserStore>(initState)
     if (payload.items.length > 0) {
       payload.items.forEach(({ storeItem, count, status }) => {
         if (storeItem.type.slug === StoreItemTypes.COUPON) {
-          stateClone.userItems[storeItem.slug] = { count };
+          stateClone.userItems[storeItem.slug] = { count, storeItem };
         }
 
         if (storeItem.type.slug === StoreItemTypes.PROMO_CODE) {
-          stateClone.userItems[storeItem.slug] = { count, status };
+          stateClone.userItems[storeItem.slug] = { count, status, storeItem };
         }
       });
     }
@@ -101,6 +102,7 @@ export const UserMarketStore = StoreDomain.store<IUserStore>(initState)
   }))
   .on(resetUserShopStore, state => ({
     ...state,
+    selectedStoreItem: null,
     userItems: { ...defaultUserItems },
   }));
 
@@ -108,7 +110,11 @@ interface IUserStore {
   catalog: IShopCatalog[];
   selectedStoreItem: ICatalogItems | null;
   userItems: {
-    [key in ShopItemsType]: { count: number; status?: PurchasStatuses | null };
+    [key in ShopItemsType]: {
+      count: number;
+      status?: PurchasStatuses | null;
+      storeItem: ICatalogItems | null;
+    };
   };
 
   showUserPromocodes: boolean;

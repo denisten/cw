@@ -57,6 +57,7 @@ const styledConfig = {
 };
 
 export const MTSItemCard: React.FC<IMTSItemCard> = ({ catalogItem }) => {
+  if (!catalogItem) return null;
   const { selectedStoreItem } = useStore(UserMarketStore);
   const checkActiveElem = selectedStoreItem?.slug === catalogItem.slug;
   return (
@@ -77,5 +78,5 @@ export const MTSItemCard: React.FC<IMTSItemCard> = ({ catalogItem }) => {
 };
 
 interface IMTSItemCard {
-  catalogItem: ICatalogItems;
+  catalogItem: ICatalogItems | null;
 }
