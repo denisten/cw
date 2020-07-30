@@ -16,12 +16,22 @@ export enum CouponTypes {
 export enum PurchasesType {
   COUPONS = 'coupons',
   MTS_PURCH = 'mtsPurch',
-  PROMO = 'promo',
+  PROMO_CODES = 'promo_codes',
 }
 
 export enum StoreItemTypes {
   COUPON = 'coupon',
+  PROMO_CODE = 'promo_code',
 }
+
+export enum PromocodeTypes {
+  MGTS_SPECIAL = 'promocode.universal.mgts-special',
+}
+
+export const TranslatedStoreItem = {
+  [StoreItemTypes.PROMO_CODE]: 'Промокод',
+  [StoreItemTypes.COUPON]: 'Купон',
+};
 
 const initState = {
   catalog: [],
