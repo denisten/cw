@@ -26,7 +26,7 @@ export enum TowerInfoContentValues {
 }
 
 const initState = {
-  tutorialSliderDisplayFlag: false,
+  tutorialSliderDisplayFlag: true,
   upgradingTowerTitle: null,
   isAuthorized: false,
   authCancelledStatus: '',

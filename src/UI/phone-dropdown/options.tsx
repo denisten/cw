@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import settingIco from './setting-ico.svg';
 import exitIco from './exit-ico.svg';
@@ -7,7 +7,7 @@ import { windowOpen } from '../../utils/window-open';
 import { logout } from '../../effector/user-data/events';
 import { UserDataStore } from '../../effector/user-data/store';
 import { useStore } from 'effector-react';
-import { useOutsideClickDetector } from '../../hooks/use-detect-outside-click';
+import OutsideClickHandler from 'react-outside-click-handler';
 
 const Img = styled.img`
   margin-right: 7px;
@@ -53,8 +53,6 @@ const OptionElement = styled.div`
 
 export const Options: React.FC<IOptions> = ({ showOptions, callback }) => {
   const { userSessionSocket } = useStore(UserDataStore);
-  const option1 = useRef(null);
-  const option2 = useRef(null);
 
   const handleExitButtonClick = async () => {
     await logout('');
@@ -66,21 +64,21 @@ export const Options: React.FC<IOptions> = ({ showOptions, callback }) => {
     callback();
   };
 
-  useOutsideClickDetector([option1, option2], showOptions, callback);
-
   return (
     <Wrapper showOptions={showOptions}>
-      <OptionElement onClick={handleSettingClick} ref={option1}>
-        <SettingIco />
-        <div>
-          Настроить <span className="black-font"> МТС </span>
-          <span> Профиль </span>
-        </div>
-      </OptionElement>
-      <OptionElement onClick={handleExitButtonClick}>
-        <ExitIco />
-        Выйти из мира
-      </OptionElement>
+      <OutsideClickHandler onOutsideClick={() => callback()}>
+        <OptionElement onClick={handleSettingClick}>
+          <SettingIco />
+          <div>
+            Настроить <span className="black-font"> МТС </span>
+            <span> Профиль </span>
+          </div>
+        </OptionElement>
+        <OptionElement onClick={handleExitButtonClick}>
+          <ExitIco />
+          Выйти из мира
+        </OptionElement>
+      </OutsideClickHandler>
     </Wrapper>
   );
 };

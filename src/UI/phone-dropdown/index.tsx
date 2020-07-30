@@ -21,15 +21,15 @@ const PhoneNumberWrapper = styled.div`
 `;
 
 const PhoneDropdown: React.FC<IPhoneDropdown> = ({ phone }) => {
-  const [showOptions, setShowOptions] = useState(false);
-  const toggleShowOptions = () => setShowOptions(!showOptions);
-
+  const [optionsDisplayFlag, setOptionsDisplayFlag] = useState(false);
+  const hideOptions = () => optionsDisplayFlag && setOptionsDisplayFlag(false);
+  const showOptions = () => !optionsDisplayFlag && setOptionsDisplayFlag(true);
   return (
     <div>
-      <PhoneNumberWrapper onClick={toggleShowOptions}>
+      <PhoneNumberWrapper onClick={showOptions}>
         {phone} <Arrow />
       </PhoneNumberWrapper>
-      <Options showOptions={showOptions} callback={toggleShowOptions} />
+      <Options showOptions={optionsDisplayFlag} callback={hideOptions} />
     </div>
   );
 };

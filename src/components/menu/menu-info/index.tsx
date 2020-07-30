@@ -6,14 +6,12 @@ import {
 import { TutorialSlider } from '../../tutorial-slider';
 import { editTutorialSliderDisplayFlag } from '../../../effector/app-condition/events';
 
-export const MenuInfo = () => {
-  return (
-    <TutorialSlider
-      imgArray={tutorialSlidesArray}
-      displayFlag={false}
-      callback={() => editTutorialSliderDisplayFlag(false)}
-      content={tutorialSliderContent}
-      showOverlay={false}
-    />
-  );
-};
+export const MenuInfo = () => (
+  <TutorialSlider
+    imgArray={tutorialSlidesArray}
+    displayFlag={false}
+    callback={() => editTutorialSliderDisplayFlag(false)}
+    content={tutorialSliderContent}
+    showOverlay={false}
+  />
+);

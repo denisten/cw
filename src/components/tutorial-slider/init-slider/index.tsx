@@ -41,7 +41,7 @@ export const tutorialSliderContent = [
 export const InitTutorialSlider = () => (
   <TutorialSlider
     imgArray={tutorialSlidesArray}
-    displayFlag={false}
+    displayFlag={true}
     callback={() => editTutorialSliderDisplayFlag(false)}
     content={tutorialSliderContent}
   />

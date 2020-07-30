@@ -21,15 +21,6 @@ const MenuWrapper = styled.div`
   user-select: none;
 `;
 
-export const noAuthAvailableMenuItems = [
-  MenuItems.PROFILE,
-  MenuItems.TASKS,
-  MenuItems.HELP,
-  MenuItems.INFO,
-  MenuItems.SETTINGS,
-  MenuItems.DEV,
-];
-
 const allMenuItems = [
   MenuItems.PROFILE,
   MenuItems.TASKS,
