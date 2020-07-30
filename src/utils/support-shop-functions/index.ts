@@ -3,6 +3,10 @@ import { ICatalogItems, StoreItemTypes } from '../../effector/coupons/store';
 export const checkCouponType = (selectedStoreItem: ICatalogItems | null) =>
   selectedStoreItem?.type.slug === StoreItemTypes.COUPON;
 
+export const checkPromocodeTypeType = (
+  selectedStoreItem: ICatalogItems | null
+) => selectedStoreItem?.type.slug === StoreItemTypes.PROMO_CODE;
+
 export const checkBalansForCoupon = (
   selectedStoreItem: ICatalogItems | null,
   quantity: number,

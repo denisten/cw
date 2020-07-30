@@ -68,6 +68,7 @@ export const UserMarketStore = StoreDomain.store<IUserStore>(initState)
   }))
   .on(toggleShowUserPromocodes, state => ({
     ...state,
+    selectedStoreItem: null,
     showUserPromocodes: !state.showUserPromocodes,
   }))
   .on(selectStoreItem, (state, payload) => ({

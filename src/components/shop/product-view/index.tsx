@@ -19,10 +19,12 @@ import {
   checkBalanceForOtherType,
   calculateTotalPriceForCoupon,
   calculateTotalPriceForOtherPurchases,
+  checkPromocodeTypeType,
 } from '../../../utils/support-shop-functions';
 import { useCheckQuantity } from '../../../hooks/use-check-quantity';
 
 import { buyItem } from '../../../effector/coupons/events';
+import { MTSSans } from '../../../fonts';
 
 const Wrapper = styled.div`
   height: 100%;
@@ -69,6 +71,16 @@ const styledConfig = {
   button: {
     width: 'auto',
   },
+  activateRowBlock: {
+    justifyContent: 'center',
+    marginTop: '40px',
+  },
+  activateButton: {
+    fontSize: '16px',
+    lineHeight: '20px',
+    fontFamily: MTSSans.REGULAR,
+    borderRadius: '10px',
+  },
 };
 
 const ProductView = () => {
@@ -78,6 +90,8 @@ const ProductView = () => {
   const [waitingForPurchase, setWaitingForPurchase] = useState(false);
   const itIsCoupon = checkCouponType(selectedStoreItem);
   const canBuyThisItem = itIsCoupon || (!itIsCoupon && !showUserPromocodes);
+  const canActivatePromocode =
+    checkPromocodeTypeType(selectedStoreItem) && showUserPromocodes;
 
   const checkUserBalance = () =>
     ifElse(
@@ -101,12 +115,7 @@ const ProductView = () => {
   };
 
   useCheckQuantity(quantity, setQuantity);
-
-  const selectClassNameForButton = () => {
-    return checkUserBalance() && !waitingForPurchase
-      ? ButtonClassNames.COIN_BUTTON
-      : ButtonClassNames.COIN_BUTTON_DISABLED;
-  };
+  const activeCoinButton = checkUserBalance() && !waitingForPurchase;
 
   return (
     <Wrapper>
@@ -127,9 +136,23 @@ const ProductView = () => {
             <RowWrapper style={styledConfig.rowBlock}>
               <ProductTotalPrice callBack={calculateTotalPrice} />
               <Button
-                className={selectClassNameForButton()}
+                className={
+                  activeCoinButton
+                    ? ButtonClassNames.COIN_BUTTON
+                    : ButtonClassNames.COIN_BUTTON_DISABLED
+                }
                 content="Купить"
                 callback={buyClickHandler}
+              />
+            </RowWrapper>
+          )}
+          {canActivatePromocode && (
+            <RowWrapper style={styledConfig.activateRowBlock}>
+              <Button
+                className={ButtonClassNames.NORMAL}
+                content="Активировать промокод"
+                callback={buyClickHandler}
+                style={styledConfig.activateButton}
               />
             </RowWrapper>
           )}
