@@ -1,5 +1,5 @@
 import { activateCoupon } from '../../api/activate-coupon';
-import { CouponTypes, UserMarketStore } from '../../effector/coupons/store';
+import { ShopItemsType, UserMarketStore } from '../../effector/coupons/store';
 import { ResponseStatuses } from '../../constants';
 import { editCouponCount } from '../../effector/coupons/events';
 import { clearChat } from '../../effector/chat/events';
@@ -14,14 +14,14 @@ export const couponHandler = async (
   towerTitle?: TowersTypes,
   switchers?: ITabSwitchers
 ) => {
-  const { count: couponCount } = UserMarketStore.getState().userCoupons[
-    CouponTypes.COUPON_REPLACE
+  const { count: couponCount } = UserMarketStore.getState().userItems[
+    ShopItemsType.COUPON_REPLACE
   ];
   if (taskId && couponCount) {
-    const response = await activateCoupon(CouponTypes.COUPON_REPLACE, taskId);
+    const response = await activateCoupon(ShopItemsType.COUPON_REPLACE, taskId);
     if (response.state === ResponseStatuses.SUCCESS) {
       editCouponCount({
-        couponType: CouponTypes.COUPON_REPLACE,
+        couponType: ShopItemsType.COUPON_REPLACE,
         count: count - 1,
       });
       markerHandler();

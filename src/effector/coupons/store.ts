@@ -8,14 +8,14 @@ import {
   openMarket,
 } from './events';
 
-export enum CouponTypes {
+export enum ShopItemsType {
   COUPON_REPLACE = 'coupon.task.replace',
   COUPON_SKIP = 'coupon.task.skip',
+  MGTS_SPECIAL = 'promocode.universal.mgts-special',
 }
 
 export enum PurchasesType {
   COUPONS = 'coupons',
-  MTS_PURCH = 'mtsPurch',
   PROMO_CODES = 'promo_codes',
 }
 
@@ -24,22 +24,25 @@ export enum StoreItemTypes {
   PROMO_CODE = 'promo_code',
 }
 
-export enum PromocodeTypes {
-  MGTS_SPECIAL = 'promocode.universal.mgts-special',
-}
-
 export const TranslatedStoreItem = {
   [StoreItemTypes.PROMO_CODE]: 'Промокод',
   [StoreItemTypes.COUPON]: 'Купон',
 };
 
+export enum PurchasStatuses {
+  NEW = 'new',
+  USED = 'used',
+}
+
 const initState = {
   catalog: [],
   selectedStoreItem: null,
-  userCoupons: {
-    [CouponTypes.COUPON_REPLACE]: { count: 0 },
-    [CouponTypes.COUPON_SKIP]: { count: 0 },
+  userItems: {
+    [ShopItemsType.COUPON_REPLACE]: { count: 0 },
+    [ShopItemsType.COUPON_SKIP]: { count: 0 },
+    [ShopItemsType.MGTS_SPECIAL]: { count: 0, status: null },
   },
+  userPromocodes: {},
   showUserPromocodes: false,
   openedMarket: false,
 };
@@ -64,9 +67,13 @@ export const UserMarketStore = StoreDomain.store<IUserStore>(initState)
   .on(fetchUserPurchases.doneData, (state, payload) => {
     const stateClone = { ...state };
     if (payload.items.length > 0) {
-      payload.items.forEach(({ storeItem, count }) => {
+      payload.items.forEach(({ storeItem, count, status }) => {
         if (storeItem.type.slug === StoreItemTypes.COUPON) {
-          stateClone.userCoupons[storeItem.slug] = { count };
+          stateClone.userItems[storeItem.slug] = { count };
+        }
+
+        if (storeItem.type.slug === StoreItemTypes.PROMO_CODE) {
+          stateClone.userItems[storeItem.slug] = { count, status };
         }
       });
     }
@@ -74,8 +81,8 @@ export const UserMarketStore = StoreDomain.store<IUserStore>(initState)
   })
   .on(editCouponCount, (state, { couponType, count }) => ({
     ...state,
-    userCoupons: {
-      ...state.userCoupons,
+    userItems: {
+      ...state.userItems,
       [couponType]: { count },
     },
   }));
@@ -83,9 +90,10 @@ export const UserMarketStore = StoreDomain.store<IUserStore>(initState)
 interface IUserStore {
   catalog: IShopCatalog[];
   selectedStoreItem: ICatalogItems | null;
-  userCoupons: {
-    [key in CouponTypes]: { count: number };
+  userItems: {
+    [key in ShopItemsType]: { count: number; status?: PurchasStatuses | null };
   };
+
   showUserPromocodes: boolean;
   openedMarket: boolean;
 }
@@ -101,7 +109,7 @@ export interface ICatalogItems {
     slug: StoreItemTypes;
   };
   price: number;
-  slug: CouponTypes;
+  slug: ShopItemsType;
   name: string;
   description: string;
 }

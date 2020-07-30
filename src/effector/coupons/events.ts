@@ -1,5 +1,5 @@
 import { StoreDomain } from './domain';
-import { CouponTypes, ICatalogItems } from './store';
+import { ShopItemsType, ICatalogItems } from './store';
 import { getUserPurchases } from '../../api/get-user-purchases';
 import { getShopCatalog } from '../../api/shop-api/get-shop-catalog';
 
@@ -21,6 +21,6 @@ export const toggleShowUserPromocodes = StoreDomain.event('');
 export const openMarket = StoreDomain.event<boolean>('');
 
 interface IEditCouponCount {
-  couponType: CouponTypes;
+  couponType: ShopItemsType;
   count: number;
 }

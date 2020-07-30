@@ -19,7 +19,7 @@ import enter from './enter.svg';
 import mgts from './mgts.svg';
 import { TasksType } from '../../components/menu/menu-tasks';
 import { TypeOfMarkers } from '../../components/markers';
-import { CouponTypes, PromocodeTypes } from '../../effector/coupons/store';
+import { ShopItemsType } from '../../effector/coupons/store';
 
 export enum TypeOfIcons {
   ENERGY = 'energy',
@@ -36,7 +36,7 @@ const defaultStyle = {
 
 export const Icon: React.FC<IIcon> = ({ style = defaultStyle, type }) => {
   const switchSrc = (
-    type: TypeOfIcons | TasksType | TypeOfMarkers | CouponTypes | PromocodeTypes
+    type: TypeOfIcons | TasksType | TypeOfMarkers | ShopItemsType
   ) => {
     switch (type) {
       case TypeOfIcons.CHAT:
@@ -70,11 +70,11 @@ export const Icon: React.FC<IIcon> = ({ style = defaultStyle, type }) => {
         return upgradeTower;
       case TypeOfMarkers.PLAY:
         return play;
-      case CouponTypes.COUPON_REPLACE:
+      case ShopItemsType.COUPON_REPLACE:
         return replace;
-      case CouponTypes.COUPON_SKIP:
+      case ShopItemsType.COUPON_SKIP:
         return skip;
-      case PromocodeTypes.MGTS_SPECIAL:
+      case ShopItemsType.MGTS_SPECIAL:
         return mgts;
 
       case TypeOfIcons.ENTER:
@@ -93,5 +93,5 @@ interface IIcon {
     width?: string;
     height?: string;
   };
-  type: TypeOfIcons | TasksType | TypeOfMarkers | CouponTypes | PromocodeTypes;
+  type: TypeOfIcons | TasksType | TypeOfMarkers | ShopItemsType;
 }
