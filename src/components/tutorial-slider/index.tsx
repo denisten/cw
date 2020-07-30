@@ -10,16 +10,14 @@ import { ZIndexes } from '../root-component/z-indexes-enum';
 import { ImagesCollection } from '../../UI/images-collection';
 
 const defaultImgWrapperWidth = 772;
-const paddingTop = 33;
 const leftOffset = 3;
+
 const TutorialSliderWrapper = styled.div<ITutorialSliderWrapper>`
   width: 772px;
-  //height: {props => (props.showOverlay ? 481 : 301)}px;
   height: 456px;
   background-image: url(${background});
   background-repeat: no-repeat;
-  background-size: contain;
-  padding-top: ${props => (props.showOverlay ? paddingTop : 0)}px;
+  background-size: cover;
   box-sizing: border-box;
   position: relative;
   left: ${props => (props.showOverlay ? 0 : leftOffset)}px;
@@ -43,7 +41,6 @@ const ImageCollectionWrapper = styled.div`
 const DescriptionWrapper = styled.div`
   width: 713px;
   height: 190px;
-  //padding: 26px 38px 0 39px;
   padding: 20px 46px 0 85px;
   box-sizing: border-box;
 `;
@@ -162,11 +159,7 @@ export const TutorialSlider: React.FC<ITutorialSlider> = ({
       />
       <ImageWrapper showOverlay={showOverlay}>
         <ImageCollectionWrapper ref={imageWrapperRef}>
-          <ImagesCollection
-            imgArray={imgArray}
-            width={defaultImgWrapperWidth}
-            height={301}
-          />
+          <ImagesCollection imgArray={imgArray} />
         </ImageCollectionWrapper>
       </ImageWrapper>
       <DescriptionWrapper>
