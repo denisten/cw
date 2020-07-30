@@ -36,15 +36,16 @@ export enum PurchasStatuses {
   USED = 'used',
 }
 
+const defaultUserItems = {
+  [ShopItemsType.COUPON_REPLACE]: { count: 0 },
+  [ShopItemsType.COUPON_SKIP]: { count: 0 },
+  [ShopItemsType.MGTS_SPECIAL]: { count: 0, status: null },
+};
+
 const initState = {
   catalog: [],
   selectedStoreItem: null,
-  userItems: {
-    [ShopItemsType.COUPON_REPLACE]: { count: 0 },
-    [ShopItemsType.COUPON_SKIP]: { count: 0 },
-    [ShopItemsType.MGTS_SPECIAL]: { count: 0, status: null },
-  },
-  userPromocodes: {},
+  userItems: { ...defaultUserItems },
   showUserPromocodes: false,
   openedMarket: false,
 };
@@ -98,7 +99,10 @@ export const UserMarketStore = StoreDomain.store<IUserStore>(initState)
       [couponType]: { count },
     },
   }))
-  .reset(resetUserShopStore);
+  .on(resetUserShopStore, state => ({
+    ...state,
+    userItems: { ...defaultUserItems },
+  }));
 
 interface IUserStore {
   catalog: IShopCatalog[];
