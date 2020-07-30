@@ -16,9 +16,17 @@ import { fetchTasks } from '../../effector/missions-store/events';
 import { markerHandler } from '../../utils/marker-handler';
 import { TaskStatuses, IGetTasks } from '../../effector/missions-store/store';
 
+const notSecuredProtocol = 'http:';
+const securedWebSocketProtocol = 'wss://';
+const notSecuredWebSocketProtocol = 'ws://';
 const centrifugeUrl = '/ws/connection/websocket';
 
-const wsConnectionRoute = 'ws://' + window.location.host + centrifugeUrl;
+const wsProtocol =
+  window.location.protocol === notSecuredProtocol
+    ? notSecuredWebSocketProtocol
+    : securedWebSocketProtocol;
+
+const wsConnectionRoute = wsProtocol + window.location.host + centrifugeUrl;
 const numberOfSubscriptions = 2;
 
 export const openWsConnection = async (userId: number) => {
