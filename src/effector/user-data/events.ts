@@ -10,6 +10,7 @@ import { resetMissionsStore } from '../missions-store/events';
 import { resetChatStore } from '../chat/events';
 import { resetTowersMarker } from '../towers-marker/events';
 import { resetTowerProgress } from '../towers-progress/events';
+import { resetUserShopStore } from '../coupons/events';
 
 export const editCurrentUserDataField = UserDataDomain.event<
   IEditCurrentUserDataField
@@ -43,6 +44,7 @@ export const logout = UserDataDomain.effect('logout', {
     resetTowersMarker();
     resetTowerProgress();
     setDataReceived(false);
+    resetUserShopStore();
     return resetUserDataStore();
   },
 });

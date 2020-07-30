@@ -6,6 +6,8 @@ import {
   selectStoreItem,
   toggleShowUserPromocodes,
   openMarket,
+  buyItem,
+  resetUserShopStore,
 } from './events';
 
 export enum ShopItemsType {
@@ -48,6 +50,16 @@ const initState = {
 };
 
 export const UserMarketStore = StoreDomain.store<IUserStore>(initState)
+  .on(buyItem.doneData, (state, { storeItem, status }) => ({
+    ...state,
+    userItems: {
+      ...state.userItems,
+      [storeItem.slug]: {
+        count: state.userItems[storeItem.slug].count + 1,
+        status,
+      },
+    },
+  }))
   .on(openMarket, (state, payload) => ({
     ...state,
     openedMarket: payload,
@@ -85,7 +97,8 @@ export const UserMarketStore = StoreDomain.store<IUserStore>(initState)
       ...state.userItems,
       [couponType]: { count },
     },
-  }));
+  }))
+  .reset(resetUserShopStore);
 
 interface IUserStore {
   catalog: IShopCatalog[];

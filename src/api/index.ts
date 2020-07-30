@@ -28,6 +28,7 @@ export enum apiRoutes {
   REDEEM = '/redeem?entity_id=',
   GET_WORLD_STATE = '/api/world/state',
   GET_SHOP_CATALOG = '/api/store/listing',
+  STORE_ITEMS = '/api/store/items/',
 }
 
 export {

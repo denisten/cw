@@ -22,6 +22,8 @@ import {
 } from '../../../utils/support-shop-functions';
 import { useCheckQuantity } from '../../../hooks/use-check-quantity';
 
+import { buyItem } from '../../../effector/coupons/events';
+
 const Wrapper = styled.div`
   height: 100%;
   display: flex;
@@ -89,8 +91,10 @@ const ProductView = () => {
       () => calculateTotalPriceForOtherPurchases(selectedStoreItem)
     )('');
 
-  const buyClickHandler = () => {
+  const buyClickHandler = async () => {
     setWaitingForPurchase(true);
+    selectedStoreItem && (await buyItem(selectedStoreItem.slug));
+    setWaitingForPurchase(false);
     setQuantity(1);
   };
 
