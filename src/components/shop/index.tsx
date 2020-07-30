@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react';
+import React from 'react';
 import { ZIndexes } from '../root-component/z-indexes-enum';
 import { Overlay } from '../../UI/overlay';
 import styled from 'styled-components';
@@ -10,8 +10,8 @@ import { useStore } from 'effector-react';
 import { UserMarketStore } from '../../effector/coupons/store';
 import { useFetchShopCatalog } from '../../hooks/use-fetch-shop-catalog';
 
-const ShopContent = lazy(() => import('./shop-content'));
-const ProductView = lazy(() => import('./product-view'));
+import ShopContent from './shop-content';
+import ProductView from './product-view';
 
 const styledConfig = {
   overlay: {
@@ -46,14 +46,8 @@ const Shop = () => {
           {...styledConfig.exitButton}
           callBack={() => openMarket(false)}
         />
-        <Suspense fallback={<></>}>
-          {openedMarket && (
-            <>
-              <ShopContent />
-              <ProductView />
-            </>
-          )}
-        </Suspense>
+        <ShopContent />
+        <ProductView />
       </Wrapper>
     </Overlay>
   );
