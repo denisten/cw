@@ -22,6 +22,7 @@ const CoinsWrapper = styled.div`
   display: flex;
   z-index: 1;
   align-items: center;
+  position: relative;
 `;
 export const UserAvatar = styled.label<IUserAvatar>`
   width: 65px;
@@ -88,7 +89,7 @@ const CoinImg = styled.img<{ isCoinRelocateAnimationEnded: boolean }>`
   transition: 0.3s;
   transform: ${props =>
     props.isCoinRelocateAnimationEnded ? 'scale(1.2)' : ''};
-  transform-origin: top center;
+  transform-origin: bottom;
 `;
 
 const moneyCircleAnim = keyframes`
@@ -103,11 +104,9 @@ to {
 
 const MoneyCircle = styled.div<IDisplayFlag>`
   position: absolute;
-  top: -40px;
-  left: 27.5px;
+  left: -50px;
   width: 120px;
   height: 120px;
-  margin-right: 7px;
   display: ${props => (props.displayFlag ? 'block' : 'none')};
   background: url(${moneyCircle}) no-repeat center;
   background-size: 100% 100%;
