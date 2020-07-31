@@ -57,7 +57,7 @@ const styledConfig = {
 };
 
 const Encyclopedia = () => {
-  const { openEncyclopedia } = useStore(MenuStore);
+  const { encyclopediaDisplayFlag } = useStore(MenuStore);
   const [activeItem, setActiveItem] = useState(EncyclopediaItem.LEGEND);
   const activeItemObj = encyclopediaItemsList.find(
     elem => elem.id === activeItem
@@ -67,7 +67,7 @@ const Encyclopedia = () => {
   );
 
   return (
-    <Overlay displayFlag={openEncyclopedia} {...StyledConfig.overlay}>
+    <Overlay displayFlag={encyclopediaDisplayFlag} {...StyledConfig.overlay}>
       <Wrapper>
         <ExitButton
           {...styledConfig.exitButton}
