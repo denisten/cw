@@ -6,8 +6,8 @@ import { MTSItemCard } from './mts-item-card';
 import { useStore } from 'effector-react';
 import {
   UserMarketStore,
-  PurchasesType,
   PromocodeTypes,
+  StoreItemTypes,
 } from '../../../../effector/coupons/store';
 import { ifElse } from 'ramda';
 const MTSItemsWrapper = styled.div`
@@ -17,8 +17,7 @@ const MTSItemsWrapper = styled.div`
 
 const MTSCatalogItems = () => {
   const MTSCatalog = useStore(UserMarketStore)
-    .catalog.filter(item => item.slug === PurchasesType.PROMO_CODES)
-    .map(item => item.items)
+    .catalog.filter(item => item.type.slug === StoreItemTypes.PROMO_CODE)
     .flat();
 
   return (

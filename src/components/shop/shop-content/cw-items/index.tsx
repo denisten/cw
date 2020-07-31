@@ -6,7 +6,7 @@ import { CWItemCard, CardWrapper, TitleElem } from './cw-item-card';
 import { useStore } from 'effector-react';
 import {
   UserMarketStore,
-  PurchasesType,
+  StoreItemTypes,
 } from '../../../../effector/coupons/store';
 import { AppConditionStore } from '../../../../effector/app-condition/store';
 import { Icon, TypeOfIcons } from '../../../../UI/icons';
@@ -46,8 +46,7 @@ const CatalogInNotAuthZone: React.FC = () => (
 
 const CatalogInAuthZone: React.FC = () => {
   const clientWorldCatalog = useStore(UserMarketStore)
-    .catalog.filter(item => item.slug === PurchasesType.COUPONS)
-    .map(item => item.items)
+    .catalog.filter(item => item.type.slug === StoreItemTypes.COUPON)
     .flat();
 
   return (

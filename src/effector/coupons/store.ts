@@ -15,11 +15,6 @@ export enum CouponTypes {
   COUPON_SKIP = 'coupon.task.skip',
 }
 
-export enum PurchasesType {
-  COUPONS = 'coupons',
-  PROMO_CODES = 'promo_codes',
-}
-
 export enum StoreItemTypes {
   COUPON = 'coupon',
   PROMO_CODE = 'promo_code',
@@ -128,7 +123,7 @@ export const UserMarketStore = StoreDomain.store<IUserStore>(initState)
   }));
 
 interface IUserStore {
-  catalog: IShopCatalog[];
+  catalog: ICatalogItems[];
   selectedStoreItem: ICatalogItems | null;
   userCoupons: {
     [key in CouponTypes]: {
@@ -148,8 +143,6 @@ interface IUserStore {
 }
 
 export interface IShopCatalog {
-  name: string;
-  slug: PurchasesType;
   items: ICatalogItems[];
 }
 

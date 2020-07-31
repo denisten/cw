@@ -6,5 +6,7 @@ export const getShopCatalog = async () => {
   const response = await get<{ data: IShopCatalog[] }>(
     apiRoutes.GET_SHOP_CATALOG
   );
-  return response.data.data;
+  const data = response.data.data.map(item => item.items.flat()).flat();
+
+  return data;
 };
