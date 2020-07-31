@@ -56,7 +56,7 @@ const styledConfig = {
 
 export const CWItemCard: React.FC<ICWItemCard> = ({ catalogItem }) => {
   const { selectedStoreItem, userCoupons } = useStore(UserMarketStore);
-  const numberOfCoupons =
+  const couponsQuantity =
     userCoupons[catalogItem.slug as CouponTypes].count || 0;
 
   const checkActiveElem = selectedStoreItem?.slug === catalogItem.slug;
@@ -65,7 +65,7 @@ export const CWItemCard: React.FC<ICWItemCard> = ({ catalogItem }) => {
       onClick={() => selectStoreItem(catalogItem)}
       active={checkActiveElem}
     >
-      <CouponCount>{numberOfCoupons} шт.</CouponCount>
+      <CouponCount>{couponsQuantity} шт.</CouponCount>
       <Icon style={styledConfig.icon} type={catalogItem.slug} />
       <TitleElem>{catalogItem.name.replace(/Купон/gi, '')}</TitleElem>
       <MoneyCounter sum={String(catalogItem.price)} />
