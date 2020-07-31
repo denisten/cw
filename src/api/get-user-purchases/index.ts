@@ -1,6 +1,6 @@
 import { get } from '../requests/get';
 import { apiRoutes } from '..';
-import { PurchasesType, CouponTypes } from '../../effector/coupons/store';
+import { PurchasStatuses, ICatalogItems } from '../../effector/coupons/store';
 
 export const getUserPurchases = async () => {
   const response = await get<{ data: IUserPurchases }>(apiRoutes.GET_PURCHASES);
@@ -9,16 +9,8 @@ export const getUserPurchases = async () => {
 
 interface IUserPurchases {
   items: {
-    storeItem: {
-      type: {
-        slug: PurchasesType;
-      };
-      price: number;
-      slug: CouponTypes;
-      name: string;
-      description: string;
-    };
-    status: string;
+    storeItem: ICatalogItems;
+    status: PurchasStatuses | null;
     count: number;
   }[];
 }
