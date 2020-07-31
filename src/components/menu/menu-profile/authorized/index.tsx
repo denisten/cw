@@ -32,7 +32,6 @@ const Header = styled.div`
 
 const NickNameWrapper = styled(StyledSpan)`
   font-family: ${MTSSans.BOLD};
-  font-weight: 900;
   font-size: 18px;
   line-height: 24px;
   letter-spacing: -0.6px;

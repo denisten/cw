@@ -9,7 +9,6 @@ import { editTutorialSliderDisplayFlag } from '../../../effector/app-condition/e
 export const MenuInfo = () => (
   <TutorialSlider
     imgArray={tutorialSlidesArray}
-    displayFlag={false}
     callback={() => editTutorialSliderDisplayFlag(false)}
     content={tutorialSliderContent}
     showOverlay={false}

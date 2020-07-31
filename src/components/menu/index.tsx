@@ -21,7 +21,7 @@ import { useAuthCanceledStatus } from '../../hooks/use-auth-canceled-status';
 const ExpandedColumnWrapper = styled(ColumnWrapper)`
   height: 456px;
   width: auto;
-  z-index: 20;
+  z-index: ${ZIndexes.UI_BUTTON};
 `;
 const StyledConfig = {
   exitButton: {

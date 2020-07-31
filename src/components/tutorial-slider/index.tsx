@@ -121,7 +121,7 @@ const calculateCurrentStep = (step: number, arrLength: number) => {
 let currentStep = 0;
 
 export const TutorialSlider: React.FC<ITutorialSlider> = ({
-  displayFlag,
+  displayFlag = false,
   content,
   imgArray,
   callback,
@@ -191,7 +191,7 @@ export const TutorialSlider: React.FC<ITutorialSlider> = ({
 };
 
 interface ITutorialSlider {
-  displayFlag: boolean;
+  displayFlag?: boolean;
   content: IContentCollection[];
   imgArray: string[];
   callback: () => void;
