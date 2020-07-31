@@ -196,7 +196,7 @@ const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
           <UserAvatar avatar={avatar} />
           <ColumnWrapper {...styledConfig.profileDataColumnWrapper}>
             <NickNameWrapper>{name}</NickNameWrapper>
-            <PhoneDropdown phone="+7 962 918 02 32" />
+            <PhoneDropdown phone="+7 800 555 35 35" />
           </ColumnWrapper>
         </RowWrapper>
         <CoinsWallet sum={String(money)} />
