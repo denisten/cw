@@ -52,7 +52,7 @@ const ProductBuyWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  padding: 30px 15px 70px 30px;
+  padding: 30px 32px 70px 30px;
   box-sizing: border-box;
 `;
 
@@ -72,6 +72,7 @@ const styledConfig = {
   rowBlock: {
     marginTop: '124px',
     marginBottom: '28px',
+    paddingRight: '10px',
     alignItems: 'center',
     justifyContent: 'space-between',
   },

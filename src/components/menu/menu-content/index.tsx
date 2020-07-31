@@ -8,10 +8,11 @@ import { Settings } from '../../settings';
 import { MenuTasks } from '../menu-tasks';
 import { MenuHelp } from '../menu-help';
 import { MenuInfo } from '../menu-info';
-
-const MenuContentWrapper = styled.div<IMenuContentWrapper>`
+import background from './background.svg';
+const MenuContentWrapper = styled.div`
   flex: 1;
-  background: ${props => (props.activeTaskElem ? 'inherit' : '#fff')};
+  background: url(${background}) no-repeat center;
+  background-size: 100% 100%;
   width: 776px;
   height: 100%;
   z-index: ${ZIndexes.UI_BUTTON};
@@ -38,15 +39,11 @@ const MenuContentSelector: React.FC<IMenuContent> = ({ content }) => {
 
 export const MenuContent: React.FC<IMenuContent> = ({ content }) => {
   return (
-    <MenuContentWrapper activeTaskElem={content === MenuItems.TASKS}>
+    <MenuContentWrapper>
       <MenuContentSelector content={content} />
     </MenuContentWrapper>
   );
 };
-
-interface IMenuContentWrapper {
-  activeTaskElem: boolean;
-}
 
 interface IMenuContent {
   content: MenuItems;

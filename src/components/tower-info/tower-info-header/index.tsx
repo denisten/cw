@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import headerBackground from '../header.png';
 import { TutorialConditions } from '../../../effector/tutorial-store/store';
 import { pauseTutorialMode } from '../../../effector/tutorial-store/events';
 import { ExitButton } from '../../../UI/exit-button';
@@ -9,8 +8,6 @@ import { extraTowerInfoModalClosed } from '../../../effector/tower-info-modal-st
 const TowerInfoHeaderWrapper = styled.div`
   width: 100%;
   height: 55px;
-  background: url(${headerBackground}) no-repeat center white;
-  background-size: 100% 100%;
   flex-shrink: 0;
   position: relative;
 

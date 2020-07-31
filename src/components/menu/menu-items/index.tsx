@@ -12,13 +12,14 @@ const MenuWrapper = styled.div`
   justify-content: flex-start;
   align-items: center;
   background: url(${background}) no-repeat center;
-  background-size: cover;
+  background-size: 100% 100%;
   flex-shrink: 0;
   position: relative;
   padding-top: 42px;
   box-sizing: border-box;
   overflow: hidden;
   user-select: none;
+  left: 2px;
 `;
 
 const allMenuItems = [
