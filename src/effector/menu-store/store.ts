@@ -10,13 +10,13 @@ export enum TowerInfoContentValues {
 
 const initState = {
   selectedMenuItem: null,
-  openEncyclopedia: false,
+  encyclopediaDisplayFlag: false,
 };
 
 export const MenuStore = MenuDomain.store<AppConditionType>(initState)
   .on(setOpenEncyclopediaState, (state, payload) => ({
     ...state,
-    openEncyclopedia: payload,
+    encyclopediaDisplayFlag: payload,
   }))
   .on(menuOpened, (state, payload) => ({
     ...state,
@@ -29,5 +29,5 @@ export const MenuStore = MenuDomain.store<AppConditionType>(initState)
 
 export type AppConditionType = {
   selectedMenuItem: MenuItems | null;
-  openEncyclopedia: boolean;
+  encyclopediaDisplayFlag: boolean;
 };
