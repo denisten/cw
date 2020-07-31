@@ -2,7 +2,12 @@ import { useState, useEffect } from 'react';
 import { maxPercent } from '../../constants';
 import { propEq, ifElse } from 'ramda';
 
-export const useCalculateLoadingProgress = () => {
+export const useCalculateLoadingProgress = (
+  isAuthorized: boolean,
+  currentQuatitySuccessRequests: number,
+  quatityRequests: number,
+  startLoading: boolean
+) => {
   const [allImagesNumber, setAllImagesNumber] = useState(0);
   const [loadedImagesNumber, setLoadedImgCount] = useState(0);
   const [loadingPercent, setLoadingPercent] = useState(0);
@@ -30,7 +35,20 @@ export const useCalculateLoadingProgress = () => {
     setAllImagesNumber(imgCollection.length);
   };
 
-  const convertToPercent = () => {
+  const setPercentWithRequest = () => {
+    const percent =
+      ((currentQuatitySuccessRequests * maxPercent) / quatityRequests +
+        (loadedImagesNumber * maxPercent) / allImagesNumber) /
+      2;
+
+    if (percent >= maxPercent) {
+      setLoadingPercent(maxPercent);
+    } else {
+      setLoadingPercent(Number(percent.toFixed(0)) || 0);
+    }
+  };
+
+  const setPercentWithImgLoaded = () => {
     const percent = (loadedImagesNumber * maxPercent) / allImagesNumber || 0;
     if (percent >= maxPercent) {
       setLoadingPercent(maxPercent);
@@ -39,8 +57,13 @@ export const useCalculateLoadingProgress = () => {
     }
   };
 
-  const markAllResourcesAsLoaded = () => {
-    setLoadingPercent(maxPercent);
+  const convertToPercent = () => {
+    // const percent = (loadedImagesNumber * maxPercent) / allImagesNumber || 0;
+    if (isAuthorized) {
+      setPercentWithRequest();
+    } else {
+      setPercentWithImgLoaded();
+    }
   };
 
   const checkState = propEq('readyState', 'loading');
@@ -50,18 +73,22 @@ export const useCalculateLoadingProgress = () => {
   useEffect(() => {
     ifElse(checkState, add, checkAllImages)(document);
 
-    window.addEventListener('load', markAllResourcesAsLoaded);
-
     return () => {
       document.removeEventListener('DOMContentLoaded', checkAllImages);
-      window.removeEventListener('load', markAllResourcesAsLoaded);
     };
   }, []);
 
   useEffect(() => {
-    parseWhenImageLoaded();
-    convertToPercent();
-  }, [allImagesNumber, loadedImagesNumber]);
+    if (startLoading) {
+      parseWhenImageLoaded();
+      convertToPercent();
+    }
+  }, [
+    allImagesNumber,
+    loadedImagesNumber,
+    currentQuatitySuccessRequests,
+    startLoading,
+  ]);
 
   return loadingPercent;
 };

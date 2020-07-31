@@ -15,6 +15,7 @@ import { fetchTasks } from '../../effector/missions-store/events';
 
 import { markerHandler } from '../../utils/marker-handler';
 import { TaskStatuses, IGetTasks } from '../../effector/missions-store/store';
+import { scoreSuccessRequests } from '../../effector/preloader/events';
 
 const notSecuredProtocol = 'http:';
 const securedWebSocketProtocol = 'wss://';
@@ -42,10 +43,11 @@ export const openWsConnection = async (userId: number) => {
   setUserSessionSocket(centrifuge);
   let numberOfActiveSubscriptions = 0;
 
-  const checkActiveSubscriptions = () => {
+  const checkActiveSubscriptions = async () => {
     numberOfActiveSubscriptions += 1;
     if (numberOfActiveSubscriptions === numberOfSubscriptions) {
-      getWorldState();
+      await getWorldState();
+      scoreSuccessRequests();
     }
   };
 

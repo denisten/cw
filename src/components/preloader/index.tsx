@@ -10,6 +10,9 @@ import { preloaderBuildingsConfig } from './preloader-building-config';
 import { PreloaderBuilding } from './preloader-building';
 import { delayBeforePreloaderOff, maxPercent } from '../../constants';
 import { Logo } from './logo';
+import { useStore } from 'effector-react';
+import { PreloaderStore } from '../../effector/preloader/store';
+import { AppConditionStore } from '../../effector/app-condition/store';
 
 enum InheritZIndexes {
   BUILDINGS = 2,
@@ -153,7 +156,18 @@ enum CloudsState {
   HIDE = 'hideCloud',
 }
 export const Preloader: React.FC = () => {
-  const loadingProgress = useCalculateLoadingProgress();
+  const {
+    currentQuatitySuccessRequests,
+    quatityRequests,
+    startLoading,
+  } = useStore(PreloaderStore);
+  const { isAuthorized } = useStore(AppConditionStore);
+  const loadingProgress = useCalculateLoadingProgress(
+    isAuthorized,
+    currentQuatitySuccessRequests,
+    quatityRequests,
+    startLoading
+  );
   const [isAnimationStarted, setIsAnimationStarted] = useState(false);
   const [isAnimationEnded, setIsAnimationEnded] = useState(false);
   const preloaderRef = useRef<HTMLDivElement>(null);

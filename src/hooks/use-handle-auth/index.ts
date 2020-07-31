@@ -17,6 +17,7 @@ import { TypeOfMarkers } from '../../components/markers';
 import { setMarker } from '../../effector/towers-marker/events';
 import { fetchUserPurchases } from '../../effector/coupons/events';
 import { markerHandler } from '../../utils/marker-handler';
+import { scoreSuccessRequests } from '../../effector/preloader/events';
 
 const markersEnumeration = (incomes: TowersTypesAsObjectLiteral) => {
   const iterableArrayOfIncomesData = Object.entries(incomes);
@@ -48,6 +49,7 @@ const handleAuth = async (isAuthorized: boolean, dataReceived: boolean) => {
     markerHandler();
     setDataReceived(true);
     editTutorialSliderDisplayFlag(true);
+    scoreSuccessRequests();
   }
 };
 
