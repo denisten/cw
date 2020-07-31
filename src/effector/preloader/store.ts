@@ -14,7 +14,6 @@ export enum Browsers {
 const iniStore: IPreloaderStore = {
   quatityRequests: 6,
   currentQuatitySuccessRequests: 0,
-  finishedRequest: false,
   startLoading: false,
 };
 
@@ -24,8 +23,6 @@ export const PreloaderStore = PreloaderDomain.store(iniStore)
     if (stateClone.currentQuatitySuccessRequests < stateClone.quatityRequests) {
       stateClone.currentQuatitySuccessRequests =
         stateClone.currentQuatitySuccessRequests + 1;
-    } else {
-      stateClone.finishedRequest = true;
     }
     return stateClone;
   })
@@ -37,6 +34,5 @@ export const PreloaderStore = PreloaderDomain.store(iniStore)
 interface IPreloaderStore {
   quatityRequests: number;
   currentQuatitySuccessRequests: number;
-  finishedRequest: boolean;
   startLoading: boolean;
 }
