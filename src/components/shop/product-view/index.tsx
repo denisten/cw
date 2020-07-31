@@ -6,6 +6,7 @@ import {
   PurchasStatuses,
   StoreItemTypes,
   PromocodeTypes,
+  ICatalogItems,
 } from '../../../effector/coupons/store';
 import { StyledSpan } from '../../../UI/span';
 import { Icon } from '../../../UI/icons';
@@ -89,10 +90,10 @@ const styledConfig = {
   },
 };
 
-const ProductView = () => {
-  const { selectedStoreItem, showUserPromocodes, userPromocodes } = useStore(
-    UserMarketStore
-  );
+const SelectedStoreItem: React.FC<{ selectedStoreItem: ICatalogItems }> = ({
+  selectedStoreItem,
+}) => {
+  const { showUserPromocodes, userPromocodes } = useStore(UserMarketStore);
 
   const { money } = useStore(UserDataStore);
   const [quantity, setQuantity] = useState(1);
@@ -100,13 +101,13 @@ const ProductView = () => {
   const itIsCoupon = checkCouponType(selectedStoreItem);
   const canBuyThisItem = itIsCoupon || (!itIsCoupon && !showUserPromocodes);
   const itIsNewPromocode =
-    selectedStoreItem &&
     selectedStoreItem.type.slug === StoreItemTypes.PROMO_CODE &&
     userPromocodes[selectedStoreItem.slug as PromocodeTypes].status ===
       PurchasStatuses.NEW;
+
   const canActivatePromocode =
-    checkPromocodeTypeType(selectedStoreItem) &&
     showUserPromocodes &&
+    checkPromocodeTypeType(selectedStoreItem) &&
     itIsNewPromocode;
 
   const checkUserBalance = () =>
@@ -114,7 +115,7 @@ const ProductView = () => {
       () => checkCouponType(selectedStoreItem),
       () => checkBalansForCoupon(selectedStoreItem, quantity, money),
       () => checkBalanceForOtherType(selectedStoreItem, money)
-    )(quantity);
+    )('');
 
   const calculateTotalPrice = () =>
     ifElse(
@@ -125,64 +126,68 @@ const ProductView = () => {
 
   const buyClickHandler = async () => {
     setWaitingForPurchase(true);
-    selectedStoreItem && (await buyItem(selectedStoreItem.slug));
+    await buyItem(selectedStoreItem.slug);
     setWaitingForPurchase(false);
     setQuantity(1);
   };
 
   const activate = () => {
     setWaitingForPurchase(true);
-    selectedStoreItem && activatePromocode(selectedStoreItem?.slug);
+    activatePromocode(selectedStoreItem?.slug);
   };
 
   useCheckQuantity(quantity, setQuantity);
   const activeCoinButton = checkUserBalance() && !waitingForPurchase;
 
   return (
+    <ProductBuyWrapper>
+      <ProductDescription selectedStoreItem={selectedStoreItem} />
+      <RowWrapper>
+        <Icon style={styledConfig.icon} type={selectedStoreItem.slug} />
+        {itIsCoupon && (
+          <ChangeNumberOfProduct quantity={quantity} callBack={setQuantity} />
+        )}
+      </RowWrapper>
+
+      {canBuyThisItem && (
+        <RowWrapper style={styledConfig.rowBlock}>
+          <ProductTotalPrice callBack={calculateTotalPrice} />
+          <Button
+            className={
+              activeCoinButton
+                ? ButtonClassNames.COIN_BUTTON
+                : ButtonClassNames.COIN_BUTTON_DISABLED
+            }
+            content="Купить"
+            callback={buyClickHandler}
+          />
+        </RowWrapper>
+      )}
+      {canActivatePromocode && (
+        <RowWrapper style={styledConfig.activateRowBlock}>
+          <Button
+            className={
+              waitingForPurchase
+                ? ButtonClassNames.DISABLED
+                : ButtonClassNames.NORMAL
+            }
+            content="Активировать промокод"
+            callback={activate}
+            style={styledConfig.activateButton}
+          />
+        </RowWrapper>
+      )}
+      {!checkUserBalance() && <ProductWarning />}
+    </ProductBuyWrapper>
+  );
+};
+
+const ProductView = () => {
+  const { selectedStoreItem } = useStore(UserMarketStore);
+  return (
     <Wrapper>
       {selectedStoreItem ? (
-        <ProductBuyWrapper>
-          <ProductDescription selectedStoreItem={selectedStoreItem} />
-          <RowWrapper>
-            <Icon style={styledConfig.icon} type={selectedStoreItem.slug} />
-            {itIsCoupon && (
-              <ChangeNumberOfProduct
-                quantity={quantity}
-                callBack={setQuantity}
-              />
-            )}
-          </RowWrapper>
-
-          {canBuyThisItem && (
-            <RowWrapper style={styledConfig.rowBlock}>
-              <ProductTotalPrice callBack={calculateTotalPrice} />
-              <Button
-                className={
-                  activeCoinButton
-                    ? ButtonClassNames.COIN_BUTTON
-                    : ButtonClassNames.COIN_BUTTON_DISABLED
-                }
-                content="Купить"
-                callback={buyClickHandler}
-              />
-            </RowWrapper>
-          )}
-          {canActivatePromocode && (
-            <RowWrapper style={styledConfig.activateRowBlock}>
-              <Button
-                className={
-                  waitingForPurchase
-                    ? ButtonClassNames.DISABLED
-                    : ButtonClassNames.NORMAL
-                }
-                content="Активировать промокод"
-                callback={activate}
-                style={styledConfig.activateButton}
-              />
-            </RowWrapper>
-          )}
-          {!checkUserBalance() && <ProductWarning />}
-        </ProductBuyWrapper>
+        <SelectedStoreItem selectedStoreItem={selectedStoreItem} />
       ) : (
         <EmptyProductText>Выберите товар</EmptyProductText>
       )}
