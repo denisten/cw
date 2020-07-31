@@ -5,8 +5,6 @@ export const useCheckQuantity = (
   callBack: (arg: number) => void
 ) => {
   useEffect(() => {
-    if (quantity === 0) {
-      callBack(1);
-    }
+    !quantity && callBack(1);
   }, [quantity]);
 };
