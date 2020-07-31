@@ -63,13 +63,13 @@ export const UserMarketStore = StoreDomain.store<IUserStore>(initState)
     userCoupons: {
       ...state.userCoupons,
       [storeItem.slug]: {
-        count: count,
+        count,
       },
     },
     userPromocodes: {
       ...state.userPromocodes,
       [storeItem.slug]: {
-        count: count,
+        count,
         status,
         storeItem,
       },

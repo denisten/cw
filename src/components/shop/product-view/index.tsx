@@ -131,9 +131,10 @@ const SelectedStoreItem: React.FC<{ selectedStoreItem: ICatalogItems }> = ({
     setQuantity(1);
   };
 
-  const activate = () => {
+  const activate = async () => {
     setWaitingForPurchase(true);
-    activatePromocode(selectedStoreItem?.slug);
+    await activatePromocode(selectedStoreItem?.slug);
+    setWaitingForPurchase(false);
   };
 
   useCheckQuantity(quantity, setQuantity);
