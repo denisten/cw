@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import toolbarBackground from './background.svg';
-import leftImg from './left.svg';
-import rightImg from './right.svg';
+import toolbarBackground from './background.png';
+
 import { ZIndexes } from '../../components/root-component/z-indexes-enum';
 import { ToolbarElement, ToolbarElements } from '../toolbar-element';
 import { MenuItems } from '../menu-paragraph';
@@ -16,31 +15,20 @@ import { extraTowerInfoModalClosed } from '../../effector/tower-info-modal-store
 import { menuOpened } from '../../effector/menu-store/events';
 import { openMarket } from '../../effector/coupons/events';
 
-const Left = styled.img`
-  position: absolute;
-  top: 5px;
-  left: 24px;
-`;
-const Right = styled.img`
-  position: absolute;
-  top: -7px;
-  left: 184px;
-`;
-
 const ToolbarWrapper = styled.div`
   position: absolute;
   align-items: flex-end;
   width: 327.85px;
-  height: 108.37px;
+  height: 120px;
   right: 40px;
   top: 37px;
   z-index: ${ZIndexes.UI_BUTTON};
   box-sizing: border-box;
   display: flex;
-  padding: 0 0 16px 18px;
+  padding: 0 0 24px 18px;
   background-image: url(${toolbarBackground});
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: 100% 100%;
   user-select: none;
 `;
 
@@ -103,8 +91,6 @@ export const Toolbar = () => {
 
   return (
     <ToolbarWrapper>
-      <Left src={leftImg} />
-      <Right src={rightImg} />
       {Object.values(ToolbarElements).map(el => {
         return (
           <ToolbarElementWrapper

@@ -24,6 +24,7 @@ const Wrapper = styled.div`
   box-sizing: border-box;
   user-select: none;
   position: relative;
+  border-radius: 4px;
 `;
 export enum EncyclopediaItem {
   LEGEND = 'legend',

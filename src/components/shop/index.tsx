@@ -12,6 +12,7 @@ import { useFetchShopCatalog } from '../../hooks/use-fetch-shop-catalog';
 
 import ShopContent from './shop-content';
 import ProductView from './product-view';
+import background from './background.svg';
 
 const styledConfig = {
   overlay: {
@@ -27,12 +28,14 @@ const styledConfig = {
 };
 
 const Wrapper = styled.div`
-  width: 920px;
+  width: 950px;
   height: 535px;
   display: grid;
   grid-template-columns: 632px 1fr;
-  background-color: white;
+  background-image: url(${background});
   position: relative;
+  background-size: 100%;
+  background-repeat: no-repeat;
 `;
 
 const Shop = () => {

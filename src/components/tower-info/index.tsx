@@ -14,7 +14,7 @@ import {
 import { BuildingsDescriptionService } from '../../buildings/descriptions';
 import { ButtonClassNames, Button } from '../../UI/button';
 import { ZIndexes } from '../root-component/z-indexes-enum';
-import wrapperBackground from './background.svg';
+
 import {
   TutorialConditions,
   TutorialStore,
@@ -31,7 +31,7 @@ import { ChatStore } from '../../effector/chat/store';
 import { TowerInfoModalStore } from '../../effector/tower-info-modal-store/store';
 import { TowerInfoContent } from './tower-info-content';
 import { setTowerInfoShift } from '../../effector/tower-info-modal-store/events';
-
+import background from './background.svg';
 export type ModalWindowProps = {
   opened?: boolean;
 };
@@ -66,6 +66,8 @@ export const TowerInfoWrapper = styled.div<ModalWindowProps>`
   transition-property: margin-right;
   display: flex;
   flex-direction: column;
+  background: url(${background}) no-repeat center;
+  background-size: 100% 100%;
   @media screen and (max-width: 1440px) {
     width: 547px;
   }
@@ -81,9 +83,6 @@ const ModalWindowContentWrapper = styled.div`
   width: 100%;
   padding: 0 32px 40px 40px;
   box-sizing: border-box;
-  background-image: url(${wrapperBackground});
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
 `;
