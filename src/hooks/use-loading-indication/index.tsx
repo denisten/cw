@@ -11,6 +11,7 @@ export const useCalculateLoadingProgress = (
   const [allImagesNumber, setAllImagesNumber] = useState(0);
   const [loadedImagesNumber, setLoadedImgCount] = useState(0);
   const [loadingPercent, setLoadingPercent] = useState(0);
+  const [allResoursesLoaded, setAllResoursesLoaded] = useState(false);
 
   const parseWhenImageLoaded = () => {
     const imgCollection = Array.from(document.querySelectorAll('img')).filter(
@@ -43,6 +44,7 @@ export const useCalculateLoadingProgress = (
 
     if (percent >= maxPercent) {
       setLoadingPercent(maxPercent);
+      setAllResoursesLoaded(true);
     } else {
       setLoadingPercent(Number(percent.toFixed(0)) || 0);
     }
@@ -52,13 +54,13 @@ export const useCalculateLoadingProgress = (
     const percent = (loadedImagesNumber * maxPercent) / allImagesNumber || 0;
     if (percent >= maxPercent) {
       setLoadingPercent(maxPercent);
+      setAllResoursesLoaded(true);
     } else {
       setLoadingPercent(Number(percent.toFixed(0)) || 0);
     }
   };
 
   const convertToPercent = () => {
-    // const percent = (loadedImagesNumber * maxPercent) / allImagesNumber || 0;
     if (isAuthorized) {
       setPercentWithRequest();
     } else {
@@ -79,7 +81,7 @@ export const useCalculateLoadingProgress = (
   }, []);
 
   useEffect(() => {
-    if (startLoading) {
+    if (startLoading && !allResoursesLoaded) {
       parseWhenImageLoaded();
       convertToPercent();
     }
@@ -88,6 +90,7 @@ export const useCalculateLoadingProgress = (
     loadedImagesNumber,
     currentQuatitySuccessRequests,
     startLoading,
+    allResoursesLoaded,
   ]);
 
   return loadingPercent;
