@@ -18,10 +18,7 @@ import {
   getResult,
   setCurrentTaskStatus,
 } from '../../../effector/missions-store/events';
-import {
-  ShopItemsType,
-  UserMarketStore,
-} from '../../../effector/coupons/store';
+import { CouponTypes, UserMarketStore } from '../../../effector/coupons/store';
 import { couponHandler } from '../../../utils/coupon-handler';
 import { ChatStore } from '../../../effector/chat/store';
 import { Bubble } from '../../../UI/bubble';
@@ -136,8 +133,8 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
     const missions = useStore(TasksStore);
     const [openCouponModal, setOpenCouponModal] = useState(false);
     const [pendingOfResponse, setPendingOfResponse] = useState(false);
-    const { userItems } = useStore(UserMarketStore);
-    const { count } = userItems[ShopItemsType.COUPON_REPLACE];
+    const { userCoupons } = useStore(UserMarketStore);
+    const { count } = userCoupons[CouponTypes.COUPON_REPLACE];
 
     const currentTaskIndex = missions.findIndex(el => {
       if (el?.task?.content?.product?.slug)

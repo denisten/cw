@@ -5,6 +5,7 @@ import {
   UserMarketStore,
   PurchasStatuses,
   StoreItemTypes,
+  PromocodeTypes,
 } from '../../../effector/coupons/store';
 import { StyledSpan } from '../../../UI/span';
 import { Icon } from '../../../UI/icons';
@@ -89,7 +90,7 @@ const styledConfig = {
 };
 
 const ProductView = () => {
-  const { selectedStoreItem, showUserPromocodes, userItems } = useStore(
+  const { selectedStoreItem, showUserPromocodes, userPromocodes } = useStore(
     UserMarketStore
   );
 
@@ -101,7 +102,8 @@ const ProductView = () => {
   const itIsNewPromocode =
     selectedStoreItem &&
     selectedStoreItem.type.slug === StoreItemTypes.PROMO_CODE &&
-    userItems[selectedStoreItem.slug].status === PurchasStatuses.NEW;
+    userPromocodes[selectedStoreItem.slug as PromocodeTypes].status ===
+      PurchasStatuses.NEW;
   const canActivatePromocode =
     checkPromocodeTypeType(selectedStoreItem) &&
     showUserPromocodes &&

@@ -1,12 +1,13 @@
 import { post } from '../../requests';
 import { apiRoutes } from '../..';
 import {
-  ShopItemsType,
+  CouponTypes,
   PurchasStatuses,
   ICatalogItems,
+  PromocodeTypes,
 } from '../../../effector/coupons/store';
 
-export const buyItemRequest = async (item: ShopItemsType) => {
+export const buyItemRequest = async (item: CouponTypes | PromocodeTypes) => {
   const response = await post<{ data: IBuyItem }>(
     `${apiRoutes.STORE_ITEMS}${item}/buy`
   );

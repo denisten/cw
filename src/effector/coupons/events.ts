@@ -1,5 +1,5 @@
 import { StoreDomain } from './domain';
-import { ShopItemsType, ICatalogItems } from './store';
+import { CouponTypes, ICatalogItems, PromocodeTypes } from './store';
 import { getUserPurchases } from '../../api/get-user-purchases';
 import { getShopCatalog } from '../../api/shop-api/get-shop-catalog';
 import { buyItemRequest } from '../../api/shop-api/buy-item';
@@ -17,7 +17,7 @@ export const fetchShopCatalog = StoreDomain.effect('fetch catalog', {
 });
 
 export const buyItem = StoreDomain.effect('fetch catalog', {
-  handler: async (item: ShopItemsType) => {
+  handler: async (item: CouponTypes | PromocodeTypes) => {
     return await buyItemRequest(item);
   },
 });
@@ -30,6 +30,6 @@ export const openMarket = StoreDomain.event<boolean>('');
 export const resetUserShopStore = StoreDomain.event('reset store');
 
 interface IEditCouponCount {
-  couponType: ShopItemsType;
+  couponType: CouponTypes;
   count: number;
 }

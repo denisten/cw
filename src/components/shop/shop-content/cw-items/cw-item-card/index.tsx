@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import {
   ICatalogItems,
   UserMarketStore,
+  CouponTypes,
 } from '../../../../../effector/coupons/store';
 import { Icon } from '../../../../../UI/icons';
 import { MTSSans } from '../../../../../fonts';
@@ -54,8 +55,9 @@ const styledConfig = {
 };
 
 export const CWItemCard: React.FC<ICWItemCard> = ({ catalogItem }) => {
-  const { selectedStoreItem, userItems } = useStore(UserMarketStore);
-  const numberOfCoupons = userItems[catalogItem.slug].count || 0;
+  const { selectedStoreItem, userCoupons } = useStore(UserMarketStore);
+  const numberOfCoupons =
+    userCoupons[catalogItem.slug as CouponTypes].count || 0;
 
   const checkActiveElem = selectedStoreItem?.slug === catalogItem.slug;
   return (

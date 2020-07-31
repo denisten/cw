@@ -7,7 +7,7 @@ import { useStore } from 'effector-react';
 import {
   UserMarketStore,
   PurchasesType,
-  ShopItemsType,
+  PromocodeTypes,
 } from '../../../../effector/coupons/store';
 import { ifElse } from 'ramda';
 const MTSItemsWrapper = styled.div`
@@ -32,20 +32,17 @@ const MTSCatalogItems = () => {
 };
 
 const UserCatalogItems = () => {
-  const { userItems } = useStore(UserMarketStore);
-  const userPromocodes = Object.keys(userItems)
-    .filter(item => item === ShopItemsType.MGTS_SPECIAL)
-    .map(item => {
-      const userItem = item as ShopItemsType;
-
-      return userItems[userItem].storeItem;
-    });
+  const { userPromocodes } = useStore(UserMarketStore);
+  const userPromocodesArray = Object.keys(userPromocodes).map(item => {
+    const userItem = item as PromocodeTypes;
+    return userPromocodes[userItem].storeItem;
+  });
 
   return (
     <MTSItemsWrapper>
       <ShopItemsHeader headerText="МТС" background={headerBg} />
-      {userPromocodes.map((mtsItem, ind) => (
-        <MTSItemCard key={ind} catalogItem={mtsItem} />
+      {userPromocodesArray.map((userPromocode, ind) => (
+        <MTSItemCard key={ind} catalogItem={userPromocode} />
       ))}
     </MTSItemsWrapper>
   );
