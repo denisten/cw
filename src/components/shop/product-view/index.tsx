@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useStore } from 'effector-react';
-import { UserMarketStore } from '../../../effector/coupons/store';
+import {
+  UserMarketStore,
+  PurchasStatuses,
+  StoreItemTypes,
+} from '../../../effector/coupons/store';
 import { StyledSpan } from '../../../UI/span';
 import { Icon } from '../../../UI/icons';
 
@@ -25,6 +29,7 @@ import { useCheckQuantity } from '../../../hooks/use-check-quantity';
 
 import { buyItem } from '../../../effector/coupons/events';
 import { MTSSans } from '../../../fonts';
+import { activatePromocode } from '../../../api/shop-api/activate-promocode';
 
 const Wrapper = styled.div`
   height: 100%;
@@ -84,14 +89,23 @@ const styledConfig = {
 };
 
 const ProductView = () => {
-  const { selectedStoreItem, showUserPromocodes } = useStore(UserMarketStore);
+  const { selectedStoreItem, showUserPromocodes, userItems } = useStore(
+    UserMarketStore
+  );
+
   const { money } = useStore(UserDataStore);
   const [quantity, setQuantity] = useState(1);
   const [waitingForPurchase, setWaitingForPurchase] = useState(false);
   const itIsCoupon = checkCouponType(selectedStoreItem);
   const canBuyThisItem = itIsCoupon || (!itIsCoupon && !showUserPromocodes);
+  const itIsNewPromocode =
+    selectedStoreItem &&
+    selectedStoreItem.type.slug === StoreItemTypes.PROMO_CODE &&
+    userItems[selectedStoreItem.slug].status === PurchasStatuses.NEW;
   const canActivatePromocode =
-    checkPromocodeTypeType(selectedStoreItem) && showUserPromocodes;
+    checkPromocodeTypeType(selectedStoreItem) &&
+    showUserPromocodes &&
+    itIsNewPromocode;
 
   const checkUserBalance = () =>
     ifElse(
@@ -112,6 +126,11 @@ const ProductView = () => {
     selectedStoreItem && (await buyItem(selectedStoreItem.slug));
     setWaitingForPurchase(false);
     setQuantity(1);
+  };
+
+  const activate = () => {
+    setWaitingForPurchase(true);
+    selectedStoreItem && activatePromocode(selectedStoreItem?.slug);
   };
 
   useCheckQuantity(quantity, setQuantity);
@@ -149,9 +168,13 @@ const ProductView = () => {
           {canActivatePromocode && (
             <RowWrapper style={styledConfig.activateRowBlock}>
               <Button
-                className={ButtonClassNames.NORMAL}
+                className={
+                  waitingForPurchase
+                    ? ButtonClassNames.DISABLED
+                    : ButtonClassNames.NORMAL
+                }
                 content="Активировать промокод"
-                callback={buyClickHandler}
+                callback={activate}
                 style={styledConfig.activateButton}
               />
             </RowWrapper>

@@ -4,7 +4,7 @@ import { ShopItemsType } from '../../effector/coupons/store';
 
 export const activateCoupon = async (item: ShopItemsType, entityId: number) => {
   const response = await get<IActivateCoupon>(
-    `${apiRoutes.STORE_PURCHASES}${item}${apiRoutes.REDEEM}${entityId}`
+    `${apiRoutes.STORE_PURCHASES}${item}${apiRoutes.REDEEM}?entity_id=${entityId}`
   );
   return response.data;
 };

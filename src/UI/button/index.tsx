@@ -116,6 +116,7 @@ const ButtonWrapper = styled.div<IButtonWrapper>`
   .${ButtonClassNames.DISABLED} {
     border-radius: 2px;
     background-color: #e2e5eb;
+    pointer-events: none;
   }
 
   .${ButtonClassNames.OUTLINE_DISABLED} {

@@ -25,7 +25,7 @@ export enum apiRoutes {
   GET_PURCHASES = '/api/users/current/purchases',
   BUY_COUPON = '/api/store/items/coupon-replace/buy',
   STORE_PURCHASES = '/api/store/purchases/',
-  REDEEM = '/redeem?entity_id=',
+  REDEEM = '/redeem',
   GET_WORLD_STATE = '/api/world/state',
   GET_SHOP_CATALOG = '/api/store/listing',
   STORE_ITEMS = '/api/store/items/',
