@@ -205,7 +205,7 @@ export const PopUp: React.FC<IPopUp> = ({
   );
 };
 
-export interface IPopUp {
+interface IPopUp {
   callback?: () => void;
   displayFlag?: boolean;
   popUpStyles: IPopUpStyles;

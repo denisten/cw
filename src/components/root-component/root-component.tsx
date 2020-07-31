@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { useStore } from 'effector-react';
 import { AppConditionStore } from '../../effector/app-condition/store';
 import mapTile from '../../img/roads/map-tile.png';
-
 import {
   TutorialStore,
   TutorialConditions,
@@ -12,8 +11,8 @@ import { ScrollContainer } from '../scroll-container';
 import { TutorialOverlay } from '../tutorial-overlay';
 import { zIndexForInheritOverlay } from '../../constants';
 import { IDisplayFlag } from '../skip-tutorial';
-const Menu = lazy(() => import('../menu'));
-const InitTutorialSlider = lazy(() => import('../tutorial-slider/init-slider'));
+import { InitTutorialSlider } from '../tutorial-slider/init-slider';
+import { Menu } from '../menu';
 const UIButtonInterface = lazy(() => import('../UI-buttons-interface'));
 const MoveCoinCollection = lazy(() => import('../move-coin-collection'));
 const TowerInfo = lazy(() => import('../tower-info'));
@@ -45,11 +44,22 @@ const LoadingHideBlock = styled.div`
   display: none;
 `;
 
+const checkTutorialCondition = (tutorialCondition: TutorialConditions) =>
+  tutorialCondition === TutorialConditions.PULSE_MENU_CHANGE_CITY_NAME ||
+  tutorialCondition === TutorialConditions.PULSE_MENU_AUTH;
+
+const defineScrollContainerZIndex = (tutorialCondition: TutorialConditions) =>
+  tutorialCondition === TutorialConditions.ARROW_TOWER_INFO
+    ? zIndexForInheritOverlay + 1
+    : 0;
+
 export const RootComponent = () => {
   const { DOMLoaded, tutorialSliderDisplayFlag } = useStore(AppConditionStore);
   // const [showSkipTutorialUI, setShowSkipTutorialUI] = useState(true);
   const { tutorialCondition } = useStore(TutorialStore);
   const tutorialIsEnabled = DOMLoaded && tutorialCondition !== 0;
+  const displayFlag = checkTutorialCondition(tutorialCondition);
+  const zIndex = defineScrollContainerZIndex(tutorialCondition);
 
   return (
     <RootComponentWrapper id="rootScroll" displayFlag={DOMLoaded}>
@@ -77,20 +87,9 @@ export const RootComponent = () => {
         displayFlag={showSkipTutorialUI}
         setDisplayFlag={() => setShowSkipTutorialUI(!showSkipTutorialUI)}
       /> */}
-      <ScrollContainer
-        tutorialCondition={tutorialCondition}
-        zIndex={
-          tutorialCondition === TutorialConditions.ARROW_TOWER_INFO
-            ? zIndexForInheritOverlay + 1
-            : 0
-        }
-      />
+      <ScrollContainer tutorialCondition={tutorialCondition} zIndex={zIndex} />
       <TutorialOverlay
-        displayFlag={
-          tutorialCondition ===
-            TutorialConditions.PULSE_MENU_CHANGE_CITY_NAME ||
-          tutorialCondition === TutorialConditions.PULSE_MENU_AUTH
-        }
+        displayFlag={displayFlag}
         zIndex={zIndexForInheritOverlay}
       />
     </RootComponentWrapper>

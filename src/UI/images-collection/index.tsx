@@ -1,31 +1,21 @@
 import React, { memo } from 'react';
+import styled from 'styled-components';
 
-const defaultElementWidth = '713px',
-  defaultElementHeight = '275px';
-
-const imgStyleConfig = {
-  flexShrink: 0,
-} as React.CSSProperties;
+const Img = styled.img`
+  width: 772px;
+  height: 301px;
+  flex-shrink: 0;
+`;
 
 export const ImagesCollection: React.FC<IImagesCollection> = memo(
-  ({ imgArray }) => {
-    return (
-      <>
-        {imgArray.map(el => (
-          <img
-            src={el}
-            key={el}
-            alt="imgContent"
-            width={defaultElementWidth}
-            height={defaultElementHeight}
-            style={imgStyleConfig}
-          />
-        ))}
-      </>
-    );
-  }
+  ({ imgArray }) => (
+    <>
+      {imgArray.map(el => (
+        <Img src={el} key={el} alt="imgContent" />
+      ))}
+    </>
+  )
 );
-
 interface IImagesCollection {
   imgArray: string[];
 }

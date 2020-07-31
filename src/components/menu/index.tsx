@@ -11,13 +11,18 @@ import { TutorialStore } from '../../effector/tutorial-store/store';
 import { pauseTutorialMode } from '../../effector/tutorial-store/events';
 import styled from 'styled-components';
 import { TasksStore } from '../../effector/missions-store/store';
-import { MenuItemsComponent, noAuthAvailableMenuItems } from './menu-items';
+import { MenuItemsComponent } from './menu-items';
 import { MenuContent } from './menu-content';
 import { useHandleAuth } from '../../hooks/use-handle-auth';
 import { MenuStore } from '../../effector/menu-store/store';
 import { menuOpened, menuClosed } from '../../effector/menu-store/events';
 import { useAuthCanceledStatus } from '../../hooks/use-auth-canceled-status';
 
+const ExpandedColumnWrapper = styled(ColumnWrapper)`
+  height: 456px;
+  width: auto;
+  z-index: ${ZIndexes.UI_BUTTON};
+`;
 const StyledConfig = {
   exitButton: {
     top: '-1%',
@@ -34,13 +39,7 @@ const StyledConfig = {
   },
 };
 
-const ExpandedColumnWrapper = styled(ColumnWrapper)`
-  height: 456px;
-  width: auto;
-  z-index: 20;
-`;
-
-const Menu: React.FC = () => {
+export const Menu = () => {
   const { isAuthorized, dataReceived, authCancelledStatus } = useStore(
     AppConditionStore
   );
@@ -52,21 +51,17 @@ const Menu: React.FC = () => {
 
   useHandleAuth({ isAuthorized, dataReceived });
   useAuthCanceledStatus(authCancelledStatus);
-
   useEffect(() => {
-    if (missions.length) currentAlertsList.push(MenuItems.TASKS);
+    missions.length && currentAlertsList.push(MenuItems.TASKS);
   }, []);
 
-  const menuItemsComponentCallBack = (item: MenuItems) => {
-    if (isAuthorized || noAuthAvailableMenuItems.includes(item)) {
-      menuOpened(item);
-    }
-  };
+  const handler = (item: MenuItems) => menuOpened(item);
 
   const handleExitButtonClick = () => {
     pauseTutorialMode();
     menuClosed();
   };
+
   return (
     <Overlay displayFlag={!!selectedMenuItem} {...StyledConfig.overlay}>
       <ExpandedColumnWrapper displayFlag={!!selectedMenuItem}>
@@ -77,10 +72,9 @@ const Menu: React.FC = () => {
         />
         <RowWrapper {...StyledConfig.rowWrapper}>
           <MenuItemsComponent
-            isAuthorized={isAuthorized}
             currentAlertsList={currentAlertsList}
             selectedMenuItem={selectedMenuItem || MenuItems.PROFILE}
-            callBack={menuItemsComponentCallBack}
+            callBack={handler}
           />
           <MenuContent content={selectedMenuItem || MenuItems.PROFILE} />
         </RowWrapper>
@@ -88,5 +82,3 @@ const Menu: React.FC = () => {
     </Overlay>
   );
 };
-
-export default Menu;
