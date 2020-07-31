@@ -38,17 +38,23 @@ const WalletCounter = styled.div<IWalletCounter>`
   }
 `;
 
-export const CoinsWallet: React.FC<IWalletCounter> = ({ sum, style = {} }) => {
+export const CoinsWallet: React.FC<IWalletCounter> = ({
+  sum,
+  style = {},
+  hidePlusIcon = false,
+}) => {
   return (
     <WalletWrapper style={style}>
       <img src={coinImg} alt="coins" style={styledConfig.coinImg} />
       <WalletCounter sum={parseSum(sum)} {...styledConfig.wallet} />
-      <img
-        src={plusImg}
-        alt="plus"
-        style={styledConfig.plusImg}
-        onClick={() => menuOpened(MenuItems.TASKS)}
-      />
+      {!hidePlusIcon && (
+        <img
+          src={plusImg}
+          alt="plus"
+          style={styledConfig.plusImg}
+          onClick={() => menuOpened(MenuItems.TASKS)}
+        />
+      )}
     </WalletWrapper>
   );
 };
@@ -56,4 +62,5 @@ export const CoinsWallet: React.FC<IWalletCounter> = ({ sum, style = {} }) => {
 interface IWalletCounter {
   sum: string;
   style?: React.CSSProperties;
+  hidePlusIcon?: boolean;
 }

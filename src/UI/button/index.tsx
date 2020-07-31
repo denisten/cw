@@ -2,6 +2,8 @@ import React, { RefObject, useRef } from 'react';
 import styled from 'styled-components';
 import { defaultScaleSize, scaleAnimation } from '../../hoc/scale-anim';
 import { MTSSans } from '../../fonts';
+import coinIcon from './coinIcon.svg';
+import coinIconDisabled from './coinIconDisabled.svg';
 
 export enum ButtonClassNames {
   DISABLED = 'disabled',
@@ -10,6 +12,8 @@ export enum ButtonClassNames {
   OUTLINE_NORMAL = 'outline-normal',
   SCALE_ANIMATED = 'scale-animated',
   HOVERED = 'hovered',
+  COIN_BUTTON = 'coin-button',
+  COIN_BUTTON_DISABLED = 'coin-button-disabled',
 }
 
 const doubleBorderWidth = 4;
@@ -52,6 +56,52 @@ const ButtonWrapper = styled.div<IButtonWrapper>`
     animation-iteration-count: infinite;
     animation-duration: 1s;
   }
+
+  &.${ButtonClassNames.COIN_BUTTON} {
+    background-color: #04b5d2;
+    border-radius: 10px;
+    box-shadow: 1px 1px 4px 0 #bbc1c7,
+      inset 0 1px 3px 0 rgba(255, 255, 255, 0.5);
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 0 7px 0 14px;
+    width: auto;
+
+    &::after {
+      content: '';
+      width: 34px;
+      height: 34px;
+      background: url(${coinIcon}) no-repeat center;
+      margin-left: 15px;
+      flex-shrink: 0;
+    }
+  }
+
+  &.${ButtonClassNames.COIN_BUTTON_DISABLED} {
+    border: 1px solid #c7c7c7;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 1px 1px 4px 0 #bbc1c7,
+      inset 0 1px 3px 0 rgba(255, 255, 255, 0.5);
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 0 7px 0 14px;
+    width: auto;
+    pointer-events: none;
+    color: #c7c7c7;
+
+    &::after {
+      content: '';
+      width: 34px;
+      height: 34px;
+      background: url(${coinIconDisabled}) no-repeat center;
+      margin-left: 15px;
+      flex-shrink: 0;
+    }
+  }
+
   .${ButtonClassNames.NORMAL} {
     box-shadow: 1px 1px 4px 0 #bbc1c7,
       inset 0 1px 3px 0 rgba(255, 255, 255, 0.5);
@@ -66,6 +116,7 @@ const ButtonWrapper = styled.div<IButtonWrapper>`
   .${ButtonClassNames.DISABLED} {
     border-radius: 2px;
     background-color: #e2e5eb;
+    pointer-events: none;
   }
 
   .${ButtonClassNames.OUTLINE_DISABLED} {

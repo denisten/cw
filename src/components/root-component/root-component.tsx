@@ -20,6 +20,8 @@ const TutorialToolsSelector = lazy(() =>
   import('../../utils/arrows-container')
 );
 const Encyclopedia = lazy(() => import('../encyclopedia'));
+const Shop = lazy(() => import('../shop'));
+
 // import { SkipTutorial } from '../skip-tutorial';
 
 const RootComponentWrapper = styled.div<IDisplayFlag>`
@@ -70,6 +72,7 @@ export const RootComponent = () => {
             <TowerInfo />
             <Menu />
             <Encyclopedia />
+            <Shop />
           </>
         )}
         {tutorialIsEnabled && (
