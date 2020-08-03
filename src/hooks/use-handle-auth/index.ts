@@ -7,28 +7,42 @@ import { saveUserData } from '../../api/save-user-data';
 import { fetchUserData, getAccountData } from '../../effector/user-data/events';
 import { fetchAllProductsData } from '../../effector/towers-progress/events';
 import { openWsConnection } from '../../api/centrifuge';
-import { getIncome, TowersTypesAsObjectLiteral } from '../../api/get-income';
 import {
   editTutorialSliderDisplayFlag,
   setDataReceived,
 } from '../../effector/app-condition/events';
-import { TowersTypes } from '../../effector/towers-progress/store';
-import { TypeOfMarkers } from '../../components/markers';
-import { setMarker } from '../../effector/towers-marker/events';
 import { fetchUserPurchases } from '../../effector/coupons/events';
 import { markerHandler } from '../../utils/marker-handler';
+import { scoreSuccessRequests } from '../../effector/preloader/events';
+import { fetchIncomes } from '../../effector/reward/events';
 
-const markersEnumeration = (incomes: TowersTypesAsObjectLiteral) => {
-  const iterableArrayOfIncomesData = Object.entries(incomes);
-  iterableArrayOfIncomesData.forEach(item => {
-    const towerTitle = item[0] as TowersTypes;
-    const markerData = {
-      towerTitle: towerTitle,
-      type: TypeOfMarkers.TAKE_REWARD,
-      coins: item[1],
-    };
-    setMarker(markerData);
+const authHandlersList = [
+  fetchAllProductsData,
+  getAccountData,
+  fetchUserPurchases,
+  fetchIncomes,
+  fetchUserData,
+];
+
+const waitForAllRequestsIsDone = () => {
+  return new Promise(resolve => {
+    let resolvedRequests = 0;
+    authHandlersList.forEach(async request => {
+      await request('');
+      scoreSuccessRequests();
+      resolvedRequests += 1;
+      if (resolvedRequests === authHandlersList.length) {
+        resolve(true);
+      }
+    });
   });
+};
+
+const prepareMap = () => {
+  markerHandler();
+  setDataReceived(true);
+  editTutorialSliderDisplayFlag(true);
+  scoreSuccessRequests();
 };
 
 const handleAuth = async (isAuthorized: boolean, dataReceived: boolean) => {
@@ -37,17 +51,10 @@ const handleAuth = async (isAuthorized: boolean, dataReceived: boolean) => {
     if (worldName && worldName !== defaultNameValue) {
       await saveUserData({ worldName });
     }
-    const { id } = await fetchUserData('');
 
-    await fetchAllProductsData('');
-    await openWsConnection(id);
-    await getAccountData('');
-    await fetchUserPurchases('');
-    const incomes = await getIncome();
-    markersEnumeration(incomes);
-    markerHandler();
-    setDataReceived(true);
-    editTutorialSliderDisplayFlag(true);
+    await waitForAllRequestsIsDone();
+    await openWsConnection();
+    prepareMap();
   }
 };
 

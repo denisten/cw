@@ -65,12 +65,12 @@ export const RootComponent = () => {
     <RootComponentWrapper id="rootScroll" displayFlag={DOMLoaded}>
       <Suspense fallback={<LoadingHideBlock />}>
         <UIButtonInterface />
+        <Menu />
         {tutorialSliderDisplayFlag && <InitTutorialSlider />}
         {DOMLoaded && (
           <>
             <MoveCoinCollection />
             <TowerInfo />
-            <Menu />
             <Encyclopedia />
             <Shop />
           </>
