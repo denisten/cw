@@ -20,7 +20,7 @@ const iniStore: IPreloaderStore = {
 const checkResolvedQuantity = (
   resolvedRequests: number,
   requestsQuantity: number
-) => (resolvedRequests < requestsQuantity ? true : false);
+) => resolvedRequests < requestsQuantity;
 
 export const PreloaderStore = PreloaderDomain.store(iniStore)
 
