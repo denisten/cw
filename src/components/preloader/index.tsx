@@ -157,16 +157,16 @@ enum CloudsState {
 }
 export const Preloader: React.FC = () => {
   const {
-    currentQuatitySuccessRequests,
-    quatityRequests,
-    startLoading,
+    resolvedRequestsQuantity,
+    requestsQuantity,
+    loadingStarted,
   } = useStore(PreloaderStore);
   const { isAuthorized } = useStore(AppConditionStore);
   const loadingProgress = useCalculateLoadingProgress(
     isAuthorized,
-    currentQuatitySuccessRequests,
-    quatityRequests,
-    startLoading
+    resolvedRequestsQuantity,
+    requestsQuantity,
+    loadingStarted
   );
   const [isAnimationStarted, setIsAnimationStarted] = useState(false);
   const [isAnimationEnded, setIsAnimationEnded] = useState(false);

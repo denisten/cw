@@ -4,11 +4,11 @@ import { propEq, ifElse } from 'ramda';
 
 export const useCalculateLoadingProgress = (
   isAuthorized: boolean,
-  currentQuatitySuccessRequests: number,
-  quatityRequests: number,
-  startLoading: boolean
+  resolvedRequestsQuantity: number,
+  requestsQuantity: number,
+  loadingStarted: boolean
 ) => {
-  const [allImagesNumber, setAllImagesNumber] = useState(0);
+  const [allImagesQuantity, setAllImagesQuantity] = useState(0);
   const [loadedImagesNumber, setLoadedImgCount] = useState(0);
   const [loadingPercent, setLoadingPercent] = useState(0);
   const [allResoursesLoaded, setAllResoursesLoaded] = useState(false);
@@ -22,7 +22,7 @@ export const useCalculateLoadingProgress = (
       if (
         image.complete ||
         (image.getAttribute('data-testid') === 'lazy-image' &&
-          allImagesNumber <= loadedImagesNumber)
+          allImagesQuantity <= loadedImagesNumber)
       ) {
         image.setAttribute('checked', 'true');
         setLoadedImgCount(loadedImagesNumber + 1);
@@ -33,13 +33,13 @@ export const useCalculateLoadingProgress = (
 
   const checkAllImages = () => {
     const imgCollection = document.querySelectorAll('img');
-    setAllImagesNumber(imgCollection.length);
+    setAllImagesQuantity(imgCollection.length);
   };
 
   const setPercentWithRequest = () => {
     const percent =
-      ((currentQuatitySuccessRequests * maxPercent) / quatityRequests +
-        (loadedImagesNumber * maxPercent) / allImagesNumber) /
+      ((resolvedRequestsQuantity * maxPercent) / requestsQuantity +
+        (loadedImagesNumber * maxPercent) / allImagesQuantity) /
       2;
 
     if (percent >= maxPercent) {
@@ -51,7 +51,7 @@ export const useCalculateLoadingProgress = (
   };
 
   const setPercentWithImgLoaded = () => {
-    const percent = (loadedImagesNumber * maxPercent) / allImagesNumber || 0;
+    const percent = (loadedImagesNumber * maxPercent) / allImagesQuantity || 0;
     if (percent >= maxPercent) {
       setLoadingPercent(maxPercent);
       setAllResoursesLoaded(true);
@@ -81,15 +81,15 @@ export const useCalculateLoadingProgress = (
   }, []);
 
   useEffect(() => {
-    if (startLoading && !allResoursesLoaded) {
+    if (loadingStarted && !allResoursesLoaded) {
       parseWhenImageLoaded();
       convertToPercent();
     }
   }, [
-    allImagesNumber,
+    allImagesQuantity,
     loadedImagesNumber,
-    currentQuatitySuccessRequests,
-    startLoading,
+    resolvedRequestsQuantity,
+    loadingStarted,
     allResoursesLoaded,
   ]);
 

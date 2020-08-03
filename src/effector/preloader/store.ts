@@ -12,27 +12,38 @@ export enum Browsers {
 }
 
 const iniStore: IPreloaderStore = {
-  quatityRequests: 6,
-  currentQuatitySuccessRequests: 0,
-  startLoading: false,
+  requestsQuantity: 6,
+  resolvedRequestsQuantity: 0,
+  loadingStarted: false,
 };
 
+const checkResolvedQuantity = (
+  resolvedRequests: number,
+  requestsQuantity: number
+) => (resolvedRequests < requestsQuantity ? true : false);
+
 export const PreloaderStore = PreloaderDomain.store(iniStore)
+
   .on(scoreSuccessRequests, state => {
-    const stateClone = { ...state };
-    if (stateClone.currentQuatitySuccessRequests < stateClone.quatityRequests) {
-      stateClone.currentQuatitySuccessRequests =
-        stateClone.currentQuatitySuccessRequests + 1;
-    }
-    return stateClone;
+    const newValue = checkResolvedQuantity(
+      state.resolvedRequestsQuantity,
+      state.requestsQuantity
+    )
+      ? state.resolvedRequestsQuantity + 1
+      : state.resolvedRequestsQuantity;
+
+    return {
+      ...state,
+      resolvedRequestsQuantity: newValue,
+    };
   })
   .on(setStartLoading, state => ({
     ...state,
-    startLoading: true,
+    loadingStarted: true,
   }));
 
 interface IPreloaderStore {
-  quatityRequests: number;
-  currentQuatitySuccessRequests: number;
-  startLoading: boolean;
+  requestsQuantity: number;
+  resolvedRequestsQuantity: number;
+  loadingStarted: boolean;
 }
