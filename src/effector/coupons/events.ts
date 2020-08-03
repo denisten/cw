@@ -3,12 +3,10 @@ import { CouponTypes, ICatalogItems, PromocodeTypes } from './store';
 import { getUserPurchases } from '../../api/get-user-purchases';
 import { getShopCatalog } from '../../api/shop-api/get-shop-catalog';
 import { buyItemRequest } from '../../api/shop-api/buy-item';
-import { scoreSuccessRequests } from '../preloader/events';
 
 export const fetchUserPurchases = StoreDomain.effect('fetch purchases', {
   handler: async () => {
     const response = await getUserPurchases();
-    scoreSuccessRequests();
     return response;
   },
 });

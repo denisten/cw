@@ -16,6 +16,7 @@ import { fetchTasks } from '../../effector/missions-store/events';
 import { markerHandler } from '../../utils/marker-handler';
 import { TaskStatuses, IGetTasks } from '../../effector/missions-store/store';
 import { scoreSuccessRequests } from '../../effector/preloader/events';
+import { UserDataStore } from '../../effector/user-data/store';
 
 const notSecuredProtocol = 'http:';
 const securedWebSocketProtocol = 'wss://';
@@ -30,7 +31,9 @@ const wsProtocol =
 const wsConnectionRoute = wsProtocol + window.location.host + centrifugeUrl;
 const numberOfSubscriptions = 2;
 
-export const openWsConnection = async (userId: number) => {
+export const openWsConnection = async () => {
+  const { id: userId } = UserDataStore.getState();
+  if (!userId) return;
   const centrifuge = new Centrifuge(wsConnectionRoute, {
     subscribeEndpoint: apiRoutes.WS_SUBSCRIBE,
     subscribeHeaders: {

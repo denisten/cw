@@ -11,7 +11,6 @@ import { resetChatStore } from '../chat/events';
 import { resetTowersMarker } from '../towers-marker/events';
 import { resetTowerProgress } from '../towers-progress/events';
 import { resetUserShopStore } from '../coupons/events';
-import { scoreSuccessRequests } from '../preloader/events';
 
 export const editCurrentUserDataField = UserDataDomain.event<
   IEditCurrentUserDataField
@@ -53,7 +52,6 @@ export const logout = UserDataDomain.effect('logout', {
 export const getAccountData = UserDataDomain.effect('fetch balance', {
   handler: async () => {
     const response = await getAccount();
-    scoreSuccessRequests();
     return response;
   },
 });

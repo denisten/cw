@@ -12,7 +12,7 @@ export enum Browsers {
 }
 
 const iniStore: IPreloaderStore = {
-  requestsQuantity: 6,
+  requestsQuantity: 7,
   resolvedRequestsQuantity: 0,
   loadingStarted: false,
 };
@@ -31,7 +31,6 @@ export const PreloaderStore = PreloaderDomain.store(iniStore)
     )
       ? state.resolvedRequestsQuantity + 1
       : state.resolvedRequestsQuantity;
-
     return {
       ...state,
       resolvedRequestsQuantity: newValue,

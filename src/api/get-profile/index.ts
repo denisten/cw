@@ -1,10 +1,8 @@
 import { get } from '../requests';
 import { apiRoutes } from '..';
-import { scoreSuccessRequests } from '../../effector/preloader/events';
 
 export const getProfile = async () => {
   const response = await get<{ data: IGetProfile }>(apiRoutes.USER_DATA);
-  scoreSuccessRequests();
   return response.data.data;
 };
 

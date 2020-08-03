@@ -2,7 +2,6 @@ import { TowersProgressDomain } from './domain';
 import { TowersTypes } from './store';
 import { RefObject } from 'react';
 import { getAllProgress } from '../../api';
-import { scoreSuccessRequests } from '../preloader/events';
 export const addProgressPoints = TowersProgressDomain.event<
   IAddProgressPoints
 >();
@@ -15,7 +14,6 @@ export const fetchAllProductsData = TowersProgressDomain.effect(
   {
     handler: async () => {
       const response = await getAllProgress();
-      scoreSuccessRequests();
       return response;
     },
   }
