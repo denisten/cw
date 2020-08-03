@@ -51,8 +51,7 @@ export const logout = UserDataDomain.effect('logout', {
 
 export const getAccountData = UserDataDomain.effect('fetch balance', {
   handler: async () => {
-    const response = await getAccount();
-    return response;
+    return await getAccount();
   },
 });
 export const editMoneyCount = UserDataDomain.event<number>();

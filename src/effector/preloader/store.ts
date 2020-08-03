@@ -17,20 +17,19 @@ const iniStore: IPreloaderStore = {
   loadingStarted: false,
 };
 
-const checkResolvedQuantity = (
+const recalculateResolvedRequestsQuantity = (
   resolvedRequests: number,
   requestsQuantity: number
-) => resolvedRequests < requestsQuantity;
+) =>
+  resolvedRequests < requestsQuantity ? resolvedRequests + 1 : resolvedRequests;
 
 export const PreloaderStore = PreloaderDomain.store(iniStore)
 
   .on(scoreSuccessRequests, state => {
-    const newValue = checkResolvedQuantity(
+    const newValue = recalculateResolvedRequestsQuantity(
       state.resolvedRequestsQuantity,
       state.requestsQuantity
-    )
-      ? state.resolvedRequestsQuantity + 1
-      : state.resolvedRequestsQuantity;
+    );
     return {
       ...state,
       resolvedRequestsQuantity: newValue,

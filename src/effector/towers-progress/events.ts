@@ -13,8 +13,7 @@ export const fetchAllProductsData = TowersProgressDomain.effect(
   'fetch all products data',
   {
     handler: async () => {
-      const response = await getAllProgress();
-      return response;
+      return await getAllProgress();
     },
   }
 );

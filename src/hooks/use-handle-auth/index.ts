@@ -16,7 +16,7 @@ import { markerHandler } from '../../utils/marker-handler';
 import { scoreSuccessRequests } from '../../effector/preloader/events';
 import { fetchIncomes } from '../../effector/reward/events';
 
-const fetchsArray = [
+const authHandlersList = [
   fetchAllProductsData,
   getAccountData,
   fetchUserPurchases,
@@ -27,18 +27,18 @@ const fetchsArray = [
 const waitForAllRequestsIsDone = () => {
   return new Promise(resolve => {
     let resolvedRequests = 0;
-    fetchsArray.forEach(async fetchAction => {
-      await fetchAction('');
+    authHandlersList.forEach(async request => {
+      await request('');
       scoreSuccessRequests();
       resolvedRequests += 1;
-      if (resolvedRequests === fetchsArray.length) {
+      if (resolvedRequests === authHandlersList.length) {
         resolve(true);
       }
     });
   });
 };
 
-const prepareMapTo = () => {
+const prepareMap = () => {
   markerHandler();
   setDataReceived(true);
   editTutorialSliderDisplayFlag(true);
@@ -54,7 +54,7 @@ const handleAuth = async (isAuthorized: boolean, dataReceived: boolean) => {
 
     await waitForAllRequestsIsDone();
     await openWsConnection();
-    prepareMapTo();
+    prepareMap();
   }
 };
 

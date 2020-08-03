@@ -6,8 +6,7 @@ import { buyItemRequest } from '../../api/shop-api/buy-item';
 
 export const fetchUserPurchases = StoreDomain.effect('fetch purchases', {
   handler: async () => {
-    const response = await getUserPurchases();
-    return response;
+    return await getUserPurchases();
   },
 });
 

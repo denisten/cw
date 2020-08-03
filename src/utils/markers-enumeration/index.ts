@@ -8,7 +8,7 @@ export const markersEnumeration = (incomes: TowersTypesAsObjectLiteral) => {
   iterableArrayOfIncomesData.forEach(item => {
     const towerTitle = item[0] as TowersTypes;
     const markerData = {
-      towerTitle: towerTitle,
+      towerTitle,
       type: TypeOfMarkers.TAKE_REWARD,
       coins: item[1],
     };
