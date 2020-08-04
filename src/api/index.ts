@@ -29,6 +29,7 @@ export enum apiRoutes {
   GET_WORLD_STATE = '/api/world/state',
   GET_SHOP_CATALOG = '/api/store/listing',
   STORE_ITEMS = '/api/store/items/',
+  CURRENT_PRODUCTS = '/api/users/current/products/',
 }
 
 export {
