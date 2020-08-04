@@ -12,6 +12,7 @@ import { MenuItems } from '../../../UI/menu-paragraph';
 import { extraTowerInfoModalClosed } from '../../../effector/tower-info-modal-store/events';
 import { useStore } from 'effector-react';
 import { menuOpened } from '../../../effector/menu-store/events';
+import * as R from 'ramda';
 
 const Banner = styled.div`
   width: 175px;
@@ -42,9 +43,8 @@ const Title = styled.span`
   line-height: 1.2;
 `;
 
-const HeadTitle = styled(Title)<{ fontSize: string }>`
+const HeadTitle = styled(Title)<IHeadTitle>`
   line-height: 1.5;
-  font-size: 14px;
   font-family: ${MTSSans.BOLD};
   letter-spacing: -1px;
   font-size: ${props => props.fontSize};
@@ -56,20 +56,25 @@ enum TextSize {
   BIG = 12,
 }
 
-const returnFontSize = (wordLength: number) => {
-  if (wordLength <= TextSize.SHORT) {
-    return '26px';
-  } else if (wordLength > TextSize.SHORT && wordLength <= TextSize.MEDIUM) {
-    return '17px';
-  } else {
-    return '13px';
-  }
-};
-const CentralBanner: React.FC<{
-  tutorialCondition: TutorialConditions;
-}> = ({ tutorialCondition }) => {
+const isLessThanShort = (wordLength: number) => wordLength <= TextSize.SHORT;
+
+const isMoreThanShort = (wordLength: number) =>
+  wordLength > TextSize.SHORT && wordLength <= TextSize.MEDIUM;
+
+const calculateFontSize = R.cond([
+  [isLessThanShort, R.always('26px')],
+  [isMoreThanShort, R.always('17px')],
+  [R.T, R.always('13px')],
+]);
+
+const maxMouseMoveFaultAfterClick = 5;
+
+export const CentralBanner: React.FC<ICentralBanner> = ({
+  tutorialCondition,
+}) => {
   const { worldName } = useStore(UserDataStore);
   const [wordLength, setWordLength] = useState(0);
+
   useEffect(() => {
     setWordLength(worldName.length);
   }, [worldName]);
@@ -81,8 +86,6 @@ const CentralBanner: React.FC<{
       setOpenPopUpState(TypesOfPopUps.EDIT_WORLD_NAME);
     }
   };
-
-  const maxMouseMoveFaultAfterClick = 5;
   const mouseMoveProtectInstance = mouseMoveProtect(
     openAndEditCityName,
     maxMouseMoveFaultAfterClick
@@ -96,9 +99,17 @@ const CentralBanner: React.FC<{
     >
       <Title>Добро</Title>
       <Title>пожаловать!</Title>
-      <HeadTitle fontSize={returnFontSize(wordLength)}>{worldName}</HeadTitle>
+      <HeadTitle fontSize={calculateFontSize(wordLength as never)}>
+        {worldName}
+      </HeadTitle>
     </Banner>
   );
 };
 
-export default CentralBanner;
+interface ICentralBanner {
+  tutorialCondition: TutorialConditions;
+}
+
+interface IHeadTitle {
+  fontSize: string;
+}
