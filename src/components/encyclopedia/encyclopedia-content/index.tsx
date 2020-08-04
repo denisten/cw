@@ -43,6 +43,7 @@ const ContentSection = styled.section`
   width: 100%;
   height: 100%;
   overflow: auto;
+  width: calc(100% - 30px);
 `;
 
 const disableArrowClassName = 'disable';

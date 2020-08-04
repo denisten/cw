@@ -25,14 +25,14 @@ const EncyclopediaElement = styled.div<IEncyclopediaElement>`
   font-family: ${props => (props.selected ? MTSSans.BOLD : MTSSans.REGULAR)};
   font-size: 24px;
   line-height: 33px;
-  color: #001424;
+  color: ${props => (props.selected ? 'white' : '#001424')};
   opacity: ${props => (props.selected ? '1' : '0.6')};
-  background-color: ${props => (props.selected ? '#F3F6F8' : 'white')};
+  background-color: ${props => (props.selected ? '#02ADC9' : 'white')};
   transition: 0.4s;
   cursor: pointer;
 
   &:hover {
-    background-color: #f3f6f8;
+    background-color: #02adc9;
   }
 `;
 

@@ -5,7 +5,7 @@ import { MTSSans } from '../../../../fonts';
 
 export const WrapperBlock = styled.div`
   box-sizing: border-box;
-  padding: 30px 70px 0px 45px;
+  padding: 30px 40px 0px 45px;
   width: 100%;
   display: flex;
   flex-direction: column;
