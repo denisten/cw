@@ -35,7 +35,7 @@ export enum ScaleValues {
 }
 
 export enum MapSize {
-  WIDTH = 5600,
+  WIDTH = 5920,
   HEIGHT = 2940,
 }
 

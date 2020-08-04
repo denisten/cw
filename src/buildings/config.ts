@@ -300,6 +300,7 @@ class BuildingsService {
     },
     [TowersTypes.SMARTMED]: {
       info: 'info',
+      hide: true, //tmp
       title: 'SmartMed',
       signConfig: ['SmartMed'],
       wideTower: false,
@@ -332,6 +333,7 @@ class BuildingsService {
     },
     [TowersTypes.UNIVERSITY]: {
       info: 'info',
+      hide: true, //tmp
       title: 'Smart University',
       signConfig: ['Smart University'],
       wideTower: true,
@@ -373,7 +375,7 @@ class BuildingsService {
       width: 293,
       height: 650,
       areaCoords: '50,194,228,621',
-      position: [29.5, 50.5],
+      position: [29.4, 47.7],
       ref: null,
       link:
         'https://moskva.mts.ru/personal/mobilnaya-svyaz/tarifi/vse-tarifi/dla-smartfona/?utm_source=city.mts.ru&utm_medium=referral&utm_campaign=about',
@@ -396,6 +398,7 @@ class BuildingsService {
     },
     [TowersTypes.MUSIC]: {
       info: 'info',
+      hide: true, //tmp
       title: 'МТС Music',
       link:
         'https://music.mts.ru/?utm_source=city.mts.ru&utm_medium=referral&utm_campaign=about',
@@ -428,6 +431,7 @@ class BuildingsService {
     },
     [TowersTypes.LIVE_ARENA]: {
       info: 'info',
+      hide: true, //tmp
       title: 'МТС Live Arena',
       signConfig: ['МТС', 'Live Arena'],
       wideTower: true,
@@ -460,6 +464,7 @@ class BuildingsService {
     },
     [TowersTypes.CASHBACK]: {
       info: 'info',
+      hide: true, //tmp
       title: 'МТС Cashback',
       wideTower: true,
       signConfig: ['МТС', 'Cashback'],
@@ -492,6 +497,7 @@ class BuildingsService {
     },
     [TowersTypes.MY_MTS]: {
       info: 'info',
+      hide: true, //tmp
       title: 'Мой МТС',
       signConfig: ['Мой', 'МТС'],
       wideTower: false,
@@ -525,6 +531,7 @@ class BuildingsService {
     },
     [TowersTypes.LIBRARY]: {
       info: 'info',
+      hide: true, //tmp
       title: 'МТС Библиотека',
       signConfig: ['МТС', 'Библиотека'],
       wideTower: false,
@@ -557,6 +564,7 @@ class BuildingsService {
     },
     [TowersTypes.OBSERVATORY]: {
       info: 'info',
+      hide: true, //tmp
       title: 'Здание партнера 4',
       signConfig: ['Здание партнера 4'],
       mutedImg: mutedObservatoryTower,
@@ -588,6 +596,7 @@ class BuildingsService {
     },
     [TowersTypes.MOBILE_NETWORK]: {
       info: 'info',
+      hide: true, //tmp
       title: 'Мобильный интернет',
       signConfig: ['Мобильный интернет'],
       wideTower: false,
@@ -620,6 +629,7 @@ class BuildingsService {
     },
     [TowersTypes.THEATER]: {
       info: 'info',
+      hide: true, //tmp
       title: 'МТС Афиша',
       signConfig: ['МТС', 'Афиша'],
       wideTower: true,
@@ -652,6 +662,7 @@ class BuildingsService {
     },
     [TowersTypes.TV]: {
       info: 'info',
+      hide: true, //tmp
       title: 'Цифровое ТВ',
       signConfig: ['Цифровое ТВ'],
       wideTower: false,
@@ -684,6 +695,7 @@ class BuildingsService {
     },
     [TowersTypes.FITNESS]: {
       info: 'info',
+      hide: true, //tmp
       title: 'МТС Фитнес',
       signConfig: ['МТС', 'Фитнес'],
       wideTower: true,
@@ -716,6 +728,7 @@ class BuildingsService {
     },
     [TowersTypes.ROAMING]: {
       info: 'info',
+      hide: true, //tmp
       title: 'Роуминг',
       signConfig: ['Роуминг'],
       link:
@@ -748,6 +761,7 @@ class BuildingsService {
     },
     [TowersTypes.BANK]: {
       info: 'info',
+      hide: true, //tmp
       title: 'МТС Банк',
       signConfig: ['МТС', 'Банк'],
       wideTower: true,
@@ -780,6 +794,7 @@ class BuildingsService {
     },
     [TowersTypes.WASD_TV]: {
       info: 'info',
+      hide: true, //tmp
       title: 'WASD.tv',
       signConfig: ['WASD.tv'],
       wideTower: true,
@@ -813,6 +828,7 @@ class BuildingsService {
 
     [TowersTypes.AUTO]: {
       info: 'info',
+      hide: true, //tmp
       title: 'МТС Авто',
       signConfig: ['МТС', 'Авто'],
       wideTower: true,
@@ -846,6 +862,7 @@ class BuildingsService {
 
     [TowersTypes.SPUTNIK]: {
       info: 'info',
+      hide: true, //tmp
       title: 'Спутниковое ТВ',
       signConfig: ['Спутниковое ТВ'],
       wideTower: false,
@@ -878,6 +895,7 @@ class BuildingsService {
     },
     [TowersTypes.PARTNER_ONE]: {
       info: 'info',
+      hide: true, //tmp
       title: 'Здание партнера 1',
       signConfig: ['Здание партнера 1'],
       wideTower: false,
@@ -910,6 +928,7 @@ class BuildingsService {
     },
     [TowersTypes.PARTNER_TWO]: {
       info: 'info',
+      hide: true, //tmp
       title: 'Здание партнера 2',
       signConfig: ['Здание партнера 2'],
       wideTower: true,
@@ -941,6 +960,7 @@ class BuildingsService {
     },
     [TowersTypes.IGROTEKA]: {
       info: 'info',
+      hide: true, //tmp
       title: 'МТС Игротека',
       playButtonLink: 'http://priz.mts.ru/?source=mymts&device=ios',
       signConfig: ['МТС', 'Игротека'],
@@ -972,6 +992,7 @@ class BuildingsService {
     },
     [TowersTypes.HOME_INTERNET]: {
       info: 'info',
+      hide: true, //tmp
       title: 'Домашний интернет',
       signConfig: ['Домашний интернет'],
       wideTower: false,
@@ -1004,6 +1025,7 @@ class BuildingsService {
     },
     [TowersTypes.SHOP]: {
       info: 'info',
+      hide: true, //tmp
       title: 'Салон-магазин МТС',
       signConfig: ['Салон-магазин', 'МТС'],
       playButtonLink: 'https://shop.mts.ru/den-rozhdenie-10-let/',
@@ -1039,6 +1061,7 @@ class BuildingsService {
     },
     [TowersTypes.PARTNER_THREE]: {
       info: 'info',
+      hide: true, //tmp
       title: 'Партнерское здание 3',
       signConfig: ['Партнерское здание 3'],
       wideTower: false,
@@ -1070,6 +1093,7 @@ class BuildingsService {
     },
     [TowersTypes.MARVIN]: {
       info: 'info',
+      hide: true, //tmp
       title: 'Колонка Марвин',
       signConfig: ['Колонка Марвин'],
       wideTower: false,
@@ -1100,6 +1124,7 @@ class BuildingsService {
     },
     [TowersTypes.CONNECT]: {
       info: 'info',
+      hide: true, //tmp
       title: 'Вторая память',
       signConfig: ['Вторая память'],
       wideTower: false,
