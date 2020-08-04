@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import helpBg from './help.svg';
 import helpHover from './helpHover.svg';
-import { ZIndexes } from '../../components/root-component/z-indexes-enum';
 import { ActiveTooltip } from '../../components/tower-info/tower-info-indicators';
 import * as R from 'ramda';
 
@@ -13,7 +12,6 @@ const Icon = styled.div<{ active: boolean }>`
     center;
   transition: 0.4s;
   cursor: pointer;
-  z-index: ${ZIndexes.TUTORIAL};
   position: relative;
 
   &:hover {
