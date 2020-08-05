@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { PopUpContentWrapper } from '../../UI/pop-up-content-wrapper';
 import { PopUpTitle, IPopUpStyles } from '../../UI/pop-up';
 import styled from 'styled-components';
@@ -6,7 +6,8 @@ import { Button, ButtonClassNames } from '../../UI/button';
 import { ITitle } from '../tutorial-slider';
 import { MTSSans } from '../../fonts';
 import { useStore } from 'effector-react';
-import { UserMarketStore } from '../../effector/coupons/store';
+import { UserMarketStore, CouponTypes } from '../../effector/coupons/store';
+import { CouponCard, CardWrapper } from '../../UI/coupon-card';
 
 const MinorText = styled.span`
   font-size: 16px;
@@ -19,6 +20,7 @@ const ButtonWrapper = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 `;
 
 const CancelButton = styled.div<ITitle>`
@@ -47,6 +49,12 @@ const ModalPopUpTitle = styled(PopUpTitle)`
 const CouponBlock = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  width: 100%;
+
+  ${CardWrapper}:last-child {
+    margin-right: 0px;
+  }
 `;
 
 export const ModalWindow: React.FC<IModalWindow> = ({
@@ -60,13 +68,29 @@ export const ModalWindow: React.FC<IModalWindow> = ({
   displayFlag,
 }) => {
   const { userCoupons } = useStore(UserMarketStore);
+  const [selectedCoupon, setSelectedCoupon] = useState<CouponTypes | null>(
+    null
+  );
+  const coupons = Object.keys(userCoupons).map((item, index) => {
+    const coupon = item as CouponTypes;
+    return (
+      <CouponCard
+        key={index}
+        iconType={coupon}
+        active={selectedCoupon === coupon}
+        titleElem={userCoupons[coupon].name?.replace(/Купон/gi, '')}
+        couponsQuantity={userCoupons[coupon].count}
+        callBack={() => setSelectedCoupon(coupon)}
+      />
+    );
+  });
 
   return (
     <>
       <PopUpContentWrapper displayFlag={displayFlag} {...popUpStyles}>
         <ModalPopUpTitle>{title}</ModalPopUpTitle>
         {minorText && <MinorText>{minorText}</MinorText>}
-        <CouponBlock>{/* <CouponCard active={true} /> */}</CouponBlock>
+        <CouponBlock>{coupons}</CouponBlock>
         <ButtonWrapper>
           <CancelButton onClick={cancelHandler} content={cancelButtonText} />
           <Button

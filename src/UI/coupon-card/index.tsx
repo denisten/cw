@@ -33,6 +33,7 @@ export const TitleElem = styled(StyledSpan)`
   letter-spacing: -0.6px;
   color: #212527;
   margin-top: 13px;
+  text-align: center;
 `;
 
 export const CouponCount = styled.span`
@@ -70,15 +71,15 @@ export const CouponCard: React.FC<ICouponCard> = ({
 };
 
 interface ICouponCard {
-  callBack: () => void;
+  callBack?: () => void;
   active: boolean;
-  couponsQuantity: number;
+  couponsQuantity?: number;
   iconType:
     | CouponTypes
     | PromocodeTypes
     | TypeOfIcons
     | TasksType
     | TypeOfMarkers;
-  titleElem: string;
+  titleElem?: string;
   price?: number;
 }
