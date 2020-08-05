@@ -9,6 +9,9 @@ import { useStore } from 'effector-react';
 import { UserMarketStore, CouponTypes } from '../../effector/coupons/store';
 import { CouponCard, CardWrapper } from '../../UI/coupon-card';
 import { openMarket } from '../../effector/coupons/events';
+import { couponHandler } from '../../utils/coupon-handler';
+import { TowersTypes } from '../../effector/towers-progress/store';
+import { coughtError } from '../../effector/error-boundary-store/events';
 
 const MinorText = styled.span`
   font-size: 16px;
@@ -64,17 +67,30 @@ export const ModalWindow: React.FC<IModalWindow> = ({
   popUpStyles,
   submitButtonText,
   cancelButtonText = '',
-  submitHandler,
   cancelHandler,
   displayFlag,
+  id,
+  towerTitle,
 }) => {
   const { userCoupons } = useStore(UserMarketStore);
   const [selectedCoupon, setSelectedCoupon] = useState<CouponTypes | null>(
     null
   );
   const openShop = () => {
-    cancelHandler && cancelHandler();
+    cancelHandler();
     openMarket(true);
+  };
+
+  const modalWindowSubmitHandler = async () => {
+    if (selectedCoupon) {
+      const couponsCount = userCoupons[selectedCoupon].count;
+      if (couponsCount - 1 > 0) {
+        await couponHandler(id, selectedCoupon, towerTitle);
+        cancelHandler();
+      } else {
+        coughtError({ text: 'Кончились купоны.' });
+      }
+    }
   };
   const coupons = Object.keys(userCoupons).map((item, index) => {
     const coupon = item as CouponTypes;
@@ -86,7 +102,7 @@ export const ModalWindow: React.FC<IModalWindow> = ({
         titleElem={userCoupons[coupon].name?.replace(/Купон/gi, '')}
         couponsQuantity={userCoupons[coupon].count}
         callBack={() => setSelectedCoupon(coupon)}
-        disable={true}
+        disable={userCoupons[coupon].count === 0}
         openShopCallBack={openShop}
       />
     );
@@ -101,9 +117,13 @@ export const ModalWindow: React.FC<IModalWindow> = ({
         <ButtonWrapper>
           <CancelButton onClick={cancelHandler} content={cancelButtonText} />
           <Button
-            className={ButtonClassNames.NORMAL}
+            className={
+              selectedCoupon
+                ? ButtonClassNames.NORMAL
+                : ButtonClassNames.DISABLED
+            }
             content={submitButtonText}
-            callback={submitHandler}
+            callback={modalWindowSubmitHandler}
           />
         </ButtonWrapper>
       </PopUpContentWrapper>
@@ -117,8 +137,9 @@ interface IModalWindow {
   popUpStyles?: IPopUpStyles;
   submitButtonText: string;
   cancelButtonText?: string;
-  submitHandler?: () => void;
-  cancelHandler?: () => void;
+  cancelHandler: () => void;
   displayFlag: boolean;
   style?: React.CSSProperties;
+  id: number;
+  towerTitle?: TowersTypes;
 }

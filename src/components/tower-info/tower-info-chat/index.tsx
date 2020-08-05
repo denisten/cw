@@ -19,12 +19,10 @@ import {
   setCurrentTaskStatus,
 } from '../../../effector/missions-store/events';
 import { CouponTypes, UserMarketStore } from '../../../effector/coupons/store';
-import { couponHandler } from '../../../utils/coupon-handler';
 import { ChatStore } from '../../../effector/chat/store';
 import { Bubble } from '../../../UI/bubble';
 import { ChatPreview } from '../../../UI/chat-preview';
 
-import { ModalWindow } from '../../modal-window';
 import { hideMarker, setMarker } from '../../../effector/towers-marker/events';
 import { ChatButtons } from '../../../UI/chat-buttons';
 import { ChatAvatar } from '../../../UI/chat-avatar';
@@ -133,7 +131,6 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
       towerTitle
     ];
     const missions = useStore(TasksStore);
-    const [openCouponModal, setOpenCouponModal] = useState(false);
     const [pendingOfResponse, setPendingOfResponse] = useState(false);
     const { userCoupons } = useStore(UserMarketStore);
     const { count } = userCoupons[CouponTypes.COUPON_REPLACE];
@@ -287,19 +284,8 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
             couponCount={count}
             actions={actions}
             callback={sendAnswerId}
-            couponCallback={() => setOpenCouponModal(true)}
           />
         )}
-
-        <ModalWindow
-          {...couponModalConfig}
-          displayFlag={openCouponModal}
-          cancelHandler={() => setOpenCouponModal(false)}
-          submitHandler={() => {
-            couponHandler(currentMission?.id, count, towerTitle, switchers);
-            setOpenCouponModal(false);
-          }}
-        />
       </>
     );
   }

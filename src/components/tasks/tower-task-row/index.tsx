@@ -8,13 +8,8 @@ import notDoneImg from './not-done.svg';
 import { ColumnWrapper } from '../../../UI/column-wrapper';
 import { TaskTimer } from '../../../UI/task-timer';
 import { TowersTypes } from '../../../effector/towers-progress/store';
-
 import { ModalWindow } from '../../modal-window';
-import { couponHandler } from '../../../utils/coupon-handler';
 import { handleTaskClick } from '../../../utils/handle-task-click';
-import { useStore } from 'effector-react';
-import { UserDataStore } from '../../../effector/user-data/store';
-import { coughtError } from '../../../effector/error-boundary-store/events';
 import vectorImg from './vector.svg';
 import { RowWrapper } from '../../../UI/row-wrapper';
 import { couponModalConfig } from '../../tower-info/tower-info-chat';
@@ -215,7 +210,6 @@ export const TowerTaskRow: React.FC<ITasksRow> = ({
   const vectorRef = useRef<HTMLImageElement>(null);
 
   const [isCouponModalWindowOpen, setIsCouponModalWindowOpen] = useState(false);
-  const { couponsCount } = useStore(UserDataStore);
 
   const handleWrapperClick = async (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -247,15 +241,6 @@ export const TowerTaskRow: React.FC<ITasksRow> = ({
       }
     });
 
-  const modalWindowSubmitHandler = async () => {
-    if (couponsCount - 1 > 0) {
-      await couponHandler(id, 1, towerTitle);
-      setIsCouponModalWindowOpen(false);
-    } else {
-      coughtError({ text: 'Кончились купоны.' });
-    }
-  };
-
   const handleHintClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     setIsCouponModalWindowOpen(true);
@@ -271,7 +256,8 @@ export const TowerTaskRow: React.FC<ITasksRow> = ({
         {...couponModalConfig}
         displayFlag={isCouponModalWindowOpen}
         cancelHandler={() => setIsCouponModalWindowOpen(false)}
-        submitHandler={modalWindowSubmitHandler}
+        id={id}
+        towerTitle={towerTitle}
       />
       <TaskInfo>
         <Icon type={type} />
