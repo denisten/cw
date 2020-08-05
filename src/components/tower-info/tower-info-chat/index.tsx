@@ -114,14 +114,16 @@ const MessageRow = styled.div<IMessageRow>`
 let currentMission: null | ITask;
 
 export const couponModalConfig = {
-  title: 'Вы уверены, что хотите использовать купон?',
-  minorText: 'Если вы примените купон, отменить действие будет не возможно.',
+  title: 'Выбор купона',
   popUpStyles: {
-    width: 487,
-    padding: '68px 80px',
+    width: 535,
+    padding: '40px 74px 40px 50px',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    height: 354,
   },
-  submitButtonText: 'Да, использовать',
-  cancelButtonText: 'Нет, не хочу',
+  submitButtonText: 'Использовать',
+  cancelButtonText: 'Отмена',
 };
 
 export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(

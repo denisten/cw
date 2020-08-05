@@ -4,6 +4,7 @@ import { PopUpTitle, IPopUpStyles } from '../../UI/pop-up';
 import styled from 'styled-components';
 import { Button, ButtonClassNames } from '../../UI/button';
 import { ITitle } from '../tutorial-slider';
+import { MTSSans } from '../../fonts';
 
 const MinorText = styled.span`
   font-size: 16px;
@@ -30,6 +31,15 @@ const CancelButton = styled.div<ITitle>`
   }
 `;
 
+const ModalPopUpTitle = styled(PopUpTitle)`
+  font-size: 36px;
+  line-height: 24px;
+  letter-spacing: -0.6px;
+  color: #212527;
+  text-align: left;
+  font-family: ${MTSSans.BOLD};
+`;
+
 export const ModalWindow: React.FC<IModalWindow> = ({
   title,
   minorText,
@@ -43,15 +53,15 @@ export const ModalWindow: React.FC<IModalWindow> = ({
   return (
     <>
       <PopUpContentWrapper displayFlag={displayFlag} {...popUpStyles}>
-        <PopUpTitle>{title}</PopUpTitle>
+        <ModalPopUpTitle>{title}</ModalPopUpTitle>
         {minorText && <MinorText>{minorText}</MinorText>}
         <ButtonWrapper>
+          <CancelButton onClick={cancelHandler} content={cancelButtonText} />
           <Button
             className={ButtonClassNames.NORMAL}
             content={submitButtonText}
             callback={submitHandler}
           />
-          <CancelButton onClick={cancelHandler} content={cancelButtonText} />
         </ButtonWrapper>
       </PopUpContentWrapper>
     </>
