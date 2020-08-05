@@ -311,7 +311,7 @@ class BuildingsService {
       width: 313,
       height: 655,
       areaCoords: '55,82,259,651',
-      position: [60.2, 67.2],
+      position: [60.2, 63.6],
       ref: null,
       [TowerLevel.initial]: {
         img: smartmedLevel0Img,
@@ -341,7 +341,7 @@ class BuildingsService {
       width: 659,
       height: 707,
       areaCoords: '58,161,585,653',
-      position: [42.3, 15.2],
+      position: [42.3, 14.2],
       ref: null,
       link: 'https://smart-university.ru/',
       [TowerLevel.initial]: {
@@ -373,7 +373,7 @@ class BuildingsService {
       width: 293,
       height: 650,
       areaCoords: '50,194,228,621',
-      position: [29.5, 50.5],
+      position: [29.4, 47.7],
       ref: null,
       link:
         'https://moskva.mts.ru/personal/mobilnaya-svyaz/tarifi/vse-tarifi/dla-smartfona/?utm_source=city.mts.ru&utm_medium=referral&utm_campaign=about',
@@ -407,7 +407,7 @@ class BuildingsService {
       width: 398,
       height: 362,
       areaCoords: '51,72,349,356',
-      position: [16.8, 49.5],
+      position: [16.8, 46.8],
       ref: null,
       [TowerLevel.initial]: {
         img: musicTowerLevel0Img,
@@ -437,7 +437,7 @@ class BuildingsService {
       width: 658,
       height: 440,
       areaCoords: '46,119,606,425',
-      position: [52.5, 28.6],
+      position: [52.5, 27],
       ref: null,
       link:
         'https://moskva.mts.ru/personal/mobilnaya-svyaz/uslugi/mobilnaya-svyaz/mts-live',
@@ -472,7 +472,7 @@ class BuildingsService {
       ref: null,
       link:
         'https://cashback.mts.ru/?utm_source=city.mts.ru&utm_medium=referral&utm_campaign=about',
-      position: [51.9, 53.8],
+      position: [51.9, 50.86],
       [TowerLevel.initial]: {
         img: mollTowerLevel0Img,
         shadowImg: mollTowerLevel0Stroke,
@@ -502,7 +502,7 @@ class BuildingsService {
       animSize: animSize.small,
       height: 458,
       areaCoords: '45,77,316,444',
-      position: [30.6, 44.4],
+      position: [30.6, 42],
       ref: null,
       link:
         'https://lk.mts.ru/?utm_source=city.mts.ru&utm_medium=referral&utm_campaign=about',
@@ -534,7 +534,7 @@ class BuildingsService {
       width: 451,
       height: 407,
       areaCoords: '44,46,411,406',
-      position: [27.6, 64.95],
+      position: [27.6, 61.6],
       ref: null,
       link:
         'https://books.mts.ru/?utm_source=city.mts.ru&utm_medium=referral&utm_campaign=about',
@@ -567,7 +567,7 @@ class BuildingsService {
       width: 326,
       height: 554,
       areaCoords: '49,132,273,553',
-      position: [50.8, 72.1],
+      position: [50.8, 68.2],
       ref: null,
       [TowerLevel.initial]: {
         img: observatoryTowerLevel0Img,
@@ -599,7 +599,7 @@ class BuildingsService {
       width: 288,
       height: 490,
       areaCoords: '44,102,240,481',
-      position: [33.5, 40],
+      position: [33.5, 37.99],
       ref: null,
       [TowerLevel.initial]: {
         img: tariffTowerLevel0Img,
@@ -629,7 +629,7 @@ class BuildingsService {
       width: 521,
       height: 472,
       areaCoords: '46,85,475,396',
-      position: [40, 28.2],
+      position: [40, 26.8],
       ref: null,
       link:
         'https://live.mts.ru/?utm_source=city.mts.ru&utm_medium=referral&utm_campaign=about',
@@ -661,7 +661,7 @@ class BuildingsService {
       width: 428,
       height: 965,
       areaCoords: '59,165,372,926',
-      position: [13.3, 21.8],
+      position: [13.3, 20.6],
       ref: null,
       link:
         'https://mtstv.mts.ru/?utm_source=city.mts.ru&utm_medium=referral&utm_campaign=about',
@@ -693,7 +693,7 @@ class BuildingsService {
       width: 593,
       height: 347,
       areaCoords: '97,55,575,380',
-      position: [14.8, 64.4],
+      position: [14.8, 61],
       ref: null,
       link:
         'https://moskva.mts.ru/personal/mobilnaya-svyaz/uslugi/mobilnaya-svyaz/mts_fitnes/?utm_source=city.mts.ru&utm_medium=referral&utm_campaign=about',
@@ -727,7 +727,7 @@ class BuildingsService {
       width: 381,
       height: 405,
       areaCoords: '37,46,608,444',
-      position: [12, 36.2],
+      position: [12, 34.2],
       ref: null,
       [TowerLevel.initial]: {
         img: airportLevel0Img,
@@ -757,7 +757,7 @@ class BuildingsService {
       width: 446,
       height: 435,
       areaCoords: '399,410,48,92',
-      position: [45.5, 64.1],
+      position: [45.5, 60.8],
       ref: null,
       link:
         'https://www.mtsbank.ru/?utm_source=city.mts.ru&utm_medium=referral&utm_campaign=about',
@@ -789,7 +789,7 @@ class BuildingsService {
       width: 479,
       height: 326,
       areaCoords: '42,49,478,344',
-      position: [39.5, 70.86],
+      position: [39.5, 67.1],
       ref: null,
       link:
         'https://wasd.tv/?utm_source=city.mts.ru&utm_medium=referral&utm_campaign=about',
@@ -824,7 +824,7 @@ class BuildingsService {
       width: 649,
       height: 445,
       areaCoords: '49,134,608,444',
-      position: [63, 16.2],
+      position: [63, 15.2],
       ref: null,
       [TowerLevel.initial]: {
         img: autoFactoryLevel0Img,
@@ -855,7 +855,7 @@ class BuildingsService {
       width: 393,
       height: 479,
       areaCoords: '45,132,340,454',
-      position: [14, 26.6],
+      position: [14, 25.2],
       ref: null,
       link:
         'https://moskva.mts.ru/personal/stv/?utm_source=city.mts.ru&utm_medium=referral&utm_campaign=about',
@@ -887,7 +887,7 @@ class BuildingsService {
       width: 304,
       height: 469,
       areaCoords: '51,72,239,461',
-      position: [62.5, 36.8],
+      position: [62.5, 34.8],
       ref: null,
       mutedImg: mutedPartnerOne,
       [TowerLevel.initial]: {
@@ -919,7 +919,7 @@ class BuildingsService {
       width: 463,
       height: 456,
       areaCoords: '47,83,412,422',
-      position: [69.4, 29.4],
+      position: [69.4, 27.8],
       ref: null,
       mutedImg: mutedPartnerTwo,
       [TowerLevel.initial]: {
@@ -951,7 +951,7 @@ class BuildingsService {
       width: 433,
       height: 471,
       areaCoords: '88,81,349,442',
-      position: [19, 73.8],
+      position: [19, 69.8],
       ref: null,
       [TowerLevel.initial]: {
         img: slotMachineLevel0Img,
@@ -983,7 +983,7 @@ class BuildingsService {
       width: 494,
       height: 500,
       areaCoords: '49,127,443,496',
-      position: [21, 16],
+      position: [21, 15.1],
       ref: null,
       [TowerLevel.initial]: {
         img: routerLevel0Img,
@@ -1016,7 +1016,7 @@ class BuildingsService {
       width: 386,
       height: 390,
       areaCoords: '70,72,316,386',
-      position: [61.1, 43.4],
+      position: [61.1, 41.1],
       ref: null,
       [TowerLevel.initial]: {
         img: rtkLevel0Img,
@@ -1048,7 +1048,7 @@ class BuildingsService {
       width: 313,
       height: 501,
       areaCoords: '48,121,241,490',
-      position: [42.7, 78.8],
+      position: [42.6, 74.5],
       ref: null,
       mutedImg: mutedPartnerThree,
       [TowerLevel.initial]: {
@@ -1079,7 +1079,7 @@ class BuildingsService {
       width: 227,
       height: 306,
       areaCoords: '49,47,198,328',
-      position: [19.7, 61.7],
+      position: [19.7, 58.3],
       [TowerLevel.initial]: {
         img: marvinLevel0Img,
         shadowImg: marvinLevel0Stroke,
@@ -1109,7 +1109,7 @@ class BuildingsService {
       width: 304,
       height: 391,
       areaCoords: '47,70,245,362',
-      position: [25.2, 32.8],
+      position: [25.3, 31.1],
       link:
         'https://2memory2.mts.ru/?utm_source=city.mts.ru&utm_medium=referral&utm_campaign=about',
       ref: null,

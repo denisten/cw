@@ -10,44 +10,57 @@ import * as R from 'ramda';
 
 const StyledConfig = {
   bridge1: {
-    position: 'absolute',
-    left: '34%',
-    top: ' 66%',
-    zIndex: ZIndexes.DECORATION,
-  } as React.CSSProperties,
+    style: {
+      position: 'absolute',
+      left: '32%',
+      top: ' 66%',
+      zIndex: ZIndexes.DECORATION,
+    } as React.CSSProperties,
+    img: bridge1,
+  },
   bridge2: {
-    position: 'absolute',
-    left: '55.5%',
-    top: '30.6%',
-    zIndex: ZIndexes.DECORATION,
-  } as React.CSSProperties,
+    style: {
+      position: 'absolute',
+      left: '52.5%',
+      top: '30.6%',
+      zIndex: ZIndexes.DECORATION,
+    } as React.CSSProperties,
+    img: bridge2,
+  },
   bridge3: {
-    position: 'absolute',
-    left: '54%',
-    top: '50.8%',
-    zIndex: ZIndexes.DECORATION,
-  } as React.CSSProperties,
+    style: {
+      position: 'absolute',
+      left: '51%',
+      top: '50.8%',
+      zIndex: ZIndexes.DECORATION,
+    } as React.CSSProperties,
+    img: bridge3,
+  },
   bridge4: {
-    position: 'absolute',
-    left: '66.6%',
-    top: '10.6%',
-    zIndex: ZIndexes.DECORATION,
-  } as React.CSSProperties,
+    style: {
+      position: 'absolute',
+      left: '63.1%',
+      top: '10.6%',
+      zIndex: ZIndexes.DECORATION,
+    } as React.CSSProperties,
+    img: bridge4,
+  },
   bridge5: {
-    position: 'absolute',
-    left: '14.5%',
-    top: ' 86%',
-    zIndex: ZIndexes.DECORATION,
-  } as React.CSSProperties,
+    style: {
+      position: 'absolute',
+      left: '13.8%',
+      top: ' 86%',
+      zIndex: ZIndexes.DECORATION,
+    } as React.CSSProperties,
+    img: bridge5,
+  },
 };
 
 const BridgesImg = () => (
   <Fragment>
-    <LazyImage src={bridge1} style={{ ...StyledConfig.bridge1 }} />
-    <LazyImage src={bridge2} style={{ ...StyledConfig.bridge2 }} />
-    <LazyImage src={bridge3} style={{ ...StyledConfig.bridge3 }} />
-    <LazyImage src={bridge4} style={{ ...StyledConfig.bridge4 }} />
-    <LazyImage src={bridge5} style={{ ...StyledConfig.bridge5 }} />
+    {Object.values(StyledConfig).map(({ img, style }) => (
+      <LazyImage src={img} style={style} key={img} />
+    ))}
   </Fragment>
 );
 

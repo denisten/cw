@@ -4,7 +4,7 @@ import { TowersProgressStore } from '../../effector/towers-progress/store';
 import { planeConfig } from './plane-config';
 import { Plane } from './plane';
 
-const Planes = React.memo(() => {
+export const Planes = () => {
   const airportLevelStoreLevel = useStore(TowersProgressStore).roaming.level
     .level;
   if (!airportLevelStoreLevel) return null;
@@ -18,6 +18,4 @@ const Planes = React.memo(() => {
       </>
     );
   }
-});
-
-export default Planes;
+};

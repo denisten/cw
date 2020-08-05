@@ -18,8 +18,8 @@ import { fixSizeClassName } from '../../UI/tower-component-wrapper';
 import { ZoomButton } from '../../UI/zoom-button';
 import { useDetectBrowser } from '../../hooks/use-detect-browser';
 import { Browsers, BrowserStore } from '../../effector/browser/store';
-const CentralBanner = lazy(() => import('../decorations/central-banner'));
-const Planes = lazy(() => import('../planes'));
+import { CentralBanner } from '../decorations/central-banner';
+import { Planes } from '../planes';
 const Cars = lazy(() => import('../decorations/cars/carsArray'));
 const Waves = lazy(() => import('../decorations/waves'));
 const Decorations = lazy(() => import('../decorations'));
@@ -35,7 +35,7 @@ export enum ScaleValues {
 }
 
 export enum MapSize {
-  WIDTH = 5600,
+  WIDTH = 5920,
   HEIGHT = 2940,
 }
 
@@ -130,25 +130,18 @@ export const ScrollContainer: React.FC<IScrollContainer> = ({
       className={_scrollContainerClassName}
       ref={scrollContainerWrapperRef}
     >
-      <Suspense fallback={<></>}>
-        {DOMLoaded && (
-          <ZoomButton
-            fullSizeMode={fullSizeMode}
-            callBack={fullSizeMode ? disableFixSizeMod : enableFixSizeMod}
-          />
-        )}
-      </Suspense>
+      <ZoomButton
+        fullSizeMode={fullSizeMode}
+        callBack={fullSizeMode ? disableFixSizeMod : enableFixSizeMod}
+      />
       <MapWrapper ref={mapWrapperRef} zIndex={zIndex}>
         <Map />
         <Buildings />
         <Bridges showBridges={true} />
         <PointForCenterScroll ref={centerScrollPoint} />
+        <Planes />
+        <CentralBanner tutorialCondition={tutorialCondition} />
         <Suspense fallback={<></>}>
-          {DOMLoaded && (
-            <>
-              <Planes /> <CentralBanner tutorialCondition={tutorialCondition} />
-            </>
-          )}
           {DOMLoaded && !animationOff && (
             <>
               <Cars /> <Waves /> <Decorations />
