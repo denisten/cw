@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { maxPercent } from '../../constants';
 import { propEq, ifElse } from 'ramda';
 
@@ -13,9 +13,10 @@ export const useCalculateLoadingProgress = (
   const [loadedImagesNumber, setLoadedImgCount] = useState(0);
   const [loadingPercent, setLoadingPercent] = useState(0);
   const [allResoursesLoaded, setAllResoursesLoaded] = useState(false);
+  const timeout = useRef(0);
 
   useEffect(() => {
-    setTimeout(() => {
+    timeout.current = setTimeout(() => {
       setAllResoursesLoaded(true);
       setLoadingPercent(maxPercent);
     }, maxDelayBeforePreloaderOff);
@@ -92,6 +93,10 @@ export const useCalculateLoadingProgress = (
     if (loadingStarted && !allResoursesLoaded) {
       parseWhenImageLoaded();
       convertToPercent();
+    }
+
+    if (allResoursesLoaded) {
+      clearTimeout(timeout.current);
     }
   }, [
     allImagesQuantity,
