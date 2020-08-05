@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import { Button, ButtonClassNames } from '../../UI/button';
 import { ITitle } from '../tutorial-slider';
 import { MTSSans } from '../../fonts';
+import { useStore } from 'effector-react';
+import { UserMarketStore } from '../../effector/coupons/store';
 
 const MinorText = styled.span`
   font-size: 16px;
@@ -17,14 +19,16 @@ const ButtonWrapper = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-top: 17px;
 `;
 
 const CancelButton = styled.div<ITitle>`
-  font-size: 14px;
+  font-size: 16px;
   line-height: 20px;
+  font-family:${MTSSans.BOLD};
   color: #02adc9;
+  width: 200px;
+  text-align: center;
+  margin-right: 14px;
   cursor: pointer;
   :after {
     content:"${props => props.content}";
@@ -40,6 +44,11 @@ const ModalPopUpTitle = styled(PopUpTitle)`
   font-family: ${MTSSans.BOLD};
 `;
 
+const CouponBlock = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 export const ModalWindow: React.FC<IModalWindow> = ({
   title,
   minorText,
@@ -50,11 +59,14 @@ export const ModalWindow: React.FC<IModalWindow> = ({
   cancelHandler,
   displayFlag,
 }) => {
+  const { userCoupons } = useStore(UserMarketStore);
+
   return (
     <>
       <PopUpContentWrapper displayFlag={displayFlag} {...popUpStyles}>
         <ModalPopUpTitle>{title}</ModalPopUpTitle>
         {minorText && <MinorText>{minorText}</MinorText>}
+        <CouponBlock>{/* <CouponCard active={true} /> */}</CouponBlock>
         <ButtonWrapper>
           <CancelButton onClick={cancelHandler} content={cancelButtonText} />
           <Button
