@@ -7,8 +7,10 @@ import { MoneyCounter } from '../../components/shop/shop-content/money-counter';
 import { CouponTypes, PromocodeTypes } from '../../effector/coupons/store';
 import { TasksType } from '../../components/menu/menu-tasks';
 import { TypeOfMarkers } from '../../components/markers';
+import plus from './plus.svg';
 
-export const CardWrapper = styled.div<{ active: boolean }>`
+const disableClassName = 'disable';
+export const CardWrapper = styled.div<IStates>`
   width: 200px;
   height: 160px;
   background: #ffffff;
@@ -24,6 +26,11 @@ export const CardWrapper = styled.div<{ active: boolean }>`
   cursor: pointer;
   transition: border 0.1s;
   position: relative;
+
+  &.${disableClassName} {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    cursor: default;
+  }
 `;
 
 export const TitleElem = styled(StyledSpan)`
@@ -43,6 +50,7 @@ export const CouponCount = styled.span`
   position: absolute;
   top: 13px;
   left: 13px;
+  z-index: 2;
 `;
 
 const styledConfig = {
@@ -52,6 +60,19 @@ const styledConfig = {
   },
 };
 
+const AddCoupons = styled.img.attrs({ src: plus, alt: 'add coupon' })`
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
+`;
+
+const BottomPartWrapper = styled.div<IStates>`
+  opacity: ${props => (props.disable ? '0.5' : '1')};
+  display: flex;
+  flex-direction: inherit;
+  align-items: inherit;
+`;
+
 export const CouponCard: React.FC<ICouponCard> = ({
   callBack,
   active,
@@ -59,12 +80,26 @@ export const CouponCard: React.FC<ICouponCard> = ({
   iconType,
   titleElem,
   price,
+  disable,
+  openShopCallBack,
 }) => {
   return (
-    <CardWrapper onClick={callBack} active={active}>
-      <CouponCount>{couponsQuantity} шт.</CouponCount>
-      <Icon style={styledConfig.icon} type={iconType} />
-      <TitleElem>{titleElem}</TitleElem>
+    <CardWrapper
+      onClick={callBack}
+      active={active}
+      className={disable ? disableClassName : ''}
+    >
+      <CouponCount>
+        {disable ? (
+          <AddCoupons onClick={openShopCallBack} />
+        ) : (
+          couponsQuantity + 'шт.'
+        )}
+      </CouponCount>
+      <BottomPartWrapper disable={disable}>
+        <Icon style={styledConfig.icon} type={iconType} />
+        <TitleElem>{titleElem}</TitleElem>
+      </BottomPartWrapper>
       {price && <MoneyCounter sum={String(price)} />}
     </CardWrapper>
   );
@@ -82,4 +117,11 @@ interface ICouponCard {
     | TypeOfMarkers;
   titleElem?: string;
   price?: number;
+  disable?: boolean;
+  openShopCallBack?: () => void;
+}
+
+interface IStates {
+  active?: boolean;
+  disable?: boolean;
 }

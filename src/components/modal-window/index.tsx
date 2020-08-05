@@ -8,6 +8,7 @@ import { MTSSans } from '../../fonts';
 import { useStore } from 'effector-react';
 import { UserMarketStore, CouponTypes } from '../../effector/coupons/store';
 import { CouponCard, CardWrapper } from '../../UI/coupon-card';
+import { openMarket } from '../../effector/coupons/events';
 
 const MinorText = styled.span`
   font-size: 16px;
@@ -71,6 +72,10 @@ export const ModalWindow: React.FC<IModalWindow> = ({
   const [selectedCoupon, setSelectedCoupon] = useState<CouponTypes | null>(
     null
   );
+  const openShop = () => {
+    cancelHandler && cancelHandler();
+    openMarket(true);
+  };
   const coupons = Object.keys(userCoupons).map((item, index) => {
     const coupon = item as CouponTypes;
     return (
@@ -81,6 +86,8 @@ export const ModalWindow: React.FC<IModalWindow> = ({
         titleElem={userCoupons[coupon].name?.replace(/Купон/gi, '')}
         couponsQuantity={userCoupons[coupon].count}
         callBack={() => setSelectedCoupon(coupon)}
+        disable={true}
+        openShopCallBack={openShop}
       />
     );
   });
