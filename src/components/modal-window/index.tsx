@@ -84,7 +84,7 @@ export const ModalWindow: React.FC<IModalWindow> = ({
   const modalWindowSubmitHandler = async () => {
     if (selectedCoupon) {
       const couponsCount = userCoupons[selectedCoupon].count;
-      if (couponsCount - 1 > 0) {
+      if (couponsCount - 1 >= 0) {
         await couponHandler(id, selectedCoupon, towerTitle);
         cancelHandler();
       } else {

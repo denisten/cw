@@ -30,6 +30,7 @@ import { TypeOfMarkers } from '../../markers';
 import { useStore } from 'effector-react';
 import { setHideTowerInfo } from '../../../effector/tower-info-modal-store/events';
 import { TasksType } from '../../menu/menu-tasks';
+import { ModalWindow } from '../../modal-window';
 
 const ChatWrapper = styled.div`
   width: 100%;
@@ -131,6 +132,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
       towerTitle
     ];
     const missions = useStore(TasksStore);
+    const [openCouponModal, setOpenCouponModal] = useState(false);
     const [pendingOfResponse, setPendingOfResponse] = useState(false);
     const { userCoupons } = useStore(UserMarketStore);
     const { count } = userCoupons[CouponTypes.COUPON_REPLACE];
@@ -148,6 +150,11 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
     } catch (e) {
       currentMission = null;
     }
+
+    const checkCouponAvailability =
+      currentMission?.task.content.taskType.slug !== TasksType.INFORMATIONAL &&
+      (userCoupons[CouponTypes.COUPON_REPLACE].count > 0 ||
+        userCoupons[CouponTypes.COUPON_SKIP].count > 0);
 
     const haveMessages = messages && messages.length > 0;
 
@@ -280,12 +287,20 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
         {chatWrapperContent}
         {!ended && (
           <ChatButtons
-            haveCoupon={false}
+            haveCoupon={checkCouponAvailability}
             couponCount={count}
             actions={actions}
             callback={sendAnswerId}
+            couponCallback={() => setOpenCouponModal(true)}
           />
         )}
+        <ModalWindow
+          {...couponModalConfig}
+          displayFlag={openCouponModal}
+          cancelHandler={() => setOpenCouponModal(false)}
+          id={taskId}
+          towerTitle={towerTitle}
+        />
       </>
     );
   }
