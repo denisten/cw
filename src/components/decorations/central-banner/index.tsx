@@ -20,7 +20,7 @@ const Banner = styled.div`
   background: url(${banner}) no-repeat center;
   background-size: 100% 100%;
   position: absolute;
-  left: 62%;
+  left: 52%;
   top: 43%;
   z-index: ${ZIndexes.UI_BUTTON};
   display: flex;

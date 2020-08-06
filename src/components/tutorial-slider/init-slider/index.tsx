@@ -4,6 +4,8 @@ import slider2 from './slider-2.png';
 import slider3 from './slider-3.png';
 import slider4 from './slider-4.png';
 import slider5 from './slider-5.png';
+import slider6 from './slider-6.png';
+
 import { TutorialSlider } from '..';
 import { editTutorialSliderDisplayFlag } from '../../../effector/app-condition/events';
 
@@ -13,8 +15,13 @@ export const tutorialSlidesArray = [
   slider3,
   slider4,
   slider5,
+  slider6,
 ];
 export const tutorialSliderContent = [
+  {
+    title: 'Встречайте первый релиз!',
+    description: `Добро пожаловать в первую версию игрового проекта "Мир клиента". Выполняйте задачи, улучшайте здания и получайте выгодные предложения от "МТС".`,
+  },
   {
     title: 'Выполняйте задания, чтобы развивать город',
     description:

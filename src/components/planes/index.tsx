@@ -1,21 +1,20 @@
 import React from 'react';
-import { useStore } from 'effector-react';
-import { TowersProgressStore } from '../../effector/towers-progress/store';
 import { planeConfig } from './plane-config';
 import { Plane } from './plane';
 
-export const Planes = () => {
-  const airportLevelStoreLevel = useStore(TowersProgressStore).roaming.level
-    .level;
-  if (!airportLevelStoreLevel) return null;
+export const Planes: React.FC<IPlanes> = ({ airportLevel }) => {
+  if (!airportLevel) return null;
   else {
-    const planesArray = planeConfig[`level${airportLevelStoreLevel}`] || null;
     return (
       <>
-        {planesArray.map(item => (
+        {planeConfig[`level${airportLevel}`].map(item => (
           <Plane key={item.id} {...item} />
         ))}
       </>
     );
   }
 };
+
+interface IPlanes {
+  airportLevel: number;
+}

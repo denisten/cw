@@ -12,7 +12,7 @@ const StyledConfig = {
   bridge1: {
     style: {
       position: 'absolute',
-      left: '32%',
+      left: '28.2%',
       top: ' 66%',
       zIndex: ZIndexes.DECORATION,
     } as React.CSSProperties,
@@ -21,7 +21,7 @@ const StyledConfig = {
   bridge2: {
     style: {
       position: 'absolute',
-      left: '52.5%',
+      left: '46%',
       top: '30.6%',
       zIndex: ZIndexes.DECORATION,
     } as React.CSSProperties,
@@ -30,7 +30,7 @@ const StyledConfig = {
   bridge3: {
     style: {
       position: 'absolute',
-      left: '51%',
+      left: '44.8%',
       top: '50.8%',
       zIndex: ZIndexes.DECORATION,
     } as React.CSSProperties,
@@ -48,7 +48,7 @@ const StyledConfig = {
   bridge5: {
     style: {
       position: 'absolute',
-      left: '13.8%',
+      left: '12.1%',
       top: ' 86%',
       zIndex: ZIndexes.DECORATION,
     } as React.CSSProperties,
