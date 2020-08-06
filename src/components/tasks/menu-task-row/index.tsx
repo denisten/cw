@@ -3,7 +3,6 @@ import { handleTaskClick } from '../../../utils/handle-task-click';
 import { ModalWindow } from '../../modal-window';
 import { couponModalConfig } from '../../tower-info/tower-info-chat';
 import { Icon } from '../../../UI/icons';
-import vectorImg from '../tower-task-row/vector.svg';
 import { RowWrapper } from '../../../UI/row-wrapper';
 import { TaskTimer } from '../../../UI/task-timer';
 import { ColumnWrapper } from '../../../UI/column-wrapper';
