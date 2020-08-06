@@ -57,7 +57,6 @@ const TaskPreview = (tutorialCondition: TutorialConditions) => (
 export const TowerInfoTask: React.FC<ITowerInfoTask> = ({ towerTitle }) => {
   const missions = useStore(TasksStore);
   const { tutorialCondition } = TutorialStore.getState();
-
   if (!missions.length || tutorialCondition) TaskPreview(tutorialCondition);
   const filteredMissions = filteredMissionsArray(missions, towerTitle);
   return (

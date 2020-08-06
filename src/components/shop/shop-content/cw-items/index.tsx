@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { ShopItemsHeader } from '../shop-items-header';
 import headerBg from './header.svg';
-import { CWItemCard, CardWrapper, TitleElem } from './cw-item-card';
+import { CWItemCard } from './cw-item-card';
 import { useStore } from 'effector-react';
 import {
   UserMarketStore,
@@ -13,6 +13,7 @@ import { Icon, TypeOfIcons } from '../../../../UI/icons';
 import { MoneyCounter } from '../money-counter';
 import { handleAuthButtonClick } from '../../../../utils/handle-auth-button-click';
 import { ifElse } from 'ramda';
+import { CardWrapper, TitleElem } from '../../../../UI/coupon-card';
 
 const Wrapper = styled.div`
   display: grid;

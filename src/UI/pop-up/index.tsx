@@ -55,7 +55,7 @@ const styleConfig = {
   },
   exitButton: {
     top: '0',
-    right: '0',
+    right: '-20px',
     displayFlag: true,
   },
   input: {
@@ -219,4 +219,6 @@ export interface IPopUpStyles {
   width?: number;
   height?: number;
   padding?: string;
+  justifyContent?: string;
+  alignItems?: string;
 }

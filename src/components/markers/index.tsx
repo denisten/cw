@@ -67,12 +67,12 @@ export const MarkerWrapper = styled.div<IDisplayFlag>`
   }
 
   ${MarkerView}:nth-child(3) {
-    position: absolute;
-    left: 65px;
+    transform: translate3d(-100%,0%, 0);
     z-index:1;
 
     &:hover {
       z-index: 3;
+      transform: translate3d(-100%,0%, 0) scale(1.2);
     }
 
   }

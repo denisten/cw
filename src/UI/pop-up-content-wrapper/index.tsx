@@ -12,8 +12,8 @@ const defaultWidth = 487,
 const PopUpWrapper = styled.div<IPopUpStyles>`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: ${props => props.justifyContent || 'center'};
+  align-items: ${props => props.alignItems || 'center'};
   position: absolute;
   top: 50%;
   left: 50%;

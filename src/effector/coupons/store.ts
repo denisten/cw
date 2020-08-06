@@ -93,7 +93,7 @@ export const UserMarketStore = StoreDomain.store<IUserStore>(initState)
       payload.items.forEach(({ storeItem, count, status }) => {
         if (storeItem.type.slug === StoreItemTypes.COUPON) {
           const couponSlug = storeItem.slug as CouponTypes;
-          stateClone.userCoupons[couponSlug] = { count };
+          stateClone.userCoupons[couponSlug] = { count, name: storeItem.name };
         }
 
         if (storeItem.type.slug === StoreItemTypes.PROMO_CODE) {
@@ -128,6 +128,7 @@ interface IUserStore {
   userCoupons: {
     [key in CouponTypes]: {
       count: number;
+      name?: string;
     };
   };
   userPromocodes: {

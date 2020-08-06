@@ -19,12 +19,10 @@ import {
   setCurrentTaskStatus,
 } from '../../../effector/missions-store/events';
 import { CouponTypes, UserMarketStore } from '../../../effector/coupons/store';
-import { couponHandler } from '../../../utils/coupon-handler';
 import { ChatStore } from '../../../effector/chat/store';
 import { Bubble } from '../../../UI/bubble';
 import { ChatPreview } from '../../../UI/chat-preview';
 
-import { ModalWindow } from '../../modal-window';
 import { hideMarker, setMarker } from '../../../effector/towers-marker/events';
 import { ChatButtons } from '../../../UI/chat-buttons';
 import { ChatAvatar } from '../../../UI/chat-avatar';
@@ -32,6 +30,7 @@ import { TypeOfMarkers } from '../../markers';
 import { useStore } from 'effector-react';
 import { setHideTowerInfo } from '../../../effector/tower-info-modal-store/events';
 import { TasksType } from '../../menu/menu-tasks';
+import { ModalWindow } from '../../modal-window';
 
 const ChatWrapper = styled.div`
   width: 100%;
@@ -114,14 +113,16 @@ const MessageRow = styled.div<IMessageRow>`
 let currentMission: null | ITask;
 
 export const couponModalConfig = {
-  title: 'Вы уверены, что хотите использовать купон?',
-  minorText: 'Если вы примените купон, отменить действие будет не возможно.',
+  title: 'Выбор купона',
   popUpStyles: {
-    width: 487,
-    padding: '68px 80px',
+    width: 535,
+    padding: '40px 74px 40px 50px',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    height: 354,
   },
-  submitButtonText: 'Да, использовать',
-  cancelButtonText: 'Нет, не хочу',
+  submitButtonText: 'Использовать',
+  cancelButtonText: 'Отмена',
 };
 
 export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
@@ -149,6 +150,11 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
     } catch (e) {
       currentMission = null;
     }
+
+    const checkCouponAvailability =
+      currentMission?.task.content.taskType.slug !== TasksType.INFORMATIONAL &&
+      (userCoupons[CouponTypes.COUPON_REPLACE].count > 0 ||
+        userCoupons[CouponTypes.COUPON_SKIP].count > 0);
 
     const haveMessages = messages && messages.length > 0;
 
@@ -281,22 +287,19 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
         {chatWrapperContent}
         {!ended && (
           <ChatButtons
-            haveCoupon={false}
+            haveCoupon={checkCouponAvailability}
             couponCount={count}
             actions={actions}
             callback={sendAnswerId}
             couponCallback={() => setOpenCouponModal(true)}
           />
         )}
-
         <ModalWindow
           {...couponModalConfig}
           displayFlag={openCouponModal}
           cancelHandler={() => setOpenCouponModal(false)}
-          submitHandler={() => {
-            couponHandler(currentMission?.id, count, towerTitle, switchers);
-            setOpenCouponModal(false);
-          }}
+          id={taskId}
+          towerTitle={towerTitle}
         />
       </>
     );

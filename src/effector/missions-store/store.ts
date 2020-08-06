@@ -47,13 +47,15 @@ export const TasksStore = MissionsDomain.store(initStore)
       ...state.slice(currentTaskIndex + 1),
     ];
   })
-  .on(chatTaskSession.doneData, (state, { taskId }) => {
+  .on(chatTaskSession.doneData, (state, { taskId, data }) => {
     const currentTaskIndex = state.findIndex(el => el.id === taskId);
     return [
       ...state.slice(0, currentTaskIndex),
       {
         ...state[currentTaskIndex],
-        status: TaskStatuses.ACTIVE,
+        status: !data.ended
+          ? TaskStatuses.ACTIVE
+          : state[currentTaskIndex].status,
       },
       ...state.slice(currentTaskIndex + 1),
     ];

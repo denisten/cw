@@ -1,13 +1,8 @@
 import React, { useRef, useState } from 'react';
-import { useStore } from 'effector-react';
-import { UserDataStore } from '../../../effector/user-data/store';
 import { handleTaskClick } from '../../../utils/handle-task-click';
-import { couponHandler } from '../../../utils/coupon-handler';
-import { coughtError } from '../../../effector/error-boundary-store/events';
 import { ModalWindow } from '../../modal-window';
 import { couponModalConfig } from '../../tower-info/tower-info-chat';
 import { Icon } from '../../../UI/icons';
-import vectorImg from '../tower-task-row/vector.svg';
 import { RowWrapper } from '../../../UI/row-wrapper';
 import { TaskTimer } from '../../../UI/task-timer';
 import { ColumnWrapper } from '../../../UI/column-wrapper';
@@ -77,7 +72,6 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
   const vectorRef = useRef<HTMLImageElement>(null);
 
   const [isCouponModalWindowOpen, setIsCouponModalWindowOpen] = useState(false);
-  const { couponsCount } = useStore(UserDataStore);
 
   const handleWrapperClick = async (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -109,73 +103,69 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
       }
     });
 
-  const modalWindowSubmitHandler = async () => {
-    if (couponsCount - 1 > 0) {
-      await couponHandler(id, 1, towerTitle);
-      setIsCouponModalWindowOpen(false);
-    } else {
-      coughtError({ text: 'Кончились купоны.' });
-    }
-  };
-
   const handleHintClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     setIsCouponModalWindowOpen(true);
   };
 
   return (
-    <TaskWrapper
-      ref={taskWrapperRef}
-      onClick={handleTaskWrapperClick}
-      isInTowerInfo={isInTowerInfo}
-    >
+    <>
+      <TaskWrapper
+        ref={taskWrapperRef}
+        onClick={handleTaskWrapperClick}
+        isInTowerInfo={isInTowerInfo}
+      >
+        <TaskInfo>
+          <Icon type={type} />
+          <Title isInTowerInfo={isInTowerInfo}>{taskTitle}</Title>
+          <RowWrapper>
+            <ColumnWrapper {...taskRowStyledConfig.columnWrapper}>
+              <TaskLoot
+                money={money}
+                energy={energy}
+                isInTowerInfo={isInTowerInfo}
+              />
+              {
+                <TaskTimer
+                  taskTimer={taskTimer}
+                  expireInSeconds={expireInSeconds}
+                />
+              }
+            </ColumnWrapper>
+            <ColumnWrapper
+              {...taskRowStyledConfig.columnWrapper}
+              style={taskRowStyledConfig.columnWrapperAdditionalStyle}
+            >
+              <RowWrapper>
+                <TaskButton
+                  expireInSeconds={expireInSeconds}
+                  className={status}
+                  onClick={handleWrapperClick}
+                />
+                {checkTaskStatus(status) && (
+                  <img src={notDoneImg} alt="reject" />
+                )}
+              </RowWrapper>
+              {checkTaskStatus(status) && (
+                <HintWrapper onClick={handleHintClick} />
+              )}
+            </ColumnWrapper>
+
+            <VectorImg ref={vectorRef} />
+          </RowWrapper>
+        </TaskInfo>
+        <TaskDescriptionWrapper ref={taskDescriptionRef}>
+          <Border />
+          <TaskDescription>{description}</TaskDescription>
+        </TaskDescriptionWrapper>
+      </TaskWrapper>
       <ModalWindow
         {...couponModalConfig}
         displayFlag={isCouponModalWindowOpen}
         cancelHandler={() => setIsCouponModalWindowOpen(false)}
-        submitHandler={modalWindowSubmitHandler}
+        id={id}
+        towerTitle={towerTitle}
       />
-      <TaskInfo>
-        <Icon type={type} />
-        <Title isInTowerInfo={isInTowerInfo}>{taskTitle}</Title>
-        <RowWrapper>
-          <ColumnWrapper {...taskRowStyledConfig.columnWrapper}>
-            <TaskLoot
-              money={money}
-              energy={energy}
-              isInTowerInfo={isInTowerInfo}
-            />
-            {
-              <TaskTimer
-                taskTimer={taskTimer}
-                expireInSeconds={expireInSeconds}
-              />
-            }
-          </ColumnWrapper>
-          <ColumnWrapper
-            {...taskRowStyledConfig.columnWrapper}
-            style={taskRowStyledConfig.columnWrapperAdditionalStyle}
-          >
-            <RowWrapper>
-              <TaskButton
-                expireInSeconds={expireInSeconds}
-                className={status}
-                onClick={handleWrapperClick}
-              />
-              {checkTaskStatus(status) && <img src={notDoneImg} alt="reject" />}
-            </RowWrapper>
-            {checkTaskStatus(status) && (
-              <HintWrapper onClick={handleHintClick} />
-            )}
-          </ColumnWrapper>
-
-          <VectorImg ref={vectorRef} src={vectorImg} alt="vector" />
-        </RowWrapper>
-      </TaskInfo>
-      <TaskDescriptionWrapper ref={taskDescriptionRef}>
-        <Border />
-        <TaskDescription>{description}</TaskDescription>
-      </TaskDescriptionWrapper>
-    </TaskWrapper>
+    </>
   );
 };
