@@ -45,28 +45,22 @@ const DescriptionWrapper = styled.div`
   box-sizing: border-box;
 `;
 
-const Title = styled.div<ITitle>`
+const Title = styled.div`
   font-family: ${MTSSans.BOLD};
   font-style: normal;
   font-weight: bold;
   font-size: 22px;
   line-height: 32px;
   margin-bottom: 2px;
-  :after {
-    content: "${props => props.content}";
-  }
 `;
 
-const Description = styled.div<ITitle>`
+const Description = styled.div`
   font-family: ${MTSSans.REGULAR};
   font-style: normal;
   font-weight: normal;
   font-size: 14px;
   line-height: 20px;
   margin-bottom: 21px;
-  :after {
-    content: "${props => props.content}";
-  }
 `;
 
 const IncreaseButton = styled.img.attrs({ src: increaseImg, alt: 'increase' })`
@@ -167,8 +161,8 @@ export const TutorialSlider: React.FC<ITutorialSlider> = ({
         </ImageCollectionWrapper>
       </ImageWrapper>
       <DescriptionWrapper>
-        <Title content={content[currentStep].title} />
-        <Description content={content[currentStep].description} />
+        <Title>{content[currentStep].title}</Title>
+        <Description>{content[currentStep].description}</Description>
         <DecreaseButton onClick={() => handleClick(-1, false)} />
         <IncreaseButton onClick={() => handleClick(1, false)} />
         <StepView ref={stepViewCollectionRef}>

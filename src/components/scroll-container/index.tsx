@@ -1,7 +1,10 @@
 import React, { useEffect, useRef, lazy, Suspense } from 'react';
 import styled from 'styled-components';
 import { useCheckDisableTutorial } from '../../hooks/use-check-disable-tutorial';
-import { TowersTypes } from '../../effector/towers-progress/store';
+import {
+  TowersProgressStore,
+  TowersTypes,
+} from '../../effector/towers-progress/store';
 import { TutorialConditions } from '../../effector/tutorial-store/store';
 import { Map } from '../map';
 import { Buildings } from '../../buildings';
@@ -28,6 +31,7 @@ const TutorialToolsSelector = lazy(() =>
 );
 
 export const _scrollContainerClassName = 'dragscroll';
+
 export enum ScaleValues {
   MAX_SCALE = 1,
   MIN_SCALE = 0.6,
@@ -35,7 +39,7 @@ export enum ScaleValues {
 }
 
 export enum MapSize {
-  WIDTH = 5920,
+  WIDTH = 6741,
   HEIGHT = 2940,
 }
 
@@ -81,6 +85,7 @@ export const ScrollContainer: React.FC<IScrollContainer> = ({
   const { isAuthorized, animationOff, DOMLoaded, fullSizeMode } = useStore(
     AppConditionStore
   );
+  const airportLevel = useStore(TowersProgressStore).roaming.level.level;
   const { browserName } = useStore(BrowserStore);
   const tutorialIsEnabled = DOMLoaded && tutorialCondition !== 0;
 
@@ -139,7 +144,7 @@ export const ScrollContainer: React.FC<IScrollContainer> = ({
         <Buildings />
         <Bridges showBridges={true} />
         <PointForCenterScroll ref={centerScrollPoint} />
-        <Planes />
+        <Planes airportLevel={airportLevel} />
         <CentralBanner tutorialCondition={tutorialCondition} />
         <Suspense fallback={<></>}>
           {DOMLoaded && !animationOff && (
