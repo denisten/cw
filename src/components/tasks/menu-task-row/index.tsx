@@ -110,11 +110,56 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
   };
 
   return (
-    <TaskWrapper
-      ref={taskWrapperRef}
-      onClick={handleTaskWrapperClick}
-      isInTowerInfo={isInTowerInfo}
-    >
+    <>
+      <TaskWrapper
+        ref={taskWrapperRef}
+        onClick={handleTaskWrapperClick}
+        isInTowerInfo={isInTowerInfo}
+      >
+        <TaskInfo>
+          <Icon type={type} />
+          <Title isInTowerInfo={isInTowerInfo}>{taskTitle}</Title>
+          <RowWrapper>
+            <ColumnWrapper {...taskRowStyledConfig.columnWrapper}>
+              <TaskLoot
+                money={money}
+                energy={energy}
+                isInTowerInfo={isInTowerInfo}
+              />
+              {
+                <TaskTimer
+                  taskTimer={taskTimer}
+                  expireInSeconds={expireInSeconds}
+                />
+              }
+            </ColumnWrapper>
+            <ColumnWrapper
+              {...taskRowStyledConfig.columnWrapper}
+              style={taskRowStyledConfig.columnWrapperAdditionalStyle}
+            >
+              <RowWrapper>
+                <TaskButton
+                  expireInSeconds={expireInSeconds}
+                  className={status}
+                  onClick={handleWrapperClick}
+                />
+                {checkTaskStatus(status) && (
+                  <img src={notDoneImg} alt="reject" />
+                )}
+              </RowWrapper>
+              {checkTaskStatus(status) && (
+                <HintWrapper onClick={handleHintClick} />
+              )}
+            </ColumnWrapper>
+
+            <VectorImg ref={vectorRef} src={vectorImg} alt="vector" />
+          </RowWrapper>
+        </TaskInfo>
+        <TaskDescriptionWrapper ref={taskDescriptionRef}>
+          <Border />
+          <TaskDescription>{description}</TaskDescription>
+        </TaskDescriptionWrapper>
+      </TaskWrapper>
       <ModalWindow
         {...couponModalConfig}
         displayFlag={isCouponModalWindowOpen}
@@ -122,47 +167,6 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
         id={id}
         towerTitle={towerTitle}
       />
-      <TaskInfo>
-        <Icon type={type} />
-        <Title isInTowerInfo={isInTowerInfo}>{taskTitle}</Title>
-        <RowWrapper>
-          <ColumnWrapper {...taskRowStyledConfig.columnWrapper}>
-            <TaskLoot
-              money={money}
-              energy={energy}
-              isInTowerInfo={isInTowerInfo}
-            />
-            {
-              <TaskTimer
-                taskTimer={taskTimer}
-                expireInSeconds={expireInSeconds}
-              />
-            }
-          </ColumnWrapper>
-          <ColumnWrapper
-            {...taskRowStyledConfig.columnWrapper}
-            style={taskRowStyledConfig.columnWrapperAdditionalStyle}
-          >
-            <RowWrapper>
-              <TaskButton
-                expireInSeconds={expireInSeconds}
-                className={status}
-                onClick={handleWrapperClick}
-              />
-              {checkTaskStatus(status) && <img src={notDoneImg} alt="reject" />}
-            </RowWrapper>
-            {checkTaskStatus(status) && (
-              <HintWrapper onClick={handleHintClick} />
-            )}
-          </ColumnWrapper>
-
-          <VectorImg ref={vectorRef} src={vectorImg} alt="vector" />
-        </RowWrapper>
-      </TaskInfo>
-      <TaskDescriptionWrapper ref={taskDescriptionRef}>
-        <Border />
-        <TaskDescription>{description}</TaskDescription>
-      </TaskDescriptionWrapper>
-    </TaskWrapper>
+    </>
   );
 };

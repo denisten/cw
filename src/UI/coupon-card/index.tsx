@@ -82,12 +82,14 @@ export const CouponCard: React.FC<ICouponCard> = ({
   price,
   disable,
   openShopCallBack,
+  style,
 }) => {
   return (
     <CardWrapper
       onClick={callBack}
       active={active}
       className={disable ? disableClassName : ''}
+      style={style}
     >
       <CouponCount>
         {disable ? (
@@ -119,6 +121,7 @@ interface ICouponCard {
   price?: number;
   disable?: boolean;
   openShopCallBack?: () => void;
+  style?: React.CSSProperties;
 }
 
 interface IStates {

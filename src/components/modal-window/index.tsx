@@ -61,6 +61,13 @@ const CouponBlock = styled.div`
   }
 `;
 
+const styledConfig = {
+  couponWrapper: {
+    width: '192px',
+    height: '138px',
+  },
+};
+
 export const ModalWindow: React.FC<IModalWindow> = ({
   title,
   minorText,
@@ -104,6 +111,7 @@ export const ModalWindow: React.FC<IModalWindow> = ({
         callBack={() => setSelectedCoupon(coupon)}
         disable={userCoupons[coupon].count === 0}
         openShopCallBack={openShop}
+        style={styledConfig.couponWrapper}
       />
     );
   });
