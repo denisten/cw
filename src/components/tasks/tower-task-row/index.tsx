@@ -161,7 +161,7 @@ export const HintWrapper = styled.div`
   }
 `;
 
-export const VectorImg = styled.img`
+export const VectorImg = styled.img.attrs({ src: vectorImg, alt: 'vector' })`
   transition-timing-function: ease-in-out;
   transition-property: transform;
   transition-duration: 0.2s;
@@ -262,7 +262,7 @@ export const TowerTaskRow: React.FC<ITasksRow> = ({
       <TaskInfo>
         <Icon type={type} />
         <Title isInTowerInfo={isInTowerInfo}>{taskTitle}</Title>
-        <VectorImg ref={vectorRef} src={vectorImg} alt="vector" />
+        <VectorImg ref={vectorRef} />
       </TaskInfo>
       <TaskDescriptionWrapper ref={taskDescriptionRef}>
         <Border />

@@ -152,7 +152,7 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
               )}
             </ColumnWrapper>
 
-            <VectorImg ref={vectorRef} src={vectorImg} alt="vector" />
+            <VectorImg ref={vectorRef} />
           </RowWrapper>
         </TaskInfo>
         <TaskDescriptionWrapper ref={taskDescriptionRef}>

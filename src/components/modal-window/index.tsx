@@ -68,6 +68,11 @@ const styledConfig = {
   },
 };
 
+const openShop = (callback: () => void) => {
+  callback();
+  openMarket(true);
+};
+
 export const ModalWindow: React.FC<IModalWindow> = ({
   title,
   minorText,
@@ -83,10 +88,6 @@ export const ModalWindow: React.FC<IModalWindow> = ({
   const [selectedCoupon, setSelectedCoupon] = useState<CouponTypes | null>(
     null
   );
-  const openShop = () => {
-    cancelHandler();
-    openMarket(true);
-  };
 
   const modalWindowSubmitHandler = async () => {
     if (selectedCoupon) {
@@ -109,12 +110,16 @@ export const ModalWindow: React.FC<IModalWindow> = ({
         titleElem={userCoupons[coupon].name?.replace(/Купон/gi, '')}
         couponsQuantity={userCoupons[coupon].count}
         callBack={() => setSelectedCoupon(coupon)}
-        disable={userCoupons[coupon].count === 0}
-        openShopCallBack={openShop}
+        disable={!userCoupons[coupon].count}
+        openShopCallBack={() => openShop(cancelHandler)}
         style={styledConfig.couponWrapper}
       />
     );
   });
+
+  const buttonClassName = selectedCoupon
+    ? ButtonClassNames.NORMAL
+    : ButtonClassNames.DISABLED;
 
   return (
     <>
@@ -125,11 +130,7 @@ export const ModalWindow: React.FC<IModalWindow> = ({
         <ButtonWrapper>
           <CancelButton onClick={cancelHandler} content={cancelButtonText} />
           <Button
-            className={
-              selectedCoupon
-                ? ButtonClassNames.NORMAL
-                : ButtonClassNames.DISABLED
-            }
+            className={buttonClassName}
             content={submitButtonText}
             callback={modalWindowSubmitHandler}
           />
