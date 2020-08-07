@@ -170,7 +170,8 @@ const SelectedStoreItem: React.FC<{ selectedStoreItem: ICatalogItems }> = ({
   };
 
   useCheckQuantity(quantity, setQuantity);
-  const activeCoinButton = checkUserBalance() && !waitingForPurchase;
+  const activeCoinButton =
+    checkUserBalance() && !waitingForPurchase && !promocodeContent;
 
   return (
     <ProductBuyWrapper>

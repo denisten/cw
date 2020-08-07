@@ -76,8 +76,8 @@ export const UserDataStore = UserDataDomain.store<IUserDataStore>(initState)
     name: name || defaultNameValue,
   }))
   .on(setUserSessionSocket, (state, payload) => ({
-    userSessionSocket: payload,
     ...state,
+    userSessionSocket: payload,
   }))
   .on(editUserData, (state, payload) => ({
     ...state,
