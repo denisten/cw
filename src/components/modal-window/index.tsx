@@ -109,7 +109,7 @@ export const ModalWindow: React.FC<IModalWindow> = ({
         active={selectedCoupon === coupon}
         titleElem={userCoupons[coupon].name?.replace(/Купон/gi, '')}
         couponsQuantity={userCoupons[coupon].count}
-        callBack={() => setSelectedCoupon(coupon)}
+        callBack={() => userCoupons[coupon].count && setSelectedCoupon(coupon)}
         disable={!userCoupons[coupon].count}
         openShopCallBack={() => openShop(cancelHandler)}
         style={styledConfig.couponWrapper}

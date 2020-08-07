@@ -16,9 +16,12 @@ export const fetchShopCatalog = StoreDomain.effect('fetch catalog', {
   },
 });
 
-export const buyItem = StoreDomain.effect('fetch catalog', {
-  handler: async (item: CouponTypes | PromocodeTypes) => {
-    return await buyItemRequest(item);
+export const buyItem = StoreDomain.effect('buy item', {
+  handler: async (data: {
+    item: CouponTypes | PromocodeTypes;
+    quantity: number;
+  }) => {
+    return await buyItemRequest(data);
   },
 });
 
