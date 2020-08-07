@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import { useStore } from 'effector-react';
 import {
   UserMarketStore,
-  PurchasStatuses,
-  StoreItemTypes,
   PromocodeTypes,
   ICatalogItems,
 } from '../../../effector/coupons/store';
@@ -29,8 +27,8 @@ import {
 } from '../../../utils/support-shop-functions';
 import { useCheckQuantity } from '../../../hooks/use-check-quantity';
 import { MTSSans } from '../../../fonts';
-import { activatePromocode } from '../../../api/shop-api/activate-promocode';
 import { buyItemRequest } from '../../../api/shop-api/buy-item';
+import copy from './copy.svg';
 
 const Wrapper = styled.div`
   height: 100%;
@@ -90,6 +88,34 @@ const styledConfig = {
   },
 };
 
+const PromocodeContent = styled.div`
+  width: 238px;
+  height: 50px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  border-radius: 10px;
+  display: flex;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const PromocodeText = styled(StyledSpan)`
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: -0.6px;
+  color: #212527;
+  font-family: ${MTSSans.BOLD};
+`;
+
+const CopyPromocode = styled.img.attrs({ alt: 'copy', src: copy })`
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+`;
+
 const SelectedStoreItem: React.FC<{ selectedStoreItem: ICatalogItems }> = ({
   selectedStoreItem,
 }) => {
@@ -98,17 +124,16 @@ const SelectedStoreItem: React.FC<{ selectedStoreItem: ICatalogItems }> = ({
   const { money } = useStore(UserDataStore);
   const [quantity, setQuantity] = useState(1);
   const [waitingForPurchase, setWaitingForPurchase] = useState(false);
+  const promocodeTextRef = useRef<HTMLSpanElement>(null);
   const itIsCoupon = checkCouponType(selectedStoreItem);
   const canBuyThisItem = itIsCoupon || (!itIsCoupon && !showUserPromocodes);
-  const itIsNewPromocode =
-    selectedStoreItem.type.slug === StoreItemTypes.PROMO_CODE &&
-    userPromocodes[selectedStoreItem.slug as PromocodeTypes].status ===
-      PurchasStatuses.NEW;
+  const promocodeContent =
+    userPromocodes[selectedStoreItem.slug as PromocodeTypes]?.content;
 
-  const canActivatePromocode =
+  const canUsePromocode =
     showUserPromocodes &&
     checkPromocodeTypeType(selectedStoreItem) &&
-    itIsNewPromocode;
+    promocodeContent;
 
   const checkUserBalance = () =>
     ifElse(
@@ -134,10 +159,14 @@ const SelectedStoreItem: React.FC<{ selectedStoreItem: ICatalogItems }> = ({
     setQuantity(1);
   };
 
-  const activate = async () => {
-    setWaitingForPurchase(true);
-    await activatePromocode(selectedStoreItem?.slug);
-    setWaitingForPurchase(false);
+  const copyPromocode = () => {
+    const node = promocodeTextRef?.current as Node;
+    const selection = window.getSelection() as Selection;
+    const range = document.createRange();
+    range.selectNodeContents(node);
+    selection.removeAllRanges();
+    selection.addRange(range);
+    document.execCommand('copy');
   };
 
   useCheckQuantity(quantity, setQuantity);
@@ -167,21 +196,17 @@ const SelectedStoreItem: React.FC<{ selectedStoreItem: ICatalogItems }> = ({
           />
         </RowWrapper>
       )}
-      {canActivatePromocode && (
+      {canUsePromocode && (
         <RowWrapper style={styledConfig.activateRowBlock}>
-          <Button
-            className={
-              waitingForPurchase
-                ? ButtonClassNames.DISABLED
-                : ButtonClassNames.NORMAL
-            }
-            content="Активировать промокод"
-            callback={activate}
-            style={styledConfig.activateButton}
-          />
+          <PromocodeContent>
+            <PromocodeText ref={promocodeTextRef}>
+              {promocodeContent}
+            </PromocodeText>
+            <CopyPromocode onClick={copyPromocode} />
+          </PromocodeContent>
         </RowWrapper>
       )}
-      {!checkUserBalance() && <ProductWarning />}
+      {!checkUserBalance() && !canUsePromocode && <ProductWarning />}
     </ProductBuyWrapper>
   );
 };

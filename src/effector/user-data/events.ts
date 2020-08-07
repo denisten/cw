@@ -3,7 +3,6 @@ import { IBirthday, UserDataStoreKeys } from './store';
 import { getProfile } from '../../api/get-profile';
 import Centrifuge from 'centrifuge';
 import { devLoginRequest } from '../../api/dev-api/login';
-import { getAccount } from '../../api/get-account';
 import { logoutRequest } from '../../api';
 import { editIsAuthorizedFlag, setDataReceived } from '../app-condition/events';
 import { resetMissionsStore } from '../missions-store/events';
