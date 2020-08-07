@@ -17,6 +17,10 @@ import { markerHandler } from '../../utils/marker-handler';
 import { TaskStatuses, IGetTasks } from '../../effector/missions-store/store';
 import { scoreSuccessRequests } from '../../effector/preloader/events';
 import { UserDataStore } from '../../effector/user-data/store';
+import {
+  IUserPurchasesSocketItem,
+  fetchUserPurchases,
+} from '../../effector/coupons/events';
 
 const notSecuredProtocol = 'http:';
 const securedWebSocketProtocol = 'wss://';
@@ -92,10 +96,18 @@ export const openWsConnection = async () => {
     }
   );
 
+  const userPurchasesSubscription = centrifuge.subscribe(
+    'user-purchases:updates#' + userId,
+    (items: IUserPurchasesSocketItem) => {
+      fetchUserPurchases(items.data);
+    }
+  );
+
   progressSubscription.on('subscribe', () => checkActiveSubscriptions());
   tasksSubscription.on('subscribe', () => checkActiveSubscriptions());
   centrifuge.on('disconnect', () => {
     progressSubscription && progressSubscription.unsubscribe();
     tasksSubscription && tasksSubscription.unsubscribe();
+    userPurchasesSubscription && userPurchasesSubscription.unsubscribe();
   });
 };

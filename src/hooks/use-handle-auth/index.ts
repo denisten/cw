@@ -11,7 +11,6 @@ import {
   editTutorialSliderDisplayFlag,
   setDataReceived,
 } from '../../effector/app-condition/events';
-import { fetchUserPurchases } from '../../effector/coupons/events';
 import { markerHandler } from '../../utils/marker-handler';
 import { scoreSuccessRequests } from '../../effector/preloader/events';
 import { fetchIncomes } from '../../effector/reward/events';
@@ -19,7 +18,6 @@ import { fetchIncomes } from '../../effector/reward/events';
 const authHandlersList = [
   fetchAllProductsData,
   getAccountData,
-  fetchUserPurchases,
   fetchIncomes,
   fetchUserData,
 ];

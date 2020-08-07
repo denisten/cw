@@ -1,15 +1,14 @@
 import { StoreDomain } from './domain';
-import { CouponTypes, ICatalogItems, PromocodeTypes } from './store';
-import { getUserPurchases } from '../../api/get-user-purchases';
+import {
+  CouponTypes,
+  ICatalogItems,
+  PromocodeTypes,
+  PurchasStatuses,
+} from './store';
 import { getShopCatalog } from '../../api/shop-api/get-shop-catalog';
 import { buyItemRequest } from '../../api/shop-api/buy-item';
 
-export const fetchUserPurchases = StoreDomain.effect('fetch purchases', {
-  handler: async () => {
-    return await getUserPurchases();
-  },
-});
-
+export const fetchUserPurchases = StoreDomain.event<IUserPurchases[]>();
 export const fetchShopCatalog = StoreDomain.effect('fetch catalog', {
   handler: async () => {
     return await getShopCatalog();
@@ -35,4 +34,14 @@ export const resetUserShopStore = StoreDomain.event('reset store');
 interface IEditCouponCount {
   couponType: CouponTypes;
   count: number;
+}
+
+export interface IUserPurchasesSocketItem {
+  data: IUserPurchases[];
+}
+
+export interface IUserPurchases {
+  storeItem: ICatalogItems;
+  status: PurchasStatuses | null;
+  content: null | string;
 }

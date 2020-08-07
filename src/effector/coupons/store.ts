@@ -40,7 +40,11 @@ const defaultUserCoupons = {
 };
 
 const defaultUserPromocodes = {
-  [PromocodeTypes.MGTS_SPECIAL]: { count: 0, storeItem: null, status: null },
+  [PromocodeTypes.MGTS_SPECIAL]: {
+    storeItem: null,
+    status: null,
+    content: null,
+  },
 };
 
 const initState = {
@@ -87,19 +91,21 @@ export const UserMarketStore = StoreDomain.store<IUserStore>(initState)
     ...state,
     catalog: payload,
   }))
-  .on(fetchUserPurchases.doneData, (state, payload) => {
+  .on(fetchUserPurchases, (state, payload) => {
     const stateClone = { ...state };
-    if (payload.items.length > 0) {
-      payload.items.forEach(({ storeItem, count, status }) => {
-        if (storeItem.type.slug === StoreItemTypes.COUPON) {
-          const couponSlug = storeItem.slug as CouponTypes;
-          stateClone.userCoupons[couponSlug] = { count, name: storeItem.name };
+    if (payload.length > 0) {
+      payload.forEach(purchase => {
+        if (purchase.storeItem.type.slug === StoreItemTypes.COUPON) {
+          const couponSlug = purchase.storeItem.slug as CouponTypes;
+          stateClone.userCoupons[couponSlug] = {
+            count: stateClone.userCoupons[couponSlug].count + 1,
+          };
         }
-
-        if (storeItem.type.slug === StoreItemTypes.PROMO_CODE) {
-          const promocodeSlug = storeItem.slug as PromocodeTypes;
+        if (purchase.storeItem.type.slug === StoreItemTypes.PROMO_CODE) {
+          const promocodeSlug = purchase.storeItem.slug as PromocodeTypes;
+          const { storeItem, status, content } = purchase;
           stateClone.userPromocodes[promocodeSlug] = {
-            count,
+            content,
             status,
             storeItem,
           };
@@ -133,9 +139,9 @@ interface IUserStore {
   };
   userPromocodes: {
     [key in PromocodeTypes]: {
-      count: number;
       status: PurchasStatuses | null;
       storeItem: ICatalogItems | null;
+      content: null | string;
     };
   };
 
@@ -155,4 +161,5 @@ export interface ICatalogItems {
   slug: CouponTypes | PromocodeTypes;
   name: string;
   description: string;
+  maxTotalCount?: number;
 }
