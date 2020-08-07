@@ -49,11 +49,7 @@ export const logout = UserDataDomain.effect('logout', {
   },
 });
 
-export const getAccountData = UserDataDomain.effect('fetch balance', {
-  handler: async () => {
-    return await getAccount();
-  },
-});
+export const getAccountData = UserDataDomain.event<number>();
 export const editMoneyCount = UserDataDomain.event<number>();
 export const editUserProperty = UserDataDomain.event<IEditUserProperty>();
 export const setUserSessionSocket = UserDataDomain.event<Centrifuge>();

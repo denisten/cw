@@ -12,7 +12,7 @@ export enum Browsers {
 }
 
 const iniStore: IPreloaderStore = {
-  requestsQuantity: 6,
+  requestsQuantity: 5,
   resolvedRequestsQuantity: 0,
   loadingStarted: false,
 };

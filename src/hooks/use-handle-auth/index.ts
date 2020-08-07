@@ -4,7 +4,7 @@ import {
   UserDataStore,
 } from '../../effector/user-data/store';
 import { saveUserData } from '../../api/save-user-data';
-import { fetchUserData, getAccountData } from '../../effector/user-data/events';
+import { fetchUserData } from '../../effector/user-data/events';
 import { fetchAllProductsData } from '../../effector/towers-progress/events';
 import { openWsConnection } from '../../api/centrifuge';
 import {
@@ -15,12 +15,7 @@ import { markerHandler } from '../../utils/marker-handler';
 import { scoreSuccessRequests } from '../../effector/preloader/events';
 import { fetchIncomes } from '../../effector/reward/events';
 
-const authHandlersList = [
-  fetchAllProductsData,
-  getAccountData,
-  fetchIncomes,
-  fetchUserData,
-];
+const authHandlersList = [fetchAllProductsData, fetchIncomes, fetchUserData];
 
 const waitForAllRequestsIsDone = () => {
   return new Promise(resolve => {

@@ -42,9 +42,9 @@ const initState: IUserDataStore = {
 };
 
 export const UserDataStore = UserDataDomain.store<IUserDataStore>(initState)
-  .on(getAccountData.doneData, (state, { balance }) => ({
+  .on(getAccountData, (state, payload) => ({
     ...state,
-    money: balance,
+    money: payload,
   }))
   .on(editMoneyCount, (state, payload) => ({
     ...state,

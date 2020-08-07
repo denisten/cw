@@ -1,26 +1,11 @@
 import { StoreDomain } from './domain';
-import {
-  CouponTypes,
-  ICatalogItems,
-  PromocodeTypes,
-  PurchasStatuses,
-} from './store';
+import { CouponTypes, ICatalogItems, PurchasStatuses } from './store';
 import { getShopCatalog } from '../../api/shop-api/get-shop-catalog';
-import { buyItemRequest } from '../../api/shop-api/buy-item';
 
 export const fetchUserPurchases = StoreDomain.event<IUserPurchases[]>();
 export const fetchShopCatalog = StoreDomain.effect('fetch catalog', {
   handler: async () => {
     return await getShopCatalog();
-  },
-});
-
-export const buyItem = StoreDomain.effect('buy item', {
-  handler: async (data: {
-    item: CouponTypes | PromocodeTypes;
-    quantity: number;
-  }) => {
-    return await buyItemRequest(data);
   },
 });
 
