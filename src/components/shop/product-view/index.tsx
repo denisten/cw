@@ -28,10 +28,9 @@ import {
   checkPromocodeTypeType,
 } from '../../../utils/support-shop-functions';
 import { useCheckQuantity } from '../../../hooks/use-check-quantity';
-
-import { buyItem } from '../../../effector/coupons/events';
 import { MTSSans } from '../../../fonts';
 import { activatePromocode } from '../../../api/shop-api/activate-promocode';
+import { buyItemRequest } from '../../../api/shop-api/buy-item';
 
 const Wrapper = styled.div`
   height: 100%;
@@ -130,7 +129,7 @@ const SelectedStoreItem: React.FC<{ selectedStoreItem: ICatalogItems }> = ({
     const quantityItem = itIsCoupon
       ? { item: selectedStoreItem.slug, quantity }
       : { item: selectedStoreItem.slug, quantity: 1 };
-    await buyItem(quantityItem);
+    await buyItemRequest(quantityItem);
     setWaitingForPurchase(false);
     setQuantity(1);
   };
