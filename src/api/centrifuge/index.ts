@@ -2,7 +2,10 @@ import Centrifuge from 'centrifuge';
 import { getCookie } from '../../utils/get-cookie';
 import { getWsToken } from '../get-ws-token';
 import { apiRoutes } from '../index';
-import { setUserSessionSocket } from '../../effector/user-data/events';
+import {
+  setUserSessionSocket,
+  getAccountData,
+} from '../../effector/user-data/events';
 import { addTowerProgressData } from '../../effector/towers-progress/events';
 import {
   TowersTypes,
@@ -103,11 +106,25 @@ export const openWsConnection = async () => {
     }
   );
 
+  const getBalanceSubscription = centrifuge.subscribe(
+    'user-account:updates#' + userId,
+    (items: IBalance) => {
+      getAccountData(items.data.balance);
+    }
+  );
+
   progressSubscription.on('subscribe', () => checkActiveSubscriptions());
   tasksSubscription.on('subscribe', () => checkActiveSubscriptions());
   centrifuge.on('disconnect', () => {
     progressSubscription && progressSubscription.unsubscribe();
     tasksSubscription && tasksSubscription.unsubscribe();
     userPurchasesSubscription && userPurchasesSubscription.unsubscribe();
+    getBalanceSubscription && getBalanceSubscription.unsubscribe();
   });
 };
+
+interface IBalance {
+  data: {
+    balance: number;
+  };
+}
