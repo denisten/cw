@@ -2,28 +2,26 @@ import React from 'react';
 import styled from 'styled-components';
 import { useStore } from 'effector-react';
 import { MenuTaskRow } from '../../../../tasks/menu-task-row';
-import { TasksStore } from '../../../../../effector/missions-store/store';
+import { TasksStore } from '../../../../../effector/task-store/store';
 import { TowerInfoModalStore } from '../../../../../effector/tower-info-modal-store/store';
 import { UnauthorizedTaskZone } from './unauthorize-task-zone';
+import { AppConditionStore } from '../../../../../effector/app-condition/store';
 
-const TasksWrapper = styled.div<ITask>`
+export const TasksWrapper = styled.div<ITaskWrapper>`
   display: ${props => (props.hidden ? 'hidden' : 'block')};
   height: 100%;
   overflow-y: scroll;
   overflow-x: hidden;
 `;
 
-export const Tasks: React.FC<{ active: boolean; isAuthorized: boolean }> = ({
-  active,
-  isAuthorized,
-}) => {
-  const missions = useStore(TasksStore);
+export const Tasks: React.FC<ITaskView> = ({ active }) => {
+  const tasks = useStore(TasksStore);
   const { focusOn } = useStore(TowerInfoModalStore);
-
+  const { isAuthorized } = useStore(AppConditionStore);
   return (
     <TasksWrapper hidden={!active}>
       {!isAuthorized && <UnauthorizedTaskZone />}
-      {missions.map(el => {
+      {tasks.map(el => {
         return (
           <MenuTaskRow
             towerTitle={focusOn || undefined}
@@ -46,6 +44,10 @@ export const Tasks: React.FC<{ active: boolean; isAuthorized: boolean }> = ({
   );
 };
 
-interface ITask {
+interface ITaskView {
+  active: boolean;
+}
+
+interface ITaskWrapper {
   hidden: boolean;
 }

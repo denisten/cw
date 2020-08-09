@@ -4,7 +4,7 @@ import { Button, ButtonClassNames } from '../../../../../../UI/button';
 import { MenuTaskRow } from '../../../../../tasks/menu-task-row';
 import { TasksType } from '../../../index';
 import { handleAuthButtonClick } from '../../../../../../utils/handle-auth-button-click';
-import { TaskStatuses } from '../../../../../../effector/missions-store/store';
+import { TaskStatuses } from '../../../../../../effector/task-store/store';
 
 const UnauthorizedTaskZoneWrapper = styled.div`
   width: 100%;

@@ -7,7 +7,7 @@ import { ToolbarElement, ToolbarElements } from '../toolbar-element';
 import { MenuItems } from '../menu-paragraph';
 import { ToolbarElementAlert } from '../toolbar-element-alert';
 import { useStore } from 'effector-react';
-import { TasksStore } from '../../effector/missions-store/store';
+import { TasksStore } from '../../effector/task-store/store';
 import { TutorialStore } from '../../effector/tutorial-store/store';
 import { coughtError } from '../../effector/error-boundary-store/events';
 import { pulseAnimationHOF } from '../../hoc/pulse-anim';

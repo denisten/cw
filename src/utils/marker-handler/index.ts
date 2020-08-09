@@ -1,5 +1,5 @@
 import { TowersTypes } from '../../effector/towers-progress/store';
-import { TasksStore, TaskStatuses } from '../../effector/missions-store/store';
+import { TasksStore, TaskStatuses } from '../../effector/task-store/store';
 import {
   setMarker,
   clearTaskMarkersOnCurrentTower,

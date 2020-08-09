@@ -46,7 +46,7 @@ export const MenuTasks = () => {
         taskTypes={taskTypes}
         isAuthorized={isAuthorized}
       />
-      <TasksContent activeType={taskType} isAuthorized={isAuthorized} />
+      <TasksContent activeType={taskType} />
     </TasksBody>
   );
 };

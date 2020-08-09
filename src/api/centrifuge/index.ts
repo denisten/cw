@@ -11,12 +11,13 @@ import {
 import { getWorldState } from '../get-world-state';
 import { setTaskId } from '../../effector/chat/events';
 import { timerClosure } from '../../utils/timer-closure';
-import { fetchTasks } from '../../effector/missions-store/events';
+import { saveTask } from '../../effector/task-store/events';
 
 import { markerHandler } from '../../utils/marker-handler';
-import { TaskStatuses, IGetTasks } from '../../effector/missions-store/store';
+import { TaskStatuses, IGetTasks } from '../../effector/task-store/store';
 import { scoreSuccessRequests } from '../../effector/preloader/events';
 import { UserDataStore } from '../../effector/user-data/store';
+import { saveMission } from '../../effector/missions-store/events';
 
 const notSecuredProtocol = 'http:';
 const securedWebSocketProtocol = 'wss://';
@@ -87,7 +88,11 @@ export const openWsConnection = async () => {
         }
         return el;
       });
-      fetchTasks({ userTasks });
+      const userMissions = items.data.userTasks.filter(
+        el => el.userSubTasks.length
+      );
+      saveMission(userMissions);
+      saveTask(userTasks);
       markerHandler();
     }
   );

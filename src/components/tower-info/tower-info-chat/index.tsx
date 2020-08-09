@@ -6,7 +6,7 @@ import {
   ITask,
   TasksStore,
   TaskStatuses,
-} from '../../../effector/missions-store/store';
+} from '../../../effector/task-store/store';
 import {
   chatTaskSession,
   consumeUserTaskAction,
@@ -17,7 +17,7 @@ import { ITabSwitchers } from '../index';
 import {
   getResult,
   setCurrentTaskStatus,
-} from '../../../effector/missions-store/events';
+} from '../../../effector/task-store/events';
 import { CouponTypes, UserMarketStore } from '../../../effector/coupons/store';
 import { ChatStore } from '../../../effector/chat/store';
 import { Bubble } from '../../../UI/bubble';

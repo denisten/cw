@@ -10,7 +10,7 @@ import { ZIndexes } from '../root-component/z-indexes-enum';
 import { TutorialStore } from '../../effector/tutorial-store/store';
 import { pauseTutorialMode } from '../../effector/tutorial-store/events';
 import styled from 'styled-components';
-import { TasksStore } from '../../effector/missions-store/store';
+import { TasksStore } from '../../effector/task-store/store';
 import { MenuItemsComponent } from './menu-items';
 import { MenuContent } from './menu-content';
 import { useHandleAuth } from '../../hooks/use-handle-auth';

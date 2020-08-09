@@ -1,4 +1,4 @@
-import { ITask } from '../../effector/missions-store/store';
+import { ITask } from '../../effector/task-store/store';
 import { TowersTypes } from '../../effector/towers-progress/store';
 
 export const filteredMissionsArray = (

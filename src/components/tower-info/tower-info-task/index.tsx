@@ -6,7 +6,7 @@ import {
   TutorialConditions,
   TutorialStore,
 } from '../../../effector/tutorial-store/store';
-import { TasksStore } from '../../../effector/missions-store/store';
+import { TasksStore } from '../../../effector/task-store/store';
 import { filteredMissionsArray } from '../../../utils/filtered-missions-array';
 import { TowerTaskRow } from '../../tasks/tower-task-row';
 import { TowersTypes } from '../../../effector/towers-progress/store';

@@ -7,7 +7,7 @@ import { useMoveTo } from '../../../hooks/use-move-to';
 import styled from 'styled-components';
 import { MTSSans } from '../../../fonts';
 import { useStore } from 'effector-react';
-import { TasksStore } from '../../../effector/missions-store/store';
+import { TasksStore } from '../../../effector/task-store/store';
 import { TowersTypes } from '../../../effector/towers-progress/store';
 import { filteredMissionsArray } from '../../../utils/filtered-missions-array';
 

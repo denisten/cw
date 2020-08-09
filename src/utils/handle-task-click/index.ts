@@ -1,5 +1,5 @@
 import React from 'react';
-import { TasksStore, TaskStatuses } from '../../effector/missions-store/store';
+import { TasksStore, TaskStatuses } from '../../effector/task-store/store';
 import {
   AppConditionStore,
   TowerInfoContentValues,
@@ -11,7 +11,7 @@ import {
   activateTask,
   takeReward,
   verifyTask,
-} from '../../effector/missions-store/events';
+} from '../../effector/task-store/events';
 import { scrollToCurrentTower } from '../scroll-to-current-tower';
 import { BuildingsService } from '../../buildings/config';
 import { markerHandler } from '../marker-handler';
