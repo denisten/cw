@@ -76,7 +76,7 @@ export const openWsConnection = async () => {
   const tasksSubscription = centrifuge.subscribe(
     'user-tasks:updates#' + userId,
     (items: IGetTasks) => {
-      const userTasks = items.data.userTasks.map(el => {
+      const userTasks = items.data.userTasks.filter(el => {
         if (el.status !== TaskStatuses.CREATED) {
           setTaskId({
             towerTitle: el.task.content.product.slug,
@@ -86,7 +86,7 @@ export const openWsConnection = async () => {
         if (el.expireInSeconds) {
           el.taskTimer = timerClosure(el.expireInSeconds);
         }
-        return el;
+        return !el.userSubTasks.length;
       });
       const userMissions = items.data.userTasks.filter(
         el => el.userSubTasks.length

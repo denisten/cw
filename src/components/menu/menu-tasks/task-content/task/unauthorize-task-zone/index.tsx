@@ -1,10 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Button, ButtonClassNames } from '../../../../../../UI/button';
-import { MenuTaskRow } from '../../../../../tasks/menu-task-row';
-import { TasksType } from '../../../index';
+import { MenuTaskRow } from '../../../../../tasks-view/menu-task-row';
 import { handleAuthButtonClick } from '../../../../../../utils/handle-auth-button-click';
-import { TaskStatuses } from '../../../../../../effector/task-store/store';
+import {
+  ITask,
+  TaskStatuses,
+} from '../../../../../../effector/task-store/store';
+import { TowersTypes } from '../../../../../../effector/towers-progress/store';
 
 const UnauthorizedTaskZoneWrapper = styled.div`
   width: 100%;
@@ -31,22 +34,75 @@ const LinkTitle = styled(Title)`
   color: #02adc9;
   cursor: pointer;
 `;
+enum TasksType {
+  TUTORIAL_TASK = 'tutorial-task',
+  TASKS = 'tasks',
+  CHALLENGE = 'challenge',
+  MISSION = 'mission',
+  NBO = 'nbo',
+  PAID = 'paid',
+  TARGET = 'target',
+  INFORMATIONAL = 'informational',
+  PRODUCT_QUIZ = 'product-quiz',
+  RELATED_QUIZ = 'related-quiz',
+  COSMETIC = 'cosmetic',
+}
+const firstTask: ITask = {
+  status: TaskStatuses.CREATED,
+  expireAt: '1000',
+  id: 1,
+  expireInSeconds: null,
+  task: {
+    id: 1,
+    parentId: 1,
+    content: {
+      id: 1,
+      taskType: {
+        id: 1,
+        slug: TasksType.INFORMATIONAL,
+        name: 'Войти в мир клиента',
+      },
+      product: {
+        id: 1,
+        name: 'string',
+        slug: TowersTypes.MAIN_TOWER,
+        description: 'string',
+      },
+      logo: {
+        id: 1,
+        content: 'string',
+      },
+      name: 'string',
+      legend: 'string',
+      description: 'string',
+    },
+    priorityNumber: 1,
+    energy: 0,
+    reward: 400,
+    availabilityTime: 0,
+    executionTime: 0,
+    betweenTasksTime: 0,
+    chat: '',
+  },
+  userSubTasks: [],
+};
 
 export const UnauthorizedTaskZone = () => {
   return (
     <UnauthorizedTaskZoneWrapper>
       <MenuTaskRow
-        towerTitle={undefined}
-        expireInSeconds={null}
-        id={1}
+        taskData={firstTask}
         isInTowerInfo={false}
-        isAllowedToChange={false}
-        type={TasksType.TUTORIAL_TASK}
-        taskTitle="Войти в мир клиента"
-        status={TaskStatuses.CREATED}
-        money={400}
-        energy={0}
-        description=""
+        // towerTitle={undefined}
+        // expireInSeconds={null}
+        // id={1}
+        // isAllowedToChange={false}
+        // type={TasksType.TUTORIAL_TASK}
+        // taskTitle="Войти в мир клиента"
+        // status={TaskStatuses.CREATED}
+        // money={400}
+        // energy={0}
+        // description=""
       />
       <Title>
         Новые задания будут доступны после

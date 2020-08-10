@@ -8,7 +8,7 @@ import {
 } from '../../../effector/tutorial-store/store';
 import { TasksStore } from '../../../effector/task-store/store';
 import { filteredMissionsArray } from '../../../utils/filtered-missions-array';
-import { TowerTaskRow } from '../../tasks/tower-task-row';
+import { TowerTaskRow } from '../../tasks-view/tower-task-row';
 import { TowersTypes } from '../../../effector/towers-progress/store';
 
 const TowerInfoTaskWrapper = styled.div`
@@ -64,21 +64,7 @@ export const TowerInfoTask: React.FC<ITowerInfoTask> = ({ towerTitle }) => {
       {filteredMissions.length
         ? filteredMissions.map(el => {
             return (
-              <TowerTaskRow
-                towerTitle={towerTitle}
-                expireInSeconds={el.expireInSeconds}
-                id={el.id}
-                isInTowerInfo={true}
-                isAllowedToChange={true}
-                type={el.task.content.taskType.slug}
-                taskTitle={el.task.content.name}
-                key={el.id}
-                status={el.status}
-                money={el.task.reward}
-                energy={el.task.energy}
-                description={el.task.content.description}
-                taskTimer={el.taskTimer}
-              />
+              <TowerTaskRow key={el.id} isInTowerInfo={true} taskData={el} />
             );
           })
         : TaskPreview(tutorialCondition)}

@@ -7,14 +7,13 @@ import { TaskLoot } from '../../../UI/task-loot';
 import notDoneImg from './not-done.svg';
 import { ColumnWrapper } from '../../../UI/column-wrapper';
 import { TaskTimer } from '../../../UI/task-timer';
-import { TowersTypes } from '../../../effector/towers-progress/store';
 import { ModalWindow } from '../../modal-window';
 import { handleTaskClick } from '../../../utils/handle-task-click';
 import vectorImg from './vector.svg';
 import { RowWrapper } from '../../../UI/row-wrapper';
 import { couponModalConfig } from '../../tower-info/tower-info-chat';
 import { TasksType } from '../../menu/menu-tasks';
-import { TaskStatuses } from '../../../effector/task-store/store';
+import { ITask, TaskStatuses } from '../../../effector/task-store/store';
 
 export const TaskWrapper = styled.div<ITaskLocation>`
   width: 100%;
@@ -166,6 +165,7 @@ export const VectorImg = styled.img.attrs({ src: vectorImg, alt: 'vector' })`
   transition-property: transform;
   transition-duration: 0.2s;
   cursor: pointer;
+  user-select: none;
 `;
 
 export const taskRowStyledConfig = {
@@ -192,18 +192,12 @@ export const checkTaskStatus = (status: TaskStatuses) =>
   status === TaskStatuses.REJECTED;
 
 export const TowerTaskRow: React.FC<ITasksRow> = ({
-  type,
-  taskTitle,
-  status,
-  money,
-  energy,
-  description,
-  towerTitle,
   isInTowerInfo,
-  id,
-  expireInSeconds,
-  taskTimer,
+  taskData,
 }) => {
+  const taskType = taskData.task.content.taskType.slug;
+  const towerTitle = taskData.task.content.product.slug;
+
   const isOpened = useRef(false);
   const taskWrapperRef = useRef<HTMLDivElement>(null);
   const taskDescriptionRef = useRef<HTMLDivElement>(null);
@@ -213,10 +207,10 @@ export const TowerTaskRow: React.FC<ITasksRow> = ({
 
   const handleWrapperClick = async (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (type === TasksType.TUTORIAL_TASK) {
+    if (taskType === TasksType.TUTORIAL_TASK) {
       // do next tutorial step in future
     } else {
-      await handleTaskClick(id, e);
+      await handleTaskClick(taskData.id, e);
     }
   };
 
@@ -224,7 +218,7 @@ export const TowerTaskRow: React.FC<ITasksRow> = ({
     requestAnimationFrame(() => {
       if (
         taskDescriptionRef.current &&
-        type !== TasksType.TUTORIAL_TASK &&
+        taskType !== TasksType.TUTORIAL_TASK &&
         vectorRef.current
       ) {
         if (isOpened.current) {
@@ -256,26 +250,33 @@ export const TowerTaskRow: React.FC<ITasksRow> = ({
         {...couponModalConfig}
         displayFlag={isCouponModalWindowOpen}
         cancelHandler={() => setIsCouponModalWindowOpen(false)}
-        id={id}
+        id={taskData.id}
         towerTitle={towerTitle}
       />
       <TaskInfo>
-        <Icon type={type} />
-        <Title isInTowerInfo={isInTowerInfo}>{taskTitle}</Title>
+        <Icon type={taskType} />
+        <Title isInTowerInfo={isInTowerInfo}>
+          {taskData.task.content.name}
+        </Title>
         <VectorImg ref={vectorRef} />
       </TaskInfo>
       <TaskDescriptionWrapper ref={taskDescriptionRef}>
         <Border />
-        <TaskDescription>{description}</TaskDescription>
+        <TaskDescription>{taskData.task.content.description}</TaskDescription>
       </TaskDescriptionWrapper>
       <Border />
       <RowWrapper style={taskRowStyledConfig.rowWrapper}>
-        {<TaskTimer taskTimer={taskTimer} expireInSeconds={expireInSeconds} />}
+        {
+          <TaskTimer
+            taskTimer={taskData.taskTimer}
+            expireInSeconds={taskData.expireInSeconds}
+          />
+        }
         <RowWrapper>
           <ColumnWrapper {...taskRowStyledConfig.columnWrapper}>
             <TaskLoot
-              money={money}
-              energy={energy}
+              money={taskData.task.reward}
+              energy={taskData.task.energy}
               isInTowerInfo={isInTowerInfo}
             />
           </ColumnWrapper>
@@ -285,13 +286,15 @@ export const TowerTaskRow: React.FC<ITasksRow> = ({
           >
             <RowWrapper>
               <TaskButton
-                expireInSeconds={expireInSeconds}
-                className={status}
+                expireInSeconds={taskData.expireInSeconds}
+                className={taskData.status}
                 onClick={handleWrapperClick}
               />
-              {checkTaskStatus(status) && <img src={notDoneImg} alt="reject" />}
+              {checkTaskStatus(taskData.status) && (
+                <img src={notDoneImg} alt="reject" />
+              )}
             </RowWrapper>
-            {checkTaskStatus(status) && (
+            {checkTaskStatus(taskData.status) && (
               <HintWrapper onClick={handleHintClick} />
             )}
           </ColumnWrapper>
@@ -302,19 +305,8 @@ export const TowerTaskRow: React.FC<ITasksRow> = ({
 };
 
 export interface ITasksRow {
-  towerTitle: TowersTypes | undefined;
-  id: number;
-  type: TasksType;
-  taskTitle: string;
-  status: TaskStatuses;
-  money: number;
-  expireInSeconds: number | null;
-  energy: number;
-  description: string;
-  isAllowedToChange: boolean;
-  width?: number;
+  taskData: ITask;
   isInTowerInfo: boolean;
-  taskTimer?: () => number;
 }
 
 export interface ITaskLocation {
