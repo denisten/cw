@@ -13,7 +13,7 @@ export const buyItemRequest = async (data: {
 }) => {
   const response = await post<{ data: IBuyItem }>(
     `${apiRoutes.STORE_ITEMS}${data.item}/buy`,
-    data.quantity
+    { quantity: data.quantity }
   );
   return response.data.data;
 };

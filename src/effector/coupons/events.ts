@@ -1,5 +1,5 @@
 import { StoreDomain } from './domain';
-import { CouponTypes, ICatalogItems, PurchasStatuses } from './store';
+import { ICatalogItems, PurchasStatuses } from './store';
 import { getShopCatalog } from '../../api/shop-api/get-shop-catalog';
 
 export const fetchUserPurchases = StoreDomain.event<IUserPurchases[]>();
@@ -9,17 +9,11 @@ export const fetchShopCatalog = StoreDomain.effect('fetch catalog', {
   },
 });
 
-export const editCouponCount = StoreDomain.event<IEditCouponCount>('');
 export const selectStoreItem = StoreDomain.event<ICatalogItems>('');
 export const toggleShowUserPromocodes = StoreDomain.event('');
 export const openMarket = StoreDomain.event<boolean>('');
 
 export const resetUserShopStore = StoreDomain.event('reset store');
-
-interface IEditCouponCount {
-  couponType: CouponTypes;
-  count: number;
-}
 
 export interface IUserPurchasesSocketItem {
   data: IUserPurchases[];

@@ -24,7 +24,7 @@ export const ProductWarning = () => {
   return (
     <WarningBlock>
       <img alt="warning" src={warning} />
-      <NumberText>Не достаточно яйцекойнов.</NumberText>
+      <NumberText>Недостаточно валюты.</NumberText>
     </WarningBlock>
   );
 };

@@ -1,7 +1,6 @@
 import { StoreDomain } from './domain';
 import {
   fetchUserPurchases,
-  editCouponCount,
   fetchShopCatalog,
   selectStoreItem,
   toggleShowUserPromocodes,
@@ -103,13 +102,7 @@ export const UserMarketStore = StoreDomain.store<IUserStore>(initState)
 
     return stateClone;
   })
-  .on(editCouponCount, (state, { couponType, count }) => ({
-    ...state,
-    userCoupons: {
-      ...state.userCoupons,
-      [couponType]: { count },
-    },
-  }))
+
   .on(resetUserShopStore, state => ({
     ...state,
     selectedStoreItem: null,
