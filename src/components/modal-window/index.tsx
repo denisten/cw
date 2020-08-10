@@ -6,7 +6,11 @@ import { Button, ButtonClassNames } from '../../UI/button';
 import { ITitle } from '../tutorial-slider';
 import { MTSSans } from '../../fonts';
 import { useStore } from 'effector-react';
-import { UserMarketStore, CouponTypes } from '../../effector/coupons/store';
+import {
+  UserMarketStore,
+  CouponTypes,
+  TranslatedStoreItem,
+} from '../../effector/coupons/store';
 import { CouponCard, CardWrapper } from '../../UI/coupon-card';
 import { openMarket } from '../../effector/coupons/events';
 import { couponHandler } from '../../utils/coupon-handler';
@@ -107,7 +111,7 @@ export const ModalWindow: React.FC<IModalWindow> = ({
         key={index}
         iconType={coupon}
         active={selectedCoupon === coupon}
-        titleElem={userCoupons[coupon].name?.replace(/Купон/gi, '')}
+        titleElem={TranslatedStoreItem[coupon]}
         couponsQuantity={userCoupons[coupon].count}
         callBack={() => userCoupons[coupon].count && setSelectedCoupon(coupon)}
         disable={!userCoupons[coupon].count}

@@ -22,6 +22,8 @@ export enum StoreItemTypes {
 export const TranslatedStoreItem = {
   [StoreItemTypes.PROMO_CODE]: 'Промокод',
   [StoreItemTypes.COUPON]: 'Купон',
+  [CouponTypes.COUPON_REPLACE]: 'Заменить задание',
+  [CouponTypes.COUPON_SKIP]: 'Пропустить задание',
 };
 
 export enum PurchasStatuses {
