@@ -37,30 +37,9 @@ const wsProtocol =
 
 const wsConnectionRoute = wsProtocol + window.location.host + centrifugeUrl;
 const numberOfSubscriptions = 2;
+const reasonForReconnect = 'connection closed';
 
-export const openWsConnection = async () => {
-  const { id: userId } = UserDataStore.getState();
-  if (!userId) return;
-  const centrifuge = new Centrifuge(wsConnectionRoute, {
-    subscribeEndpoint: apiRoutes.WS_SUBSCRIBE,
-    subscribeHeaders: {
-      'X-XSRF-TOKEN': getCookie('XSRF-TOKEN'),
-    },
-  });
-  const token = await getWsToken();
-  centrifuge.setToken(token);
-  centrifuge.connect();
-  setUserSessionSocket(centrifuge);
-  let numberOfActiveSubscriptions = 0;
-
-  const checkActiveSubscriptions = async () => {
-    numberOfActiveSubscriptions += 1;
-    if (numberOfActiveSubscriptions === numberOfSubscriptions) {
-      await getWorldState();
-      scoreSuccessRequests();
-    }
-  };
-
+const createSubscriptions = (centrifuge: Centrifuge, userId: number) => {
   const progressSubscription = centrifuge.subscribe(
     'progress:updates#' + userId,
     item => {
@@ -113,13 +92,55 @@ export const openWsConnection = async () => {
     }
   );
 
+  return {
+    progressSubscription,
+    tasksSubscription,
+    userPurchasesSubscription,
+    getBalanceSubscription,
+  };
+};
+
+export const openWsConnection = async () => {
+  const { id: userId } = UserDataStore.getState();
+  if (!userId) return;
+  const centrifuge = new Centrifuge(wsConnectionRoute, {
+    subscribeEndpoint: apiRoutes.WS_SUBSCRIBE,
+    subscribeHeaders: {
+      'X-XSRF-TOKEN': getCookie('XSRF-TOKEN'),
+    },
+  });
+  const token = await getWsToken();
+  centrifuge.setToken(token);
+  centrifuge.connect();
+  setUserSessionSocket(centrifuge);
+  let numberOfActiveSubscriptions = 0;
+
+  const checkActiveSubscriptions = async () => {
+    numberOfActiveSubscriptions += 1;
+    if (numberOfActiveSubscriptions === numberOfSubscriptions) {
+      await getWorldState();
+      scoreSuccessRequests();
+    }
+  };
+
+  const {
+    progressSubscription,
+    tasksSubscription,
+    userPurchasesSubscription,
+    getBalanceSubscription,
+  } = createSubscriptions(centrifuge, userId);
+
   progressSubscription.on('subscribe', () => checkActiveSubscriptions());
   tasksSubscription.on('subscribe', () => checkActiveSubscriptions());
-  centrifuge.on('disconnect', () => {
+  centrifuge.on('disconnect', e => {
     progressSubscription && progressSubscription.unsubscribe();
     tasksSubscription && tasksSubscription.unsubscribe();
     userPurchasesSubscription && userPurchasesSubscription.unsubscribe();
     getBalanceSubscription && getBalanceSubscription.unsubscribe();
+
+    if (e.reason === reasonForReconnect && e.reconnect) {
+      openWsConnection();
+    }
   });
 };
 
