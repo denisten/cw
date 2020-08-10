@@ -29,6 +29,7 @@ import { useCheckQuantity } from '../../../hooks/use-check-quantity';
 import { MTSSans } from '../../../fonts';
 import { buyItemRequest } from '../../../api/shop-api/buy-item';
 import copy from './copy.svg';
+import { copyTextNode } from '../../../utils/copy-text-node';
 
 const Wrapper = styled.div`
   height: 100%;
@@ -159,16 +160,6 @@ const SelectedStoreItem: React.FC<{ selectedStoreItem: ICatalogItems }> = ({
     setQuantity(1);
   };
 
-  const copyPromocode = () => {
-    const node = promocodeTextRef?.current as Node;
-    const selection = window.getSelection() as Selection;
-    const range = document.createRange();
-    range.selectNodeContents(node);
-    selection.removeAllRanges();
-    selection.addRange(range);
-    document.execCommand('copy');
-  };
-
   useCheckQuantity(quantity, setQuantity);
   const activeCoinButton =
     checkUserBalance() && !waitingForPurchase && !promocodeContent;
@@ -203,7 +194,7 @@ const SelectedStoreItem: React.FC<{ selectedStoreItem: ICatalogItems }> = ({
             <PromocodeText ref={promocodeTextRef}>
               {promocodeContent}
             </PromocodeText>
-            <CopyPromocode onClick={copyPromocode} />
+            <CopyPromocode onClick={() => copyTextNode(promocodeTextRef)} />
           </PromocodeContent>
         </RowWrapper>
       )}
