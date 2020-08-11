@@ -36,7 +36,7 @@ const wsProtocol =
     : securedWebSocketProtocol;
 
 const wsConnectionRoute = wsProtocol + window.location.host + centrifugeUrl;
-const numberOfSubscriptions = 2;
+const subscriptionQuantity = 2;
 const reasonForReconnect = 'connection closed';
 
 const createSubscriptions = (centrifuge: Centrifuge, userId: number) => {
@@ -113,11 +113,11 @@ export const openWsConnection = async () => {
   centrifuge.setToken(token);
   centrifuge.connect();
   setUserSessionSocket(centrifuge);
-  let numberOfActiveSubscriptions = 0;
+  let activeSubscriptionsQuantity = 0;
 
   const checkActiveSubscriptions = async () => {
-    numberOfActiveSubscriptions += 1;
-    if (numberOfActiveSubscriptions === numberOfSubscriptions) {
+    activeSubscriptionsQuantity += 1;
+    if (activeSubscriptionsQuantity === subscriptionQuantity) {
       await getWorldState();
       scoreSuccessRequests();
     }

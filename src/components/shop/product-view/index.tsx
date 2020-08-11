@@ -152,10 +152,10 @@ const SelectedStoreItem: React.FC<{ selectedStoreItem: ICatalogItems }> = ({
 
   const buyClickHandler = async () => {
     setWaitingForPurchase(true);
-    const quantityItem = itIsCoupon
+    const itemQuantity = itIsCoupon
       ? { item: selectedStoreItem.slug, quantity }
       : { item: selectedStoreItem.slug, quantity: 1 };
-    await buyItemRequest(quantityItem);
+    await buyItemRequest(itemQuantity);
     setWaitingForPurchase(false);
     setQuantity(1);
   };
