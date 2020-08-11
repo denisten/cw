@@ -24,6 +24,7 @@ const Wrapper = styled.div`
 const Content = styled.div`
   display: flex;
   margin-bottom: 35px;
+  flex-wrap: wrap;
 `;
 const styledConfig = {
   icon: {

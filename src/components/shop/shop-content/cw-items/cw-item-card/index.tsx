@@ -11,7 +11,7 @@ import { CouponCard } from '../../../../../UI/coupon-card';
 export const CWItemCard: React.FC<ICWItemCard> = ({ catalogItem }) => {
   const { selectedStoreItem, userCoupons } = useStore(UserMarketStore);
   const couponsQuantity =
-    userCoupons[catalogItem.slug as CouponTypes].count || 0;
+    userCoupons[catalogItem?.slug as CouponTypes]?.count || 0;
 
   const checkActiveElem = selectedStoreItem?.slug === catalogItem.slug;
   return (
