@@ -7,6 +7,5 @@ export const getShopCatalog = async () => {
     apiRoutes.GET_SHOP_CATALOG
   );
   const data = response.data.data.map(item => item.items).flat();
-
   return data;
 };

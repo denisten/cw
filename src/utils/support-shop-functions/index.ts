@@ -20,7 +20,7 @@ export const checkBalansForCoupon = (
 export const checkBalanceForOtherType = (
   selectedStoreItem: ICatalogItems | null,
   money: number
-) => selectedStoreItem && selectedStoreItem?.price < money && money !== 0;
+) => selectedStoreItem && selectedStoreItem?.price <= money && money !== 0;
 
 export const calculateTotalPriceForCoupon = (
   selectedStoreItem: ICatalogItems | null,

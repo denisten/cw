@@ -24,6 +24,7 @@ export const Tasks: React.FC<{ active: boolean; isAuthorized: boolean }> = ({
     <TasksWrapper hidden={!active}>
       {!isAuthorized && <UnauthorizedTaskZone />}
       {missions.map(el => {
+        if (!el.task) return null;
         return (
           <MenuTaskRow
             towerTitle={focusOn || undefined}

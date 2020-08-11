@@ -2,7 +2,10 @@ import Centrifuge from 'centrifuge';
 import { getCookie } from '../../utils/get-cookie';
 import { getWsToken } from '../get-ws-token';
 import { apiRoutes } from '../index';
-import { setUserSessionSocket } from '../../effector/user-data/events';
+import {
+  setUserSessionSocket,
+  getAccountData,
+} from '../../effector/user-data/events';
 import { addTowerProgressData } from '../../effector/towers-progress/events';
 import {
   TowersTypes,
@@ -17,6 +20,10 @@ import { markerHandler } from '../../utils/marker-handler';
 import { TaskStatuses, IGetTasks } from '../../effector/missions-store/store';
 import { scoreSuccessRequests } from '../../effector/preloader/events';
 import { UserDataStore } from '../../effector/user-data/store';
+import {
+  IUserPurchasesSocketItem,
+  fetchUserPurchases,
+} from '../../effector/coupons/events';
 
 const notSecuredProtocol = 'http:';
 const securedWebSocketProtocol = 'wss://';
@@ -29,31 +36,10 @@ const wsProtocol =
     : securedWebSocketProtocol;
 
 const wsConnectionRoute = wsProtocol + window.location.host + centrifugeUrl;
-const numberOfSubscriptions = 2;
+const subscriptionQuantity = 2;
+const reasonForReconnect = 'connection closed';
 
-export const openWsConnection = async () => {
-  const { id: userId } = UserDataStore.getState();
-  if (!userId) return;
-  const centrifuge = new Centrifuge(wsConnectionRoute, {
-    subscribeEndpoint: apiRoutes.WS_SUBSCRIBE,
-    subscribeHeaders: {
-      'X-XSRF-TOKEN': getCookie('XSRF-TOKEN'),
-    },
-  });
-  const token = await getWsToken();
-  centrifuge.setToken(token);
-  centrifuge.connect();
-  setUserSessionSocket(centrifuge);
-  let numberOfActiveSubscriptions = 0;
-
-  const checkActiveSubscriptions = async () => {
-    numberOfActiveSubscriptions += 1;
-    if (numberOfActiveSubscriptions === numberOfSubscriptions) {
-      await getWorldState();
-      scoreSuccessRequests();
-    }
-  };
-
+const createSubscriptions = (centrifuge: Centrifuge, userId: number) => {
   const progressSubscription = centrifuge.subscribe(
     'progress:updates#' + userId,
     item => {
@@ -92,10 +78,74 @@ export const openWsConnection = async () => {
     }
   );
 
+  const userPurchasesSubscription = centrifuge.subscribe(
+    'user-purchases:updates#' + userId,
+    (items: IUserPurchasesSocketItem) => {
+      fetchUserPurchases(items.data);
+    }
+  );
+
+  const getBalanceSubscription = centrifuge.subscribe(
+    'user-account:updates#' + userId,
+    (items: IBalance) => {
+      getAccountData(items.data.balance);
+    }
+  );
+
+  return {
+    progressSubscription,
+    tasksSubscription,
+    userPurchasesSubscription,
+    getBalanceSubscription,
+  };
+};
+
+export const openWsConnection = async () => {
+  const { id: userId } = UserDataStore.getState();
+  if (!userId) return;
+  const centrifuge = new Centrifuge(wsConnectionRoute, {
+    subscribeEndpoint: apiRoutes.WS_SUBSCRIBE,
+    subscribeHeaders: {
+      'X-XSRF-TOKEN': getCookie('XSRF-TOKEN'),
+    },
+  });
+  const token = await getWsToken();
+  centrifuge.setToken(token);
+  centrifuge.connect();
+  setUserSessionSocket(centrifuge);
+  let activeSubscriptionsQuantity = 0;
+
+  const checkActiveSubscriptions = async () => {
+    activeSubscriptionsQuantity += 1;
+    if (activeSubscriptionsQuantity === subscriptionQuantity) {
+      await getWorldState();
+      scoreSuccessRequests();
+    }
+  };
+
+  const {
+    progressSubscription,
+    tasksSubscription,
+    userPurchasesSubscription,
+    getBalanceSubscription,
+  } = createSubscriptions(centrifuge, userId);
+
   progressSubscription.on('subscribe', () => checkActiveSubscriptions());
   tasksSubscription.on('subscribe', () => checkActiveSubscriptions());
-  centrifuge.on('disconnect', () => {
+  centrifuge.on('disconnect', e => {
     progressSubscription && progressSubscription.unsubscribe();
     tasksSubscription && tasksSubscription.unsubscribe();
+    userPurchasesSubscription && userPurchasesSubscription.unsubscribe();
+    getBalanceSubscription && getBalanceSubscription.unsubscribe();
+
+    if (e.reason === reasonForReconnect && e.reconnect) {
+      openWsConnection();
+    }
   });
 };
+
+interface IBalance {
+  data: {
+    balance: number;
+  };
+}

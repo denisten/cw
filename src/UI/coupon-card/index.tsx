@@ -26,6 +26,7 @@ export const CardWrapper = styled.div<IStates>`
   cursor: pointer;
   transition: border 0.1s;
   position: relative;
+  margin-bottom: 10px;
 
   &.${disableClassName} {
     border: 1px solid rgba(0, 0, 0, 0.1);
