@@ -7,9 +7,13 @@ import {
   PromocodeTypes,
 } from '../../../effector/coupons/store';
 
-export const buyItemRequest = async (item: CouponTypes | PromocodeTypes) => {
+export const buyItemRequest = async (data: {
+  item: CouponTypes | PromocodeTypes;
+  quantity: number;
+}) => {
   const response = await post<{ data: IBuyItem }>(
-    `${apiRoutes.STORE_ITEMS}${item}/buy`
+    `${apiRoutes.STORE_ITEMS}${data.item}/buy`,
+    { quantity: data.quantity }
   );
   return response.data.data;
 };

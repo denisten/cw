@@ -7,22 +7,13 @@ import {
   TasksStore,
   TaskStatuses,
 } from '../../../effector/task-store/store';
-import {
-  chatTaskSession,
-  consumeUserTaskAction,
-  pushBotMessageToCurrentChat,
-} from '../../../effector/chat/events';
+import { consumeUserTaskAction } from '../../../effector/chat/events';
 import { TowersTypes } from '../../../effector/towers-progress/store';
 import { ITabSwitchers } from '../index';
-import {
-  getResult,
-  setCurrentTaskStatus,
-} from '../../../effector/task-store/events';
 import { CouponTypes, UserMarketStore } from '../../../effector/coupons/store';
 import { ChatStore } from '../../../effector/chat/store';
 import { Bubble } from '../../../UI/bubble';
 import { ChatPreview } from '../../../UI/chat-preview';
-
 import { hideMarker, setMarker } from '../../../effector/towers-marker/events';
 import { ChatButtons } from '../../../UI/chat-buttons';
 import { ChatAvatar } from '../../../UI/chat-avatar';
@@ -31,6 +22,9 @@ import { useStore } from 'effector-react';
 import { setHideTowerInfo } from '../../../effector/tower-info-modal-store/events';
 import { TasksType } from '../../menu/menu-tasks';
 import { ModalWindow } from '../../modal-window';
+import { chatEndedHandler } from '../../../utils/chat-ended-handler';
+import { checkChatSession } from '../../../utils/check-chat-session';
+import { setCurrentTaskStatus } from '../../../effector/task-store/events';
 
 const ChatWrapper = styled.div`
   width: 100%;
@@ -176,36 +170,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
               currentMission.task.content.taskType.slug ===
                 TasksType.RELATED_QUIZ
             ) {
-              const data = await getResult(taskId);
-              if (data.quizResult.success) {
-                setMarker({
-                  towerTitle,
-                  type: TypeOfMarkers.SUCCESS,
-                });
-                const resultObject = {
-                  message: {
-                    direction: Sender.BACKEND,
-                    text: `Молодец! Задание выполнено!
-                    Правильных ответов ${data.quizResult.correct} из ${data
-                      .quizResult.correct + data.quizResult.incorrect}.
-                    В заданиях тебя ждёт награда.`,
-                  },
-                  towerTitle,
-                };
-                pushBotMessageToCurrentChat(resultObject);
-              } else {
-                const resultObject = {
-                  message: {
-                    direction: Sender.BACKEND,
-                    text: `Увы! Задание не выполнено.
-                  Правильных ответов ${data.quizResult.correct} из ${data
-                      .quizResult.correct + data.quizResult.incorrect}. 
-                  Попробуй еще раз или воспользуйся купоном во вкладке "Задания".`,
-                  },
-                  towerTitle,
-                };
-                pushBotMessageToCurrentChat(resultObject);
-              }
+              chatEndedHandler(taskId, towerTitle);
             } else {
               setCurrentTaskStatus({ taskId, status: TaskStatuses.DONE });
               setMarker({
@@ -225,23 +190,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
     }, []);
 
     useEffect(() => {
-      if (
-        currentTaskIndex !== -1 &&
-        missions[currentTaskIndex].task.content.taskType.slug !==
-          TasksType.COSMETIC &&
-        missions[currentTaskIndex].status !== TaskStatuses.DONE &&
-        missions[currentTaskIndex].status !== TaskStatuses.CREATED &&
-        missions[currentTaskIndex].status !== TaskStatuses.REJECTED
-      ) {
-        chatTaskSession({ id: taskId, towerTitle });
-      } else if (
-        currentTaskIndex !== -1 &&
-        missions[currentTaskIndex].task.content.taskType.slug !==
-          TasksType.COSMETIC &&
-        missions[currentTaskIndex].status === TaskStatuses.REJECTED
-      ) {
-        chatTaskSession({ id: taskId, towerTitle, retry: false });
-      }
+      checkChatSession(currentTaskIndex, missions, taskId, towerTitle);
       return () => {
         setHideTowerInfo(false);
       };

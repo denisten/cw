@@ -1,13 +1,12 @@
 import { StoreDomain } from './domain';
 import {
   fetchUserPurchases,
-  editCouponCount,
   fetchShopCatalog,
   selectStoreItem,
   toggleShowUserPromocodes,
   openMarket,
-  buyItem,
   resetUserShopStore,
+  IUserPurchases,
 } from './events';
 
 export enum CouponTypes {
@@ -23,6 +22,8 @@ export enum StoreItemTypes {
 export const TranslatedStoreItem = {
   [StoreItemTypes.PROMO_CODE]: 'Промокод',
   [StoreItemTypes.COUPON]: 'Купон',
+  [CouponTypes.COUPON_REPLACE]: 'Заменить задание',
+  [CouponTypes.COUPON_SKIP]: 'Пропустить задание',
 };
 
 export enum PurchasStatuses {
@@ -35,12 +36,16 @@ export enum PromocodeTypes {
 }
 
 const defaultUserCoupons = {
-  [CouponTypes.COUPON_REPLACE]: { count: 0 },
-  [CouponTypes.COUPON_SKIP]: { count: 0 },
+  [CouponTypes.COUPON_REPLACE]: { count: 0, storeItem: null },
+  [CouponTypes.COUPON_SKIP]: { count: 0, storeItem: null },
 };
 
 const defaultUserPromocodes = {
-  [PromocodeTypes.MGTS_SPECIAL]: { count: 0, storeItem: null, status: null },
+  [PromocodeTypes.MGTS_SPECIAL]: {
+    storeItem: null,
+    status: null,
+    content: null,
+  },
 };
 
 const initState = {
@@ -52,24 +57,11 @@ const initState = {
   openedMarket: false,
 };
 
+const countCalculate = (payload: IUserPurchases[], couponSlug: CouponTypes) =>
+  payload.filter(item => item.storeItem.slug === couponSlug).length;
+
 export const UserMarketStore = StoreDomain.store<IUserStore>(initState)
-  .on(buyItem.doneData, (state, { storeItem, status, count }) => ({
-    ...state,
-    userCoupons: {
-      ...state.userCoupons,
-      [storeItem.slug]: {
-        count,
-      },
-    },
-    userPromocodes: {
-      ...state.userPromocodes,
-      [storeItem.slug]: {
-        count,
-        status,
-        storeItem,
-      },
-    },
-  }))
+
   .on(openMarket, (state, payload) => ({
     ...state,
     openedMarket: payload,
@@ -87,34 +79,32 @@ export const UserMarketStore = StoreDomain.store<IUserStore>(initState)
     ...state,
     catalog: payload,
   }))
-  .on(fetchUserPurchases.doneData, (state, payload) => {
+  .on(fetchUserPurchases, (state, payload) => {
     const stateClone = { ...state };
-    if (payload.items.length > 0) {
-      payload.items.forEach(({ storeItem, count, status }) => {
+    if (payload.length > 0) {
+      payload.forEach(({ storeItem, status, content }) => {
         if (storeItem.type.slug === StoreItemTypes.COUPON) {
           const couponSlug = storeItem.slug as CouponTypes;
-          stateClone.userCoupons[couponSlug] = { count, name: storeItem.name };
-        }
 
+          stateClone.userCoupons[couponSlug] = {
+            count: countCalculate(payload, couponSlug),
+            storeItem,
+          };
+        }
         if (storeItem.type.slug === StoreItemTypes.PROMO_CODE) {
           const promocodeSlug = storeItem.slug as PromocodeTypes;
           stateClone.userPromocodes[promocodeSlug] = {
-            count,
+            content,
             status,
             storeItem,
           };
         }
       });
     }
+
     return stateClone;
   })
-  .on(editCouponCount, (state, { couponType, count }) => ({
-    ...state,
-    userCoupons: {
-      ...state.userCoupons,
-      [couponType]: { count },
-    },
-  }))
+
   .on(resetUserShopStore, state => ({
     ...state,
     selectedStoreItem: null,
@@ -129,13 +119,14 @@ interface IUserStore {
     [key in CouponTypes]: {
       count: number;
       name?: string;
+      storeItem: ICatalogItems | null;
     };
   };
   userPromocodes: {
     [key in PromocodeTypes]: {
-      count: number;
       status: PurchasStatuses | null;
       storeItem: ICatalogItems | null;
+      content: null | string;
     };
   };
 
@@ -155,4 +146,5 @@ export interface ICatalogItems {
   slug: CouponTypes | PromocodeTypes;
   name: string;
   description: string;
+  maxTotalCount?: number;
 }
