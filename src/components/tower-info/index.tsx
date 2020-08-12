@@ -32,6 +32,8 @@ import { TowerInfoModalStore } from '../../effector/tower-info-modal-store/store
 import { TowerInfoContent } from './tower-info-content';
 import { setTowerInfoShift } from '../../effector/tower-info-modal-store/events';
 import background from './background.svg';
+import { DescriptionStore } from '../../effector/descriptions/store';
+import { useFetchDescriptions } from '../../hooks/use-fetch-descriptions';
 export type ModalWindowProps = {
   opened?: boolean;
 };
@@ -134,12 +136,12 @@ const TowerInfo: React.FC = () => {
     focusOn: notVerifiedTowerTitle,
     hideTowerInfo,
   } = useStore(TowerInfoModalStore);
+
   const { selectTowerInfoContent } = useStore(AppConditionStore);
   const { tutorialCondition } = useStore(TutorialStore);
   const towerTitle = notVerifiedTowerTitle || TowersTypes.MAIN_TOWER;
-  const descriptionText: string[] = localDescriptionService.getAllDescriptionForCurrentTower(
-    towerTitle
-  );
+  useFetchDescriptions();
+
   const {
     level: { level, income, levelUpPercentage },
   } = useStore(TowersProgressStore)[towerTitle];
@@ -149,6 +151,22 @@ const TowerInfo: React.FC = () => {
     () => Array.from({ length: 3 }).map(() => createRef()),
     []
   );
+
+  const { description, title } = useStore(DescriptionStore)[towerTitle];
+  const returnDescriptionObject = () => {
+    if (!description || !title) {
+      return {
+        title: localDescriptionService.getAllDescriptionForCurrentTower(
+          towerTitle
+        )[0],
+        description: localDescriptionService
+          .getAllDescriptionForCurrentTower(towerTitle)
+          .join(' '),
+      };
+    } else {
+      return { description, title };
+    }
+  };
 
   const [towerTutorialStep, setTowerTutorialStep] = useState(0);
   const towerInfoRef = useRef<HTMLDivElement>(null);
@@ -200,12 +218,9 @@ const TowerInfo: React.FC = () => {
     }
   }, [towerInfoRef]);
 
-  const towerInfoContentText =
-    tutorialCondition &&
-    towerTutorialStep === TowerTutorialSteps.DESCRIPTION_DONT_OPENED
-      ? [descriptionText[0]]
-      : descriptionText;
-
+  const hideDescription =
+    tutorialCondition !== TutorialConditions.OFF &&
+    towerTutorialStep === TowerTutorialSteps.DESCRIPTION_DONT_OPENED;
   return (
     <TowerInfoWrapper opened={isExtraTowerInfoModalOpen} ref={towerInfoRef}>
       <TowerInfoHeader tutorialCondition={tutorialCondition} />
@@ -238,8 +253,9 @@ const TowerInfo: React.FC = () => {
             openTasksTab,
           }}
           selectedMenu={selectTowerInfoContent}
-          text={towerInfoContentText}
+          productDescription={returnDescriptionObject()}
           towerTitle={towerTitle}
+          hideDescription={hideDescription}
         />
 
         {showButton && (

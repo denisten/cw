@@ -28,40 +28,13 @@ const TowerInfoDescriptionWrapper = styled.div<ITowerInfoDescriptionWrapper>`
     margin-bottom: 15px;
   }
 
-  span {
+  p {
     width: 90%;
     word-break: break-word;
 
     @media screen and (max-width: 1440px) {
       width: 380px;
     }
-  }
-
-  span:last-child {
-    z-index: 3;
-  }
-
-  span:first-child {
-    font-size: 20px;
-    line-height: 1.3;
-    margin-bottom: 20px;
-    line-height: 26px;
-    letter-spacing: -0.5px;
-    color: #02acc8;
-  }
-
-  &::before {
-    content: '';
-    width: 100%;
-    height: 39px;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    background-image: linear-gradient(
-      to bottom,
-      rgba(243, 243, 243, 0),
-      #f3f3f3
-    );
   }
 `;
 
@@ -76,27 +49,62 @@ const TowerInfoDescriptionScrollContainer = styled.div`
   overflow: auto;
 `;
 
+const Title = styled.span`
+  font-size: 20px;
+  line-height: 1.3;
+  margin-bottom: 20px;
+  line-height: 26px;
+  letter-spacing: -0.5px;
+  color: #02acc8;
+
+  p {
+    margin: 0;
+  }
+`;
+
+const Description = styled.span`
+  p {
+    margin: 0;
+  }
+`;
+
 const isFullView = (tutorialCondition: TutorialConditions) =>
   tutorialCondition === TutorialConditions.UPGRADE_BUTTON_TOWER_INFO ||
   !tutorialCondition;
 
 export const TowerInfoDescription: React.FC<ITowerInfoDescription> = ({
-  text,
+  productDescription,
+  hideDescription = false,
 }) => {
+  const createMarkup = (html: string) => {
+    return { __html: html };
+  };
   const { tutorialCondition } = useStore(TutorialStore);
   return (
     <TowerInfoDescriptionWrapper fullView={isFullView(tutorialCondition)}>
       <TowerInfoDescriptionScrollContainer>
-        {text.map((elem, ind) => (
-          <span key={ind}>{elem}</span>
-        ))}
+        <Title
+          dangerouslySetInnerHTML={createMarkup(productDescription.title)}
+        ></Title>
+        {!hideDescription && (
+          <Description
+            dangerouslySetInnerHTML={createMarkup(
+              productDescription.description
+            )}
+          ></Description>
+        )}
       </TowerInfoDescriptionScrollContainer>
     </TowerInfoDescriptionWrapper>
   );
 };
 
-interface ITowerInfoDescription {
-  text: string[];
+export interface ITowerInfoDescription {
+  productDescription: {
+    description: string;
+    title: string;
+  };
+
+  hideDescription: boolean;
 }
 
 interface ITowerInfoDescriptionWrapper {
