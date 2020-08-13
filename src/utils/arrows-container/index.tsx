@@ -17,7 +17,7 @@ const TutorialToolsSelector: React.FC<ArrowsContainerProps> = ({
         return (
           <TutorialArrow
             top={30.5}
-            left={51.8}
+            left={43.8}
             range={1}
             direction={Directions.BOTTOM}
           />

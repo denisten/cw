@@ -129,7 +129,7 @@ const TowerStyledWrapper = styled.div<ITowerStyledWrapper>`
   }
 
   &:hover {
-    z-index: ${ZIndexes.MAX} !important;
+    z-index: ${ZIndexes.HOVERED_BUILDING} !important;
   }
 
   &[data-towertype=${TowersTypes.UNIVERSITY}] ${Signature} {
