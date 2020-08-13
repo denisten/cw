@@ -4,7 +4,7 @@ import moneyImg from './money.svg';
 import batteryImg from './battery.svg';
 import { StyledSpan } from '../span';
 import { MTSSans } from '../../fonts';
-import { ITaskLocation } from '../../components/tasks/tower-task-row';
+import { ITaskLocation } from '../../components/tasks-view/tower-task-row';
 
 enum TaskLootWrapperMarginValues {
   inTowerInfo = 2,

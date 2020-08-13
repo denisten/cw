@@ -26,7 +26,7 @@ import styled from 'styled-components';
 import { StyledSpan } from '../../../UI/span';
 import { MTSSans } from '../../../fonts';
 
-const TaskWrapper = styled.div<ITaskLocation>`
+export const TaskWrapper = styled.div<ITaskLocation>`
   width: 719px;
   border-radius: 4px;
   border: 1px solid #ebecef;
@@ -41,7 +41,7 @@ const TaskWrapper = styled.div<ITaskLocation>`
   flex-direction: column;
 `;
 
-const Title = styled(StyledSpan)<ITaskLocation>`
+export const Title = styled(StyledSpan)<ITaskLocation>`
   min-width: 316px;
   font-family: ${MTSSans.MEDIUM};
   font-size: 16px;
@@ -54,18 +54,12 @@ const Title = styled(StyledSpan)<ITaskLocation>`
 `;
 
 export const MenuTaskRow: React.FC<ITasksRow> = ({
-  type,
-  taskTitle,
-  status,
-  money,
-  energy,
-  description,
-  towerTitle,
   isInTowerInfo,
-  id,
-  expireInSeconds,
-  taskTimer,
+  taskData,
 }) => {
+  const taskType = taskData.task.content.taskType.slug;
+  const towerTitle = taskData.task.content.product.slug;
+
   const isOpened = useRef(false);
   const taskWrapperRef = useRef<HTMLDivElement>(null);
   const taskDescriptionRef = useRef<HTMLDivElement>(null);
@@ -73,12 +67,12 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
 
   const [isCouponModalWindowOpen, setIsCouponModalWindowOpen] = useState(false);
 
-  const handleWrapperClick = async (e: React.MouseEvent) => {
+  const handleWrapperClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (type === TasksType.TUTORIAL_TASK) {
+    if (taskType === TasksType.TUTORIAL_TASK) {
       // do next tutorial step in future
     } else {
-      await handleTaskClick(id, e);
+      handleTaskClick(taskData, e);
     }
   };
 
@@ -86,7 +80,7 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
     requestAnimationFrame(() => {
       if (
         taskDescriptionRef.current &&
-        type !== TasksType.TUTORIAL_TASK &&
+        taskType !== TasksType.TUTORIAL_TASK &&
         vectorRef.current
       ) {
         if (isOpened.current) {
@@ -116,19 +110,21 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
         isInTowerInfo={isInTowerInfo}
       >
         <TaskInfo>
-          <Icon type={type} />
-          <Title isInTowerInfo={isInTowerInfo}>{taskTitle}</Title>
+          <Icon type={taskType} />
+          <Title isInTowerInfo={isInTowerInfo}>
+            {taskData.task.content.name}
+          </Title>
           <RowWrapper>
             <ColumnWrapper {...taskRowStyledConfig.columnWrapper}>
               <TaskLoot
-                money={money}
-                energy={energy}
+                money={taskData.task.reward}
+                energy={taskData.task.energy}
                 isInTowerInfo={isInTowerInfo}
               />
               {
                 <TaskTimer
-                  taskTimer={taskTimer}
-                  expireInSeconds={expireInSeconds}
+                  taskTimer={taskData.taskTimer}
+                  expireInSeconds={taskData.expireInSeconds}
                 />
               }
             </ColumnWrapper>
@@ -138,15 +134,15 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
             >
               <RowWrapper>
                 <TaskButton
-                  expireInSeconds={expireInSeconds}
-                  className={status}
+                  expireInSeconds={taskData.expireInSeconds}
+                  className={taskData.status}
                   onClick={handleWrapperClick}
                 />
-                {checkTaskStatus(status) && (
+                {checkTaskStatus(taskData.status) && (
                   <img src={notDoneImg} alt="reject" />
                 )}
               </RowWrapper>
-              {checkTaskStatus(status) && (
+              {checkTaskStatus(taskData.status) && (
                 <HintWrapper onClick={handleHintClick} />
               )}
             </ColumnWrapper>
@@ -156,14 +152,14 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
         </TaskInfo>
         <TaskDescriptionWrapper ref={taskDescriptionRef}>
           <Border />
-          <TaskDescription>{description}</TaskDescription>
+          <TaskDescription>{taskData.task.content.description}</TaskDescription>
         </TaskDescriptionWrapper>
       </TaskWrapper>
       <ModalWindow
         {...couponModalConfig}
         displayFlag={isCouponModalWindowOpen}
         cancelHandler={() => setIsCouponModalWindowOpen(false)}
-        id={id}
+        id={taskData.id}
         towerTitle={towerTitle}
       />
     </>

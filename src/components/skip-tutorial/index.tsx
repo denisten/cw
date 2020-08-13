@@ -164,7 +164,6 @@ export interface IDisplayFlag {
   displayFlag: boolean;
 }
 
-interface ISkipTutorial {
-  displayFlag: boolean;
+interface ISkipTutorial extends IDisplayFlag {
   setDisplayFlag: Function;
 }

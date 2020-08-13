@@ -14,12 +14,12 @@ import {
 import { getWorldState } from '../get-world-state';
 import { setTaskId } from '../../effector/chat/events';
 import { timerClosure } from '../../utils/timer-closure';
-import { fetchTasks } from '../../effector/missions-store/events';
+import { saveTask } from '../../effector/tasks-store/events';
 
-import { markerHandler } from '../../utils/marker-handler';
-import { TaskStatuses, IGetTasks } from '../../effector/missions-store/store';
+import { TaskStatuses, IGetTasks } from '../../effector/tasks-store/store';
 import { scoreSuccessRequests } from '../../effector/preloader/events';
 import { UserDataStore } from '../../effector/user-data/store';
+import { saveMission } from '../../effector/missions-store/events';
 import {
   IUserPurchasesSocketItem,
   fetchUserPurchases,
@@ -62,7 +62,7 @@ const createSubscriptions = (centrifuge: Centrifuge, userId: number) => {
   const tasksSubscription = centrifuge.subscribe(
     'user-tasks:updates#' + userId,
     (items: IGetTasks) => {
-      const userTasks = items.data.userTasks.map(el => {
+      const userTasks = items.data.userTasks.filter(el => {
         if (el.status !== TaskStatuses.CREATED) {
           setTaskId({
             towerTitle: el.task.content.product.slug,
@@ -72,10 +72,13 @@ const createSubscriptions = (centrifuge: Centrifuge, userId: number) => {
         if (el.expireInSeconds) {
           el.taskTimer = timerClosure(el.expireInSeconds);
         }
-        return el;
+        return !el.userSubTasks.length;
       });
-      fetchTasks({ userTasks });
-      markerHandler();
+      const userMissions = items.data.userTasks.filter(
+        el => el.userSubTasks.length
+      );
+      saveMission(userMissions);
+      saveTask(userTasks);
     }
   );
 
