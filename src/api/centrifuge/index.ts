@@ -38,7 +38,6 @@ const wsProtocol =
 const wsConnectionRoute = wsProtocol + window.location.host + centrifugeUrl;
 const subscriptionQuantity = 2;
 const reasonForReconnect = 'connection closed';
-const tokenExpired = 'expired';
 
 const createSubscriptions = (centrifuge: Centrifuge, userId: number) => {
   const progressSubscription = centrifuge.subscribe(
@@ -141,11 +140,7 @@ export const openWsConnection = async () => {
     tasksSubscription && tasksSubscription.unsubscribe();
     userPurchasesSubscription && userPurchasesSubscription.unsubscribe();
     getBalanceSubscription && getBalanceSubscription.unsubscribe();
-    if (
-      e.reason === reasonForReconnect &&
-      e.reconnect &&
-      e.reason !== tokenExpired
-    ) {
+    if (e.reason === reasonForReconnect && e.reconnect) {
       openWsConnection();
     }
   });
