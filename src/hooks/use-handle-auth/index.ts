@@ -11,7 +11,6 @@ import {
   editTutorialSliderDisplayFlag,
   setDataReceived,
 } from '../../effector/app-condition/events';
-import { markerHandler } from '../../utils/marker-handler';
 import { scoreSuccessRequests } from '../../effector/preloader/events';
 import { fetchIncomes } from '../../effector/reward/events';
 
@@ -32,7 +31,6 @@ const waitForAllRequestsIsDone = () => {
 };
 
 const prepareMap = () => {
-  markerHandler();
   setDataReceived(true);
   editTutorialSliderDisplayFlag(true);
   scoreSuccessRequests();

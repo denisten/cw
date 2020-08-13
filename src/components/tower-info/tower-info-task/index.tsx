@@ -6,8 +6,8 @@ import {
   TutorialConditions,
   TutorialStore,
 } from '../../../effector/tutorial-store/store';
-import { TasksStore } from '../../../effector/task-store/store';
-import { filteredMissionsArray } from '../../../utils/filtered-missions-array';
+import { TasksStore } from '../../../effector/tasks-store/store';
+import { filterTasksArray } from '../../../utils/filtered-missions-array';
 import { TowerTaskRow } from '../../tasks-view/tower-task-row';
 import { TowersTypes } from '../../../effector/towers-progress/store';
 
@@ -55,19 +55,16 @@ const TaskPreview = (tutorialCondition: TutorialConditions) => (
 );
 
 export const TowerInfoTask: React.FC<ITowerInfoTask> = ({ towerTitle }) => {
-  const missions = useStore(TasksStore);
-  const { tutorialCondition } = TutorialStore.getState();
-  if (!missions.length || tutorialCondition) TaskPreview(tutorialCondition);
-  const filteredMissions = filteredMissionsArray(missions, towerTitle);
+  const tasks = useStore(TasksStore);
+  const { tutorialCondition } = useStore(TutorialStore);
+  const filteredTasks = filterTasksArray(tasks, towerTitle);
+  const tasksView = filteredTasks.map(el => {
+    return <TowerTaskRow key={el.id} isInTowerInfo={true} taskData={el} />;
+  });
+
   return (
     <TowerInfoTaskWrapper>
-      {filteredMissions.length
-        ? filteredMissions.map(el => {
-            return (
-              <TowerTaskRow key={el.id} isInTowerInfo={true} taskData={el} />
-            );
-          })
-        : TaskPreview(tutorialCondition)}
+      {filteredTasks.length ? tasksView : TaskPreview(tutorialCondition)}
     </TowerInfoTaskWrapper>
   );
 };

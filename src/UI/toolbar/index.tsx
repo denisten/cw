@@ -7,13 +7,14 @@ import { ToolbarElement, ToolbarElements } from '../toolbar-element';
 import { MenuItems } from '../menu-paragraph';
 import { ToolbarElementAlert } from '../toolbar-element-alert';
 import { useStore } from 'effector-react';
-import { TasksStore } from '../../effector/task-store/store';
+import { TasksStore } from '../../effector/tasks-store/store';
 import { TutorialStore } from '../../effector/tutorial-store/store';
 import { coughtError } from '../../effector/error-boundary-store/events';
 import { pulseAnimationHOF } from '../../hoc/pulse-anim';
 import { extraTowerInfoModalClosed } from '../../effector/tower-info-modal-store/events';
 import { menuOpened } from '../../effector/menu-store/events';
 import { openMarket } from '../../effector/coupons/events';
+import { MissionsStore } from '../../effector/missions-store/store';
 
 const ToolbarWrapper = styled.div`
   position: absolute;
@@ -81,9 +82,10 @@ const handleToolbarElementClick = (
   }
 };
 export const Toolbar = () => {
-  const mission = useStore(TasksStore);
+  const tasks = useStore(TasksStore);
+  const missions = useStore(MissionsStore);
   const count = {
-    [ToolbarElements.TASK]: mission.length,
+    [ToolbarElements.TASK]: tasks.length + missions.length,
     [ToolbarElements.NOTIFICATIONS]: 0,
     [ToolbarElements.FEED]: 0,
     [ToolbarElements.SHOP]: 0,

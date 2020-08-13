@@ -14,10 +14,9 @@ import {
 import { getWorldState } from '../get-world-state';
 import { setTaskId } from '../../effector/chat/events';
 import { timerClosure } from '../../utils/timer-closure';
-import { saveTask } from '../../effector/task-store/events';
+import { saveTask } from '../../effector/tasks-store/events';
 
-import { markerHandler } from '../../utils/marker-handler';
-import { TaskStatuses, IGetTasks } from '../../effector/task-store/store';
+import { TaskStatuses, IGetTasks } from '../../effector/tasks-store/store';
 import { scoreSuccessRequests } from '../../effector/preloader/events';
 import { UserDataStore } from '../../effector/user-data/store';
 import { saveMission } from '../../effector/missions-store/events';
@@ -79,7 +78,6 @@ const createSubscriptions = (centrifuge: Centrifuge, userId: number) => {
       );
       saveMission(userMissions);
       saveTask(userTasks);
-      markerHandler();
     }
   );
 

@@ -56,16 +56,6 @@ export const Title = styled(StyledSpan)<ITaskLocation>`
 export const MenuTaskRow: React.FC<ITasksRow> = ({
   isInTowerInfo,
   taskData,
-  // type,
-  // taskTitle,
-  // status,
-  // money,
-  // energy,
-  // description,
-  // towerTitle,
-  // id,
-  // expireInSeconds,
-  // taskTimer,
 }) => {
   const taskType = taskData.task.content.taskType.slug;
   const towerTitle = taskData.task.content.product.slug;
@@ -77,12 +67,12 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
 
   const [isCouponModalWindowOpen, setIsCouponModalWindowOpen] = useState(false);
 
-  const handleWrapperClick = async (e: React.MouseEvent) => {
+  const handleWrapperClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (taskType === TasksType.TUTORIAL_TASK) {
       // do next tutorial step in future
     } else {
-      await handleTaskClick(taskData.id, e);
+      handleTaskClick(taskData, e);
     }
   };
 

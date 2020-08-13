@@ -3,7 +3,7 @@ import { TypeOfMarkers } from '../../components/markers';
 import { Sender } from '../../api/tasks-api/session';
 import { pushBotMessageToCurrentChat } from '../../effector/chat/events';
 import { TowersTypes } from '../../effector/towers-progress/store';
-import { getResult } from '../../effector/task-store/events';
+import { getResult } from '../../effector/tasks-store/events';
 
 export const chatEndedHandler = async (
   taskId: number,

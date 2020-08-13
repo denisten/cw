@@ -5,7 +5,6 @@ import { clearChat } from '../../effector/chat/events';
 import { coughtError } from '../../effector/error-boundary-store/events';
 import { TowersTypes } from '../../effector/towers-progress/store';
 import { ITabSwitchers } from '../../components/tower-info';
-import { markerHandler } from '../marker-handler';
 
 export const couponHandler = async (
   taskId: number,
@@ -15,7 +14,6 @@ export const couponHandler = async (
 ) => {
   const response = await activateCoupon(selectedCoupon, taskId); // TODO попросить бэк возвращать измененный count купонов
   if (response.state === ResponseStatuses.SUCCESS) {
-    markerHandler();
     towerTitle && clearChat({ towerTitle });
     switchers && switchers.openTasksTab();
   } else {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { TasksStore, TaskStatuses } from '../../effector/task-store/store';
+import { ITask, TaskStatuses } from '../../effector/tasks-store/store';
 import {
   AppConditionStore,
   TowerInfoContentValues,
@@ -11,31 +11,32 @@ import {
   activateTask,
   takeReward,
   verifyTask,
-} from '../../effector/task-store/events';
+} from '../../effector/tasks-store/events';
 import { scrollToCurrentTower } from '../scroll-to-current-tower';
 import { BuildingsService } from '../../buildings/config';
-import { markerHandler } from '../marker-handler';
 import { animateTaskReward } from '../animate-task-reward';
 import { coughtError } from '../../effector/error-boundary-store/events';
 import { extraTowerInfoModalOpen } from '../../effector/tower-info-modal-store/events';
 import { MenuStore } from '../../effector/menu-store/store';
 import { menuClosed } from '../../effector/menu-store/events';
 import { TasksType } from '../../components/menu/menu-tasks';
+import { hideMarker } from '../../effector/towers-marker/events';
+import { TypeOfMarkers } from '../../components/markers';
 
-export const handleTaskClick = async (id: number, e: React.MouseEvent) => {
-  const tasks = TasksStore.getState();
+export const handleTaskClick = async (taskData: ITask, e: React.MouseEvent) => {
+  const towerTitle = taskData.task.content.product.slug;
+  const id = taskData.id;
+  const taskType = taskData.task.content.taskType.slug;
+
   const { fullSizeMode } = AppConditionStore.getState();
   const { selectedMenuItem } = MenuStore.getState();
-  const taskData = {
-    ...tasks[tasks.findIndex(el => el.id === id)],
-  };
-  const towerTitle = taskData.task.content.product.slug;
   const { taskId: chatTaskId } = ChatStore.getState()[towerTitle];
+
   switch (taskData.status) {
     case TaskStatuses.CREATED:
       if (!chatTaskId) {
         if (
-          taskData.task.content.taskType.slug !== TasksType.COSMETIC &&
+          taskType !== TasksType.COSMETIC &&
           taskData.status === TaskStatuses.CREATED
         ) {
           await chatTaskSession({ id, towerTitle });
@@ -43,7 +44,7 @@ export const handleTaskClick = async (id: number, e: React.MouseEvent) => {
             setTowerInfoContent(TowerInfoContentValues.CHAT);
           } else menuClosed();
         } else {
-          await activateTask(id);
+          await activateTask({ id, towerTitle });
         }
         if (fullSizeMode) {
           extraTowerInfoModalOpen(towerTitle);
@@ -56,22 +57,19 @@ export const handleTaskClick = async (id: number, e: React.MouseEvent) => {
           text: 'Сначала нужно закончить начатое задание.',
         });
       }
-      markerHandler();
-      return;
+      break;
     case TaskStatuses.ACTIVE:
-      if (taskData.task.content.taskType.slug !== TasksType.INFORMATIONAL) {
+      if (taskType !== TasksType.INFORMATIONAL) {
         await verifyTask(id);
-        markerHandler();
       }
       break;
     case TaskStatuses.DONE:
       animateTaskReward(taskData.task.reward, e);
       await takeReward(id);
-      markerHandler();
+      hideMarker({ towerTitle, type: TypeOfMarkers.SUCCESS });
       clearChat({ towerTitle });
       break;
     case TaskStatuses.VERIFICATION:
-      return markerHandler();
     case TaskStatuses.REWARDED:
     case TaskStatuses.REJECTED:
     case TaskStatuses.EXPIRED:

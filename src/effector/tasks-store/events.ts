@@ -13,7 +13,8 @@ export const saveTask = MissionsDomain.event<ITask[]>();
 export const activateTask = MissionsDomain.effect(
   'activate current task and fetch new list',
   {
-    handler: async (id: number) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    handler: async ({ id, towerTitle }) => {
       return await activateTaskRequest(id);
     },
   }
@@ -54,5 +55,9 @@ interface ISetCurrentTaskStatus {
 }
 
 interface IGetResult extends IGetTaskResultRequest {
+  id: number;
+}
+
+interface IActivateTask {
   id: number;
 }

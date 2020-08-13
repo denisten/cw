@@ -6,7 +6,7 @@ import { handleAuthButtonClick } from '../../../../../../utils/handle-auth-butto
 import {
   ITask,
   TaskStatuses,
-} from '../../../../../../effector/task-store/store';
+} from '../../../../../../effector/tasks-store/store';
 import { TowersTypes } from '../../../../../../effector/towers-progress/store';
 
 const UnauthorizedTaskZoneWrapper = styled.div`

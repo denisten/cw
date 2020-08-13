@@ -18,7 +18,7 @@ import { TaskLoot } from '../../UI/task-loot';
 import { TaskTimer } from '../../UI/task-timer';
 import notDoneImg from '../tasks-view/tower-task-row/not-done.svg';
 import { MTSSans } from '../../fonts';
-import { ITask, TaskStatuses } from '../../effector/task-store/store';
+import { ITask, TaskStatuses } from '../../effector/tasks-store/store';
 
 const Wrapper = styled(TaskWrapper)`
   border: 2px solid #3baa07;
@@ -72,7 +72,13 @@ export const MissionsView: React.FC<IMissionsView> = ({
   ).length;
 
   const SubTaskView = taskData.userSubTasks.map(el => {
-    return <MenuTaskRow isInTowerInfo={false} taskData={el} key={el.id} />;
+    return (
+      <MenuTaskRow
+        isInTowerInfo={isInTowerInfo}
+        taskData={el}
+        key={el.task.id}
+      />
+    );
   });
 
   const handleTaskWrapperClick = () =>

@@ -7,9 +7,9 @@ import { useMoveTo } from '../../../hooks/use-move-to';
 import styled from 'styled-components';
 import { MTSSans } from '../../../fonts';
 import { useStore } from 'effector-react';
-import { TasksStore } from '../../../effector/task-store/store';
+import { TasksStore } from '../../../effector/tasks-store/store';
 import { TowersTypes } from '../../../effector/towers-progress/store';
-import { filteredMissionsArray } from '../../../utils/filtered-missions-array';
+import { filterTasksArray } from '../../../utils/filtered-missions-array';
 
 enum SelectedColorValue {
   TRUE = '001424',
@@ -120,7 +120,7 @@ export const TowerInfoMenu: React.FC<ITowerInfoMenu> = ({
           onMouseOver={handleMouseOver}
           ref={refsCollection[2]}
           data-type={dataTypesMenu.TASK}
-          notify={!!filteredMissionsArray(missions, towerTitle).length}
+          notify={!!filterTasksArray(missions, towerTitle).length}
         >
           Задания
         </TowerInfoMenuElement>

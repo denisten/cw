@@ -13,7 +13,7 @@ import vectorImg from './vector.svg';
 import { RowWrapper } from '../../../UI/row-wrapper';
 import { couponModalConfig } from '../../tower-info/tower-info-chat';
 import { TasksType } from '../../menu/menu-tasks';
-import { ITask, TaskStatuses } from '../../../effector/task-store/store';
+import { ITask, TaskStatuses } from '../../../effector/tasks-store/store';
 
 export const TaskWrapper = styled.div<ITaskLocation>`
   width: 100%;
@@ -205,12 +205,12 @@ export const TowerTaskRow: React.FC<ITasksRow> = ({
 
   const [isCouponModalWindowOpen, setIsCouponModalWindowOpen] = useState(false);
 
-  const handleWrapperClick = async (e: React.MouseEvent) => {
+  const handleWrapperClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (taskType === TasksType.TUTORIAL_TASK) {
       // do next tutorial step in future
     } else {
-      await handleTaskClick(taskData.id, e);
+      handleTaskClick(taskData, e);
     }
   };
 

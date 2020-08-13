@@ -1,9 +1,9 @@
 import { MissionsDomain } from './domain';
 import {
   activateTask,
-  saveTask,
   getResult,
   resetMissionsStore,
+  saveTask,
   setCurrentTaskStatus,
   takeReward,
   verifyTask,
@@ -12,6 +12,8 @@ import { editUserProperty } from '../user-data/events';
 import { TowersTypes } from '../towers-progress/store';
 import { chatTaskSession } from '../chat/events';
 import { TasksType } from '../../components/menu/menu-tasks';
+import { setMarker } from '../towers-marker/events';
+import { TypeOfMarkers } from '../../components/markers';
 
 export enum TaskStatuses {
   CREATED = 'created',
@@ -82,6 +84,27 @@ export const TasksStore = MissionsDomain.store(initStore)
     ];
   })
   .reset(resetMissionsStore);
+
+const detectTaskStatus = (taskStatus: TaskStatuses) => {
+  switch (taskStatus) {
+    case TaskStatuses.ACTIVE:
+      return TypeOfMarkers.ACTIVE_TASK;
+    case TaskStatuses.DONE:
+      return TypeOfMarkers.SUCCESS;
+    case TaskStatuses.CREATED:
+    default:
+      return TypeOfMarkers.TASK;
+  }
+};
+
+saveTask.watch(el =>
+  el.map(el => {
+    setMarker({
+      towerTitle: el.task.content.product.slug,
+      type: detectTaskStatus(el.status),
+    });
+  })
+);
 
 export interface ITask {
   status: TaskStatuses;

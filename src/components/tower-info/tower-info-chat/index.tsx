@@ -6,7 +6,7 @@ import {
   ITask,
   TasksStore,
   TaskStatuses,
-} from '../../../effector/task-store/store';
+} from '../../../effector/tasks-store/store';
 import { consumeUserTaskAction } from '../../../effector/chat/events';
 import { TowersTypes } from '../../../effector/towers-progress/store';
 import { ITabSwitchers } from '../index';
@@ -24,7 +24,7 @@ import { TasksType } from '../../menu/menu-tasks';
 import { ModalWindow } from '../../modal-window';
 import { chatEndedHandler } from '../../../utils/chat-ended-handler';
 import { checkChatSession } from '../../../utils/check-chat-session';
-import { setCurrentTaskStatus } from '../../../effector/task-store/events';
+import { setCurrentTaskStatus } from '../../../effector/tasks-store/events';
 
 const ChatWrapper = styled.div`
   width: 100%;

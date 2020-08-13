@@ -1,4 +1,4 @@
 import { MissionsDomain } from './domain';
-import { ITask } from '../task-store/store';
+import { ITask } from '../tasks-store/store';
 
 export const saveMission = MissionsDomain.event<ITask[]>();
