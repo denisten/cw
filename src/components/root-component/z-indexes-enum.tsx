@@ -7,6 +7,7 @@ export enum ZIndexes {
   BUILDING_TWO_LEVEL = 11,
   BUILDING_THREE_LEVEL = 12,
   BUILDING_FOUR_LEVEL = 13,
+  HOVERED_BUILDING = 14,
   UI_BUTTON = 20,
   TUTORIAL = 25,
   UPGRADE_TOWER_ANIMATION_CANVAS = 26,
@@ -16,5 +17,4 @@ export enum ZIndexes {
   COIN = 31,
   ERROR = 40,
   PRELOADER = 50,
-  MAX = 60,
 }
