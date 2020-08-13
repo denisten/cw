@@ -21,11 +21,9 @@ export enum TypeOfMarkers {
 }
 
 const minScale = 0.9;
-const selectAnimation = (animFlag?: boolean) => {
-  if (animFlag) {
-    return scaleAnimation(minScale);
-  }
-};
+
+const selectAnimation = (animFlag?: boolean) =>
+  animFlag && scaleAnimation(minScale);
 
 export const MarkerView = styled.div<IMarkerView>`
   cursor: pointer;
@@ -206,39 +204,36 @@ export const Markers: React.FC<IMarkers> = ({
   displayFlag,
   towerLevel,
   towerRef,
-}) => {
-  return (
-    <MarkerWrapper
-      displayFlag={displayFlag}
-      data-towertype={towerTitle}
-      data-towerlevel={towerLevel}
-    >
-      {markersCollection.map(markItem =>
-        markItem.type !== TypeOfMarkers.TIMER ? (
-          <MarkerView
-            data-type={markItem.type}
-            key={markItem.type}
-            onClick={e => markerClickHandler(markItem, towerTitle, towerRef, e)}
-          >
-            <Icon type={markItem.type} style={styleConfig.icons} />
-          </MarkerView>
-        ) : (
-          <Timer
-            key={markItem.type}
-            startTime={markItem.startTime}
-            endTime={markItem.endTime}
-            towerTitle={towerTitle}
-          />
-        )
-      )}
-    </MarkerWrapper>
-  );
-};
+}) => (
+  <MarkerWrapper
+    displayFlag={displayFlag}
+    data-towertype={towerTitle}
+    data-towerlevel={towerLevel}
+  >
+    {markersCollection.map(markItem =>
+      markItem.type !== TypeOfMarkers.TIMER ? (
+        <MarkerView
+          data-type={markItem.type}
+          key={markItem.type}
+          onClick={e => markerClickHandler(markItem, towerTitle, towerRef, e)}
+        >
+          <Icon type={markItem.type} style={styleConfig.icons} />
+        </MarkerView>
+      ) : (
+        <Timer
+          key={markItem.type}
+          startTime={markItem.startTime}
+          endTime={markItem.endTime}
+          towerTitle={towerTitle}
+        />
+      )
+    )}
+  </MarkerWrapper>
+);
 
-interface IMarkers {
+interface IMarkers extends IDisplayFlag {
   markersCollection: IMarker[];
   towerTitle: TowersTypes;
-  displayFlag: boolean;
   towerLevel?: number;
   towerRef?: React.RefObject<HTMLDivElement>;
 }

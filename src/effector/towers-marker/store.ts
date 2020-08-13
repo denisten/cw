@@ -1,139 +1,54 @@
 import { TowersTypes } from '../towers-progress/store';
 import { TypeOfMarkers } from '../../components/markers';
 import { TowersMarkerDomain } from './domain';
-import {
-  hideMarker,
-  resetTowersMarker,
-  setMarker,
-  clearTaskMarkersOnCurrentTower,
-} from './events';
+import { hideMarker, resetTowersMarker, setMarker } from './events';
 
 const initState: TowersMarkerStoreType = {
-  [TowersTypes.POISK]: {
-    markers: [],
-  },
-  [TowersTypes.GOODOK]: {
-    markers: [],
-  },
-  [TowersTypes.SMARTMED]: {
-    markers: [],
-  },
-  [TowersTypes.UNIVERSITY]: {
-    markers: [],
-  },
-  [TowersTypes.MAIN_TOWER]: {
-    markers: [],
-  },
-  [TowersTypes.MUSIC]: {
-    markers: [],
-  },
-  [TowersTypes.LIVE_ARENA]: {
-    markers: [],
-  },
-  [TowersTypes.CASHBACK]: {
-    markers: [],
-  },
-  [TowersTypes.MY_MTS]: {
-    markers: [{ type: TypeOfMarkers.PLAY }],
-  },
-  [TowersTypes.CASHBACK]: {
-    markers: [],
-  },
-  [TowersTypes.LIBRARY]: {
-    markers: [],
-  },
-  [TowersTypes.OBSERVATORY]: {
-    markers: [],
-  },
-  [TowersTypes.MOBILE_NETWORK]: {
-    markers: [],
-  },
-  [TowersTypes.THEATER]: {
-    markers: [],
-  },
-  [TowersTypes.TV]: {
-    markers: [],
-  },
-  [TowersTypes.FITNESS]: {
-    markers: [],
-  },
-  [TowersTypes.ROAMING]: {
-    markers: [],
-  },
-  [TowersTypes.BANK]: {
-    markers: [],
-  },
-  [TowersTypes.WASD_TV]: {
-    markers: [],
-  },
-
-  [TowersTypes.SPUTNIK]: {
-    markers: [],
-  },
-  [TowersTypes.PARTNER_ONE]: {
-    markers: [],
-  },
-  [TowersTypes.PARTNER_TWO]: {
-    markers: [],
-  },
-  [TowersTypes.IGROTEKA]: {
-    markers: [{ type: TypeOfMarkers.PLAY }],
-  },
-  [TowersTypes.HOME_INTERNET]: {
-    markers: [],
-  },
-  [TowersTypes.AUTO]: {
-    markers: [],
-  },
-  [TowersTypes.SHOP]: {
-    markers: [{ type: TypeOfMarkers.PLAY }],
-  },
-  [TowersTypes.PARTNER_THREE]: {
-    markers: [],
-  },
-  [TowersTypes.MARVIN]: {
-    markers: [],
-  },
-  [TowersTypes.CONNECT]: {
-    markers: [],
-  },
+  [TowersTypes.POISK]: [],
+  [TowersTypes.GOODOK]: [],
+  [TowersTypes.SMARTMED]: [],
+  [TowersTypes.UNIVERSITY]: [],
+  [TowersTypes.MAIN_TOWER]: [],
+  [TowersTypes.MUSIC]: [],
+  [TowersTypes.LIVE_ARENA]: [],
+  [TowersTypes.CASHBACK]: [],
+  [TowersTypes.MY_MTS]: [],
+  [TowersTypes.CASHBACK]: [],
+  [TowersTypes.LIBRARY]: [],
+  [TowersTypes.OBSERVATORY]: [],
+  [TowersTypes.MOBILE_NETWORK]: [],
+  [TowersTypes.THEATER]: [],
+  [TowersTypes.TV]: [],
+  [TowersTypes.FITNESS]: [],
+  [TowersTypes.ROAMING]: [],
+  [TowersTypes.BANK]: [],
+  [TowersTypes.WASD_TV]: [],
+  [TowersTypes.SPUTNIK]: [],
+  [TowersTypes.PARTNER_ONE]: [],
+  [TowersTypes.PARTNER_TWO]: [],
+  [TowersTypes.IGROTEKA]: [{ type: TypeOfMarkers.PLAY }],
+  [TowersTypes.HOME_INTERNET]: [],
+  [TowersTypes.AUTO]: [],
+  [TowersTypes.SHOP]: [{ type: TypeOfMarkers.PLAY }],
+  [TowersTypes.PARTNER_THREE]: [],
+  [TowersTypes.MARVIN]: [],
+  [TowersTypes.CONNECT]: [],
 };
 
 export const TowersMarkerStore = TowersMarkerDomain.store<
   TowersMarkerStoreType
 >(initState)
-  .on(clearTaskMarkersOnCurrentTower, (state, payload) => ({
-    ...state,
-    [payload]: {
-      markers: state[payload].markers.filter(
-        marker =>
-          marker.type !== TypeOfMarkers.ACTIVE_TASK &&
-          marker.type !== TypeOfMarkers.TASK &&
-          marker.type !== TypeOfMarkers.SUCCESS
-      ),
-    },
-  }))
   .on(hideMarker, (state, { towerTitle, type }) => ({
     ...state,
-    [towerTitle]: {
-      markers: state[towerTitle].markers.filter(item => item.type !== type),
-    },
+    [towerTitle]: state[towerTitle].filter(item => item.type !== type),
   }))
   .on(setMarker, (state, { towerTitle, type, ...rest }) => ({
     ...state,
-    [towerTitle]: {
-      markers: state[towerTitle].markers.find(
-        searchItem => searchItem.type === type
-      )
-        ? state[towerTitle].markers
-        : state[towerTitle].markers.concat([{ type, ...rest }]),
-    },
+    [towerTitle]: state[towerTitle].find(searchItem => searchItem.type === type)
+      ? state[towerTitle]
+      : state[towerTitle].concat([{ type, ...rest }]),
   }))
   .reset(resetTowersMarker);
-
-type MarkerData = {
-  markers: IMarker[];
-};
 
 export interface IMarker {
   type: TypeOfMarkers;
@@ -142,4 +57,4 @@ export interface IMarker {
   coins?: number;
 }
 
-type TowersMarkerStoreType = Record<TowersTypes, MarkerData>;
+type TowersMarkerStoreType = Record<TowersTypes, IMarker[]>;

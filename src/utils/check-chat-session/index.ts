@@ -1,8 +1,8 @@
 import { TasksType } from '../../components/menu/menu-tasks';
-import { TaskStatuses, ITask } from '../../effector/missions-store/store';
 import { chatTaskSession } from '../../effector/chat/events';
 import { chatEndedHandler } from '../chat-ended-handler';
 import { TowersTypes } from '../../effector/towers-progress/store';
+import { ITask, TaskStatuses } from '../../effector/tasks-store/store';
 
 export const checkChatSession = async (
   currentTaskIndex: number,

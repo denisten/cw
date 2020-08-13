@@ -1,52 +1,35 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useStore } from 'effector-react';
-import { MenuTaskRow } from '../../../../tasks/menu-task-row';
-import { TasksStore } from '../../../../../effector/missions-store/store';
-import { TowerInfoModalStore } from '../../../../../effector/tower-info-modal-store/store';
+import { MenuTaskRow } from '../../../../tasks-view/menu-task-row';
+import { TasksStore } from '../../../../../effector/tasks-store/store';
 import { UnauthorizedTaskZone } from './unauthorize-task-zone';
+import { AppConditionStore } from '../../../../../effector/app-condition/store';
 
-const TasksWrapper = styled.div<ITask>`
+export const TasksWrapper = styled.div<ITaskWrapper>`
   display: ${props => (props.hidden ? 'hidden' : 'block')};
   height: 100%;
   overflow-y: scroll;
   overflow-x: hidden;
 `;
 
-export const Tasks: React.FC<{ active: boolean; isAuthorized: boolean }> = ({
-  active,
-  isAuthorized,
-}) => {
-  const missions = useStore(TasksStore);
-  const { focusOn } = useStore(TowerInfoModalStore);
-
+export const Tasks: React.FC<ITaskView> = ({ active }) => {
+  const tasks = useStore(TasksStore);
+  const { isAuthorized } = useStore(AppConditionStore);
   return (
     <TasksWrapper hidden={!active}>
       {!isAuthorized && <UnauthorizedTaskZone />}
-      {missions.map(el => {
-        if (!el.task) return null;
-        return (
-          <MenuTaskRow
-            towerTitle={focusOn || undefined}
-            expireInSeconds={el.expireInSeconds}
-            id={el.id}
-            isInTowerInfo={false}
-            isAllowedToChange={true}
-            type={el.task.content.taskType.slug}
-            taskTitle={el.task.content.name}
-            key={el.id}
-            status={el.status}
-            money={el.task.reward}
-            energy={el.task.energy}
-            description={el.task.content.description}
-            taskTimer={el.taskTimer}
-          />
-        );
-      })}
+      {tasks.map(el => (
+        <MenuTaskRow taskData={el} key={el.id} isInTowerInfo={false} />
+      ))}
     </TasksWrapper>
   );
 };
 
-interface ITask {
+interface ITaskView {
+  active: boolean;
+}
+
+interface ITaskWrapper {
   hidden: boolean;
 }

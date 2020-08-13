@@ -22,11 +22,12 @@ import { useStore } from 'effector-react';
 import { TowerInfoModalStore } from '../../effector/tower-info-modal-store/store';
 import { AppConditionStore } from '../../effector/app-condition/store';
 import signBcg from './signBcg.svg';
+
 enum strokeClassNames {
   STROKE = 'stroke',
   STROKE_ACTIVE = 'strokeActive',
 }
-export const fixSizeClassName = 'fixSize';
+export const fixSizeClassName = 'fix-size';
 
 export enum TowerClassNames {
   MUTED = 'muted',
@@ -35,9 +36,7 @@ export enum TowerClassNames {
 
 export const Signature = styled.div`
   position: absolute;
-
   min-height: 32px;
-
   z-index: 2;
   background-image: url(${signBcg});
   display: flex;
@@ -201,8 +200,11 @@ export const TowerWrapper = memo(
     const { focusOn, towerInfoShift } = useStore(TowerInfoModalStore);
     const { upgradingTowerTitle, DOMLoaded } = useStore(AppConditionStore);
     const { tutorialCondition, tutorialPause } = useStore(TutorialStore);
-    const markers = useStore(TowersMarkerStore)[towerTitle].markers || [];
     const upgradeFlag = upgradingTowerTitle === towerTitle;
+
+    const markers = useStore(TowersMarkerStore)[towerTitle];
+    const markersDisplayFlag =
+      !mutedImg && !needUpgrade && markers && markers.length > 0;
 
     const handleClick = () => {
       if (mutedImg) return;
@@ -245,6 +247,7 @@ export const TowerWrapper = memo(
       towerRef.current &&
         towerRef.current.classList.add(TowerClassNames.HOVERED);
     };
+
     const mouseOutHandle = () => {
       if (mutedImg) {
         towerRef.current &&
@@ -276,9 +279,7 @@ export const TowerWrapper = memo(
           towerLevel={currentLevel}
           markersCollection={markers}
           towerTitle={towerTitle}
-          displayFlag={
-            !mutedImg && !needUpgrade && markers && markers.length > 0
-          }
+          displayFlag={markersDisplayFlag}
         />
         <UpgradeButton
           tutorialCondition={tutorialCondition}

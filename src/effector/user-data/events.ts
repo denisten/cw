@@ -5,7 +5,7 @@ import Centrifuge from 'centrifuge';
 import { devLoginRequest } from '../../api/dev-api/login';
 import { logoutRequest } from '../../api';
 import { editIsAuthorizedFlag, setDataReceived } from '../app-condition/events';
-import { resetMissionsStore } from '../missions-store/events';
+import { resetMissionsStore } from '../tasks-store/events';
 import { resetChatStore } from '../chat/events';
 import { resetTowersMarker } from '../towers-marker/events';
 import { resetTowerProgress } from '../towers-progress/events';

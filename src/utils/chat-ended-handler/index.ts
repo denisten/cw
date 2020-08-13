@@ -1,9 +1,9 @@
-import { getResult } from '../../effector/missions-store/events';
 import { setMarker } from '../../effector/towers-marker/events';
 import { TypeOfMarkers } from '../../components/markers';
 import { Sender } from '../../api/tasks-api/session';
 import { pushBotMessageToCurrentChat } from '../../effector/chat/events';
 import { TowersTypes } from '../../effector/towers-progress/store';
+import { getResult } from '../../effector/tasks-store/events';
 
 export const chatEndedHandler = async (
   taskId: number,

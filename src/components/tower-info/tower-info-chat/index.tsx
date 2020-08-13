@@ -6,16 +6,14 @@ import {
   ITask,
   TasksStore,
   TaskStatuses,
-} from '../../../effector/missions-store/store';
+} from '../../../effector/tasks-store/store';
 import { consumeUserTaskAction } from '../../../effector/chat/events';
 import { TowersTypes } from '../../../effector/towers-progress/store';
 import { ITabSwitchers } from '../index';
-import { setCurrentTaskStatus } from '../../../effector/missions-store/events';
 import { CouponTypes, UserMarketStore } from '../../../effector/coupons/store';
 import { ChatStore } from '../../../effector/chat/store';
 import { Bubble } from '../../../UI/bubble';
 import { ChatPreview } from '../../../UI/chat-preview';
-
 import { hideMarker, setMarker } from '../../../effector/towers-marker/events';
 import { ChatButtons } from '../../../UI/chat-buttons';
 import { ChatAvatar } from '../../../UI/chat-avatar';
@@ -26,6 +24,7 @@ import { TasksType } from '../../menu/menu-tasks';
 import { ModalWindow } from '../../modal-window';
 import { chatEndedHandler } from '../../../utils/chat-ended-handler';
 import { checkChatSession } from '../../../utils/check-chat-session';
+import { setCurrentTaskStatus } from '../../../effector/tasks-store/events';
 
 const ChatWrapper = styled.div`
   width: 100%;

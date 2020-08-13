@@ -10,23 +10,16 @@ const Body = styled.div`
   height: calc(100% - 50px);
   background: white;
   padding: 27px 24px 0 33px;
-  //padding: 40px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
 `;
 
-export const TasksContent: React.FC<ITasksContent> = ({
-  activeType,
-  isAuthorized,
-}) => {
+export const TasksContent: React.FC<ITasksContent> = ({ activeType }) => {
   return (
     <Body>
-      <Tasks
-        active={activeType === TasksType.TASKS}
-        isAuthorized={isAuthorized}
-      />
+      <Tasks active={activeType === TasksType.TASKS} />
       <Challenge active={activeType === TasksType.CHALLENGE} />
       <Mission active={activeType === TasksType.MISSION} />
     </Body>
@@ -35,5 +28,4 @@ export const TasksContent: React.FC<ITasksContent> = ({
 
 interface ITasksContent {
   activeType: TasksType;
-  isAuthorized: boolean;
 }
