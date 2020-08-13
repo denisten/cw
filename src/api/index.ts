@@ -30,6 +30,7 @@ export enum apiRoutes {
   GET_SHOP_CATALOG = '/api/store/listing',
   STORE_ITEMS = '/api/store/items/',
   CURRENT_PRODUCTS = '/api/users/current/products/',
+  GET_DESCRIPTIONS = '/api/products',
 }
 
 export {

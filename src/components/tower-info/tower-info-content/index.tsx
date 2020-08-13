@@ -9,15 +9,21 @@ import { ITabSwitchers } from '../index';
 export const TowerInfoContent: React.FC<ITowerInfoContent> = memo(
   ({
     selectedMenu = TowerInfoContentValues.DESCRIPTION,
-    text,
+    productDescription,
     towerTitle,
     switchers,
+    hideDescription,
   }) => {
     switch (selectedMenu) {
       case TowerInfoContentValues.CHAT:
         return <TowerInfoChat towerTitle={towerTitle} switchers={switchers} />;
       case TowerInfoContentValues.DESCRIPTION:
-        return <TowerInfoDescription text={text} />;
+        return (
+          <TowerInfoDescription
+            hideDescription={hideDescription}
+            productDescription={productDescription}
+          />
+        );
       default:
         return <TowerInfoTask towerTitle={towerTitle} />;
     }
@@ -26,7 +32,11 @@ export const TowerInfoContent: React.FC<ITowerInfoContent> = memo(
 
 interface ITowerInfoContent {
   selectedMenu: TowerInfoContentValues;
-  text: Array<string>;
+  productDescription: {
+    description: string;
+    title: string;
+  };
   towerTitle: TowersTypes;
   switchers: ITabSwitchers;
+  hideDescription: boolean;
 }
