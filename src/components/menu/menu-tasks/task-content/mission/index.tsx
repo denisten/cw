@@ -10,7 +10,7 @@ export const Mission: React.FC<IMission> = ({ active }) => {
   return (
     <TasksWrapper hidden={!active}>
       {missions.map(el => (
-        <MissionsView taskData={el} isInTowerInfo={false} key={el.id} />
+        <MissionsView taskData={el} key={el.id} />
       ))}
     </TasksWrapper>
   );

@@ -19,9 +19,9 @@ export const Tasks: React.FC<ITaskView> = ({ active }) => {
   return (
     <TasksWrapper hidden={!active}>
       {!isAuthorized && <UnauthorizedTaskZone />}
-      {tasks.map(el => {
-        return <MenuTaskRow taskData={el} key={el.id} isInTowerInfo={false} />;
-      })}
+      {tasks.map(el => (
+        <MenuTaskRow taskData={el} key={el.id} isInTowerInfo={false} />
+      ))}
     </TasksWrapper>
   );
 };
@@ -33,16 +33,3 @@ interface ITaskView {
 interface ITaskWrapper {
   hidden: boolean;
 }
-
-// isAllowedToChange={true}
-// towerTitle={focusOn || undefined}
-// expireInSeconds={el.expireInSeconds}
-// id={el.id}
-// type={el.task.content.taskType.slug}
-// taskTitle={el.task.content.name}
-// key={el.id}
-// status={el.status}
-// money={el.task.reward}
-// energy={el.task.energy}
-// description={el.task.content.description}
-// taskTimer={el.taskTimer}

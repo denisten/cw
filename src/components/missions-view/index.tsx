@@ -58,10 +58,7 @@ const MissionProgressBar = styled.div<IMissionProgressBar>`
   }
 `;
 
-export const MissionsView: React.FC<IMissionsView> = ({
-  taskData,
-  isInTowerInfo,
-}) => {
+export const MissionsView: React.FC<IMissionsView> = ({ taskData }) => {
   const [isOpened, setIsOpened] = useState(false);
   const taskWrapperRef = useRef<HTMLDivElement>(null);
   const taskDescriptionRef = useRef<HTMLDivElement>(null);
@@ -72,13 +69,7 @@ export const MissionsView: React.FC<IMissionsView> = ({
   ).length;
 
   const SubTaskView = taskData.userSubTasks.map(el => {
-    return (
-      <MenuTaskRow
-        isInTowerInfo={isInTowerInfo}
-        taskData={el}
-        key={el.task.id}
-      />
-    );
+    return <MenuTaskRow isInTowerInfo={false} taskData={el} key={el.task.id} />;
   });
 
   const handleTaskWrapperClick = () =>
@@ -107,19 +98,17 @@ export const MissionsView: React.FC<IMissionsView> = ({
       <Wrapper
         ref={taskWrapperRef}
         onClick={handleTaskWrapperClick}
-        isInTowerInfo={isInTowerInfo}
+        isInTowerInfo={false}
       >
         <TaskInfo>
           <Icon type={taskData.task.content.taskType.slug} />
-          <Title isInTowerInfo={isInTowerInfo}>
-            {taskData.task.content.name}
-          </Title>
+          <Title isInTowerInfo={false}>{taskData.task.content.name}</Title>
           <RowWrapper>
             <ColumnWrapper {...taskRowStyledConfig.columnWrapper}>
               <TaskLoot
                 money={taskData.task.reward}
                 energy={taskData.task.energy}
-                isInTowerInfo={isInTowerInfo}
+                isInTowerInfo={false}
               />
               {
                 <TaskTimer
@@ -163,7 +152,6 @@ export const MissionsView: React.FC<IMissionsView> = ({
 
 interface IMissionsView {
   taskData: ITask;
-  isInTowerInfo: boolean;
 }
 
 interface IMissionProgressBar {

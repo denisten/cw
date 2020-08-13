@@ -90,20 +90,7 @@ const firstTask: ITask = {
 export const UnauthorizedTaskZone = () => {
   return (
     <UnauthorizedTaskZoneWrapper>
-      <MenuTaskRow
-        taskData={firstTask}
-        isInTowerInfo={false}
-        // towerTitle={undefined}
-        // expireInSeconds={null}
-        // id={1}
-        // isAllowedToChange={false}
-        // type={TasksType.TUTORIAL_TASK}
-        // taskTitle="Войти в мир клиента"
-        // status={TaskStatuses.CREATED}
-        // money={400}
-        // energy={0}
-        // description=""
-      />
+      <MenuTaskRow taskData={firstTask} isInTowerInfo={false} />
       <Title>
         Новые задания будут доступны после
         <LinkTitle onClick={handleAuthButtonClick}> авторизации</LinkTitle>.

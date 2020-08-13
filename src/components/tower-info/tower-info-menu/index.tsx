@@ -83,7 +83,6 @@ export const TowerInfoMenu: React.FC<ITowerInfoMenu> = ({
     handleMouseOver,
     handleMouseOut,
   } = useMoveTo(FIRST_ELEM_WIDTH, refsCollection, selectTowerInfoContent);
-  // filteredMissionsArray(missions, towerTitle);
   const missions = useStore(TasksStore);
   return (
     <TowerInfoMenuWrapper>
