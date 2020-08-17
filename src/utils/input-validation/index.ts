@@ -1,9 +1,4 @@
-import { symbolRegExp } from '../../constants';
-import {
-  minSymbolsAlert,
-  maxSymbolsAlert,
-  haveSymbolsAlert,
-} from '../../UI/pop-up';
+import { minSymbolsAlert, maxSymbolsAlert } from '../../UI/pop-up';
 
 export const inputValidation = (
   value: string,
@@ -16,9 +11,6 @@ export const inputValidation = (
     callBack(true);
   } else if (value.length > errorParams.maxSymbol) {
     inputHint = maxSymbolsAlert + errorParams.maxSymbol;
-    callBack(true);
-  } else if (value.search(symbolRegExp) > -1) {
-    inputHint = haveSymbolsAlert;
     callBack(true);
   } else {
     callBack(false);

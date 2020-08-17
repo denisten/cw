@@ -36,7 +36,3 @@ export enum ResponseStatuses {
   SUCCESS = 'success',
   FAILURE = 'failure',
 }
-
-export const symbolRegExp = new RegExp(
-  /[-!$%^&*()_+|~=`{}\[\]:";'<>?,@#.\/\\]/g
-);

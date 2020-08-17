@@ -79,7 +79,6 @@ let worldInputHint = '';
 export const minSymbolsAlert = 'Минимальное число символов ';
 export const maxSymbolsAlert = 'Максимальное число символов ';
 export const spaceSymbolsAlert = 'Имена с пробелом недоступны ';
-export const haveSymbolsAlert = 'Символы недоступны';
 
 export enum TypesOfPopUps {
   EDIT_WORLD_NAME = 'editWorldName',
