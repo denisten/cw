@@ -90,7 +90,7 @@ export enum TypesOfPopUps {
 const tutorialDesiredState = (tutorialCondition: TutorialConditions) => {
   return tutorialCondition === TutorialConditions.PULSE_SAVE_CHANGE_CITY_NAME;
 };
-const inputLengthErrorParams = { minSymbol: 3 };
+const inputErrorParams = { minSymbol: 3, noSymbols: true };
 export const PopUp: React.FC<IPopUp> = ({
   callback,
   displayFlag,
@@ -115,7 +115,7 @@ export const PopUp: React.FC<IPopUp> = ({
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     worldInputHint = inputValidation(value, worldInputHint, setInputHasError, {
-      ...inputLengthErrorParams,
+      ...inputErrorParams,
       maxSymbol: maxInputValueLength,
     });
     setValue(e.target.value);

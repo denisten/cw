@@ -9,7 +9,7 @@ export const inputValidation = (
   value: string,
   inputHint: string,
   callBack: (arg: boolean) => void,
-  errorParams = { maxSymbol: 12, minSymbol: 3 }
+  errorParams = { maxSymbol: 12, minSymbol: 3, noSymbols: false }
 ) => {
   if (value.length < errorParams.minSymbol) {
     inputHint = minSymbolsAlert + errorParams.minSymbol;
@@ -17,7 +17,7 @@ export const inputValidation = (
   } else if (value.length > errorParams.maxSymbol) {
     inputHint = maxSymbolsAlert + errorParams.maxSymbol;
     callBack(true);
-  } else if (value.search(symbolRegExp) > -1) {
+  } else if (errorParams.noSymbols && value.search(symbolRegExp) > -1) {
     inputHint = haveSymbolsAlert;
     callBack(true);
   } else {
