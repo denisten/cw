@@ -139,7 +139,11 @@ let nameInputHint = '';
 const checkUserName = (nameLength: number) =>
   nameLength >= minNameLength && nameLength <= maxUserNameLength;
 
-const inputLengthErrorParams = { maxSymbol: 14, minSymbol: 3 };
+const inputLengthErrorParams = {
+  maxSymbol: 14,
+  minSymbol: 3,
+  noSymbols: false,
+};
 
 const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
   openPopUpState,
