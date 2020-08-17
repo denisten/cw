@@ -16,7 +16,7 @@ import userAvatarIcon from '../../components/menu/menu-profile/authorized/user-a
 import { extraTowerInfoModalClosed } from '../../effector/tower-info-modal-store/events';
 import { menuOpened } from '../../effector/menu-store/events';
 import { IUserAvatar } from '../../components/menu/menu-profile/authorized';
-import headerBg from './header-bg.svg';
+import backgroundImg from './background.svg';
 
 const CoinsWrapper = styled.div`
   display: flex;
@@ -24,6 +24,7 @@ const CoinsWrapper = styled.div`
   align-items: center;
   position: relative;
 `;
+
 export const UserAvatar = styled.label<IUserAvatar>`
   width: 65px;
   height: 65px;
@@ -72,7 +73,7 @@ const ProfileButtonWrapper = styled.div<IProfileButtonWrapper>`
   font-style: normal;
   font-family: ${MTSSans.BOLD};
   cursor: pointer;
-  background: url(${headerBg}) no-repeat center;
+  background: url(${backgroundImg}) no-repeat center;
   background-size: 100% 100%;
   width: auto;
   height: 85px;
@@ -82,10 +83,10 @@ const ProfileButtonWrapper = styled.div<IProfileButtonWrapper>`
   box-sizing: border-box;
 `;
 
-const CoinImg = styled.img<{ isCoinRelocateAnimationEnded: boolean }>`
+const CoinImg = styled.img.attrs({ src: coins, alt: 'coin' })<ICoinImg>`
   width: 24px;
   height: 24px;
-  margin-right: 12px;
+  margin-right: 7px;
   transition: 0.3s;
   transform: ${props =>
     props.isCoinRelocateAnimationEnded ? 'scale(1.2)' : ''};
@@ -118,54 +119,50 @@ const NameBlock = styled.div`
   flex-direction: column;
 `;
 
-const styledConfig = {
-  userAvatar: {} as React.CSSProperties,
-  header: {},
+const handleClick = (tutorialCondition: TutorialConditions) => {
+  if (!tutorialCondition) {
+    menuOpened(MenuItems.PROFILE);
+    extraTowerInfoModalClosed();
+  } else if (
+    tutorialCondition === TutorialConditions.PULSE_MENU_CHANGE_CITY_NAME
+  ) {
+    menuOpened(MenuItems.PROFILE);
+    extraTowerInfoModalClosed();
+    nextTutorStep();
+  } else if (tutorialCondition === TutorialConditions.PULSE_MENU_AUTH) {
+    menuOpened(MenuItems.PROFILE);
+    extraTowerInfoModalClosed();
+    nextTutorStep();
+  }
 };
 
 export const ProfileButton: React.FC<IProfileButton> = ({
   tutorialCondition,
   isCoinRelocateAnimationEnded,
 }) => {
-  const handleClick = () => {
-    if (!tutorialCondition) {
-      menuOpened(MenuItems.PROFILE);
-      extraTowerInfoModalClosed();
-      return;
-    } else if (
-      tutorialCondition === TutorialConditions.PULSE_MENU_CHANGE_CITY_NAME
-    ) {
-      menuOpened(MenuItems.PROFILE);
-      extraTowerInfoModalClosed();
-      nextTutorStep();
-    } else if (tutorialCondition === TutorialConditions.PULSE_MENU_AUTH) {
-      menuOpened(MenuItems.PROFILE);
-      extraTowerInfoModalClosed();
-      nextTutorStep();
-    }
-  };
   const { money, name } = useStore(UserDataStore);
+
+  const zIndex =
+    tutorialCondition === TutorialConditions.PULSE_MENU_CHANGE_CITY_NAME ||
+    tutorialCondition === TutorialConditions.PULSE_MENU_AUTH
+      ? zIndexForInheritOverlay + 1
+      : ZIndexes.UI_BUTTON;
+
+  const animFlag =
+    tutorialCondition === TutorialConditions.PULSE_MENU_CHANGE_CITY_NAME ||
+    tutorialCondition === TutorialConditions.PULSE_MENU_AUTH;
+
   return (
     <ProfileButtonWrapper
-      zIndex={
-        tutorialCondition === TutorialConditions.PULSE_MENU_CHANGE_CITY_NAME ||
-        tutorialCondition === TutorialConditions.PULSE_MENU_AUTH
-          ? zIndexForInheritOverlay + 1
-          : ZIndexes.UI_BUTTON
-      }
-      onClick={handleClick}
-      animFlag={
-        tutorialCondition === TutorialConditions.PULSE_MENU_CHANGE_CITY_NAME ||
-        tutorialCondition === TutorialConditions.PULSE_MENU_AUTH
-      }
+      zIndex={zIndex}
+      onClick={() => handleClick(tutorialCondition)}
+      animFlag={animFlag}
     >
-      <UserAvatar style={styledConfig.userAvatar} />
+      <UserAvatar />
       <NameBlock>
         <NickNameWrapper>{name}</NickNameWrapper>
         <CoinsWrapper>
           <CoinImg
-            src={coins}
-            alt="coins"
             isCoinRelocateAnimationEnded={isCoinRelocateAnimationEnded}
           />
           <MoneyCircle displayFlag={isCoinRelocateAnimationEnded} />
@@ -186,4 +183,8 @@ interface IProfileButtonWrapper {
   animFlag?: boolean;
   scaleSize?: number;
   zIndex?: number;
+}
+
+interface ICoinImg {
+  isCoinRelocateAnimationEnded: boolean;
 }
