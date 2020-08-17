@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-// import toolbarBackground from './background.png';
-import toolbarBackground from './background2.svg';
+import toolbarBackground from './background.svg';
 import { ZIndexes } from '../../components/root-component/z-indexes-enum';
 import { ToolbarElement, ToolbarElements } from '../toolbar-element';
 import { MenuItems } from '../menu-paragraph';
