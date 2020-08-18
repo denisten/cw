@@ -1,15 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 import { TasksType } from '..';
-import challenge from './chellenge.png';
-import challengeNotAuth from './chellenge-not-auth.png';
-import mission from './mission.png';
-import task from './task.png';
-import challengeActive from './chellenge-active.png';
-import missionActive from './mission-active.png';
+import task from './task.svg';
+import missionActive from './mission-active.svg';
 import missionNotAuth from './mission-not-auth.png';
-import taskActive from './task-active.png';
+import taskActive from './task-active.svg';
+import missionImg from './mission.svg';
 import { MTSSans } from '../../../../fonts';
+
+const leftPosition = {
+  active: 16,
+  notSelected: 21,
+};
 
 const Header = styled.div`
   width: 100%;
@@ -18,20 +20,11 @@ const Header = styled.div`
   overflow: hidden;
   flex-shrink: 0;
 `;
-const selectBackground = (
-  active: boolean,
-  disable: boolean,
-  type: TasksType.MISSION | TasksType.CHALLENGE
-) => {
-  if (type === TasksType.CHALLENGE) {
-    if (active && !disable) return challengeActive;
-    else if (disable) return challengeNotAuth;
-    else if (!active && !disable) return challenge;
-  } else {
-    if (active && !disable) return missionActive;
-    else if (disable) return missionNotAuth;
-    else if (!active && !disable) return mission;
-  }
+
+const selectBackground = (active: boolean, disable: boolean) => {
+  if (active && !disable) return missionActive;
+  else if (disable) return missionNotAuth;
+  else if (!active && !disable) return missionImg;
 };
 
 const HeaderItem = styled.div<IHeaderItem>`
@@ -60,21 +53,11 @@ const HeaderItem = styled.div<IHeaderItem>`
     z-index: 2;
   }
   &:nth-child(2) {
-    background: url(${props =>
-        selectBackground(props.active, props.disable, TasksType.CHALLENGE)})
+    background: url(${props => selectBackground(props.active, props.disable)})
       no-repeat center;
     background-size: 100% 100%;
-    left: -14px;
+    left: -${props => (props.active ? leftPosition.active : leftPosition.notSelected)}px;
     z-index: 1;
-    color: ${props => (props.disable ? '#768C8F ' : '#01acc8')};
-  }
-
-  &:nth-child(3) {
-    background: url(${props =>
-        selectBackground(props.active, props.disable, TasksType.MISSION)})
-      no-repeat center;
-    background-size: 100% 100%;
-    left: -28px;
     color: ${props => (props.disable ? '#768C8F ' : '#01acc8')};
   }
 `;
@@ -84,22 +67,20 @@ export const TasksHeader: React.FC<ITaskHeader> = ({
   taskTypes,
   callBack,
   isAuthorized,
-}) => {
-  return (
-    <Header>
-      {taskTypes.map(taskElem => (
-        <HeaderItem
-          active={taskElem.id === activeType}
-          key={taskElem.id}
-          onClick={() => callBack(taskElem.id)}
-          disable={!isAuthorized && taskElem.id !== TasksType.TASKS}
-        >
-          <span>{taskElem.label}</span>
-        </HeaderItem>
-      ))}
-    </Header>
-  );
-};
+}) => (
+  <Header>
+    {taskTypes.map(taskElem => (
+      <HeaderItem
+        active={taskElem.id === activeType}
+        key={taskElem.id}
+        onClick={() => callBack(taskElem.id)}
+        disable={!isAuthorized && taskElem.id !== TasksType.TASKS}
+      >
+        <span>{taskElem.label}</span>
+      </HeaderItem>
+    ))}
+  </Header>
+);
 
 interface ITaskHeader {
   activeType: string;
