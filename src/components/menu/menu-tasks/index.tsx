@@ -28,7 +28,7 @@ export enum TasksType {
 
 const taskTypes = [
   { id: TasksType.TASKS, label: 'Задачи' },
-  { id: TasksType.CHALLENGE, label: 'Челленджи' },
+  // { id: TasksType.CHALLENGE, label: 'Челленджи' },
   { id: TasksType.MISSION, label: 'Миссии' },
 ];
 
