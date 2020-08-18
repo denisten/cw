@@ -155,10 +155,6 @@ const StyledConfig = {
     infinity: true,
     style: {
       zIndex: ZIndexes.UPGRADE_TOWER_ANIMATION_CANVAS,
-      position: 'relative',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
     } as React.CSSProperties,
   },
 };
