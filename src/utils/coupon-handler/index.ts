@@ -5,6 +5,8 @@ import { clearChat } from '../../effector/chat/events';
 import { coughtError } from '../../effector/error-boundary-store/events';
 import { TowersTypes } from '../../effector/towers-progress/store';
 import { ITabSwitchers } from '../../components/tower-info';
+import { hideMarker } from '../../effector/towers-marker/events';
+import { TypeOfMarkers } from '../../components/markers';
 
 export const couponHandler = async (
   taskId: number,
@@ -12,9 +14,12 @@ export const couponHandler = async (
   towerTitle?: TowersTypes,
   switchers?: ITabSwitchers
 ) => {
-  const response = await activateCoupon(selectedCoupon, taskId); // TODO попросить бэк возвращать измененный count купонов
+  const response = await activateCoupon(selectedCoupon, taskId);
   if (response.state === ResponseStatuses.SUCCESS) {
-    towerTitle && clearChat({ towerTitle });
+    if (towerTitle) {
+      clearChat({ towerTitle });
+      hideMarker({ towerTitle, type: TypeOfMarkers.ACTIVE_TASK });
+    }
     switchers && switchers.openTasksTab();
   } else {
     coughtError({
