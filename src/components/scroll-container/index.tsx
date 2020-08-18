@@ -23,6 +23,8 @@ import { useDetectBrowser } from '../../hooks/use-detect-browser';
 import { Browsers, BrowserStore } from '../../effector/browser/store';
 import { CentralBanner } from '../decorations/central-banner';
 import { Planes } from '../planes';
+import { MTSSans } from '../../fonts';
+import { ZIndexes } from '../root-component/z-indexes-enum';
 const Cars = lazy(() => import('../decorations/cars/carsArray'));
 const Waves = lazy(() => import('../decorations/waves'));
 const Decorations = lazy(() => import('../decorations'));
@@ -65,6 +67,23 @@ const PointForCenterScroll = styled.div`
   height: 10px;
 `;
 
+const Label = styled.div`
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  z-index: ${ZIndexes.UI_BUTTON};
+  :after {
+    content: 'Мир клиента. beta v.0.1.';
+    font-family: ${MTSSans.REGULAR};
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 32px;
+    color: #ffffff;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  }
+`;
+
 const isFirefox = (name: string | undefined) => name === Browsers.FIREFOX;
 
 const scrollToCurrentTowerOptions = {
@@ -81,12 +100,14 @@ export const ScrollContainer: React.FC<IScrollContainer> = ({
   const mapWrapperRef = useRef<HTMLDivElement>(null);
   const scaleValue = useRef(ScaleValues.MIN_SCALE);
   const centerScrollPoint = useRef(null);
+
   const { ref } = BuildingsService.getConfigForTower(TowersTypes.MY_MTS);
   const { isAuthorized, animationOff, DOMLoaded, fullSizeMode } = useStore(
     AppConditionStore
   );
   const airportLevel = useStore(TowersProgressStore).roaming.level.level;
   const { browserName } = useStore(BrowserStore);
+
   const tutorialIsEnabled = DOMLoaded && tutorialCondition !== 0;
 
   const runScrollAnimation = () => {
@@ -139,6 +160,7 @@ export const ScrollContainer: React.FC<IScrollContainer> = ({
         fullSizeMode={fullSizeMode}
         callBack={fullSizeMode ? disableFixSizeMod : enableFixSizeMod}
       />
+      <Label />
       <MapWrapper ref={mapWrapperRef} zIndex={zIndex}>
         <Map />
         <Buildings />

@@ -12,13 +12,13 @@ export const ToolbarElementAlertCountWrapper = styled.div<IToolbarElementAlert>`
   border-radius: 100%;
   color: #fff;
   font-family: ${MTSSans.BOLD};
-font-style: normal;
-font-weight: bold;
-font-size: 9px;
-line-height: 32px;
-display: flex;
-align-items: center;
-justify-content: center;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 9px;
+  line-height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   :after {
     content: "${props => props.count}";
   }
