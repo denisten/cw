@@ -28,9 +28,9 @@ export const useAudio = (url: string) => {
   }, [sound]);
 
   useEffect(() => {
-    audio.addEventListener('ended', () => stop());
+    audio.addEventListener('ended', () => audio.play());
     return () => {
-      audio.removeEventListener('ended', () => stop());
+      audio.removeEventListener('ended', () => audio.play());
     };
   }, []);
 
