@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense, useEffect } from 'react';
 import styled from 'styled-components';
 import { useStore } from 'effector-react';
 import { AppConditionStore } from '../../effector/app-condition/store';
@@ -13,6 +13,9 @@ import { zIndexForInheritOverlay } from '../../constants';
 import { IDisplayFlag } from '../skip-tutorial';
 import { InitTutorialSlider } from '../tutorial-slider/init-slider';
 import { Menu } from '../menu';
+import music from '../../sound/test.mp3';
+import { useAudio } from '../../hooks/use-sound';
+
 const UIButtonInterface = lazy(() => import('../UI-buttons-interface'));
 const MoveCoinCollection = lazy(() => import('../move-coin-collection'));
 const TowerInfo = lazy(() => import('../tower-info'));
@@ -24,7 +27,9 @@ const Shop = lazy(() => import('../shop'));
 
 // import { SkipTutorial } from '../skip-tutorial';
 
-const RootComponentWrapper = styled.div<IDisplayFlag>`
+const RootComponentWrapper = styled.div.attrs({ id: 'rootScroll' })<
+  IDisplayFlag
+>`
   background-image: url(${mapTile});
   background-repeat: repeat;
   background-size: auto;
@@ -60,12 +65,20 @@ export const RootComponent = () => {
   const tutorialIsEnabled = DOMLoaded && tutorialCondition !== 0;
   const displayFlag = checkTutorialCondition(tutorialCondition);
   const zIndex = defineScrollContainerZIndex(tutorialCondition);
-
+  const { start } = useAudio(music);
+  useEffect(() => {
+    // start();
+    // console.log('started');
+  }, []);
   return (
-    <RootComponentWrapper id="rootScroll" displayFlag={DOMLoaded}>
+    <RootComponentWrapper displayFlag={DOMLoaded} onClick={start}>
       <Suspense fallback={<LoadingHideBlock />}>
         <UIButtonInterface />
         <Menu />
+        {/*<button style={{ zIndex: 100, position: 'absolute' }} onClick={toggle}>*/}
+        {/*  play*/}
+        {/*</button>*/}
+
         {tutorialSliderDisplayFlag && <InitTutorialSlider />}
         {DOMLoaded && (
           <>

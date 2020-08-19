@@ -9,7 +9,7 @@ import music from './music.svg';
 import musicActive from './music-active.svg';
 import language from './language.svg';
 import languageActive from './language-active.svg';
-import { musicAndSoundToggle } from '../../../effector/settings/events';
+import { toggleMusic, toggleSound } from '../../../effector/settings/events';
 
 const returnOptionBackground = (active: boolean, type: SettingsType) => {
   switch (type) {
@@ -21,7 +21,6 @@ const returnOptionBackground = (active: boolean, type: SettingsType) => {
       return active ? musicActive : music;
     case SettingsType.LANGUAGE:
       return active ? languageActive : language;
-
     default:
       break;
   }
@@ -66,9 +65,7 @@ export const SettingItems: React.FC<ISettingItems> = ({
                 key={ind}
                 active={soundState}
                 type={elem}
-                onClick={() =>
-                  musicAndSoundToggle({ settingType: elem, flag: !soundState })
-                }
+                onClick={() => toggleSound(!soundState)}
               />
             );
           case SettingsType.MUSIC:
@@ -77,9 +74,7 @@ export const SettingItems: React.FC<ISettingItems> = ({
                 key={ind}
                 active={musicState}
                 type={elem}
-                onClick={() =>
-                  musicAndSoundToggle({ settingType: elem, flag: !musicState })
-                }
+                onClick={() => toggleMusic(!musicState)}
               />
             );
           default:

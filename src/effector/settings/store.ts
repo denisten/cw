@@ -1,9 +1,5 @@
 import { SettingsDomain } from './domain';
-import {
-  musicAndSoundToggle,
-  setNotificationSetting,
-  languageToggle,
-} from './events';
+import { toggleSound, setNotificationSetting, languageToggle } from './events';
 
 export enum SettingsType {
   NOTIFICATION = 'notification',
@@ -35,9 +31,9 @@ const initState = {
 };
 
 export const SettingsStore = SettingsDomain.store<ISettingStore>(initState)
-  .on(musicAndSoundToggle, (state, { settingType, flag }) => ({
+  .on(toggleSound, (state, payload) => ({
     ...state,
-    [settingType]: flag,
+    [SettingsType.SOUND]: payload,
   }))
   .on(setNotificationSetting, (state, { notificationType, flag }) => ({
     ...state,
