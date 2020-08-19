@@ -45,11 +45,14 @@ export const tutorialSliderContent = [
       'В некоторых зданиях можно сыграть в специальные игры. Не упустите шанс!',
   },
 ];
-export const InitTutorialSlider = () => (
-  <TutorialSlider
-    imgArray={tutorialSlidesArray}
-    displayFlag={true}
-    callback={() => editTutorialSliderDisplayFlag(false)}
-    content={tutorialSliderContent}
-  />
-);
+export const InitTutorialSlider = () => {
+  const callback = () => editTutorialSliderDisplayFlag(false);
+  return (
+    <TutorialSlider
+      imgArray={tutorialSlidesArray}
+      displayFlag={true}
+      callback={callback}
+      content={tutorialSliderContent}
+    />
+  );
+};

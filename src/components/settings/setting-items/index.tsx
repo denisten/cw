@@ -1,5 +1,5 @@
 import React from 'react';
-import { SettingsType } from '../../../effector/settings/store';
+import { SettingsStore, SettingsType } from '../../../effector/settings/store';
 import styled from 'styled-components';
 import notification from './notification.svg';
 import notificationActive from './notification-active.svg';
@@ -10,6 +10,7 @@ import musicActive from './music-active.svg';
 import language from './language.svg';
 import languageActive from './language-active.svg';
 import { musicAndSoundToggle } from '../../../effector/settings/events';
+import { useStore } from 'effector-react';
 
 const returnOptionBackground = (active: boolean, type: SettingsType) => {
   switch (type) {
@@ -21,7 +22,6 @@ const returnOptionBackground = (active: boolean, type: SettingsType) => {
       return active ? musicActive : music;
     case SettingsType.LANGUAGE:
       return active ? languageActive : language;
-
     default:
       break;
   }
@@ -43,9 +43,8 @@ const Option = styled.div<IOption>`
 export const SettingItems: React.FC<ISettingItems> = ({
   callback,
   selectOptionPopUpType,
-  soundState,
-  musicState,
 }) => {
+  const { music, sound } = useStore(SettingsStore);
   return (
     <>
       {Object.values(SettingsType).map((elem, ind) => {
@@ -64,10 +63,13 @@ export const SettingItems: React.FC<ISettingItems> = ({
             return (
               <Option
                 key={ind}
-                active={soundState}
+                active={sound}
                 type={elem}
                 onClick={() =>
-                  musicAndSoundToggle({ settingType: elem, flag: !soundState })
+                  musicAndSoundToggle({
+                    settingType: SettingsType.SOUND,
+                    flag: !sound,
+                  })
                 }
               />
             );
@@ -75,10 +77,13 @@ export const SettingItems: React.FC<ISettingItems> = ({
             return (
               <Option
                 key={ind}
-                active={musicState}
+                active={music}
                 type={elem}
                 onClick={() =>
-                  musicAndSoundToggle({ settingType: elem, flag: !musicState })
+                  musicAndSoundToggle({
+                    settingType: SettingsType.MUSIC,
+                    flag: !music,
+                  })
                 }
               />
             );
@@ -93,8 +98,6 @@ export const SettingItems: React.FC<ISettingItems> = ({
 interface ISettingItems {
   callback: (elem: SettingsType) => void;
   selectOptionPopUpType: SettingsType | '';
-  soundState: boolean;
-  musicState: boolean;
 }
 
 interface IOption {

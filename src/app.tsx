@@ -40,7 +40,6 @@ export const App: React.FC = () => {
   };
 
   useCheckUserAuthStatus();
-
   useEffect(() => {
     window.addEventListener('wheel', wheelPreventDefault, { passive: false });
     window.addEventListener('keydown', keyDownPreventDefault, {

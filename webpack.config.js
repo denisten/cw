@@ -62,6 +62,11 @@ module.exports = {
           },
         ],
       },
+      {
+        test: /\.mp3$/,
+        include: path.resolve(__dirname, 'src'),
+        loader: 'file-loader',
+      },
     ],
   },
 

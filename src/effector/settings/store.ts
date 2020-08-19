@@ -1,8 +1,8 @@
 import { SettingsDomain } from './domain';
 import {
-  musicAndSoundToggle,
   setNotificationSetting,
   languageToggle,
+  musicAndSoundToggle,
 } from './events';
 
 export enum SettingsType {
