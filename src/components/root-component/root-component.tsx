@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useStore } from 'effector-react';
 import { AppConditionStore } from '../../effector/app-condition/store';
@@ -13,18 +13,15 @@ import { zIndexForInheritOverlay } from '../../constants';
 import { IDisplayFlag } from '../skip-tutorial';
 import { InitTutorialSlider } from '../tutorial-slider/init-slider';
 import { Menu } from '../menu';
-import music from '../../sound/test.mp3';
 import { useAudio } from '../../hooks/use-sound';
-
-const UIButtonInterface = lazy(() => import('../UI-buttons-interface'));
-const MoveCoinCollection = lazy(() => import('../move-coin-collection'));
-const TowerInfo = lazy(() => import('../tower-info'));
-const TutorialToolsSelector = lazy(() =>
-  import('../../utils/arrows-container')
-);
-const Encyclopedia = lazy(() => import('../encyclopedia'));
-const Shop = lazy(() => import('../shop'));
-
+import UIButtonInterface from '../UI-buttons-interface';
+import MoveCoinCollection from '../move-coin-collection';
+import TowerInfo from '../tower-info';
+import Encyclopedia from '../encyclopedia';
+import Shop from '../shop';
+import TutorialToolsSelector from '../../utils/arrows-container';
+import { SettingsStore } from '../../effector/settings/store';
+import backgroundMusic from '../../sound/test.mp3';
 // import { SkipTutorial } from '../skip-tutorial';
 
 const RootComponentWrapper = styled.div.attrs({ id: 'rootScroll' })<
@@ -38,15 +35,6 @@ const RootComponentWrapper = styled.div.attrs({ id: 'rootScroll' })<
   overflow: hidden;
   position: relative;
   visibility: ${props => (props.displayFlag ? 'visible' : 'hidden')};
-`;
-
-const LoadingHideBlock = styled.div`
-  width: 0;
-  height: 0;
-  position: absolute;
-  left: 0;
-  top: 0;
-  display: none;
 `;
 
 const checkTutorialCondition = (tutorialCondition: TutorialConditions) =>
@@ -65,36 +53,31 @@ export const RootComponent = () => {
   const tutorialIsEnabled = DOMLoaded && tutorialCondition !== 0;
   const displayFlag = checkTutorialCondition(tutorialCondition);
   const zIndex = defineScrollContainerZIndex(tutorialCondition);
-  const { start } = useAudio(music);
-  useEffect(() => {
-    // start();
-    // console.log('started');
-  }, []);
-  return (
-    <RootComponentWrapper displayFlag={DOMLoaded} onClick={start}>
-      <Suspense fallback={<LoadingHideBlock />}>
-        <UIButtonInterface />
-        <Menu />
-        {/*<button style={{ zIndex: 100, position: 'absolute' }} onClick={toggle}>*/}
-        {/*  play*/}
-        {/*</button>*/}
+  const { start, stop } = useAudio(backgroundMusic);
+  const { music } = useStore(SettingsStore);
 
-        {tutorialSliderDisplayFlag && <InitTutorialSlider />}
-        {DOMLoaded && (
-          <>
-            <MoveCoinCollection />
-            <TowerInfo />
-            <Encyclopedia />
-            <Shop />
-          </>
-        )}
-        {tutorialIsEnabled && (
-          <TutorialToolsSelector
-            tutorialCondition={tutorialCondition}
-            isInsideScrollContainer={false}
-          />
-        )}
-      </Suspense>
+  useEffect(() => {
+    music ? start() : stop();
+  }, [music]);
+  return (
+    <RootComponentWrapper displayFlag={DOMLoaded}>
+      <UIButtonInterface />
+      <Menu />
+      {tutorialSliderDisplayFlag && <InitTutorialSlider />}
+      {DOMLoaded && (
+        <>
+          <MoveCoinCollection />
+          <TowerInfo />
+          <Encyclopedia />
+          <Shop />
+        </>
+      )}
+      {tutorialIsEnabled && (
+        <TutorialToolsSelector
+          tutorialCondition={tutorialCondition}
+          isInsideScrollContainer={false}
+        />
+      )}
 
       {/* <SkipTutorial
         displayFlag={showSkipTutorialUI}

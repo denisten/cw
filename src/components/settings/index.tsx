@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useStore } from 'effector-react';
-import { SettingsStore, SettingsType } from '../../effector/settings/store';
+import { SettingsType } from '../../effector/settings/store';
 import { SettingItems } from './setting-items';
 import { SettingsPopUp } from './settings-popup';
 
@@ -50,7 +49,6 @@ const SettingFooter = styled.div`
 `;
 
 export const Settings: React.FC = () => {
-  const { sound, music } = useStore(SettingsStore);
   const [selectOptionPopUpType, setSelectOptionPopUpType] = useState<
     SettingsType | ''
   >('');
@@ -72,8 +70,6 @@ export const Settings: React.FC = () => {
         <SettingItems
           callback={selectPopUpItem}
           selectOptionPopUpType={selectOptionPopUpType}
-          soundState={sound}
-          musicState={music}
         />
       </SettingOptionsWrapper>
       <SettingFooter>
