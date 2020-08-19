@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { maxPercent } from '../../constants';
 import { propEq, ifElse } from 'ramda';
 
-const maxDelayBeforePreloaderOff = 5000;
+const maxDelayBeforePreloaderOff = 10000;
 export const useCalculateLoadingProgress = (
   isAuthorized: boolean,
   resolvedRequestsQuantity: number,
