@@ -1,8 +1,7 @@
 import { SettingsDomain } from './domain';
 import { SettingsType, NotificationType, LanguageType } from './store';
 
-export const toggleSound = SettingsDomain.event<boolean>();
-export const toggleMusic = SettingsDomain.event<boolean>();
+export const musicAndSoundToggle = SettingsDomain.event<IMusicAndSoundToggle>();
 export const setNotificationSetting = SettingsDomain.event<
   ISetNotificationSetting
 >();
