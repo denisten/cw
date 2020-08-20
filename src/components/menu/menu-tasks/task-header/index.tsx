@@ -9,7 +9,7 @@ import missionImg from './mission.svg';
 import { MTSSans } from '../../../../fonts';
 
 const leftPosition = {
-  active: 16,
+  active: 15,
   notSelected: 21,
 };
 
@@ -57,6 +57,7 @@ const HeaderItem = styled.div<IHeaderItem>`
       no-repeat center;
     background-size: 100% 100%;
     left: -${props => (props.active ? leftPosition.active : leftPosition.notSelected)}px;
+    bottom: 1px;
     z-index: 1;
     color: ${props => (props.disable ? '#768C8F ' : '#01acc8')};
   }
