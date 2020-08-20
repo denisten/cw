@@ -4,8 +4,9 @@ import line from './line.png';
 import whiteLine from './whiteline.png';
 import back from './back.png';
 import circle from './circle.png';
-import styled, { keyframes, Keyframes } from 'styled-components';
+import styled, { Keyframes } from 'styled-components';
 import { ZIndexes } from '../../components/root-component/z-indexes-enum';
+import { line1Anim, line2Anim, line3Anim, circleAnimation } from './keyframes';
 
 const Body = styled.div<ITowerUpgradeAnimation>`
   width: 85%;
@@ -26,74 +27,6 @@ const Line = styled.img.attrs({ alt: 'line' })<IAnimationProps>`
   height: 83%;
   position: relative;
   animation: ${props => props.animation} infinite linear;
-`;
-
-const line1Anim = keyframes`
-0% {
-  transform: translateY(0%);
-  opacity: 0;
-}
-50% {
-  transform: translateY(-10%);
-  opacity: 1;
-}
-
-75% {
-  transform: translateY(-30%);
-  opacity: 0.9
-}
-
-100% {
-  transform: translateY(-40%);
-  opacity: 0
-}
-`;
-
-const line2Anim = keyframes`
-0% {
-  transform: translateY(0%);
-  opacity: 0;
-}
-50% {
-  transform: translateY(-30%);
-  opacity: 1;
-}
-
-75% {
-  transform: translateY(-60%);
-  opacity: 0.9
-}
-
-100% {
-  transform: translateY(-50%);
-  opacity: 0
-}
-`;
-
-const line3Anim = keyframes`
-0% {
-  transform: translateY(0%);
-  opacity: 0;
-}
-25% {
-  transform: translateY(10%);
-  opacity: 1;
-}
-
-50% {
-  transform: translateY(30%);
-  opacity: 1
-}
-
-75% {
-  transform: translateY(0%);
-  opacity: 0.9
-}
-
-100% {
-  transform: translateY(-10%);
-  opacity: 0
-}
 `;
 
 const lineConfig: IConfig[] = [
@@ -159,31 +92,6 @@ const lineConfig: IConfig[] = [
     animation: line1Anim,
   },
 ];
-
-const circleAnimation = keyframes`
-0% {
-  opacity: 0;
-  transform: translateY(0%);
-}
-25% {
-  opacity: 1;
-  transform: translateY(-20%);
-}
-
-50% {
-  opacity: 1;
-  transform: translateY(-40%);
-}
-
-75% {
-  opacity: 0.75;
-  transform: translateY(-50%) ;
-}
-100% {
-  opacity: 0;
-  transform: translateY(-60%) ;
-}
-`;
 
 const Circle = styled.img.attrs({ alt: 'circle', src: circle })`
   width: 100%;
