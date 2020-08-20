@@ -22,7 +22,6 @@ import Shop from '../shop';
 import TutorialToolsSelector from '../../utils/arrows-container';
 import { SettingsStore } from '../../effector/settings/store';
 import backgroundMusic from '../../sound/test.mp3';
-import { TowerUpgradeAnimation } from '../../UI/tower-upgrade-animation';
 // import { SkipTutorial } from '../skip-tutorial';
 
 const RootComponentWrapper = styled.div.attrs({ id: 'rootScroll' })<
@@ -62,7 +61,6 @@ export const RootComponent = () => {
   }, [music]);
   return (
     <RootComponentWrapper displayFlag={DOMLoaded}>
-      <TowerUpgradeAnimation />
       <UIButtonInterface />
       <Menu />
       {tutorialSliderDisplayFlag && <InitTutorialSlider />}

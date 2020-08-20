@@ -213,25 +213,6 @@ import smartmedLevel3Stroke from './smartmed/3-stroke.png';
 import { ZIndexes } from '../components/root-component/z-indexes-enum';
 import { RefObject } from 'react';
 
-const animSize = {
-  small: {
-    x: 415,
-    y: 867,
-  },
-  medium: {
-    x: 505,
-    y: 1053,
-  },
-  big: {
-    x: 633,
-    y: 908,
-  },
-  large: {
-    x: 688,
-    y: 988,
-  },
-};
-
 class BuildingsService {
   _config: BuildingServiceConfigTypes = {
     // TODO заглушка
@@ -239,7 +220,6 @@ class BuildingsService {
       hide: true,
       title: 'SmartMed',
       wideTower: false,
-      animSize: animSize.small,
       zIndex: ZIndexes.BUILDING_THREE_LEVEL,
       maxLevel: TowerLevel.high,
       width: 313,
@@ -271,7 +251,6 @@ class BuildingsService {
         'https://moskva.mts.ru/personal/mobilnaya-svyaz/uslugi/mobilnie-prilozheniya/android/3287330',
       title: 'SmartMed',
       wideTower: false,
-      animSize: animSize.small,
       zIndex: ZIndexes.BUILDING_THREE_LEVEL,
       maxLevel: TowerLevel.high,
       width: 313,
@@ -300,7 +279,6 @@ class BuildingsService {
       title: 'SmartMed',
       signConfig: ['SmartMed'],
       wideTower: false,
-      animSize: animSize.small,
       zIndex: ZIndexes.BUILDING_THREE_LEVEL,
       maxLevel: TowerLevel.high,
       link:
@@ -331,7 +309,6 @@ class BuildingsService {
       title: 'Smart University',
       signConfig: ['Smart University'],
       wideTower: true,
-      animSize: animSize.large,
       zIndex: ZIndexes.BUILDING_THREE_LEVEL,
       maxLevel: TowerLevel.high,
       width: 659,
@@ -361,7 +338,6 @@ class BuildingsService {
       title: 'Сотовая связь',
       signConfig: ['Сотовая связь'],
       wideTower: false,
-      animSize: animSize.small,
       zIndex: ZIndexes.BUILDING_THREE_LEVEL,
       maxLevel: TowerLevel.high,
       tutorialTower: true,
@@ -394,7 +370,6 @@ class BuildingsService {
       link:
         'https://music.mts.ru/?utm_source=city.mts.ru&utm_medium=referral&utm_campaign=about',
       wideTower: false,
-      animSize: animSize.medium,
       signConfig: ['МТС', 'Music'],
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
@@ -424,7 +399,6 @@ class BuildingsService {
       title: 'МТС Live Arena',
       signConfig: ['МТС', 'Live Arena'],
       wideTower: true,
-      animSize: animSize.large,
       zIndex: ZIndexes.BUILDING_FOUR_LEVEL,
       maxLevel: TowerLevel.high,
       width: 658,
@@ -455,7 +429,6 @@ class BuildingsService {
       title: 'МТС Cashback',
       wideTower: true,
       signConfig: ['МТС', 'Cashback'],
-      animSize: animSize.large,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
       width: 675,
@@ -490,7 +463,6 @@ class BuildingsService {
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
       width: 370,
-      animSize: animSize.small,
       height: 458,
       areaCoords: '45,77,316,444',
       position: [30.6, 37],
@@ -518,7 +490,6 @@ class BuildingsService {
       title: 'МТС Библиотека',
       signConfig: ['МТС', 'Библиотека'],
       wideTower: false,
-      animSize: animSize.medium,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
       width: 451,
@@ -550,7 +521,6 @@ class BuildingsService {
       signConfig: ['Здание партнера 4'],
       mutedImg: mutedObservatoryTower,
       wideTower: false,
-      animSize: animSize.small,
       zIndex: ZIndexes.BUILDING_THREE_LEVEL,
       maxLevel: TowerLevel.high,
       width: 326,
@@ -581,7 +551,6 @@ class BuildingsService {
       wideTower: false,
       link:
         'https://moskva.mts.ru/personal/mobilnaya-svyaz/mobilniy-internet/podklyuchit/?utm_source=city.mts.ru&utm_medium=referral&utm_campaign=about',
-      animSize: animSize.small,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
       width: 288,
@@ -610,7 +579,6 @@ class BuildingsService {
       title: 'МТС Афиша',
       signConfig: ['МТС', 'Афиша'],
       wideTower: true,
-      animSize: animSize.big,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
       width: 521,
@@ -641,7 +609,6 @@ class BuildingsService {
       title: 'Цифровое ТВ',
       signConfig: ['Цифровое ТВ'],
       wideTower: false,
-      animSize: animSize.medium,
       zIndex: ZIndexes.BUILDING_THREE_LEVEL,
       maxLevel: TowerLevel.high,
       width: 428,
@@ -672,7 +639,6 @@ class BuildingsService {
       title: 'МТС Фитнес',
       signConfig: ['МТС', 'Фитнес'],
       wideTower: true,
-      animSize: animSize.big,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
       width: 593,
@@ -705,7 +671,6 @@ class BuildingsService {
       link:
         'https://moskva.mts.ru/personal/mobilnaya-svyaz/rouming-i-mezhgorod/poezdki-po-rossii/?utm_source=city.mts.ru&utm_medium=referral&utm_campaign=about',
       wideTower: true,
-      animSize: animSize.medium,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
       width: 381,
@@ -734,7 +699,6 @@ class BuildingsService {
       title: 'МТС Банк',
       signConfig: ['МТС', 'Банк'],
       wideTower: true,
-      animSize: animSize.medium,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
       width: 446,
@@ -765,7 +729,6 @@ class BuildingsService {
       title: 'WASD.tv',
       signConfig: ['WASD.tv'],
       wideTower: true,
-      animSize: animSize.big,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
       width: 479,
@@ -797,7 +760,6 @@ class BuildingsService {
       title: 'МТС Авто',
       signConfig: ['МТС', 'Авто'],
       wideTower: true,
-      animSize: animSize.large,
       zIndex: ZIndexes.BUILDING_FOUR_LEVEL,
       maxLevel: TowerLevel.high,
       link:
@@ -829,7 +791,6 @@ class BuildingsService {
       title: 'Спутниковое ТВ',
       signConfig: ['Спутниковое ТВ'],
       wideTower: false,
-      animSize: animSize.medium,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
       width: 393,
@@ -860,7 +821,6 @@ class BuildingsService {
       title: 'Здание партнера 1',
       signConfig: ['Здание партнера 1'],
       wideTower: false,
-      animSize: animSize.small,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
       width: 304,
@@ -891,7 +851,6 @@ class BuildingsService {
       title: 'Здание партнера 2',
       signConfig: ['Здание партнера 2'],
       wideTower: true,
-      animSize: animSize.medium,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
       width: 463,
@@ -922,7 +881,6 @@ class BuildingsService {
       playButtonLink: 'http://priz.mts.ru/?source=mymts&device=ios',
       signConfig: ['МТС', 'Игротека'],
       wideTower: false,
-      animSize: animSize.medium,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
       width: 433,
@@ -951,7 +909,6 @@ class BuildingsService {
       title: 'Домашний интернет',
       signConfig: ['Домашний интернет'],
       wideTower: false,
-      animSize: animSize.big,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
       link:
@@ -985,7 +942,6 @@ class BuildingsService {
       link:
         'https://shop.mts.ru/?utm_source=city.mts.ru&utm_medium=referral&utm_campaign=about',
       wideTower: false,
-      animSize: animSize.small,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
       width: 386,
@@ -1016,7 +972,6 @@ class BuildingsService {
       title: 'Партнерское здание 3',
       signConfig: ['Партнерское здание 3'],
       wideTower: false,
-      animSize: animSize.small,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
       width: 313,
@@ -1046,7 +1001,6 @@ class BuildingsService {
       title: 'Колонка Марвин',
       signConfig: ['Колонка Марвин'],
       wideTower: false,
-      animSize: animSize.small,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,
       width: 227,
@@ -1075,7 +1029,6 @@ class BuildingsService {
       title: 'Вторая память',
       signConfig: ['Вторая память'],
       wideTower: false,
-      animSize: animSize.small,
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
       width: 304,
@@ -1128,7 +1081,6 @@ type CurrentTowerServiceConfigTypes = {
   playButtonLink?: string;
   zIndex: number;
   wideTower: boolean;
-  animSize: IAnimSize;
   maxLevel: TowerLevel;
   hide?: boolean;
   tutorialTower?: boolean;
@@ -1142,11 +1094,6 @@ type CurrentTowerServiceConfigTypes = {
   [TowerLevel.mid]: TowerLevelType;
   [TowerLevel.high]: TowerLevelType;
 };
-
-export interface IAnimSize {
-  x: number;
-  y: number;
-}
 
 type TowerLevelType = {
   img: string;

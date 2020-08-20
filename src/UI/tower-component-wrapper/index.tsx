@@ -3,25 +3,23 @@ import styled from 'styled-components';
 import { LazyImage } from '@tsareff/lazy-image';
 import { TowerLevel, TowersTypes } from '../../effector/towers-progress/store';
 import { UpgradeButton } from '../update-button';
-import upgradeThinTowerImg from '../../img/tower-updrade/thin-tower.png';
-import upgradeWideTowerImg from '../../img/tower-updrade/wide-tower.png';
 import {
   TutorialConditions,
   TutorialStore,
 } from '../../effector/tutorial-store/store';
 import { nextTutorStep } from '../../effector/tutorial-store/events';
-import { Sprite } from '../../components/sprite';
 import { ZIndexes } from '../../components/root-component/z-indexes-enum';
 import { scrollToCurrentTower } from '../../utils/scroll-to-current-tower';
 import { Markers } from '../../components/markers';
 import { TowersMarkerStore } from '../../effector/towers-marker/store';
-import { BuildingsService, IAnimSize } from '../../buildings/config';
+import { BuildingsService } from '../../buildings/config';
 import { MTSSans } from '../../fonts';
 import { extraTowerInfoModalOpen } from '../../effector/tower-info-modal-store/events';
 import { useStore } from 'effector-react';
 import { TowerInfoModalStore } from '../../effector/tower-info-modal-store/store';
 import { AppConditionStore } from '../../effector/app-condition/store';
 import signBcg from './signBcg.svg';
+import { TowerUpgradeAnimation } from '../tower-upgrade-animation';
 
 enum strokeClassNames {
   STROKE = 'stroke',
@@ -115,17 +113,6 @@ const TowerStyledWrapper = styled.div<ITowerStyledWrapper>`
     display: block;
   }
 
-  &[data-towertype=${TowersTypes.PARTNER_ONE}] canvas {
-    top: 60% !important;
-  }
-
-  &[data-towertype=${TowersTypes.WASD_TV}] canvas {
-    top: 55% !important;
-  }
-  &[data-towertype=${TowersTypes.CASHBACK}] canvas {
-    width: 700px !important;
-    height: 660px !important;
-  }
 
   &:hover {
     z-index: ${ZIndexes.HOVERED_BUILDING} !important;
@@ -146,18 +133,6 @@ const TowerStyledWrapper = styled.div<ITowerStyledWrapper>`
   }
 
 `;
-
-const StyledConfig = {
-  sprite: {
-    ticksPerFrame: 2,
-    numberOfFramesX: 7,
-    numberOfFramesY: 6,
-    infinity: true,
-    style: {
-      zIndex: ZIndexes.UPGRADE_TOWER_ANIMATION_CANVAS,
-    } as React.CSSProperties,
-  },
-};
 
 const maxMouseMoveFaultAfterClick = 20;
 
@@ -184,7 +159,6 @@ export const TowerWrapper = memo(
     needUpgrade,
     tutorialTower,
     wideTower,
-    animSize,
     mutedImg,
     signConfig,
   }: ITowerWrapper): React.ReactElement => {
@@ -287,14 +261,7 @@ export const TowerWrapper = memo(
           }
         />
 
-        {upgradeFlag && (
-          <Sprite
-            canvasHeight={animSize.y}
-            canvasWidth={animSize.x}
-            img={wideTower ? upgradeWideTowerImg : upgradeThinTowerImg}
-            {...StyledConfig.sprite}
-          />
-        )}
+        {upgradeFlag && <TowerUpgradeAnimation wideTower={wideTower} />}
         <LazyImage
           src={mutedImg ? mutedImg : tower}
           alt="tower"
@@ -343,7 +310,6 @@ export const TowerWrapper = memo(
 
 interface ITowerWrapper {
   mutedImg?: string;
-  animSize: IAnimSize;
   position: number[];
   maxLevel: TowerLevel;
   wideTower: boolean;
