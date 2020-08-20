@@ -2,14 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 import { TasksType } from '..';
 import task from './task.svg';
-import missionActive from './mission-active.svg';
+// import missionActive from './mission-active.svg';
+import missionActive from './mission-active-2.svg';
 import missionNotAuth from './mission-not-auth.png';
 import taskActive from './task-active.svg';
 import missionImg from './mission.svg';
 import { MTSSans } from '../../../../fonts';
 
 const leftPosition = {
-  active: 16,
+  active: 15,
   notSelected: 21,
 };
 
@@ -57,6 +58,7 @@ const HeaderItem = styled.div<IHeaderItem>`
       no-repeat center;
     background-size: 100% 100%;
     left: -${props => (props.active ? leftPosition.active : leftPosition.notSelected)}px;
+    bottom: 1px;
     z-index: 1;
     color: ${props => (props.disable ? '#768C8F ' : '#01acc8')};
   }
