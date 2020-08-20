@@ -27,6 +27,8 @@ const selectBackground = (active: boolean, disable: boolean) => {
   else if (!active && !disable) return missionImg;
 };
 
+const notActiveHeaderZIndex = 5;
+
 const HeaderItem = styled.div<IHeaderItem>`
   height: 100%;
   flex: 1;
@@ -38,19 +40,18 @@ const HeaderItem = styled.div<IHeaderItem>`
   font-weight: normal;
   line-height: 1.4;
   color: #01acc8;
-  font-family: ${MTSSans.REGULAR};
+  font-family: ${props => (props.active ? MTSSans.MEDIUM : MTSSans.REGULAR)};
   cursor: ${props => (props.disable ? 'none' : 'pointer')};
   position: relative;
   z-index: ${props => (props.active ? '4 !important' : 'inherit')};
   border-top-right-radius: 4px;
   border-top-left-radius: 4px;
   pointer-events: ${props => (props.disable ? 'none' : 'auto')};
-
   &:nth-child(1) {
     background: url(${props => (props.active ? taskActive : task)}) no-repeat
       center;
     background-size: 100% 100%;
-    z-index: 2;
+    z-index: ${props => (props.active ? 1 : notActiveHeaderZIndex)};
   }
   &:nth-child(2) {
     background: url(${props => selectBackground(props.active, props.disable)})
@@ -58,7 +59,7 @@ const HeaderItem = styled.div<IHeaderItem>`
     background-size: 100% 100%;
     left: -${props => (props.active ? leftPosition.active : leftPosition.notSelected)}px;
     bottom: 1px;
-    z-index: 1;
+    z-index: ${props => (props.active ? 1 : notActiveHeaderZIndex)};
     color: ${props => (props.disable ? '#768C8F ' : '#01acc8')};
   }
 `;
