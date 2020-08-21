@@ -64,7 +64,7 @@ export const MenuHelp = () => {
         className={ButtonClassNames.NORMAL}
         content="МТС Справка"
         callback={() =>
-          window.open('https://moskva.mts.ru/personal/podderzhka', '_blank')
+          window.open('https://support.mts.ru/mts_mir_kliyenta', '_blank')
         }
       />
       <SpanElem>Все о мире, частые вопросы и т.п.</SpanElem>
