@@ -9,8 +9,8 @@ import missionImg from './mission.svg';
 import { MTSSans } from '../../../../fonts';
 
 const leftPosition = {
-  active: 15,
-  notSelected: 21,
+  active: -22,
+  notSelected: -15.6,
 };
 
 const Header = styled.div`
@@ -51,15 +51,16 @@ const HeaderItem = styled.div<IHeaderItem>`
     background: url(${props => (props.active ? taskActive : task)}) no-repeat
       center;
     background-size: 100% 100%;
-    z-index: ${props => (props.active ? 1 : notActiveHeaderZIndex)};
+    z-index: ${props => (!props.active ? 1 : notActiveHeaderZIndex)};
   }
   &:nth-child(2) {
     background: url(${props => selectBackground(props.active, props.disable)})
       no-repeat center;
     background-size: 100% 100%;
-    left: -${props => (props.active ? leftPosition.active : leftPosition.notSelected)}px;
+    left: ${props =>
+      props.active ? leftPosition.active : leftPosition.notSelected}px;
     bottom: 1px;
-    z-index: ${props => (props.active ? 1 : notActiveHeaderZIndex)};
+    z-index: ${props => (!props.active ? 1 : notActiveHeaderZIndex)};
     color: ${props => (props.disable ? '#768C8F ' : '#01acc8')};
   }
 `;
