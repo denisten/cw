@@ -916,7 +916,7 @@ class BuildingsService {
       width: 494,
       height: 500,
       areaCoords: '49,127,443,496',
-      position: [21, 13.4],
+      position: [19.1, 11.2],
       ref: null,
       [TowerLevel.initial]: {
         img: routerLevel0Img,

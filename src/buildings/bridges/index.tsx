@@ -39,7 +39,7 @@ const StyledConfig = {
   bridge4: {
     style: {
       position: 'absolute',
-      left: '63.1%',
+      left: '55.4%',
       top: '10.6%',
       zIndex: ZIndexes.DECORATION,
     } as React.CSSProperties,
