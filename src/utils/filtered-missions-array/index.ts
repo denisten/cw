@@ -3,6 +3,5 @@ import { TowersTypes } from '../../effector/towers-progress/store';
 
 export const filterTasksArray = (tasks: ITask[], towerTitle: TowersTypes) =>
   tasks.filter(el => {
-    if (el?.task?.content?.product?.slug)
-      return el.task.content.product.slug === towerTitle;
+    if (el?.productSlug) return el.productSlug === towerTitle;
   });

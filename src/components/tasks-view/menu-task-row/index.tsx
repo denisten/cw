@@ -57,8 +57,8 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
   isInTowerInfo,
   taskData,
 }) => {
-  const taskType = taskData.task.content.taskType.slug;
-  const towerTitle = taskData.task.content.product.slug;
+  const taskType = taskData.taskTypeSlug;
+  const towerTitle = taskData.productSlug;
 
   const isOpened = useRef(false);
   const taskWrapperRef = useRef<HTMLDivElement>(null);
@@ -111,14 +111,12 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
       >
         <TaskInfo>
           <Icon type={taskType} />
-          <Title isInTowerInfo={isInTowerInfo}>
-            {taskData.task.content.name}
-          </Title>
+          <Title isInTowerInfo={isInTowerInfo}>{taskData.title}</Title>
           <RowWrapper>
             <ColumnWrapper {...taskRowStyledConfig.columnWrapper}>
               <TaskLoot
-                money={taskData.task.reward}
-                energy={taskData.task.energy}
+                money={taskData.money}
+                energy={taskData.energy}
                 isInTowerInfo={isInTowerInfo}
               />
               {
@@ -152,7 +150,7 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
         </TaskInfo>
         <TaskDescriptionWrapper ref={taskDescriptionRef}>
           <Border />
-          <TaskDescription>{taskData.task.content.description}</TaskDescription>
+          <TaskDescription>{taskData.description}</TaskDescription>
         </TaskDescriptionWrapper>
       </TaskWrapper>
       <ModalWindow

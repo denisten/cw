@@ -12,8 +12,7 @@ export const checkChatSession = async (
 ) => {
   if (
     currentTaskIndex !== -1 &&
-    missions[currentTaskIndex].task.content.taskType.slug !==
-      TasksType.COSMETIC &&
+    missions[currentTaskIndex].taskTypeSlug !== TasksType.COSMETIC &&
     missions[currentTaskIndex].status !== TaskStatuses.DONE &&
     missions[currentTaskIndex].status !== TaskStatuses.CREATED &&
     missions[currentTaskIndex].status !== TaskStatuses.REJECTED
@@ -24,8 +23,7 @@ export const checkChatSession = async (
     }
   } else if (
     currentTaskIndex !== -1 &&
-    missions[currentTaskIndex].task.content.taskType.slug !==
-      TasksType.COSMETIC &&
+    missions[currentTaskIndex].taskTypeSlug !== TasksType.COSMETIC &&
     missions[currentTaskIndex].status === TaskStatuses.REJECTED
   ) {
     const request = await chatTaskSession({

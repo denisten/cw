@@ -121,32 +121,32 @@ export const couponModalConfig = {
 
 export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
   ({ towerTitle, switchers }) => {
-    const chatContainer = useRef<HTMLDivElement>(null);
     const { blockId, taskId, actions, messages, ended } = useStore(ChatStore)[
       towerTitle
     ];
-    const missions = useStore(TasksStore);
+    const { userCoupons } = useStore(UserMarketStore);
+    const tasks = useStore(TasksStore);
     const [openCouponModal, setOpenCouponModal] = useState(false);
     const [pendingOfResponse, setPendingOfResponse] = useState(false);
-    const { userCoupons } = useStore(UserMarketStore);
     const { count } = userCoupons[CouponTypes.COUPON_REPLACE];
 
-    const currentTaskIndex = missions.findIndex(el => {
-      if (el?.task?.content?.product?.slug)
+    const chatContainer = useRef<HTMLDivElement>(null);
+
+    const currentTaskIndex = tasks.findIndex(el => {
+      if (el.productSlug)
         return (
-          el.status !== TaskStatuses.CREATED &&
-          el.task.content.product.slug === towerTitle
+          el.status !== TaskStatuses.CREATED && el.productSlug === towerTitle
         );
     });
 
     try {
-      currentMission = missions[currentTaskIndex];
+      currentMission = tasks[currentTaskIndex];
     } catch (e) {
       currentMission = null;
     }
 
     const checkCouponAvailability =
-      currentMission?.task.content.taskType.slug !== TasksType.INFORMATIONAL &&
+      currentMission?.taskTypeSlug !== TasksType.INFORMATIONAL &&
       (userCoupons[CouponTypes.COUPON_REPLACE].count > 0 ||
         userCoupons[CouponTypes.COUPON_SKIP].count > 0);
 
@@ -165,10 +165,8 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
           setPendingOfResponse(false);
           if (response.data.ended) {
             if (
-              currentMission.task.content.taskType.slug ===
-                TasksType.PRODUCT_QUIZ ||
-              currentMission.task.content.taskType.slug ===
-                TasksType.RELATED_QUIZ
+              currentMission.taskTypeSlug === TasksType.PRODUCT_QUIZ ||
+              currentMission.taskTypeSlug === TasksType.RELATED_QUIZ
             ) {
               chatEndedHandler(taskId, towerTitle);
             } else {
@@ -190,7 +188,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
     }, []);
 
     useEffect(() => {
-      checkChatSession(currentTaskIndex, missions, taskId, towerTitle);
+      checkChatSession(currentTaskIndex, tasks, taskId, towerTitle);
       return () => {
         setHideTowerInfo(false);
       };

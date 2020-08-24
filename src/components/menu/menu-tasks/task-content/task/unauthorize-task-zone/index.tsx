@@ -48,42 +48,18 @@ enum TasksType {
   COSMETIC = 'cosmetic',
 }
 const firstTask: ITask = {
+  id: 1,
   status: TaskStatuses.CREATED,
   expireAt: '1000',
-  id: 1,
   expireInSeconds: null,
-  task: {
-    id: 1,
-    parentId: 1,
-    content: {
-      id: 1,
-      taskType: {
-        id: 1,
-        slug: TasksType.INFORMATIONAL,
-        name: 'Войти в мир клиента',
-      },
-      product: {
-        id: 1,
-        name: 'string',
-        slug: TowersTypes.MAIN_TOWER,
-        description: 'string',
-      },
-      logo: {
-        id: 1,
-        content: 'string',
-      },
-      name: 'string',
-      legend: 'string',
-      description: 'string',
-    },
-    priorityNumber: 1,
-    energy: 0,
-    reward: 400,
-    availabilityTime: 0,
-    executionTime: 0,
-    betweenTasksTime: 0,
-    chat: '',
-  },
+  taskTypeSlug: TasksType.TASKS,
+  productSlug: TowersTypes.MAIN_TOWER,
+  title: '',
+  legend: '',
+  description: '',
+  order: null,
+  energy: 100,
+  money: 100,
   userSubTasks: [],
 };
 

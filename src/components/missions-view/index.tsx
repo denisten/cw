@@ -59,6 +59,8 @@ const MissionProgressBar = styled.div<IMissionProgressBar>`
 `;
 
 export const MissionsView: React.FC<IMissionsView> = ({ taskData }) => {
+  const { taskTypeSlug: taskType } = taskData;
+
   const [isOpened, setIsOpened] = useState(false);
   const taskWrapperRef = useRef<HTMLDivElement>(null);
   const taskDescriptionRef = useRef<HTMLDivElement>(null);
@@ -69,14 +71,14 @@ export const MissionsView: React.FC<IMissionsView> = ({ taskData }) => {
   ).length;
 
   const SubTaskView = taskData.userSubTasks.map(el => {
-    return <MenuTaskRow isInTowerInfo={false} taskData={el} key={el.task.id} />;
+    return <MenuTaskRow isInTowerInfo={false} taskData={el} key={el.id} />;
   });
 
   const handleTaskWrapperClick = () =>
     requestAnimationFrame(() => {
       if (
         taskDescriptionRef.current &&
-        taskData.task.content.taskType.slug !== TasksType.TUTORIAL_TASK &&
+        taskType !== TasksType.TUTORIAL_TASK &&
         vectorRef.current
       ) {
         if (isOpened) {
@@ -101,13 +103,13 @@ export const MissionsView: React.FC<IMissionsView> = ({ taskData }) => {
         isInTowerInfo={false}
       >
         <TaskInfo>
-          <Icon type={taskData.task.content.taskType.slug} />
-          <Title isInTowerInfo={false}>{taskData.task.content.name}</Title>
+          <Icon type={taskType} />
+          <Title isInTowerInfo={false}>{taskData.title}</Title>
           <RowWrapper>
             <ColumnWrapper {...taskRowStyledConfig.columnWrapper}>
               <TaskLoot
-                money={taskData.task.reward}
-                energy={taskData.task.energy}
+                money={taskData.money}
+                energy={taskData.energy}
                 isInTowerInfo={false}
               />
               {
@@ -142,7 +144,7 @@ export const MissionsView: React.FC<IMissionsView> = ({ taskData }) => {
         </TaskInfo>
         <TaskDescriptionWrapper ref={taskDescriptionRef}>
           <Border />
-          <TaskDescription>{taskData.task.content.description}</TaskDescription>
+          <TaskDescription>{taskData.description}</TaskDescription>
         </TaskDescriptionWrapper>
       </Wrapper>
       {isOpened && SubTaskView}
