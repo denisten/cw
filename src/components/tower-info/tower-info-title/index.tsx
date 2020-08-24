@@ -13,6 +13,7 @@ import {
   TowerLevel,
   TowersProgressStore,
   TowersTypes,
+  IFactors,
 } from '../../../effector/towers-progress/store';
 import arrow from './arrow.svg';
 import arrowHover from './arrow-hover.svg';
@@ -77,17 +78,20 @@ const canUpgrade = (points: number, maxLevel: TowerLevel, level: TowerLevel) =>
 const pulseAnim = (tutorialCondition: TutorialConditions) =>
   tutorialCondition === TutorialConditions.UPGRADE_BUTTON_TOWER_INFO;
 
-const SubscriptionElem = () => (
+const SubscriptionElem: React.FC<ISubscriptionElem> = ({
+  subscriptionText,
+}) => (
   <AddedSubscription>
     <img src={subsDone} alt="done" />
-    Подписка оформлена
+    {subscriptionText}
   </AddedSubscription>
 );
 
 export const TowerInfoTitle: React.FC<ITowerInfoTitle> = ({
   tutorialCondition,
   towerTitle,
-  haveSubscription = true,
+  factors,
+  subscriptionText,
 }) => {
   const { hideTowerInfo } = useStore(TowerInfoModalStore);
   const {
@@ -97,6 +101,8 @@ export const TowerInfoTitle: React.FC<ITowerInfoTitle> = ({
   const { title, maxLevel, link } = BuildingsService.getConfigForTower(
     towerTitle
   );
+  const haveSubscription =
+    (subscriptionText && factors?.hasCurrentUsage?.value) || false;
 
   const handleClick = async () => {
     if (towerTitle) {
@@ -107,7 +113,7 @@ export const TowerInfoTitle: React.FC<ITowerInfoTitle> = ({
 
   const subscription = R.ifElse(
     () => haveSubscription,
-    () => <SubscriptionElem />,
+    () => <SubscriptionElem subscriptionText={subscriptionText} />,
     () => null
   )('');
 
@@ -139,8 +145,14 @@ interface ITowerInfoTitle {
   towerTitle: TowersTypes;
   tutorialCondition: TutorialConditions;
   haveSubscription?: boolean;
+  factors?: IFactors;
+  subscriptionText: string;
 }
 
 interface ITitle {
   sizeContent: boolean;
+}
+
+interface ISubscriptionElem {
+  subscriptionText: string;
 }

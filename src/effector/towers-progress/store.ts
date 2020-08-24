@@ -515,6 +515,10 @@ export const TowersProgressStore = TowersProgressDomain.store<
 
 export type TowersProgressStoreType = Record<TowersTypes, ITowerProgress>;
 
+export interface IFactors {
+  hasCurrentUsage: { value: boolean };
+}
+
 export interface ITowerProgress {
   productId: number;
   points: number;
@@ -527,4 +531,5 @@ export interface ITowerProgress {
     level: TowerLevel;
     income: number;
   };
+  factors?: IFactors;
 }

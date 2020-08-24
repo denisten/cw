@@ -144,7 +144,9 @@ const TowerInfo: React.FC = () => {
 
   const {
     level: { level, income, levelUpPercentage },
+    factors,
   } = useStore(TowersProgressStore)[towerTitle];
+
   const { ended } = useStore(ChatStore)[towerTitle];
 
   const refsCollection: Array<React.RefObject<HTMLDivElement>> = useMemo(
@@ -152,7 +154,9 @@ const TowerInfo: React.FC = () => {
     []
   );
 
-  const { description, title } = useStore(DescriptionStore)[towerTitle];
+  const { description, title, subscriptionText } = useStore(DescriptionStore)[
+    towerTitle
+  ];
   const returnDescriptionObject = () => {
     if (!description || !title) {
       return {
@@ -229,6 +233,8 @@ const TowerInfo: React.FC = () => {
           <TowerInfoTitle
             tutorialCondition={tutorialCondition}
             towerTitle={towerTitle}
+            factors={factors}
+            subscriptionText={subscriptionText}
           />
           <TowerInfoIndicators
             level={level}
