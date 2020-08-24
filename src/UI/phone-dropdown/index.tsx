@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-magic-numbers */
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { MTSSans } from '../../fonts';
@@ -24,7 +25,6 @@ const PhoneDropdown: React.FC<IPhoneDropdown> = ({ phone }) => {
   const [optionsDisplayFlag, setOptionsDisplayFlag] = useState(false);
   const hideOptions = () => optionsDisplayFlag && setOptionsDisplayFlag(false);
   const showOptions = () => !optionsDisplayFlag && setOptionsDisplayFlag(true);
-  // eslint-disable-next-line @typescript-eslint/no-magic-numbers
   const indexes = [3, 6, 8];
   const splittedNumberString =
     phone &&
