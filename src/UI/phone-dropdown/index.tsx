@@ -24,10 +24,22 @@ const PhoneDropdown: React.FC<IPhoneDropdown> = ({ phone }) => {
   const [optionsDisplayFlag, setOptionsDisplayFlag] = useState(false);
   const hideOptions = () => optionsDisplayFlag && setOptionsDisplayFlag(false);
   const showOptions = () => !optionsDisplayFlag && setOptionsDisplayFlag(true);
+  const splittedNumberString =
+    phone &&
+    Array.from(phone)
+      .reduce((acc: string[], elem, index) => {
+        // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+        if (index === 3 || index === 6 || index === 8) {
+          acc.push('-');
+        }
+        acc.push(elem);
+        return acc;
+      }, [])
+      .join('');
   return (
     <div>
       <PhoneNumberWrapper onClick={showOptions}>
-        {phone} <Arrow />
+        +7-{splittedNumberString} <Arrow />
       </PhoneNumberWrapper>
       <Options showOptions={optionsDisplayFlag} callback={hideOptions} />
     </div>
@@ -37,5 +49,5 @@ const PhoneDropdown: React.FC<IPhoneDropdown> = ({ phone }) => {
 export default PhoneDropdown;
 
 interface IPhoneDropdown {
-  phone: string;
+  phone: string | null;
 }

@@ -24,6 +24,7 @@ export enum UserDataStoreKeys {
   USER_SESSION_SOCKET = 'userSessionSocket',
   ENERGY = 'energy',
   AVATAR = 'avatar',
+  MSISDN = 'msisdn',
 }
 
 export const defaultNameValue = 'Неизвестно';
@@ -39,6 +40,7 @@ const initState: IUserDataStore = {
   [UserDataStoreKeys.COUPONS_COUNT]: 2,
   [UserDataStoreKeys.USER_SESSION_SOCKET]: null,
   [UserDataStoreKeys.AVATAR]: null,
+  [UserDataStoreKeys.MSISDN]: null,
 };
 
 export const UserDataStore = UserDataDomain.store<IUserDataStore>(initState)
@@ -61,7 +63,10 @@ export const UserDataStore = UserDataDomain.store<IUserDataStore>(initState)
   }))
   .on(
     fetchUserData.doneData,
-    (state, { worldName, assistantName, name, id, birthday = '', avatar }) => ({
+    (
+      state,
+      { worldName, assistantName, name, id, birthday = '', avatar, msisdn }
+    ) => ({
       ...state,
       id,
       worldName: worldName || defaultNameValue,
@@ -69,6 +74,7 @@ export const UserDataStore = UserDataDomain.store<IUserDataStore>(initState)
       name: name || defaultNameValue,
       birthday: birthdayParserToJSON(birthday),
       avatar,
+      msisdn,
     })
   )
   .on(getUserName.doneData, (state, { name }) => ({
@@ -97,6 +103,7 @@ export interface IUserDataStore {
   [UserDataStoreKeys.COUPONS_COUNT]: number;
   [UserDataStoreKeys.USER_SESSION_SOCKET]: Centrifuge | null;
   [UserDataStoreKeys.AVATAR]: string | null;
+  [UserDataStoreKeys.MSISDN]: string | null;
 }
 
 export interface IBirthday {
