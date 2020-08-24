@@ -5,6 +5,7 @@ import city02 from './city_02.svg';
 import city03 from './city_03.svg';
 import world from './mir.svg';
 import client from './client.svg';
+import beta from './beta.png';
 const Wrapper = styled.div`
   z-index: 8;
   width: 637px;
@@ -103,16 +104,33 @@ const styledConfig = {
   },
 };
 
+const Beta = styled.img.attrs({ alt: 'beta', src: beta })`
+  position: absolute;
+  right: -20px;
+  width: 80px;
+  height: 80px;
+  top: 20px;
+  z-index: 7;
+
+  &.${animationStates.FADE} {
+    animation: ${fadeAnim} ${basicAnimationDelay}ms linear both;
+    animation-delay: ${basicAnimationDelay * animatedItemsOrder.FIVE}ms;
+  }
+`;
+
 export const Logo: React.FC<ILogo> = ({ onAnimationEnd }) => {
   const [animationFade, setAnimationFade] = useState(false);
 
+  const calculatedClassName = animationFade ? animationStates.FADE : '';
+
   return (
     <Wrapper>
+      <Beta className={calculatedClassName} />
       <LogoLayer
         {...styledConfig.world}
         src={world}
         alt="logolayer"
-        className={animationFade ? animationStates.FADE : ''}
+        className={calculatedClassName}
         onAnimationEnd={() => {
           animationFade && onAnimationEnd();
         }}
@@ -121,25 +139,25 @@ export const Logo: React.FC<ILogo> = ({ onAnimationEnd }) => {
         {...styledConfig.client}
         src={client}
         alt="logolayer"
-        className={animationFade ? animationStates.FADE : ''}
+        className={calculatedClassName}
       />
       <LogoLayer
         {...styledConfig.cityLayerOne}
         src={city01}
         alt="logolayer"
-        className={animationFade ? animationStates.FADE : ''}
+        className={calculatedClassName}
       />
       <LogoLayer
         {...styledConfig.cityLayerTwo}
         src={city02}
         alt="logolayer"
-        className={animationFade ? animationStates.FADE : ''}
+        className={calculatedClassName}
       />
       <LogoLayer
         {...styledConfig.cityLayerThree}
         src={city03}
         alt="logolayer"
-        className={animationFade ? animationStates.FADE : ''}
+        className={calculatedClassName}
         onAnimationEnd={() => setAnimationFade(true)}
       />
     </Wrapper>

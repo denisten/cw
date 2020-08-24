@@ -1,5 +1,5 @@
 import React from 'react';
-import slider1 from './slider-1.png';
+import slider1 from './slider-1.jpg';
 import slider2 from './slider-2.png';
 import slider3 from './slider-3.png';
 import slider4 from './slider-4.png';
