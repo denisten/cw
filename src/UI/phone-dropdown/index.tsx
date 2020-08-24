@@ -21,11 +21,11 @@ const PhoneNumberWrapper = styled.div`
   cursor: pointer;
 `;
 
+const indexes = [3, 6, 8];
 const PhoneDropdown: React.FC<IPhoneDropdown> = ({ phone }) => {
   const [optionsDisplayFlag, setOptionsDisplayFlag] = useState(false);
   const hideOptions = () => optionsDisplayFlag && setOptionsDisplayFlag(false);
   const showOptions = () => !optionsDisplayFlag && setOptionsDisplayFlag(true);
-  const indexes = [3, 6, 8];
   const splittedNumberString =
     phone &&
     Array.from(phone)
