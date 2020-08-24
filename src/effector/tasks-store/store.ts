@@ -33,10 +33,10 @@ export const TasksStore = MissionsDomain.store(initStore)
   .on(verifyTask.doneData, (state, { userTasks }) => userTasks)
   .on(takeReward.doneData, (state, { userTasks, id }) => {
     const currentEl = state.findIndex(el => el.id === id);
-    const deletedTask = state.splice(currentEl, 1);
+    const { money, energy } = state.splice(currentEl, 1)[0];
     editUserProperty({
-      money: deletedTask[0].task.reward,
-      energy: deletedTask[0].task.energy,
+      money,
+      energy,
     });
     return userTasks;
   })
@@ -100,52 +100,69 @@ const detectTaskStatus = (taskStatus: TaskStatuses) => {
 saveTask.watch(el =>
   el.map(el => {
     setMarker({
-      towerTitle: el.task.content.product.slug,
+      towerTitle: el.productSlug,
       type: detectTaskStatus(el.status),
     });
   })
 );
 
 export interface ITask {
-  status: TaskStatuses;
   id: number;
+  status: TaskStatuses;
   expireAt: string;
   expireInSeconds: number | null;
   taskTimer?: () => number;
-  task: {
-    id: number;
-    parentId: number;
-    content: {
-      id: number;
-      taskType: {
-        id: number;
-        slug: TasksType;
-        name: string;
-      };
-      product: {
-        id: number;
-        name: string;
-        slug: TowersTypes;
-        description: string;
-      };
-      logo: {
-        id: number;
-        content: string;
-      };
-      name: string;
-      legend: string;
-      description: string;
-    };
-    priorityNumber: number;
-    energy: number;
-    reward: number;
-    availabilityTime: number;
-    executionTime: number;
-    betweenTasksTime: number;
-    chat: string;
-  };
+  taskTypeSlug: TasksType;
+  productSlug: TowersTypes;
+  title: string;
+  legend: string;
+  description: string;
+  order: number | null;
+  energy: number;
+  money: number;
   userSubTasks: ITask[];
 }
+//
+// export interface ITask {
+//   status: TaskStatuses;
+//   id: number;
+//   expireAt: string;
+//   expireInSeconds: number | null;
+//   taskTimer?: () => number;
+//   task: {
+//     id: number;
+//     parentId: number;
+//     content: {
+//       id: number;
+//       taskType: {
+//         id: number;
+//         slug: TasksType;
+//         name: string;
+//       };
+//       product: {
+//         id: number;
+//         name: string;
+//         slug: TowersTypes;
+//         description: string;
+//       };
+//       logo: {
+//         id: number;
+//         content: string;
+//       };
+//       name: string;
+//       legend: string;
+//       description: string;
+//     };
+//     priorityNumber: number;
+//     energy: number;
+//     reward: number;
+//     availabilityTime: number;
+//     executionTime: number;
+//     betweenTasksTime: number;
+//     chat: string;
+//   };
+//   userSubTasks: ITask[];
+// }
 
 export interface IGetTasks {
   data: {

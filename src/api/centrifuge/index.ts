@@ -64,7 +64,7 @@ const createSubscriptions = (centrifuge: Centrifuge, userId: number) => {
       const userTasks = items.data.userTasks.filter(el => {
         if (el.status !== TaskStatuses.CREATED) {
           setTaskId({
-            towerTitle: el.task.content.product.slug,
+            towerTitle: el.productSlug,
             taskId: el.id,
           });
         }

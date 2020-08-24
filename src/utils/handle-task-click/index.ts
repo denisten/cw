@@ -24,9 +24,9 @@ import { hideMarker } from '../../effector/towers-marker/events';
 import { TypeOfMarkers } from '../../components/markers';
 
 export const handleTaskClick = async (taskData: ITask, e: React.MouseEvent) => {
-  const towerTitle = taskData.task.content.product.slug;
+  const towerTitle = taskData.productSlug;
   const id = taskData.id;
-  const taskType = taskData.task.content.taskType.slug;
+  const taskType = taskData.taskTypeSlug;
 
   const { fullSizeMode } = AppConditionStore.getState();
   const { selectedMenuItem } = MenuStore.getState();
@@ -64,7 +64,7 @@ export const handleTaskClick = async (taskData: ITask, e: React.MouseEvent) => {
       }
       break;
     case TaskStatuses.DONE:
-      animateTaskReward(taskData.task.reward, e);
+      animateTaskReward(taskData.money, e);
       await takeReward(id);
       hideMarker({ towerTitle, type: TypeOfMarkers.SUCCESS });
       clearChat({ towerTitle });

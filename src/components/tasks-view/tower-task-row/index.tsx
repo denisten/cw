@@ -195,8 +195,8 @@ export const TowerTaskRow: React.FC<ITasksRow> = ({
   isInTowerInfo,
   taskData,
 }) => {
-  const taskType = taskData.task.content.taskType.slug;
-  const towerTitle = taskData.task.content.product.slug;
+  const taskType = taskData.taskTypeSlug;
+  const towerTitle = taskData.productSlug;
 
   const isOpened = useRef(false);
   const taskWrapperRef = useRef<HTMLDivElement>(null);
@@ -255,14 +255,12 @@ export const TowerTaskRow: React.FC<ITasksRow> = ({
       />
       <TaskInfo>
         <Icon type={taskType} />
-        <Title isInTowerInfo={isInTowerInfo}>
-          {taskData.task.content.name}
-        </Title>
+        <Title isInTowerInfo={isInTowerInfo}>{taskData.title}</Title>
         <VectorImg ref={vectorRef} />
       </TaskInfo>
       <TaskDescriptionWrapper ref={taskDescriptionRef}>
         <Border />
-        <TaskDescription>{taskData.task.content.description}</TaskDescription>
+        <TaskDescription>{taskData.description}</TaskDescription>
       </TaskDescriptionWrapper>
       <Border />
       <RowWrapper style={taskRowStyledConfig.rowWrapper}>
@@ -275,8 +273,8 @@ export const TowerTaskRow: React.FC<ITasksRow> = ({
         <RowWrapper>
           <ColumnWrapper {...taskRowStyledConfig.columnWrapper}>
             <TaskLoot
-              money={taskData.task.reward}
-              energy={taskData.task.energy}
+              money={taskData.money}
+              energy={taskData.energy}
               isInTowerInfo={isInTowerInfo}
             />
           </ColumnWrapper>
