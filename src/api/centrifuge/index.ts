@@ -61,7 +61,7 @@ const createSubscriptions = (centrifuge: Centrifuge, userId: number) => {
   const tasksSubscription = centrifuge.subscribe(
     'user-tasks:updates#' + userId,
     (items: IGetTasks) => {
-      const userTasks = items.data.userTasks.filter(el => {
+      const userTasks = items.data.filter(el => {
         if (el.status !== TaskStatuses.CREATED) {
           setTaskId({
             towerTitle: el.productSlug,
@@ -73,9 +73,7 @@ const createSubscriptions = (centrifuge: Centrifuge, userId: number) => {
         }
         return !el.userSubTasks.length;
       });
-      const userMissions = items.data.userTasks.filter(
-        el => el.userSubTasks.length
-      );
+      const userMissions = items.data.filter(el => el.userSubTasks.length);
       saveMission(userMissions);
       saveTask(userTasks);
     }

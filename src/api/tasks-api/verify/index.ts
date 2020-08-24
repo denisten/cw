@@ -7,7 +7,7 @@ import { IGetTasks } from '../../../effector/tasks-store/store';
 export const verifyTaskRequest = async (id: number) => {
   const response = await post<IGetTasks>(`${apiRoutes.GET_TASKS}/${id}/verify`);
 
-  response.data.data.userTasks = response.data.data.userTasks.map(el => {
+  response.data.data = response.data.data.map(el => {
     if (el.expireInSeconds) {
       el.taskTimer = timerClosure(el.expireInSeconds);
     }

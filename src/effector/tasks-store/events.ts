@@ -28,7 +28,7 @@ export const verifyTask = MissionsDomain.effect('verify current task', {
 export const takeReward = MissionsDomain.effect({
   handler: async (id: number) => {
     const response = await rewardRequest(id);
-    return { ...response, id };
+    return { data: response, id };
   },
 });
 

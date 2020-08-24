@@ -29,16 +29,16 @@ const initStore: ITask[] = [];
 
 export const TasksStore = MissionsDomain.store(initStore)
   .on(saveTask, (_, payload) => payload)
-  .on(activateTask.doneData, (state, { userTasks }) => userTasks)
-  .on(verifyTask.doneData, (state, { userTasks }) => userTasks)
-  .on(takeReward.doneData, (state, { userTasks, id }) => {
+  .on(activateTask.doneData, (state, payload) => payload)
+  .on(verifyTask.doneData, (state, payload) => payload)
+  .on(takeReward.doneData, (state, { data, id }) => {
     const currentEl = state.findIndex(el => el.id === id);
     const { money, energy } = state.splice(currentEl, 1)[0];
     editUserProperty({
       money,
       energy,
     });
-    return userTasks;
+    return data;
   })
 
   .on(setCurrentTaskStatus, (state, { taskId, status }) => {
@@ -122,51 +122,7 @@ export interface ITask {
   money: number;
   userSubTasks: ITask[];
 }
-//
-// export interface ITask {
-//   status: TaskStatuses;
-//   id: number;
-//   expireAt: string;
-//   expireInSeconds: number | null;
-//   taskTimer?: () => number;
-//   task: {
-//     id: number;
-//     parentId: number;
-//     content: {
-//       id: number;
-//       taskType: {
-//         id: number;
-//         slug: TasksType;
-//         name: string;
-//       };
-//       product: {
-//         id: number;
-//         name: string;
-//         slug: TowersTypes;
-//         description: string;
-//       };
-//       logo: {
-//         id: number;
-//         content: string;
-//       };
-//       name: string;
-//       legend: string;
-//       description: string;
-//     };
-//     priorityNumber: number;
-//     energy: number;
-//     reward: number;
-//     availabilityTime: number;
-//     executionTime: number;
-//     betweenTasksTime: number;
-//     chat: string;
-//   };
-//   userSubTasks: ITask[];
-// }
 
 export interface IGetTasks {
-  data: {
-    userTasks: ITask[];
-    total: number;
-  };
+  data: ITask[];
 }
