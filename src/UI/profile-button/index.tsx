@@ -29,7 +29,7 @@ export const UserAvatar = styled.label<IUserAvatar>`
   width: 65px;
   height: 65px;
   margin: 12px 16px 0 4px;
-  background: url(${userAvatarIcon}) no-repeat;
+  background: url(${props => props.avatar || userAvatarIcon}) no-repeat;
   background-size: cover;
   cursor: pointer;
   display: flex;
@@ -140,7 +140,7 @@ export const ProfileButton: React.FC<IProfileButton> = ({
   tutorialCondition,
   isCoinRelocateAnimationEnded,
 }) => {
-  const { money, name } = useStore(UserDataStore);
+  const { money, name, avatar } = useStore(UserDataStore);
 
   const zIndex =
     tutorialCondition === TutorialConditions.PULSE_MENU_CHANGE_CITY_NAME ||
@@ -158,7 +158,7 @@ export const ProfileButton: React.FC<IProfileButton> = ({
       onClick={() => handleClick(tutorialCondition)}
       animFlag={animFlag}
     >
-      <UserAvatar />
+      <UserAvatar avatar={avatar} />
       <NameBlock>
         <NickNameWrapper>{name}</NickNameWrapper>
         <CoinsWrapper>

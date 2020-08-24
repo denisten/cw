@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-magic-numbers */
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { MTSSans } from '../../fonts';
@@ -20,14 +21,26 @@ const PhoneNumberWrapper = styled.div`
   cursor: pointer;
 `;
 
+const indexes = [3, 6, 8];
 const PhoneDropdown: React.FC<IPhoneDropdown> = ({ phone }) => {
   const [optionsDisplayFlag, setOptionsDisplayFlag] = useState(false);
   const hideOptions = () => optionsDisplayFlag && setOptionsDisplayFlag(false);
   const showOptions = () => !optionsDisplayFlag && setOptionsDisplayFlag(true);
+  const splittedNumberString =
+    phone &&
+    Array.from(phone)
+      .reduce((acc: string[], elem, index) => {
+        if (indexes.find(indexElem => indexElem === index)) {
+          acc.push('-');
+        }
+        acc.push(elem);
+        return acc;
+      }, [])
+      .join('');
   return (
     <div>
       <PhoneNumberWrapper onClick={showOptions}>
-        {phone} <Arrow />
+        +7-{splittedNumberString} <Arrow />
       </PhoneNumberWrapper>
       <Options showOptions={optionsDisplayFlag} callback={hideOptions} />
     </div>
@@ -37,5 +50,5 @@ const PhoneDropdown: React.FC<IPhoneDropdown> = ({ phone }) => {
 export default PhoneDropdown;
 
 interface IPhoneDropdown {
-  phone: string;
+  phone: string | null;
 }

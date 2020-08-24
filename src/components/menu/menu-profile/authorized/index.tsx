@@ -148,7 +148,14 @@ const inputLengthErrorParams = {
 const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
   openPopUpState,
 }) => {
-  const { worldName, money, name, birthday, avatar } = useStore(UserDataStore);
+  const {
+    worldName,
+    money,
+    name,
+    birthday,
+    avatar,
+    msisdn: phoneNumber,
+  } = useStore(UserDataStore);
   const [localName, setLocalName] = useState(name);
   const [birthdayDate, setBirthdayDate] = useState<IBirthday>(birthday);
   const [nameInputHasError, setNameInputHasError] = useState(false);
@@ -200,7 +207,7 @@ const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
           <UserAvatar avatar={avatar} />
           <ColumnWrapper {...styledConfig.profileDataColumnWrapper}>
             <NickNameWrapper>{name}</NickNameWrapper>
-            <PhoneDropdown phone="+7 800 555 35 35" />
+            <PhoneDropdown phone={phoneNumber} />
           </ColumnWrapper>
         </RowWrapper>
         <CoinsWallet sum={String(money)} />
