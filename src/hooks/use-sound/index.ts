@@ -1,38 +1,18 @@
-import { useStore } from 'effector-react';
-import { SettingsStore, SettingsType } from '../../effector/settings/store';
 import { useEffect, useState } from 'react';
-import { musicAndSoundToggle } from '../../effector/settings/events';
 
-export const useAudio = (url: string) => {
-  const { sound } = useStore(SettingsStore);
+export const useAudio = (
+  url: string,
+  play: boolean,
+  repeat: boolean,
+  volume: number
+) => {
   const [audio] = useState(new Audio(url));
-
-  const start = () =>
-    musicAndSoundToggle({
-      settingType: SettingsType.SOUND,
-      flag: true,
-    });
-  const stop = () =>
-    musicAndSoundToggle({
-      settingType: SettingsType.SOUND,
-      flag: false,
-    });
-  const toggle = () =>
-    musicAndSoundToggle({
-      settingType: SettingsType.SOUND,
-      flag: !sound,
-    });
+  audio.volume = volume;
+  audio.loop = repeat;
+  audio.autoplay = true;
+  audio.load();
 
   useEffect(() => {
-    sound ? audio.play() : audio.pause();
-  }, [sound]);
-
-  useEffect(() => {
-    audio.addEventListener('ended', () => audio.play());
-    return () => {
-      audio.removeEventListener('ended', () => audio.play());
-    };
-  }, []);
-
-  return { toggle, start, stop };
+    play ? audio.play() : audio.pause();
+  }, [play]);
 };

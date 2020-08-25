@@ -2,7 +2,10 @@ import React from 'react';
 import { SettingsStore, SettingsType } from '../../../effector/settings/store';
 import styled from 'styled-components';
 
-import { musicAndSoundToggle } from '../../../effector/settings/events';
+import {
+  musicAndSoundToggle,
+  setVolume,
+} from '../../../effector/settings/events';
 import { useStore } from 'effector-react';
 import { Icon } from '../../../UI/icons';
 
@@ -17,7 +20,12 @@ const InputBody = styled.div`
   align-items: center;
 `;
 
-const InputRange = styled.input.attrs({ type: 'range', min: 0, max: 100 })`
+const InputRange = styled.input.attrs({
+  type: 'range',
+  min: 0,
+  max: 1,
+  step: 0.1,
+})`
   width: 310px;
   margin-left: 20px;
 `;
@@ -31,39 +39,62 @@ const styledConfig = {
 
 export const SettingItems = () => {
   const { music, sound } = useStore(SettingsStore);
+
+  const changeHandler = (
+    settingType: SettingsType,
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setVolume({ settingType, volume: Number(e.target.value) });
+    if (Number(e.target.value) === 0) {
+      musicAndSoundToggle({
+        settingType,
+        enable: false,
+      });
+    } else {
+      musicAndSoundToggle({
+        settingType,
+        enable: true,
+      });
+    }
+  };
   return (
     <SettingItemsWrapper>
       <InputBody>
         <Icon
           style={styledConfig.icon}
-          type={music ? SettingsType.MUSIC : SettingsType.MUSIC + 'disable'}
+          type={
+            music.enable ? SettingsType.MUSIC : SettingsType.MUSIC + 'disable'
+          }
           callBack={() =>
             musicAndSoundToggle({
               settingType: SettingsType.MUSIC,
-              flag: !music,
+              enable: !music.enable,
             })
           }
         />
-        <InputRange />
+        <InputRange
+          value={music.volume}
+          onChange={e => changeHandler(SettingsType.MUSIC, e)}
+        />
       </InputBody>
       <InputBody>
         <Icon
           style={styledConfig.icon}
-          type={sound ? SettingsType.SOUND : SettingsType.SOUND + 'disable'}
+          type={
+            sound.enable ? SettingsType.SOUND : SettingsType.SOUND + 'disable'
+          }
           callBack={() =>
             musicAndSoundToggle({
               settingType: SettingsType.SOUND,
-              flag: !sound,
+              enable: !sound.enable,
             })
           }
         />
-        <InputRange />
+        <InputRange
+          value={sound.volume}
+          onChange={e => changeHandler(SettingsType.SOUND, e)}
+        />
       </InputBody>
     </SettingItemsWrapper>
   );
 };
-
-interface IOption {
-  active: boolean;
-  type: SettingsType;
-}

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { useStore } from 'effector-react';
 import { AppConditionStore } from '../../effector/app-condition/store';
@@ -53,12 +53,11 @@ export const RootComponent = () => {
   const tutorialIsEnabled = DOMLoaded && tutorialCondition !== 0;
   const displayFlag = checkTutorialCondition(tutorialCondition);
   const zIndex = defineScrollContainerZIndex(tutorialCondition);
-  const { start, stop } = useAudio(backgroundMusic);
-  const { music } = useStore(SettingsStore);
+  const {
+    music: { enable, volume },
+  } = useStore(SettingsStore);
+  useAudio(backgroundMusic, enable, true, volume);
 
-  useEffect(() => {
-    music ? start() : stop();
-  }, [music]);
   return (
     <RootComponentWrapper displayFlag={DOMLoaded}>
       <UIButtonInterface />
