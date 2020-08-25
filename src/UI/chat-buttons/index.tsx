@@ -32,7 +32,7 @@ const ChatCouponButton = styled.div<IDisplayFlag>`
   width: 210px;
   height: 28px;
   background: #04b5d2;
-  box-shadow: 0px 1px 3px #bbc1c7;
+  box-shadow: 0 1px 3px #bbc1c7;
   border-radius: 4px;
   position: relative;
   font-size: 16px;

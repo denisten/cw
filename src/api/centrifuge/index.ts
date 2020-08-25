@@ -3,27 +3,29 @@ import { getCookie } from '../../utils/get-cookie';
 import { getWsToken } from '../get-ws-token';
 import { apiRoutes } from '../index';
 import {
-  setUserSessionSocket,
   getAccountData,
+  setUserSessionSocket,
 } from '../../effector/user-data/events';
 import { addTowerProgressData } from '../../effector/towers-progress/events';
 import {
-  TowersTypes,
   TowersProgressStoreType,
+  TowersTypes,
 } from '../../effector/towers-progress/store';
 import { getWorldState } from '../get-world-state';
 import { setTaskId } from '../../effector/chat/events';
 import { timerClosure } from '../../utils/timer-closure';
 import { saveTask } from '../../effector/tasks-store/events';
 
-import { TaskStatuses, IGetTasks } from '../../effector/tasks-store/store';
+import { IGetTasks, TaskStatuses } from '../../effector/tasks-store/store';
 import { scoreSuccessRequests } from '../../effector/preloader/events';
 import { UserDataStore } from '../../effector/user-data/store';
 import { saveMission } from '../../effector/missions-store/events';
 import {
-  IUserPurchasesSocketItem,
   fetchUserPurchases,
+  IUserPurchasesSocketItem,
 } from '../../effector/coupons/events';
+import { setMarker } from '../../effector/towers-marker/events';
+import { MarkerTypes } from '../../components/markers';
 
 const notSecuredProtocol = 'http:';
 const securedWebSocketProtocol = 'wss://';
@@ -73,7 +75,20 @@ const createSubscriptions = (centrifuge: Centrifuge, userId: number) => {
         }
         return !el.userSubTasks.length;
       });
-      const userMissions = items.data.filter(el => el.userSubTasks.length);
+      const userMissions = items.data.filter(
+        mission => mission.userSubTasks.length
+      );
+      userMissions.map(mission => {
+        mission.userSubTasks.map(subtask => {
+          if (subtask.status === TaskStatuses.ACTIVE) {
+            setMarker({
+              towerTitle: subtask.productSlug,
+              type: MarkerTypes.ACTIVE_TASK,
+            });
+            setTaskId({ towerTitle: subtask.productSlug, taskId: subtask.id });
+          }
+        });
+      });
       saveMission(userMissions);
       saveTask(userTasks);
     }

@@ -1,7 +1,7 @@
 import { IMarker } from '../../effector/towers-marker/store';
 import { hideMarker, setMarker } from '../../effector/towers-marker/events';
 import { TowersTypes } from '../../effector/towers-progress/store';
-import { TypeOfMarkers } from '../../components/markers';
+import { MarkerTypes } from '../../components/markers';
 import { setTowerInfoContent } from '../../effector/app-condition/events';
 import { TowerInfoContentValues } from '../../effector/app-condition/store';
 import { scrollToCurrentTower } from '../scroll-to-current-tower';
@@ -35,20 +35,20 @@ export const markerClickHandler = async (
   e: React.MouseEvent
 ) => {
   switch (marker.type) {
-    case TypeOfMarkers.TASK:
-    case TypeOfMarkers.SUCCESS:
+    case MarkerTypes.TASK:
+    case MarkerTypes.SUCCESS:
       extraTowerInfoModalOpen(towerTitle);
       setTowerInfoContent(TowerInfoContentValues.TASK);
       scrollToCurrentTower(markerRef);
       break;
-    case TypeOfMarkers.TAKE_REWARD:
+    case MarkerTypes.TAKE_REWARD:
       await setIncome(towerTitle, marker, e);
       break;
-    case TypeOfMarkers.ACTIVE_TASK:
+    case MarkerTypes.ACTIVE_TASK:
       extraTowerInfoModalOpen(towerTitle);
       setTowerInfoContent(TowerInfoContentValues.CHAT);
       break;
-    case TypeOfMarkers.PLAY:
+    case MarkerTypes.PLAY:
       extraTowerInfoModalOpen(towerTitle);
       break;
     default:

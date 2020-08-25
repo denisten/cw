@@ -21,12 +21,10 @@ import { MenuStore } from '../../effector/menu-store/store';
 import { menuClosed } from '../../effector/menu-store/events';
 import { TasksType } from '../../components/menu/menu-tasks';
 import { hideMarker } from '../../effector/towers-marker/events';
-import { TypeOfMarkers } from '../../components/markers';
+import { MarkerTypes } from '../../components/markers';
 
 export const handleTaskClick = async (taskData: ITask, e: React.MouseEvent) => {
-  const towerTitle = taskData.productSlug;
-  const id = taskData.id;
-  const taskType = taskData.taskTypeSlug;
+  const { id, productSlug: towerTitle } = taskData;
 
   const { fullSizeMode } = AppConditionStore.getState();
   const { selectedMenuItem } = MenuStore.getState();
@@ -36,7 +34,7 @@ export const handleTaskClick = async (taskData: ITask, e: React.MouseEvent) => {
     case TaskStatuses.CREATED:
       if (!chatTaskId) {
         if (
-          taskType !== TasksType.COSMETIC &&
+          taskData.taskTypeSlug !== TasksType.COSMETIC &&
           taskData.status === TaskStatuses.CREATED
         ) {
           await chatTaskSession({ id, towerTitle });
@@ -59,14 +57,14 @@ export const handleTaskClick = async (taskData: ITask, e: React.MouseEvent) => {
       }
       break;
     case TaskStatuses.ACTIVE:
-      if (taskType !== TasksType.INFORMATIONAL) {
+      if (taskData.taskTypeSlug !== TasksType.INFORMATIONAL) {
         await verifyTask(id);
       }
       break;
     case TaskStatuses.DONE:
       animateTaskReward(taskData.money, e);
       await takeReward(id);
-      hideMarker({ towerTitle, type: TypeOfMarkers.SUCCESS });
+      hideMarker({ towerTitle, type: MarkerTypes.SUCCESS });
       clearChat({ towerTitle });
       break;
     case TaskStatuses.VERIFICATION:

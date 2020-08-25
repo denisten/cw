@@ -10,7 +10,7 @@ import { markerClickHandler } from '../../utils/marker-click-handler';
 import { IDisplayFlag } from '../skip-tutorial';
 import { Icon } from '../../UI/icons';
 
-export enum TypeOfMarkers {
+export enum MarkerTypes {
   TASK = 'task',
   SUCCESS = 'success',
   TAKE_REWARD = 'takeReward',
@@ -211,7 +211,7 @@ export const Markers: React.FC<IMarkers> = ({
     data-towerlevel={towerLevel}
   >
     {markersCollection.map(markItem =>
-      markItem.type !== TypeOfMarkers.TIMER ? (
+      markItem.type !== MarkerTypes.TIMER ? (
         <MarkerView
           data-type={markItem.type}
           key={markItem.type}

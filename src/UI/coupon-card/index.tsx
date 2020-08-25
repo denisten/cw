@@ -6,7 +6,7 @@ import { Icon, TypeOfIcons } from '../icons';
 import { MoneyCounter } from '../../components/shop/shop-content/money-counter';
 import { CouponTypes, PromocodeTypes } from '../../effector/coupons/store';
 import { TasksType } from '../../components/menu/menu-tasks';
-import { TypeOfMarkers } from '../../components/markers';
+import { MarkerTypes } from '../../components/markers';
 import plus from './plus.svg';
 
 const disableClassName = 'disable';
@@ -117,7 +117,7 @@ interface ICouponCard {
     | PromocodeTypes
     | TypeOfIcons
     | TasksType
-    | TypeOfMarkers;
+    | MarkerTypes;
   titleElem?: string;
   price?: number;
   disable?: boolean;

@@ -5,26 +5,24 @@ import { TowersTypes } from '../../effector/towers-progress/store';
 import { ITask, TaskStatuses } from '../../effector/tasks-store/store';
 
 export const checkChatSession = async (
-  currentTaskIndex: number,
-  missions: ITask[],
+  task: ITask | null,
   taskId: number,
   towerTitle: TowersTypes
 ) => {
+  if (!task) return;
   if (
-    currentTaskIndex !== -1 &&
-    missions[currentTaskIndex].taskTypeSlug !== TasksType.COSMETIC &&
-    missions[currentTaskIndex].status !== TaskStatuses.DONE &&
-    missions[currentTaskIndex].status !== TaskStatuses.CREATED &&
-    missions[currentTaskIndex].status !== TaskStatuses.REJECTED
+    task.taskTypeSlug !== TasksType.COSMETIC &&
+    task.status !== TaskStatuses.DONE &&
+    task.status !== TaskStatuses.CREATED &&
+    task.status !== TaskStatuses.REJECTED
   ) {
     const request = await chatTaskSession({ id: taskId, towerTitle });
     if (request.data.ended) {
       chatEndedHandler(taskId, towerTitle);
     }
   } else if (
-    currentTaskIndex !== -1 &&
-    missions[currentTaskIndex].taskTypeSlug !== TasksType.COSMETIC &&
-    missions[currentTaskIndex].status === TaskStatuses.REJECTED
+    task.taskTypeSlug !== TasksType.COSMETIC &&
+    task.status === TaskStatuses.REJECTED
   ) {
     const request = await chatTaskSession({
       id: taskId,

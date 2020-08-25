@@ -195,8 +195,7 @@ export const TowerTaskRow: React.FC<ITasksRow> = ({
   isInTowerInfo,
   taskData,
 }) => {
-  const taskType = taskData.taskTypeSlug;
-  const towerTitle = taskData.productSlug;
+  const { taskTypeSlug: taskType, productSlug: towerTitle } = taskData;
 
   const isOpened = useRef(false);
   const taskWrapperRef = useRef<HTMLDivElement>(null);

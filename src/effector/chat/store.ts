@@ -11,7 +11,7 @@ import {
 import { IAction, IMessage, Sender } from '../../api/tasks-api/session';
 import { TowersTypes } from '../towers-progress/store';
 import { hideMarker, setMarker } from '../towers-marker/events';
-import { TypeOfMarkers } from '../../components/markers';
+import { MarkerTypes } from '../../components/markers';
 
 const initChatData = {
   taskId: 0,
@@ -127,8 +127,8 @@ export const ChatStore = ChatDomain.store<ITaskMessagesStore>(initStore)
   .reset(resetChatStore);
 
 chatTaskSession.done.watch(({ params: { towerTitle } }) => {
-  hideMarker({ towerTitle, type: TypeOfMarkers.TASK });
-  setMarker({ towerTitle, type: TypeOfMarkers.ACTIVE_TASK });
+  hideMarker({ towerTitle, type: MarkerTypes.TASK });
+  setMarker({ towerTitle, type: MarkerTypes.ACTIVE_TASK });
 });
 
 export interface ICurrentTowerChatStore {

@@ -13,7 +13,7 @@ import { TowersTypes } from '../towers-progress/store';
 import { chatTaskSession } from '../chat/events';
 import { TasksType } from '../../components/menu/menu-tasks';
 import { setMarker } from '../towers-marker/events';
-import { TypeOfMarkers } from '../../components/markers';
+import { MarkerTypes } from '../../components/markers';
 
 export enum TaskStatuses {
   CREATED = 'created',
@@ -31,14 +31,14 @@ export const TasksStore = MissionsDomain.store(initStore)
   .on(saveTask, (_, payload) => payload)
   .on(activateTask.doneData, (state, payload) => payload)
   .on(verifyTask.doneData, (state, payload) => payload)
-  .on(takeReward.doneData, (state, { data, id }) => {
-    const currentEl = state.findIndex(el => el.id === id);
-    const { money, energy } = state.splice(currentEl, 1)[0];
+  .on(takeReward.doneData, (state, { id }) => {
+    const taskIdx = state.findIndex(el => el.id === id);
+    const { money, energy } = state.splice(taskIdx, 1)[0];
     editUserProperty({
       money,
       energy,
     });
-    return data;
+    return [...state.slice(0, taskIdx), ...state.slice(taskIdx + 1)];
   })
 
   .on(setCurrentTaskStatus, (state, { taskId, status }) => {
@@ -50,16 +50,15 @@ export const TasksStore = MissionsDomain.store(initStore)
     ];
   })
   .on(chatTaskSession.doneData, (state, { taskId, data }) => {
-    const currentTaskIndex = state.findIndex(el => el.id === taskId);
+    const taskIdx = state.findIndex(el => el.id === taskId);
+    if (taskIdx === -1) return state;
     return [
-      ...state.slice(0, currentTaskIndex),
+      ...state.slice(0, taskIdx),
       {
-        ...state[currentTaskIndex],
-        status: !data.ended
-          ? TaskStatuses.ACTIVE
-          : state[currentTaskIndex].status,
+        ...state[taskIdx],
+        status: !data.ended ? TaskStatuses.ACTIVE : state[taskIdx].status,
       },
-      ...state.slice(currentTaskIndex + 1),
+      ...state.slice(taskIdx + 1),
     ];
   })
   .on(getResult.doneData, (state, payload) => {
@@ -88,12 +87,12 @@ export const TasksStore = MissionsDomain.store(initStore)
 const detectTaskStatus = (taskStatus: TaskStatuses) => {
   switch (taskStatus) {
     case TaskStatuses.ACTIVE:
-      return TypeOfMarkers.ACTIVE_TASK;
+      return MarkerTypes.ACTIVE_TASK;
     case TaskStatuses.DONE:
-      return TypeOfMarkers.SUCCESS;
+      return MarkerTypes.SUCCESS;
     case TaskStatuses.CREATED:
     default:
-      return TypeOfMarkers.TASK;
+      return MarkerTypes.TASK;
   }
 };
 

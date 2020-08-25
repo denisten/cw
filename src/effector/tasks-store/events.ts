@@ -57,7 +57,3 @@ interface ISetCurrentTaskStatus {
 interface IGetResult extends IGetTaskResultRequest {
   id: number;
 }
-
-interface IActivateTask {
-  id: number;
-}
