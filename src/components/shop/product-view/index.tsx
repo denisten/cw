@@ -67,7 +67,7 @@ const styledConfig = {
     height: '52px',
   },
   rowBlock: {
-    marginTop: '124px',
+    marginTop: 'auto',
     marginBottom: '28px',
     paddingRight: '10px',
     alignItems: 'center',
