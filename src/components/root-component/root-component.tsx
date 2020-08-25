@@ -56,7 +56,8 @@ export const RootComponent = () => {
   const {
     music: { enable, volume },
   } = useStore(SettingsStore);
-  useAudio(backgroundMusic, enable, true, volume);
+  const canPlayBackgroundSound = enable && !tutorialSliderDisplayFlag;
+  useAudio(backgroundMusic, canPlayBackgroundSound, true, volume);
 
   return (
     <RootComponentWrapper displayFlag={DOMLoaded}>

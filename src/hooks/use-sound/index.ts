@@ -9,8 +9,6 @@ export const useAudio = (
   const [audio] = useState(new Audio(url));
   audio.volume = volume;
   audio.loop = repeat;
-  audio.autoplay = true;
-  audio.load();
 
   useEffect(() => {
     play ? audio.play() : audio.pause();

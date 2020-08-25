@@ -67,6 +67,11 @@ module.exports = {
         include: path.resolve(__dirname, 'src'),
         loader: 'file-loader',
       },
+      {
+        test: /\.wav$/,
+        include: path.resolve(__dirname, 'src'),
+        loader: 'file-loader',
+      },
     ],
   },
 

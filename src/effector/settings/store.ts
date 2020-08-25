@@ -8,7 +8,7 @@ export enum SettingsType {
 
 const initState = {
   [SettingsType.MUSIC]: { enable: true, volume: 0.2 },
-  [SettingsType.SOUND]: { enable: false, volume: 0.7 },
+  [SettingsType.SOUND]: { enable: true, volume: 0.7 },
 };
 
 export const SettingsStore = SettingsDomain.store<ISettingStore>(initState)
