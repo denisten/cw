@@ -4,7 +4,7 @@ import { StyledSpan } from '../span';
 import { MTSSans } from '../../fonts';
 import { Icon, TypeOfIcons } from '../icons';
 import { MoneyCounter } from '../../components/shop/shop-content/money-counter';
-import { CouponTypes, PromocodeTypes } from '../../effector/coupons/store';
+import { CouponTypes } from '../../effector/coupons/store';
 import { TasksType } from '../../components/menu/menu-tasks';
 import { TypeOfMarkers } from '../../components/markers';
 import plus from './plus.svg';
@@ -112,12 +112,7 @@ interface ICouponCard {
   callBack?: () => void;
   active: boolean;
   couponsQuantity?: number;
-  iconType:
-    | CouponTypes
-    | PromocodeTypes
-    | TypeOfIcons
-    | TasksType
-    | TypeOfMarkers;
+  iconType: CouponTypes | TypeOfIcons | TasksType | TypeOfMarkers | string;
   titleElem?: string;
   price?: number;
   disable?: boolean;
