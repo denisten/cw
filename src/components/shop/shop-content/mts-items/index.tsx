@@ -6,7 +6,6 @@ import { MTSItemCard } from './mts-item-card';
 import { useStore } from 'effector-react';
 import {
   UserMarketStore,
-  PromocodeTypes,
   StoreItemTypes,
 } from '../../../../effector/coupons/store';
 import { ifElse } from 'ramda';
@@ -33,8 +32,7 @@ const MTSCatalogItems = () => {
 const UserCatalogItems = () => {
   const { userPromocodes } = useStore(UserMarketStore);
   const userPromocodesArray = Object.keys(userPromocodes).map(item => {
-    const userItem = item as PromocodeTypes;
-    return userPromocodes[userItem].storeItem;
+    return userPromocodes[item].storeItem;
   });
 
   return (

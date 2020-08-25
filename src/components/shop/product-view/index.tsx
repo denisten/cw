@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { useStore } from 'effector-react';
 import {
   UserMarketStore,
-  PromocodeTypes,
   ICatalogItems,
 } from '../../../effector/coupons/store';
 import { StyledSpan } from '../../../UI/span';
@@ -128,8 +127,7 @@ const SelectedStoreItem: React.FC<{ selectedStoreItem: ICatalogItems }> = ({
   const promocodeTextRef = useRef<HTMLSpanElement>(null);
   const itIsCoupon = checkCouponType(selectedStoreItem);
   const canBuyThisItem = itIsCoupon || (!itIsCoupon && !showUserPromocodes);
-  const promocodeContent =
-    userPromocodes[selectedStoreItem.slug as PromocodeTypes]?.content;
+  const promocodeContent = userPromocodes[selectedStoreItem.slug]?.content;
 
   const canUsePromocode =
     showUserPromocodes &&

@@ -4,11 +4,10 @@ import {
   CouponTypes,
   PurchasStatuses,
   ICatalogItems,
-  PromocodeTypes,
 } from '../../../effector/coupons/store';
 
 export const buyItemRequest = async (data: {
-  item: CouponTypes | PromocodeTypes;
+  item: CouponTypes | string;
   quantity: number;
 }) => {
   const response = await post<{ data: IBuyItem }>(

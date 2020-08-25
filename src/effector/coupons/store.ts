@@ -31,22 +31,12 @@ export enum PurchasStatuses {
   USED = 'used',
 }
 
-export enum PromocodeTypes {
-  MGTS_SPECIAL = 'promocode.universal.mgts-special',
-}
-
 const defaultUserCoupons = {
   [CouponTypes.COUPON_REPLACE]: { count: 0, storeItem: null },
   [CouponTypes.COUPON_SKIP]: { count: 0, storeItem: null },
 };
 
-const defaultUserPromocodes = {
-  [PromocodeTypes.MGTS_SPECIAL]: {
-    storeItem: null,
-    status: null,
-    content: null,
-  },
-};
+const defaultUserPromocodes = {};
 
 const initState = {
   catalog: [],
@@ -92,8 +82,7 @@ export const UserMarketStore = StoreDomain.store<IUserStore>(initState)
           };
         }
         if (storeItem.type.slug === StoreItemTypes.PROMO_CODE) {
-          const promocodeSlug = storeItem.slug as PromocodeTypes;
-          stateClone.userPromocodes[promocodeSlug] = {
+          stateClone.userPromocodes[storeItem.slug] = {
             content,
             status,
             storeItem,
@@ -123,7 +112,7 @@ interface IUserStore {
     };
   };
   userPromocodes: {
-    [key in PromocodeTypes]: {
+    [key in string]: {
       status: PurchasStatuses | null;
       storeItem: ICatalogItems | null;
       content: null | string;
@@ -143,7 +132,7 @@ export interface ICatalogItems {
     slug: StoreItemTypes;
   };
   price: number;
-  slug: CouponTypes | PromocodeTypes;
+  slug: CouponTypes | string;
   name: string;
   description: string;
   maxTotalCount?: number;
