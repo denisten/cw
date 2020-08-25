@@ -17,9 +17,14 @@ import replace from './replace.svg';
 import skip from './skip.svg';
 import enter from './enter.svg';
 import mgts from './mgts.svg';
+import musicActive from './musicActive.svg';
+import soundActive from './soundActive.svg';
+import musicDisable from './musicDisable.svg';
+import soundDisable from './soundDisable.svg';
 import { TasksType } from '../../components/menu/menu-tasks';
 import { TypeOfMarkers } from '../../components/markers';
 import { CouponTypes } from '../../effector/coupons/store';
+import { SettingsType } from '../../effector/settings/store';
 
 export enum TypeOfIcons {
   ENERGY = 'energy',
@@ -34,9 +39,19 @@ const defaultStyle = {
   height: '34px',
 };
 
-export const Icon: React.FC<IIcon> = ({ style = defaultStyle, type }) => {
+export const Icon: React.FC<IIcon> = ({
+  style = defaultStyle,
+  type,
+  callBack,
+}) => {
   const switchSrc = (
-    type: TypeOfIcons | TasksType | TypeOfMarkers | CouponTypes | string
+    type:
+      | TypeOfIcons
+      | TasksType
+      | TypeOfMarkers
+      | CouponTypes
+      | SettingsType
+      | string
   ) => {
     switch (type) {
       case TypeOfIcons.CHAT:
@@ -77,13 +92,23 @@ export const Icon: React.FC<IIcon> = ({ style = defaultStyle, type }) => {
 
       case TypeOfIcons.ENTER:
         return enter;
+      case SettingsType.MUSIC:
+        return musicActive;
+      case SettingsType.SOUND:
+        return soundActive;
+      case SettingsType.MUSIC + 'disable':
+        return musicDisable;
+      case SettingsType.SOUND + 'disable':
+        return soundDisable;
 
       default:
         return mgts;
     }
   };
 
-  return <img style={style} src={switchSrc(type)} alt="icon" />;
+  return (
+    <img style={style} src={switchSrc(type)} alt="icon" onClick={callBack} />
+  );
 };
 
 interface IIcon {
@@ -91,5 +116,13 @@ interface IIcon {
     width?: string;
     height?: string;
   };
-  type: TypeOfIcons | TasksType | TypeOfMarkers | CouponTypes | string;
+  type:
+    | TypeOfIcons
+    | TasksType
+    | TypeOfMarkers
+    | CouponTypes
+    | SettingsType
+    | string;
+
+  callBack?: () => void;
 }
