@@ -29,7 +29,7 @@ import { MTSSans } from '../../../fonts';
 import { buyItemRequest } from '../../../api/shop-api/buy-item';
 import copy from './copy.svg';
 import { copyTextNode } from '../../../utils/copy-text-node';
-import loseMoney from '../../../sound/loseMoney.mp3';
+import loseMoney from '../../../sound/lose-money-sound.mp3';
 import { SettingsStore } from '../../../effector/settings/store';
 import { useAudio } from '../../../hooks/use-sound';
 import { useConditionWhenSoundPlay } from '../../../hooks/use-condition-when-sound-play';

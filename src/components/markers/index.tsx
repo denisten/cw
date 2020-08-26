@@ -213,7 +213,7 @@ export const Markers: React.FC<IMarkers> = ({
   const {
     sound: { enable, volume },
   } = useStore(SettingsStore);
-  const { play: takeRewardPlay } = useAudio(takeRewardSound, false, volume);
+  const { play: playRewardSound } = useAudio(takeRewardSound, false, volume);
 
   return (
     <MarkerWrapper
@@ -228,7 +228,7 @@ export const Markers: React.FC<IMarkers> = ({
             key={markItem.type}
             onClick={e => {
               if (markItem.type === TypeOfMarkers.TAKE_REWARD && enable) {
-                takeRewardPlay();
+                playRewardSound();
               }
               markerClickHandler(markItem, towerTitle, towerRef, e);
             }}

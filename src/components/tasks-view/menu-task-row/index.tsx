@@ -76,7 +76,7 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
   const {
     sound: { enable, volume },
   } = useStore(SettingsStore);
-  const { play: takeRewardPlay } = useAudio(takeRewardSound, false, volume);
+  const { play: playRewardSound } = useAudio(takeRewardSound, false, volume);
   const { play: activeTaskPlay } = useAudio(activeTask, false, volume);
 
   const handleWrapperClick = (e: React.MouseEvent) => {
@@ -85,7 +85,7 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
       // do next tutorial step in future
     } else {
       handleTaskClick(taskData, e);
-      taskData.status === TaskStatuses.DONE && enable && takeRewardPlay();
+      taskData.status === TaskStatuses.DONE && enable && playRewardSound();
       taskData.status === TaskStatuses.CREATED && enable && activeTaskPlay();
     }
   };

@@ -61,7 +61,7 @@ const AllRightsReserved = styled.span`
 export const Settings: React.FC = () => {
   return (
     <SettingWrapper>
-      <SettingPopUpTitle></SettingPopUpTitle>
+      <SettingPopUpTitle />
       <SettingOptionsWrapper>
         <SettingItems />
       </SettingOptionsWrapper>
