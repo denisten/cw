@@ -29,6 +29,10 @@ import { MTSSans } from '../../../fonts';
 import { buyItemRequest } from '../../../api/shop-api/buy-item';
 import copy from './copy.svg';
 import { copyTextNode } from '../../../utils/copy-text-node';
+import loseMoney from '../../../sound/loseMoney.mp3';
+import { SettingsStore } from '../../../effector/settings/store';
+import { useAudio } from '../../../hooks/use-sound';
+import { useConditionWhenSoundPlay } from '../../../hooks/use-condition-when-sound-play';
 
 const Wrapper = styled.div`
   height: 100%;
@@ -128,6 +132,17 @@ const SelectedStoreItem: React.FC<{ selectedStoreItem: ICatalogItems }> = ({
   const itIsCoupon = checkCouponType(selectedStoreItem);
   const canBuyThisItem = itIsCoupon || (!itIsCoupon && !showUserPromocodes);
   const promocodeContent = userPromocodes[selectedStoreItem.slug]?.content;
+
+  const {
+    sound: { enable, volume },
+  } = useStore(SettingsStore);
+  const { play: loseMoneySoundPlay } = useAudio(loseMoney, false, volume);
+
+  useConditionWhenSoundPlay<boolean>(
+    waitingForPurchase && enable,
+    loseMoneySoundPlay,
+    waitingForPurchase
+  );
 
   const canUsePromocode =
     showUserPromocodes &&

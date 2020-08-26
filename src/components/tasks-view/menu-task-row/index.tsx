@@ -25,6 +25,12 @@ import { TasksType } from '../../menu/menu-tasks';
 import styled from 'styled-components';
 import { StyledSpan } from '../../../UI/span';
 import { MTSSans } from '../../../fonts';
+import takeRewardSound from '../../../sound/takeReward.mp3';
+import activeTask from '../../../sound/activeTask.mp3';
+import { useStore } from 'effector-react';
+import { SettingsStore } from '../../../effector/settings/store';
+import { useAudio } from '../../../hooks/use-sound';
+import { TaskStatuses } from '../../../effector/tasks-store/store';
 
 export const TaskWrapper = styled.div<ITaskLocation>`
   width: 719px;
@@ -67,12 +73,20 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
 
   const [isCouponModalWindowOpen, setIsCouponModalWindowOpen] = useState(false);
 
+  const {
+    sound: { enable, volume },
+  } = useStore(SettingsStore);
+  const { play: takeRewardPlay } = useAudio(takeRewardSound, false, volume);
+  const { play: activeTaskPlay } = useAudio(activeTask, false, volume);
+
   const handleWrapperClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (taskType === TasksType.TUTORIAL_TASK) {
       // do next tutorial step in future
     } else {
       handleTaskClick(taskData, e);
+      taskData.status === TaskStatuses.DONE && enable && takeRewardPlay();
+      taskData.status === TaskStatuses.CREATED && enable && activeTaskPlay();
     }
   };
 
