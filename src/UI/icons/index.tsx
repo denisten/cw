@@ -16,7 +16,7 @@ import play from './play.svg';
 import replace from './replace.svg';
 import skip from './skip.svg';
 import enter from './enter.svg';
-import mgts from './mgts.svg';
+import promocode from './promo.svg';
 import musicActive from './musicActive.svg';
 import soundActive from './soundActive.svg';
 import musicDisable from './musicDisable.svg';
@@ -102,7 +102,7 @@ export const Icon: React.FC<IIcon> = ({
         return soundDisable;
 
       default:
-        return mgts;
+        return promocode;
     }
   };
 
