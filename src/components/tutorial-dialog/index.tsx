@@ -22,6 +22,9 @@ import { AppConditionStore } from '../../effector/app-condition/store';
 import { delayBeforePreloaderOff } from '../../constants';
 import { handleAuthButtonClick } from '../../utils/handle-auth-button-click';
 import { ExitButton } from '../../UI/exit-button';
+import { SettingsStore } from '../../effector/settings/store';
+import { useAudio } from '../../hooks/use-sound';
+import assistantSound from '../../sound/assistantSound.mp3';
 
 const TutorialDialogWrapper = styled.div`
   width: 1128px;
@@ -166,6 +169,18 @@ export const TutorialDialog: React.FC<{ mustBeAsAnimated?: boolean }> = ({
 
   const currentMessage = messages[dialogStep];
   let letterByLetterCallback: number;
+
+  const {
+    sound: { enable, volume },
+  } = useStore(SettingsStore);
+
+  const { play: assistantPlaySound } = useAudio(assistantSound, false, volume);
+
+  useEffect(() => {
+    if (DOMLoaded) {
+      tutorialCondition && enable && assistantPlaySound();
+    }
+  }, [tutorialCondition, DOMLoaded]);
 
   useEffect(() => {
     if (!DOMLoaded) return;
