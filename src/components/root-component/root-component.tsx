@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useStore } from 'effector-react';
 import { AppConditionStore } from '../../effector/app-condition/store';
@@ -56,8 +56,13 @@ export const RootComponent = () => {
   const {
     music: { enable, volume },
   } = useStore(SettingsStore);
-  const canPlayBackgroundSound = enable && !tutorialSliderDisplayFlag;
-  useAudio(backgroundMusic, canPlayBackgroundSound, true, volume);
+
+  const { play, pause } = useAudio(backgroundMusic, true, volume);
+
+  useEffect(() => {
+    const canPlayBackgroundSound = enable && !tutorialSliderDisplayFlag;
+    canPlayBackgroundSound ? play() : pause();
+  }, [enable, tutorialSliderDisplayFlag]);
 
   return (
     <RootComponentWrapper displayFlag={DOMLoaded}>

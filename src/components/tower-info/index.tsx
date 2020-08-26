@@ -34,9 +34,7 @@ import { setTowerInfoShift } from '../../effector/tower-info-modal-store/events'
 import background from './background.svg';
 import { DescriptionStore } from '../../effector/descriptions/store';
 import { useFetchDescriptions } from '../../hooks/use-fetch-descriptions';
-import { useAudio } from '../../hooks/use-sound';
-import towerOpen from '../../sound/towerOpen.wav';
-import { SettingsStore } from '../../effector/settings/store';
+
 export type ModalWindowProps = {
   opened?: boolean;
 };
@@ -139,13 +137,6 @@ const TowerInfo: React.FC = () => {
     focusOn: notVerifiedTowerTitle,
     hideTowerInfo,
   } = useStore(TowerInfoModalStore);
-  const {
-    sound: { enable, volume },
-  } = useStore(SettingsStore);
-
-  const playWhenTowerIsOpen = enable && isExtraTowerInfoModalOpen;
-
-  useAudio(towerOpen, playWhenTowerIsOpen, false, volume);
 
   const { selectTowerInfoContent } = useStore(AppConditionStore);
   const { tutorialCondition } = useStore(TutorialStore);
