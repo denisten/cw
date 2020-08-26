@@ -15,6 +15,9 @@ import { useStore } from 'effector-react';
 import { Tooltip } from '../../../UI/tooltip';
 import { RowWrapper } from '../../../UI/row-wrapper';
 import { StyledSpan } from '../../../UI/span';
+import playButtonSound from '../../../sound/playButton.mp3';
+import { SettingsStore } from '../../../effector/settings/store';
+import { useAudio } from '../../../hooks/use-sound';
 
 const EVOLUTION = 'evolution';
 
@@ -158,8 +161,16 @@ export const TowerInfoIndicators: React.FC<ITowerInfoIndicators> = ({
 
   const [activeTooltip, setActiveTooltip] = useState(ActiveTooltip.OFF);
 
-  const handlePlayButtonClick = () =>
+  const {
+    sound: { enable, volume },
+  } = useStore(SettingsStore);
+
+  const { play: playButtonPlay } = useAudio(playButtonSound, false, volume);
+
+  const handlePlayButtonClick = () => {
     playButtonLink && windowOpen(playButtonLink);
+    enable && playButtonPlay();
+  };
 
   return (
     <HeaderLine sizeContent={hideTowerInfo}>
