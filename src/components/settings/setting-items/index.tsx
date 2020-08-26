@@ -1,106 +1,100 @@
 import React from 'react';
 import { SettingsStore, SettingsType } from '../../../effector/settings/store';
 import styled from 'styled-components';
-import notification from './notification.svg';
-import notificationActive from './notification-active.svg';
-import sound from './sound.svg';
-import soundActive from './sound-active.svg';
-import music from './music.svg';
-import musicActive from './music-active.svg';
-import language from './language.svg';
-import languageActive from './language-active.svg';
-import { musicAndSoundToggle } from '../../../effector/settings/events';
+
+import {
+  musicAndSoundToggle,
+  setVolume,
+} from '../../../effector/settings/events';
 import { useStore } from 'effector-react';
+import { Icon } from '../../../UI/icons';
 
-const returnOptionBackground = (active: boolean, type: SettingsType) => {
-  switch (type) {
-    case SettingsType.NOTIFICATION:
-      return active ? notificationActive : notification;
-    case SettingsType.SOUND:
-      return active ? soundActive : sound;
-    case SettingsType.MUSIC:
-      return active ? musicActive : music;
-    case SettingsType.LANGUAGE:
-      return active ? languageActive : language;
-    default:
-      break;
-  }
-};
-
-const Option = styled.div<IOption>`
-  width: 60px;
-  height: 60px;
-  background-size: 100% 100%;
-  background: url(${props => returnOptionBackground(props.active, props.type)})
-    no-repeat center;
-  &:not(:last-child) {
-    margin-right: 20px;
-  }
-  cursor: pointer;
-  transition: 0.4s;
+const SettingItemsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
-export const SettingItems: React.FC<ISettingItems> = ({
-  callback,
-  selectOptionPopUpType,
-}) => {
-  const { music, sound } = useStore(SettingsStore);
-  return (
-    <>
-      {Object.values(SettingsType).map((elem, ind) => {
-        switch (elem) {
-          case SettingsType.NOTIFICATION:
-          case SettingsType.LANGUAGE:
-            return (
-              <Option
-                key={ind}
-                active={selectOptionPopUpType === elem}
-                onClick={() => callback(elem)}
-                type={elem}
-              />
-            );
-          case SettingsType.SOUND:
-            return (
-              <Option
-                key={ind}
-                active={sound}
-                type={elem}
-                onClick={() =>
-                  musicAndSoundToggle({
-                    settingType: SettingsType.SOUND,
-                    flag: !sound,
-                  })
-                }
-              />
-            );
-          case SettingsType.MUSIC:
-            return (
-              <Option
-                key={ind}
-                active={music}
-                type={elem}
-                onClick={() =>
-                  musicAndSoundToggle({
-                    settingType: SettingsType.MUSIC,
-                    flag: !music,
-                  })
-                }
-              />
-            );
-          default:
-            break;
-        }
-      })}
-    </>
-  );
+const InputBody = styled.div`
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+`;
+
+const InputRange = styled.input.attrs({
+  type: 'range',
+  min: 0,
+  max: 1,
+  step: 0.1,
+})`
+  width: 310px;
+  margin-left: 20px;
+`;
+
+const styledConfig = {
+  icon: {
+    width: '24px',
+    height: '24px',
+  },
 };
 
-interface ISettingItems {
-  callback: (elem: SettingsType) => void;
-  selectOptionPopUpType: SettingsType | '';
-}
+export const SettingItems = () => {
+  const { music, sound } = useStore(SettingsStore);
 
-interface IOption {
-  active: boolean;
-  type: SettingsType;
-}
+  const changeHandler = (
+    settingType: SettingsType,
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setVolume({ settingType, volume: Number(e.target.value) });
+    if (Number(e.target.value) === 0) {
+      musicAndSoundToggle({
+        settingType,
+        enable: false,
+      });
+    } else {
+      musicAndSoundToggle({
+        settingType,
+        enable: true,
+      });
+    }
+  };
+  return (
+    <SettingItemsWrapper>
+      <InputBody>
+        <Icon
+          style={styledConfig.icon}
+          type={
+            music.enable ? SettingsType.MUSIC : SettingsType.MUSIC + 'disable'
+          }
+          callBack={() =>
+            musicAndSoundToggle({
+              settingType: SettingsType.MUSIC,
+              enable: !music.enable,
+            })
+          }
+        />
+        <InputRange
+          value={music.volume}
+          onChange={e => changeHandler(SettingsType.MUSIC, e)}
+        />
+      </InputBody>
+      <InputBody>
+        <Icon
+          style={styledConfig.icon}
+          type={
+            sound.enable ? SettingsType.SOUND : SettingsType.SOUND + 'disable'
+          }
+          callBack={() =>
+            musicAndSoundToggle({
+              settingType: SettingsType.SOUND,
+              enable: !sound.enable,
+            })
+          }
+        />
+        <InputRange
+          value={sound.volume}
+          onChange={e => changeHandler(SettingsType.SOUND, e)}
+        />
+      </InputBody>
+    </SettingItemsWrapper>
+  );
+};

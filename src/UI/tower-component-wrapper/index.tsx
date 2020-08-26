@@ -21,6 +21,10 @@ import { AppConditionStore } from '../../effector/app-condition/store';
 import signBcg from './signBcg.svg';
 import { TowerUpgradeAnimation } from '../tower-upgrade-animation';
 
+import towerUpgrade from '../../sound/tower-upgrade.mp3';
+import { SettingsStore } from '../../effector/settings/store';
+import { useAudio } from '../../hooks/use-sound';
+
 enum strokeClassNames {
   STROKE = 'stroke',
   STROKE_ACTIVE = 'strokeActive',
@@ -175,6 +179,16 @@ export const TowerWrapper = memo(
     const markers = useStore(TowersMarkerStore)[towerTitle];
     const markersDisplayFlag =
       !mutedImg && !needUpgrade && markers && markers.length > 0;
+
+    const {
+      sound: { enable, volume },
+    } = useStore(SettingsStore);
+
+    const { play: towerUpgradePlay } = useAudio(towerUpgrade, false, volume);
+
+    useEffect(() => {
+      upgradeFlag && enable && towerUpgradePlay();
+    }, [upgradeFlag]);
 
     const handleClick = () => {
       if (mutedImg) return;

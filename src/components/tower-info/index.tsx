@@ -34,6 +34,12 @@ import { setTowerInfoShift } from '../../effector/tower-info-modal-store/events'
 import background from './background.svg';
 import { DescriptionStore } from '../../effector/descriptions/store';
 import { useFetchDescriptions } from '../../hooks/use-fetch-descriptions';
+import towerOpen from '../../sound/tower-open.mp3';
+import { useAudio } from '../../hooks/use-sound';
+import { SettingsStore } from '../../effector/settings/store';
+import { usePlaySoundIf } from '../../hooks/use-play-sound-if';
+import openChat from '../../sound/open-chat.mp3';
+
 export type ModalWindowProps = {
   opened?: boolean;
 };
@@ -148,6 +154,23 @@ const TowerInfo: React.FC = () => {
   } = useStore(TowersProgressStore)[towerTitle];
 
   const { ended } = useStore(ChatStore)[towerTitle];
+  const {
+    sound: { enable, volume },
+  } = useStore(SettingsStore);
+  const { play: openTowerInfoSoundPlay } = useAudio(towerOpen, false, volume);
+  const { play: openChatSoundPlay } = useAudio(openChat, false, volume);
+
+  usePlaySoundIf<boolean>(
+    isExtraTowerInfoModalOpen && enable,
+    openTowerInfoSoundPlay,
+    isExtraTowerInfoModalOpen
+  );
+
+  usePlaySoundIf<TowerInfoContentValues>(
+    selectTowerInfoContent === TowerInfoContentValues.CHAT && enable,
+    openChatSoundPlay,
+    selectTowerInfoContent
+  );
 
   const refsCollection: Array<React.RefObject<HTMLDivElement>> = useMemo(
     () => Array.from({ length: 3 }).map(() => createRef()),

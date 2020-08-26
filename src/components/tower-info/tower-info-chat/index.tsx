@@ -1,7 +1,7 @@
 import React, { memo, useEffect, useRef, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { IDisplayFlag } from '../../skip-tutorial';
-import { Sender } from '../../../api/tasks-api/session';
+import { Sender, IMessage } from '../../../api/tasks-api/session';
 import {
   ITask,
   TasksStore,
@@ -25,6 +25,10 @@ import { ModalWindow } from '../../modal-window';
 import { chatEndedHandler } from '../../../utils/chat-ended-handler';
 import { checkChatSession } from '../../../utils/check-chat-session';
 import { setCurrentTaskStatus } from '../../../effector/tasks-store/events';
+import newMessage from '../../../sound/newMessage.wav';
+import { SettingsStore } from '../../../effector/settings/store';
+import { useAudio } from '../../../hooks/use-sound';
+import { usePlaySoundIf } from '../../../hooks/use-play-sound-if';
 
 const ChatWrapper = styled.div`
   width: 100%;
@@ -182,6 +186,17 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
         }
       }
     };
+
+    const {
+      sound: { enable, volume },
+    } = useStore(SettingsStore);
+    const { play: newMessagePlay } = useAudio(newMessage, false, volume);
+
+    usePlaySoundIf<IMessage[]>(
+      messages.length > 0 && enable,
+      newMessagePlay,
+      messages
+    );
 
     useEffect(() => {
       setHideTowerInfo(true);
