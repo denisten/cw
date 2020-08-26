@@ -25,7 +25,6 @@ import { ExitButton } from '../../UI/exit-button';
 import { SettingsStore } from '../../effector/settings/store';
 import { useAudio } from '../../hooks/use-sound';
 import assistantSound from '../../sound/assistantSound.mp3';
-import { useConditionWhenSoundPlay } from '../../hooks/use-condition-when-sound-play';
 
 const TutorialDialogWrapper = styled.div`
   width: 1128px;
@@ -176,12 +175,7 @@ export const TutorialDialog: React.FC<{ mustBeAsAnimated?: boolean }> = ({
   } = useStore(SettingsStore);
 
   const { play: assistantPlaySound } = useAudio(assistantSound, false, volume);
-  const canPlay = tutorialCondition !== 0 && enable && DOMLoaded;
-  useConditionWhenSoundPlay<TutorialConditions>(
-    canPlay,
-    assistantPlaySound,
-    tutorialCondition
-  );
+  const canPlaySound = tutorialCondition !== 0 && enable && DOMLoaded;
 
   useEffect(() => {
     if (DOMLoaded) {
@@ -217,6 +211,7 @@ export const TutorialDialog: React.FC<{ mustBeAsAnimated?: boolean }> = ({
       }
       if (messages.length !== dialogStep + 1) {
         setDialogStep(dialogStep + 1);
+        canPlaySound && assistantPlaySound();
       } else {
         nextTutorStep();
       }
