@@ -49,11 +49,13 @@ const createSubscriptions = (centrifuge: Centrifuge, userId: number) => {
         const { income, level, levelUpPercentage } = towerData[
           towerTitle
         ].level;
+        const { factors } = towerData[towerTitle];
         addTowerProgressData({
           towerTitle,
           income,
           newLevel: level,
           levelUpPercentage,
+          factors,
         });
       });
     }

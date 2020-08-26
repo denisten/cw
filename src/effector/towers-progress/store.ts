@@ -481,7 +481,7 @@ export const TowersProgressStore = TowersProgressDomain.store<
   }))
   .on(
     addTowerProgressData,
-    (state, { towerTitle, newLevel, levelUpPercentage, income }) => {
+    (state, { towerTitle, newLevel, levelUpPercentage, income, factors }) => {
       if (newLevel > state[towerTitle].level.level)
         return {
           ...state,
@@ -494,6 +494,7 @@ export const TowersProgressStore = TowersProgressDomain.store<
               levelUpPercentage,
               income,
             },
+            factors,
           },
         };
       else
@@ -507,6 +508,7 @@ export const TowersProgressStore = TowersProgressDomain.store<
               levelUpPercentage,
               income,
             },
+            factors,
           },
         };
     }
