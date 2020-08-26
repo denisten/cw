@@ -29,7 +29,6 @@ export const handleTaskClick = async (taskData: ITask, e: React.MouseEvent) => {
   const { fullSizeMode } = AppConditionStore.getState();
   const { selectedMenuItem } = MenuStore.getState();
   const { taskId: chatTaskId } = ChatStore.getState()[towerTitle];
-
   switch (taskData.status) {
     case TaskStatuses.CREATED:
       if (!chatTaskId) {

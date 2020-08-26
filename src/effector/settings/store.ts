@@ -29,7 +29,7 @@ const initState = {
     [NotificationType.BUILDING]: { select: false },
     [NotificationType.OTHER]: { select: true },
   },
-  [SettingsType.MUSIC]: true,
+  [SettingsType.MUSIC]: false,
   [SettingsType.SOUND]: false,
   [SettingsType.LANGUAGE]: LanguageType.RU,
 };

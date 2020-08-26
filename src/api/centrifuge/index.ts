@@ -26,6 +26,7 @@ import {
 } from '../../effector/coupons/events';
 import { setMarker } from '../../effector/towers-marker/events';
 import { MarkerTypes } from '../../components/markers';
+import { TasksType } from '../../components/menu/menu-tasks';
 
 const notSecuredProtocol = 'http:';
 const securedWebSocketProtocol = 'wss://';
@@ -64,7 +65,10 @@ const createSubscriptions = (centrifuge: Centrifuge, userId: number) => {
     'user-tasks:updates#' + userId,
     (items: IGetTasks) => {
       const userTasks = items.data.filter(el => {
-        if (el.status !== TaskStatuses.CREATED) {
+        if (
+          el.status !== TaskStatuses.CREATED &&
+          el.taskTypeSlug !== TasksType.MISSION
+        ) {
           setTaskId({
             towerTitle: el.productSlug,
             taskId: el.id,

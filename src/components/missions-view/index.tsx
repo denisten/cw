@@ -4,6 +4,7 @@ import { MenuTaskRow, TaskWrapper, Title } from '../tasks-view/menu-task-row';
 import {
   Border,
   checkTaskStatus,
+  TaskButton,
   TaskDescription,
   TaskDescriptionWrapper,
   TaskInfo,
@@ -19,6 +20,7 @@ import { TaskTimer } from '../../UI/task-timer';
 import notDoneImg from '../tasks-view/tower-task-row/not-done.svg';
 import { MTSSans } from '../../fonts';
 import { ITask, TaskStatuses } from '../../effector/tasks-store/store';
+import { handleTaskClick } from '../../utils/handle-task-click';
 
 const Wrapper = styled(TaskWrapper)`
   border: 2px solid #3baa07;
@@ -57,6 +59,10 @@ const MissionProgressBar = styled.div<IMissionProgressBar>`
     box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.5);
   }
 `;
+const percents = 100;
+
+const calculateProgress = (completed: number, all: number) =>
+  (completed / all) * percents;
 
 export const MissionsView: React.FC<IMissionsView> = ({ taskData }) => {
   const { taskTypeSlug: taskType } = taskData;
@@ -67,7 +73,7 @@ export const MissionsView: React.FC<IMissionsView> = ({ taskData }) => {
   const vectorRef = useRef<HTMLImageElement>(null);
 
   const completedSubTasksQuantity = taskData.userSubTasks.filter(
-    el => el.status === TaskStatuses.DONE
+    el => el.status === TaskStatuses.DONE || el.status === TaskStatuses.REWARDED
   ).length;
 
   const SubTaskView = taskData.userSubTasks.map(el => {
@@ -124,15 +130,25 @@ export const MissionsView: React.FC<IMissionsView> = ({ taskData }) => {
               style={taskRowStyledConfig.columnWrapperAdditionalStyle}
             >
               <RowWrapper>
-                <MissionProgressBar
-                  progress={
-                    completedSubTasksQuantity / taskData.userSubTasks.length
-                  }
-                >
-                  <span>
-                    {completedSubTasksQuantity}/{taskData.userSubTasks.length}
-                  </span>
-                </MissionProgressBar>
+                {completedSubTasksQuantity !== taskData.userSubTasks.length ? (
+                  <MissionProgressBar
+                    progress={calculateProgress(
+                      completedSubTasksQuantity,
+                      taskData.userSubTasks.length
+                    )}
+                  >
+                    <span>
+                      {completedSubTasksQuantity}/{taskData.userSubTasks.length}
+                    </span>
+                  </MissionProgressBar>
+                ) : (
+                  <TaskButton
+                    onClick={e => handleTaskClick(taskData, e)}
+                    className={TaskStatuses.DONE}
+                    expireInSeconds={taskData.expireInSeconds}
+                  />
+                )}
+
                 {checkTaskStatus(taskData.status) && (
                   <img src={notDoneImg} alt="reject" />
                 )}

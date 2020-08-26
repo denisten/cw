@@ -14,6 +14,7 @@ import { RowWrapper } from '../../../UI/row-wrapper';
 import { couponModalConfig } from '../../tower-info/tower-info-chat';
 import { TasksType } from '../../menu/menu-tasks';
 import { ITask, TaskStatuses } from '../../../effector/tasks-store/store';
+import completedImg from './completed.svg';
 
 export const TaskWrapper = styled.div<ITaskLocation>`
   width: 100%;
@@ -90,6 +91,11 @@ export const TaskButton = styled.div<ITaskButton>`
       content: 'Не выполнено';
       color: #76a2a9;
     }
+  }
+  &.${TaskStatuses.REWARDED} {
+    background-image: url(${completedImg});
+    background-size: contain;
+    background-repeat: no-repeat;
   }
   ::after {
     font-family: ${MTSSans.MEDIUM};
