@@ -21,7 +21,7 @@ import Encyclopedia from '../encyclopedia';
 import Shop from '../shop';
 import TutorialToolsSelector from '../../utils/arrows-container';
 import { SettingsStore } from '../../effector/settings/store';
-import backgroundMusic from '../../sound/test.mp3';
+import backgroundMusic from '../../sound/background-sound.mp3';
 // import { SkipTutorial } from '../skip-tutorial';
 
 const RootComponentWrapper = styled.div.attrs({ id: 'rootScroll' })<
