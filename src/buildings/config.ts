@@ -757,8 +757,8 @@ class BuildingsService {
     },
 
     [TowersTypes.AUTO]: {
-      title: 'МТС Авто',
-      signConfig: ['МТС', 'Авто'],
+      title: 'МТС | Яндекс Авто',
+      signConfig: ['МТС', '| Яндекс Авто'],
       wideTower: true,
       zIndex: ZIndexes.BUILDING_FOUR_LEVEL,
       maxLevel: TowerLevel.high,

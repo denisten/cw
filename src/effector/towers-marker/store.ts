@@ -12,7 +12,7 @@ const initState: TowersMarkerStoreType = {
   [TowersTypes.MUSIC]: [],
   [TowersTypes.LIVE_ARENA]: [],
   [TowersTypes.CASHBACK]: [],
-  [TowersTypes.MY_MTS]: [],
+  [TowersTypes.MY_MTS]: [{ type: TypeOfMarkers.PLAY }],
   [TowersTypes.CASHBACK]: [],
   [TowersTypes.LIBRARY]: [],
   [TowersTypes.OBSERVATORY]: [],

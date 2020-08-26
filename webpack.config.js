@@ -63,12 +63,12 @@ module.exports = {
         ],
       },
       {
-        test: /\.mp3$/,
+        test: /\.(mp3|wav)$/,
         include: path.resolve(__dirname, 'src'),
         loader: 'file-loader',
       },
       {
-        test: /\.wav$/,
+        test: /\.pdf$/,
         include: path.resolve(__dirname, 'src'),
         loader: 'file-loader',
       },

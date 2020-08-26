@@ -92,7 +92,7 @@ const TowerStyledWrapper = styled.div<ITowerStyledWrapper>`
 
   &.${TowerClassNames.MUTED} {
     &::before {
-      content: 'На карантине';
+      content: 'Скоро открытие';
       position: absolute;
       top: 85%;
       left: 50%;

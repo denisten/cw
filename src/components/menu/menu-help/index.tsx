@@ -51,10 +51,10 @@ const styledConfig = {
 export const MenuHelp = () => {
   return (
     <Wrapper>
-      <PhoneNumber href="tel:+8 800 800 80 80">8 800 800 80 80</PhoneNumber>
+      <PhoneNumber href="tel:+8 800 250 92 93">8 800 250 92 93</PhoneNumber>
       <Link
         target="_blank"
-        href="mailto:name@email.com"
+        href="mailto:citysupport@mts.ru"
         rel="noopener noreferrer"
       >
         Написать нам
