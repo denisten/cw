@@ -20,7 +20,8 @@ import { TowerInfoModalStore } from '../../effector/tower-info-modal-store/store
 import { AppConditionStore } from '../../effector/app-condition/store';
 import signBcg from './signBcg.svg';
 import { TowerUpgradeAnimation } from '../tower-upgrade-animation';
-import towerOpen from '../../sound/towerOpen.mp3';
+
+import towerUpgrade from '../../sound/towerUpgrade.mp3';
 import { SettingsStore } from '../../effector/settings/store';
 import { useAudio } from '../../hooks/use-sound';
 
@@ -183,7 +184,11 @@ export const TowerWrapper = memo(
       sound: { enable, volume },
     } = useStore(SettingsStore);
 
-    const { play: openTowerInfoSoundPlay } = useAudio(towerOpen, false, volume);
+    const { play: towerUpgradePlay } = useAudio(towerUpgrade, false, volume);
+
+    useEffect(() => {
+      upgradeFlag && enable && towerUpgradePlay();
+    }, [upgradeFlag]);
 
     const handleClick = () => {
       if (mutedImg) return;
@@ -195,7 +200,6 @@ export const TowerWrapper = memo(
       } else if (!tutorialCondition || tutorialPause) {
         scrollToCurrentTower(towerRef);
         extraTowerInfoModalOpen(towerTitle);
-        enable && openTowerInfoSoundPlay();
       }
     };
 

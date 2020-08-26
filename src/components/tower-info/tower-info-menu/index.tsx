@@ -10,9 +10,6 @@ import { useStore } from 'effector-react';
 import { TasksStore } from '../../../effector/tasks-store/store';
 import { TowersTypes } from '../../../effector/towers-progress/store';
 import { filterTasksArray } from '../../../utils/filtered-missions-array';
-import openChat from '../../../sound/openChat.mp3';
-import { SettingsStore } from '../../../effector/settings/store';
-import { useAudio } from '../../../hooks/use-sound';
 
 enum SelectedColorValue {
   TRUE = '001424',
@@ -88,11 +85,6 @@ export const TowerInfoMenu: React.FC<ITowerInfoMenu> = ({
   } = useMoveTo(FIRST_ELEM_WIDTH, refsCollection, selectTowerInfoContent);
   const missions = useStore(TasksStore);
 
-  const {
-    sound: { enable, volume },
-  } = useStore(SettingsStore);
-
-  const { play: openChatSoundPlay } = useAudio(openChat, false, volume);
   return (
     <TowerInfoMenuWrapper>
       <RowWrapper onMouseOut={() => handleMouseOut()}>
@@ -112,7 +104,6 @@ export const TowerInfoMenu: React.FC<ITowerInfoMenu> = ({
           selected={selectTowerInfoContent === TowerInfoContentValues.CHAT}
           onClick={() => {
             setTowerInfoContent(TowerInfoContentValues.CHAT);
-            enable && openChatSoundPlay();
           }}
           onMouseOver={handleMouseOver}
           ref={refsCollection[1]}
