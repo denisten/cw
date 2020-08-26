@@ -11,7 +11,6 @@ import { useCheckUserAuthStatus } from './hooks/use-check-user-auth-status';
 export enum Routes {
   MAIN = '/',
   AUTH_LANDING_PAGE = '/auth-callback',
-  TERM_OF_USE = '/term-of-use',
 }
 
 enum EventCodes {
