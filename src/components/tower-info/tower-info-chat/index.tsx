@@ -28,7 +28,7 @@ import { setCurrentTaskStatus } from '../../../effector/tasks-store/events';
 import newMessage from '../../../sound/newMessage.wav';
 import { SettingsStore } from '../../../effector/settings/store';
 import { useAudio } from '../../../hooks/use-sound';
-import { useConditionWhenSoundPlay } from '../../../hooks/use-condition-when-sound-play';
+import { usePlaySoundIf } from '../../../hooks/use-play-sound-if';
 
 const ChatWrapper = styled.div`
   width: 100%;
@@ -192,7 +192,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
     } = useStore(SettingsStore);
     const { play: newMessagePlay } = useAudio(newMessage, false, volume);
 
-    useConditionWhenSoundPlay<IMessage[]>(
+    usePlaySoundIf<IMessage[]>(
       messages.length > 0 && enable,
       newMessagePlay,
       messages

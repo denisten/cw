@@ -32,7 +32,7 @@ import { copyTextNode } from '../../../utils/copy-text-node';
 import loseMoney from '../../../sound/lose-money-sound.mp3';
 import { SettingsStore } from '../../../effector/settings/store';
 import { useAudio } from '../../../hooks/use-sound';
-import { useConditionWhenSoundPlay } from '../../../hooks/use-condition-when-sound-play';
+import { usePlaySoundIf } from '../../../hooks/use-play-sound-if';
 
 const Wrapper = styled.div`
   height: 100%;
@@ -138,7 +138,7 @@ const SelectedStoreItem: React.FC<{ selectedStoreItem: ICatalogItems }> = ({
   } = useStore(SettingsStore);
   const { play: loseMoneySoundPlay } = useAudio(loseMoney, false, volume);
 
-  useConditionWhenSoundPlay<boolean>(
+  usePlaySoundIf<boolean>(
     waitingForPurchase && enable,
     loseMoneySoundPlay,
     waitingForPurchase

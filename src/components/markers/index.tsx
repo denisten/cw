@@ -9,7 +9,7 @@ import { IMarker } from '../../effector/towers-marker/store';
 import { markerClickHandler } from '../../utils/marker-click-handler';
 import { IDisplayFlag } from '../skip-tutorial';
 import { Icon } from '../../UI/icons';
-import takeRewardSound from '../../sound/takeReward.mp3';
+import takeRewardSound from '../../sound/take-reward.mp3';
 
 import { useStore } from 'effector-react';
 import { SettingsStore } from '../../effector/settings/store';

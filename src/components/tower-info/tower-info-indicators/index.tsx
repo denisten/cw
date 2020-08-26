@@ -15,7 +15,7 @@ import { useStore } from 'effector-react';
 import { Tooltip } from '../../../UI/tooltip';
 import { RowWrapper } from '../../../UI/row-wrapper';
 import { StyledSpan } from '../../../UI/span';
-import playButtonSound from '../../../sound/playButton.mp3';
+import playButtonSound from '../../../sound/play-button.mp3';
 import { SettingsStore } from '../../../effector/settings/store';
 import { useAudio } from '../../../hooks/use-sound';
 

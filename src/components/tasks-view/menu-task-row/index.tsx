@@ -25,8 +25,8 @@ import { TasksType } from '../../menu/menu-tasks';
 import styled from 'styled-components';
 import { StyledSpan } from '../../../UI/span';
 import { MTSSans } from '../../../fonts';
-import takeRewardSound from '../../../sound/takeReward.mp3';
-import activeTask from '../../../sound/activeTask.mp3';
+import takeRewardSound from '../../../sound/take-reward.mp3';
+import activeTask from '../../../sound/active-task.mp3';
 import { useStore } from 'effector-react';
 import { SettingsStore } from '../../../effector/settings/store';
 import { useAudio } from '../../../hooks/use-sound';
@@ -77,7 +77,7 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
     sound: { enable, volume },
   } = useStore(SettingsStore);
   const { play: playRewardSound } = useAudio(takeRewardSound, false, volume);
-  const { play: activeTaskPlay } = useAudio(activeTask, false, volume);
+  const { play: playActiveTask } = useAudio(activeTask, false, volume);
 
   const handleWrapperClick = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -86,7 +86,7 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
     } else {
       handleTaskClick(taskData, e);
       taskData.status === TaskStatuses.DONE && enable && playRewardSound();
-      taskData.status === TaskStatuses.CREATED && enable && activeTaskPlay();
+      taskData.status === TaskStatuses.CREATED && enable && playActiveTask();
     }
   };
 

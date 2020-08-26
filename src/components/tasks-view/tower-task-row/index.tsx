@@ -14,8 +14,8 @@ import { RowWrapper } from '../../../UI/row-wrapper';
 import { couponModalConfig } from '../../tower-info/tower-info-chat';
 import { TasksType } from '../../menu/menu-tasks';
 import { ITask, TaskStatuses } from '../../../effector/tasks-store/store';
-import takeRewardSound from '../../../sound/takeReward.mp3';
-import activeTask from '../../../sound/activeTask.mp3';
+import takeRewardSound from '../../../sound/take-reward.mp3';
+import activeTask from '../../../sound/active-task.mp3';
 import { SettingsStore } from '../../../effector/settings/store';
 import { useStore } from 'effector-react';
 import { useAudio } from '../../../hooks/use-sound';
@@ -212,7 +212,7 @@ export const TowerTaskRow: React.FC<ITasksRow> = ({
     sound: { enable, volume },
   } = useStore(SettingsStore);
   const { play: playRewardSound } = useAudio(takeRewardSound, false, volume);
-  const { play: activeTaskPlay } = useAudio(activeTask, false, volume);
+  const { play: playActiveTask } = useAudio(activeTask, false, volume);
 
   const [isCouponModalWindowOpen, setIsCouponModalWindowOpen] = useState(false);
   const handleWrapperClick = (e: React.MouseEvent) => {
@@ -222,7 +222,7 @@ export const TowerTaskRow: React.FC<ITasksRow> = ({
     } else {
       handleTaskClick(taskData, e);
       taskData.status === TaskStatuses.DONE && enable && playRewardSound();
-      taskData.status === TaskStatuses.CREATED && enable && activeTaskPlay();
+      taskData.status === TaskStatuses.CREATED && enable && playActiveTask();
     }
   };
 

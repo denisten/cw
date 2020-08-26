@@ -21,7 +21,7 @@ import { AppConditionStore } from '../../effector/app-condition/store';
 import signBcg from './signBcg.svg';
 import { TowerUpgradeAnimation } from '../tower-upgrade-animation';
 
-import towerUpgrade from '../../sound/towerUpgrade.mp3';
+import towerUpgrade from '../../sound/tower-upgrade.mp3';
 import { SettingsStore } from '../../effector/settings/store';
 import { useAudio } from '../../hooks/use-sound';
 

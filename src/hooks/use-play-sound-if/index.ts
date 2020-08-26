@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-export const useConditionWhenSoundPlay = <T>(
+export const usePlaySoundIf = <T>(
   condition: boolean,
   playCallBack: () => void,
   dependence: T

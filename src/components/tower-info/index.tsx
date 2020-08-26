@@ -34,11 +34,11 @@ import { setTowerInfoShift } from '../../effector/tower-info-modal-store/events'
 import background from './background.svg';
 import { DescriptionStore } from '../../effector/descriptions/store';
 import { useFetchDescriptions } from '../../hooks/use-fetch-descriptions';
-import towerOpen from '../../sound/towerOpen.mp3';
+import towerOpen from '../../sound/tower-open.mp3';
 import { useAudio } from '../../hooks/use-sound';
 import { SettingsStore } from '../../effector/settings/store';
-import { useConditionWhenSoundPlay } from '../../hooks/use-condition-when-sound-play';
-import openChat from '../../sound/openChat.mp3';
+import { usePlaySoundIf } from '../../hooks/use-play-sound-if';
+import openChat from '../../sound/open-chat.mp3';
 
 export type ModalWindowProps = {
   opened?: boolean;
@@ -160,13 +160,13 @@ const TowerInfo: React.FC = () => {
   const { play: openTowerInfoSoundPlay } = useAudio(towerOpen, false, volume);
   const { play: openChatSoundPlay } = useAudio(openChat, false, volume);
 
-  useConditionWhenSoundPlay<boolean>(
+  usePlaySoundIf<boolean>(
     isExtraTowerInfoModalOpen && enable,
     openTowerInfoSoundPlay,
     isExtraTowerInfoModalOpen
   );
 
-  useConditionWhenSoundPlay<TowerInfoContentValues>(
+  usePlaySoundIf<TowerInfoContentValues>(
     selectTowerInfoContent === TowerInfoContentValues.CHAT && enable,
     openChatSoundPlay,
     selectTowerInfoContent

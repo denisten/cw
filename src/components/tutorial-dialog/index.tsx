@@ -24,7 +24,7 @@ import { handleAuthButtonClick } from '../../utils/handle-auth-button-click';
 import { ExitButton } from '../../UI/exit-button';
 import { SettingsStore } from '../../effector/settings/store';
 import { useAudio } from '../../hooks/use-sound';
-import assistantSound from '../../sound/assistantSound.mp3';
+import assistantSound from '../../sound/assistant-sound.mp3';
 
 const TutorialDialogWrapper = styled.div`
   width: 1128px;
