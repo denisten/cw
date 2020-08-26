@@ -14,13 +14,14 @@ export const CWItemCard: React.FC<ICWItemCard> = ({ catalogItem }) => {
     userCoupons[catalogItem?.slug as CouponTypes]?.count || 0;
 
   const checkActiveElem = selectedStoreItem?.slug === catalogItem.slug;
+
   return (
     <CouponCard
       callBack={() => selectStoreItem(catalogItem)}
       active={checkActiveElem}
       couponsQuantity={couponsQuantity}
       iconType={catalogItem.slug}
-      titleElem={catalogItem.name.replace(/Купон/gi, '')}
+      titleElem={catalogItem.name.replace(/Купон|"/gi, '')}
       price={catalogItem.price}
     />
   );

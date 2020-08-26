@@ -227,7 +227,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
             <Bubble
               sender={item.direction}
               text={item.text}
-              botName="Имя бота"
+              botName="Помощник"
             />
           </MessageRow>
         ))}

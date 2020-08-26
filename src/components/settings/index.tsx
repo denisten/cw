@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { SettingItems } from './setting-items';
 import { MTSSans } from '../../fonts';
+import termsDoc from './terms.pdf';
 
 const SettingWrapper = styled.div`
   width: 100%;
@@ -24,9 +25,7 @@ const SettingPopUpTitle = styled.div`
     font-family: ${MTSSans.BOLD};
     font-size: 36px;
     line-height: 24px;
-
     letter-spacing: -0.6px;
-
     color: #001424;
   }
 `;
@@ -46,7 +45,6 @@ const SettingFooter = styled.div`
     line-height: 20px;
     text-decoration-line: underline;
     color: #02adc9;
-    margin-right: 30px;
   }
 `;
 
@@ -66,31 +64,11 @@ export const Settings: React.FC = () => {
         <SettingItems />
       </SettingOptionsWrapper>
       <SettingFooter>
-        <a
-          target="_blank"
-          href="https://moskva.mts.ru/personal"
-          rel="noopener noreferrer"
-        >
+        <a target="_blank" href={termsDoc} rel="noopener noreferrer">
           Условия пользования
         </a>
-        <a
-          target="_blank"
-          href="https://moskva.mts.ru/personal"
-          rel="noopener noreferrer"
-        >
-          Политика конфидециальности
-        </a>
-        <a
-          target="_blank"
-          href="https://moskva.mts.ru/personal"
-          rel="noopener noreferrer"
-        >
-          Договор-оферта
-        </a>
       </SettingFooter>
-      <AllRightsReserved>
-        Мир Клиента. Все права защищены. 2020.
-      </AllRightsReserved>
+      <AllRightsReserved>(С) 2020 ПАО «МТС»</AllRightsReserved>
     </SettingWrapper>
   );
 };

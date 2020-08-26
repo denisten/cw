@@ -28,7 +28,7 @@ export const ProductDescription: React.FC<IProductDescription> = ({
 }) => {
   return (
     <>
-      <TitleText>{selectedStoreItem?.name.replace('Купон', '')}</TitleText>
+      <TitleText>{selectedStoreItem?.name.replace(/Купон|"/gi, '')}</TitleText>
       <MoneyCounter
         sum={String(selectedStoreItem?.price)}
         additionText=" /шт."
