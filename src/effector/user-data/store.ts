@@ -27,7 +27,7 @@ export enum UserDataStoreKeys {
   MSISDN = 'msisdn',
 }
 
-export const defaultNameValue = 'Неизвестно';
+export const defaultNameValue = 'Мир клиента';
 
 const initState: IUserDataStore = {
   [UserDataStoreKeys.ID]: 0,
