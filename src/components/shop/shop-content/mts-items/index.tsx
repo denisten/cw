@@ -7,7 +7,6 @@ import { useStore } from 'effector-react';
 import {
   UserMarketStore,
   StoreItemTypes,
-  PurchasStatuses,
 } from '../../../../effector/coupons/store';
 import { ifElse } from 'ramda';
 const MTSItemsWrapper = styled.div`
