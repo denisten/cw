@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { SettingsType } from '../../effector/settings/store';
 import { SettingItems } from './setting-items';
-import { SettingsPopUp } from './settings-popup';
+import { MTSSans } from '../../fonts';
+import termsDoc from './terms.pdf';
 
 const SettingWrapper = styled.div`
   width: 100%;
@@ -13,12 +13,21 @@ const SettingWrapper = styled.div`
   position: relative;
 `;
 
-const SettingPopUpWrapper = styled.div`
+const SettingPopUpTitle = styled.div`
   height: 200px;
   width: 100%;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
+
+  &::before {
+    content: 'Настройки';
+    font-family: ${MTSSans.BOLD};
+    font-size: 36px;
+    line-height: 24px;
+    letter-spacing: -0.6px;
+    color: #001424;
+  }
 `;
 
 const SettingOptionsWrapper = styled.div`
@@ -29,7 +38,6 @@ const SettingFooter = styled.div`
   box-sizing: border-box;
   margin-top: 71px;
   display: flex;
-  flex-direction: column;
   align-items: center;
 
   a {
@@ -37,58 +45,30 @@ const SettingFooter = styled.div`
     line-height: 20px;
     text-decoration-line: underline;
     color: #02adc9;
-    margin-bottom: 10px;
-  }
-
-  span {
-    font-size: 12px;
-    line-height: 20px;
-    color: #001424;
-    opacity: 0.5;
   }
 `;
 
+const AllRightsReserved = styled.span`
+  font-size: 12px;
+  line-height: 20px;
+  color: #001424;
+  opacity: 0.5;
+  margin-top: 15px;
+`;
+
 export const Settings: React.FC = () => {
-  const [selectOptionPopUpType, setSelectOptionPopUpType] = useState<
-    SettingsType | ''
-  >('');
-
-  const selectPopUpItem = (elem: SettingsType) => {
-    if (selectOptionPopUpType === elem) {
-      setSelectOptionPopUpType('');
-    } else {
-      setSelectOptionPopUpType(elem);
-    }
-  };
-
   return (
     <SettingWrapper>
-      <SettingPopUpWrapper>
-        <SettingsPopUp settingPopUpType={selectOptionPopUpType} />
-      </SettingPopUpWrapper>
+      <SettingPopUpTitle />
       <SettingOptionsWrapper>
-        <SettingItems
-          callback={selectPopUpItem}
-          selectOptionPopUpType={selectOptionPopUpType}
-        />
+        <SettingItems />
       </SettingOptionsWrapper>
       <SettingFooter>
-        <a
-          target="_blank"
-          href="https://moskva.mts.ru/personal"
-          rel="noopener noreferrer"
-        >
+        <a target="_blank" href={termsDoc} rel="noopener noreferrer">
           Условия пользования
         </a>
-        <a
-          target="_blank"
-          href="https://moskva.mts.ru/personal"
-          rel="noopener noreferrer"
-        >
-          Политика конфидециальности
-        </a>
-        <span>Мир Клиента. Все права защищены. 2020.</span>
       </SettingFooter>
+      <AllRightsReserved>(С) 2020 ПАО «МТС»</AllRightsReserved>
     </SettingWrapper>
   );
 };

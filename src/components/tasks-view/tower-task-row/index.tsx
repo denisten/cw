@@ -14,6 +14,11 @@ import { RowWrapper } from '../../../UI/row-wrapper';
 import { couponModalConfig } from '../../tower-info/tower-info-chat';
 import { TasksType } from '../../menu/menu-tasks';
 import { ITask, TaskStatuses } from '../../../effector/tasks-store/store';
+import takeRewardSound from '../../../sound/take-reward.mp3';
+import activeTask from '../../../sound/active-task.mp3';
+import { SettingsStore } from '../../../effector/settings/store';
+import { useStore } from 'effector-react';
+import { useAudio } from '../../../hooks/use-sound';
 import completedImg from './completed.svg';
 
 export const TaskWrapper = styled.div<ITaskLocation>`
@@ -184,7 +189,8 @@ export const taskRowStyledConfig = {
   },
   columnWrapperAdditionalStyle: {
     alignItems: 'center',
-    marginRight: '7px',
+    marginRight: '10px',
+    width: '115px',
   },
   rowWrapper: {
     paddingRight: '20px',
@@ -208,14 +214,21 @@ export const TowerTaskRow: React.FC<ITasksRow> = ({
   const taskDescriptionRef = useRef<HTMLDivElement>(null);
   const vectorRef = useRef<HTMLImageElement>(null);
 
-  const [isCouponModalWindowOpen, setIsCouponModalWindowOpen] = useState(false);
+  const {
+    sound: { enable, volume },
+  } = useStore(SettingsStore);
+  const { play: playRewardSound } = useAudio(takeRewardSound, false, volume);
+  const { play: playActiveTask } = useAudio(activeTask, false, volume);
 
+  const [isCouponModalWindowOpen, setIsCouponModalWindowOpen] = useState(false);
   const handleWrapperClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (taskType === TasksType.TUTORIAL_TASK) {
       // do next tutorial step in future
     } else {
       handleTaskClick(taskData, e);
+      taskData.status === TaskStatuses.DONE && enable && playRewardSound();
+      taskData.status === TaskStatuses.CREATED && enable && playActiveTask();
     }
   };
 

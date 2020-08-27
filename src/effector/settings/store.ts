@@ -1,61 +1,27 @@
 import { SettingsDomain } from './domain';
-import {
-  setNotificationSetting,
-  languageToggle,
-  musicAndSoundToggle,
-} from './events';
+import { musicAndSoundToggle, setVolume } from './events';
 
 export enum SettingsType {
-  NOTIFICATION = 'notification',
   SOUND = 'sound',
   MUSIC = 'music',
-  LANGUAGE = 'language',
-}
-
-export enum NotificationType {
-  TASKS = 'tasks',
-  BUILDING = 'building',
-  OTHER = 'other',
-}
-
-export enum LanguageType {
-  RU = 'ru',
-  ENG = 'eng',
 }
 
 const initState = {
-  [SettingsType.NOTIFICATION]: {
-    [NotificationType.TASKS]: { select: true },
-    [NotificationType.BUILDING]: { select: false },
-    [NotificationType.OTHER]: { select: true },
-  },
-  [SettingsType.MUSIC]: false,
-  [SettingsType.SOUND]: false,
-  [SettingsType.LANGUAGE]: LanguageType.RU,
+  [SettingsType.MUSIC]: { enable: false, volume: 0.2 },
+  [SettingsType.SOUND]: { enable: false, volume: 0.7 },
 };
 
 export const SettingsStore = SettingsDomain.store<ISettingStore>(initState)
-  .on(musicAndSoundToggle, (state, { settingType, flag }) => ({
+  .on(musicAndSoundToggle, (state, { settingType, enable }) => ({
     ...state,
-    [settingType]: flag,
+    [settingType]: { ...state[settingType], enable },
   }))
-  .on(setNotificationSetting, (state, { notificationType, flag }) => ({
+  .on(setVolume, (state, { settingType, volume }) => ({
     ...state,
-    notification: {
-      ...state.notification,
-      [notificationType]: { select: flag },
-    },
-  }))
-  .on(languageToggle, (state, payload) => ({
-    ...state,
-    language: payload,
+    [settingType]: { ...state[settingType], volume },
   }));
 
 export interface ISettingStore {
-  [SettingsType.NOTIFICATION]: {
-    [key in NotificationType]: { select: boolean };
-  };
-  [SettingsType.MUSIC]: boolean;
-  [SettingsType.SOUND]: boolean;
-  [SettingsType.LANGUAGE]: LanguageType;
+  [SettingsType.MUSIC]: { enable: boolean; volume: number };
+  [SettingsType.SOUND]: { enable: boolean; volume: number };
 }

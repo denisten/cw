@@ -53,12 +53,17 @@ export const RootComponent = () => {
   const tutorialIsEnabled = DOMLoaded && tutorialCondition !== 0;
   const displayFlag = checkTutorialCondition(tutorialCondition);
   const zIndex = defineScrollContainerZIndex(tutorialCondition);
-  const { start, stop } = useAudio(backgroundMusic);
-  const { music } = useStore(SettingsStore);
+  const {
+    music: { enable, volume },
+  } = useStore(SettingsStore);
+
+  const { play, pause } = useAudio(backgroundMusic, true, volume);
 
   useEffect(() => {
-    music ? start() : stop();
-  }, [music]);
+    const canPlayBackgroundSound = enable && !tutorialSliderDisplayFlag;
+    canPlayBackgroundSound ? play() : pause();
+  }, [enable, tutorialSliderDisplayFlag]);
+
   return (
     <RootComponentWrapper displayFlag={DOMLoaded}>
       <UIButtonInterface />

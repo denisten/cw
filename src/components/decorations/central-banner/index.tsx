@@ -37,17 +37,18 @@ const Title = styled.span`
   font-family: ${MTSSans.MEDIUM};
   transform: skewY(27.5deg);
   letter-spacing: -1px;
-  font-size: 14px;
+  font-size: 13px;
   position: relative;
   right: 8px;
-  line-height: 1.2;
+  line-height: 1;
 `;
 
 const HeadTitle = styled(Title)<IHeadTitle>`
-  line-height: 1.5;
+  line-height: 1.2;
   font-family: ${MTSSans.BOLD};
   letter-spacing: -1px;
   font-size: ${props => props.fontSize};
+  margin: 4px 0px 4px 0px;
 `;
 
 enum TextSize {
@@ -64,7 +65,7 @@ const isMoreThanShort = (wordLength: number) =>
 const calculateFontSize = R.cond([
   [isLessThanShort, R.always('26px')],
   [isMoreThanShort, R.always('17px')],
-  [R.T, R.always('13px')],
+  [R.T, R.always('14px')],
 ]);
 
 const maxMouseMoveFaultAfterClick = 5;
@@ -97,11 +98,11 @@ export const CentralBanner: React.FC<ICentralBanner> = ({
       onMouseUp={mouseMoveProtectInstance.handleMouseUp}
       onMouseMove={mouseMoveProtectInstance.handleMouseMove}
     >
-      <Title>Добро</Title>
-      <Title>пожаловать!</Title>
       <HeadTitle fontSize={calculateFontSize(wordLength as never)}>
         {worldName}
       </HeadTitle>
+      <Title>Добро</Title>
+      <Title>пожаловать!</Title>
     </Banner>
   );
 };

@@ -1,17 +1,15 @@
 import { SettingsDomain } from './domain';
-import { SettingsType, NotificationType, LanguageType } from './store';
+import { SettingsType } from './store';
 
 export const musicAndSoundToggle = SettingsDomain.event<IMusicAndSoundToggle>();
-export const setNotificationSetting = SettingsDomain.event<
-  ISetNotificationSetting
->();
-export const languageToggle = SettingsDomain.event<LanguageType>();
+export const setVolume = SettingsDomain.event<ISetVolume>();
 
 interface IMusicAndSoundToggle {
-  settingType: SettingsType.MUSIC | SettingsType.SOUND;
-  flag: boolean;
+  settingType: SettingsType;
+  enable: boolean;
 }
-interface ISetNotificationSetting {
-  notificationType: NotificationType;
-  flag: boolean;
+
+interface ISetVolume {
+  settingType: SettingsType;
+  volume: number;
 }

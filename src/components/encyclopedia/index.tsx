@@ -42,10 +42,6 @@ export const encyclopediaItemsList: IEncyclopediaItemConfig[] = [
     label: 'Подсказки',
     id: EncyclopediaItem.HINTS,
   },
-  {
-    label: 'Задания (скоро)',
-    id: EncyclopediaItem.TASKS,
-  },
 ];
 
 const styledConfig = {

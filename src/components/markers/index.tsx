@@ -9,6 +9,11 @@ import { IMarker } from '../../effector/towers-marker/store';
 import { markerClickHandler } from '../../utils/marker-click-handler';
 import { IDisplayFlag } from '../skip-tutorial';
 import { Icon } from '../../UI/icons';
+import takeRewardSound from '../../sound/take-reward.mp3';
+
+import { useStore } from 'effector-react';
+import { SettingsStore } from '../../effector/settings/store';
+import { useAudio } from '../../hooks/use-sound';
 
 export enum MarkerTypes {
   TASK = 'task',
@@ -204,32 +209,44 @@ export const Markers: React.FC<IMarkers> = ({
   displayFlag,
   towerLevel,
   towerRef,
-}) => (
-  <MarkerWrapper
-    displayFlag={displayFlag}
-    data-towertype={towerTitle}
-    data-towerlevel={towerLevel}
-  >
-    {markersCollection.map(markItem =>
-      markItem.type !== MarkerTypes.TIMER ? (
-        <MarkerView
-          data-type={markItem.type}
-          key={markItem.type}
-          onClick={e => markerClickHandler(markItem, towerTitle, towerRef, e)}
-        >
-          <Icon type={markItem.type} style={styleConfig.icons} />
-        </MarkerView>
-      ) : (
-        <Timer
-          key={markItem.type}
-          startTime={markItem.startTime}
-          endTime={markItem.endTime}
-          towerTitle={towerTitle}
-        />
-      )
-    )}
-  </MarkerWrapper>
-);
+}) => {
+  const {
+    sound: { enable, volume },
+  } = useStore(SettingsStore);
+  const { play: playRewardSound } = useAudio(takeRewardSound, false, volume);
+
+  return (
+    <MarkerWrapper
+      displayFlag={displayFlag}
+      data-towertype={towerTitle}
+      data-towerlevel={towerLevel}
+    >
+      {markersCollection.map(markItem =>
+        markItem.type !== MarkerTypes.TIMER ? (
+          <MarkerView
+            data-type={markItem.type}
+            key={markItem.type}
+            onClick={e => {
+              if (markItem.type === MarkerTypes.TAKE_REWARD && enable) {
+                playRewardSound();
+              }
+              markerClickHandler(markItem, towerTitle, towerRef, e);
+            }}
+          >
+            <Icon type={markItem.type} style={styleConfig.icons} />
+          </MarkerView>
+        ) : (
+          <Timer
+            key={markItem.type}
+            startTime={markItem.startTime}
+            endTime={markItem.endTime}
+            towerTitle={towerTitle}
+          />
+        )
+      )}
+    </MarkerWrapper>
+  );
+};
 
 interface IMarkers extends IDisplayFlag {
   markersCollection: IMarker[];

@@ -84,29 +84,27 @@ export const CouponCard: React.FC<ICouponCard> = ({
   disable,
   openShopCallBack,
   style,
-}) => {
-  return (
-    <CardWrapper
-      onClick={callBack}
-      active={active}
-      className={disable ? disableClassName : ''}
-      style={style}
-    >
-      <CouponCount>
-        {disable ? (
-          <AddCoupons onClick={openShopCallBack} />
-        ) : (
-          couponsQuantity + 'шт.'
-        )}
-      </CouponCount>
-      <BottomPartWrapper disable={disable}>
-        <Icon style={styledConfig.icon} type={iconType} />
-        <TitleElem>{titleElem}</TitleElem>
-      </BottomPartWrapper>
-      {price && <MoneyCounter sum={String(price)} />}
-    </CardWrapper>
-  );
-};
+}) => (
+  <CardWrapper
+    onClick={callBack}
+    active={active}
+    className={disable ? disableClassName : ''}
+    style={style}
+  >
+    <CouponCount>
+      {disable ? (
+        <AddCoupons onClick={openShopCallBack} />
+      ) : (
+        couponsQuantity + 'шт.'
+      )}
+    </CouponCount>
+    <BottomPartWrapper disable={disable}>
+      <Icon style={styledConfig.icon} type={iconType} />
+      <TitleElem>{titleElem}</TitleElem>
+    </BottomPartWrapper>
+    {price && <MoneyCounter sum={String(price)} />}
+  </CardWrapper>
+);
 
 interface ICouponCard {
   callBack?: () => void;

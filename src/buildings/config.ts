@@ -138,6 +138,7 @@ import partnerTwoLevel2Img from './partners-build/partner-two/2.png';
 import partnerTwoLevel2Stroke from './partners-build/partner-two/2-stroke.png';
 import partnerTwoLevel3Img from './partners-build/partner-two/3.png';
 import partnerTwoLevel3Stroke from './partners-build/partner-two/3-stroke.png';
+import mutedSlotMachinelImg from './slot-machine/-1.png';
 import slotMachineLevel0Img from './slot-machine/0.png';
 import slotMachineLevel0Stroke from './slot-machine/0-stroke.png';
 import slotMachineLevel1Img from './slot-machine/1.png';
@@ -177,6 +178,7 @@ import partnerThreeLevel2Img from './partners-build/partner-three/2.png';
 import partnerThreeLevel2Stroke from './partners-build/partner-three/2-stroke.png';
 import partnerThreeLevel3Img from './partners-build/partner-three/3.png';
 import partnerThreeLevel3Stroke from './partners-build/partner-three/3-stroke.png';
+import mutedMarvin from './marvin/-1.png';
 import marvinLevel0Img from './marvin/0.png';
 import marvinLevel1Img from './marvin/1.png';
 import marvinLevel2Img from './marvin/2.png';
@@ -757,8 +759,8 @@ class BuildingsService {
     },
 
     [TowersTypes.AUTO]: {
-      title: 'МТС Авто',
-      signConfig: ['МТС', 'Авто'],
+      title: 'МТС | Яндекс Авто',
+      signConfig: ['МТС', '| Яндекс Авто'],
       wideTower: true,
       zIndex: ZIndexes.BUILDING_FOUR_LEVEL,
       maxLevel: TowerLevel.high,
@@ -887,6 +889,7 @@ class BuildingsService {
       height: 471,
       areaCoords: '88,81,349,442',
       position: [19, 61.4],
+      mutedImg: mutedSlotMachinelImg,
       ref: null,
       [TowerLevel.initial]: {
         img: slotMachineLevel0Img,
@@ -1007,6 +1010,7 @@ class BuildingsService {
       height: 306,
       areaCoords: '49,47,198,328',
       position: [19.7, 51.3],
+      mutedImg: mutedMarvin,
       [TowerLevel.initial]: {
         img: marvinLevel0Img,
         shadowImg: marvinLevel0Stroke,
