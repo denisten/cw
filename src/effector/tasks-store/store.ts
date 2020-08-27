@@ -31,14 +31,13 @@ export const TasksStore = MissionsDomain.store(initStore)
   .on(saveTask, (_, payload) => payload)
   .on(activateTask.doneData, (state, payload) => payload)
   .on(verifyTask.doneData, (state, payload) => payload)
-  .on(takeReward.doneData, (state, { data, id }) => {
+  .on(takeReward.doneData, (state, { id }) => {
     const currentEl = state.findIndex(el => el.id === id);
-    const { money, energy } = state.splice(currentEl, 1)[0];
+    const { money, energy } = state[currentEl];
     editUserProperty({
       money,
       energy,
     });
-    return data;
   })
 
   .on(setCurrentTaskStatus, (state, { taskId, status }) => {
