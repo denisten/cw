@@ -1,5 +1,9 @@
 import React from 'react';
-import { ITask, TaskStatuses } from '../../effector/tasks-store/store';
+import {
+  ITask,
+  TaskStatuses,
+  TasksStore,
+} from '../../effector/tasks-store/store';
 import {
   AppConditionStore,
   TowerInfoContentValues,
@@ -7,11 +11,7 @@ import {
 import { ChatStore } from '../../effector/chat/store';
 import { chatTaskSession, clearChat } from '../../effector/chat/events';
 import { setTowerInfoContent } from '../../effector/app-condition/events';
-import {
-  activateTask,
-  takeReward,
-  verifyTask,
-} from '../../effector/tasks-store/events';
+import { activateTask, verifyTask } from '../../effector/tasks-store/events';
 import { scrollToCurrentTower } from '../scroll-to-current-tower';
 import { BuildingsService } from '../../buildings/config';
 import { animateTaskReward } from '../animate-task-reward';
@@ -22,6 +22,18 @@ import { menuClosed } from '../../effector/menu-store/events';
 import { TasksType } from '../../components/menu/menu-tasks';
 import { hideMarker } from '../../effector/towers-marker/events';
 import { TypeOfMarkers } from '../../components/markers';
+import { rewardRequest } from '../../api/tasks-api/reward';
+import { editUserProperty } from '../../effector/user-data/events';
+
+const getReward = (id: number) => {
+  const tasks = TasksStore.getState();
+  const currentEl = tasks.findIndex(el => el.id === id);
+  const { money, energy } = tasks[currentEl];
+  editUserProperty({
+    money,
+    energy,
+  });
+};
 
 export const handleTaskClick = async (taskData: ITask, e: React.MouseEvent) => {
   const towerTitle = taskData.productSlug;
@@ -65,7 +77,8 @@ export const handleTaskClick = async (taskData: ITask, e: React.MouseEvent) => {
       break;
     case TaskStatuses.DONE:
       animateTaskReward(taskData.money, e);
-      await takeReward(id);
+      await rewardRequest(id);
+      getReward(id);
       hideMarker({ towerTitle, type: TypeOfMarkers.SUCCESS });
       clearChat({ towerTitle });
       break;

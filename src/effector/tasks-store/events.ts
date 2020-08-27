@@ -25,12 +25,6 @@ export const verifyTask = MissionsDomain.effect('verify current task', {
     return await verifyTaskRequest(id);
   },
 });
-export const takeReward = MissionsDomain.effect({
-  handler: async (id: number) => {
-    const response = await rewardRequest(id);
-    return { data: response, id };
-  },
-});
 
 export const getResult = MissionsDomain.effect({
   handler: async (id: number): Promise<IGetResult> => {
