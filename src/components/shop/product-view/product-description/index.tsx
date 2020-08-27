@@ -11,7 +11,7 @@ const TitleText = styled(StyledSpan)`
   line-height: 32px;
   letter-spacing: -0.6px;
   color: #212527;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
 `;
 const DescriptionText = styled(StyledSpan)`
   width: 225px;
@@ -33,9 +33,7 @@ export const ProductDescription: React.FC<IProductDescription> = ({
         sum={String(selectedStoreItem?.price)}
         additionText=" /шт."
       />
-      <DescriptionText>
-        {selectedStoreItem?.description || 'Описания нет'}
-      </DescriptionText>
+      <DescriptionText>{selectedStoreItem?.description}</DescriptionText>
     </>
   );
 };

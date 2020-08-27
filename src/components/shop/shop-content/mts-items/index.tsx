@@ -15,8 +15,14 @@ const MTSItemsWrapper = styled.div`
 `;
 
 const MTSCatalogItems = () => {
+  const { userPromocodes } = useStore(UserMarketStore);
+
   const MTSCatalog = useStore(UserMarketStore)
-    .catalog.filter(item => item.type.slug === StoreItemTypes.PROMO_CODE)
+    .catalog.filter(
+      item =>
+        item.type.slug === StoreItemTypes.PROMO_CODE &&
+        !userPromocodes[item.slug]?.status
+    )
     .flat();
 
   return (

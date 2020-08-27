@@ -183,7 +183,8 @@ export const taskRowStyledConfig = {
   },
   columnWrapperAdditionalStyle: {
     alignItems: 'center',
-    marginRight: '7px',
+    marginRight: '10px',
+    width: '115px',
   },
   rowWrapper: {
     paddingRight: '20px',

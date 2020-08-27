@@ -48,7 +48,7 @@ export const TaskWrapper = styled.div<ITaskLocation>`
 `;
 
 export const Title = styled(StyledSpan)<ITaskLocation>`
-  min-width: 316px;
+  min-width: 305px;
   font-family: ${MTSSans.MEDIUM};
   font-size: 16px;
   line-height: 24px;
