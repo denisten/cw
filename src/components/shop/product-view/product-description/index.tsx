@@ -33,9 +33,7 @@ export const ProductDescription: React.FC<IProductDescription> = ({
         sum={String(selectedStoreItem?.price)}
         additionText=" /шт."
       />
-      <DescriptionText>
-        {selectedStoreItem?.description || 'Описания нет'}
-      </DescriptionText>
+      <DescriptionText>{selectedStoreItem?.description}</DescriptionText>
     </>
   );
 };
