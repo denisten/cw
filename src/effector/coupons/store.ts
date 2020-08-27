@@ -6,7 +6,6 @@ import {
   toggleShowUserPromocodes,
   openMarket,
   resetUserShopStore,
-  IUserPurchases,
 } from './events';
 
 export enum CouponTypes {
@@ -47,9 +46,6 @@ const initState = {
   openedMarket: false,
 };
 
-const countCalculate = (payload: IUserPurchases[], couponSlug: CouponTypes) =>
-  payload.filter(item => item.storeItem.slug === couponSlug).length;
-
 export const UserMarketStore = StoreDomain.store<IUserStore>(initState)
 
   .on(openMarket, (state, payload) => ({
@@ -71,15 +67,16 @@ export const UserMarketStore = StoreDomain.store<IUserStore>(initState)
   }))
   .on(fetchUserPurchases, (state, payload) => {
     const stateClone = { ...state };
+    let quantityOfCouponReplace = 0;
+    let quantityOfCouponSkip = 0;
     if (payload.length > 0) {
       payload.forEach(({ storeItem, status, content }) => {
         if (storeItem.type.slug === StoreItemTypes.COUPON) {
-          const couponSlug = storeItem.slug as CouponTypes;
-
-          stateClone.userCoupons[couponSlug] = {
-            count: countCalculate(payload, couponSlug),
-            storeItem,
-          };
+          if (storeItem.slug === CouponTypes.COUPON_REPLACE) {
+            quantityOfCouponReplace += 1;
+          } else if (storeItem.slug === CouponTypes.COUPON_SKIP) {
+            quantityOfCouponSkip += 1;
+          }
         }
         if (storeItem.type.slug === StoreItemTypes.PROMO_CODE) {
           stateClone.userPromocodes[storeItem.slug] = {
@@ -90,6 +87,13 @@ export const UserMarketStore = StoreDomain.store<IUserStore>(initState)
         }
       });
     }
+
+    stateClone.userCoupons[
+      CouponTypes.COUPON_REPLACE
+    ].count = quantityOfCouponReplace;
+    stateClone.userCoupons[
+      CouponTypes.COUPON_SKIP
+    ].count = quantityOfCouponSkip;
 
     return stateClone;
   })
@@ -108,7 +112,6 @@ interface IUserStore {
     [key in CouponTypes]: {
       count: number;
       name?: string;
-      storeItem: ICatalogItems | null;
     };
   };
   userPromocodes: {
