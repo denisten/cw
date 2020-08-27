@@ -5,7 +5,10 @@ import { MTSSans } from '../../fonts';
 import { Input } from '../input';
 import { Button, ButtonClassNames } from '../button';
 import { editCurrentUserDataField } from '../../effector/user-data/events';
-import { UserDataStoreKeys } from '../../effector/user-data/store';
+import {
+  UserDataStoreKeys,
+  UserDataStore,
+} from '../../effector/user-data/store';
 
 import { useStore } from 'effector-react';
 import {
@@ -25,6 +28,7 @@ import { IDisplayFlag } from '../../components/skip-tutorial';
 import { AppConditionStore } from '../../effector/app-condition/store';
 import { inputValidation } from '../../utils/input-validation';
 import { menuClosed } from '../../effector/menu-store/events';
+import ReactGA from 'react-ga';
 
 export const PopUpTitle = styled(StyledSpan)`
   font-family: ${MTSSans.BLACK};
@@ -111,6 +115,41 @@ export const PopUp: React.FC<IPopUp> = ({
       setInputHasError(false);
     }
   }, [initValue]);
+
+  useEffect(() => {
+    if (displayFlag && popUpType === TypesOfPopUps.EDIT_WORLD_NAME) {
+      const { id } = UserDataStore.getState();
+
+      const reactGAEvent = (ReactGA.event as unknown) as (
+        args: unknown
+      ) => void;
+      reactGAEvent({
+        event: 'mtsEvent',
+        eventCategory: 'profile',
+        eventAction: 'element_click',
+        eventLabel: 'city_name',
+        eventValue: null,
+        userId: id,
+        guId: 'jehrg234-234hkj-234jkhghj-efgj4',
+        userAuth: '0',
+        abonent: '1',
+        screenName: '/',
+        eventContent: 'null',
+        eventContext: 'null',
+        buttonLocation: 'popup',
+        filterName: 'null',
+        pageType: 'main',
+        actionGroup: 'interactions',
+        productName: null,
+        productId: null,
+        maccountType: 'master',
+        numberType: 'virt',
+        accountType: 'mobile',
+        touchPoint: 'mobile',
+        currentTariff: 'tarifische',
+      });
+    }
+  }, [displayFlag]);
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
