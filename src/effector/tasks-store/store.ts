@@ -5,10 +5,8 @@ import {
   resetMissionsStore,
   saveTask,
   setCurrentTaskStatus,
-  takeReward,
   verifyTask,
 } from './events';
-import { editUserProperty } from '../user-data/events';
 import { TowersTypes } from '../towers-progress/store';
 import { chatTaskSession } from '../chat/events';
 import { TasksType } from '../../components/menu/menu-tasks';
@@ -31,14 +29,6 @@ export const TasksStore = MissionsDomain.store(initStore)
   .on(saveTask, (_, payload) => payload)
   .on(activateTask.doneData, (state, payload) => payload)
   .on(verifyTask.doneData, (state, payload) => payload)
-  .on(takeReward.doneData, (state, { id }) => {
-    const currentEl = state.findIndex(el => el.id === id);
-    const { money, energy } = state[currentEl];
-    editUserProperty({
-      money,
-      energy,
-    });
-  })
 
   .on(setCurrentTaskStatus, (state, { taskId, status }) => {
     const currentTaskIndex = state.findIndex(el => el.id === taskId);
