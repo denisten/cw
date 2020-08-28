@@ -1,5 +1,5 @@
 import { setMarker } from '../../effector/towers-marker/events';
-import { TypeOfMarkers } from '../../components/markers';
+import { MarkerTypes } from '../../components/markers';
 import { Sender } from '../../api/tasks-api/session';
 import { pushBotMessageToCurrentChat } from '../../effector/chat/events';
 import { TowersTypes } from '../../effector/towers-progress/store';
@@ -13,7 +13,7 @@ export const chatEndedHandler = async (
   if (data.quizResult.success) {
     setMarker({
       towerTitle,
-      type: TypeOfMarkers.SUCCESS,
+      type: MarkerTypes.SUCCESS,
     });
     const resultObject = {
       message: {

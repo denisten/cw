@@ -1,5 +1,5 @@
 import { TowersTypes } from '../towers-progress/store';
-import { TypeOfMarkers } from '../../components/markers';
+import { MarkerTypes } from '../../components/markers';
 import { TowersMarkerDomain } from './domain';
 import { hideMarker, resetTowersMarker, setMarker } from './events';
 
@@ -12,7 +12,7 @@ const initState: TowersMarkerStoreType = {
   [TowersTypes.MUSIC]: [],
   [TowersTypes.LIVE_ARENA]: [],
   [TowersTypes.CASHBACK]: [],
-  [TowersTypes.MY_MTS]: [{ type: TypeOfMarkers.PLAY }],
+  [TowersTypes.MY_MTS]: [{ type: MarkerTypes.PLAY }],
   [TowersTypes.CASHBACK]: [],
   [TowersTypes.LIBRARY]: [],
   [TowersTypes.OBSERVATORY]: [],
@@ -26,10 +26,10 @@ const initState: TowersMarkerStoreType = {
   [TowersTypes.SPUTNIK]: [],
   [TowersTypes.PARTNER_ONE]: [],
   [TowersTypes.PARTNER_TWO]: [],
-  [TowersTypes.IGROTEKA]: [{ type: TypeOfMarkers.PLAY }],
+  [TowersTypes.IGROTEKA]: [{ type: MarkerTypes.PLAY }],
   [TowersTypes.HOME_INTERNET]: [],
   [TowersTypes.AUTO]: [],
-  [TowersTypes.SHOP]: [{ type: TypeOfMarkers.PLAY }],
+  [TowersTypes.SHOP]: [{ type: MarkerTypes.PLAY }],
   [TowersTypes.PARTNER_THREE]: [],
   [TowersTypes.MARVIN]: [],
   [TowersTypes.CONNECT]: [],
@@ -51,7 +51,7 @@ export const TowersMarkerStore = TowersMarkerDomain.store<
   .reset(resetTowersMarker);
 
 export interface IMarker {
-  type: TypeOfMarkers;
+  type: MarkerTypes;
   startTime?: Date;
   endTime?: Date;
   coins?: number;

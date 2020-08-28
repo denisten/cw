@@ -17,7 +17,7 @@ import { ChatPreview } from '../../../UI/chat-preview';
 import { hideMarker, setMarker } from '../../../effector/towers-marker/events';
 import { ChatButtons } from '../../../UI/chat-buttons';
 import { ChatAvatar } from '../../../UI/chat-avatar';
-import { TypeOfMarkers } from '../../markers';
+import { MarkerTypes } from '../../markers';
 import { useStore } from 'effector-react';
 import { setHideTowerInfo } from '../../../effector/tower-info-modal-store/events';
 import { TasksType } from '../../menu/menu-tasks';
@@ -29,6 +29,7 @@ import newMessage from '../../../sound/newMessage.wav';
 import { SettingsStore } from '../../../effector/settings/store';
 import { useAudio } from '../../../hooks/use-sound';
 import { usePlaySoundIf } from '../../../hooks/use-play-sound-if';
+import { MissionsStore } from '../../../effector/missions-store/store';
 
 const ChatWrapper = styled.div`
   width: 100%;
@@ -71,7 +72,7 @@ const ChatWrapper = styled.div`
   }
 `;
 
-const writing = keyframes`
+const writingAnimation = keyframes`
     0% {
         opacity: .2;
     }
@@ -83,7 +84,7 @@ const writing = keyframes`
 
 const Writing = styled.div`
   font-size: 36px;
-  animation: ${writing} 0.5s infinite;
+  animation: ${writingAnimation} 0.5s infinite;
   letter-spacing: 6px;
   margin-left: 10px;
   line-height: 1.1;
@@ -123,6 +124,19 @@ export const couponModalConfig = {
   cancelButtonText: 'Отмена',
 };
 
+const findSubtask = (taskId: number): ITask | undefined => {
+  let result = undefined;
+  const missions = MissionsStore.getState();
+  missions.forEach(mission => {
+    mission.userSubTasks.forEach(task => {
+      if (task.id === taskId) {
+        result = task;
+      }
+    });
+  });
+  return result;
+};
+
 export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
   ({ towerTitle, switchers }) => {
     const { blockId, taskId, actions, messages, ended } = useStore(ChatStore)[
@@ -130,8 +144,14 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
     ];
     const { userCoupons } = useStore(UserMarketStore);
     const tasks = useStore(TasksStore);
+    let currentTask: ITask | undefined;
+    currentTask = findSubtask(taskId);
+    if (!currentTask) {
+      currentTask = tasks.find(el => el.id === taskId);
+    }
     const [openCouponModal, setOpenCouponModal] = useState(false);
     const [pendingOfResponse, setPendingOfResponse] = useState(false);
+
     const { count } = userCoupons[CouponTypes.COUPON_REPLACE];
 
     const chatContainer = useRef<HTMLDivElement>(null);
@@ -157,32 +177,33 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
     const haveMessages = messages && messages.length > 0;
 
     const sendAnswerId = async (actionId: number) => {
-      if (currentMission) {
-        if (currentTaskIndex !== -1 && !pendingOfResponse) {
-          setPendingOfResponse(true);
-          const response = await consumeUserTaskAction({
-            taskId: currentMission.id,
-            blockId,
-            actionId,
-            towerTitle,
-          });
-          setPendingOfResponse(false);
-          if (response.data.ended) {
-            if (
-              currentMission.taskTypeSlug === TasksType.PRODUCT_QUIZ ||
-              currentMission.taskTypeSlug === TasksType.RELATED_QUIZ
-            ) {
-              chatEndedHandler(taskId, towerTitle);
-            } else {
-              setCurrentTaskStatus({ taskId, status: TaskStatuses.DONE });
-              setMarker({
-                towerTitle,
-                type: TypeOfMarkers.SUCCESS,
-              });
-              switchers.openTasksTab();
-            }
-            hideMarker({ towerTitle, type: TypeOfMarkers.ACTIVE_TASK });
+      if (!pendingOfResponse && currentTask) {
+        setPendingOfResponse(true);
+        const response = await consumeUserTaskAction({
+          taskId: currentTask.id,
+          blockId,
+          actionId,
+          towerTitle,
+        });
+        setPendingOfResponse(false);
+        if (response.data.ended) {
+          if (
+            currentTask.taskTypeSlug === TasksType.PRODUCT_QUIZ ||
+            currentTask.taskTypeSlug === TasksType.RELATED_QUIZ
+          ) {
+            chatEndedHandler(taskId, towerTitle);
+          } else {
+            setCurrentTaskStatus({
+              taskId: currentTask.id,
+              status: TaskStatuses.DONE,
+            });
+            setMarker({
+              towerTitle,
+              type: MarkerTypes.SUCCESS,
+            });
+            switchers.openTasksTab();
           }
+          hideMarker({ towerTitle, type: MarkerTypes.ACTIVE_TASK });
         }
       }
     };
@@ -203,7 +224,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
     }, []);
 
     useEffect(() => {
-      checkChatSession(currentTaskIndex, tasks, taskId, towerTitle);
+      currentTask && checkChatSession(currentTask, taskId, towerTitle);
       return () => {
         setHideTowerInfo(false);
       };

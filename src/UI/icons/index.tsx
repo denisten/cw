@@ -22,7 +22,7 @@ import soundActive from './soundActive.svg';
 import musicDisable from './musicDisable.svg';
 import soundDisable from './soundDisable.svg';
 import { TasksType } from '../../components/menu/menu-tasks';
-import { TypeOfMarkers } from '../../components/markers';
+import { MarkerTypes } from '../../components/markers';
 import { CouponTypes } from '../../effector/coupons/store';
 import { SettingsType } from '../../effector/settings/store';
 
@@ -48,7 +48,7 @@ export const Icon: React.FC<IIcon> = ({
     type:
       | TypeOfIcons
       | TasksType
-      | TypeOfMarkers
+      | MarkerTypes
       | CouponTypes
       | SettingsType
       | string
@@ -73,17 +73,17 @@ export const Icon: React.FC<IIcon> = ({
         return coin;
       case TasksType.TUTORIAL_TASK:
         return login;
-      case TypeOfMarkers.TASK:
+      case MarkerTypes.TASK:
         return notice;
-      case TypeOfMarkers.SUCCESS:
+      case MarkerTypes.SUCCESS:
         return success;
-      case TypeOfMarkers.TAKE_REWARD:
+      case MarkerTypes.TAKE_REWARD:
         return coinMarker;
-      case TypeOfMarkers.ACTIVE_TASK:
+      case MarkerTypes.ACTIVE_TASK:
         return activeTask;
-      case TypeOfMarkers.UPGRADE_TOWER:
+      case MarkerTypes.UPGRADE_TOWER:
         return upgradeTower;
-      case TypeOfMarkers.PLAY:
+      case MarkerTypes.PLAY:
         return play;
       case CouponTypes.COUPON_REPLACE:
         return replace;
@@ -119,7 +119,7 @@ interface IIcon {
   type:
     | TypeOfIcons
     | TasksType
-    | TypeOfMarkers
+    | MarkerTypes
     | CouponTypes
     | SettingsType
     | string;

@@ -1,5 +1,5 @@
 import { shallow, mount } from 'enzyme';
-import { Markers, TypeOfMarkers } from '.';
+import { Markers, MarkerTypes } from '.';
 import React from 'react';
 import { TowersTypes } from '../../effector/towers-progress/store';
 import { TimerBody } from './timer';
@@ -8,8 +8,8 @@ describe('<Markers />', () => {
   it('Component Markers have correct props and rendered', () => {
     const props = {
       markersCollection: [
-        { type: TypeOfMarkers.SUCCESS },
-        { type: TypeOfMarkers.TASK },
+        { type: MarkerTypes.SUCCESS },
+        { type: MarkerTypes.TASK },
       ],
       towerTitle: TowersTypes.LIVE_ARENA,
       displayFlag: true,
@@ -21,7 +21,7 @@ describe('<Markers />', () => {
     const props = {
       markersCollection: [
         {
-          type: TypeOfMarkers.TIMER,
+          type: MarkerTypes.TIMER,
           startTime: new Date('Apr 22 2020 08:04:33 GMT+0300'),
           endTime: new Date('Apr 22 2020 15:04:33 GMT+0300'),
         },
@@ -37,7 +37,7 @@ describe('<Markers />', () => {
     const props = {
       markersCollection: [
         {
-          type: TypeOfMarkers.TIMER,
+          type: MarkerTypes.TIMER,
           startTime: undefined,
           endTime: undefined,
         },

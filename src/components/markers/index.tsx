@@ -15,7 +15,7 @@ import { useStore } from 'effector-react';
 import { SettingsStore } from '../../effector/settings/store';
 import { useAudio } from '../../hooks/use-sound';
 
-export enum TypeOfMarkers {
+export enum MarkerTypes {
   TASK = 'task',
   SUCCESS = 'success',
   TAKE_REWARD = 'takeReward',
@@ -222,12 +222,12 @@ export const Markers: React.FC<IMarkers> = ({
       data-towerlevel={towerLevel}
     >
       {markersCollection.map(markItem =>
-        markItem.type !== TypeOfMarkers.TIMER ? (
+        markItem.type !== MarkerTypes.TIMER ? (
           <MarkerView
             data-type={markItem.type}
             key={markItem.type}
             onClick={e => {
-              if (markItem.type === TypeOfMarkers.TAKE_REWARD && enable) {
+              if (markItem.type === MarkerTypes.TAKE_REWARD && enable) {
                 playRewardSound();
               }
               markerClickHandler(markItem, towerTitle, towerRef, e);

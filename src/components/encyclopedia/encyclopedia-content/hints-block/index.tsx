@@ -2,7 +2,7 @@ import React from 'react';
 import { WrapperBlock } from '../legend-block';
 import styled from 'styled-components';
 import iconsblock from './iconsblock.svg';
-import { TypeOfMarkers } from '../../../markers';
+import { MarkerTypes } from '../../../markers';
 import { Icon } from '../../../../UI/icons';
 const Text = styled.span`
   font-size: 18px;
@@ -54,19 +54,19 @@ const styleConfig = {
 
 const content = [
   {
-    iconType: TypeOfMarkers.TASK,
+    iconType: MarkerTypes.TASK,
     text: 'Этот значок показывает, что в этом здании есть не решенные дела.',
   },
   {
-    iconType: TypeOfMarkers.UPGRADE_TOWER,
+    iconType: MarkerTypes.UPGRADE_TOWER,
     text: 'А вот этот значок говорит, что здание готово к усовершенствованию!',
   },
   {
-    iconType: TypeOfMarkers.SUCCESS,
+    iconType: MarkerTypes.SUCCESS,
     text: 'Этот маркер показывает, что нужно забрать награду.',
   },
   {
-    iconType: TypeOfMarkers.PLAY,
+    iconType: MarkerTypes.PLAY,
     text: 'Если вы увидите джойстик, значит, появилась новая игра!',
   },
 ];
