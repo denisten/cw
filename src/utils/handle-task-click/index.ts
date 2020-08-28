@@ -37,9 +37,8 @@ export const handleTaskClick = async (taskData: ITask, e: React.MouseEvent) => {
           taskData.status === TaskStatuses.CREATED
         ) {
           await chatTaskSession({ id, towerTitle });
-          if (!selectedMenuItem) {
-            setTowerInfoContent(TowerInfoContentValues.CHAT);
-          } else menuClosed();
+          if (selectedMenuItem) menuClosed();
+          setTowerInfoContent(TowerInfoContentValues.CHAT);
         } else {
           await activateTask({ id, towerTitle });
         }

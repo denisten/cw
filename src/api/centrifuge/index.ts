@@ -67,6 +67,9 @@ const createSubscriptions = (centrifuge: Centrifuge, userId: number) => {
     'user-tasks:updates#' + userId,
     (items: IGetTasks) => {
       const userTasks = items.data.filter(el => {
+        if (el.status === TaskStatuses.PROGRESS_COMMITTED) {
+          el.status = TaskStatuses.REWARDED;
+        }
         if (
           el.status !== TaskStatuses.CREATED &&
           el.taskTypeSlug !== TasksType.MISSION
@@ -86,6 +89,9 @@ const createSubscriptions = (centrifuge: Centrifuge, userId: number) => {
       );
       userMissions.map(mission => {
         mission.userSubTasks.map(subtask => {
+          if (subtask.status === TaskStatuses.PROGRESS_COMMITTED) {
+            subtask.status = TaskStatuses.REWARDED;
+          }
           if (subtask.status === TaskStatuses.ACTIVE) {
             setMarker({
               towerTitle: subtask.productSlug,

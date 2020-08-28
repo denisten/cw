@@ -20,6 +20,7 @@ import { SettingsStore } from '../../../effector/settings/store';
 import { useStore } from 'effector-react';
 import { useAudio } from '../../../hooks/use-sound';
 import completedImg from './completed.svg';
+import { handleTaskWrapperClick } from '../menu-task-row';
 
 export const TaskWrapper = styled.div<ITaskLocation>`
   width: 100%;
@@ -209,7 +210,7 @@ export const TowerTaskRow: React.FC<ITasksRow> = ({
 }) => {
   const { taskTypeSlug: taskType, productSlug: towerTitle } = taskData;
 
-  const isOpened = useRef(false);
+  const [isOpened, setIsOpened] = useState(false);
   const taskWrapperRef = useRef<HTMLDivElement>(null);
   const taskDescriptionRef = useRef<HTMLDivElement>(null);
   const vectorRef = useRef<HTMLImageElement>(null);
@@ -221,6 +222,7 @@ export const TowerTaskRow: React.FC<ITasksRow> = ({
   const { play: playActiveTask } = useAudio(activeTask, false, volume);
 
   const [isCouponModalWindowOpen, setIsCouponModalWindowOpen] = useState(false);
+
   const handleWrapperClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (taskType === TasksType.TUTORIAL_TASK) {
@@ -231,26 +233,13 @@ export const TowerTaskRow: React.FC<ITasksRow> = ({
       taskData.status === TaskStatuses.CREATED && enable && playActiveTask();
     }
   };
-
-  const handleTaskWrapperClick = () =>
-    requestAnimationFrame(() => {
-      if (
-        taskDescriptionRef.current &&
-        taskType !== TasksType.TUTORIAL_TASK &&
-        vectorRef.current
-      ) {
-        if (isOpened.current) {
-          taskDescriptionRef.current.style.display = 'none';
-          taskDescriptionRef.current.style.opacity = '0';
-          vectorRef.current.style.transform = 'rotate(0deg)';
-          isOpened.current = false;
-        } else {
-          taskDescriptionRef.current.style.display = 'flex';
-          taskDescriptionRef.current.style.opacity = '1';
-          vectorRef.current.style.transform = 'rotate(180deg)';
-          isOpened.current = true;
-        }
-      }
+  const handleClick = () =>
+    handleTaskWrapperClick({
+      taskDescriptionRef,
+      isOpened,
+      setIsOpened,
+      taskType,
+      vectorRef,
     });
 
   const handleHintClick = (e: React.MouseEvent) => {
@@ -261,7 +250,7 @@ export const TowerTaskRow: React.FC<ITasksRow> = ({
   return (
     <TaskWrapper
       ref={taskWrapperRef}
-      onClick={handleTaskWrapperClick}
+      onClick={handleClick}
       isInTowerInfo={isInTowerInfo}
     >
       <ModalWindow

@@ -23,6 +23,7 @@ export enum TaskStatuses {
   REJECTED = 'rejected',
   REWARDED = 'rewarded',
   EXPIRED = 'expired',
+  PROGRESS_COMMITTED = 'progress-committed',
 }
 
 const initStore: ITask[] = [];

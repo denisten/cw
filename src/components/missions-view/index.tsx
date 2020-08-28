@@ -1,6 +1,11 @@
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
-import { MenuTaskRow, TaskWrapper, Title } from '../tasks-view/menu-task-row';
+import {
+  handleTaskWrapperClick,
+  MenuTaskRow,
+  TaskWrapper,
+  Title,
+} from '../tasks-view/menu-task-row';
 import {
   Border,
   checkTaskStatus,
@@ -11,7 +16,6 @@ import {
   taskRowStyledConfig,
   VectorImg,
 } from '../tasks-view/tower-task-row';
-import { TasksType } from '../menu/menu-tasks';
 import { Icon } from '../../UI/icons';
 import { RowWrapper } from '../../UI/row-wrapper';
 import { ColumnWrapper } from '../../UI/column-wrapper';
@@ -80,34 +84,18 @@ export const MissionsView: React.FC<IMissionsView> = ({ taskData }) => {
     return <MenuTaskRow isInTowerInfo={false} taskData={el} key={el.id} />;
   });
 
-  const handleTaskWrapperClick = () =>
-    requestAnimationFrame(() => {
-      if (
-        taskDescriptionRef.current &&
-        taskType !== TasksType.TUTORIAL_TASK &&
-        vectorRef.current
-      ) {
-        if (isOpened) {
-          taskDescriptionRef.current.style.display = 'none';
-          taskDescriptionRef.current.style.opacity = '0';
-          vectorRef.current.style.transform = 'rotate(0deg)';
-          setIsOpened(false);
-        } else {
-          taskDescriptionRef.current.style.display = 'flex';
-          taskDescriptionRef.current.style.opacity = '1';
-          vectorRef.current.style.transform = 'rotate(180deg)';
-          setIsOpened(true);
-        }
-      }
+  const handleClick = () =>
+    handleTaskWrapperClick({
+      taskDescriptionRef,
+      isOpened,
+      setIsOpened,
+      taskType,
+      vectorRef,
     });
 
   return (
     <>
-      <Wrapper
-        ref={taskWrapperRef}
-        onClick={handleTaskWrapperClick}
-        isInTowerInfo={false}
-      >
+      <Wrapper ref={taskWrapperRef} onClick={handleClick} isInTowerInfo={false}>
         <TaskInfo>
           <Icon type={taskType} />
           <Title isInTowerInfo={false}>{taskData.title}</Title>
