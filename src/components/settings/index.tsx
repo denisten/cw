@@ -65,7 +65,7 @@ export const Settings: React.FC = () => {
       </SettingOptionsWrapper>
       <SettingFooter>
         <a target="_blank" href={termsDoc} rel="noopener noreferrer">
-          Условия пользования
+          Пользовательское соглашение
         </a>
       </SettingFooter>
       <AllRightsReserved>(С) 2020 ПАО «МТС»</AllRightsReserved>

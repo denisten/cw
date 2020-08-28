@@ -1,7 +1,6 @@
 import { MissionsDomain } from './domain';
 import { activateTaskRequest } from '../../api/tasks-api/activate';
 import { verifyTaskRequest } from '../../api/tasks-api/verify';
-import { rewardRequest } from '../../api/tasks-api/reward';
 import {
   getTaskResultRequest,
   IGetTaskResultRequest,
