@@ -6,7 +6,7 @@ import { MTSSans } from '../../../fonts';
 import { convertTimeToString } from '../../../utils/converTimeToString';
 import { TowersTypes } from '../../../effector/towers-progress/store';
 import { hideMarker, setMarker } from '../../../effector/towers-marker/events';
-import { TypeOfMarkers } from '..';
+import { MarkerTypes } from '..';
 
 const milisecondInSecond = 1000;
 export const maxPercent = 100;
@@ -107,8 +107,8 @@ export const Timer: React.FC<ITimer> = ({ startTime, endTime, towerTitle }) => {
     // TODO emit when time is over
 
     if (percent >= maxPercent) {
-      hideMarker({ towerTitle: towerTitle, type: TypeOfMarkers.TIMER });
-      setMarker({ towerTitle: towerTitle, type: TypeOfMarkers.SUCCESS });
+      hideMarker({ towerTitle: towerTitle, type: MarkerTypes.TIMER });
+      setMarker({ towerTitle: towerTitle, type: MarkerTypes.SUCCESS });
     }
   }, [timeIsOver]);
 

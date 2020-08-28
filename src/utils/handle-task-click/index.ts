@@ -21,7 +21,7 @@ import { MenuStore } from '../../effector/menu-store/store';
 import { menuClosed } from '../../effector/menu-store/events';
 import { TasksType } from '../../components/menu/menu-tasks';
 import { hideMarker } from '../../effector/towers-marker/events';
-import { TypeOfMarkers } from '../../components/markers';
+import { MarkerTypes } from '../../components/markers';
 import { rewardRequest } from '../../api/tasks-api/reward';
 import { editUserProperty } from '../../effector/user-data/events';
 
@@ -36,25 +36,21 @@ const getReward = (id: number) => {
 };
 
 export const handleTaskClick = async (taskData: ITask, e: React.MouseEvent) => {
-  const towerTitle = taskData.productSlug;
-  const id = taskData.id;
-  const taskType = taskData.taskTypeSlug;
+  const { id, productSlug: towerTitle } = taskData;
 
   const { fullSizeMode } = AppConditionStore.getState();
   const { selectedMenuItem } = MenuStore.getState();
   const { taskId: chatTaskId } = ChatStore.getState()[towerTitle];
-
   switch (taskData.status) {
     case TaskStatuses.CREATED:
       if (!chatTaskId) {
         if (
-          taskType !== TasksType.COSMETIC &&
+          taskData.taskTypeSlug !== TasksType.COSMETIC &&
           taskData.status === TaskStatuses.CREATED
         ) {
           await chatTaskSession({ id, towerTitle });
-          if (!selectedMenuItem) {
-            setTowerInfoContent(TowerInfoContentValues.CHAT);
-          } else menuClosed();
+          if (selectedMenuItem) menuClosed();
+          setTowerInfoContent(TowerInfoContentValues.CHAT);
         } else {
           await activateTask({ id, towerTitle });
         }
@@ -71,7 +67,7 @@ export const handleTaskClick = async (taskData: ITask, e: React.MouseEvent) => {
       }
       break;
     case TaskStatuses.ACTIVE:
-      if (taskType !== TasksType.INFORMATIONAL) {
+      if (taskData.taskTypeSlug !== TasksType.INFORMATIONAL) {
         await verifyTask(id);
       }
       break;
@@ -79,7 +75,7 @@ export const handleTaskClick = async (taskData: ITask, e: React.MouseEvent) => {
       animateTaskReward(taskData.money, e);
       await rewardRequest(id);
       getReward(id);
-      hideMarker({ towerTitle, type: TypeOfMarkers.SUCCESS });
+      hideMarker({ towerTitle, type: MarkerTypes.SUCCESS });
       clearChat({ towerTitle });
       break;
     case TaskStatuses.VERIFICATION:

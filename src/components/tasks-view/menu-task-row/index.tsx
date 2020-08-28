@@ -59,6 +59,33 @@ export const Title = styled(StyledSpan)<ITaskLocation>`
   margin-right: 34px;
 `;
 
+export const handleTaskWrapperClick = ({
+  taskDescriptionRef,
+  taskType,
+  vectorRef,
+  isOpened,
+  setIsOpened,
+}: IHandleTaskWrapperClick) =>
+  requestAnimationFrame(() => {
+    if (
+      taskDescriptionRef.current &&
+      taskType !== TasksType.TUTORIAL_TASK &&
+      vectorRef.current
+    ) {
+      if (isOpened) {
+        taskDescriptionRef.current.style.display = 'none';
+        taskDescriptionRef.current.style.opacity = '0';
+        vectorRef.current.style.transform = 'rotate(0deg)';
+        setIsOpened(false);
+      } else {
+        taskDescriptionRef.current.style.display = 'flex';
+        taskDescriptionRef.current.style.opacity = '1';
+        vectorRef.current.style.transform = 'rotate(180deg)';
+        setIsOpened(true);
+      }
+    }
+  });
+
 export const MenuTaskRow: React.FC<ITasksRow> = ({
   isInTowerInfo,
   taskData,
@@ -66,7 +93,7 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
   const taskType = taskData.taskTypeSlug;
   const towerTitle = taskData.productSlug;
 
-  const isOpened = useRef(false);
+  const [isOpened, setIsOpened] = useState(false);
   const taskWrapperRef = useRef<HTMLDivElement>(null);
   const taskDescriptionRef = useRef<HTMLDivElement>(null);
   const vectorRef = useRef<HTMLImageElement>(null);
@@ -89,26 +116,13 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
       taskData.status === TaskStatuses.CREATED && enable && playActiveTask();
     }
   };
-
-  const handleTaskWrapperClick = () =>
-    requestAnimationFrame(() => {
-      if (
-        taskDescriptionRef.current &&
-        taskType !== TasksType.TUTORIAL_TASK &&
-        vectorRef.current
-      ) {
-        if (isOpened.current) {
-          taskDescriptionRef.current.style.display = 'none';
-          taskDescriptionRef.current.style.opacity = '0';
-          vectorRef.current.style.transform = 'rotate(0deg)';
-          isOpened.current = false;
-        } else {
-          taskDescriptionRef.current.style.display = 'flex';
-          taskDescriptionRef.current.style.opacity = '1';
-          vectorRef.current.style.transform = 'rotate(180deg)';
-          isOpened.current = true;
-        }
-      }
+  const handleClick = () =>
+    handleTaskWrapperClick({
+      taskDescriptionRef,
+      isOpened,
+      setIsOpened,
+      taskType,
+      vectorRef,
     });
 
   const handleHintClick = (e: React.MouseEvent) => {
@@ -120,7 +134,7 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
     <>
       <TaskWrapper
         ref={taskWrapperRef}
-        onClick={handleTaskWrapperClick}
+        onClick={handleClick}
         isInTowerInfo={isInTowerInfo}
       >
         <TaskInfo>
@@ -177,3 +191,11 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
     </>
   );
 };
+
+interface IHandleTaskWrapperClick {
+  taskDescriptionRef: React.RefObject<HTMLDivElement>;
+  taskType: TasksType;
+  vectorRef: React.RefObject<HTMLDivElement>;
+  isOpened: boolean;
+  setIsOpened: Function;
+}
