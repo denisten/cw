@@ -100,7 +100,7 @@ export interface ITask {
   status: TaskStatuses;
   expireAt: string;
   expireInSeconds: number | null;
-  taskTimer?: () => number;
+  localExpireInSeconds?: number;
   taskTypeSlug: TasksType;
   productSlug: TowersTypes;
   title: string;

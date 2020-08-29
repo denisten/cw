@@ -1,8 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { MTSSans } from '../../fonts';
 import timerIcon from './timer.svg';
 import { RowWrapper } from '../row-wrapper';
+import { hideMarker } from '../../effector/towers-marker/events';
+import { MarkerTypes } from '../../components/markers';
+import { TowersTypes } from '../../effector/towers-progress/store';
 
 const TaskTimerWrapper = styled.div<ITaskTimerWrapper>`
   font-family: ${MTSSans.REGULAR};
@@ -43,37 +46,40 @@ const parseSecondsLeft = (secondsLeft: number | null) => {
 };
 
 export const TaskTimer: React.FC<ITaskTimer> = ({
-  taskTimer,
   expireInSeconds,
+  towerTitle,
 }) => {
-  const [timer, setTimer] = useState((taskTimer && taskTimer()) || null);
+  const [secondsLeft, setSecondsLeft] = useState(expireInSeconds || null);
   const timerRef = useRef(0);
 
   useEffect(() => {
-    if (timer) {
+    if (secondsLeft) {
       timerRef.current = setTimeout(() => {
-        setTimer(timer - 1);
+        setSecondsLeft(secondsLeft - 1);
       }, second);
-    } else if (timer === 0) {
+    } else if (secondsLeft === 0) {
       clearTimeout(timerRef.current);
-      // TODO dispatch event
+      hideMarker({
+        type: MarkerTypes.ACTIVE_TASK,
+        towerTitle,
+      });
     }
     return () => {
       clearTimeout(timerRef.current);
     };
-  }, [timer]);
+  }, [secondsLeft]);
   return (
     <TaskTimerWrapper expireInSeconds={expireInSeconds}>
       <RowWrapper>
         <img src={timerIcon} alt="timer" style={styledConfig.img} />
-        {parseSecondsLeft(timer)}
+        {parseSecondsLeft(secondsLeft)}
       </RowWrapper>
     </TaskTimerWrapper>
   );
 };
 
 interface ITaskTimer extends ITaskTimerWrapper {
-  taskTimer?: () => number;
+  towerTitle: TowersTypes;
 }
 
 interface ITaskTimerWrapper {

@@ -8,13 +8,13 @@ const UnavailableTaskViewWrapper = styled.div`
 `;
 
 export const UnavailableSubtaskView: React.FC<IUnavailableSubtaskView> = ({
-  taskData,
+  task,
 }) => (
   <UnavailableTaskViewWrapper>
-    <MenuTaskRow taskData={taskData} isInTowerInfo={false} available={false} />
+    <MenuTaskRow task={task} isInTowerInfo={false} available={false} />
   </UnavailableTaskViewWrapper>
 );
 
 interface IUnavailableSubtaskView {
-  taskData: ITask;
+  task: ITask;
 }

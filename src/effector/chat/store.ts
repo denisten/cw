@@ -5,7 +5,7 @@ import {
   consumeUserTaskAction,
   createMockupOfMessages,
   resetChatStore,
-  setTaskId,
+  initChatSession,
   pushBotMessageToCurrentChat,
 } from './events';
 import { IAction, IMessage, Sender } from '../../api/tasks-api/session';
@@ -62,7 +62,7 @@ const mockupOfMessages = [
 ];
 
 export const ChatStore = ChatDomain.store<ITaskMessagesStore>(initStore)
-  .on(setTaskId, (state, { towerTitle, taskId }) => ({
+  .on(initChatSession, (state, { towerTitle, taskId }) => ({
     ...state,
     [towerTitle]: {
       ...state[towerTitle],

@@ -1,7 +1,7 @@
 import { post } from '../../requests';
 import { apiRoutes } from '../../index';
 
-import { timerClosure } from '../../../utils/timer-closure';
+import { timerLoopUpdater } from '../../../utils/timer-closure';
 import { IGetTasks } from '../../../effector/tasks-store/store';
 
 export const verifyTaskRequest = async (id: number) => {
@@ -9,7 +9,7 @@ export const verifyTaskRequest = async (id: number) => {
 
   response.data.data = response.data.data.map(el => {
     if (el.expireInSeconds) {
-      el.taskTimer = timerClosure(el.expireInSeconds);
+      el.localExpireInSeconds = timerLoopUpdater(el.expireInSeconds);
     }
     return el;
   });

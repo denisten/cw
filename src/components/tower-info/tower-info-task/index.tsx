@@ -74,8 +74,8 @@ export const TowerInfoTask: React.FC<ITowerInfoTask> = ({ towerTitle }) => {
   const { tutorialCondition } = useStore(TutorialStore);
   const filteredTasks = filterTasksArray(tasks, towerTitle);
   const filteredMissions = filterTasksArray(missions, towerTitle);
-  const tasksView = filteredTasks.map(el => (
-    <TowerTaskRow key={el.id} isInTowerInfo={true} taskData={el} />
+  const tasksView = filteredTasks.map(task => (
+    <TowerTaskRow key={task.id} isInTowerInfo={true} task={task} />
   ));
   const missionsView = filteredMissions.map(el => (
     <TowerMissionRow taskData={el} isInTowerInfo={true} key={el.id} />

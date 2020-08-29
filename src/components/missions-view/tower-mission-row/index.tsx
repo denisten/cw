@@ -97,12 +97,10 @@ export const TowerMissionRow: React.FC<ITasksRow> = ({
       </TaskDescriptionWrapper>
       <Border />
       <RowWrapper style={taskRowStyledConfig.rowWrapper}>
-        {
-          <TaskTimer
-            taskTimer={taskData.taskTimer}
-            expireInSeconds={taskData.expireInSeconds}
-          />
-        }
+        <TaskTimer
+          expireInSeconds={taskData.expireInSeconds}
+          towerTitle={taskData.productSlug}
+        />
         <RowWrapper>
           <ColumnWrapper {...taskRowStyledConfig.columnWrapper}>
             <TaskLoot

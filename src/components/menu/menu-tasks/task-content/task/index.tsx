@@ -20,7 +20,7 @@ export const Tasks: React.FC<ITaskView> = ({ active }) => {
     <TasksWrapper hidden={!active}>
       {!isAuthorized && <UnauthorizedTaskZone />}
       {tasks.map(el => (
-        <MenuTaskRow taskData={el} key={el.id} isInTowerInfo={false} />
+        <MenuTaskRow task={el} key={el.id} isInTowerInfo={false} />
       ))}
     </TasksWrapper>
   );

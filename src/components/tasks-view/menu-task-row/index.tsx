@@ -88,11 +88,11 @@ export const handleTaskWrapperClick = ({
 
 export const MenuTaskRow: React.FC<ITasksRow> = ({
   isInTowerInfo,
-  taskData,
+  task,
   available = true,
 }) => {
-  const taskType = taskData.taskTypeSlug;
-  const towerTitle = taskData.productSlug;
+  const taskType = task.taskTypeSlug;
+  const towerTitle = task.productSlug;
 
   const [isOpened, setIsOpened] = useState(false);
   const taskWrapperRef = useRef<HTMLDivElement>(null);
@@ -112,9 +112,9 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
     if (taskType === TasksType.TUTORIAL_TASK) {
       // do next tutorial step in future
     } else {
-      handleTaskClick(taskData, e);
-      taskData.status === TaskStatuses.DONE && enable && playRewardSound();
-      taskData.status === TaskStatuses.CREATED && enable && playActiveTask();
+      handleTaskClick(task, e);
+      task.status === TaskStatuses.DONE && enable && playRewardSound();
+      task.status === TaskStatuses.CREATED && enable && playActiveTask();
     }
   };
   const handleClick = (e: React.MouseEvent) => {
@@ -132,7 +132,6 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
     e.stopPropagation();
     setIsCouponModalWindowOpen(true);
   };
-
   return (
     <>
       <TaskWrapper
@@ -142,21 +141,19 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
       >
         <TaskInfo>
           <Icon type={available ? taskType : TaskStatuses.NOT_AVAILABLE} />
-          <Title isInTowerInfo={isInTowerInfo}>{taskData.title}</Title>
+          <Title isInTowerInfo={isInTowerInfo}>{task.title}</Title>
           {available && (
             <RowWrapper>
               <ColumnWrapper {...taskRowStyledConfig.columnWrapper}>
                 <TaskLoot
-                  money={taskData.money}
-                  energy={taskData.energy}
+                  money={task.money}
+                  energy={task.energy}
                   isInTowerInfo={isInTowerInfo}
                 />
-                {
-                  <TaskTimer
-                    taskTimer={taskData.taskTimer}
-                    expireInSeconds={taskData.expireInSeconds}
-                  />
-                }
+                <TaskTimer
+                  expireInSeconds={task.expireInSeconds}
+                  towerTitle={task.productSlug}
+                />
               </ColumnWrapper>
               <ColumnWrapper
                 {...taskRowStyledConfig.columnWrapper}
@@ -164,15 +161,15 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
               >
                 <RowWrapper>
                   <TaskButton
-                    expireInSeconds={taskData.expireInSeconds}
-                    className={taskData.status}
+                    expireInSeconds={task.expireInSeconds}
+                    className={task.status}
                     onClick={handleWrapperClick}
                   />
-                  {checkTaskStatus(taskData.status) && (
+                  {checkTaskStatus(task.status) && (
                     <img src={notDoneImg} alt="reject" />
                   )}
                 </RowWrapper>
-                {checkTaskStatus(taskData.status) && (
+                {checkTaskStatus(task.status) && (
                   <HintWrapper onClick={handleHintClick} />
                 )}
               </ColumnWrapper>
@@ -182,14 +179,14 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
         </TaskInfo>
         <TaskDescriptionWrapper ref={taskDescriptionRef}>
           <Border />
-          <TaskDescription>{taskData.description}</TaskDescription>
+          <TaskDescription>{task.description}</TaskDescription>
         </TaskDescriptionWrapper>
       </TaskWrapper>
       <ModalWindow
         {...couponModalConfig}
         displayFlag={isCouponModalWindowOpen}
         cancelHandler={() => setIsCouponModalWindowOpen(false)}
-        id={taskData.id}
+        id={task.id}
         towerTitle={towerTitle}
       />
     </>

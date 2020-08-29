@@ -80,7 +80,11 @@ const calculateProgress = (completed: number, all: number) =>
   (completed / all) * percents;
 
 const detectSubTaskId = (tasks: ITask[]) => {
-  const wantedStatuses = new Set([TaskStatuses.CREATED, TaskStatuses.ACTIVE]);
+  const wantedStatuses = new Set([
+    TaskStatuses.CREATED,
+    TaskStatuses.ACTIVE,
+    TaskStatuses.REJECTED,
+  ]);
   for (let taskId = 0; taskId < tasks.length; taskId++)
     if (wantedStatuses.has(tasks[taskId].status)) return taskId;
   return -1;
@@ -105,7 +109,7 @@ export const MissionsView: React.FC<IMissionsView> = ({ taskData }) => {
     currentSubtaskId !== -1
       ? taskData.userSubTasks
           .slice(currentSubtaskId + 1)
-          .map(el => <UnavailableSubtaskView taskData={el} key={el.id} />)
+          .map(el => <UnavailableSubtaskView task={el} key={el.id} />)
       : React.Fragment;
 
   const CompletedSubTasks =
@@ -113,7 +117,7 @@ export const MissionsView: React.FC<IMissionsView> = ({ taskData }) => {
       ? taskData.userSubTasks
           .slice(0, currentSubtaskId + 1)
           .map(el => (
-            <MenuTaskRow isInTowerInfo={false} taskData={el} key={el.id} />
+            <MenuTaskRow isInTowerInfo={false} task={el} key={el.id} />
           ))
       : React.Fragment;
 
@@ -139,12 +143,10 @@ export const MissionsView: React.FC<IMissionsView> = ({ taskData }) => {
                 energy={taskData.energy}
                 isInTowerInfo={false}
               />
-              {
-                <TaskTimer
-                  taskTimer={taskData.taskTimer}
-                  expireInSeconds={taskData.expireInSeconds}
-                />
-              }
+              <TaskTimer
+                expireInSeconds={taskData.expireInSeconds}
+                towerTitle={taskData.productSlug}
+              />
             </ColumnWrapper>
             <ColumnWrapper
               {...taskRowStyledConfig.columnWrapper}
