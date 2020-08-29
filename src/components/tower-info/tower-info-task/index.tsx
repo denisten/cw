@@ -78,7 +78,7 @@ export const TowerInfoTask: React.FC<ITowerInfoTask> = ({ towerTitle }) => {
     <TowerTaskRow key={task.id} isInTowerInfo={true} task={task} />
   ));
   const missionsView = filteredMissions.map(el => (
-    <TowerMissionRow taskData={el} isInTowerInfo={true} key={el.id} />
+    <TowerMissionRow task={el} isInTowerInfo={true} key={el.id} />
   ));
 
   const Content = () => (
