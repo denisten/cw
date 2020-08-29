@@ -116,7 +116,8 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
       taskData.status === TaskStatuses.CREATED && enable && playActiveTask();
     }
   };
-  const handleClick = () =>
+  const handleClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
     handleTaskWrapperClick({
       taskDescriptionRef,
       isOpened,
@@ -124,6 +125,7 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
       taskType,
       vectorRef,
     });
+  };
 
   const handleHintClick = (e: React.MouseEvent) => {
     e.stopPropagation();

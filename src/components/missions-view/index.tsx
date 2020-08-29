@@ -25,6 +25,11 @@ import notDoneImg from '../tasks-view/tower-task-row/not-done.svg';
 import { MTSSans } from '../../fonts';
 import { ITask, TaskStatuses } from '../../effector/tasks-store/store';
 import { handleTaskClick } from '../../utils/handle-task-click';
+import { UnavailableSubtaskView } from './unavailable-subtask-view';
+import { IDisplayFlag } from '../skip-tutorial';
+
+const completedTaskMargin = 20;
+const percents = 100;
 
 const Wrapper = styled(TaskWrapper)`
   border: 2px solid #3baa07;
@@ -63,26 +68,53 @@ const MissionProgressBar = styled.div<IMissionProgressBar>`
     box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.5);
   }
 `;
-const percents = 100;
+
+const CompletedTasksWrapper = styled.div<ICompletedTasksWrapper>`
+  margin-bottom: ${props => (props.contentLength ? completedTaskMargin : 0)}px;
+  display: ${props => (props.displayFlag ? 'block' : 'none')};
+  width: 100%;
+  height: auto;
+`;
 
 const calculateProgress = (completed: number, all: number) =>
   (completed / all) * percents;
+
+const detectSubTaskId = (tasks: ITask[]) => {
+  for (let taskId = 0; taskId < tasks.length; taskId++)
+    if (tasks[taskId].status === TaskStatuses.CREATED) return taskId;
+  return -1;
+};
 
 export const MissionsView: React.FC<IMissionsView> = ({ taskData }) => {
   const { taskTypeSlug: taskType } = taskData;
 
   const [isOpened, setIsOpened] = useState(false);
+
   const taskWrapperRef = useRef<HTMLDivElement>(null);
   const taskDescriptionRef = useRef<HTMLDivElement>(null);
   const vectorRef = useRef<HTMLImageElement>(null);
+
+  const currentSubtaskId = detectSubTaskId(taskData.userSubTasks);
 
   const completedSubTasksQuantity = taskData.userSubTasks.filter(
     el => el.status === TaskStatuses.DONE || el.status === TaskStatuses.REWARDED
   ).length;
 
-  const SubTaskView = taskData.userSubTasks.map(el => {
-    return <MenuTaskRow isInTowerInfo={false} taskData={el} key={el.id} />;
-  });
+  const NotCompletedSubTasks =
+    currentSubtaskId !== -1
+      ? taskData.userSubTasks
+          .slice(currentSubtaskId + 1)
+          .map(el => <UnavailableSubtaskView taskData={el} key={el.id} />)
+      : React.Fragment;
+
+  const CompletedSubTasks =
+    currentSubtaskId !== -1
+      ? taskData.userSubTasks
+          .slice(0, currentSubtaskId + 1)
+          .map(el => (
+            <MenuTaskRow isInTowerInfo={false} taskData={el} key={el.id} />
+          ))
+      : React.Fragment;
 
   const handleClick = () =>
     handleTaskWrapperClick({
@@ -148,10 +180,18 @@ export const MissionsView: React.FC<IMissionsView> = ({ taskData }) => {
         </TaskInfo>
         <TaskDescriptionWrapper ref={taskDescriptionRef}>
           <Border />
-          <TaskDescription>{taskData.description}</TaskDescription>
+          <TaskDescription style={{ marginBottom: '20px' }}>
+            {taskData.description}
+          </TaskDescription>
         </TaskDescriptionWrapper>
+        <CompletedTasksWrapper
+          contentLength={CompletedSubTasks.length}
+          displayFlag={isOpened}
+        >
+          {CompletedSubTasks}
+        </CompletedTasksWrapper>
+        {isOpened && NotCompletedSubTasks}
       </Wrapper>
-      {isOpened && SubTaskView}
     </>
   );
 };
@@ -162,4 +202,8 @@ interface IMissionsView {
 
 interface IMissionProgressBar {
   progress: number;
+}
+
+interface ICompletedTasksWrapper extends IDisplayFlag {
+  contentLength: number;
 }
