@@ -80,8 +80,9 @@ const calculateProgress = (completed: number, all: number) =>
   (completed / all) * percents;
 
 const detectSubTaskId = (tasks: ITask[]) => {
+  const wantedStatuses = new Set([TaskStatuses.CREATED, TaskStatuses.ACTIVE]);
   for (let taskId = 0; taskId < tasks.length; taskId++)
-    if (tasks[taskId].status === TaskStatuses.CREATED) return taskId;
+    if (wantedStatuses.has(tasks[taskId].status)) return taskId;
   return -1;
 };
 

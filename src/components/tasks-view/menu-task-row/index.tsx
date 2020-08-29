@@ -89,6 +89,7 @@ export const handleTaskWrapperClick = ({
 export const MenuTaskRow: React.FC<ITasksRow> = ({
   isInTowerInfo,
   taskData,
+  available = true,
 }) => {
   const taskType = taskData.taskTypeSlug;
   const towerTitle = taskData.productSlug;
@@ -140,43 +141,44 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
         isInTowerInfo={isInTowerInfo}
       >
         <TaskInfo>
-          <Icon type={taskType} />
+          <Icon type={available ? taskType : TaskStatuses.NOT_AVAILABLE} />
           <Title isInTowerInfo={isInTowerInfo}>{taskData.title}</Title>
-          <RowWrapper>
-            <ColumnWrapper {...taskRowStyledConfig.columnWrapper}>
-              <TaskLoot
-                money={taskData.money}
-                energy={taskData.energy}
-                isInTowerInfo={isInTowerInfo}
-              />
-              {
-                <TaskTimer
-                  taskTimer={taskData.taskTimer}
-                  expireInSeconds={taskData.expireInSeconds}
+          {available && (
+            <RowWrapper>
+              <ColumnWrapper {...taskRowStyledConfig.columnWrapper}>
+                <TaskLoot
+                  money={taskData.money}
+                  energy={taskData.energy}
+                  isInTowerInfo={isInTowerInfo}
                 />
-              }
-            </ColumnWrapper>
-            <ColumnWrapper
-              {...taskRowStyledConfig.columnWrapper}
-              style={taskRowStyledConfig.columnWrapperAdditionalStyle}
-            >
-              <RowWrapper>
-                <TaskButton
-                  expireInSeconds={taskData.expireInSeconds}
-                  className={taskData.status}
-                  onClick={handleWrapperClick}
-                />
+                {
+                  <TaskTimer
+                    taskTimer={taskData.taskTimer}
+                    expireInSeconds={taskData.expireInSeconds}
+                  />
+                }
+              </ColumnWrapper>
+              <ColumnWrapper
+                {...taskRowStyledConfig.columnWrapper}
+                style={taskRowStyledConfig.columnWrapperAdditionalStyle}
+              >
+                <RowWrapper>
+                  <TaskButton
+                    expireInSeconds={taskData.expireInSeconds}
+                    className={taskData.status}
+                    onClick={handleWrapperClick}
+                  />
+                  {checkTaskStatus(taskData.status) && (
+                    <img src={notDoneImg} alt="reject" />
+                  )}
+                </RowWrapper>
                 {checkTaskStatus(taskData.status) && (
-                  <img src={notDoneImg} alt="reject" />
+                  <HintWrapper onClick={handleHintClick} />
                 )}
-              </RowWrapper>
-              {checkTaskStatus(taskData.status) && (
-                <HintWrapper onClick={handleHintClick} />
-              )}
-            </ColumnWrapper>
-
-            <VectorImg ref={vectorRef} />
-          </RowWrapper>
+              </ColumnWrapper>
+              <VectorImg ref={vectorRef} />
+            </RowWrapper>
+          )}
         </TaskInfo>
         <TaskDescriptionWrapper ref={taskDescriptionRef}>
           <Border />

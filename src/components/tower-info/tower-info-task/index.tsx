@@ -10,6 +10,8 @@ import { TasksStore } from '../../../effector/tasks-store/store';
 import { filterTasksArray } from '../../../utils/filtered-missions-array';
 import { TowerTaskRow } from '../../tasks-view/tower-task-row';
 import { TowersTypes } from '../../../effector/towers-progress/store';
+import { MissionsStore } from '../../../effector/missions-store/store';
+import { TowerMissionRow } from '../../missions-view/tower-mission-row';
 
 const TowerInfoTaskWrapper = styled.div`
   margin-top: 24px;
@@ -45,6 +47,18 @@ const DescText = styled.span`
   opacity: 0.6;
 `;
 
+const TitleSeparator = styled.div`
+  margin: 25px 0 10px 0;
+  :after {
+    font-family: ${MTSSans.MEDIUM};
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 28px;
+    color: #001424;
+    content: 'Задания';
+  }
+`;
 const TaskPreview = (tutorialCondition: TutorialConditions) => (
   <TowerInfoTaskWrapper style={styledConfig.towerInfoTaskWrapper}>
     <Title>Заданий нет.</Title>
@@ -56,15 +70,26 @@ const TaskPreview = (tutorialCondition: TutorialConditions) => (
 
 export const TowerInfoTask: React.FC<ITowerInfoTask> = ({ towerTitle }) => {
   const tasks = useStore(TasksStore);
+  const missions = useStore(MissionsStore);
   const { tutorialCondition } = useStore(TutorialStore);
   const filteredTasks = filterTasksArray(tasks, towerTitle);
+  const filteredMissions = filterTasksArray(missions, towerTitle);
   const tasksView = filteredTasks.map(el => (
     <TowerTaskRow key={el.id} isInTowerInfo={true} taskData={el} />
   ));
+  const missionsView = filteredMissions.map(el => (
+    <TowerMissionRow taskData={el} isInTowerInfo={true} key={el.id} />
+  ));
+
+  const Content = () => (
+    <>
+      {missionsView} <TitleSeparator /> {tasksView}
+    </>
+  );
 
   return (
     <TowerInfoTaskWrapper>
-      {filteredTasks.length ? tasksView : TaskPreview(tutorialCondition)}
+      {filteredTasks.length ? <Content /> : TaskPreview(tutorialCondition)}
     </TowerInfoTaskWrapper>
   );
 };

@@ -312,6 +312,7 @@ export const TowerTaskRow: React.FC<ITasksRow> = ({
 export interface ITasksRow {
   taskData: ITask;
   isInTowerInfo: boolean;
+  available?: boolean;
 }
 
 export interface ITaskLocation {

@@ -11,7 +11,7 @@ export const UnavailableSubtaskView: React.FC<IUnavailableSubtaskView> = ({
   taskData,
 }) => (
   <UnavailableTaskViewWrapper>
-    <MenuTaskRow taskData={taskData} isInTowerInfo={false} />
+    <MenuTaskRow taskData={taskData} isInTowerInfo={false} available={false} />
   </UnavailableTaskViewWrapper>
 );
 
