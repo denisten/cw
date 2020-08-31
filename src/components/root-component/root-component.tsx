@@ -50,6 +50,7 @@ export const RootComponent = () => {
   const { DOMLoaded, tutorialSliderDisplayFlag } = useStore(AppConditionStore);
   // const [showSkipTutorialUI, setShowSkipTutorialUI] = useState(true);
   const { tutorialCondition } = useStore(TutorialStore);
+  const tutorialIsEnabled = DOMLoaded && tutorialCondition !== 0;
   const displayFlag = checkTutorialCondition(tutorialCondition);
   const zIndex = defineScrollContainerZIndex(tutorialCondition);
   const {
@@ -76,11 +77,12 @@ export const RootComponent = () => {
           <Shop />
         </>
       )}
-
-      <TutorialToolsSelector
-        tutorialCondition={tutorialCondition}
-        isInsideScrollContainer={false}
-      />
+      {tutorialIsEnabled && (
+        <TutorialToolsSelector
+          tutorialCondition={tutorialCondition}
+          isInsideScrollContainer={false}
+        />
+      )}
 
       {/* <SkipTutorial
         displayFlag={showSkipTutorialUI}
