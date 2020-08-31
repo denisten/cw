@@ -25,6 +25,7 @@ import { IDisplayFlag } from '../../components/skip-tutorial';
 import { AppConditionStore } from '../../effector/app-condition/store';
 import { inputValidation } from '../../utils/input-validation';
 import { menuClosed } from '../../effector/menu-store/events';
+import { reactGAEvent } from '../../utils/ga-event';
 
 export const PopUpTitle = styled(StyledSpan)`
   font-family: ${MTSSans.BLACK};
@@ -111,6 +112,15 @@ export const PopUp: React.FC<IPopUp> = ({
       setInputHasError(false);
     }
   }, [initValue]);
+
+  useEffect(() => {
+    if (displayFlag && popUpType === TypesOfPopUps.EDIT_WORLD_NAME) {
+      reactGAEvent({
+        eventLabel: 'city_name',
+        eventCategory: 'profile',
+      });
+    }
+  }, [displayFlag]);
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;

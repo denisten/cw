@@ -6,11 +6,11 @@ import { MTSSans } from '../../fonts';
 
 export enum MenuItems {
   PROFILE = 'profile',
-  TASKS = 'tasks',
-  HELP = 'help',
-  INFO = 'info',
-  SETTINGS = 'settings',
-  DEV = 'dev',
+  TASKS = 'zadaniya',
+  HELP = 'voprosy_i_otvety',
+  INFO = 'oferta',
+  SETTINGS = 'nastroiki',
+  DEV = 'instrumenty_razrabotki',
 }
 
 const TranslatedMenuItems = {

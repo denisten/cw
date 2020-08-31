@@ -21,10 +21,13 @@ import musicActive from './musicActive.svg';
 import soundActive from './soundActive.svg';
 import musicDisable from './musicDisable.svg';
 import soundDisable from './soundDisable.svg';
+import notAvailableTask from './not-available.svg';
+
 import { TasksType } from '../../components/menu/menu-tasks';
 import { MarkerTypes } from '../../components/markers';
 import { CouponTypes } from '../../effector/coupons/store';
 import { SettingsType } from '../../effector/settings/store';
+import { TaskStatuses } from '../../effector/tasks-store/store';
 
 export enum TypeOfIcons {
   ENERGY = 'energy',
@@ -51,6 +54,7 @@ export const Icon: React.FC<IIcon> = ({
       | MarkerTypes
       | CouponTypes
       | SettingsType
+      | TaskStatuses
       | string
   ) => {
     switch (type) {
@@ -89,7 +93,8 @@ export const Icon: React.FC<IIcon> = ({
         return replace;
       case CouponTypes.COUPON_SKIP:
         return skip;
-
+      case TaskStatuses.NOT_AVAILABLE:
+        return notAvailableTask;
       case TypeOfIcons.ENTER:
         return enter;
       case SettingsType.MUSIC:
@@ -122,6 +127,7 @@ interface IIcon {
     | MarkerTypes
     | CouponTypes
     | SettingsType
+    | TaskStatuses
     | string;
 
   callBack?: () => void;

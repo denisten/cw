@@ -14,4 +14,5 @@ export interface IGetProfile {
   name: string | null;
   worldName: string;
   msisdn: string;
+  guid: string;
 }

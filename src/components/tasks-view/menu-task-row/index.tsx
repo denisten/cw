@@ -54,9 +54,8 @@ export const Title = styled(StyledSpan)<ITaskLocation>`
   line-height: 24px;
   letter-spacing: -0.4px;
   color: #001424;
-  margin-left: 14px;
+  margin: 0 34px 0 14px;
   font-weight: 500;
-  margin-right: 34px;
 `;
 
 export const handleTaskWrapperClick = ({
@@ -88,10 +87,11 @@ export const handleTaskWrapperClick = ({
 
 export const MenuTaskRow: React.FC<ITasksRow> = ({
   isInTowerInfo,
-  taskData,
+  task,
+  available = true,
 }) => {
-  const taskType = taskData.taskTypeSlug;
-  const towerTitle = taskData.productSlug;
+  const taskType = task.taskTypeSlug;
+  const towerTitle = task.productSlug;
 
   const [isOpened, setIsOpened] = useState(false);
   const taskWrapperRef = useRef<HTMLDivElement>(null);
@@ -111,12 +111,13 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
     if (taskType === TasksType.TUTORIAL_TASK) {
       // do next tutorial step in future
     } else {
-      handleTaskClick(taskData, e);
-      taskData.status === TaskStatuses.DONE && enable && playRewardSound();
-      taskData.status === TaskStatuses.CREATED && enable && playActiveTask();
+      handleTaskClick(task, e);
+      task.status === TaskStatuses.DONE && enable && playRewardSound();
+      task.status === TaskStatuses.CREATED && enable && playActiveTask();
     }
   };
-  const handleClick = () =>
+  const handleClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
     handleTaskWrapperClick({
       taskDescriptionRef,
       isOpened,
@@ -124,12 +125,12 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
       taskType,
       vectorRef,
     });
+  };
 
   const handleHintClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     setIsCouponModalWindowOpen(true);
   };
-
   return (
     <>
       <TaskWrapper
@@ -138,54 +139,53 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
         isInTowerInfo={isInTowerInfo}
       >
         <TaskInfo>
-          <Icon type={taskType} />
-          <Title isInTowerInfo={isInTowerInfo}>{taskData.title}</Title>
-          <RowWrapper>
-            <ColumnWrapper {...taskRowStyledConfig.columnWrapper}>
-              <TaskLoot
-                money={taskData.money}
-                energy={taskData.energy}
-                isInTowerInfo={isInTowerInfo}
-              />
-              {
+          <Icon type={available ? taskType : TaskStatuses.NOT_AVAILABLE} />
+          <Title isInTowerInfo={isInTowerInfo}>{task.title}</Title>
+          {available && (
+            <RowWrapper>
+              <ColumnWrapper {...taskRowStyledConfig.columnWrapper}>
+                <TaskLoot
+                  money={task.money}
+                  energy={task.energy}
+                  isInTowerInfo={isInTowerInfo}
+                />
                 <TaskTimer
-                  taskTimer={taskData.taskTimer}
-                  expireInSeconds={taskData.expireInSeconds}
+                  expireInSeconds={task.expireInSeconds}
+                  towerTitle={task.productSlug}
                 />
-              }
-            </ColumnWrapper>
-            <ColumnWrapper
-              {...taskRowStyledConfig.columnWrapper}
-              style={taskRowStyledConfig.columnWrapperAdditionalStyle}
-            >
-              <RowWrapper>
-                <TaskButton
-                  expireInSeconds={taskData.expireInSeconds}
-                  className={taskData.status}
-                  onClick={handleWrapperClick}
-                />
-                {checkTaskStatus(taskData.status) && (
-                  <img src={notDoneImg} alt="reject" />
+              </ColumnWrapper>
+              <ColumnWrapper
+                {...taskRowStyledConfig.columnWrapper}
+                style={taskRowStyledConfig.columnWrapperAdditionalStyle}
+              >
+                <RowWrapper>
+                  <TaskButton
+                    expireInSeconds={task.expireInSeconds}
+                    className={task.status}
+                    onClick={handleWrapperClick}
+                  />
+                  {checkTaskStatus(task.status) && (
+                    <img src={notDoneImg} alt="reject" />
+                  )}
+                </RowWrapper>
+                {checkTaskStatus(task.status) && (
+                  <HintWrapper onClick={handleHintClick} />
                 )}
-              </RowWrapper>
-              {checkTaskStatus(taskData.status) && (
-                <HintWrapper onClick={handleHintClick} />
-              )}
-            </ColumnWrapper>
-
-            <VectorImg ref={vectorRef} />
-          </RowWrapper>
+              </ColumnWrapper>
+              <VectorImg ref={vectorRef} />
+            </RowWrapper>
+          )}
         </TaskInfo>
         <TaskDescriptionWrapper ref={taskDescriptionRef}>
           <Border />
-          <TaskDescription>{taskData.description}</TaskDescription>
+          <TaskDescription>{task.description}</TaskDescription>
         </TaskDescriptionWrapper>
       </TaskWrapper>
       <ModalWindow
         {...couponModalConfig}
         displayFlag={isCouponModalWindowOpen}
         cancelHandler={() => setIsCouponModalWindowOpen(false)}
-        id={taskData.id}
+        id={task.id}
         towerTitle={towerTitle}
       />
     </>
