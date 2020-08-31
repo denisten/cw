@@ -24,7 +24,7 @@ const defaultGAEventProps = {
 };
 
 export const reactGAEvent = (props: IReactGAEventParams) => {
-  const gaEvent = (ReactGA.event as unknown) as (args: unknown) => void;
+  const gaEvent = ReactGA.event as (args: unknown) => void;
   const { id, guid } = UserDataStore.getState();
   gaEvent({ ...defaultGAEventProps, ...props, userId: id, guId: guid });
 };
