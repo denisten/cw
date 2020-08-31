@@ -7,6 +7,7 @@ import { GlobalStyle } from './global-style';
 import { ErrorBoundary } from './components/error-boundary';
 import { Preloader } from './components/preloader';
 import { useCheckUserAuthStatus } from './hooks/use-check-user-auth-status';
+import ReactGA from 'react-ga';
 
 export enum Routes {
   MAIN = '/',
@@ -49,6 +50,11 @@ export const App: React.FC = () => {
       window.removeEventListener('wheel', wheelPreventDefault);
       window.removeEventListener('keydown', keyDownPreventDefault);
     };
+  }, []);
+
+  useEffect(() => {
+    ReactGA.initialize('CW-000000-01');
+    ReactGA.pageview(window.location.pathname + window.location.search);
   }, []);
 
   return (
