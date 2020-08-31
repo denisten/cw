@@ -8,6 +8,7 @@ import {
   TutorialStore,
   TutorialConditions,
 } from '../../effector/tutorial-store/store';
+import { ElementOpacity } from '../../constants';
 
 const TutorialSliderButtonWrapper = styled.div<ITutorialSliderButtonWrapper>`
   width: 50px;
@@ -18,7 +19,8 @@ const TutorialSliderButtonWrapper = styled.div<ITutorialSliderButtonWrapper>`
   bottom: 50px;
   cursor: pointer;
   z-index: ${ZIndexes.UI_BUTTON};
-  opacity: ${props => (props.disableElem ? '0.3' : '1')};
+  opacity: ${props =>
+    props.disableElem ? ElementOpacity.DISABLE : ElementOpacity.ENABLE};
   pointer-events: ${props => (props.disableElem ? 'none' : 'auto')};
 `;
 

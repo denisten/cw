@@ -16,6 +16,7 @@ import { extraTowerInfoModalClosed } from '../../effector/tower-info-modal-store
 import { menuOpened } from '../../effector/menu-store/events';
 import { openMarket } from '../../effector/coupons/events';
 import { MissionsStore } from '../../effector/missions-store/store';
+import { ElementOpacity } from '../../constants';
 
 const ToolbarWrapper = styled.div`
   position: absolute;
@@ -46,7 +47,8 @@ const ToolbarElementWrapper = styled.div<IToolbarElementWrapper>`
   display: flex;
   justify-content: center;
   align-items: center;
-  opacity: ${props => (props.disableElem ? '0.3' : '1')};
+  opacity: ${props =>
+    props.disableElem ? ElementOpacity.DISABLE : ElementOpacity.ENABLE};
   cursor: ${props => (props.disableElem ? 'not-allowed' : 'pointer')};
 
   :hover {
