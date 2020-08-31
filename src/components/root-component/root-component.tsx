@@ -22,6 +22,8 @@ import Shop from '../shop';
 import TutorialToolsSelector from '../../utils/arrows-container';
 import { SettingsStore } from '../../effector/settings/store';
 import backgroundMusic from '../../sound/background-sound.mp3';
+import { UserDataStore } from '../../effector/user-data/store';
+import { useRefreshProgress } from '../../hooks/use-refresh-progress';
 // import { SkipTutorial } from '../skip-tutorial';
 
 const RootComponentWrapper = styled.div.attrs({ id: 'rootScroll' })<
@@ -47,7 +49,9 @@ const defineScrollContainerZIndex = (tutorialCondition: TutorialConditions) =>
     : 0;
 
 export const RootComponent = () => {
-  const { DOMLoaded, tutorialSliderDisplayFlag } = useStore(AppConditionStore);
+  const { DOMLoaded, tutorialSliderDisplayFlag, isAuthorized } = useStore(
+    AppConditionStore
+  );
   // const [showSkipTutorialUI, setShowSkipTutorialUI] = useState(true);
   const { tutorialCondition } = useStore(TutorialStore);
   const tutorialIsEnabled = DOMLoaded && tutorialCondition !== 0;
@@ -56,6 +60,8 @@ export const RootComponent = () => {
   const {
     music: { enable, volume },
   } = useStore(SettingsStore);
+  const { freshProgressTimeout } = useStore(UserDataStore);
+  useRefreshProgress(freshProgressTimeout, isAuthorized);
 
   const { play, pause } = useAudio(backgroundMusic, true, volume);
 

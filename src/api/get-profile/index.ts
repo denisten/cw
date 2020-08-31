@@ -15,4 +15,5 @@ export interface IGetProfile {
   worldName: string;
   msisdn: string;
   guid: string;
+  freshProgressTimeout: number;
 }
