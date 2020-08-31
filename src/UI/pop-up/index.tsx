@@ -28,7 +28,7 @@ import { IDisplayFlag } from '../../components/skip-tutorial';
 import { AppConditionStore } from '../../effector/app-condition/store';
 import { inputValidation } from '../../utils/input-validation';
 import { menuClosed } from '../../effector/menu-store/events';
-import ReactGA from 'react-ga';
+import { reactGAEvent } from '../../utils/ga-event';
 
 export const PopUpTitle = styled(StyledSpan)`
   font-family: ${MTSSans.BLACK};
@@ -118,35 +118,12 @@ export const PopUp: React.FC<IPopUp> = ({
 
   useEffect(() => {
     if (displayFlag && popUpType === TypesOfPopUps.EDIT_WORLD_NAME) {
-      const { id } = UserDataStore.getState();
-
-      const reactGAEvent = (ReactGA.event as unknown) as (
-        args: unknown
-      ) => void;
+      const { id, guid } = UserDataStore.getState();
       reactGAEvent({
-        event: 'mtsEvent',
-        eventCategory: 'profile',
-        eventAction: 'element_click',
         eventLabel: 'city_name',
-        eventValue: null,
         userId: id,
-        guId: 'jehrg234-234hkj-234jkhghj-efgj4',
-        userAuth: '0',
-        abonent: '1',
-        screenName: '/',
-        eventContent: 'null',
-        eventContext: 'null',
-        buttonLocation: 'popup',
-        filterName: 'null',
-        pageType: 'main',
-        actionGroup: 'interactions',
-        productName: null,
-        productId: null,
-        maccountType: 'master',
-        numberType: 'virt',
-        accountType: 'mobile',
-        touchPoint: 'mobile',
-        currentTariff: 'tarifische',
+        guId: guid,
+        eventCategory: 'profile',
       });
     }
   }, [displayFlag]);
