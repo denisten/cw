@@ -1,8 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { maxPercent } from '../../constants';
-import { propEq, ifElse } from 'ramda';
 
-const maxDelayBeforePreloaderOff = 10000;
 export const useCalculateLoadingProgress = (
   isAuthorized: boolean,
   resolvedRequestsQuantity: number,
@@ -14,13 +12,6 @@ export const useCalculateLoadingProgress = (
   const [loadingPercent, setLoadingPercent] = useState(0);
   const [allResoursesLoaded, setAllResoursesLoaded] = useState(false);
   const timeout = useRef(0);
-
-  useEffect(() => {
-    timeout.current = setTimeout(() => {
-      setAllResoursesLoaded(true);
-      setLoadingPercent(maxPercent);
-    }, maxDelayBeforePreloaderOff);
-  }, []);
 
   const parseWhenImageLoaded = () => {
     const imgCollection = Array.from(document.querySelectorAll('img')).filter(
@@ -77,15 +68,11 @@ export const useCalculateLoadingProgress = (
     }
   };
 
-  const checkState = propEq('readyState', 'loading');
-  const add = () =>
-    document.addEventListener('DOMContentLoaded', checkAllImages);
-
   useEffect(() => {
-    ifElse(checkState, add, checkAllImages)(document);
+    window.addEventListener('load', () => setLoadingPercent(maxPercent));
 
     return () => {
-      document.removeEventListener('DOMContentLoaded', checkAllImages);
+      window.removeEventListener('load', () => setLoadingPercent(maxPercent));
     };
   }, []);
 

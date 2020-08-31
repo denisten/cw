@@ -4,7 +4,6 @@ import bridge2 from './2.png';
 import bridge3 from './3.png';
 import bridge4 from './4.png';
 import bridge5 from './5.png';
-import { LazyImage } from '@tsareff/lazy-image';
 import { ZIndexes } from '../../components/root-component/z-indexes-enum';
 import * as R from 'ramda';
 
@@ -59,7 +58,7 @@ const StyledConfig = {
 const BridgesImg = () => (
   <Fragment>
     {Object.values(StyledConfig).map(({ img, style }) => (
-      <LazyImage src={img} style={style} key={img} />
+      <img src={img} style={style} key={img} />
     ))}
   </Fragment>
 );
