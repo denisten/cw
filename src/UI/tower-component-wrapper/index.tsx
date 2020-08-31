@@ -1,6 +1,5 @@
 import React, { memo, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { LazyImage } from '@tsareff/lazy-image';
 import { TowerLevel, TowersTypes } from '../../effector/towers-progress/store';
 import { UpgradeButton } from '../update-button';
 import {
@@ -276,7 +275,7 @@ export const TowerWrapper = memo(
         />
 
         {upgradeFlag && <TowerUpgradeAnimation wideTower={wideTower} />}
-        <LazyImage
+        <img
           src={mutedImg ? mutedImg : tower}
           alt="tower"
           useMap={'#' + tower}
