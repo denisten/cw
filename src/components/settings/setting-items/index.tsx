@@ -2,10 +2,7 @@ import React from 'react';
 import { SettingsStore, SettingsType } from '../../../effector/settings/store';
 import styled from 'styled-components';
 
-import {
-  musicAndSoundToggle,
-  setVolume,
-} from '../../../effector/settings/events';
+import { setVolume } from '../../../effector/settings/events';
 import { useStore } from 'effector-react';
 import { Icon } from '../../../UI/icons';
 
@@ -45,17 +42,6 @@ export const SettingItems = () => {
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     setVolume({ settingType, volume: Number(e.target.value) });
-    if (Number(e.target.value) === 0) {
-      musicAndSoundToggle({
-        settingType,
-        enable: false,
-      });
-    } else {
-      musicAndSoundToggle({
-        settingType,
-        enable: true,
-      });
-    }
   };
   return (
     <SettingItemsWrapper>
@@ -63,13 +49,10 @@ export const SettingItems = () => {
         <Icon
           style={styledConfig.icon}
           type={
-            music.enable ? SettingsType.MUSIC : SettingsType.MUSIC + 'disable'
+            music.volume ? SettingsType.MUSIC : SettingsType.MUSIC + 'disable'
           }
           callBack={() =>
-            musicAndSoundToggle({
-              settingType: SettingsType.MUSIC,
-              enable: !music.enable,
-            })
+            setVolume({ settingType: SettingsType.MUSIC, volume: 0 })
           }
         />
         <InputRange
@@ -81,13 +64,10 @@ export const SettingItems = () => {
         <Icon
           style={styledConfig.icon}
           type={
-            sound.enable ? SettingsType.SOUND : SettingsType.SOUND + 'disable'
+            sound.volume ? SettingsType.SOUND : SettingsType.SOUND + 'disable'
           }
           callBack={() =>
-            musicAndSoundToggle({
-              settingType: SettingsType.SOUND,
-              enable: !sound.enable,
-            })
+            setVolume({ settingType: SettingsType.SOUND, volume: 0 })
           }
         />
         <InputRange

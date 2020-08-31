@@ -155,19 +155,19 @@ const TowerInfo: React.FC = () => {
 
   const { ended } = useStore(ChatStore)[towerTitle];
   const {
-    sound: { enable, volume },
+    sound: { volume },
   } = useStore(SettingsStore);
   const { play: openTowerInfoSoundPlay } = useAudio(towerOpen, false, volume);
   const { play: openChatSoundPlay } = useAudio(openChat, false, volume);
 
   usePlaySoundIf<boolean>(
-    isExtraTowerInfoModalOpen && enable,
+    isExtraTowerInfoModalOpen && !!volume,
     openTowerInfoSoundPlay,
     isExtraTowerInfoModalOpen
   );
 
   usePlaySoundIf<TowerInfoContentValues>(
-    selectTowerInfoContent === TowerInfoContentValues.CHAT && enable,
+    selectTowerInfoContent === TowerInfoContentValues.CHAT && !!volume,
     openChatSoundPlay,
     selectTowerInfoContent
   );

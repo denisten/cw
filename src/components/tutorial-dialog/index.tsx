@@ -171,15 +171,15 @@ export const TutorialDialog: React.FC<{ mustBeAsAnimated?: boolean }> = ({
   let letterByLetterCallback: number;
 
   const {
-    sound: { enable, volume },
+    sound: { volume },
   } = useStore(SettingsStore);
 
   const { play: assistantPlaySound } = useAudio(assistantSound, false, volume);
-  const canPlaySound = tutorialCondition !== 0 && enable && DOMLoaded;
+  const canPlaySound = tutorialCondition !== 0 && volume && DOMLoaded;
 
   useEffect(() => {
     if (DOMLoaded) {
-      tutorialCondition && enable && assistantPlaySound();
+      tutorialCondition && volume && assistantPlaySound();
     }
   }, [tutorialCondition, DOMLoaded]);
 

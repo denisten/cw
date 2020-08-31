@@ -181,13 +181,13 @@ export const TowerWrapper = memo(
       !mutedImg && !needUpgrade && markers && markers.length > 0;
 
     const {
-      sound: { enable, volume },
+      sound: { volume },
     } = useStore(SettingsStore);
 
     const { play: towerUpgradePlay } = useAudio(towerUpgrade, false, volume);
 
     useEffect(() => {
-      upgradeFlag && enable && towerUpgradePlay();
+      upgradeFlag && volume && towerUpgradePlay();
     }, [upgradeFlag]);
 
     const handleClick = () => {

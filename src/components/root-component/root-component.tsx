@@ -54,15 +54,15 @@ export const RootComponent = () => {
   const displayFlag = checkTutorialCondition(tutorialCondition);
   const zIndex = defineScrollContainerZIndex(tutorialCondition);
   const {
-    music: { enable, volume },
+    music: { volume },
   } = useStore(SettingsStore);
 
   const { play, pause } = useAudio(backgroundMusic, true, volume);
 
   useEffect(() => {
-    const canPlayBackgroundSound = enable && !tutorialSliderDisplayFlag;
+    const canPlayBackgroundSound = volume && !tutorialSliderDisplayFlag;
     canPlayBackgroundSound ? play() : pause();
-  }, [enable, tutorialSliderDisplayFlag]);
+  }, [volume, tutorialSliderDisplayFlag]);
 
   return (
     <RootComponentWrapper displayFlag={DOMLoaded}>

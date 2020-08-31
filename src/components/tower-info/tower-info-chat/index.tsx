@@ -209,12 +209,12 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
     };
 
     const {
-      sound: { enable, volume },
+      sound: { volume },
     } = useStore(SettingsStore);
     const { play: newMessagePlay } = useAudio(newMessage, false, volume);
 
     usePlaySoundIf<IMessage[]>(
-      messages.length > 0 && enable,
+      messages.length > 0 && !!volume,
       newMessagePlay,
       messages
     );

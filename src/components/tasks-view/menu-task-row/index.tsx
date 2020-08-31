@@ -101,7 +101,7 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
   const [isCouponModalWindowOpen, setIsCouponModalWindowOpen] = useState(false);
 
   const {
-    sound: { enable, volume },
+    sound: { volume },
   } = useStore(SettingsStore);
   const { play: playRewardSound } = useAudio(takeRewardSound, false, volume);
   const { play: playActiveTask } = useAudio(activeTask, false, volume);
@@ -112,8 +112,8 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
       // do next tutorial step in future
     } else {
       handleTaskClick(taskData, e);
-      taskData.status === TaskStatuses.DONE && enable && playRewardSound();
-      taskData.status === TaskStatuses.CREATED && enable && playActiveTask();
+      taskData.status === TaskStatuses.DONE && volume && playRewardSound();
+      taskData.status === TaskStatuses.CREATED && volume && playActiveTask();
     }
   };
   const handleClick = () =>
