@@ -5,7 +5,7 @@ import { showUpgradeIcon } from '../../effector/app-condition/events';
 import {
   MarkerView,
   MarkerWrapper,
-  TypeOfMarkers,
+  MarkerTypes,
 } from '../../components/markers';
 import { TutorialConditions } from '../../effector/tutorial-store/store';
 import { towerUpdateHandler } from '../../utils/tower-update-handler';
@@ -43,7 +43,7 @@ export const UpgradeButton: React.FC<IUpgradeButton> = ({
         animFlag={animFlag}
         onClick={() => handleClick(towerTitle, tutorialCondition)}
       >
-        <Icon type={TypeOfMarkers.UPGRADE_TOWER} style={styleConfig.icons} />
+        <Icon type={MarkerTypes.UPGRADE_TOWER} style={styleConfig.icons} />
       </MarkerView>
     </MarkerWrapper>
   );

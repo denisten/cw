@@ -14,13 +14,13 @@ export const chatTaskSession = ChatDomain.effect('download chat session data', {
     towerTitle,
     retry = false,
   }): Promise<IChatTaskSession> => {
+    let request;
     if (retry) {
-      const request = await chatTaskSessionRetryRequest(id);
-      return { data: request.data.data, towerTitle, taskId: id };
+      request = await chatTaskSessionRetryRequest(id);
     } else {
-      const request = await chatTaskSessionRequest(id);
-      return { data: request.data.data, towerTitle, taskId: id };
+      request = await chatTaskSessionRequest(id);
     }
+    return { data: request.data.data, towerTitle, taskId: id };
   },
 });
 export const createMockupOfMessages = ChatDomain.event();

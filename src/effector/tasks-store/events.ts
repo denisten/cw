@@ -1,7 +1,6 @@
 import { MissionsDomain } from './domain';
 import { activateTaskRequest } from '../../api/tasks-api/activate';
 import { verifyTaskRequest } from '../../api/tasks-api/verify';
-import { rewardRequest } from '../../api/tasks-api/reward';
 import {
   getTaskResultRequest,
   IGetTaskResultRequest,
@@ -23,12 +22,6 @@ export const activateTask = MissionsDomain.effect(
 export const verifyTask = MissionsDomain.effect('verify current task', {
   handler: async (id: number) => {
     return await verifyTaskRequest(id);
-  },
-});
-export const takeReward = MissionsDomain.effect({
-  handler: async (id: number) => {
-    const response = await rewardRequest(id);
-    return { data: response, id };
   },
 });
 
@@ -55,9 +48,5 @@ interface ISetCurrentTaskStatus {
 }
 
 interface IGetResult extends IGetTaskResultRequest {
-  id: number;
-}
-
-interface IActivateTask {
   id: number;
 }
