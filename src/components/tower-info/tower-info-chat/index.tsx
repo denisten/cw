@@ -1,5 +1,5 @@
-import React, { memo, useEffect, useRef, useState } from 'react';
-import styled, { keyframes } from 'styled-components';
+import React, { useEffect, useRef, useState } from 'react';
+import styled from 'styled-components';
 import { IDisplayFlag } from '../../skip-tutorial';
 import { Sender, IMessage } from '../../../api/tasks-api/session';
 import {
@@ -30,6 +30,7 @@ import { SettingsStore } from '../../../effector/settings/store';
 import { useAudio } from '../../../hooks/use-sound';
 import { usePlaySoundIf } from '../../../hooks/use-play-sound-if';
 import { MissionsStore } from '../../../effector/missions-store/store';
+import { writingAnimation } from './keyframes';
 
 const ChatWrapper = styled.div`
   width: 100%;
@@ -70,16 +71,6 @@ const ChatWrapper = styled.div`
     );
     z-index: 2;
   }
-`;
-
-const writingAnimation = keyframes`
-    0% {
-        opacity: .2;
-    }
-
-    100% {
-        opacity: 1;
-    }
 `;
 
 const Writing = styled.div`
@@ -125,169 +116,161 @@ export const couponModalConfig = {
 };
 
 const findSubtask = (taskId: number): ITask | undefined => {
-  let result = undefined;
   const missions = MissionsStore.getState();
-  missions.forEach(mission => {
-    mission.userSubTasks.forEach(task => {
-      if (task.id === taskId) {
-        result = task;
-      }
-    });
-  });
-  return result;
+  for (let i = 0; i < missions.length; i++)
+    for (let j = 0; j < missions[i].userSubTasks.length; j++)
+      if (missions[i].userSubTasks[j].id === taskId)
+        return missions[i].userSubTasks[j];
 };
 
-export const TowerInfoChat: React.FC<ITowerInfoChat> = memo(
-  ({ towerTitle, switchers }) => {
-    const { blockId, taskId, actions, messages, ended } = useStore(ChatStore)[
-      towerTitle
-    ];
-    const { userCoupons } = useStore(UserMarketStore);
-    const tasks = useStore(TasksStore);
-    let currentTask: ITask | undefined;
-    currentTask = findSubtask(taskId);
-    if (!currentTask) {
-      currentTask = tasks.find(el => el.id === taskId);
-    }
-    const [openCouponModal, setOpenCouponModal] = useState(false);
-    const [pendingOfResponse, setPendingOfResponse] = useState(false);
+export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
+  towerTitle,
+  switchers,
+}) => {
+  const { blockId, taskId, actions, messages, ended } = useStore(ChatStore)[
+    towerTitle
+  ];
+  const { userCoupons } = useStore(UserMarketStore);
+  const tasks = useStore(TasksStore);
+  let currentTask: ITask | undefined;
+  currentTask = findSubtask(taskId);
+  if (!currentTask) {
+    currentTask = tasks.find(el => el.id === taskId);
+  }
+  const [openCouponModal, setOpenCouponModal] = useState(false);
+  const [pendingOfResponse, setPendingOfResponse] = useState(false);
 
-    const { count } = userCoupons[CouponTypes.COUPON_REPLACE];
+  const { count } = userCoupons[CouponTypes.COUPON_REPLACE];
 
-    const chatContainer = useRef<HTMLDivElement>(null);
+  const chatContainer = useRef<HTMLDivElement>(null);
 
-    const currentTaskIndex = tasks.findIndex(el => {
-      if (el.productSlug)
-        return (
-          el.status !== TaskStatuses.CREATED && el.productSlug === towerTitle
-        );
-    });
+  const currentTaskIndex = tasks.findIndex(el => {
+    if (el.productSlug)
+      return (
+        el.status !== TaskStatuses.CREATED && el.productSlug === towerTitle
+      );
+  });
 
-    try {
-      currentMission = tasks[currentTaskIndex];
-    } catch (e) {
-      currentMission = null;
-    }
+  try {
+    currentMission = tasks[currentTaskIndex];
+  } catch (e) {
+    currentMission = null;
+  }
 
-    const checkCouponAvailability =
-      currentMission?.taskTypeSlug !== TasksType.INFORMATIONAL &&
-      (userCoupons[CouponTypes.COUPON_REPLACE].count > 0 ||
-        userCoupons[CouponTypes.COUPON_SKIP].count > 0);
+  const checkCouponAvailability =
+    currentMission?.taskTypeSlug !== TasksType.INFORMATIONAL &&
+    (userCoupons[CouponTypes.COUPON_REPLACE].count > 0 ||
+      userCoupons[CouponTypes.COUPON_SKIP].count > 0);
 
-    const haveMessages = messages && messages.length > 0;
+  const haveMessages = messages && messages.length > 0;
 
-    const sendAnswerId = async (actionId: number) => {
-      if (!pendingOfResponse && currentTask) {
-        setPendingOfResponse(true);
-        const response = await consumeUserTaskAction({
-          taskId: currentTask.id,
-          blockId,
-          actionId,
-          towerTitle,
-        });
-        setPendingOfResponse(false);
-        if (response.data.ended) {
-          if (
-            currentTask.taskTypeSlug === TasksType.PRODUCT_QUIZ ||
-            currentTask.taskTypeSlug === TasksType.RELATED_QUIZ
-          ) {
-            chatEndedHandler(taskId, towerTitle);
-          } else {
-            setCurrentTaskStatus({
-              taskId: currentTask.id,
-              status: TaskStatuses.DONE,
-            });
-            setMarker({
-              towerTitle,
-              type: MarkerTypes.SUCCESS,
-            });
-            switchers.openTasksTab();
-          }
-          hideMarker({ towerTitle, type: MarkerTypes.ACTIVE_TASK });
+  const sendAnswerId = async (actionId: number) => {
+    if (!pendingOfResponse && currentTask) {
+      setPendingOfResponse(true);
+      const response = await consumeUserTaskAction({
+        taskId: currentTask.id,
+        blockId,
+        actionId,
+        towerTitle,
+      });
+      setPendingOfResponse(false);
+      if (response.data.ended) {
+        if (
+          currentTask.taskTypeSlug === TasksType.PRODUCT_QUIZ ||
+          currentTask.taskTypeSlug === TasksType.RELATED_QUIZ
+        ) {
+          chatEndedHandler(taskId, towerTitle);
+        } else {
+          setCurrentTaskStatus({
+            taskId: currentTask.id,
+            status: TaskStatuses.DONE,
+          });
+          setMarker({
+            towerTitle,
+            type: MarkerTypes.SUCCESS,
+          });
+          switchers.openTasksTab();
         }
+        hideMarker({ towerTitle, type: MarkerTypes.ACTIVE_TASK });
       }
+    }
+  };
+
+  const {
+    sound: { volume },
+  } = useStore(SettingsStore);
+  const { play: newMessagePlay } = useAudio(newMessage, false, volume);
+
+  usePlaySoundIf<IMessage[]>(
+    messages.length > 0 && !!volume,
+    newMessagePlay,
+    messages
+  );
+
+  useEffect(() => {
+    setHideTowerInfo(true);
+  }, []);
+
+  useEffect(() => {
+    currentTask && checkChatSession(currentTask, taskId, towerTitle);
+    return () => {
+      setHideTowerInfo(false);
     };
+  }, [towerTitle]);
 
-    const {
-      sound: { volume },
-    } = useStore(SettingsStore);
-    const { play: newMessagePlay } = useAudio(newMessage, false, volume);
+  useEffect(() => {
+    if (chatContainer.current) {
+      chatContainer.current.scrollTo(0, chatContainer.current.scrollHeight);
+    }
+  }, [messages]);
 
-    usePlaySoundIf<IMessage[]>(
-      messages.length > 0 && !!volume,
-      newMessagePlay,
-      messages
-    );
-
-    useEffect(() => {
-      setHideTowerInfo(true);
-    }, []);
-
-    useEffect(() => {
-      currentTask && checkChatSession(currentTask, taskId, towerTitle);
-      return () => {
-        setHideTowerInfo(false);
-      };
-    }, [towerTitle]);
-
-    useEffect(() => {
-      if (chatContainer.current) {
-        chatContainer.current.scrollTo(0, chatContainer.current.scrollHeight);
-      }
-    }, [messages]);
-
-    const chatWrapperContent = haveMessages ? (
-      <ChatWrapper ref={chatContainer}>
-        {messages.map((item, idx) => (
-          <MessageRow key={idx} sender={item.direction}>
-            <ChatAvatar
-              sender={item.direction}
-              userAvatar=""
-              towerTitle={towerTitle}
-            />
-            <Bubble
-              sender={item.direction}
-              text={item.text}
-              botName="Помощник"
-            />
-          </MessageRow>
-        ))}
-        <BotIsWritingWrap displayFlag={pendingOfResponse}>
+  const chatWrapperContent = haveMessages ? (
+    <ChatWrapper ref={chatContainer}>
+      {messages.map((item, idx) => (
+        <MessageRow key={idx} sender={item.direction}>
           <ChatAvatar
-            sender={Sender.BACKEND}
+            sender={item.direction}
             userAvatar=""
             towerTitle={towerTitle}
           />
-          <Writing>...</Writing>
-        </BotIsWritingWrap>
-      </ChatWrapper>
-    ) : (
-      <ChatPreview />
-    );
-
-    return (
-      <>
-        {chatWrapperContent}
-        {!ended && (
-          <ChatButtons
-            haveCoupon={checkCouponAvailability}
-            couponCount={count}
-            actions={actions}
-            callback={sendAnswerId}
-            couponCallback={() => setOpenCouponModal(true)}
-          />
-        )}
-        <ModalWindow
-          {...couponModalConfig}
-          displayFlag={openCouponModal}
-          cancelHandler={() => setOpenCouponModal(false)}
-          id={taskId}
+          <Bubble sender={item.direction} text={item.text} botName="Помощник" />
+        </MessageRow>
+      ))}
+      <BotIsWritingWrap displayFlag={pendingOfResponse}>
+        <ChatAvatar
+          sender={Sender.BACKEND}
+          userAvatar=""
           towerTitle={towerTitle}
         />
-      </>
-    );
-  }
-);
+        <Writing>...</Writing>
+      </BotIsWritingWrap>
+    </ChatWrapper>
+  ) : (
+    <ChatPreview />
+  );
+
+  return (
+    <>
+      {chatWrapperContent}
+      {!ended && (
+        <ChatButtons
+          haveCoupon={checkCouponAvailability}
+          couponCount={count}
+          actions={actions}
+          callback={sendAnswerId}
+          couponCallback={() => setOpenCouponModal(true)}
+        />
+      )}
+      <ModalWindow
+        {...couponModalConfig}
+        displayFlag={openCouponModal}
+        cancelHandler={() => setOpenCouponModal(false)}
+        id={taskId}
+        towerTitle={towerTitle}
+      />
+    </>
+  );
+};
 
 interface ITowerInfoChat {
   towerTitle: TowersTypes;

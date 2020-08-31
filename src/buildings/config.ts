@@ -14,6 +14,7 @@ import musicTowerLevel2Img from './music/2.png';
 import musicTowerLevel2Stroke from './music/2-stroke.png';
 import musicTowerLevel3Img from './music/3.png';
 import musicTowerLevel3Stroke from './music/3-stroke.png';
+import mutedArena from './arena/-1.png';
 import arenaTowerLevel0Img from './arena/0.png';
 import arenaTowerLevel0Stroke from './arena/0-stroke.png';
 import arenaTowerLevel1Img from './arena/1.png';
@@ -408,6 +409,7 @@ class BuildingsService {
       areaCoords: '46,119,606,425',
       position: [52.5, 23.7],
       ref: null,
+      mutedImg: mutedArena,
       link:
         'https://moskva.mts.ru/personal/mobilnaya-svyaz/uslugi/mobilnaya-svyaz/mts-live',
       [TowerLevel.initial]: {
@@ -461,7 +463,6 @@ class BuildingsService {
       title: 'Мой МТС',
       signConfig: ['Мой', 'МТС'],
       wideTower: false,
-      playButtonLink: 'https://kruti.mts.ru/play',
       zIndex: ZIndexes.BUILDING_TWO_LEVEL,
       maxLevel: TowerLevel.high,
       width: 370,
@@ -578,8 +579,8 @@ class BuildingsService {
       },
     },
     [TowersTypes.THEATER]: {
-      title: 'МТС Афиша',
-      signConfig: ['МТС', 'Афиша'],
+      title: 'МТС Live',
+      signConfig: ['МТС', 'Live'],
       wideTower: true,
       zIndex: ZIndexes.BUILDING_ONE_LEVEL,
       maxLevel: TowerLevel.high,

@@ -25,6 +25,8 @@ export enum UserDataStoreKeys {
   ENERGY = 'energy',
   AVATAR = 'avatar',
   MSISDN = 'msisdn',
+  GUID = 'guid',
+  FRESH_PROGRESS_TIME_OUT = 'freshProgressTimeout',
 }
 
 export const defaultNameValue = 'Мир клиента';
@@ -41,6 +43,8 @@ const initState: IUserDataStore = {
   [UserDataStoreKeys.USER_SESSION_SOCKET]: null,
   [UserDataStoreKeys.AVATAR]: null,
   [UserDataStoreKeys.MSISDN]: null,
+  [UserDataStoreKeys.GUID]: '',
+  [UserDataStoreKeys.FRESH_PROGRESS_TIME_OUT]: 0,
 };
 
 export const UserDataStore = UserDataDomain.store<IUserDataStore>(initState)
@@ -65,7 +69,17 @@ export const UserDataStore = UserDataDomain.store<IUserDataStore>(initState)
     fetchUserData.doneData,
     (
       state,
-      { worldName, assistantName, name, id, birthday = '', avatar, msisdn }
+      {
+        worldName,
+        assistantName,
+        name,
+        id,
+        birthday = '',
+        avatar,
+        msisdn,
+        guid,
+        freshProgressTimeout,
+      }
     ) => ({
       ...state,
       id,
@@ -75,6 +89,8 @@ export const UserDataStore = UserDataDomain.store<IUserDataStore>(initState)
       birthday: birthdayParserToJSON(birthday),
       avatar,
       msisdn,
+      guid,
+      freshProgressTimeout,
     })
   )
   .on(getUserName.doneData, (state, { name }) => ({
@@ -104,6 +120,8 @@ export interface IUserDataStore {
   [UserDataStoreKeys.USER_SESSION_SOCKET]: Centrifuge | null;
   [UserDataStoreKeys.AVATAR]: string | null;
   [UserDataStoreKeys.MSISDN]: string | null;
+  [UserDataStoreKeys.GUID]: string;
+  [UserDataStoreKeys.FRESH_PROGRESS_TIME_OUT]: number;
 }
 
 export interface IBirthday {

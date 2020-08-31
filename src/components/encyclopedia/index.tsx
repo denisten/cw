@@ -17,8 +17,8 @@ const StyledConfig = {
 
 const Wrapper = styled.div`
   background-image: url(${wrapperBg});
-  width: 1101px;
-  height: 737px;
+  width: 70%;
+  height: 70%;
   display: flex;
   padding-top: 44px;
   box-sizing: border-box;

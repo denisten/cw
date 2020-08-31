@@ -12,21 +12,15 @@ import {
   TowersTypes,
 } from '../../effector/towers-progress/store';
 import { getWorldState } from '../get-world-state';
-import { setTaskId } from '../../effector/chat/events';
-import { timerClosure } from '../../utils/timer-closure';
-import { saveTask } from '../../effector/tasks-store/events';
-
-import { IGetTasks, TaskStatuses } from '../../effector/tasks-store/store';
+import { IGetTasks } from '../../effector/tasks-store/store';
 import { scoreSuccessRequests } from '../../effector/preloader/events';
 import { UserDataStore } from '../../effector/user-data/store';
-import { saveMission } from '../../effector/missions-store/events';
 import {
   fetchUserPurchases,
   IUserPurchasesSocketItem,
 } from '../../effector/coupons/events';
-import { setMarker } from '../../effector/towers-marker/events';
-import { MarkerTypes } from '../../components/markers';
-import { TasksType } from '../../components/menu/menu-tasks';
+import { tasksHandler } from './handlers/tasks';
+import { missionsHandler } from './handlers/missions';
 
 const notSecuredProtocol = 'http:';
 const securedWebSocketProtocol = 'wss://';
@@ -66,43 +60,10 @@ const createSubscriptions = (centrifuge: Centrifuge, userId: number) => {
   const tasksSubscription = centrifuge.subscribe(
     'user-tasks:updates#' + userId,
     (items: IGetTasks) => {
-      const userTasks = items.data.filter(el => {
-        if (el.status === TaskStatuses.PROGRESS_COMMITTED) {
-          el.status = TaskStatuses.REWARDED;
-        }
-        if (
-          el.status !== TaskStatuses.CREATED &&
-          el.taskTypeSlug !== TasksType.MISSION
-        ) {
-          setTaskId({
-            towerTitle: el.productSlug,
-            taskId: el.id,
-          });
-        }
-        if (el.expireInSeconds) {
-          el.taskTimer = timerClosure(el.expireInSeconds);
-        }
-        return !el.userSubTasks.length;
-      });
-      const userMissions = items.data.filter(
-        mission => mission.userSubTasks.length
-      );
-      userMissions.map(mission => {
-        mission.userSubTasks.map(subtask => {
-          if (subtask.status === TaskStatuses.PROGRESS_COMMITTED) {
-            subtask.status = TaskStatuses.REWARDED;
-          }
-          if (subtask.status === TaskStatuses.ACTIVE) {
-            setMarker({
-              towerTitle: subtask.productSlug,
-              type: MarkerTypes.ACTIVE_TASK,
-            });
-            setTaskId({ towerTitle: subtask.productSlug, taskId: subtask.id });
-          }
-        });
-      });
-      saveMission(userMissions);
-      saveTask(userTasks);
+      const tasks = items.data.filter(el => !el.userSubTasks.length);
+      const missions = items.data.filter(el => el.userSubTasks.length);
+      tasksHandler(tasks);
+      missionsHandler(missions);
     }
   );
 

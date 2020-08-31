@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { pulseAnimationHOF } from '../../hoc/pulse-anim';
 import background from './background.svg';
+import { ElementOpacity } from '../../constants';
 
 const UpgradeButton = styled.div<ITowerInfoUpgradeButton>`
   width: 34px;
@@ -21,7 +22,8 @@ const UpgradeButton = styled.div<ITowerInfoUpgradeButton>`
   margin-left: 20px;
   cursor: ${props => (props.canUpgrade ? 'pointer' : 'default')};
   pointer-events: ${props => (props.canUpgrade ? 'auto' : 'none')};
-  opacity: ${props => (props.canUpgrade ? '1' : '0.3')};
+  opacity: ${props =>
+    props.canUpgrade ? ElementOpacity.ENABLE : ElementOpacity.DISABLE};
 `;
 
 export const TowerInfoUpgradeButton: React.FC<ITowerInfoUpgradeButton> = ({

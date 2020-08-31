@@ -17,6 +17,7 @@ import { useHandleAuth } from '../../hooks/use-handle-auth';
 import { MenuStore } from '../../effector/menu-store/store';
 import { menuOpened, menuClosed } from '../../effector/menu-store/events';
 import { useAuthCanceledStatus } from '../../hooks/use-auth-canceled-status';
+import { reactGAEvent } from '../../utils/ga-event';
 
 const ExpandedColumnWrapper = styled(ColumnWrapper)`
   height: 456px;
@@ -55,7 +56,13 @@ export const Menu = () => {
     missions.length && currentAlertsList.push(MenuItems.TASKS);
   }, []);
 
-  const handler = (item: MenuItems) => menuOpened(item);
+  const handler = (item: MenuItems) => {
+    reactGAEvent({
+      eventLabel: item,
+      eventCategory: 'profile',
+    });
+    menuOpened(item);
+  };
 
   const handleExitButtonClick = () => {
     pauseTutorialMode();

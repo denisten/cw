@@ -25,7 +25,7 @@ export const chatTaskSession = ChatDomain.effect('download chat session data', {
 });
 export const createMockupOfMessages = ChatDomain.event();
 
-export const setTaskId = ChatDomain.event<ISetTaskId>();
+export const initChatSession = ChatDomain.event<ISetTaskId>();
 
 export const clearChat = ChatDomain.event<IClearChat>();
 

@@ -89,7 +89,8 @@ export const TowerInfoWrapper = styled.div<ModalWindowProps>`
 const ModalWindowContentWrapper = styled.div`
   height: 100%;
   width: 100%;
-  padding: 0 32px 40px 40px;
+  padding: 0 32px 110px 40px;
+  overflow: hidden;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
