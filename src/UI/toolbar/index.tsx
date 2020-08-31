@@ -7,7 +7,10 @@ import { MenuItems } from '../menu-paragraph';
 import { ToolbarElementAlert } from '../toolbar-element-alert';
 import { useStore } from 'effector-react';
 import { TasksStore } from '../../effector/tasks-store/store';
-import { TutorialStore } from '../../effector/tutorial-store/store';
+import {
+  TutorialStore,
+  TutorialConditions,
+} from '../../effector/tutorial-store/store';
 import { pulseAnimationHOF } from '../../hoc/pulse-anim';
 import { extraTowerInfoModalClosed } from '../../effector/tower-info-modal-store/events';
 import { menuOpened } from '../../effector/menu-store/events';
@@ -43,7 +46,9 @@ const ToolbarElementWrapper = styled.div<IToolbarElementWrapper>`
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
+  opacity: ${props => (props.disableElem ? '0.3' : '1')};
+  cursor: ${props => (props.disableElem ? 'not-allowed' : 'pointer')};
+
   :hover {
     background: rgba(2, 173, 201, 0.1);
   }
@@ -57,10 +62,10 @@ const ToolbarElementWrapper = styled.div<IToolbarElementWrapper>`
 
 const handleToolbarElementClick = (
   e: React.MouseEvent,
-  type: ToolbarElements
+  type: ToolbarElements,
+  tutorialCondition: TutorialConditions
 ) => {
   e.stopPropagation();
-  const { tutorialCondition } = TutorialStore.getState();
   if (!tutorialCondition) {
     extraTowerInfoModalClosed();
     switch (type) {
@@ -73,12 +78,14 @@ const handleToolbarElementClick = (
   }
 };
 export const Toolbar = () => {
+  const { tutorialCondition } = useStore(TutorialStore);
   const tasks = useStore(TasksStore);
   const missions = useStore(MissionsStore);
   const count = {
     [ToolbarElements.TASK]: tasks.length + missions.length,
     [ToolbarElements.SHOP]: 0,
   };
+  const checkPossibilityClick = tutorialCondition !== TutorialConditions.OFF;
 
   return (
     <ToolbarWrapper>
@@ -86,8 +93,9 @@ export const Toolbar = () => {
         return (
           <ToolbarElementWrapper
             key={el}
-            onClick={e => handleToolbarElementClick(e, el)}
+            onClick={e => handleToolbarElementClick(e, el, tutorialCondition)}
             canPulse={count[el] > 0 && el === ToolbarElements.TASK}
+            disableElem={checkPossibilityClick}
           >
             <ToolbarElementAlert count={count[el]} />
             <ToolbarElement type={el} />
@@ -100,4 +108,5 @@ export const Toolbar = () => {
 
 interface IToolbarElementWrapper {
   canPulse: boolean;
+  disableElem: boolean;
 }
