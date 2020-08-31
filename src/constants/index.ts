@@ -40,3 +40,8 @@ export enum ResponseStatuses {
 export const symbolRegExp = new RegExp(
   /[-!$%^&*()_+|~=`{}\[\]:";'<>?,@#.\/\\]/g
 );
+
+export enum ElementOpacity {
+  DISABLE = 0.3,
+  ENABLE = 1,
+}
