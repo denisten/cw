@@ -49,7 +49,9 @@ export const SettingItems = () => {
         <Icon
           style={styledConfig.icon}
           type={
-            music.volume ? SettingsType.MUSIC : SettingsType.MUSIC + 'disable'
+            music.volume > 0
+              ? SettingsType.MUSIC
+              : SettingsType.MUSIC + 'disable'
           }
           callBack={() =>
             setVolume({ settingType: SettingsType.MUSIC, volume: 0 })
@@ -64,7 +66,9 @@ export const SettingItems = () => {
         <Icon
           style={styledConfig.icon}
           type={
-            sound.volume ? SettingsType.SOUND : SettingsType.SOUND + 'disable'
+            sound.volume > 0
+              ? SettingsType.SOUND
+              : SettingsType.SOUND + 'disable'
           }
           callBack={() =>
             setVolume({ settingType: SettingsType.SOUND, volume: 0 })
