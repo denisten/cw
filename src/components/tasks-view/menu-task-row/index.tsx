@@ -54,9 +54,8 @@ export const Title = styled(StyledSpan)<ITaskLocation>`
   line-height: 24px;
   letter-spacing: -0.4px;
   color: #001424;
-  margin-left: 14px;
+  margin: 0 34px 0 14px;
   font-weight: 500;
-  margin-right: 34px;
 `;
 
 export const handleTaskWrapperClick = ({

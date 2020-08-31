@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useStore } from 'effector-react';
 import { MTSSans } from '../../../fonts';
@@ -6,17 +6,19 @@ import {
   TutorialConditions,
   TutorialStore,
 } from '../../../effector/tutorial-store/store';
-import { TasksStore } from '../../../effector/tasks-store/store';
+import { ITask, TasksStore } from '../../../effector/tasks-store/store';
 import { filterTasksArray } from '../../../utils/filtered-missions-array';
 import { TowerTaskRow } from '../../tasks-view/tower-task-row';
 import { TowersTypes } from '../../../effector/towers-progress/store';
 import { MissionsStore } from '../../../effector/missions-store/store';
-import { TowerMissionRow } from '../../missions-view/tower-mission-row';
+import { MissionTowerRowView } from '../../missions-view/mission-tower-row-view';
+import { IDisplayFlag } from '../../skip-tutorial';
+import { MissionTowerView } from '../../missions-view/mission-tower-view';
 
 const TowerInfoTaskWrapper = styled.div`
   margin-top: 24px;
   width: 100%;
-  height: auto;
+  height: 100%;
   overflow: auto;
   overflow-x: hidden;
   overflow-y: scroll;
@@ -47,7 +49,8 @@ const DescText = styled.span`
   opacity: 0.6;
 `;
 
-const TitleSeparator = styled.div`
+const TitleSeparator = styled.div<IDisplayFlag>`
+  display: ${props => (props.displayFlag ? 'block' : 'none')};
   margin: 25px 0 10px 0;
   :after {
     font-family: ${MTSSans.MEDIUM};
@@ -59,7 +62,7 @@ const TitleSeparator = styled.div`
     content: 'Задания';
   }
 `;
-const TaskPreview = (tutorialCondition: TutorialConditions) => (
+const NoTaskView = (tutorialCondition: TutorialConditions) => (
   <TowerInfoTaskWrapper style={styledConfig.towerInfoTaskWrapper}>
     <Title>Заданий нет.</Title>
     {tutorialCondition === TutorialConditions.UPGRADE_BUTTON_TOWER_INFO && (
@@ -71,6 +74,9 @@ const TaskPreview = (tutorialCondition: TutorialConditions) => (
 export const TowerInfoTask: React.FC<ITowerInfoTask> = ({ towerTitle }) => {
   const tasks = useStore(TasksStore);
   const missions = useStore(MissionsStore);
+
+  const [selectedMission, setSelectedMission] = useState<ITask | null>(null);
+
   const { tutorialCondition } = useStore(TutorialStore);
   const filteredTasks = filterTasksArray(tasks, towerTitle);
   const filteredMissions = filterTasksArray(missions, towerTitle);
@@ -78,18 +84,40 @@ export const TowerInfoTask: React.FC<ITowerInfoTask> = ({ towerTitle }) => {
     <TowerTaskRow key={task.id} isInTowerInfo={true} task={task} />
   ));
   const missionsView = filteredMissions.map(el => (
-    <TowerMissionRow task={el} isInTowerInfo={true} key={el.id} />
+    <MissionTowerRowView
+      mission={el}
+      isInTowerInfo={true}
+      key={el.id}
+      callback={(payload: ITask) => setSelectedMission(payload)}
+    />
   ));
 
   const Content = () => (
     <>
-      {missionsView} <TitleSeparator /> {tasksView}
+      {missionsView}
+      <TitleSeparator
+        displayFlag={!!filteredMissions.length && !!filteredTasks.length}
+      />
+      {tasksView}
     </>
   );
 
+  useEffect(() => {
+    setSelectedMission(null);
+  }, [towerTitle]);
+
   return (
     <TowerInfoTaskWrapper>
-      {filteredTasks.length ? <Content /> : TaskPreview(tutorialCondition)}
+      {selectedMission ? (
+        <MissionTowerView
+          mission={selectedMission}
+          exitCallback={() => setSelectedMission(null)}
+        />
+      ) : filteredTasks.length || filteredMissions.length ? (
+        <Content />
+      ) : (
+        NoTaskView(tutorialCondition)
+      )}
     </TowerInfoTaskWrapper>
   );
 };

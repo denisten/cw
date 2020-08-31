@@ -2,7 +2,7 @@ import React from 'react';
 import { useStore } from 'effector-react';
 import { MissionsStore } from '../../../../../effector/missions-store/store';
 import { TasksWrapper } from '../task';
-import { MissionsView } from '../../../../missions-view';
+import { MissionMenuRowView } from '../../../../missions-view';
 import noMissionImg from './no-mission.svg';
 import title from './title.svg';
 import description from './desctiption.svg';
@@ -43,7 +43,7 @@ export const Mission: React.FC<IMission> = ({ active }) => {
   return (
     <TasksWrapper hidden={!active}>
       {missions.length ? (
-        missions.map(el => <MissionsView taskData={el} key={el.id} />)
+        missions.map(el => <MissionMenuRowView taskData={el} key={el.id} />)
       ) : (
         <Cap />
       )}

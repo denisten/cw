@@ -192,6 +192,7 @@ export const taskRowStyledConfig = {
     alignItems: 'center',
     marginRight: '10px',
     width: '115px',
+    justifyContent: 'center',
   },
   rowWrapper: {
     paddingRight: '20px',
@@ -230,7 +231,8 @@ export const TowerTaskRow: React.FC<ITasksRow> = ({ isInTowerInfo, task }) => {
       task.status === TaskStatuses.CREATED && enable && playActiveTask();
     }
   };
-  const handleClick = () =>
+  const handleClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
     handleTaskWrapperClick({
       taskDescriptionRef,
       isOpened,
@@ -238,7 +240,7 @@ export const TowerTaskRow: React.FC<ITasksRow> = ({ isInTowerInfo, task }) => {
       taskType,
       vectorRef,
     });
-
+  };
   const handleHintClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     setIsCouponModalWindowOpen(true);
