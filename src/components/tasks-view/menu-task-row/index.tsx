@@ -31,6 +31,7 @@ import { useStore } from 'effector-react';
 import { SettingsStore } from '../../../effector/settings/store';
 import { useAudio } from '../../../hooks/use-sound';
 import { TaskStatuses } from '../../../effector/tasks-store/store';
+import { handleAuthButtonClick } from '../../../utils/handle-auth-button-click';
 
 export const TaskWrapper = styled.div<ITaskLocation>`
   width: 719px;
@@ -110,6 +111,7 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
     e.stopPropagation();
     if (taskType === TasksType.TUTORIAL_TASK) {
       // do next tutorial step in future
+      handleAuthButtonClick();
     } else {
       handleTaskClick(task, e);
       task.status === TaskStatuses.DONE && enable && playRewardSound();
