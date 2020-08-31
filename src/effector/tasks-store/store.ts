@@ -22,6 +22,7 @@ export enum TaskStatuses {
   REWARDED = 'rewarded',
   EXPIRED = 'expired',
   PROGRESS_COMMITTED = 'progress-committed',
+  NOT_AVAILABLE = 'not-available',
 }
 
 const initStore: ITask[] = [];
@@ -99,7 +100,7 @@ export interface ITask {
   status: TaskStatuses;
   expireAt: string;
   expireInSeconds: number | null;
-  taskTimer?: () => number;
+  localExpireInSeconds?: number;
   taskTypeSlug: TasksType;
   productSlug: TowersTypes;
   title: string;

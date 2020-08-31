@@ -192,6 +192,7 @@ export const taskRowStyledConfig = {
     alignItems: 'center',
     marginRight: '10px',
     width: '115px',
+    justifyContent: 'center',
   },
   rowWrapper: {
     paddingRight: '20px',
@@ -204,11 +205,8 @@ export const taskRowStyledConfig = {
 export const checkTaskStatus = (status: TaskStatuses) =>
   status === TaskStatuses.REJECTED;
 
-export const TowerTaskRow: React.FC<ITasksRow> = ({
-  isInTowerInfo,
-  taskData,
-}) => {
-  const { taskTypeSlug: taskType, productSlug: towerTitle } = taskData;
+export const TowerTaskRow: React.FC<ITasksRow> = ({ isInTowerInfo, task }) => {
+  const { taskTypeSlug: taskType, productSlug: towerTitle } = task;
 
   const [isOpened, setIsOpened] = useState(false);
   const taskWrapperRef = useRef<HTMLDivElement>(null);
@@ -228,12 +226,13 @@ export const TowerTaskRow: React.FC<ITasksRow> = ({
     if (taskType === TasksType.TUTORIAL_TASK) {
       // do next tutorial step in future
     } else {
-      handleTaskClick(taskData, e);
-      taskData.status === TaskStatuses.DONE && enable && playRewardSound();
-      taskData.status === TaskStatuses.CREATED && enable && playActiveTask();
+      handleTaskClick(task, e);
+      task.status === TaskStatuses.DONE && enable && playRewardSound();
+      task.status === TaskStatuses.CREATED && enable && playActiveTask();
     }
   };
-  const handleClick = () =>
+  const handleClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
     handleTaskWrapperClick({
       taskDescriptionRef,
       isOpened,
@@ -241,7 +240,7 @@ export const TowerTaskRow: React.FC<ITasksRow> = ({
       taskType,
       vectorRef,
     });
-
+  };
   const handleHintClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     setIsCouponModalWindowOpen(true);
@@ -257,31 +256,29 @@ export const TowerTaskRow: React.FC<ITasksRow> = ({
         {...couponModalConfig}
         displayFlag={isCouponModalWindowOpen}
         cancelHandler={() => setIsCouponModalWindowOpen(false)}
-        id={taskData.id}
+        id={task.id}
         towerTitle={towerTitle}
       />
       <TaskInfo>
         <Icon type={taskType} />
-        <Title isInTowerInfo={isInTowerInfo}>{taskData.title}</Title>
+        <Title isInTowerInfo={isInTowerInfo}>{task.title}</Title>
         <VectorImg ref={vectorRef} />
       </TaskInfo>
       <TaskDescriptionWrapper ref={taskDescriptionRef}>
         <Border />
-        <TaskDescription>{taskData.description}</TaskDescription>
+        <TaskDescription>{task.description}</TaskDescription>
       </TaskDescriptionWrapper>
       <Border />
       <RowWrapper style={taskRowStyledConfig.rowWrapper}>
-        {
-          <TaskTimer
-            taskTimer={taskData.taskTimer}
-            expireInSeconds={taskData.expireInSeconds}
-          />
-        }
+        <TaskTimer
+          expireInSeconds={task.expireInSeconds}
+          towerTitle={task.productSlug}
+        />
         <RowWrapper>
           <ColumnWrapper {...taskRowStyledConfig.columnWrapper}>
             <TaskLoot
-              money={taskData.money}
-              energy={taskData.energy}
+              money={task.money}
+              energy={task.energy}
               isInTowerInfo={isInTowerInfo}
             />
           </ColumnWrapper>
@@ -291,15 +288,15 @@ export const TowerTaskRow: React.FC<ITasksRow> = ({
           >
             <RowWrapper>
               <TaskButton
-                expireInSeconds={taskData.expireInSeconds}
-                className={taskData.status}
+                expireInSeconds={task.expireInSeconds}
+                className={task.status}
                 onClick={handleWrapperClick}
               />
-              {checkTaskStatus(taskData.status) && (
+              {checkTaskStatus(task.status) && (
                 <img src={notDoneImg} alt="reject" />
               )}
             </RowWrapper>
-            {checkTaskStatus(taskData.status) && (
+            {checkTaskStatus(task.status) && (
               <HintWrapper onClick={handleHintClick} />
             )}
           </ColumnWrapper>
@@ -310,8 +307,9 @@ export const TowerTaskRow: React.FC<ITasksRow> = ({
 };
 
 export interface ITasksRow {
-  taskData: ITask;
+  task: ITask;
   isInTowerInfo: boolean;
+  available?: boolean;
 }
 
 export interface ITaskLocation {

@@ -66,7 +66,7 @@ const firstTask: ITask = {
 export const UnauthorizedTaskZone = () => {
   return (
     <UnauthorizedTaskZoneWrapper>
-      <MenuTaskRow taskData={firstTask} isInTowerInfo={false} />
+      <MenuTaskRow task={firstTask} isInTowerInfo={false} />
       <Title>
         Новые задания будут доступны после
         <LinkTitle onClick={handleAuthButtonClick}> авторизации</LinkTitle>.

@@ -1,6 +1,6 @@
 const second = 1000;
 
-export const timerClosure = (secondLeft: number) => {
+export const timerLoopUpdater = (secondLeft: number) => {
   let timer = secondLeft || 0;
 
   const _startTimer = () => {
@@ -13,6 +13,5 @@ export const timerClosure = (secondLeft: number) => {
 
   _startTimer();
 
-  const getTimer = () => timer;
-  return getTimer;
+  return timer;
 };

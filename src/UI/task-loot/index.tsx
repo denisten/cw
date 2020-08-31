@@ -19,8 +19,8 @@ const TaskLootWrapper = styled.div<ITaskLocation>`
       : TaskLootWrapperMarginValues.notInTowerInfo}px;
 `;
 
-const LootWrapper = styled.div`
-  display: flex;
+const LootWrapper = styled.div<ILootWrapper>`
+  display: ${props => (props.content ? 'flex' : 'none')};
   align-items: center;
 `;
 
@@ -53,11 +53,11 @@ export const TaskLoot: React.FC<ITaskLoot> = ({
 }) => {
   return (
     <TaskLootWrapper isInTowerInfo={isInTowerInfo}>
-      <LootWrapper>
+      <LootWrapper content={energy}>
         <img src={batteryImg} alt="battery" style={styledConfig.loot} />
         <CountWrapper>{energy}</CountWrapper>
       </LootWrapper>
-      <LootWrapper>
+      <LootWrapper content={money}>
         <img src={moneyImg} alt="money" style={styledConfig.money} />
         <CountWrapper>{money}</CountWrapper>
       </LootWrapper>
@@ -68,4 +68,8 @@ export const TaskLoot: React.FC<ITaskLoot> = ({
 interface ITaskLoot extends ITaskLocation {
   energy: number;
   money: number;
+}
+
+interface ILootWrapper {
+  content: number;
 }
