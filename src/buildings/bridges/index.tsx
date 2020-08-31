@@ -52,7 +52,7 @@ const StyledConfig = {
       top: ' 86%',
       zIndex: ZIndexes.DECORATION,
     } as React.CSSProperties,
-    img: bridge5, //tmp commit
+    img: bridge5,
   },
 };
 
