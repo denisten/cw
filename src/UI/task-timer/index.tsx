@@ -35,13 +35,16 @@ const secondsPerDay = 86400,
 const parseSecondsLeft = (secondsLeft: number | null) => {
   if (secondsLeft === null) return;
   const daysLeft = Math.floor(secondsLeft / secondsPerDay);
+  secondsLeft -= daysLeft * secondsPerDay;
   const hoursLeft = Math.floor(secondsLeft / secondsPerHour);
+  secondsLeft -= hoursLeft * secondsPerHour;
   const minutesLeft = Math.floor(secondsLeft / secondsPerMinute);
+  secondsLeft -= minutesLeft * secondsPerMinute;
   let answer = '';
   if (daysLeft) answer += daysLeft + 'д.';
   if (hoursLeft) answer += hoursLeft + 'ч.';
   if (minutesLeft) answer += minutesLeft + 'мин.';
-  answer += (secondsLeft % secondsPerMinute) + 'сек.';
+  answer += secondsLeft + 'сек.';
   return answer;
 };
 
