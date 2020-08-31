@@ -5,10 +5,7 @@ import { MTSSans } from '../../fonts';
 import { Input } from '../input';
 import { Button, ButtonClassNames } from '../button';
 import { editCurrentUserDataField } from '../../effector/user-data/events';
-import {
-  UserDataStoreKeys,
-  UserDataStore,
-} from '../../effector/user-data/store';
+import { UserDataStoreKeys } from '../../effector/user-data/store';
 
 import { useStore } from 'effector-react';
 import {
@@ -118,11 +115,8 @@ export const PopUp: React.FC<IPopUp> = ({
 
   useEffect(() => {
     if (displayFlag && popUpType === TypesOfPopUps.EDIT_WORLD_NAME) {
-      const { id, guid } = UserDataStore.getState();
       reactGAEvent({
         eventLabel: 'city_name',
-        userId: id,
-        guId: guid,
         eventCategory: 'profile',
       });
     }

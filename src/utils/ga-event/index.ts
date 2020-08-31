@@ -1,4 +1,5 @@
 import ReactGA from 'react-ga';
+import { UserDataStore } from '../../effector/user-data/store';
 
 const defaultGAEventProps = {
   event: 'mtsEvent',
@@ -24,12 +25,11 @@ const defaultGAEventProps = {
 
 export const reactGAEvent = (props: IReactGAEventParams) => {
   const gaEvent = (ReactGA.event as unknown) as (args: unknown) => void;
-  gaEvent({ ...defaultGAEventProps, ...props });
+  const { id, guid } = UserDataStore.getState();
+  gaEvent({ ...defaultGAEventProps, ...props, userId: id, guId: guid });
 };
 
 interface IReactGAEventParams {
-  userId: number;
   eventLabel: string;
-  guId: string;
   eventCategory: string;
 }
