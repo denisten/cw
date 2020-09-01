@@ -165,14 +165,14 @@ export const TowerInfoIndicators: React.FC<ITowerInfoIndicators> = ({
   const [activeTooltip, setActiveTooltip] = useState(ActiveTooltip.OFF);
 
   const {
-    sound: { enable, volume },
+    sound: { volume },
   } = useStore(SettingsStore);
 
   const { play: playButtonPlay } = useAudio(playButtonSound, false, volume);
 
   const handlePlayButtonClick = () => {
     playButtonLink && windowOpen(playButtonLink);
-    enable && playButtonPlay();
+    volume && playButtonPlay();
   };
 
   return (

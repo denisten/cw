@@ -214,7 +214,7 @@ export const TowerTaskRow: React.FC<ITasksRow> = ({ isInTowerInfo, task }) => {
   const vectorRef = useRef<HTMLImageElement>(null);
 
   const {
-    sound: { enable, volume },
+    sound: { volume },
   } = useStore(SettingsStore);
   const { play: playRewardSound } = useAudio(takeRewardSound, false, volume);
   const { play: playActiveTask } = useAudio(activeTask, false, volume);
@@ -227,8 +227,8 @@ export const TowerTaskRow: React.FC<ITasksRow> = ({ isInTowerInfo, task }) => {
       // do next tutorial step in future
     } else {
       handleTaskClick(task, e);
-      task.status === TaskStatuses.DONE && enable && playRewardSound();
-      task.status === TaskStatuses.CREATED && enable && playActiveTask();
+      task.status === TaskStatuses.DONE && volume && playRewardSound();
+      task.status === TaskStatuses.CREATED && volume && playActiveTask();
     }
   };
   const handleClick = (e: React.MouseEvent) => {

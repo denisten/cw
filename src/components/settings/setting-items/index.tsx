@@ -1,13 +1,12 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { SettingsStore, SettingsType } from '../../../effector/settings/store';
 import styled from 'styled-components';
 
-import {
-  musicAndSoundToggle,
-  setVolume,
-} from '../../../effector/settings/events';
+import { setVolume } from '../../../effector/settings/events';
 import { useStore } from 'effector-react';
 import { Icon } from '../../../UI/icons';
+import _debounce from 'debounce';
+import { saveUserData } from '../../../api/save-user-data';
 
 const SettingItemsWrapper = styled.div`
   display: flex;
@@ -36,43 +35,55 @@ const styledConfig = {
     height: '24px',
   },
 };
-
+const delayBeforeSendRequest = 1000;
 export const SettingItems = () => {
   const { music, sound } = useStore(SettingsStore);
+  const musicInputRef = useRef<HTMLInputElement>(null);
+  const soundInputRef = useRef<HTMLInputElement>(null);
+  const saveData = (e: Event, fieldName: 'musicValue' | 'soundValue') => {
+    const target = e.target as HTMLInputElement;
+    const data = { [fieldName]: +target.value };
+    saveUserData(data);
+  };
 
   const changeHandler = (
     settingType: SettingsType,
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     setVolume({ settingType, volume: Number(e.target.value) });
-    if (Number(e.target.value) === 0) {
-      musicAndSoundToggle({
-        settingType,
-        enable: false,
-      });
-    } else {
-      musicAndSoundToggle({
-        settingType,
-        enable: true,
-      });
-    }
   };
+
+  useEffect(() => {
+    if (musicInputRef.current) {
+      musicInputRef.current.onchange = _debounce(
+        (e: Event) => saveData(e, 'musicValue'),
+        delayBeforeSendRequest
+      );
+    }
+    if (soundInputRef.current) {
+      soundInputRef.current.onchange = _debounce(
+        (e: Event) => saveData(e, 'soundValue'),
+        delayBeforeSendRequest
+      );
+    }
+  }, []);
   return (
     <SettingItemsWrapper>
       <InputBody>
         <Icon
           style={styledConfig.icon}
           type={
-            music.enable ? SettingsType.MUSIC : SettingsType.MUSIC + 'disable'
+            music.volume > 0
+              ? SettingsType.MUSIC
+              : SettingsType.MUSIC + 'disable'
           }
-          callBack={() =>
-            musicAndSoundToggle({
-              settingType: SettingsType.MUSIC,
-              enable: !music.enable,
-            })
-          }
+          callBack={() => {
+            setVolume({ settingType: SettingsType.MUSIC, volume: 0 });
+            saveUserData({ musicValue: 0 });
+          }}
         />
         <InputRange
+          ref={musicInputRef}
           value={music.volume}
           onChange={e => changeHandler(SettingsType.MUSIC, e)}
         />
@@ -81,16 +92,17 @@ export const SettingItems = () => {
         <Icon
           style={styledConfig.icon}
           type={
-            sound.enable ? SettingsType.SOUND : SettingsType.SOUND + 'disable'
+            sound.volume > 0
+              ? SettingsType.SOUND
+              : SettingsType.SOUND + 'disable'
           }
-          callBack={() =>
-            musicAndSoundToggle({
-              settingType: SettingsType.SOUND,
-              enable: !sound.enable,
-            })
-          }
+          callBack={() => {
+            setVolume({ settingType: SettingsType.SOUND, volume: 0 });
+            saveUserData({ soundValue: 0 });
+          }}
         />
         <InputRange
+          ref={soundInputRef}
           value={sound.volume}
           onChange={e => changeHandler(SettingsType.SOUND, e)}
         />

@@ -134,12 +134,12 @@ const SelectedStoreItem: React.FC<{ selectedStoreItem: ICatalogItems }> = ({
   const promocodeContent = userPromocodes[selectedStoreItem.slug]?.content;
 
   const {
-    sound: { enable, volume },
+    sound: { volume },
   } = useStore(SettingsStore);
   const { play: loseMoneySoundPlay } = useAudio(loseMoney, false, volume);
 
   usePlaySoundIf<boolean>(
-    waitingForPurchase && enable,
+    waitingForPurchase && !!volume,
     loseMoneySoundPlay,
     waitingForPurchase
   );
