@@ -29,6 +29,7 @@ export enum UserDataStoreKeys {
   MSISDN = 'msisdn',
   GUID = 'guid',
   FRESH_PROGRESS_TIME_OUT = 'freshProgressTimeout',
+  SHOW_SLIDER = 'showSlider',
 }
 
 export const defaultNameValue = 'Мир клиента';
@@ -47,6 +48,7 @@ const initState: IUserDataStore = {
   [UserDataStoreKeys.MSISDN]: null,
   [UserDataStoreKeys.GUID]: '',
   [UserDataStoreKeys.FRESH_PROGRESS_TIME_OUT]: 0,
+  [UserDataStoreKeys.SHOW_SLIDER]: true,
 };
 
 export const UserDataStore = UserDataDomain.store<IUserDataStore>(initState)
@@ -83,6 +85,7 @@ export const UserDataStore = UserDataDomain.store<IUserDataStore>(initState)
         freshProgressTimeout,
         musicValue,
         soundValue,
+        showSlider,
       }
     ) => {
       setVolume({ settingType: SettingsType.MUSIC, volume: musicValue });
@@ -98,6 +101,7 @@ export const UserDataStore = UserDataDomain.store<IUserDataStore>(initState)
         msisdn,
         guid,
         freshProgressTimeout,
+        showSlider,
       };
     }
   )
@@ -130,6 +134,7 @@ export interface IUserDataStore {
   [UserDataStoreKeys.MSISDN]: string | null;
   [UserDataStoreKeys.GUID]: string;
   [UserDataStoreKeys.FRESH_PROGRESS_TIME_OUT]: number;
+  [UserDataStoreKeys.SHOW_SLIDER]: boolean;
 }
 
 export interface IBirthday {
