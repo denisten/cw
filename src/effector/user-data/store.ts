@@ -48,7 +48,7 @@ const initState: IUserDataStore = {
   [UserDataStoreKeys.MSISDN]: null,
   [UserDataStoreKeys.GUID]: '',
   [UserDataStoreKeys.FRESH_PROGRESS_TIME_OUT]: 0,
-  [UserDataStoreKeys.SHOW_SLIDER]: true,
+  [UserDataStoreKeys.SHOW_SLIDER]: false,
 };
 
 export const UserDataStore = UserDataDomain.store<IUserDataStore>(initState)

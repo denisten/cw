@@ -10,7 +10,7 @@ import { MTSSans } from '../../../../fonts';
 
 const leftPosition = {
   active: -22,
-  notSelected: -15.6,
+  notSelected: -21.6,
 };
 
 const Header = styled.div`
