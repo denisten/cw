@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import { IDisplayFlag } from '../../skip-tutorial';
 import { Sender, IMessage } from '../../../api/tasks-api/session';
 import {
   ITask,
@@ -31,6 +30,7 @@ import { useAudio } from '../../../hooks/use-sound';
 import { usePlaySoundIf } from '../../../hooks/use-play-sound-if';
 import { MissionsStore } from '../../../effector/missions-store/store';
 import { writingAnimation } from './keyframes';
+import { IDisplayFlag } from '../../root-component';
 
 const ChatWrapper = styled.div`
   width: 100%;

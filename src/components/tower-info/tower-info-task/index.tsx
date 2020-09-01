@@ -12,8 +12,8 @@ import { TowerTaskRow } from '../../tasks-view/tower-task-row';
 import { TowersTypes } from '../../../effector/towers-progress/store';
 import { MissionsStore } from '../../../effector/missions-store/store';
 import { MissionTowerRowView } from '../../missions-view/mission-tower-row-view';
-import { IDisplayFlag } from '../../skip-tutorial';
 import { MissionTowerView } from '../../missions-view/mission-tower-view';
+import { IDisplayFlag } from '../../root-component';
 
 const TowerInfoTaskWrapper = styled.div`
   margin-top: 24px;

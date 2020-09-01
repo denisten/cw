@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { IAction } from '../../api/tasks-api/session';
 import { Coupon } from '../coupon';
-import { IDisplayFlag } from '../../components/skip-tutorial';
+import { IDisplayFlag } from '../../components/root-component';
 
 const ButtonBody = styled.div`
   margin-top: 20px;

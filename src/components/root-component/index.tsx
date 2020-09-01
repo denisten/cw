@@ -10,7 +10,6 @@ import {
 import { ScrollContainer } from '../scroll-container';
 import { TutorialOverlay } from '../tutorial-overlay';
 import { zIndexForInheritOverlay } from '../../constants';
-import { IDisplayFlag } from '../skip-tutorial';
 import { InitTutorialSlider } from '../tutorial-slider/init-slider';
 import { Menu } from '../menu';
 import { useAudio } from '../../hooks/use-sound';
@@ -24,7 +23,6 @@ import { SettingsStore } from '../../effector/settings/store';
 import backgroundMusic from '../../sound/background-sound.mp3';
 import { UserDataStore } from '../../effector/user-data/store';
 import { useRefreshProgress } from '../../hooks/use-refresh-progress';
-// import { SkipTutorial } from '../skip-tutorial';
 
 const RootComponentWrapper = styled.div.attrs({ id: 'rootScroll' })<
   IDisplayFlag
@@ -48,20 +46,17 @@ const defineScrollContainerZIndex = (tutorialCondition: TutorialConditions) =>
     ? zIndexForInheritOverlay + 1
     : 0;
 
-export const RootComponent = () => {
+export const Index = () => {
   const { DOMLoaded, tutorialSliderDisplayFlag, isAuthorized } = useStore(
     AppConditionStore
   );
-  // const [showSkipTutorialUI, setShowSkipTutorialUI] = useState(true);
   const { tutorialCondition } = useStore(TutorialStore);
+  const { volume } = useStore(SettingsStore).music;
+  const { freshProgressTimeout } = useStore(UserDataStore);
+
   const tutorialIsEnabled = DOMLoaded && tutorialCondition !== 0;
   const displayFlag = checkTutorialCondition(tutorialCondition);
   const zIndex = defineScrollContainerZIndex(tutorialCondition);
-  const {
-    music: { volume },
-  } = useStore(SettingsStore);
-  const { freshProgressTimeout } = useStore(UserDataStore);
-  useRefreshProgress(freshProgressTimeout, isAuthorized);
 
   const { play, pause } = useAudio(backgroundMusic, true, volume);
 
@@ -70,19 +65,18 @@ export const RootComponent = () => {
     canPlayBackgroundSound ? play() : pause();
   }, [volume, tutorialSliderDisplayFlag]);
 
+  useRefreshProgress(freshProgressTimeout, isAuthorized);
   return (
     <RootComponentWrapper displayFlag={DOMLoaded}>
       <UIButtonInterface />
       <Menu />
       {tutorialSliderDisplayFlag && <InitTutorialSlider />}
-      {DOMLoaded && (
-        <>
-          <MoveCoinCollection />
-          <TowerInfo />
-          <Encyclopedia />
-          <Shop />
-        </>
-      )}
+      <>
+        <MoveCoinCollection />
+        <TowerInfo />
+        <Encyclopedia />
+        <Shop />
+      </>
       {tutorialIsEnabled && (
         <TutorialToolsSelector
           tutorialCondition={tutorialCondition}
@@ -90,10 +84,6 @@ export const RootComponent = () => {
         />
       )}
 
-      {/* <SkipTutorial
-        displayFlag={showSkipTutorialUI}
-        setDisplayFlag={() => setShowSkipTutorialUI(!showSkipTutorialUI)}
-      /> */}
       <ScrollContainer tutorialCondition={tutorialCondition} zIndex={zIndex} />
       <TutorialOverlay
         displayFlag={displayFlag}
@@ -102,3 +92,7 @@ export const RootComponent = () => {
     </RootComponentWrapper>
   );
 };
+
+export interface IDisplayFlag {
+  displayFlag: boolean;
+}
