@@ -49,9 +49,9 @@ const defineScrollContainerZIndex = (tutorialCondition: TutorialConditions) =>
     ? zIndexForInheritOverlay + 1
     : 0;
 
-const config = {
-  messages: ['Миссии кончились'],
-  titles: ['Сорямба'],
+const contentConfig = {
+  messages: ['На сегодня всё. Приходи завтра!'],
+  titles: ['Вау! Ты выполнил все задания!'],
   buttonContent: ['ОК'],
 };
 
@@ -87,7 +87,7 @@ export const RootComponent = () => {
       {tasksAvailableFlag && (
         <TutorialDialog
           mustBeAsAnimated={true}
-          content={config}
+          content={contentConfig}
           closeCallback={() => setTasksAvailableFlag(false)}
         />
       )}
