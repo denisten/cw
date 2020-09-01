@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React from 'react';
 import { SettingsStore, SettingsType } from '../../../effector/settings/store';
 import styled from 'styled-components';
@@ -5,6 +6,7 @@ import styled from 'styled-components';
 import { setVolume } from '../../../effector/settings/events';
 import { useStore } from 'effector-react';
 import { Icon } from '../../../UI/icons';
+import _debounce from 'debounce';
 
 const SettingItemsWrapper = styled.div`
   display: flex;
@@ -36,12 +38,15 @@ const styledConfig = {
 
 export const SettingItems = () => {
   const { music, sound } = useStore(SettingsStore);
+  const test = () => console.log('run deb');
 
   const changeHandler = (
     settingType: SettingsType,
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     setVolume({ settingType, volume: Number(e.target.value) });
+    console.log('run func');
+    _debounce(test, 1000);
   };
   return (
     <SettingItemsWrapper>
