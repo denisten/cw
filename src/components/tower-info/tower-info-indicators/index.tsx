@@ -131,7 +131,7 @@ const styledConfig = {
     marginRight: '6px',
   },
   tooltip1: {
-    top: '-112px',
+    top: '-60px',
     right: '-280px',
     zIndex: 2,
   },

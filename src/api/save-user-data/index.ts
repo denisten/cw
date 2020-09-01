@@ -13,4 +13,5 @@ interface ISaveUserData extends Omit<IEditUserData, 'birthday'> {
   birthday?: string;
   musicValue?: number;
   soundValue?: number;
+  showSlider?: boolean;
 }

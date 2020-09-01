@@ -18,4 +18,5 @@ export interface IGetProfile {
   freshProgressTimeout: number;
   musicValue: number;
   soundValue: number;
+  showSlider: boolean;
 }

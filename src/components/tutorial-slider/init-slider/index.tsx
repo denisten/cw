@@ -8,6 +8,9 @@ import slider6 from './slider-6.png';
 
 import { TutorialSlider } from '..';
 import { editTutorialSliderDisplayFlag } from '../../../effector/app-condition/events';
+import { useStore } from 'effector-react';
+import { UserDataStore } from '../../../effector/user-data/store';
+import { showSliderRequest } from '../../../api/show-slider';
 
 export const tutorialSlidesArray = [
   slider1,
@@ -46,11 +49,15 @@ export const tutorialSliderContent = [
   },
 ];
 export const InitTutorialSlider = () => {
-  const callback = () => editTutorialSliderDisplayFlag(false);
+  const callback = () => {
+    editTutorialSliderDisplayFlag(false);
+    showSliderRequest();
+  };
+  const { showSlider } = useStore(UserDataStore);
   return (
     <TutorialSlider
       imgArray={tutorialSlidesArray}
-      displayFlag={true}
+      displayFlag={showSlider}
       callback={callback}
       content={tutorialSliderContent}
     />
