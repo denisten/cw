@@ -3,6 +3,7 @@ import { maxPercent } from '../../constants';
 import { propEq, ifElse } from 'ramda';
 
 const maxDelayBeforePreloaderOff = 10000;
+
 export const useCalculateLoadingProgress = (
   isAuthorized: boolean,
   resolvedRequestsQuantity: number,

@@ -36,12 +36,9 @@ const PreloaderWrapper = styled.div`
   overflow: hidden;
   z-index: ${ZIndexes.PRELOADER};
   display: flex;
-  align-items: flex-end;
   justify-content: center;
   animation: none;
-  display: flex;
   align-items: center;
-  justify-content: center;
   &.disable {
     display: none;
   }
@@ -120,7 +117,6 @@ const LoadingLine = styled.div<ILoadingLine>`
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
   border-radius: 4px;
   position: absolute;
   bottom: 45px;
@@ -162,6 +158,7 @@ export const Preloader: React.FC = () => {
     loadingStarted,
   } = useStore(PreloaderStore);
   const { isAuthorized } = useStore(AppConditionStore);
+
   const loadingProgress = useCalculateLoadingProgress(
     isAuthorized,
     resolvedRequestsQuantity,

@@ -42,7 +42,8 @@ export const MapFragment: React.FC<IMapFragment> = ({
   const { animationOff } = useStore(AppConditionStore);
   const Trees = treeImg ? (
     <LazyImage src={treeImg} style={lazyImageWrapperStyle} />
-  ) : null;
+  ) : // <img src={treeImg} style={lazyImageWrapperStyle} />
+  null;
 
   const Banner = bannerImg ? (
     <Banners
@@ -53,10 +54,12 @@ export const MapFragment: React.FC<IMapFragment> = ({
   ) : null;
 
   const Decoration = decorationImg ? (
-    <LazyImage src={decorationImg} style={lazyImageWrapperStyle} />
+    // <LazyImage src={decorationImg} style={lazyImageWrapperStyle} />
+    <img src={decorationImg} style={lazyImageWrapperStyle} />
   ) : null;
   return (
     <MapFragmentWrapper>
+      {/*<img src={roadImg} />*/}
       <LazyImage src={roadImg} />
       {Trees}
       {Banner}
