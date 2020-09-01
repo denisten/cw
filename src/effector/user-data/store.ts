@@ -12,6 +12,8 @@ import {
 } from './events';
 import Centrifuge from 'centrifuge';
 import { birthdayParserToJSON } from '../../utils/birthday-parser';
+import { setVolume } from '../settings/events';
+import { SettingsType } from '../settings/store';
 
 export enum UserDataStoreKeys {
   ID = 'id',
@@ -79,19 +81,25 @@ export const UserDataStore = UserDataDomain.store<IUserDataStore>(initState)
         msisdn,
         guid,
         freshProgressTimeout,
+        musicValue,
+        soundValue,
       }
-    ) => ({
-      ...state,
-      id,
-      worldName: worldName || defaultNameValue,
-      assistantName: assistantName || defaultNameValue,
-      name: name || defaultNameValue,
-      birthday: birthdayParserToJSON(birthday),
-      avatar,
-      msisdn,
-      guid,
-      freshProgressTimeout,
-    })
+    ) => {
+      setVolume({ settingType: SettingsType.MUSIC, volume: musicValue });
+      setVolume({ settingType: SettingsType.SOUND, volume: soundValue });
+      return {
+        ...state,
+        id,
+        worldName: worldName || defaultNameValue,
+        assistantName: assistantName || defaultNameValue,
+        name: name || defaultNameValue,
+        birthday: birthdayParserToJSON(birthday),
+        avatar,
+        msisdn,
+        guid,
+        freshProgressTimeout,
+      };
+    }
   )
   .on(getUserName.doneData, (state, { name }) => ({
     ...state,

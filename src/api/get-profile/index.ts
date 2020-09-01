@@ -16,4 +16,6 @@ export interface IGetProfile {
   msisdn: string;
   guid: string;
   freshProgressTimeout: number;
+  musicValue: number;
+  soundValue: number;
 }
