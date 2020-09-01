@@ -1,20 +1,20 @@
 import { useState, useEffect, useRef } from 'react';
 import { maxPercent } from '../../constants';
 import { propEq, ifElse } from 'ramda';
+const maxDelayBeforePreloaderOff = 100000;
 
-const maxDelayBeforePreloaderOff = 10000;
 export const useCalculateLoadingProgress = (
   isAuthorized: boolean,
   resolvedRequestsQuantity: number,
   requestsQuantity: number,
-  loadingStarted: boolean
+  loadingStarted: boolean,
+  loadedFRRImgQuantity: number
 ) => {
   const [allImagesQuantity, setAllImagesQuantity] = useState(0);
   const [loadedImagesNumber, setLoadedImgCount] = useState(0);
   const [loadingPercent, setLoadingPercent] = useState(0);
   const [allResoursesLoaded, setAllResoursesLoaded] = useState(false);
   const timeout = useRef(0);
-
   useEffect(() => {
     timeout.current = setTimeout(() => {
       setAllResoursesLoaded(true);
@@ -51,7 +51,7 @@ export const useCalculateLoadingProgress = (
         (loadedImagesNumber * maxPercent) / allImagesQuantity) /
       2;
 
-    if (percent >= maxPercent) {
+    if (percent >= maxPercent || !loadedFRRImgQuantity) {
       setLoadingPercent(maxPercent);
       setAllResoursesLoaded(true);
     } else {
@@ -61,7 +61,7 @@ export const useCalculateLoadingProgress = (
 
   const setPercentWithImgLoaded = () => {
     const percent = (loadedImagesNumber * maxPercent) / allImagesQuantity || 0;
-    if (percent >= maxPercent) {
+    if (percent >= maxPercent || !loadedFRRImgQuantity) {
       setLoadingPercent(maxPercent);
       setAllResoursesLoaded(true);
     } else {
@@ -104,6 +104,7 @@ export const useCalculateLoadingProgress = (
     resolvedRequestsQuantity,
     loadingStarted,
     allResoursesLoaded,
+    loadedFRRImgQuantity,
   ]);
 
   return loadingPercent;
