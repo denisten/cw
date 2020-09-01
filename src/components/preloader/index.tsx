@@ -13,6 +13,7 @@ import { Logo } from './logo';
 import { useStore } from 'effector-react';
 import { PreloaderStore } from '../../effector/preloader/store';
 import { AppConditionStore } from '../../effector/app-condition/store';
+import { saveFRRImgQuantity } from '../../effector/preloader/events';
 
 enum InheritZIndexes {
   BUILDINGS = 2,
@@ -36,12 +37,9 @@ const PreloaderWrapper = styled.div`
   overflow: hidden;
   z-index: ${ZIndexes.PRELOADER};
   display: flex;
-  align-items: flex-end;
   justify-content: center;
   animation: none;
-  display: flex;
   align-items: center;
-  justify-content: center;
   &.disable {
     display: none;
   }
@@ -120,7 +118,6 @@ const LoadingLine = styled.div<ILoadingLine>`
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
   border-radius: 4px;
   position: absolute;
   bottom: 45px;
@@ -160,19 +157,30 @@ export const Preloader: React.FC = () => {
     resolvedRequestsQuantity,
     requestsQuantity,
     loadingStarted,
+    FRRLoadedImgQuantityLeft,
   } = useStore(PreloaderStore);
   const { isAuthorized } = useStore(AppConditionStore);
+
   const loadingProgress = useCalculateLoadingProgress(
     isAuthorized,
     resolvedRequestsQuantity,
     requestsQuantity,
-    loadingStarted
+    loadingStarted,
+    FRRLoadedImgQuantityLeft
   );
   const [isAnimationStarted, setIsAnimationStarted] = useState(false);
   const [isAnimationEnded, setIsAnimationEnded] = useState(false);
   const preloaderRef = useRef<HTMLDivElement>(null);
   const buildingRef = useRef<HTMLDivElement>(null);
   const cloudClassName = useRef(CloudsState.VISIBLE);
+
+  useEffect(() => {
+    saveFRRImgQuantity(
+      Array.from(document.querySelectorAll('img')).filter(img =>
+        img.hasAttribute('data-render')
+      ).length
+    );
+  }, []);
 
   useEffect(() => {
     const request = requestAnimationFrame(() => {

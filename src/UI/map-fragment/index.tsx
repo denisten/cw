@@ -4,6 +4,7 @@ import styled, { keyframes } from 'styled-components';
 import { ZIndexes } from '../../components/root-component/z-indexes-enum';
 import { useStore } from 'effector-react';
 import { AppConditionStore } from '../../effector/app-condition/store';
+import { FRRImg } from '../../components/first-render-require-img';
 
 const flyingAnim = keyframes`
   to {
@@ -41,7 +42,7 @@ export const MapFragment: React.FC<IMapFragment> = ({
 }) => {
   const { animationOff } = useStore(AppConditionStore);
   const Trees = treeImg ? (
-    <LazyImage src={treeImg} style={lazyImageWrapperStyle} />
+    <FRRImg src={treeImg} style={lazyImageWrapperStyle} />
   ) : null;
 
   const Banner = bannerImg ? (
@@ -53,11 +54,11 @@ export const MapFragment: React.FC<IMapFragment> = ({
   ) : null;
 
   const Decoration = decorationImg ? (
-    <LazyImage src={decorationImg} style={lazyImageWrapperStyle} />
+    <FRRImg src={decorationImg} style={lazyImageWrapperStyle} />
   ) : null;
   return (
     <MapFragmentWrapper>
-      <LazyImage src={roadImg} />
+      <FRRImg src={roadImg} />
       {Trees}
       {Banner}
       {Decoration}
