@@ -11,7 +11,7 @@ import {
   TutorialConditions,
   TutorialStore,
 } from '../../effector/tutorial-store/store';
-import { TutorialDialogTextsService } from './dialog-messages-service';
+import { IDialogData } from './dialog-messages-service';
 import { Sprite } from '../sprite';
 import supportSprite from '../../img/assistant/assistant.png';
 import { UserDataStore } from '../../effector/user-data/store';
@@ -25,6 +25,7 @@ import { ExitButton } from '../../UI/exit-button';
 import { SettingsStore } from '../../effector/settings/store';
 import { useAudio } from '../../hooks/use-sound';
 import assistantSound from '../../sound/assistant-sound.mp3';
+import { usePrintDialogMessage } from '../../hooks/use-print-dialog-message';
 
 const TutorialDialogWrapper = styled.div`
   width: 1128px;
@@ -73,8 +74,9 @@ const ButtonWrapper = styled.div`
   align-items: flex-start;
   justify-content: flex-end;
   box-sizing: border-box;
-  font-family: MTSSansMedium, serif;
+  font-family: ${MTSSans.MEDIUM}, serif;
 `;
+
 const tutorialShowAnimation = keyframes`
 from {
   transform: translateY(500px);
@@ -84,10 +86,7 @@ to {
 }
 `;
 
-const MainWrapper = styled.div<{
-  firstLoaded?: boolean;
-  mustBeAsAnimated?: boolean;
-}>`
+const MainWrapper = styled.div<IMainWrapper>`
   width: 100%;
   height: 36.5%;
   position: absolute;
@@ -96,18 +95,16 @@ const MainWrapper = styled.div<{
   display: flex;
   align-items: center;
   animation: ${props =>
-      props.firstLoaded && props.mustBeAsAnimated ? tutorialShowAnimation : ''}
+      props.DOMLoaded && props.mustBeAsAnimated ? tutorialShowAnimation : ''}
     0.4s ${delayBeforePreloaderOff}ms both;
 `;
-
-const delayBetweenDialogMessages = 600;
-const delayBetweenLetterAppearing = 12;
 
 const styleConfig = {
   exitButton: {
     position: 'absolute',
     top: '4%',
     right: '0%',
+    displayFlag: true,
   },
   sprite: {
     canvasWidth: 224,
@@ -149,71 +146,49 @@ const isNowFirstStepOfTutorial = (
   );
 };
 
-export const TutorialDialog: React.FC<{ mustBeAsAnimated?: boolean }> = ({
+export const TutorialDialog: React.FC<ITutorialDialog> = ({
   mustBeAsAnimated,
+  content,
+  closeCallback,
 }) => {
+  const { worldName } = useStore(UserDataStore);
+  const { DOMLoaded } = useStore(AppConditionStore);
+  const { volume } = useStore(SettingsStore).sound;
+  const { tutorialCondition } = useStore(TutorialStore);
+
   const [printedText, setPrintedText] = useState('');
   const [dialogStep, setDialogStep] = useState(0);
   const [isPrinting, setIsPrinting] = useState(false);
-  const { tutorialCondition } = useStore(TutorialStore);
-  const { worldName } = useStore(UserDataStore);
-  const { DOMLoaded } = useStore(AppConditionStore);
 
-  const {
-    messages,
-    buttonContent,
-    titles,
-    reload,
-    action,
-  } = TutorialDialogTextsService.getCurrentText(tutorialCondition);
+  const { messages, buttonContent, titles, reload, action } = content;
 
   const currentMessage = messages[dialogStep];
-  let letterByLetterCallback: number;
-
-  const {
-    sound: { volume },
-  } = useStore(SettingsStore);
-
-  const { play: assistantPlaySound } = useAudio(assistantSound, false, volume);
   const canPlaySound = tutorialCondition !== 0 && volume && DOMLoaded;
 
-  useEffect(() => {
-    if (DOMLoaded) {
-      tutorialCondition && volume && assistantPlaySound();
-    }
-  }, [tutorialCondition, DOMLoaded]);
+  const { play: playAssistantSound } = useAudio(assistantSound, false, volume);
 
   useEffect(() => {
-    if (!DOMLoaded) return;
-    setPrintedText('');
-    clearTimeout(letterByLetterCallback);
-    setIsPrinting(true);
-    const timeoutBetweenDialogMessages = setTimeout(() => {
-      for (let i = 0; i < currentMessage.length; i++) {
-        letterByLetterCallback = setTimeout(() => {
-          setPrintedText(state => (state += currentMessage[i]));
-          if (i + 1 === currentMessage.length) {
-            setIsPrinting(false);
-          }
-        }, delayBetweenLetterAppearing * i);
-      }
-    }, delayBetweenDialogMessages);
-    return () => {
-      clearTimeout(timeoutBetweenDialogMessages);
-      clearTimeout(letterByLetterCallback);
-    };
-  }, [dialogStep, reload, DOMLoaded]);
+    DOMLoaded && tutorialCondition && volume && playAssistantSound();
+  }, [tutorialCondition, DOMLoaded]);
+
+  usePrintDialogMessage({
+    DOMLoaded,
+    setPrintedText,
+    setIsPrinting,
+    currentMessage,
+    dialogStep,
+    reload,
+  });
 
   const handleClick = () => {
     if (!isPrinting) {
-      if (action && action.step === dialogStep) {
-        action.callBack();
-      }
+      if (action && action.step === dialogStep) action.callBack();
       if (messages.length !== dialogStep + 1) {
         setDialogStep(dialogStep + 1);
-        canPlaySound && assistantPlaySound();
+        canPlaySound && playAssistantSound();
       } else {
-        nextTutorStep();
+        if (tutorialCondition) nextTutorStep();
+        else closeCallback();
       }
     }
   };
@@ -226,13 +201,13 @@ export const TutorialDialog: React.FC<{ mustBeAsAnimated?: boolean }> = ({
       setDialogStep(dialogStep - 1);
     }
   };
+
   return (
-    <MainWrapper firstLoaded={DOMLoaded} mustBeAsAnimated={mustBeAsAnimated}>
+    <MainWrapper DOMLoaded={DOMLoaded} mustBeAsAnimated={mustBeAsAnimated}>
       <TutorialDialogWrapper>
         {!isNowFirstStepOfTutorial(dialogStep, tutorialCondition) && (
           <ExitButton
-            displayFlag={true}
-            callBack={() => disableTutorialMode()}
+            callBack={() => closeCallback()}
             {...styleConfig.exitButton}
           />
         )}
@@ -285,3 +260,14 @@ export const TutorialDialog: React.FC<{ mustBeAsAnimated?: boolean }> = ({
     </MainWrapper>
   );
 };
+
+interface IMainWrapper {
+  DOMLoaded?: boolean;
+  mustBeAsAnimated?: boolean;
+}
+
+interface ITutorialDialog {
+  content: IDialogData;
+  mustBeAsAnimated?: boolean;
+  closeCallback: Function;
+}

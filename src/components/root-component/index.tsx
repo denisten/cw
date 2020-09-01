@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useStore } from 'effector-react';
 import { AppConditionStore } from '../../effector/app-condition/store';
@@ -23,6 +23,9 @@ import { SettingsStore } from '../../effector/settings/store';
 import backgroundMusic from '../../sound/background-sound.mp3';
 import { UserDataStore } from '../../effector/user-data/store';
 import { useRefreshProgress } from '../../hooks/use-refresh-progress';
+import { TasksStore } from '../../effector/tasks-store/store';
+import { MissionsStore } from '../../effector/missions-store/store';
+import { TutorialDialog } from '../tutorial-dialog';
 
 const RootComponentWrapper = styled.div.attrs({ id: 'rootScroll' })<
   IDisplayFlag
@@ -46,24 +49,34 @@ const defineScrollContainerZIndex = (tutorialCondition: TutorialConditions) =>
     ? zIndexForInheritOverlay + 1
     : 0;
 
-export const Index = () => {
+const config = {
+  messages: ['Миссии кончились'],
+  titles: ['Сорямба'],
+  buttonContent: ['ОК'],
+};
+
+export const RootComponent = () => {
   const { DOMLoaded, tutorialSliderDisplayFlag, isAuthorized } = useStore(
     AppConditionStore
   );
   const { tutorialCondition } = useStore(TutorialStore);
   const { volume } = useStore(SettingsStore).music;
   const { freshProgressTimeout } = useStore(UserDataStore);
+  const tasks = useStore(TasksStore);
+  const missions = useStore(MissionsStore);
+
+  const [tasksAvailableFlag, setTasksAvailableFlag] = useState(
+    !tasks.length && !missions.length
+  );
 
   const tutorialIsEnabled = DOMLoaded && tutorialCondition !== 0;
   const displayFlag = checkTutorialCondition(tutorialCondition);
   const zIndex = defineScrollContainerZIndex(tutorialCondition);
-
-  const { play, pause } = useAudio(backgroundMusic, true, volume);
+  const { play } = useAudio(backgroundMusic, true, volume);
 
   useEffect(() => {
-    const canPlayBackgroundSound = volume && !tutorialSliderDisplayFlag;
-    canPlayBackgroundSound ? play() : pause();
-  }, [volume, tutorialSliderDisplayFlag]);
+    DOMLoaded && !tutorialSliderDisplayFlag && volume && play();
+  }, [volume, tutorialSliderDisplayFlag, DOMLoaded]);
 
   useRefreshProgress(freshProgressTimeout, isAuthorized);
   return (
@@ -71,6 +84,13 @@ export const Index = () => {
       <UIButtonInterface />
       <Menu />
       {tutorialSliderDisplayFlag && <InitTutorialSlider />}
+      {tasksAvailableFlag && (
+        <TutorialDialog
+          mustBeAsAnimated={true}
+          content={config}
+          closeCallback={() => setTasksAvailableFlag(false)}
+        />
+      )}
       <>
         <MoveCoinCollection />
         <TowerInfo />
@@ -83,7 +103,6 @@ export const Index = () => {
           isInsideScrollContainer={false}
         />
       )}
-
       <ScrollContainer tutorialCondition={tutorialCondition} zIndex={zIndex} />
       <TutorialOverlay
         displayFlag={displayFlag}
