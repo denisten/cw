@@ -28,7 +28,7 @@ const allMenuItems = [
   MenuItems.HELP,
   MenuItems.INFO,
   MenuItems.SETTINGS,
-  // MenuItems.DEV,
+  MenuItems.DEV,
 ];
 
 export const MenuItemsComponent: React.FC<IMenuItemsComponent> = ({

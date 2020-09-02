@@ -157,7 +157,9 @@ export const TutorialDialog: React.FC<ITutorialDialog> = ({
   const { worldName } = useStore(UserDataStore);
   const { DOMLoaded } = useStore(AppConditionStore);
   const { volume } = useStore(SettingsStore).sound;
-  const { tutorialCondition } = useStore(TutorialStore);
+  const { tutorialCondition, tutorialOnAuthorizedUser } = useStore(
+    TutorialStore
+  );
 
   const [printedText, setPrintedText] = useState('');
   const [dialogStep, setDialogStep] = useState(0);
@@ -187,6 +189,10 @@ export const TutorialDialog: React.FC<ITutorialDialog> = ({
   const handleClick = () => {
     if (!isPrinting) {
       if (action && action.step === dialogStep) action.callBack();
+      if (
+        tutorialCondition === TutorialConditions.FINALLY_DIALOG_WITH_AUTH_USER
+      )
+        return;
       if (messages.length !== dialogStep + 1) {
         setDialogStep(dialogStep + 1);
         canPlaySound && playAssistantSound();
@@ -199,8 +205,8 @@ export const TutorialDialog: React.FC<ITutorialDialog> = ({
 
   const handleBackButtonClick = () => {
     if (isNowFirstStepOfTutorial(dialogStep, tutorialCondition)) {
-      disableTutorialMode();
       handleAuthButtonClick();
+      disableTutorialMode();
     } else if (dialogStep) {
       setDialogStep(dialogStep - 1);
     }
@@ -209,12 +215,14 @@ export const TutorialDialog: React.FC<ITutorialDialog> = ({
   return (
     <MainWrapper DOMLoaded={DOMLoaded} mustBeAsAnimated={mustBeAsAnimated}>
       <TutorialDialogWrapper>
-        {!isNowFirstStepOfTutorial(dialogStep, tutorialCondition) && (
-          <ExitButton
-            callBack={() => closeCallback()}
-            {...styleConfig.exitButton}
-          />
-        )}
+        {tutorialCondition !==
+          TutorialConditions.FINALLY_DIALOG_WITH_AUTH_USER &&
+          !isNowFirstStepOfTutorial(dialogStep, tutorialCondition) && (
+            <ExitButton
+              callBack={() => closeCallback()}
+              {...styleConfig.exitButton}
+            />
+          )}
         <SupportSpriteWrapper>
           <Sprite img={supportSprite} {...styleConfig.sprite} />
         </SupportSpriteWrapper>
@@ -238,7 +246,8 @@ export const TutorialDialog: React.FC<ITutorialDialog> = ({
             {!isPrinting && (
               <>
                 {(dialogStep ||
-                  tutorialCondition === TutorialConditions.DIALOG_HELLO) && (
+                  (tutorialCondition === TutorialConditions.DIALOG_HELLO &&
+                    !tutorialOnAuthorizedUser)) && (
                   <Button
                     className={ButtonClassNames.OUTLINE_NORMAL}
                     callback={handleBackButtonClick}

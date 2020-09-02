@@ -10,7 +10,7 @@ export enum MenuItems {
   HELP = 'voprosy_i_otvety',
   INFO = 'oferta',
   SETTINGS = 'nastroiki',
-  // DEV = 'instrumenty_razrabotki',
+  DEV = 'instrumenty_razrabotki',
 }
 
 const TranslatedMenuItems = {
@@ -19,7 +19,7 @@ const TranslatedMenuItems = {
   [MenuItems.HELP]: 'Помощь',
   [MenuItems.INFO]: 'Что нового?',
   [MenuItems.SETTINGS]: 'Настройки',
-  // [MenuItems.DEV]: 'Инструменты разработки',
+  [MenuItems.DEV]: 'Инструменты разработки',
 };
 
 const notSelectedItemFontWeight = 500;

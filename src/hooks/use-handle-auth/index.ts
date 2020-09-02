@@ -13,6 +13,8 @@ import {
 } from '../../effector/app-condition/events';
 import { scoreSuccessRequests } from '../../effector/preloader/events';
 import { fetchIncomes } from '../../effector/reward/events';
+import { TutorialStore } from '../../effector/tutorial-store/store';
+import { disableTutorialRequest } from '../../api/disable-tutorial';
 
 const authHandlersList = [fetchAllProductsData, fetchIncomes, fetchUserData];
 
@@ -36,6 +38,11 @@ const prepareMap = () => {
   scoreSuccessRequests();
 };
 
+const disablePassedTutorial = () => {
+  const { successfulTutorial } = TutorialStore.getState();
+  successfulTutorial && disableTutorialRequest();
+};
+
 const handleAuth = async (isAuthorized: boolean, dataReceived: boolean) => {
   if (isAuthorized && !dataReceived) {
     const { worldName } = UserDataStore.getState();
@@ -45,6 +52,7 @@ const handleAuth = async (isAuthorized: boolean, dataReceived: boolean) => {
 
     await waitForAllRequestsIsDone();
     await openWsConnection();
+    disablePassedTutorial();
     prepareMap();
   }
 };
