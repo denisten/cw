@@ -19,4 +19,5 @@ export interface IGetProfile {
   musicValue: number;
   soundValue: number;
   showSlider: boolean;
+  showTutorial: boolean;
 }

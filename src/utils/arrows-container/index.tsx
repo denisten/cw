@@ -2,7 +2,6 @@ import React, { Fragment } from 'react';
 import { Directions, TutorialArrow } from '../../UI/tutorial-arrow';
 import { TutorialDialog } from '../../components/tutorial-dialog';
 import { TutorialConditions } from '../../effector/tutorial-store/store';
-import { TutorialDialogTextsService } from '../../components/tutorial-dialog/dialog-messages-service';
 import { disableTutorialMode } from '../../effector/tutorial-store/events';
 
 type ArrowsContainerProps = {
@@ -16,14 +15,6 @@ const TutorialToolsSelector: React.FC<ArrowsContainerProps> = ({
   tutorialCondition,
   isInsideScrollContainer,
 }) => {
-  const {
-    messages,
-    buttonContent,
-    titles,
-    reload,
-    action,
-  } = TutorialDialogTextsService.getCurrentText(tutorialCondition);
-
   switch (tutorialCondition) {
     case TutorialConditions.ARROW_TOWER_INFO:
       if (isInsideScrollContainer)
@@ -41,7 +32,6 @@ const TutorialToolsSelector: React.FC<ArrowsContainerProps> = ({
         return (
           <TutorialDialog
             mustBeAsAnimated={true}
-            content={{ messages, buttonContent, titles, reload, action }}
             closeCallback={closeTutorialDialogCallback}
           />
         );
@@ -50,12 +40,7 @@ const TutorialToolsSelector: React.FC<ArrowsContainerProps> = ({
     case TutorialConditions.DIALOG_START_MISSION:
     case TutorialConditions.DIALOG_AUTH:
       if (!isInsideScrollContainer)
-        return (
-          <TutorialDialog
-            content={{ messages, buttonContent, titles, reload, action }}
-            closeCallback={closeTutorialDialogCallback}
-          />
-        );
+        return <TutorialDialog closeCallback={closeTutorialDialogCallback} />;
       else return <Fragment />;
     default:
       return <Fragment />;

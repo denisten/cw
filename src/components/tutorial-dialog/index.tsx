@@ -11,7 +11,10 @@ import {
   TutorialConditions,
   TutorialStore,
 } from '../../effector/tutorial-store/store';
-import { IDialogData } from './dialog-messages-service';
+import {
+  IDialogData,
+  TutorialDialogTextsService,
+} from './dialog-messages-service';
 import { Sprite } from '../sprite';
 import supportSprite from '../../img/assistant/assistant.png';
 import { UserDataStore } from '../../effector/user-data/store';
@@ -160,7 +163,8 @@ export const TutorialDialog: React.FC<ITutorialDialog> = ({
   const [dialogStep, setDialogStep] = useState(0);
   const [isPrinting, setIsPrinting] = useState(false);
 
-  const { messages, buttonContent, titles, reload, action } = content;
+  const { messages, buttonContent, titles, reload, action } =
+    content || TutorialDialogTextsService.getCurrentText(tutorialCondition);
 
   const currentMessage = messages[dialogStep];
   const canPlaySound = tutorialCondition !== 0 && volume && DOMLoaded;
@@ -267,7 +271,7 @@ interface IMainWrapper {
 }
 
 interface ITutorialDialog {
-  content: IDialogData;
+  content?: IDialogData;
   mustBeAsAnimated?: boolean;
   closeCallback: Function;
 }

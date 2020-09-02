@@ -66,7 +66,7 @@ export const RootComponent = () => {
   const missions = useStore(MissionsStore);
 
   const [tasksAvailableFlag, setTasksAvailableFlag] = useState(
-    !tasks.length && !missions.length
+    !tasks.length && !missions.length && isAuthorized
   );
 
   const tutorialIsEnabled = DOMLoaded && tutorialCondition !== 0;
