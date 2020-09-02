@@ -14,6 +14,7 @@ import { useStore } from 'effector-react';
 import { PreloaderStore } from '../../effector/preloader/store';
 import { AppConditionStore } from '../../effector/app-condition/store';
 import { saveFRRImgQuantity } from '../../effector/preloader/events';
+import { IDisplayFlag } from '../root-component';
 
 enum InheritZIndexes {
   BUILDINGS = 2,
@@ -28,7 +29,7 @@ from {opacity: 0};
 to {opacity: 1};
 `;
 
-const PreloaderWrapper = styled.div`
+const PreloaderWrapper = styled.div<IDisplayFlag>`
   width: 100%;
   height: 100%;
   position: fixed;
@@ -36,7 +37,7 @@ const PreloaderWrapper = styled.div`
   left: 0;
   overflow: hidden;
   z-index: ${ZIndexes.PRELOADER};
-  display: flex;
+  display: ${props => (props.displayFlag ? 'flex' : 'none')};
   justify-content: center;
   animation: none;
   align-items: center;
@@ -152,7 +153,7 @@ enum CloudsState {
   VISIBLE = 'cloud',
   HIDE = 'hideCloud',
 }
-export const Preloader: React.FC = () => {
+export const Preloader: React.FC<IDisplayFlag> = ({ displayFlag }) => {
   const {
     resolvedRequestsQuantity,
     requestsQuantity,
@@ -209,7 +210,7 @@ export const Preloader: React.FC = () => {
   };
 
   return (
-    <PreloaderWrapper ref={preloaderRef}>
+    <PreloaderWrapper ref={preloaderRef} displayFlag={displayFlag}>
       <BuildingWrapper
         ref={buildingRef}
         onTransitionEnd={() => setIsAnimationStarted(false)}
@@ -261,4 +262,8 @@ export interface ICloud {
 
 interface ILoadingLine {
   progress: number;
+}
+
+interface IPreloader {
+  style: React.CSSProperties;
 }
