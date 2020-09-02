@@ -7,6 +7,7 @@ import {
 } from '../../api/tasks-api/result';
 import { ITask, TaskStatuses } from './store';
 import { rewardRequest } from '../../api/tasks-api/reward';
+import { TaskTypes } from '../../app';
 
 export const saveTask = MissionsDomain.event<ITask[]>();
 
@@ -22,8 +23,9 @@ export const activateTask = MissionsDomain.effect(
 export const getTaskReward = MissionsDomain.effect(
   'get reward for task complete',
   {
-    handler: async (id: number) => {
-      return await rewardRequest(id);
+    handler: async ({ id, taskType }: IGetTaskReward) => {
+      await rewardRequest(id);
+      return { id, taskType };
     },
   }
 );
@@ -58,4 +60,9 @@ interface ISetCurrentTaskStatus {
 
 interface IGetResult extends IGetTaskResultRequest {
   id: number;
+}
+
+interface IGetTaskReward {
+  id: number;
+  taskType: TaskTypes;
 }

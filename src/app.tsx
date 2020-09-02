@@ -21,6 +21,21 @@ enum EventCodes {
   STRING_MINUS = '-',
 }
 
+export enum TaskTypes {
+  TUTORIAL_TASK = 'tutorial-task',
+  TASK = 'task',
+  CHALLENGE = 'challenge',
+  MISSION = 'mission',
+  NBO = 'nbo',
+  PAID = 'paid',
+  TARGET = 'target',
+  INFORMATIONAL = 'informational',
+  PRODUCT_QUIZ = 'product-quiz',
+  RELATED_QUIZ = 'related-quiz',
+  COSMETIC = 'cosmetic',
+  SUBTASK = 'subtask',
+}
+
 export const App: React.FC = () => {
   const wheelPreventDefault = (e: WheelEvent) => {
     if (e.ctrlKey) {

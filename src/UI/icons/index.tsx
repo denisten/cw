@@ -22,12 +22,11 @@ import soundActive from './soundActive.svg';
 import musicDisable from './musicDisable.svg';
 import soundDisable from './soundDisable.svg';
 import notAvailableTask from './not-available.svg';
-
-import { TasksType } from '../../components/menu/menu-tasks';
 import { MarkerTypes } from '../../components/markers';
 import { CouponTypes } from '../../effector/coupons/store';
 import { SettingsType } from '../../effector/settings/store';
 import { TaskStatuses } from '../../effector/tasks-store/store';
+import { TaskTypes } from '../../app';
 
 export enum TypeOfIcons {
   ENERGY = 'energy',
@@ -50,7 +49,7 @@ export const Icon: React.FC<IIcon> = ({
   const switchSrc = (
     type:
       | TypeOfIcons
-      | TasksType
+      | TaskTypes
       | MarkerTypes
       | CouponTypes
       | SettingsType
@@ -60,22 +59,22 @@ export const Icon: React.FC<IIcon> = ({
     switch (type) {
       case TypeOfIcons.CHAT:
         return chat;
-      case TasksType.CHALLENGE:
-      case TasksType.PRODUCT_QUIZ:
+      case TaskTypes.CHALLENGE:
+      case TaskTypes.PRODUCT_QUIZ:
         return challenge;
-      case TasksType.MISSION:
-      case TasksType.RELATED_QUIZ:
+      case TaskTypes.MISSION:
+      case TaskTypes.RELATED_QUIZ:
         return missions;
-      case TasksType.NBO:
-      case TasksType.INFORMATIONAL:
+      case TaskTypes.NBO:
+      case TaskTypes.INFORMATIONAL:
         return nbo;
-      case TasksType.COSMETIC:
+      case TaskTypes.COSMETIC:
         return cosmetics;
       case TypeOfIcons.ENERGY:
         return energy;
       case TypeOfIcons.COIN:
         return coin;
-      case TasksType.TUTORIAL_TASK:
+      case TaskTypes.TUTORIAL_TASK:
         return login;
       case MarkerTypes.TASK:
         return notice;
@@ -123,7 +122,7 @@ interface IIcon {
   };
   type:
     | TypeOfIcons
-    | TasksType
+    | TaskTypes
     | MarkerTypes
     | CouponTypes
     | SettingsType

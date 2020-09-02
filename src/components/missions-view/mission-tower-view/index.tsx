@@ -21,6 +21,7 @@ import { UnavailableSubtaskView } from '../unavailable-subtask-view';
 import { CompletedTasksWrapper, detectSubTaskId } from '../index';
 import backImg from './back-img.svg';
 import { MTSSans } from '../../../fonts';
+import { TaskTypes } from '../../../app';
 
 export const MissionTowerViewWrapper = styled.div`
   height: 70px;
@@ -83,7 +84,12 @@ export const MissionTowerView: React.FC<IMissionTowerView> = ({
       ? mission.userSubTasks
           .slice(0, currentSubtaskId + 1)
           .map(el => (
-            <TowerTaskRow isInTowerInfo={true} task={el} key={el.id} />
+            <TowerTaskRow
+              isInTowerInfo={true}
+              task={el}
+              key={el.id}
+              taskType={TaskTypes.SUBTASK}
+            />
           ))
       : React.Fragment;
 

@@ -12,7 +12,6 @@ import { handleTaskClick } from '../../../utils/handle-task-click';
 import vectorImg from './vector.svg';
 import { RowWrapper } from '../../../UI/row-wrapper';
 import { couponModalConfig } from '../../tower-info/tower-info-chat';
-import { TasksType } from '../../menu/menu-tasks';
 import { ITask, TaskStatuses } from '../../../effector/tasks-store/store';
 import takeRewardSound from '../../../sound/take-reward.mp3';
 import activeTask from '../../../sound/active-task.mp3';
@@ -21,6 +20,7 @@ import { useStore } from 'effector-react';
 import { useAudio } from '../../../hooks/use-sound';
 import completedImg from './completed.svg';
 import { handleTaskWrapperClick } from '../menu-task-row';
+import { TaskTypes } from '../../../app';
 
 export const TaskWrapper = styled.div<ITaskLocation>`
   width: 100%;
@@ -205,8 +205,12 @@ export const taskRowStyledConfig = {
 export const checkTaskStatus = (status: TaskStatuses) =>
   status === TaskStatuses.REJECTED;
 
-export const TowerTaskRow: React.FC<ITasksRow> = ({ isInTowerInfo, task }) => {
-  const { taskTypeSlug: taskType, productSlug: towerTitle } = task;
+export const TowerTaskRow: React.FC<ITasksRow> = ({
+  isInTowerInfo,
+  task,
+  taskType,
+}) => {
+  const { taskTypeSlug, productSlug: towerTitle } = task;
 
   const [isOpened, setIsOpened] = useState(false);
   const taskWrapperRef = useRef<HTMLDivElement>(null);
@@ -223,10 +227,10 @@ export const TowerTaskRow: React.FC<ITasksRow> = ({ isInTowerInfo, task }) => {
 
   const handleWrapperClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (taskType === TasksType.TUTORIAL_TASK) {
+    if (taskTypeSlug === TaskTypes.TUTORIAL_TASK) {
       // do next tutorial step in future
     } else {
-      handleTaskClick(task, e);
+      handleTaskClick({ taskData: task, e, taskType });
       task.status === TaskStatuses.DONE && volume && playRewardSound();
       task.status === TaskStatuses.CREATED && volume && playActiveTask();
     }
@@ -237,7 +241,7 @@ export const TowerTaskRow: React.FC<ITasksRow> = ({ isInTowerInfo, task }) => {
       taskDescriptionRef,
       isOpened,
       setIsOpened,
-      taskType,
+      taskType: taskTypeSlug,
       vectorRef,
     });
   };
@@ -260,7 +264,7 @@ export const TowerTaskRow: React.FC<ITasksRow> = ({ isInTowerInfo, task }) => {
         towerTitle={towerTitle}
       />
       <TaskInfo>
-        <Icon type={taskType} />
+        <Icon type={taskTypeSlug} />
         <Title isInTowerInfo={isInTowerInfo}>{task.title}</Title>
         <VectorImg ref={vectorRef} />
       </TaskInfo>
@@ -310,6 +314,7 @@ export interface ITasksRow {
   task: ITask;
   isInTowerInfo: boolean;
   available?: boolean;
+  taskType: TaskTypes;
 }
 
 export interface ITaskLocation {

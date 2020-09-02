@@ -23,6 +23,7 @@ import { ITask, TaskStatuses } from '../../effector/tasks-store/store';
 import { UnavailableSubtaskView } from './unavailable-subtask-view';
 import { MissionProgressBarButton } from '../../UI/mission-progress-bar-button';
 import { IDisplayFlag } from '../root-component';
+import { TaskTypes } from '../../app';
 
 const completedTaskMargin = 20;
 
@@ -77,7 +78,12 @@ export const MissionMenuRowView: React.FC<IMissionsView> = ({ taskData }) => {
       ? taskData.userSubTasks
           .slice(0, currentSubtaskId + 1)
           .map(el => (
-            <MenuTaskRow isInTowerInfo={false} task={el} key={el.id} />
+            <MenuTaskRow
+              isInTowerInfo={false}
+              task={el}
+              key={el.id}
+              taskType={TaskTypes.SUBTASK}
+            />
           ))
       : React.Fragment;
 

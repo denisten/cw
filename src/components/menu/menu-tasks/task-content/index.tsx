@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { TasksType } from '..';
 import { Tasks } from './task';
 import { Challenge } from './challenge';
 import { Mission } from './mission';
+import { TaskTypes } from '../../../../app';
 
 const Body = styled.div`
   width: calc(100% - 28px);
@@ -19,13 +19,13 @@ const Body = styled.div`
 export const TasksContent: React.FC<ITasksContent> = ({ activeType }) => {
   return (
     <Body>
-      <Tasks active={activeType === TasksType.TASKS} />
-      <Challenge active={activeType === TasksType.CHALLENGE} />
-      <Mission active={activeType === TasksType.MISSION} />
+      <Tasks active={activeType === TaskTypes.TASK} />
+      <Challenge active={activeType === TaskTypes.CHALLENGE} />
+      <Mission active={activeType === TaskTypes.MISSION} />
     </Body>
   );
 };
 
 interface ITasksContent {
-  activeType: TasksType;
+  activeType: TaskTypes;
 }
