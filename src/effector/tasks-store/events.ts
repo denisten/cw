@@ -6,6 +6,7 @@ import {
   IGetTaskResultRequest,
 } from '../../api/tasks-api/result';
 import { ITask, TaskStatuses } from './store';
+import { rewardRequest } from '../../api/tasks-api/reward';
 
 export const saveTask = MissionsDomain.event<ITask[]>();
 
@@ -15,6 +16,14 @@ export const activateTask = MissionsDomain.effect(
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     handler: async ({ id, towerTitle }) => {
       return await activateTaskRequest(id);
+    },
+  }
+);
+export const getTaskReward = MissionsDomain.effect(
+  'get reward for task complete',
+  {
+    handler: async (id: number) => {
+      return await rewardRequest(id);
     },
   }
 );

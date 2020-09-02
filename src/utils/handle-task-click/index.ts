@@ -7,7 +7,11 @@ import {
 import { ChatStore } from '../../effector/chat/store';
 import { chatTaskSession, clearChat } from '../../effector/chat/events';
 import { setTowerInfoContent } from '../../effector/app-condition/events';
-import { activateTask, verifyTask } from '../../effector/tasks-store/events';
+import {
+  activateTask,
+  getTaskReward,
+  verifyTask,
+} from '../../effector/tasks-store/events';
 import { scrollToCurrentTower } from '../scroll-to-current-tower';
 import { BuildingsService } from '../../buildings/config';
 import { animateTaskReward } from '../animate-task-reward';
@@ -21,7 +25,7 @@ import { MarkerTypes } from '../../components/markers';
 import { rewardRequest } from '../../api/tasks-api/reward';
 import { editUserProperty } from '../../effector/user-data/events';
 
-const getReward = (money: number, energy: number) => {
+const updateUserBalance = (money: number, energy: number) => {
   editUserProperty({
     money,
     energy,
@@ -65,8 +69,8 @@ export const handleTaskClick = async (taskData: ITask, e: React.MouseEvent) => {
       break;
     case TaskStatuses.DONE:
       animateTaskReward(taskData.money, e);
-      await rewardRequest(id);
-      getReward(money, energy);
+      await getTaskReward(id);
+      updateUserBalance(money, energy);
       hideMarker({ towerTitle, type: MarkerTypes.SUCCESS });
       clearChat({ towerTitle });
       break;
