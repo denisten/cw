@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  ITask,
-  TaskStatuses,
-  TasksStore,
-} from '../../effector/tasks-store/store';
+import { ITask, TaskStatuses } from '../../effector/tasks-store/store';
 import {
   AppConditionStore,
   TowerInfoContentValues,
@@ -25,10 +21,7 @@ import { MarkerTypes } from '../../components/markers';
 import { rewardRequest } from '../../api/tasks-api/reward';
 import { editUserProperty } from '../../effector/user-data/events';
 
-const getReward = (id: number) => {
-  const tasks = TasksStore.getState();
-  const currentEl = tasks.findIndex(el => el.id === id);
-  const { money, energy } = tasks[currentEl];
+const getReward = (money: number, energy: number) => {
   editUserProperty({
     money,
     energy,
@@ -36,8 +29,7 @@ const getReward = (id: number) => {
 };
 
 export const handleTaskClick = async (taskData: ITask, e: React.MouseEvent) => {
-  const { id, productSlug: towerTitle } = taskData;
-
+  const { id, productSlug: towerTitle, money, energy } = taskData;
   const { fullSizeMode } = AppConditionStore.getState();
   const { selectedMenuItem } = MenuStore.getState();
   const { taskId: chatTaskId } = ChatStore.getState()[towerTitle];
@@ -74,7 +66,7 @@ export const handleTaskClick = async (taskData: ITask, e: React.MouseEvent) => {
     case TaskStatuses.DONE:
       animateTaskReward(taskData.money, e);
       await rewardRequest(id);
-      getReward(id);
+      getReward(money, energy);
       hideMarker({ towerTitle, type: MarkerTypes.SUCCESS });
       clearChat({ towerTitle });
       break;

@@ -2,7 +2,7 @@ import React from 'react';
 import { Profile } from '../menu-profile';
 import styled from 'styled-components';
 import { ZIndexes } from '../../root-component/z-indexes-enum';
-import { DevTools } from '../../dev-tools';
+// import { DevTools } from '../../dev-tools';
 import { MenuItems } from '../../../UI/menu-paragraph';
 import { Settings } from '../../settings';
 import { MenuTasks } from '../menu-tasks';
@@ -30,8 +30,8 @@ const MenuContentSelector: React.FC<IMenuContent> = ({ content }) => {
       return <Settings />;
     case MenuItems.INFO:
       return <MenuInfo />;
-    case MenuItems.DEV:
-      return <DevTools />;
+    // case MenuItems.DEV:
+    //   return <DevTools />;
     default:
       return <h1>In Progress...</h1>;
   }
