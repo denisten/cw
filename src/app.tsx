@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Route, Router, Switch } from 'react-router';
-import { RootComponent } from './components/root-component/root-component';
+import { RootComponent } from './components/root-component';
 import history from './history';
 import { AuthLandingPage } from './components/auth-landing-page';
 import { GlobalStyle } from './global-style';

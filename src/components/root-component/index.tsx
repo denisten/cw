@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useStore } from 'effector-react';
 import { AppConditionStore } from '../../effector/app-condition/store';
@@ -10,7 +10,6 @@ import {
 import { ScrollContainer } from '../scroll-container';
 import { TutorialOverlay } from '../tutorial-overlay';
 import { zIndexForInheritOverlay } from '../../constants';
-import { IDisplayFlag } from '../skip-tutorial';
 import { InitTutorialSlider } from '../tutorial-slider/init-slider';
 import { Menu } from '../menu';
 import { useAudio } from '../../hooks/use-sound';
@@ -24,7 +23,9 @@ import { SettingsStore } from '../../effector/settings/store';
 import backgroundMusic from '../../sound/background-sound.mp3';
 import { UserDataStore } from '../../effector/user-data/store';
 import { useRefreshProgress } from '../../hooks/use-refresh-progress';
-// import { SkipTutorial } from '../skip-tutorial';
+import { TasksStore } from '../../effector/tasks-store/store';
+import { MissionsStore } from '../../effector/missions-store/store';
+import { TutorialDialog } from '../tutorial-dialog';
 
 const RootComponentWrapper = styled.div.attrs({ id: 'rootScroll' })<
   IDisplayFlag
@@ -48,52 +49,60 @@ const defineScrollContainerZIndex = (tutorialCondition: TutorialConditions) =>
     ? zIndexForInheritOverlay + 1
     : 0;
 
+const contentConfig = {
+  messages: ['На сегодня всё. Приходи завтра!'],
+  titles: ['Вау! Ты выполнил все задания!'],
+  buttonContent: ['ОК'],
+};
+
 export const RootComponent = () => {
   const { DOMLoaded, tutorialSliderDisplayFlag, isAuthorized } = useStore(
     AppConditionStore
   );
-  // const [showSkipTutorialUI, setShowSkipTutorialUI] = useState(true);
   const { tutorialCondition } = useStore(TutorialStore);
+  const { volume } = useStore(SettingsStore).music;
+  const { freshProgressTimeout } = useStore(UserDataStore);
+  const tasks = useStore(TasksStore);
+  const missions = useStore(MissionsStore);
+
+  const [tasksAvailableFlag, setTasksAvailableFlag] = useState(
+    !tasks.length && !missions.length
+  );
+
   const tutorialIsEnabled = DOMLoaded && tutorialCondition !== 0;
   const displayFlag = checkTutorialCondition(tutorialCondition);
   const zIndex = defineScrollContainerZIndex(tutorialCondition);
-  const {
-    music: { volume },
-  } = useStore(SettingsStore);
-  const { freshProgressTimeout } = useStore(UserDataStore);
-  useRefreshProgress(freshProgressTimeout, isAuthorized);
-
-  const { play, pause } = useAudio(backgroundMusic, true, volume);
+  const { play } = useAudio(backgroundMusic, true, volume);
 
   useEffect(() => {
-    const canPlayBackgroundSound = volume && !tutorialSliderDisplayFlag;
-    canPlayBackgroundSound ? play() : pause();
-  }, [volume, tutorialSliderDisplayFlag]);
+    DOMLoaded && !tutorialSliderDisplayFlag && volume && play();
+  }, [volume, tutorialSliderDisplayFlag, DOMLoaded]);
 
+  useRefreshProgress(freshProgressTimeout, isAuthorized);
   return (
     <RootComponentWrapper displayFlag={DOMLoaded}>
       <UIButtonInterface />
       <Menu />
       {tutorialSliderDisplayFlag && <InitTutorialSlider />}
-      {DOMLoaded && (
-        <>
-          <MoveCoinCollection />
-          <TowerInfo />
-          <Encyclopedia />
-          <Shop />
-        </>
+      {tasksAvailableFlag && (
+        <TutorialDialog
+          mustBeAsAnimated={true}
+          content={contentConfig}
+          closeCallback={() => setTasksAvailableFlag(false)}
+        />
       )}
+      <>
+        <MoveCoinCollection />
+        <TowerInfo />
+        <Encyclopedia />
+        <Shop />
+      </>
       {tutorialIsEnabled && (
         <TutorialToolsSelector
           tutorialCondition={tutorialCondition}
           isInsideScrollContainer={false}
         />
       )}
-
-      {/* <SkipTutorial
-        displayFlag={showSkipTutorialUI}
-        setDisplayFlag={() => setShowSkipTutorialUI(!showSkipTutorialUI)}
-      /> */}
       <ScrollContainer tutorialCondition={tutorialCondition} zIndex={zIndex} />
       <TutorialOverlay
         displayFlag={displayFlag}
@@ -102,3 +111,7 @@ export const RootComponent = () => {
     </RootComponentWrapper>
   );
 };
+
+export interface IDisplayFlag {
+  displayFlag: boolean;
+}

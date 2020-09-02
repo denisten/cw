@@ -21,11 +21,11 @@ import { saveUserData } from '../../api/save-user-data';
 import supportSprite from '../../img/assistant/assistant.png';
 import { Sprite } from '../../components/sprite';
 import { PopUpContentWrapper } from '../pop-up-content-wrapper';
-import { IDisplayFlag } from '../../components/skip-tutorial';
 import { AppConditionStore } from '../../effector/app-condition/store';
 import { inputValidation } from '../../utils/input-validation';
 import { menuClosed } from '../../effector/menu-store/events';
 import { reactGAEvent } from '../../utils/ga-event';
+import { IDisplayFlag } from '../../components/root-component';
 
 export const PopUpTitle = styled(StyledSpan)`
   font-family: ${MTSSans.BLACK};

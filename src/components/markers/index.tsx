@@ -1,19 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
-
 import { TowersTypes } from '../../effector/towers-progress/store';
 import { ZIndexes } from '../root-component/z-indexes-enum';
 import { Timer } from './timer';
 import { scaleAnimation } from '../../hoc/scale-anim';
 import { IMarker } from '../../effector/towers-marker/store';
 import { markerClickHandler } from '../../utils/marker-click-handler';
-import { IDisplayFlag } from '../skip-tutorial';
 import { Icon } from '../../UI/icons';
 import takeRewardSound from '../../sound/take-reward.mp3';
-
 import { useStore } from 'effector-react';
 import { SettingsStore } from '../../effector/settings/store';
 import { useAudio } from '../../hooks/use-sound';
+import { IDisplayFlag } from '../root-component';
 
 export enum MarkerTypes {
   TASK = 'task',

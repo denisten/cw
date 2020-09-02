@@ -21,8 +21,8 @@ import { TaskLoot } from '../../UI/task-loot';
 import { TaskTimer } from '../../UI/task-timer';
 import { ITask, TaskStatuses } from '../../effector/tasks-store/store';
 import { UnavailableSubtaskView } from './unavailable-subtask-view';
-import { IDisplayFlag } from '../skip-tutorial';
 import { MissionProgressBarButton } from '../../UI/mission-progress-bar-button';
+import { IDisplayFlag } from '../root-component';
 
 const completedTaskMargin = 20;
 
