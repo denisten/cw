@@ -36,6 +36,7 @@ export const MenuItemsComponent: React.FC<IMenuItemsComponent> = ({
   callBack,
   currentAlertsList,
 }) => {
+  const haveDevFlag = window.location.host.includes('dev');
   return (
     <MenuWrapper>
       {allMenuItems.map(el => {
@@ -46,6 +47,7 @@ export const MenuItemsComponent: React.FC<IMenuItemsComponent> = ({
             isItemSelected={selectedMenuItem === el}
             haveNotify={checkHaveNotify(currentAlertsList, el)}
             onClickHandler={() => callBack(el)}
+            hidden={el === MenuItems.DEV && !haveDevFlag}
           />
         );
       })}
