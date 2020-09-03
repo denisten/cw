@@ -65,9 +65,13 @@ export const RootComponent = () => {
   const tasks = useStore(TasksStore);
   const missions = useStore(MissionsStore);
 
-  const [tasksAvailableFlag, setTasksAvailableFlag] = useState(
-    !tasks.length && !missions.length && isAuthorized
-  );
+  const [tasksAvailableFlag, setTasksAvailableFlag] = useState(false);
+
+  useEffect(() => {
+    if (!tasks.length && !missions.length && isAuthorized) {
+      setTasksAvailableFlag(true);
+    }
+  }, [tasks.length, missions.length, isAuthorized]);
 
   const tutorialIsEnabled = DOMLoaded && tutorialCondition !== 0;
   const displayFlag = checkTutorialCondition(tutorialCondition);
