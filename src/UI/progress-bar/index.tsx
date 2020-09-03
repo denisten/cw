@@ -111,7 +111,7 @@ export const ProgressBar: React.FC<IProgressBar> = ({
       upgradeTowerAndShowAnimation(towerTitle);
       extraTowerInfoModalClosed();
       if (tutorialOnAuthorizedUser) {
-        setTutorialCondition(TutorialConditions.FINALLY_DIALOG_WITH_AUTH_USER);
+        setTutorialCondition(TutorialConditions.FINAL);
       } else {
         nextTutorStep();
       }

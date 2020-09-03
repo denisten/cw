@@ -8,7 +8,7 @@ export enum TutorialDialogsValues {
   DIALOG_CONFIRM_CITY_NAME = 'DIALOG_CONFIRM_CITY_NAME',
   DIALOG_AUTH = 'DIALOG_AUTH',
   DIALOG_START_MISSION = 'DIALOG_START_MISSION',
-  FINALLY_DIALOG_WITH_AUTH_USER = 'FINALLY_DIALOG_WITH_AUTH_USER',
+  FINAL = 'FINAL',
 }
 
 class TutorialDialogTextsService {
@@ -56,7 +56,7 @@ class TutorialDialogTextsService {
       titles: ['Отличная работа!'],
       buttonContent: ['Войти'],
     },
-    [TutorialConditions.FINALLY_DIALOG_WITH_AUTH_USER]: {
+    [TutorialConditions.FINAL]: {
       messages: [
         'Отлично! Обучение пройдено. Можно продолжать пользоваться миром',
       ],
