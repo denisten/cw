@@ -11,6 +11,7 @@ import {
   setFullSizeMode,
   editTutorialSliderDisplayFlag,
   toggleAnimation,
+  receivedTasks,
 } from './events';
 import { TowersTypes } from '../towers-progress/store';
 import { upgradeTower } from '../towers-progress/events';
@@ -37,6 +38,7 @@ const initState = {
   haveCorrectCookie: false,
   fullSizeMode: false,
   animationOff: true,
+  fetchedTasks: false,
 };
 
 const appConditionLocalStorage = connectLocalStorage('AppCondition').onChange(
@@ -44,6 +46,7 @@ const appConditionLocalStorage = connectLocalStorage('AppCondition').onChange(
 );
 
 export const AppConditionStore = AppDomain.store<AppConditionType>(initState)
+  .on(receivedTasks, state => ({ ...state, fetchedTasks: true }))
   .on(toggleAnimation, state => ({
     ...state,
     animationOff: !state.animationOff,
@@ -131,4 +134,5 @@ export type AppConditionType = {
   haveCorrectCookie: boolean;
   fullSizeMode: boolean;
   animationOff: boolean;
+  fetchedTasks: boolean;
 };

@@ -21,6 +21,8 @@ import {
 } from '../../effector/coupons/events';
 import { tasksHandler } from './handlers/tasks';
 import { missionsHandler } from './handlers/missions';
+import { receivedTasks } from '../../effector/app-condition/events';
+import { AppConditionStore } from '../../effector/app-condition/store';
 
 const notSecuredProtocol = 'http:';
 const securedWebSocketProtocol = 'wss://';
@@ -62,8 +64,10 @@ const createSubscriptions = (centrifuge: Centrifuge, userId: number) => {
     (items: IGetTasks) => {
       const tasks = items.data.filter(el => !el.userSubTasks.length);
       const missions = items.data.filter(el => el.userSubTasks.length);
+      const { fetchedTasks } = AppConditionStore.getState();
       tasksHandler(tasks);
       missionsHandler(missions);
+      !fetchedTasks && receivedTasks();
     }
   );
 
