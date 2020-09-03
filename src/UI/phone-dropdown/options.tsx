@@ -8,6 +8,7 @@ import { logout } from '../../effector/user-data/events';
 import { UserDataStore } from '../../effector/user-data/store';
 import { useStore } from 'effector-react';
 import OutsideClickHandler from 'react-outside-click-handler';
+import { reactGAEvent } from '../../utils/ga-event';
 
 const Img = styled.img`
   margin-right: 7px;
@@ -56,6 +57,11 @@ export const Options: React.FC<IOptions> = ({ showOptions, callback }) => {
 
   const handleExitButtonClick = async () => {
     await logout('');
+    reactGAEvent({
+      eventLabel: 'vyhod',
+      eventCategory: 'avtorizaciya',
+      eventAction: 'confirmed',
+    });
     userSessionSocket && userSessionSocket.disconnect();
   };
 

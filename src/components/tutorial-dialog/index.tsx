@@ -191,6 +191,7 @@ export const TutorialDialog: React.FC<ITutorialDialog> = ({
     reactGAEvent({
       eventLabel: eventLabel,
       eventCategory: 'onboarding',
+      eventAction: 'button_click',
     });
     if (!isPrinting) {
       if (action && action.step === dialogStep) action.callBack();
@@ -213,12 +214,14 @@ export const TutorialDialog: React.FC<ITutorialDialog> = ({
       reactGAEvent({
         eventLabel: 'u_menya_ezhe_est_gorod',
         eventCategory: 'onboarding',
+        eventAction: 'button_click',
       });
     } else if (dialogStep) {
       setDialogStep(dialogStep - 1);
       reactGAEvent({
         eventLabel: 'nazad',
         eventCategory: 'onboarding',
+        eventAction: 'button_click',
       });
     }
   };
