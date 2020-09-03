@@ -1,6 +1,6 @@
 import { UserDataDomain } from './domain';
 import { IBirthday, UserDataStoreKeys } from './store';
-import { getProfile, IGetProfile } from '../../api/get-profile';
+import { getProfile } from '../../api/get-profile';
 import Centrifuge from 'centrifuge';
 import { devLoginRequest } from '../../api/dev-api/login';
 import { logoutRequest } from '../../api';
@@ -20,7 +20,6 @@ export const fetchUserData = UserDataDomain.effect('fetch after auth', {
     return await getProfile();
   },
 });
-export const setUserData = UserDataDomain.event<IGetProfile>();
 
 export const getUserName = UserDataDomain.effect('fetch after auth', {
   handler: async () => {
