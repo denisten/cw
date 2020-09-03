@@ -65,9 +65,9 @@ const createSubscriptions = (centrifuge: Centrifuge, userId: number) => {
       const tasks = items.data.filter(el => !el.userSubTasks.length);
       const missions = items.data.filter(el => el.userSubTasks.length);
       const { fetchedTasks } = AppConditionStore.getState();
-      !fetchedTasks && receivedTasks();
       tasksHandler(tasks);
       missionsHandler(missions);
+      !fetchedTasks && receivedTasks();
     }
   );
 
