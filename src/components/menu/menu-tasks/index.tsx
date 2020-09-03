@@ -27,8 +27,8 @@ export enum TasksType {
 }
 
 const taskTypes = [
-  { id: TasksType.TASKS, label: 'Задачи' },
-  { id: TasksType.MISSION, label: 'Миссии' },
+  { id: TasksType.TASKS, label: 'Задачи', eventLabel: 'zadachi' },
+  { id: TasksType.MISSION, label: 'Миссии', eventLabel: 'missii' },
 ];
 
 export const MenuTasks = () => {

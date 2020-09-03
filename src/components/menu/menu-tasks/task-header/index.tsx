@@ -7,6 +7,7 @@ import missionNotAuth from './mission-not-auth.png';
 import taskActive from './task-active.svg';
 import missionImg from './mission.svg';
 import { MTSSans } from '../../../../fonts';
+import { reactGAEvent } from '../../../../utils/ga-event';
 
 const leftPosition = {
   active: -22,
@@ -76,7 +77,13 @@ export const TasksHeader: React.FC<ITaskHeader> = ({
       <HeaderItem
         active={taskElem.id === activeType}
         key={taskElem.id}
-        onClick={() => callBack(taskElem.id)}
+        onClick={() => {
+          reactGAEvent({
+            eventLabel: taskElem.eventLabel,
+            eventCategory: 'zadaniya',
+          });
+          callBack(taskElem.id);
+        }}
         disable={!isAuthorized && taskElem.id !== TasksType.TASKS}
       >
         <span>{taskElem.label}</span>
@@ -87,7 +94,7 @@ export const TasksHeader: React.FC<ITaskHeader> = ({
 
 interface ITaskHeader {
   activeType: string;
-  taskTypes: { id: TasksType; label: string }[];
+  taskTypes: { id: TasksType; label: string; eventLabel: string }[];
   callBack: (type: TasksType) => void;
   isAuthorized: boolean;
 }

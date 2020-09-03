@@ -20,6 +20,7 @@ import { hideMarker } from '../../effector/towers-marker/events';
 import { MarkerTypes } from '../../components/markers';
 import { rewardRequest } from '../../api/tasks-api/reward';
 import { editUserProperty } from '../../effector/user-data/events';
+import { reactGAEvent } from '../ga-event';
 
 const getReward = (money: number, energy: number) => {
   editUserProperty({
@@ -36,6 +37,10 @@ export const handleTaskClick = async (taskData: ITask, e: React.MouseEvent) => {
   switch (taskData.status) {
     case TaskStatuses.CREATED:
       if (!chatTaskId) {
+        reactGAEvent({
+          eventLabel: 'vypolnit',
+          eventCategory: 'zadaniya',
+        });
         if (
           taskData.taskTypeSlug !== TasksType.COSMETIC &&
           taskData.status === TaskStatuses.CREATED
@@ -64,6 +69,10 @@ export const handleTaskClick = async (taskData: ITask, e: React.MouseEvent) => {
       }
       break;
     case TaskStatuses.DONE:
+      reactGAEvent({
+        eventLabel: 'zabrat',
+        eventCategory: 'zadaniya',
+      });
       animateTaskReward(taskData.money, e);
       await rewardRequest(id);
       getReward(money, energy);
