@@ -8,16 +8,12 @@ import taskActive from './task-active.svg';
 import missionImg from './mission.svg';
 import { MTSSans } from '../../../../fonts';
 
-const leftPosition = {
-  active: -22,
-  notSelected: -21.6,
-};
-
 const Header = styled.div`
-  width: 100%;
+  width: 755px;
   height: 50px;
   display: flex;
   overflow: hidden;
+  background: #dafaff;
   flex-shrink: 0;
 `;
 
@@ -47,19 +43,17 @@ const HeaderItem = styled.div<IHeaderItem>`
   border-top-right-radius: 4px;
   border-top-left-radius: 4px;
   pointer-events: ${props => (props.disable ? 'none' : 'auto')};
-  &:nth-child(1) {
+  &:nth-child(odd) {
+    right: 6px;
     background: url(${props => (props.active ? taskActive : task)}) no-repeat
       center;
     background-size: 100% 100%;
     z-index: ${props => (!props.active ? 1 : notActiveHeaderZIndex)};
   }
-  &:nth-child(2) {
+  &:nth-child(even) {
     background: url(${props => selectBackground(props.active, props.disable)})
       no-repeat center;
     background-size: 100% 100%;
-    left: ${props =>
-      props.active ? leftPosition.active : leftPosition.notSelected}px;
-    bottom: 1px;
     z-index: ${props => (!props.active ? 1 : notActiveHeaderZIndex)};
     color: ${props => (props.disable ? '#768C8F ' : '#01acc8')};
   }
