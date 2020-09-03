@@ -1,12 +1,11 @@
 import { UserDataStore } from '../../effector/user-data/store';
 import TagManager from 'react-gtm-module';
+import { AppConditionStore } from '../../effector/app-condition/store';
 
 const defaultGAEventProps = {
   event: 'mtsEvent',
   eventAction: 'element_click',
   eventValue: null,
-  userAuth: '0',
-  abonent: '1',
   screenName: '/',
   eventContent: 'null',
   eventContext: 'null',
@@ -24,9 +23,17 @@ const defaultGAEventProps = {
 };
 
 export const reactGAEvent = (props: IReactGAEventParams) => {
-  const { id, guid } = UserDataStore.getState();
+  const { operatorId, guid } = UserDataStore.getState();
+  const { isAuthorized } = AppConditionStore.getState();
   const tagManagerArgs = {
-    dataLayer: { ...defaultGAEventProps, ...props, userId: id, guId: guid },
+    dataLayer: {
+      ...defaultGAEventProps,
+      ...props,
+      abonent: operatorId,
+      userId: guid,
+      guId: guid,
+      userAuth: isAuthorized ? '1' : '0',
+    },
   };
   TagManager.dataLayer(tagManagerArgs);
 };

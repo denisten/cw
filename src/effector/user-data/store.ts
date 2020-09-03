@@ -31,6 +31,8 @@ export enum UserDataStoreKeys {
   FRESH_PROGRESS_TIME_OUT = 'freshProgressTimeout',
   SHOW_SLIDER = 'showSlider',
   SHOW_TUTORIAL = 'showTutorial',
+  OPERATOR_ID = 'operatorId',
+  IS_SUBSCRIBER = 'isSubscriber',
 }
 
 export const defaultNameValue = 'Мир клиента';
@@ -51,6 +53,8 @@ const initState: IUserDataStore = {
   [UserDataStoreKeys.FRESH_PROGRESS_TIME_OUT]: 0,
   [UserDataStoreKeys.SHOW_SLIDER]: false,
   [UserDataStoreKeys.SHOW_TUTORIAL]: true,
+  [UserDataStoreKeys.OPERATOR_ID]: 0,
+  [UserDataStoreKeys.IS_SUBSCRIBER]: false,
 };
 
 export const UserDataStore = UserDataDomain.store<IUserDataStore>(initState)
@@ -89,6 +93,8 @@ export const UserDataStore = UserDataDomain.store<IUserDataStore>(initState)
         soundValue,
         showSlider,
         showTutorial,
+        operatorId,
+        isSubscriber,
       }
     ) => {
       setVolume({ settingType: SettingsType.MUSIC, volume: musicValue });
@@ -106,6 +112,8 @@ export const UserDataStore = UserDataDomain.store<IUserDataStore>(initState)
         freshProgressTimeout,
         showSlider,
         showTutorial,
+        operatorId,
+        isSubscriber,
       };
     }
   )
@@ -140,6 +148,8 @@ export interface IUserDataStore {
   [UserDataStoreKeys.FRESH_PROGRESS_TIME_OUT]: number;
   [UserDataStoreKeys.SHOW_SLIDER]: boolean;
   [UserDataStoreKeys.SHOW_TUTORIAL]: boolean;
+  [UserDataStoreKeys.OPERATOR_ID]: number;
+  [UserDataStoreKeys.IS_SUBSCRIBER]: boolean;
 }
 
 export interface IBirthday {

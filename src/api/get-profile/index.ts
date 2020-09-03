@@ -20,4 +20,6 @@ export interface IGetProfile {
   soundValue: number;
   showSlider: boolean;
   showTutorial: boolean;
+  operatorId: number;
+  isSubscriber: boolean;
 }
