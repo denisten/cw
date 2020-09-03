@@ -1,5 +1,5 @@
-import ReactGA from 'react-ga';
 import { UserDataStore } from '../../effector/user-data/store';
+import TagManager from 'react-gtm-module';
 
 const defaultGAEventProps = {
   event: 'mtsEvent',
@@ -24,9 +24,11 @@ const defaultGAEventProps = {
 };
 
 export const reactGAEvent = (props: IReactGAEventParams) => {
-  const gaEvent = ReactGA.event as (args: unknown) => void;
   const { id, guid } = UserDataStore.getState();
-  gaEvent({ ...defaultGAEventProps, ...props, userId: id, guId: guid });
+  const tagManagerArgs = {
+    dataLayer: { ...defaultGAEventProps, ...props, userId: id, guId: guid },
+  };
+  TagManager.dataLayer(tagManagerArgs);
 };
 
 interface IReactGAEventParams {

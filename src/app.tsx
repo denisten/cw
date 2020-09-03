@@ -7,7 +7,7 @@ import { GlobalStyle } from './global-style';
 import { ErrorBoundary } from './components/error-boundary';
 import { Preloader } from './components/preloader';
 import { useCheckUserAuthStatus } from './hooks/use-check-user-auth-status';
-import ReactGA from 'react-ga';
+import TagManager from 'react-gtm-module';
 import { isIE, isMobile } from 'react-device-detect';
 import { Plug } from './components/plug';
 
@@ -57,8 +57,10 @@ export const App: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    ReactGA.initialize('CW-000000-01');
-    ReactGA.pageview(window.location.pathname + window.location.search);
+    const tagManagerArgs = {
+      gtmId: 'GTM-KML5W55',
+    };
+    TagManager.initialize(tagManagerArgs);
   }, []);
 
   const displayFlag = !(isMobile || isIE);
