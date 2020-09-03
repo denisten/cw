@@ -74,7 +74,7 @@ export const RootComponent = () => {
     if (!tasks.length && !missions.length && isAuthorized && fetchedTasks) {
       setTasksAvailableFlag(true);
     }
-  }, [tasks.length, missions.length, isAuthorized]);
+  }, [tasks.length, missions.length, isAuthorized, fetchedTasks]);
 
   const tutorialIsEnabled = DOMLoaded && tutorialCondition !== 0;
   const displayFlag = checkTutorialCondition(tutorialCondition);
