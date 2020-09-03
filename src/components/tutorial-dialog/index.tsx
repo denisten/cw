@@ -29,6 +29,7 @@ import { SettingsStore } from '../../effector/settings/store';
 import { useAudio } from '../../hooks/use-sound';
 import assistantSound from '../../sound/assistant-sound.mp3';
 import { usePrintDialogMessage } from '../../hooks/use-print-dialog-message';
+import { reactGAEvent } from '../../utils/ga-event';
 
 const TutorialDialogWrapper = styled.div`
   width: 1128px;
@@ -186,7 +187,11 @@ export const TutorialDialog: React.FC<ITutorialDialog> = ({
     reload,
   });
 
-  const handleClick = () => {
+  const handleClick = (eventLabel: string) => {
+    reactGAEvent({
+      eventLabel: eventLabel,
+      eventCategory: 'onboarding',
+    });
     if (!isPrinting) {
       if (action && action.step === dialogStep) action.callBack();
       if (tutorialCondition === TutorialConditions.FINAL_DIALOG_WITH_AUTH_USER)
@@ -205,8 +210,16 @@ export const TutorialDialog: React.FC<ITutorialDialog> = ({
     if (isNowFirstStepOfTutorial(dialogStep, tutorialCondition)) {
       handleAuthButtonClick();
       disableTutorialMode();
+      reactGAEvent({
+        eventLabel: 'u_menya_ezhe_est_gorod',
+        eventCategory: 'onboarding',
+      });
     } else if (dialogStep) {
       setDialogStep(dialogStep - 1);
+      reactGAEvent({
+        eventLabel: 'nazad',
+        eventCategory: 'onboarding',
+      });
     }
   };
 
@@ -216,7 +229,13 @@ export const TutorialDialog: React.FC<ITutorialDialog> = ({
         {tutorialCondition !== TutorialConditions.FINAL_DIALOG_WITH_AUTH_USER &&
           !isNowFirstStepOfTutorial(dialogStep, tutorialCondition) && (
             <ExitButton
-              callBack={() => closeCallback()}
+              callBack={() => {
+                reactGAEvent({
+                  eventLabel: 'zakryt',
+                  eventCategory: 'onboarding',
+                });
+                closeCallback();
+              }}
               {...styleConfig.exitButton}
             />
           )}
@@ -257,9 +276,11 @@ export const TutorialDialog: React.FC<ITutorialDialog> = ({
                   />
                 )}
                 <Button
-                  callback={handleClick}
+                  callback={() =>
+                    handleClick(buttonContent[dialogStep].eventLabel)
+                  }
                   className={ButtonClassNames.NORMAL}
-                  content={buttonContent[dialogStep]}
+                  content={buttonContent[dialogStep].name}
                   {...styleConfig.forwardButton}
                 />
               </>

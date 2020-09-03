@@ -52,7 +52,7 @@ const defineScrollContainerZIndex = (tutorialCondition: TutorialConditions) =>
 const contentConfig = {
   messages: ['На сегодня всё. Приходи завтра!'],
   titles: ['Вау! Ты выполнил все задания!'],
-  buttonContent: ['ОК'],
+  buttonContent: [{ name: 'ОК', eventLabel: 'ok' }],
 };
 
 export const RootComponent = () => {
