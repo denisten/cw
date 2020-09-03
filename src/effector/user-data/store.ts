@@ -9,6 +9,7 @@ import {
   getAccountData,
   resetUserDataStore,
   getUserName,
+  setUserData,
 } from './events';
 import Centrifuge from 'centrifuge';
 import { birthdayParserToJSON } from '../../utils/birthday-parser';
@@ -72,7 +73,7 @@ export const UserDataStore = UserDataDomain.store<IUserDataStore>(initState)
     [key]: value,
   }))
   .on(
-    fetchUserData.doneData,
+    [fetchUserData.doneData, setUserData],
     (
       state,
       {

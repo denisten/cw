@@ -1,12 +1,14 @@
 import { TutorialConditions } from '../../effector/tutorial-store/store';
 import { openMainTower } from '../../utils/open-main-tower';
 import { scrollToMainTower } from '../../utils/scroll-to-main-tower';
+import { finishTutorialOnAuthUser } from '../../utils/finish-tutorial-on-auth-user';
 
 export enum TutorialDialogsValues {
   DIALOG_HELLO = 'DIALOG_HELLO',
   DIALOG_CONFIRM_CITY_NAME = 'DIALOG_CONFIRM_CITY_NAME',
   DIALOG_AUTH = 'DIALOG_AUTH',
   DIALOG_START_MISSION = 'DIALOG_START_MISSION',
+  FINAL_DIALOG_WITH_AUTH_USER = 'FINAL_DIALOG_WITH_AUTH_USER',
 }
 
 class TutorialDialogTextsService {
@@ -53,6 +55,14 @@ class TutorialDialogTextsService {
       ],
       titles: ['Отличная работа!'],
       buttonContent: ['Войти'],
+    },
+    [TutorialConditions.FINAL_DIALOG_WITH_AUTH_USER]: {
+      messages: [
+        'Отлично! Обучение пройдено. Можно продолжать пользоваться миром',
+      ],
+      titles: ['Отличная работа!'],
+      buttonContent: ['Играть'],
+      action: { step: 0, callBack: finishTutorialOnAuthUser },
     },
   };
 

@@ -1,15 +1,25 @@
 import React, { Fragment } from 'react';
 import { Directions, TutorialArrow } from '../../UI/tutorial-arrow';
 import { TutorialDialog } from '../../components/tutorial-dialog';
-import { TutorialConditions } from '../../effector/tutorial-store/store';
+import {
+  TutorialConditions,
+  TutorialStore,
+} from '../../effector/tutorial-store/store';
 import { disableTutorialMode } from '../../effector/tutorial-store/events';
+import { editIsAuthorizedFlag } from '../../effector/app-condition/events';
 
 type ArrowsContainerProps = {
   tutorialCondition: TutorialConditions;
   isInsideScrollContainer: boolean;
 };
 
-const closeTutorialDialogCallback = () => disableTutorialMode();
+const closeTutorialDialogCallback = () => {
+  const { tutorialOnAuthorizedUser } = TutorialStore.getState();
+  if (tutorialOnAuthorizedUser) {
+    editIsAuthorizedFlag(true);
+  }
+  disableTutorialMode();
+};
 
 const TutorialToolsSelector: React.FC<ArrowsContainerProps> = ({
   tutorialCondition,
@@ -39,6 +49,7 @@ const TutorialToolsSelector: React.FC<ArrowsContainerProps> = ({
     case TutorialConditions.DIALOG_CONFIRM_CITY_NAME:
     case TutorialConditions.DIALOG_START_MISSION:
     case TutorialConditions.DIALOG_AUTH:
+    case TutorialConditions.FINAL_DIALOG_WITH_AUTH_USER:
       if (!isInsideScrollContainer)
         return <TutorialDialog closeCallback={closeTutorialDialogCallback} />;
       else return <Fragment />;

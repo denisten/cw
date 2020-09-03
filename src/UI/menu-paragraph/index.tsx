@@ -10,7 +10,7 @@ export enum MenuItems {
   HELP = 'voprosy_i_otvety',
   INFO = 'oferta',
   SETTINGS = 'nastroiki',
-  // DEV = 'instrumenty_razrabotki',
+  DEV = 'instrumenty_razrabotki',
 }
 
 const TranslatedMenuItems = {
@@ -19,7 +19,7 @@ const TranslatedMenuItems = {
   [MenuItems.HELP]: 'Помощь',
   [MenuItems.INFO]: 'Что нового?',
   [MenuItems.SETTINGS]: 'Настройки',
-  // [MenuItems.DEV]: 'Инструменты разработки',
+  [MenuItems.DEV]: 'Инструменты разработки',
 };
 
 const notSelectedItemFontWeight = 500;
@@ -27,7 +27,7 @@ const notSelectedItemFontWeight = 500;
 const MenuParagraphWrapper = styled.div<IMenuParagraphWrapper>`
   height: 56px;
   width: 100%;
-  display: flex;
+  display: ${props => (props.hidden ? 'none' : 'flex')};
   justify-content: flex-start;
   align-items: center;
   font-size: 20px;
@@ -73,6 +73,7 @@ export const MenuNavigationElement: React.FC<IMenuParagraph> = ({
   onClickHandler,
   haveNotify,
   pulseAnim = false,
+  hidden,
   ...props
 }) => {
   const notifications = haveNotify ? <Notify /> : null;
@@ -82,6 +83,7 @@ export const MenuNavigationElement: React.FC<IMenuParagraph> = ({
       menuElement={menuElement}
       isItemSelected={isItemSelected}
       {...props}
+      hidden={hidden}
     >
       <MenuParagraphTitleWrapper pulseAnim={pulseAnim} onClick={onClickHandler}>
         {TranslatedMenuItems[menuElement]}
@@ -104,4 +106,5 @@ interface IMenuParagraph extends IMenuParagraphWrapper {
   onClickHandler: () => void;
   haveNotify: boolean;
   pulseAnim?: boolean;
+  hidden?: boolean;
 }
