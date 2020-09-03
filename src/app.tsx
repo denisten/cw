@@ -8,10 +8,13 @@ import { ErrorBoundary } from './components/error-boundary';
 import { Preloader } from './components/preloader';
 import { useCheckUserAuthStatus } from './hooks/use-check-user-auth-status';
 import ReactGA from 'react-ga';
+import { isIE, isMobile } from 'react-device-detect';
+import { Plug } from './components/plug';
 
 export enum Routes {
   MAIN = '/',
   AUTH_LANDING_PAGE = '/auth-callback',
+  PLUG = '/plug',
 }
 
 enum EventCodes {
@@ -61,6 +64,7 @@ export const App: React.FC = () => {
     window.addEventListener('keydown', keyDownPreventDefault, {
       passive: false,
     });
+    if (isMobile || isIE) history.push(Routes.PLUG);
     return () => {
       window.removeEventListener('wheel', wheelPreventDefault);
       window.removeEventListener('keydown', keyDownPreventDefault);
@@ -72,14 +76,16 @@ export const App: React.FC = () => {
     ReactGA.pageview(window.location.pathname + window.location.search);
   }, []);
 
+  const displayFlag = !(isMobile || isIE);
   return (
     <Router history={history}>
-      <Preloader />
+      <Preloader displayFlag={displayFlag} />
       <ErrorBoundary />
       <GlobalStyle />
       <Switch>
         <Route exact path={Routes.MAIN} component={RootComponent} />
         <Route path={Routes.AUTH_LANDING_PAGE} component={AuthLandingPage} />
+        <Route path={Routes.PLUG} component={Plug} />
       </Switch>
     </Router>
   );

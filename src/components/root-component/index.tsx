@@ -56,18 +56,25 @@ const contentConfig = {
 };
 
 export const RootComponent = () => {
-  const { DOMLoaded, tutorialSliderDisplayFlag, isAuthorized } = useStore(
-    AppConditionStore
-  );
+  const {
+    DOMLoaded,
+    tutorialSliderDisplayFlag,
+    isAuthorized,
+    fetchedTasks,
+  } = useStore(AppConditionStore);
   const { tutorialCondition } = useStore(TutorialStore);
   const { volume } = useStore(SettingsStore).music;
   const { freshProgressTimeout } = useStore(UserDataStore);
   const tasks = useStore(TasksStore);
   const missions = useStore(MissionsStore);
 
-  const [tasksAvailableFlag, setTasksAvailableFlag] = useState(
-    !tasks.length && !missions.length && isAuthorized
-  );
+  const [tasksAvailableFlag, setTasksAvailableFlag] = useState(false);
+
+  useEffect(() => {
+    if (!tasks.length && !missions.length && isAuthorized && fetchedTasks) {
+      setTasksAvailableFlag(true);
+    }
+  }, [tasks.length, missions.length, isAuthorized, fetchedTasks]);
 
   const tutorialIsEnabled = DOMLoaded && tutorialCondition !== 0;
   const displayFlag = checkTutorialCondition(tutorialCondition);

@@ -12,6 +12,7 @@ import {
 import {
   disableTutorialMode,
   nextTutorStep,
+  setSuccessfulTutorial,
 } from '../../../../effector/tutorial-store/events';
 import {
   TutorialConditions,
@@ -102,6 +103,7 @@ const NotAuthorizedProfile: React.FC<INotAuthorizedProfile> = ({
   const handleButtonClick = () => {
     if (tutorialCondition === TutorialConditions.PULSE_AUTH_BUTTON) {
       disableTutorialMode();
+      setSuccessfulTutorial(true);
     }
     handleAuthButtonClick();
   };

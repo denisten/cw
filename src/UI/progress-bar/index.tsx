@@ -5,9 +5,15 @@ import upgradeImg from './upgrade.svg';
 import { showUpgradeIcon } from '../../effector/app-condition/events';
 import { towerUpdateHandler } from '../../utils/tower-update-handler';
 import { TowersTypes } from '../../effector/towers-progress/store';
-import { TutorialConditions } from '../../effector/tutorial-store/store';
+import {
+  TutorialConditions,
+  TutorialStore,
+} from '../../effector/tutorial-store/store';
 import { useEditProgressbarClassname } from '../../hooks/use-edit-progressbar-classname';
-import { nextTutorStep } from '../../effector/tutorial-store/events';
+import {
+  nextTutorStep,
+  setTutorialCondition,
+} from '../../effector/tutorial-store/events';
 import { upgradeTowerAndShowAnimation } from '../../utils/upgrade-tower-and-show-animation';
 import { pulseAnimationHOF } from '../../hoc/pulse-anim';
 import { maxPercent } from '../../constants';
@@ -101,9 +107,14 @@ export const ProgressBar: React.FC<IProgressBar> = ({
       needUpgrade &&
       progress >= maxPercent
     ) {
+      const { tutorialOnAuthorizedUser } = TutorialStore.getState();
       upgradeTowerAndShowAnimation(towerTitle);
       extraTowerInfoModalClosed();
-      nextTutorStep();
+      if (tutorialOnAuthorizedUser) {
+        setTutorialCondition(TutorialConditions.FINAL_DIALOG_WITH_AUTH_USER);
+      } else {
+        nextTutorStep();
+      }
     } else if (needUpgrade) {
       showUpgradeIcon(towerTitle);
       await towerUpdateHandler(TutorialConditions.OFF, towerTitle);

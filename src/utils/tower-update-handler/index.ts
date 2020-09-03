@@ -1,10 +1,16 @@
-import { TutorialConditions } from '../../effector/tutorial-store/store';
+import {
+  TutorialConditions,
+  TutorialStore,
+} from '../../effector/tutorial-store/store';
 import { TowersTypes } from '../../effector/towers-progress/store';
 import { statusOk } from '../../constants';
 import { updateTowerRequest } from '../../api/updateTower';
 import { upgradeTower } from '../../effector/towers-progress/events';
 import { showUpgradeIcon } from '../../effector/app-condition/events';
-import { nextTutorStep } from '../../effector/tutorial-store/events';
+import {
+  nextTutorStep,
+  setTutorialCondition,
+} from '../../effector/tutorial-store/events';
 import { upgradeTowerAndShowAnimation } from '../upgrade-tower-and-show-animation';
 import { extraTowerInfoModalClosed } from '../../effector/tower-info-modal-store/events';
 
@@ -27,6 +33,11 @@ export const towerUpdateHandler = async (
     }
   } else {
     upgradeTowerAndShowAnimation(towerTitle);
-    nextTutorStep();
+    const { tutorialOnAuthorizedUser } = TutorialStore.getState();
+    if (tutorialOnAuthorizedUser) {
+      setTutorialCondition(TutorialConditions.FINAL_DIALOG_WITH_AUTH_USER);
+    } else {
+      nextTutorStep();
+    }
   }
 };

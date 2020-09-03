@@ -5,6 +5,9 @@ import {
   disableTutorialMode,
   pauseTutorialMode,
   enableTutorialMode,
+  setTutorialOnAuthorizedUserFlag,
+  setTutorialCondition,
+  setSuccessfulTutorial,
 } from './events';
 
 export enum TutorialConditions {
@@ -21,6 +24,7 @@ export enum TutorialConditions {
   DIALOG_AUTH = 'DIALOG_AUTH',
   PULSE_MENU_AUTH = 'PULSE_MENU_AUTH',
   PULSE_AUTH_BUTTON = 'PULSE_AUTH_BUTTON',
+  FINAL_DIALOG_WITH_AUTH_USER = 'FINAL_DIALOG_WITH_AUTH_USER',
 }
 
 const TutorialSteps = [
@@ -44,9 +48,23 @@ const initState = {
   tutorialConditionIdx: 0,
   tutorialTextId: 0,
   tutorialPause: false,
+  tutorialOnAuthorizedUser: false,
+  successfulTutorial: false,
 };
 
 export const TutorialStore = TutorialDomain.store<ITutorialStore>(initState)
+  .on(setSuccessfulTutorial, (state, payload) => ({
+    ...state,
+    successfulTutorial: payload,
+  }))
+  .on(setTutorialCondition, (state, payload) => ({
+    ...state,
+    tutorialCondition: payload,
+  }))
+  .on(setTutorialOnAuthorizedUserFlag, (state, payload) => ({
+    ...state,
+    tutorialOnAuthorizedUser: payload,
+  }))
   .on(nextTutorStep, state => ({
     ...state,
     tutorialConditionIdx: state.tutorialConditionIdx + 1,
@@ -66,6 +84,7 @@ export const TutorialStore = TutorialDomain.store<ITutorialStore>(initState)
     ...state,
     tutorialCondition: TutorialConditions.OFF,
     tutorialConditionIdx: 0,
+    tutorialOnAuthorizedUser: false,
   }))
   .on(pauseTutorialMode, state => ({
     ...state,
@@ -77,4 +96,6 @@ interface ITutorialStore {
   tutorialConditionIdx: number;
   tutorialTextId: number;
   tutorialPause: boolean;
+  tutorialOnAuthorizedUser: boolean;
+  successfulTutorial: boolean;
 }
