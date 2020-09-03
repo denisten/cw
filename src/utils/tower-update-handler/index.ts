@@ -35,7 +35,7 @@ export const towerUpdateHandler = async (
     upgradeTowerAndShowAnimation(towerTitle);
     const { tutorialOnAuthorizedUser } = TutorialStore.getState();
     if (tutorialOnAuthorizedUser) {
-      setTutorialCondition(TutorialConditions.FINAL);
+      setTutorialCondition(TutorialConditions.FINAL_DIALOG_WITH_AUTH_USER);
     } else {
       nextTutorStep();
     }

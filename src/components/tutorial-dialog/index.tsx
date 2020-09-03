@@ -189,7 +189,8 @@ export const TutorialDialog: React.FC<ITutorialDialog> = ({
   const handleClick = () => {
     if (!isPrinting) {
       if (action && action.step === dialogStep) action.callBack();
-      if (tutorialCondition === TutorialConditions.FINAL) return;
+      if (tutorialCondition === TutorialConditions.FINAL_DIALOG_WITH_AUTH_USER)
+        return;
       if (messages.length !== dialogStep + 1) {
         setDialogStep(dialogStep + 1);
         canPlaySound && playAssistantSound();
@@ -212,7 +213,7 @@ export const TutorialDialog: React.FC<ITutorialDialog> = ({
   return (
     <MainWrapper DOMLoaded={DOMLoaded} mustBeAsAnimated={mustBeAsAnimated}>
       <TutorialDialogWrapper>
-        {tutorialCondition !== TutorialConditions.FINAL &&
+        {tutorialCondition !== TutorialConditions.FINAL_DIALOG_WITH_AUTH_USER &&
           !isNowFirstStepOfTutorial(dialogStep, tutorialCondition) && (
             <ExitButton
               callBack={() => closeCallback()}

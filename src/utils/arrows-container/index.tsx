@@ -49,7 +49,7 @@ const TutorialToolsSelector: React.FC<ArrowsContainerProps> = ({
     case TutorialConditions.DIALOG_CONFIRM_CITY_NAME:
     case TutorialConditions.DIALOG_START_MISSION:
     case TutorialConditions.DIALOG_AUTH:
-    case TutorialConditions.FINAL:
+    case TutorialConditions.FINAL_DIALOG_WITH_AUTH_USER:
       if (!isInsideScrollContainer)
         return <TutorialDialog closeCallback={closeTutorialDialogCallback} />;
       else return <Fragment />;
