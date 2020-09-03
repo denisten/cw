@@ -9,7 +9,7 @@ import {
 import { editIsAuthorizedFlag } from '../../effector/app-condition/events';
 import { statusOk } from '../../constants';
 import { setStartLoading } from '../../effector/preloader/events';
-import { setUserData } from '../../effector/user-data/events';
+import { editUserData } from '../../effector/user-data/events';
 
 export const useCheckUserAuthStatus = () => {
   useEffect(() => {
@@ -18,7 +18,10 @@ export const useCheckUserAuthStatus = () => {
       .then(data => {
         if (data.status === statusOk) {
           if (data.data.data.showTutorial) {
-            setUserData(data.data.data);
+            editUserData({
+              name: data.data.data.name,
+              worldName: data.data.data.worldName,
+            });
             setTutorialOnAuthorizedUserFlag(true);
             enableTutorialMode();
           } else {
