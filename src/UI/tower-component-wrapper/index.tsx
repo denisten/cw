@@ -24,6 +24,7 @@ import { TowerUpgradeAnimation } from '../tower-upgrade-animation';
 import towerUpgrade from '../../sound/tower-upgrade.mp3';
 import { SettingsStore } from '../../effector/settings/store';
 import { useAudio } from '../../hooks/use-sound';
+import { reactGAEvent } from '../../utils/ga-event';
 
 enum strokeClassNames {
   STROKE = 'stroke',
@@ -165,6 +166,7 @@ export const TowerWrapper = memo(
     wideTower,
     mutedImg,
     signConfig,
+    eventLabel,
   }: ITowerWrapper): React.ReactElement => {
     let mouseDownFlag = false,
       mouseMoveFlag = 0;
@@ -191,6 +193,10 @@ export const TowerWrapper = memo(
     }, [upgradeFlag]);
 
     const handleClick = () => {
+      reactGAEvent({
+        eventLabel: eventLabel || '',
+        eventCategory: 'mir',
+      });
       if (mutedImg) return;
       if (
         tutorialCondition === TutorialConditions.ARROW_TOWER_INFO &&
@@ -338,6 +344,7 @@ interface ITowerWrapper {
   needUpgrade: boolean;
   tutorialTower?: boolean;
   signConfig?: string[];
+  eventLabel?: string;
 }
 
 interface ITowerStyledWrapper {
