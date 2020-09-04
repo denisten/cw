@@ -4,6 +4,7 @@ import { Sender } from '../../api/tasks-api/session';
 import { pushBotMessageToCurrentChat } from '../../effector/chat/events';
 import { TowersTypes } from '../../effector/towers-progress/store';
 import { getResult } from '../../effector/tasks-store/events';
+import { reactGAEvent } from '../ga-event';
 
 export const chatEndedHandler = async (
   taskId: number,
@@ -39,4 +40,9 @@ export const chatEndedHandler = async (
     };
     pushBotMessageToCurrentChat(resultObject);
   }
+
+  reactGAEvent({
+    eventLabel: 'finish',
+    eventCategory: 'viktorina',
+  });
 };
