@@ -22,6 +22,7 @@ import { useAudio } from '../../../hooks/use-sound';
 import completedImg from './completed.svg';
 import { handleTaskWrapperClick } from '../menu-task-row';
 import { reactGAEvent } from '../../../utils/ga-event';
+import { transliterate } from '../../../utils/transliterate';
 
 export const TaskWrapper = styled.div<ITaskLocation>`
   width: 100%;
@@ -237,6 +238,7 @@ export const TowerTaskRow: React.FC<ITasksRow> = ({ isInTowerInfo, task }) => {
     reactGAEvent({
       eventLabel: 'razvernut',
       eventCategory: 'zdanie',
+      eventContext: transliterate(task.title),
     });
     handleTaskWrapperClick({
       taskDescriptionRef,

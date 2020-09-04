@@ -33,6 +33,7 @@ import { useAudio } from '../../../hooks/use-sound';
 import { TaskStatuses } from '../../../effector/tasks-store/store';
 import { handleAuthButtonClick } from '../../../utils/handle-auth-button-click';
 import { reactGAEvent } from '../../../utils/ga-event';
+import { transliterate } from '../../../utils/transliterate';
 
 export const TaskWrapper = styled.div<ITaskLocation>`
   width: 719px;
@@ -132,7 +133,7 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
       eventLabel: 'razvernut',
       eventCategory: 'zadaniya',
       eventContent: 'zadachi',
-      eventContext: task.title,
+      eventContext: transliterate(task.title),
     });
   };
 

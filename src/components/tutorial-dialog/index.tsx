@@ -230,6 +230,8 @@ export const TutorialDialog: React.FC<ITutorialDialog> = ({
         eventLabel: 'nazad',
         eventCategory: 'onboarding',
         eventAction: 'button_click',
+        eventContent: buttonContent[dialogStep]?.eventContent || '',
+        eventContext: buttonContent[dialogStep]?.eventContext || '',
       });
     }
   };

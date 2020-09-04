@@ -21,6 +21,7 @@ import { MarkerTypes } from '../../components/markers';
 import { rewardRequest } from '../../api/tasks-api/reward';
 import { editUserProperty } from '../../effector/user-data/events';
 import { reactGAEvent } from '../ga-event';
+import { transliterate } from '../transliterate';
 
 const getReward = (money: number, energy: number) => {
   editUserProperty({
@@ -41,7 +42,7 @@ export const handleTaskClick = async (taskData: ITask, e: React.MouseEvent) => {
           eventLabel: 'vypolnit',
           eventCategory: 'zadaniya',
           eventContent: 'zadachi',
-          eventContext: taskData.title,
+          eventContext: transliterate(taskData.title),
         });
         if (
           taskData.taskTypeSlug !== TasksType.COSMETIC &&
@@ -75,7 +76,7 @@ export const handleTaskClick = async (taskData: ITask, e: React.MouseEvent) => {
         eventLabel: 'zabrat',
         eventCategory: 'zadaniya',
         eventContent: 'zadachi',
-        eventContext: taskData.title,
+        eventContext: transliterate(taskData.title),
       });
       animateTaskReward(taskData.money, e);
       await rewardRequest(id);
