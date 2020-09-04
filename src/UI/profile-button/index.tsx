@@ -17,6 +17,7 @@ import { menuOpened } from '../../effector/menu-store/events';
 import { IUserAvatar } from '../../components/menu/menu-profile/authorized';
 import backgroundImg from './background.svg';
 import { IDisplayFlag } from '../../components/root-component';
+import { reactGAEvent } from '../../utils/ga-event';
 
 const CoinsWrapper = styled.div`
   display: flex;
@@ -123,6 +124,10 @@ const handleClick = (tutorialCondition: TutorialConditions) => {
   if (!tutorialCondition) {
     menuOpened(MenuItems.PROFILE);
     extraTowerInfoModalClosed();
+    reactGAEvent({
+      eventLabel: 'profile',
+      eventCategory: 'mir',
+    });
   } else if (
     tutorialCondition === TutorialConditions.PULSE_MENU_CHANGE_CITY_NAME
   ) {
