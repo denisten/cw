@@ -232,8 +232,10 @@ export const Markers: React.FC<IMarkers> = ({
               }
               markerClickHandler(markItem, towerTitle, towerRef, e);
               reactGAEvent({
-                eventLabel: eventLabel || '',
+                eventLabel: eventLabel,
                 eventCategory: 'mir',
+                eventContent: markItem.type,
+                filterName: 'ikonka',
               });
             }}
           >

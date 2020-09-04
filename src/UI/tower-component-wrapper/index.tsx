@@ -194,8 +194,9 @@ export const TowerWrapper = memo(
 
     const handleClick = () => {
       reactGAEvent({
-        eventLabel: eventLabel || '',
+        eventLabel: eventLabel,
         eventCategory: 'mir',
+        filterName: 'zdanie',
       });
       if (mutedImg) return;
       if (

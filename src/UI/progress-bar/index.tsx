@@ -4,7 +4,10 @@ import { MTSSans } from '../../fonts';
 import upgradeImg from './upgrade.svg';
 import { showUpgradeIcon } from '../../effector/app-condition/events';
 import { towerUpdateHandler } from '../../utils/tower-update-handler';
-import { TowersTypes } from '../../effector/towers-progress/store';
+import {
+  TowersTypes,
+  TowersProgressStore,
+} from '../../effector/towers-progress/store';
 import {
   TutorialConditions,
   TutorialStore,
@@ -21,6 +24,7 @@ import { extraTowerInfoModalClosed } from '../../effector/tower-info-modal-store
 import { BuildingsService } from '../../buildings/config';
 import { reactGAEvent } from '../../utils/ga-event';
 import { transliterate } from '../../utils/transliterate';
+import { useStore } from 'effector-react';
 
 export const UPGRADABLE = 'upgradable';
 
@@ -103,7 +107,9 @@ export const ProgressBar: React.FC<IProgressBar> = ({
 }) => {
   const progressBarWrapperRef = useRef<HTMLDivElement>(null);
   const towerLayoutData = BuildingsService.getConfigForTower(towerTitle);
-
+  const {
+    level: { level },
+  } = useStore(TowersProgressStore)[towerTitle];
   const handleClick = async () => {
     if (
       tutorialCondition &&
@@ -130,8 +136,10 @@ export const ProgressBar: React.FC<IProgressBar> = ({
       showUpgradeIcon(towerTitle);
       await towerUpdateHandler(TutorialConditions.OFF, towerTitle);
       reactGAEvent({
-        eventLabel: transliterate(towerLayoutData.title) || '',
+        eventLabel: transliterate(towerLayoutData.title),
         eventCategory: 'zdanie',
+        eventContent: 'uluchshit',
+        eventContext: String(level + 1),
       });
     }
   };

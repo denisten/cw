@@ -1,6 +1,9 @@
 import React from 'react';
 
-import { TowersTypes } from '../../effector/towers-progress/store';
+import {
+  TowersTypes,
+  TowersProgressStore,
+} from '../../effector/towers-progress/store';
 import { showUpgradeIcon } from '../../effector/app-condition/events';
 import {
   MarkerView,
@@ -11,6 +14,7 @@ import { TutorialConditions } from '../../effector/tutorial-store/store';
 import { towerUpdateHandler } from '../../utils/tower-update-handler';
 import { Icon } from '../icons';
 import { reactGAEvent } from '../../utils/ga-event';
+import { useStore } from 'effector-react';
 
 const handleClick = async (
   towerTitle: TowersTypes,
@@ -35,6 +39,9 @@ export const UpgradeButton: React.FC<IUpgradeButton> = ({
   tutorialCondition,
   eventLabel,
 }) => {
+  const {
+    level: { level },
+  } = useStore(TowersProgressStore)[towerTitle];
   return (
     <MarkerWrapper
       displayFlag={displayFlag}
@@ -45,8 +52,10 @@ export const UpgradeButton: React.FC<IUpgradeButton> = ({
         animFlag={animFlag}
         onClick={() => {
           reactGAEvent({
-            eventLabel: eventLabel || '',
+            eventLabel: eventLabel,
             eventCategory: 'mir',
+            eventContent: 'uluchshit',
+            eventContext: String(level + 1),
           });
           handleClick(towerTitle, tutorialCondition);
         }}

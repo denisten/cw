@@ -48,4 +48,5 @@ interface IReactGAEventParams {
   buttonLocation?: string;
   eventContent?: string;
   eventContext?: string;
+  filterName?: string;
 }

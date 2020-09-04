@@ -68,13 +68,15 @@ const translate = {
 };
 
 export const transliterate = (word: string) => {
-  return word
-    .split('')
-    .map(char => {
-      const translatedChar = (translate as unknown) as {
-        [key in string]: string;
-      };
-      return translatedChar[char] || char;
-    })
-    .join('');
+  return (
+    word
+      .split('')
+      .map(char => {
+        const translatedChar = (translate as unknown) as {
+          [key in string]: string;
+        };
+        return translatedChar[char] || char;
+      })
+      .join('') || ''
+  );
 };
