@@ -18,7 +18,9 @@ export const MissionsStore = MissionsDomain.store(initState)
         const subtaskIdx = state[i].userSubTasks.findIndex(el => el.id === id);
         if (subtaskIdx !== -1) {
           stateCopy[i].userSubTasks[subtaskIdx].status = TaskStatuses.REWARDED;
-          break;
+          if (subtaskIdx === state[i].userSubTasks.length - 1) {
+            stateCopy[i].status = TaskStatuses.DONE;
+          }
         }
       }
     }

@@ -22,8 +22,8 @@ import { TaskTimer } from '../../UI/task-timer';
 import { ITask, TaskStatuses } from '../../effector/tasks-store/store';
 import { UnavailableSubtaskView } from './unavailable-subtask-view';
 import { MissionProgressBarButton } from '../../UI/mission-progress-bar-button';
-import { IDisplayFlag } from '../root-component';
 import { TaskTypes } from '../../app';
+import { IDisplayFlag } from '../root-component';
 
 const completedTaskMargin = 20;
 
@@ -40,14 +40,14 @@ export const CompletedTasksWrapper = styled.div<ICompletedTasksWrapper>`
   height: auto;
 `;
 
-export const detectSubTaskId = (tasks: ITask[]) => {
+export const detectSubTaskIdx = (tasks: ITask[]) => {
   const wantedStatuses = new Set([
     TaskStatuses.CREATED,
     TaskStatuses.ACTIVE,
     TaskStatuses.REJECTED,
   ]);
-  for (let taskId = 0; taskId < tasks.length; taskId++)
-    if (wantedStatuses.has(tasks[taskId].status)) return taskId;
+  for (let taskIdx = 0; taskIdx < tasks.length; taskIdx++)
+    if (wantedStatuses.has(tasks[taskIdx].status)) return taskIdx;
   return -1;
 };
 
@@ -60,23 +60,23 @@ export const MissionMenuRowView: React.FC<IMissionsView> = ({ taskData }) => {
   const taskDescriptionRef = useRef<HTMLDivElement>(null);
   const vectorRef = useRef<HTMLImageElement>(null);
 
-  const currentSubtaskId = detectSubTaskId(taskData.userSubTasks);
+  const currentSubtaskIdx = detectSubTaskIdx(taskData.userSubTasks);
 
   const completedSubTasksQuantity = taskData.userSubTasks.filter(
     el => el.status === TaskStatuses.DONE || el.status === TaskStatuses.REWARDED
   ).length;
 
   const NotCompletedSubTasks =
-    currentSubtaskId !== -1
+    currentSubtaskIdx !== -1
       ? taskData.userSubTasks
-          .slice(currentSubtaskId + 1)
+          .slice(currentSubtaskIdx + 1)
           .map(el => <UnavailableSubtaskView task={el} key={el.id} />)
       : React.Fragment;
 
   const CompletedSubTasks =
-    currentSubtaskId !== -1
+    currentSubtaskIdx !== -1
       ? taskData.userSubTasks
-          .slice(0, currentSubtaskId + 1)
+          .slice(0, currentSubtaskIdx + 1)
           .map(el => (
             <MenuTaskRow
               isInTowerInfo={false}
@@ -85,7 +85,14 @@ export const MissionMenuRowView: React.FC<IMissionsView> = ({ taskData }) => {
               taskType={TaskTypes.SUBTASK}
             />
           ))
-      : React.Fragment;
+      : taskData.userSubTasks.map(el => (
+          <MenuTaskRow
+            isInTowerInfo={false}
+            task={el}
+            key={el.id}
+            taskType={TaskTypes.SUBTASK}
+          />
+        ));
 
   const handleClick = () =>
     handleTaskWrapperClick({

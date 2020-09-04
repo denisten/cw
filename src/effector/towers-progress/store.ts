@@ -59,6 +59,8 @@ const initState: TowersProgressStoreType = {
       level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
+      maxProgressValue: 0,
+      minProgressValue: 0,
     },
   },
   [TowersTypes.GOODOK]: {
@@ -72,6 +74,8 @@ const initState: TowersProgressStoreType = {
       level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
+      maxProgressValue: 0,
+      minProgressValue: 0,
     },
   },
   [TowersTypes.SMARTMED]: {
@@ -85,6 +89,8 @@ const initState: TowersProgressStoreType = {
       level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
+      maxProgressValue: 0,
+      minProgressValue: 0,
     },
   },
   [TowersTypes.UNIVERSITY]: {
@@ -98,6 +104,8 @@ const initState: TowersProgressStoreType = {
       level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
+      maxProgressValue: 0,
+      minProgressValue: 0,
     },
   },
   [TowersTypes.MAIN_TOWER]: {
@@ -111,6 +119,8 @@ const initState: TowersProgressStoreType = {
       level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
+      maxProgressValue: 0,
+      minProgressValue: 0,
     },
   },
   [TowersTypes.MUSIC]: {
@@ -124,6 +134,8 @@ const initState: TowersProgressStoreType = {
       level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
+      maxProgressValue: 0,
+      minProgressValue: 0,
     },
   },
   [TowersTypes.LIVE_ARENA]: {
@@ -137,6 +149,8 @@ const initState: TowersProgressStoreType = {
       level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
+      maxProgressValue: 0,
+      minProgressValue: 0,
     },
   },
   [TowersTypes.CASHBACK]: {
@@ -150,6 +164,8 @@ const initState: TowersProgressStoreType = {
       level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
+      maxProgressValue: 0,
+      minProgressValue: 0,
     },
   },
   [TowersTypes.MY_MTS]: {
@@ -163,6 +179,8 @@ const initState: TowersProgressStoreType = {
       level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
+      maxProgressValue: 0,
+      minProgressValue: 0,
     },
   },
   [TowersTypes.LIBRARY]: {
@@ -176,6 +194,8 @@ const initState: TowersProgressStoreType = {
       level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
+      maxProgressValue: 0,
+      minProgressValue: 0,
     },
   },
   [TowersTypes.OBSERVATORY]: {
@@ -189,6 +209,8 @@ const initState: TowersProgressStoreType = {
       level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
+      maxProgressValue: 0,
+      minProgressValue: 0,
     },
   },
   [TowersTypes.MOBILE_NETWORK]: {
@@ -202,6 +224,8 @@ const initState: TowersProgressStoreType = {
       level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
+      maxProgressValue: 0,
+      minProgressValue: 0,
     },
   },
   [TowersTypes.THEATER]: {
@@ -215,6 +239,8 @@ const initState: TowersProgressStoreType = {
       level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
+      maxProgressValue: 0,
+      minProgressValue: 0,
     },
   },
   [TowersTypes.TV]: {
@@ -228,6 +254,8 @@ const initState: TowersProgressStoreType = {
       level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
+      maxProgressValue: 0,
+      minProgressValue: 0,
     },
   },
   [TowersTypes.FITNESS]: {
@@ -241,6 +269,8 @@ const initState: TowersProgressStoreType = {
       level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
+      maxProgressValue: 0,
+      minProgressValue: 0,
     },
   },
   [TowersTypes.ROAMING]: {
@@ -254,6 +284,8 @@ const initState: TowersProgressStoreType = {
       level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
+      maxProgressValue: 0,
+      minProgressValue: 0,
     },
   },
   [TowersTypes.BANK]: {
@@ -267,6 +299,8 @@ const initState: TowersProgressStoreType = {
       level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
+      maxProgressValue: 0,
+      minProgressValue: 0,
     },
   },
   [TowersTypes.WASD_TV]: {
@@ -280,6 +314,8 @@ const initState: TowersProgressStoreType = {
       level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
+      maxProgressValue: 0,
+      minProgressValue: 0,
     },
   },
 
@@ -294,6 +330,8 @@ const initState: TowersProgressStoreType = {
       level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
+      maxProgressValue: 0,
+      minProgressValue: 0,
     },
   },
   [TowersTypes.PARTNER_ONE]: {
@@ -307,6 +345,8 @@ const initState: TowersProgressStoreType = {
       level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
+      maxProgressValue: 0,
+      minProgressValue: 0,
     },
   },
   [TowersTypes.PARTNER_TWO]: {
@@ -320,6 +360,8 @@ const initState: TowersProgressStoreType = {
       level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
+      maxProgressValue: 0,
+      minProgressValue: 0,
     },
   },
   [TowersTypes.IGROTEKA]: {
@@ -333,6 +375,8 @@ const initState: TowersProgressStoreType = {
       level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
+      maxProgressValue: 0,
+      minProgressValue: 0,
     },
   },
   [TowersTypes.HOME_INTERNET]: {
@@ -346,6 +390,8 @@ const initState: TowersProgressStoreType = {
       level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
+      maxProgressValue: 0,
+      minProgressValue: 0,
     },
   },
   [TowersTypes.AUTO]: {
@@ -359,6 +405,8 @@ const initState: TowersProgressStoreType = {
       level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
+      maxProgressValue: 0,
+      minProgressValue: 0,
     },
   },
   [TowersTypes.SHOP]: {
@@ -372,6 +420,8 @@ const initState: TowersProgressStoreType = {
       level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
+      maxProgressValue: 0,
+      minProgressValue: 0,
     },
   },
   [TowersTypes.PARTNER_THREE]: {
@@ -385,6 +435,8 @@ const initState: TowersProgressStoreType = {
       level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
+      maxProgressValue: 0,
+      minProgressValue: 0,
     },
   },
   [TowersTypes.MARVIN]: {
@@ -398,6 +450,8 @@ const initState: TowersProgressStoreType = {
       level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
+      maxProgressValue: 0,
+      minProgressValue: 0,
     },
   },
   [TowersTypes.CONNECT]: {
@@ -411,6 +465,8 @@ const initState: TowersProgressStoreType = {
       level: TowerLevel.initial,
       income: 0,
       levelUpPercentage: 0,
+      maxProgressValue: 0,
+      minProgressValue: 0,
     },
   },
 };
@@ -527,11 +583,13 @@ export interface ITowerProgress {
   levelOnServer: number;
   needUpgrade: boolean;
   level: {
-    levelUpPercentage: number;
     id: number;
-    name: string;
-    level: TowerLevel;
     income: number;
+    level: TowerLevel;
+    maxProgressValue: number;
+    minProgressValue: number;
+    levelUpPercentage: number;
+    name: string;
   };
   factors?: IFactors;
 }
