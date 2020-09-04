@@ -32,6 +32,7 @@ import { SettingsStore } from '../../../effector/settings/store';
 import { useAudio } from '../../../hooks/use-sound';
 import { TaskStatuses } from '../../../effector/tasks-store/store';
 import { handleAuthButtonClick } from '../../../utils/handle-auth-button-click';
+import { reactGAEvent } from '../../../utils/ga-event';
 
 export const TaskWrapper = styled.div<ITaskLocation>`
   width: 719px;
@@ -126,6 +127,10 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
       setIsOpened,
       taskType,
       vectorRef,
+    });
+    reactGAEvent({
+      eventLabel: 'razvernut',
+      eventCategory: 'zadaniya',
     });
   };
 

@@ -202,6 +202,10 @@ export const TowerWrapper = memo(
         tutorialCondition === TutorialConditions.ARROW_TOWER_INFO &&
         tutorialTower
       ) {
+        reactGAEvent({
+          eventLabel: 'zdanie',
+          eventCategory: 'onboarding',
+        });
         nextTutorStep();
       } else if (!tutorialCondition || tutorialPause) {
         scrollToCurrentTower(towerRef);

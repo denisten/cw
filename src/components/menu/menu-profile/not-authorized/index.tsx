@@ -30,6 +30,7 @@ import { handleAuthButtonClick } from '../../../../utils/handle-auth-button-clic
 import penImg from './pen.svg';
 import profileIcon from './profile-icon.svg';
 import { useStore } from 'effector-react';
+import { reactGAEvent } from '../../../../utils/ga-event';
 
 const ProfileWrapper = styled.div`
   width: 100%;
@@ -112,6 +113,10 @@ const NotAuthorizedProfile: React.FC<INotAuthorizedProfile> = ({
     setOpenPopUpState(TypesOfPopUps.EDIT_WORLD_NAME);
     if (tutorialCondition === TutorialConditions.PULSE_EDIT_CHANGE_CITY_NAME)
       nextTutorStep();
+    reactGAEvent({
+      eventLabel: 'city_name',
+      eventCategory: 'onboarding',
+    });
   };
 
   return (

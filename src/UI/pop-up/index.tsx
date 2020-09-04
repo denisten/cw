@@ -178,13 +178,18 @@ export const PopUp: React.FC<IPopUp> = ({
     if (inputHasError) return;
     if (tutorialDesiredState(tutorialCondition)) {
       popUpHandlerInTutorialMode();
+      reactGAEvent({
+        eventLabel: 'city_name',
+        eventCategory: 'onboarding',
+        eventAction: 'confirmed',
+      });
       return;
     }
     reactGAEvent({
       eventLabel: 'city_name',
       eventCategory: 'profile',
-      eventAction: 'confirmed'
-    })
+      eventAction: 'confirmed',
+    });
     saveData();
   };
 

@@ -134,10 +134,18 @@ const handleClick = (tutorialCondition: TutorialConditions) => {
     menuOpened(MenuItems.PROFILE);
     extraTowerInfoModalClosed();
     nextTutorStep();
+    reactGAEvent({
+      eventLabel: 'profile',
+      eventCategory: 'onboarding',
+    });
   } else if (tutorialCondition === TutorialConditions.PULSE_MENU_AUTH) {
     menuOpened(MenuItems.PROFILE);
     extraTowerInfoModalClosed();
     nextTutorStep();
+    reactGAEvent({
+      eventLabel: 'profile',
+      eventCategory: 'onboarding',
+    });
   }
 };
 
