@@ -131,6 +131,8 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
     reactGAEvent({
       eventLabel: 'razvernut',
       eventCategory: 'zadaniya',
+      eventContent: 'zadachi',
+      eventContext: task.title,
     });
   };
 

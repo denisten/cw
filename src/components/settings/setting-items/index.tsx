@@ -84,6 +84,7 @@ export const SettingItems = () => {
             reactGAEvent({
               eventLabel: 'muzika',
               eventCategory: 'nastroiki',
+              eventContext: 'off',
             });
           }}
         />
@@ -107,6 +108,7 @@ export const SettingItems = () => {
             reactGAEvent({
               eventLabel: 'zvuk',
               eventCategory: 'nastroiki',
+              eventContext: 'off',
             });
           }}
         />

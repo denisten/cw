@@ -40,6 +40,8 @@ export const handleTaskClick = async (taskData: ITask, e: React.MouseEvent) => {
         reactGAEvent({
           eventLabel: 'vypolnit',
           eventCategory: 'zadaniya',
+          eventContent: 'zadachi',
+          eventContext: taskData.title,
         });
         if (
           taskData.taskTypeSlug !== TasksType.COSMETIC &&
@@ -72,6 +74,8 @@ export const handleTaskClick = async (taskData: ITask, e: React.MouseEvent) => {
       reactGAEvent({
         eventLabel: 'zabrat',
         eventCategory: 'zadaniya',
+        eventContent: 'zadachi',
+        eventContext: taskData.title,
       });
       animateTaskReward(taskData.money, e);
       await rewardRequest(id);
