@@ -20,6 +20,7 @@ import { maxPercent } from '../../constants';
 import { extraTowerInfoModalClosed } from '../../effector/tower-info-modal-store/events';
 import { BuildingsService } from '../../buildings/config';
 import { reactGAEvent } from '../../utils/ga-event';
+import { transliterate } from '../../utils/transliterate';
 
 export const UPGRADABLE = 'upgradable';
 
@@ -129,7 +130,7 @@ export const ProgressBar: React.FC<IProgressBar> = ({
       showUpgradeIcon(towerTitle);
       await towerUpdateHandler(TutorialConditions.OFF, towerTitle);
       reactGAEvent({
-        eventLabel: towerLayoutData.eventLabel || '',
+        eventLabel: transliterate(towerLayoutData.title) || '',
         eventCategory: 'zdanie',
       });
     }

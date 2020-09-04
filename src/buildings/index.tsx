@@ -7,6 +7,7 @@ import {
   TowersTypes,
 } from '../effector/towers-progress/store';
 import { errorStringsParsingHOF } from '../utils/error-handler';
+import { transliterate } from '../utils/transliterate';
 
 export const Buildings: React.FC = () => {
   const localTowersProgressStore = useStore(TowersProgressStore);
@@ -22,7 +23,7 @@ export const Buildings: React.FC = () => {
           if (towerParams) {
             return (
               <TowerWrapper
-                eventLabel={towerLayoutData.eventLabel}
+                eventLabel={transliterate(towerLayoutData.title)}
                 signConfig={towerLayoutData.signConfig}
                 mutedImg={towerLayoutData.mutedImg}
                 key={towerTitle}
