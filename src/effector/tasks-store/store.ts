@@ -2,7 +2,6 @@ import { MissionsDomain } from './domain';
 import {
   activateTask,
   getResult,
-  getTaskReward,
   resetMissionsStore,
   saveTask,
   setCurrentTaskStatus,
@@ -29,14 +28,6 @@ export enum TaskStatuses {
 const initStore: ITask[] = [];
 
 export const TasksStore = MissionsDomain.store(initStore)
-  .on(getTaskReward.doneData, state => {
-    const stateCopy = [...state];
-    //   if (!isSubtask) {
-    //   const idx = state.findIndex(el => el.id === id);
-    //   stateCopy.splice(idx, 1);
-    // }
-    return stateCopy;
-  })
   .on(saveTask, (_, payload) => payload)
   .on(activateTask.doneData, (state, payload) => payload)
   .on(verifyTask.doneData, (state, payload) => payload)

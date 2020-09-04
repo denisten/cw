@@ -8,7 +8,6 @@ import {
   TaskStatuses,
 } from '../../../../../../effector/tasks-store/store';
 import { TowersTypes } from '../../../../../../effector/towers-progress/store';
-// import { TaskTypes } from '../../../../../../app';
 
 const UnauthorizedTaskZoneWrapper = styled.div`
   width: 100%;
