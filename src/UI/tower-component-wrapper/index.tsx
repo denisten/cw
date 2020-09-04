@@ -270,6 +270,7 @@ export const TowerWrapper = memo(
           markersCollection={markers}
           towerTitle={towerTitle}
           displayFlag={markersDisplayFlag}
+          eventLabel={eventLabel}
         />
         <UpgradeButton
           tutorialCondition={tutorialCondition}
@@ -279,6 +280,7 @@ export const TowerWrapper = memo(
           animFlag={
             tutorialCondition === TutorialConditions.UPGRADE_BUTTON_TOWER_INFO
           }
+          eventLabel={eventLabel}
         />
 
         {upgradeFlag && <TowerUpgradeAnimation wideTower={wideTower} />}

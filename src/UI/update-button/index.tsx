@@ -10,6 +10,7 @@ import {
 import { TutorialConditions } from '../../effector/tutorial-store/store';
 import { towerUpdateHandler } from '../../utils/tower-update-handler';
 import { Icon } from '../icons';
+import { reactGAEvent } from '../../utils/ga-event';
 
 const handleClick = async (
   towerTitle: TowersTypes,
@@ -32,6 +33,7 @@ export const UpgradeButton: React.FC<IUpgradeButton> = ({
   displayFlag,
   towerLevel,
   tutorialCondition,
+  eventLabel,
 }) => {
   return (
     <MarkerWrapper
@@ -41,7 +43,13 @@ export const UpgradeButton: React.FC<IUpgradeButton> = ({
     >
       <MarkerView
         animFlag={animFlag}
-        onClick={() => handleClick(towerTitle, tutorialCondition)}
+        onClick={() => {
+          reactGAEvent({
+            eventLabel: eventLabel || '',
+            eventCategory: 'mir',
+          });
+          handleClick(towerTitle, tutorialCondition);
+        }}
       >
         <Icon type={MarkerTypes.UPGRADE_TOWER} style={styleConfig.icons} />
       </MarkerView>
@@ -55,4 +63,5 @@ interface IUpgradeButton {
   displayFlag: boolean;
   towerLevel: number;
   tutorialCondition: TutorialConditions;
+  eventLabel?: string;
 }

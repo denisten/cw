@@ -18,6 +18,8 @@ import { upgradeTowerAndShowAnimation } from '../../utils/upgrade-tower-and-show
 import { pulseAnimationHOF } from '../../hoc/pulse-anim';
 import { maxPercent } from '../../constants';
 import { extraTowerInfoModalClosed } from '../../effector/tower-info-modal-store/events';
+import { BuildingsService } from '../../buildings/config';
+import { reactGAEvent } from '../../utils/ga-event';
 
 export const UPGRADABLE = 'upgradable';
 
@@ -99,8 +101,13 @@ export const ProgressBar: React.FC<IProgressBar> = ({
   needUpgrade,
 }) => {
   const progressBarWrapperRef = useRef<HTMLDivElement>(null);
+  const towerLayoutData = BuildingsService.getConfigForTower(towerTitle);
 
   const handleClick = async () => {
+    reactGAEvent({
+      eventLabel: towerLayoutData.eventLabel || '',
+      eventCategory: 'zdanie',
+    });
     if (
       tutorialCondition &&
       tutorialCondition === TutorialConditions.UPGRADE_BUTTON_TOWER_INFO &&
