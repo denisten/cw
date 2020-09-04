@@ -11,7 +11,7 @@ export interface IGetProfile {
   avatar: string;
   birthday: string;
   id: number;
-  name: string | null;
+  name: string;
   worldName: string;
   msisdn: string;
   guid: string;

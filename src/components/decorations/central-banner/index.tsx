@@ -77,7 +77,7 @@ export const CentralBanner: React.FC<ICentralBanner> = ({
   const [wordLength, setWordLength] = useState(0);
 
   useEffect(() => {
-    setWordLength(worldName.length);
+    setWordLength(worldName ? worldName.length : 0);
   }, [worldName]);
 
   const openAndEditCityName = () => {
