@@ -18,9 +18,11 @@ import {
 } from '../../tasks-view/tower-task-row';
 import { calculateCompletedSubTasksQuantity } from '../mission-tower-row-view';
 import { UnavailableSubtaskView } from '../unavailable-subtask-view';
-import { CompletedTasksWrapper, detectSubTaskId } from '../index';
+import { CompletedTasksWrapper, detectSubTaskIdx } from '../index';
 import backImg from './back-img.svg';
 import { MTSSans } from '../../../fonts';
+import { TaskTypes } from '../../../app';
+import { MenuTaskRow } from '../../tasks-view/menu-task-row';
 
 export const MissionTowerViewWrapper = styled.div`
   height: 70px;
@@ -69,23 +71,35 @@ export const MissionTowerView: React.FC<IMissionTowerView> = ({
   const handleHintClick = (e: React.MouseEvent) => {
     e.stopPropagation();
   };
-  const currentSubtaskId = detectSubTaskId(mission.userSubTasks);
+  const currentSubtaskIdx = detectSubTaskIdx(mission.userSubTasks);
 
   const NotCompletedSubTasks =
-    currentSubtaskId !== -1
+    currentSubtaskIdx !== -1
       ? mission.userSubTasks
-          .slice(currentSubtaskId + 1)
+          .slice(currentSubtaskIdx + 1)
           .map(el => <UnavailableSubtaskView task={el} key={el.id} />)
       : React.Fragment;
 
   const CompletedSubTasks =
-    currentSubtaskId !== -1
+    currentSubtaskIdx !== -1
       ? mission.userSubTasks
-          .slice(0, currentSubtaskId + 1)
+          .slice(0, currentSubtaskIdx + 1)
           .map(el => (
-            <TowerTaskRow isInTowerInfo={true} task={el} key={el.id} />
+            <TowerTaskRow
+              isInTowerInfo={true}
+              task={el}
+              key={el.id}
+              taskType={TaskTypes.SUBTASK}
+            />
           ))
-      : React.Fragment;
+      : mission.userSubTasks.map(el => (
+          <MenuTaskRow
+            isInTowerInfo={false}
+            task={el}
+            key={el.id}
+            taskType={TaskTypes.SUBTASK}
+          />
+        ));
 
   return (
     <MissionTowerViewWrapper>

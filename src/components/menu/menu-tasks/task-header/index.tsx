@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { TasksType } from '..';
 import task from './task.svg';
 import missionActive from './mission-active.svg';
 import missionNotAuth from './mission-not-auth.png';
 import taskActive from './task-active.svg';
 import missionImg from './mission.svg';
 import { MTSSans } from '../../../../fonts';
+import { TaskTypes } from '../../../../app';
 
 const Header = styled.div`
   width: 755px;
@@ -61,17 +61,17 @@ const HeaderItem = styled.div<IHeaderItem>`
 
 export const TasksHeader: React.FC<ITaskHeader> = ({
   activeType,
-  taskTypes,
+  taskData,
   callBack,
   isAuthorized,
 }) => (
   <Header>
-    {taskTypes.map(taskElem => (
+    {taskData.map(taskElem => (
       <HeaderItem
         active={taskElem.id === activeType}
         key={taskElem.id}
         onClick={() => callBack(taskElem.id)}
-        disable={!isAuthorized && taskElem.id !== TasksType.TASKS}
+        disable={!isAuthorized && taskElem.id !== TaskTypes.TASK}
       >
         <span>{taskElem.label}</span>
       </HeaderItem>
@@ -81,8 +81,8 @@ export const TasksHeader: React.FC<ITaskHeader> = ({
 
 interface ITaskHeader {
   activeType: string;
-  taskTypes: { id: TasksType; label: string }[];
-  callBack: (type: TasksType) => void;
+  taskData: { id: TaskTypes; label: string }[];
+  callBack: (type: TaskTypes) => void;
   isAuthorized: boolean;
 }
 

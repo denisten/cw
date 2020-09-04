@@ -14,6 +14,7 @@ import { MissionsStore } from '../../../effector/missions-store/store';
 import { MissionTowerRowView } from '../../missions-view/mission-tower-row-view';
 import { MissionTowerView } from '../../missions-view/mission-tower-view';
 import { IDisplayFlag } from '../../root-component';
+import { TaskTypes } from '../../../app';
 
 const TowerInfoTaskWrapper = styled.div`
   margin-top: 24px;
@@ -81,7 +82,12 @@ export const TowerInfoTask: React.FC<ITowerInfoTask> = ({ towerTitle }) => {
   const filteredTasks = filterTasksArray(tasks, towerTitle);
   const filteredMissions = filterTasksArray(missions, towerTitle);
   const tasksView = filteredTasks.map(task => (
-    <TowerTaskRow key={task.id} isInTowerInfo={true} task={task} />
+    <TowerTaskRow
+      key={task.id}
+      isInTowerInfo={true}
+      task={task}
+      taskType={TaskTypes.TASK}
+    />
   ));
   const missionsView = filteredMissions.map(el => (
     <MissionTowerRowView

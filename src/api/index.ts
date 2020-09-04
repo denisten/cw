@@ -9,6 +9,7 @@ export enum apiRoutes {
   CLOSE_TUTORIAL = '/api/users/current/profile/tutorial/shown',
   CLOSE_SLIDER = '/api/users/current/profile/slider/shown',
   GET_INCOMES = '/api/users/current/products/incomes',
+  PRODUCT_LEVEL_DATA = '/api/progress/levels',
   DEV_LOGIN = '/api/dev/login',
   GET_URL = '/api/auth/url',
   USER_DATA = '/api/users/current',
