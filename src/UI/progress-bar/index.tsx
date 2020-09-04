@@ -104,10 +104,6 @@ export const ProgressBar: React.FC<IProgressBar> = ({
   const towerLayoutData = BuildingsService.getConfigForTower(towerTitle);
 
   const handleClick = async () => {
-    reactGAEvent({
-      eventLabel: towerLayoutData.eventLabel || '',
-      eventCategory: 'zdanie',
-    });
     if (
       tutorialCondition &&
       tutorialCondition === TutorialConditions.UPGRADE_BUTTON_TOWER_INFO &&
@@ -122,9 +118,18 @@ export const ProgressBar: React.FC<IProgressBar> = ({
       } else {
         nextTutorStep();
       }
+
+      reactGAEvent({
+        eventLabel: 'uluchshit',
+        eventCategory: 'onboarding',
+      });
     } else if (needUpgrade) {
       showUpgradeIcon(towerTitle);
       await towerUpdateHandler(TutorialConditions.OFF, towerTitle);
+      reactGAEvent({
+        eventLabel: towerLayoutData.eventLabel || '',
+        eventCategory: 'zdanie',
+      });
     }
   };
   useEditProgressbarClassname(progressBarWrapperRef.current, needUpgrade);

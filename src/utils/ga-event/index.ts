@@ -41,7 +41,10 @@ export const reactGAEvent = (props: IReactGAEventParams) => {
 };
 
 interface IReactGAEventParams {
-  eventLabel: string;
-  eventCategory: string;
+  eventLabel?: string;
+  eventCategory?: string;
   eventAction?: string;
+  event?: string;
+  buttonLocation?: string;
+  eventContent?: string;
 }

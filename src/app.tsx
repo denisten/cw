@@ -10,6 +10,7 @@ import { useCheckUserAuthStatus } from './hooks/use-check-user-auth-status';
 import TagManager from 'react-gtm-module';
 import { isIE, isMobile } from 'react-device-detect';
 import { Plug } from './components/plug';
+import { reactGAEvent } from './utils/ga-event';
 
 export enum Routes {
   MAIN = '/',
@@ -61,6 +62,10 @@ export const App: React.FC = () => {
       gtmId: 'GTM-KML5W55',
     };
     TagManager.initialize(tagManagerArgs);
+
+    reactGAEvent({
+      event: 'mtsPageview',
+    });
   }, []);
 
   const displayFlag = !(isMobile || isIE);

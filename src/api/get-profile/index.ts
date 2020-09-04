@@ -21,5 +21,4 @@ export interface IGetProfile {
   showSlider: boolean;
   showTutorial: boolean;
   operatorId: number;
-  isSubscriber: boolean;
 }
