@@ -187,6 +187,11 @@ const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
     } else {
       setNameInputHasError(true);
     }
+    reactGAEvent({
+      eventLabel: 'sohranit',
+      eventCategory: 'profile',
+      eventAction: 'button_click',
+    });
   };
 
   const popUpConfig = {

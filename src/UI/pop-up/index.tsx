@@ -114,7 +114,11 @@ export const PopUp: React.FC<IPopUp> = ({
   }, [initValue]);
 
   useEffect(() => {
-    if (displayFlag && popUpType === TypesOfPopUps.EDIT_WORLD_NAME) {
+    if (
+      displayFlag &&
+      popUpType === TypesOfPopUps.EDIT_WORLD_NAME &&
+      !tutorialCondition
+    ) {
       reactGAEvent({
         eventLabel: 'city_name',
         eventCategory: 'profile',
@@ -174,7 +178,13 @@ export const PopUp: React.FC<IPopUp> = ({
     if (inputHasError) return;
     if (tutorialDesiredState(tutorialCondition)) {
       popUpHandlerInTutorialMode();
+      return;
     }
+    reactGAEvent({
+      eventLabel: 'city_name',
+      eventCategory: 'profile',
+      eventAction: 'confirmed'
+    })
     saveData();
   };
 

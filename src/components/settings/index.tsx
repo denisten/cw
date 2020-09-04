@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { SettingItems } from './setting-items';
 import { MTSSans } from '../../fonts';
 import termsDoc from './terms.pdf';
+import { reactGAEvent } from '../../utils/ga-event';
 
 const SettingWrapper = styled.div`
   width: 100%;
@@ -64,7 +65,18 @@ export const Settings: React.FC = () => {
         <SettingItems />
       </SettingOptionsWrapper>
       <SettingFooter>
-        <a target="_blank" href={termsDoc} rel="noopener noreferrer">
+        <a
+          target="_blank"
+          href={termsDoc}
+          rel="noopener noreferrer"
+          onClick={() => {
+            reactGAEvent({
+              eventLabel: 'usloviya_polzovaniya',
+              eventCategory: 'nastroiki',
+              eventAction: 'link_click',
+            });
+          }}
+        >
           Пользовательское соглашение
         </a>
       </SettingFooter>
