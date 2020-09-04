@@ -187,11 +187,17 @@ export const TutorialDialog: React.FC<ITutorialDialog> = ({
     reload,
   });
 
-  const handleClick = (eventLabel: string) => {
+  const handleClick = (
+    eventLabel: string,
+    eventContent: string,
+    eventContext: string
+  ) => {
     reactGAEvent({
-      eventLabel: eventLabel,
+      eventLabel,
       eventCategory: 'onboarding',
       eventAction: 'button_click',
+      eventContent,
+      eventContext,
     });
     if (!isPrinting) {
       if (action && action.step === dialogStep) action.callBack();
@@ -215,6 +221,8 @@ export const TutorialDialog: React.FC<ITutorialDialog> = ({
         eventLabel: 'u_menya_ezhe_est_gorod',
         eventCategory: 'onboarding',
         eventAction: 'button_click',
+        eventContent: 'dobro_pozhalovat',
+        eventContext: 'step1',
       });
     } else if (dialogStep) {
       setDialogStep(dialogStep - 1);
@@ -236,6 +244,8 @@ export const TutorialDialog: React.FC<ITutorialDialog> = ({
                 reactGAEvent({
                   eventLabel: 'zakryt',
                   eventCategory: 'onboarding',
+                  eventContent: buttonContent[dialogStep]?.eventContent || '',
+                  eventContext: buttonContent[dialogStep]?.eventContext || '',
                 });
                 closeCallback();
               }}
@@ -280,7 +290,11 @@ export const TutorialDialog: React.FC<ITutorialDialog> = ({
                 )}
                 <Button
                   callback={() =>
-                    handleClick(buttonContent[dialogStep].eventLabel)
+                    handleClick(
+                      buttonContent[dialogStep].eventLabel,
+                      buttonContent[dialogStep].eventContent,
+                      buttonContent[dialogStep].eventContext
+                    )
                   }
                   className={ButtonClassNames.NORMAL}
                   content={buttonContent[dialogStep].name}

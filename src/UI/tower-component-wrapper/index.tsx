@@ -205,6 +205,7 @@ export const TowerWrapper = memo(
         reactGAEvent({
           eventLabel: 'zdanie',
           eventCategory: 'onboarding',
+          eventContext: 'step8',
         });
         nextTutorStep();
       } else if (!tutorialCondition || tutorialPause) {

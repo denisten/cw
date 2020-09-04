@@ -182,6 +182,7 @@ export const PopUp: React.FC<IPopUp> = ({
         eventLabel: 'city_name',
         eventCategory: 'onboarding',
         eventAction: 'confirmed',
+        eventContext: 'step6',
       });
       return;
     }

@@ -122,6 +122,8 @@ export const ProgressBar: React.FC<IProgressBar> = ({
       reactGAEvent({
         eventLabel: 'uluchshit',
         eventCategory: 'onboarding',
+        eventContent: 'sotovaya_svyaz',
+        eventContext: 'step13',
       });
     } else if (needUpgrade) {
       showUpgradeIcon(towerTitle);

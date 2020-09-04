@@ -228,6 +228,8 @@ const TowerInfo: React.FC = () => {
         eventLabel: 'razblokirovat',
         eventCategory: 'onboarding',
         eventAction: 'button_click',
+        eventContent: 'sotovaya_svyaz',
+        eventContext: 'step10',
       });
       openDescriptionTab();
     } else if (towerTutorialStep === TowerTutorialSteps.DESCRIPTION_OPENED) {
@@ -236,6 +238,8 @@ const TowerInfo: React.FC = () => {
         eventLabel: 'chto_dalshe',
         eventCategory: 'onboarding',
         eventAction: 'button_click',
+        eventContent: 'sotovaya_svyaz',
+        eventContext: 'step11',
       });
     } else if (towerTutorialStep === TowerTutorialSteps.CHAT_OPENED) {
       openTasksTab();
@@ -244,6 +248,8 @@ const TowerInfo: React.FC = () => {
         eventLabel: 'chto_dalshe',
         eventCategory: 'onboarding',
         eventAction: 'button_click',
+        eventContent: 'sotovaya_svyaz',
+        eventContext: 'step12',
       });
     }
   };

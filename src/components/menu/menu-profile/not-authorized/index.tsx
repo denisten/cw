@@ -116,6 +116,7 @@ const NotAuthorizedProfile: React.FC<INotAuthorizedProfile> = ({
     reactGAEvent({
       eventLabel: 'city_name',
       eventCategory: 'onboarding',
+      eventContext: 'step6',
     });
   };
 

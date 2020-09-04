@@ -137,6 +137,7 @@ const handleClick = (tutorialCondition: TutorialConditions) => {
     reactGAEvent({
       eventLabel: 'profile',
       eventCategory: 'onboarding',
+      eventContext: 'step5',
     });
   } else if (tutorialCondition === TutorialConditions.PULSE_MENU_AUTH) {
     menuOpened(MenuItems.PROFILE);
@@ -145,6 +146,7 @@ const handleClick = (tutorialCondition: TutorialConditions) => {
     reactGAEvent({
       eventLabel: 'profile',
       eventCategory: 'onboarding',
+      eventContext: 'step15',
     });
   }
 };
