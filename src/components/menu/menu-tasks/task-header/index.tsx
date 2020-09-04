@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { TasksType } from '..';
 import task from './task.svg';
 import missionActive from './mission-active.svg';
 import missionNotAuth from './mission-not-auth.png';
@@ -9,16 +8,14 @@ import missionImg from './mission.svg';
 import { MTSSans } from '../../../../fonts';
 import { reactGAEvent } from '../../../../utils/ga-event';
 
-const leftPosition = {
-  active: -22,
-  notSelected: -21.6,
-};
+import { TaskTypes } from '../../../../app';
 
 const Header = styled.div`
-  width: 100%;
+  width: 755px;
   height: 50px;
   display: flex;
   overflow: hidden;
+  background: #dafaff;
   flex-shrink: 0;
 `;
 
@@ -48,19 +45,17 @@ const HeaderItem = styled.div<IHeaderItem>`
   border-top-right-radius: 4px;
   border-top-left-radius: 4px;
   pointer-events: ${props => (props.disable ? 'none' : 'auto')};
-  &:nth-child(1) {
+  &:nth-child(odd) {
+    right: 6px;
     background: url(${props => (props.active ? taskActive : task)}) no-repeat
       center;
     background-size: 100% 100%;
     z-index: ${props => (!props.active ? 1 : notActiveHeaderZIndex)};
   }
-  &:nth-child(2) {
+  &:nth-child(even) {
     background: url(${props => selectBackground(props.active, props.disable)})
       no-repeat center;
     background-size: 100% 100%;
-    left: ${props =>
-      props.active ? leftPosition.active : leftPosition.notSelected}px;
-    bottom: 1px;
     z-index: ${props => (!props.active ? 1 : notActiveHeaderZIndex)};
     color: ${props => (props.disable ? '#768C8F ' : '#01acc8')};
   }
@@ -68,12 +63,12 @@ const HeaderItem = styled.div<IHeaderItem>`
 
 export const TasksHeader: React.FC<ITaskHeader> = ({
   activeType,
-  taskTypes,
+  taskData,
   callBack,
   isAuthorized,
 }) => (
   <Header>
-    {taskTypes.map(taskElem => (
+    {taskData.map(taskElem => (
       <HeaderItem
         active={taskElem.id === activeType}
         key={taskElem.id}
@@ -84,7 +79,7 @@ export const TasksHeader: React.FC<ITaskHeader> = ({
           });
           callBack(taskElem.id);
         }}
-        disable={!isAuthorized && taskElem.id !== TasksType.TASKS}
+        disable={!isAuthorized && taskElem.id !== TaskTypes.TASK}
       >
         <span>{taskElem.label}</span>
       </HeaderItem>
@@ -94,8 +89,8 @@ export const TasksHeader: React.FC<ITaskHeader> = ({
 
 interface ITaskHeader {
   activeType: string;
-  taskTypes: { id: TasksType; label: string; eventLabel: string }[];
-  callBack: (type: TasksType) => void;
+  taskData: { id: TaskTypes; label: string; eventLabel: string }[];
+  callBack: (type: TaskTypes) => void;
   isAuthorized: boolean;
 }
 

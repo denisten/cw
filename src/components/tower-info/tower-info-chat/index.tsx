@@ -19,7 +19,6 @@ import { ChatAvatar } from '../../../UI/chat-avatar';
 import { MarkerTypes } from '../../markers';
 import { useStore } from 'effector-react';
 import { setHideTowerInfo } from '../../../effector/tower-info-modal-store/events';
-import { TasksType } from '../../menu/menu-tasks';
 import { ModalWindow } from '../../modal-window';
 import { chatEndedHandler } from '../../../utils/chat-ended-handler';
 import { checkChatSession } from '../../../utils/check-chat-session';
@@ -31,6 +30,7 @@ import { usePlaySoundIf } from '../../../hooks/use-play-sound-if';
 import { MissionsStore } from '../../../effector/missions-store/store';
 import { writingAnimation } from './keyframes';
 import { IDisplayFlag } from '../../root-component';
+import { TaskTypes } from '../../../app';
 
 const ChatWrapper = styled.div`
   width: 100%;
@@ -158,7 +158,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
   }
 
   const checkCouponAvailability =
-    currentMission?.taskTypeSlug !== TasksType.INFORMATIONAL &&
+    currentMission?.taskTypeSlug !== TaskTypes.INFORMATIONAL &&
     (userCoupons[CouponTypes.COUPON_REPLACE].count > 0 ||
       userCoupons[CouponTypes.COUPON_SKIP].count > 0);
 
@@ -176,8 +176,8 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
       setPendingOfResponse(false);
       if (response.data.ended) {
         if (
-          currentTask.taskTypeSlug === TasksType.PRODUCT_QUIZ ||
-          currentTask.taskTypeSlug === TasksType.RELATED_QUIZ
+          currentTask.taskTypeSlug === TaskTypes.PRODUCT_QUIZ ||
+          currentTask.taskTypeSlug === TaskTypes.RELATED_QUIZ
         ) {
           chatEndedHandler(taskId, towerTitle);
         } else {

@@ -9,9 +9,9 @@ import {
 } from './events';
 import { TowersTypes } from '../towers-progress/store';
 import { chatTaskSession } from '../chat/events';
-import { TasksType } from '../../components/menu/menu-tasks';
 import { setMarker } from '../towers-marker/events';
 import { MarkerTypes } from '../../components/markers';
+import { TaskTypes } from '../../app';
 
 export enum TaskStatuses {
   CREATED = 'created',
@@ -101,7 +101,7 @@ export interface ITask {
   expireAt: string;
   expireInSeconds: number | null;
   localExpireInSeconds?: number;
-  taskTypeSlug: TasksType;
+  taskTypeSlug: TaskTypes;
   productSlug: TowersTypes;
   title: string;
   legend: string;

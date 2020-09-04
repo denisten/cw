@@ -9,6 +9,7 @@ import { handleTaskClick } from '../../utils/handle-task-click';
 import notDoneImg from '../../components/tasks-view/tower-task-row/not-done.svg';
 import { RowWrapper } from '../row-wrapper';
 import { MTSSans } from '../../fonts';
+import { TaskTypes } from '../../app';
 
 const MissionProgressBar = styled.div<IMissionProgressBar>`
   width: 110px;
@@ -53,7 +54,7 @@ export const MissionProgressBarButton: React.FC<IMissionProgressBarButton> = ({
 }) => {
   const handleTaskButtonClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    handleTaskClick(task, e);
+    handleTaskClick({ taskData: task, e, taskType: TaskTypes.MISSION });
   };
 
   return (

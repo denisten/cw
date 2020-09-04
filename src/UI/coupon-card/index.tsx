@@ -5,9 +5,9 @@ import { MTSSans } from '../../fonts';
 import { Icon, TypeOfIcons } from '../icons';
 import { MoneyCounter } from '../../components/shop/shop-content/money-counter';
 import { CouponTypes } from '../../effector/coupons/store';
-import { TasksType } from '../../components/menu/menu-tasks';
 import { MarkerTypes } from '../../components/markers';
 import plus from './plus.svg';
+import { TaskTypes } from '../../app';
 
 const disableClassName = 'disable';
 export const CardWrapper = styled.div<IStates>`
@@ -110,7 +110,7 @@ interface ICouponCard {
   callBack?: () => void;
   active: boolean;
   couponsQuantity?: number;
-  iconType: CouponTypes | TypeOfIcons | TasksType | MarkerTypes | string;
+  iconType: CouponTypes | TypeOfIcons | TaskTypes | MarkerTypes | string;
   titleElem?: string;
   price?: number;
   disable?: boolean;

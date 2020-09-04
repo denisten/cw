@@ -21,7 +21,6 @@ import {
   taskRowStyledConfig,
   VectorImg,
 } from '../tower-task-row';
-import { TasksType } from '../../menu/menu-tasks';
 import styled from 'styled-components';
 import { StyledSpan } from '../../../UI/span';
 import { MTSSans } from '../../../fonts';
@@ -34,6 +33,7 @@ import { TaskStatuses } from '../../../effector/tasks-store/store';
 import { handleAuthButtonClick } from '../../../utils/handle-auth-button-click';
 import { reactGAEvent } from '../../../utils/ga-event';
 import { transliterate } from '../../../utils/transliterate';
+import { TaskTypes } from '../../../app';
 
 export const TaskWrapper = styled.div<ITaskLocation>`
   width: 719px;
@@ -71,7 +71,7 @@ export const handleTaskWrapperClick = ({
   requestAnimationFrame(() => {
     if (
       taskDescriptionRef.current &&
-      taskType !== TasksType.TUTORIAL_TASK &&
+      taskType !== TaskTypes.TUTORIAL_TASK &&
       vectorRef.current
     ) {
       if (isOpened) {
@@ -92,9 +92,9 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
   isInTowerInfo,
   task,
   available = true,
+  taskType,
 }) => {
-  const taskType = task.taskTypeSlug;
-  const towerTitle = task.productSlug;
+  const { taskTypeSlug, productSlug: towerTitle } = task;
 
   const [isOpened, setIsOpened] = useState(false);
   const taskWrapperRef = useRef<HTMLDivElement>(null);
@@ -111,11 +111,11 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
 
   const handleWrapperClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (taskType === TasksType.TUTORIAL_TASK) {
+    if (taskTypeSlug === TaskTypes.TUTORIAL_TASK) {
       // do next tutorial step in future
       handleAuthButtonClick();
     } else {
-      handleTaskClick(task, e);
+      handleTaskClick({ taskData: task, e, taskType });
       task.status === TaskStatuses.DONE && volume && playRewardSound();
       task.status === TaskStatuses.CREATED && volume && playActiveTask();
     }
@@ -126,7 +126,7 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
       taskDescriptionRef,
       isOpened,
       setIsOpened,
-      taskType,
+      taskType: taskTypeSlug,
       vectorRef,
     });
     reactGAEvent({
@@ -149,7 +149,7 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
         isInTowerInfo={isInTowerInfo}
       >
         <TaskInfo>
-          <Icon type={available ? taskType : TaskStatuses.NOT_AVAILABLE} />
+          <Icon type={available ? taskTypeSlug : TaskStatuses.NOT_AVAILABLE} />
           <Title isInTowerInfo={isInTowerInfo}>{task.title}</Title>
           {available && (
             <RowWrapper>
@@ -204,7 +204,7 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
 
 interface IHandleTaskWrapperClick {
   taskDescriptionRef: React.RefObject<HTMLDivElement>;
-  taskType: TasksType;
+  taskType: TaskTypes;
   vectorRef: React.RefObject<HTMLDivElement>;
   isOpened: boolean;
   setIsOpened: Function;

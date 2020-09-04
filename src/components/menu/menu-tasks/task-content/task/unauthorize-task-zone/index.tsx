@@ -34,9 +34,10 @@ const LinkTitle = styled(Title)`
   color: #02adc9;
   cursor: pointer;
 `;
-enum TasksType {
+
+enum TaskTypes {
   TUTORIAL_TASK = 'tutorial-task',
-  TASKS = 'tasks',
+  TASK = 'task',
   CHALLENGE = 'challenge',
   MISSION = 'mission',
   NBO = 'nbo',
@@ -46,13 +47,15 @@ enum TasksType {
   PRODUCT_QUIZ = 'product-quiz',
   RELATED_QUIZ = 'related-quiz',
   COSMETIC = 'cosmetic',
+  SUBTASK = 'subtask',
 }
+
 const firstTask: ITask = {
   id: 1,
   status: TaskStatuses.CREATED,
   expireAt: '1000',
   expireInSeconds: null,
-  taskTypeSlug: TasksType.TUTORIAL_TASK,
+  taskTypeSlug: TaskTypes.TUTORIAL_TASK,
   productSlug: TowersTypes.MAIN_TOWER,
   title: 'Авторизация',
   legend: '',
@@ -66,7 +69,11 @@ const firstTask: ITask = {
 export const UnauthorizedTaskZone = () => {
   return (
     <UnauthorizedTaskZoneWrapper>
-      <MenuTaskRow task={firstTask} isInTowerInfo={false} />
+      <MenuTaskRow
+        task={firstTask}
+        isInTowerInfo={false}
+        taskType={TaskTypes.TASK}
+      />
       <Title>
         Новые задания будут доступны после
         <LinkTitle onClick={handleAuthButtonClick}> авторизации</LinkTitle>.
