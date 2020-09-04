@@ -10,6 +10,7 @@ import { useStore } from 'effector-react';
 import { TasksStore } from '../../../effector/tasks-store/store';
 import { TowersTypes } from '../../../effector/towers-progress/store';
 import { filterTasksArray } from '../../../utils/filtered-missions-array';
+import { reactGAEvent } from '../../../utils/ga-event';
 
 enum SelectedColorValue {
   TRUE = '001424',
@@ -94,6 +95,10 @@ export const TowerInfoMenu: React.FC<ITowerInfoMenu> = ({
           }
           onClick={() => {
             setTowerInfoContent(TowerInfoContentValues.DESCRIPTION);
+            reactGAEvent({
+              eventLabel: 'opisanie',
+              eventCategory: 'zdanie',
+            });
           }}
           onMouseOver={handleMouseOver}
           ref={refsCollection[0]}
@@ -104,6 +109,10 @@ export const TowerInfoMenu: React.FC<ITowerInfoMenu> = ({
           selected={selectTowerInfoContent === TowerInfoContentValues.CHAT}
           onClick={() => {
             setTowerInfoContent(TowerInfoContentValues.CHAT);
+            reactGAEvent({
+              eventLabel: 'chat',
+              eventCategory: 'zdanie',
+            });
           }}
           onMouseOver={handleMouseOver}
           ref={refsCollection[1]}
@@ -116,6 +125,10 @@ export const TowerInfoMenu: React.FC<ITowerInfoMenu> = ({
           selected={selectTowerInfoContent === TowerInfoContentValues.TASK}
           onClick={() => {
             setTowerInfoContent(TowerInfoContentValues.TASK);
+            reactGAEvent({
+              eventLabel: 'zadaniya',
+              eventCategory: 'zdanie',
+            });
           }}
           onMouseOver={handleMouseOver}
           ref={refsCollection[2]}

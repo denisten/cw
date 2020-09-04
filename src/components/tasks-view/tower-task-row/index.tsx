@@ -21,6 +21,7 @@ import { useStore } from 'effector-react';
 import { useAudio } from '../../../hooks/use-sound';
 import completedImg from './completed.svg';
 import { handleTaskWrapperClick } from '../menu-task-row';
+import { reactGAEvent } from '../../../utils/ga-event';
 
 export const TaskWrapper = styled.div<ITaskLocation>`
   width: 100%;
@@ -233,6 +234,10 @@ export const TowerTaskRow: React.FC<ITasksRow> = ({ isInTowerInfo, task }) => {
   };
   const handleClick = (e: React.MouseEvent) => {
     e.stopPropagation();
+    reactGAEvent({
+      eventLabel: 'razvernut',
+      eventCategory: 'zdanie',
+    });
     handleTaskWrapperClick({
       taskDescriptionRef,
       isOpened,

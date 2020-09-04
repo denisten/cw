@@ -18,6 +18,7 @@ import { StyledSpan } from '../../../UI/span';
 import playButtonSound from '../../../sound/play-button.mp3';
 import { SettingsStore } from '../../../effector/settings/store';
 import { useAudio } from '../../../hooks/use-sound';
+import { reactGAEvent } from '../../../utils/ga-event';
 
 const EVOLUTION = 'evolution';
 
@@ -171,6 +172,10 @@ export const TowerInfoIndicators: React.FC<ITowerInfoIndicators> = ({
   const { play: playButtonPlay } = useAudio(playButtonSound, false, volume);
 
   const handlePlayButtonClick = () => {
+    reactGAEvent({
+      eventLabel: 'igrat',
+      eventCategory: 'zdanie',
+    });
     playButtonLink && windowOpen(playButtonLink);
     volume && playButtonPlay();
   };
