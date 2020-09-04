@@ -106,7 +106,7 @@ export const ProgressBar: React.FC<IProgressBar> = ({
   needUpgrade,
 }) => {
   const progressBarWrapperRef = useRef<HTMLDivElement>(null);
-  const towerLayoutData = BuildingsService.getConfigForTower(towerTitle);
+  const { title } = BuildingsService.getConfigForTower(towerTitle);
   const {
     level: { level },
   } = useStore(TowersProgressStore)[towerTitle];
@@ -136,7 +136,7 @@ export const ProgressBar: React.FC<IProgressBar> = ({
       showUpgradeIcon(towerTitle);
       await towerUpdateHandler(TutorialConditions.OFF, towerTitle);
       reactGAEvent({
-        eventLabel: transliterate(towerLayoutData.title),
+        eventLabel: transliterate(title),
         eventCategory: 'zdanie',
         eventContent: 'uluchshit',
         eventContext: String(level + 1),

@@ -65,6 +65,7 @@ const translate = {
   ь: "'",
   б: 'b',
   ю: 'yu',
+  ' ': '_',
 };
 
 export const transliterate = (word: string) => {

@@ -4,6 +4,8 @@ import { TowersTypes } from '../../effector/towers-progress/store';
 import { ITask, TaskStatuses } from '../../effector/tasks-store/store';
 import { reactGAEvent } from '../ga-event';
 import { TaskTypes } from '../../app';
+import { BuildingsService } from '../../buildings/config';
+import { transliterate } from '../transliterate';
 
 export const checkChatSession = async (
   task: ITask | null,
@@ -11,6 +13,7 @@ export const checkChatSession = async (
   towerTitle: TowersTypes
 ) => {
   if (!task) return;
+  const { title } = BuildingsService.getConfigForTower(towerTitle);
   if (
     task.taskTypeSlug !== TaskTypes.COSMETIC &&
     task.status !== TaskStatuses.DONE &&
@@ -21,6 +24,7 @@ export const checkChatSession = async (
     reactGAEvent({
       eventLabel: 'start',
       eventCategory: 'viktorina',
+      eventContent: transliterate(title),
     });
     if (request.data.ended) {
       chatEndedHandler(taskId, towerTitle);
@@ -38,6 +42,7 @@ export const checkChatSession = async (
     reactGAEvent({
       eventLabel: 'start',
       eventCategory: 'viktorina',
+      eventContent: transliterate(title),
     });
 
     if (request.data.ended) {

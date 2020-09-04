@@ -11,6 +11,8 @@ import { TasksStore } from '../../../effector/tasks-store/store';
 import { TowersTypes } from '../../../effector/towers-progress/store';
 import { filterTasksArray } from '../../../utils/filtered-missions-array';
 import { reactGAEvent } from '../../../utils/ga-event';
+import { BuildingsService } from '../../../buildings/config';
+import { transliterate } from '../../../utils/transliterate';
 
 enum SelectedColorValue {
   TRUE = '001424',
@@ -85,7 +87,7 @@ export const TowerInfoMenu: React.FC<ITowerInfoMenu> = ({
     handleMouseOut,
   } = useMoveTo(FIRST_ELEM_WIDTH, refsCollection, selectTowerInfoContent);
   const missions = useStore(TasksStore);
-
+  const { title } = BuildingsService.getConfigForTower(towerTitle);
   return (
     <TowerInfoMenuWrapper>
       <RowWrapper onMouseOut={() => handleMouseOut()}>
@@ -98,6 +100,7 @@ export const TowerInfoMenu: React.FC<ITowerInfoMenu> = ({
             reactGAEvent({
               eventLabel: 'opisanie',
               eventCategory: 'zdanie',
+              eventContent: transliterate(title),
             });
           }}
           onMouseOver={handleMouseOver}
@@ -112,6 +115,7 @@ export const TowerInfoMenu: React.FC<ITowerInfoMenu> = ({
             reactGAEvent({
               eventLabel: 'chat',
               eventCategory: 'zdanie',
+              eventContent: transliterate(title),
             });
           }}
           onMouseOver={handleMouseOver}
@@ -128,6 +132,7 @@ export const TowerInfoMenu: React.FC<ITowerInfoMenu> = ({
             reactGAEvent({
               eventLabel: 'zadaniya',
               eventCategory: 'zdanie',
+              eventContent: transliterate(title),
             });
           }}
           onMouseOver={handleMouseOver}

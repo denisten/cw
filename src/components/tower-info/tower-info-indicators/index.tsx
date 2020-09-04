@@ -19,6 +19,7 @@ import playButtonSound from '../../../sound/play-button.mp3';
 import { SettingsStore } from '../../../effector/settings/store';
 import { useAudio } from '../../../hooks/use-sound';
 import { reactGAEvent } from '../../../utils/ga-event';
+import { transliterate } from '../../../utils/transliterate';
 
 const EVOLUTION = 'evolution';
 
@@ -164,7 +165,7 @@ export const TowerInfoIndicators: React.FC<ITowerInfoIndicators> = ({
   const { needUpgrade } = useStore(TowersProgressStore)[towerTitle];
 
   const [activeTooltip, setActiveTooltip] = useState(ActiveTooltip.OFF);
-
+  const { title } = BuildingsService.getConfigForTower(towerTitle);
   const {
     sound: { volume },
   } = useStore(SettingsStore);
@@ -175,6 +176,7 @@ export const TowerInfoIndicators: React.FC<ITowerInfoIndicators> = ({
     reactGAEvent({
       eventLabel: 'igrat',
       eventCategory: 'zdanie',
+      eventContent: transliterate(title),
     });
     playButtonLink && windowOpen(playButtonLink);
     volume && playButtonPlay();
