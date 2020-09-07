@@ -35,8 +35,7 @@ export const reactGAEvent = (props: IReactGAEventParams) => {
       userAuth: isAuthorized ? '1' : '0',
     },
   };
-  // eslint-disable-next-line no-console
-  console.log(tagManagerArgs);
+
   TagManager.dataLayer(tagManagerArgs);
 };
 
