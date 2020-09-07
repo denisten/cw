@@ -1,6 +1,9 @@
 import React from 'react';
 
-import { TowersTypes } from '../../effector/towers-progress/store';
+import {
+  TowersTypes,
+  TowersProgressStore,
+} from '../../effector/towers-progress/store';
 import { showUpgradeIcon } from '../../effector/app-condition/events';
 import {
   MarkerView,
@@ -10,6 +13,8 @@ import {
 import { TutorialConditions } from '../../effector/tutorial-store/store';
 import { towerUpdateHandler } from '../../utils/tower-update-handler';
 import { Icon } from '../icons';
+import { reactGAEvent } from '../../utils/ga-event';
+import { useStore } from 'effector-react';
 
 const handleClick = async (
   towerTitle: TowersTypes,
@@ -32,7 +37,11 @@ export const UpgradeButton: React.FC<IUpgradeButton> = ({
   displayFlag,
   towerLevel,
   tutorialCondition,
+  eventLabel,
 }) => {
+  const {
+    level: { level },
+  } = useStore(TowersProgressStore)[towerTitle];
   return (
     <MarkerWrapper
       displayFlag={displayFlag}
@@ -41,7 +50,15 @@ export const UpgradeButton: React.FC<IUpgradeButton> = ({
     >
       <MarkerView
         animFlag={animFlag}
-        onClick={() => handleClick(towerTitle, tutorialCondition)}
+        onClick={() => {
+          reactGAEvent({
+            eventLabel: eventLabel,
+            eventCategory: 'mir',
+            eventContent: 'uluchshit',
+            eventContext: String(level + 1),
+          });
+          handleClick(towerTitle, tutorialCondition);
+        }}
       >
         <Icon type={MarkerTypes.UPGRADE_TOWER} style={styleConfig.icons} />
       </MarkerView>
@@ -55,4 +72,5 @@ interface IUpgradeButton {
   displayFlag: boolean;
   towerLevel: number;
   tutorialCondition: TutorialConditions;
+  eventLabel?: string;
 }

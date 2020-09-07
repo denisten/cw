@@ -15,6 +15,7 @@ import { scoreSuccessRequests } from '../../effector/preloader/events';
 import { fetchIncomes } from '../../effector/reward/events';
 import { TutorialStore } from '../../effector/tutorial-store/store';
 import { disableTutorialRequest } from '../../api/disable-tutorial';
+import { reactGAEvent } from '../../utils/ga-event';
 
 const authHandlersList = [fetchAllProductsData, fetchIncomes, fetchUserData];
 
@@ -49,6 +50,12 @@ const handleAuth = async (isAuthorized: boolean, dataReceived: boolean) => {
     if (worldName && worldName !== defaultNameValue) {
       await saveUserData({ worldName });
     }
+
+    reactGAEvent({
+      eventLabel: 'uspeshnaya_avtorizaciya',
+      eventCategory: 'avtorizaciya',
+      eventAction: 'confirmed',
+    });
 
     await waitForAllRequestsIsDone();
     await openWsConnection();

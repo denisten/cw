@@ -29,6 +29,7 @@ import { SettingsStore } from '../../effector/settings/store';
 import { useAudio } from '../../hooks/use-sound';
 import assistantSound from '../../sound/assistant-sound.mp3';
 import { usePrintDialogMessage } from '../../hooks/use-print-dialog-message';
+import { reactGAEvent } from '../../utils/ga-event';
 import { useHandleBackgroundOnload } from '../../hooks/use-handle-background-onload';
 
 const TutorialDialogWrapper = styled.div`
@@ -187,7 +188,18 @@ export const TutorialDialog: React.FC<ITutorialDialog> = ({
     reload,
   });
 
-  const handleClick = () => {
+  const handleClick = (
+    eventLabel: string,
+    eventContent: string,
+    eventContext: string
+  ) => {
+    reactGAEvent({
+      eventLabel,
+      eventCategory: 'onboarding',
+      eventAction: 'button_click',
+      eventContent,
+      eventContext,
+    });
     if (!isPrinting) {
       if (action && action.step === dialogStep) action.callBack();
       if (tutorialCondition === TutorialConditions.FINAL_DIALOG_WITH_AUTH_USER)
@@ -206,8 +218,22 @@ export const TutorialDialog: React.FC<ITutorialDialog> = ({
     if (isNowFirstStepOfTutorial(dialogStep, tutorialCondition)) {
       handleAuthButtonClick();
       disableTutorialMode();
+      reactGAEvent({
+        eventLabel: 'u_menya_ezhe_est_gorod',
+        eventCategory: 'onboarding',
+        eventAction: 'button_click',
+        eventContent: 'dobro_pozhalovat',
+        eventContext: 'step1',
+      });
     } else if (dialogStep) {
       setDialogStep(dialogStep - 1);
+      reactGAEvent({
+        eventLabel: 'nazad',
+        eventCategory: 'onboarding',
+        eventAction: 'button_click',
+        eventContent: buttonContent[dialogStep]?.eventContent || '',
+        eventContext: buttonContent[dialogStep]?.eventContext || '',
+      });
     }
   };
 
@@ -219,7 +245,15 @@ export const TutorialDialog: React.FC<ITutorialDialog> = ({
         {tutorialCondition !== TutorialConditions.FINAL_DIALOG_WITH_AUTH_USER &&
           !isNowFirstStepOfTutorial(dialogStep, tutorialCondition) && (
             <ExitButton
-              callBack={() => closeCallback()}
+              callBack={() => {
+                reactGAEvent({
+                  eventLabel: 'zakryt',
+                  eventCategory: 'onboarding',
+                  eventContent: buttonContent[dialogStep]?.eventContent || '',
+                  eventContext: buttonContent[dialogStep]?.eventContext || '',
+                });
+                closeCallback();
+              }}
               {...styleConfig.exitButton}
             />
           )}
@@ -260,9 +294,15 @@ export const TutorialDialog: React.FC<ITutorialDialog> = ({
                   />
                 )}
                 <Button
-                  callback={handleClick}
+                  callback={() =>
+                    handleClick(
+                      buttonContent[dialogStep].eventLabel,
+                      buttonContent[dialogStep].eventContent,
+                      buttonContent[dialogStep].eventContext
+                    )
+                  }
                   className={ButtonClassNames.NORMAL}
-                  content={buttonContent[dialogStep]}
+                  content={buttonContent[dialogStep].name}
                   {...styleConfig.forwardButton}
                 />
               </>

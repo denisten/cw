@@ -4,7 +4,10 @@ import { MTSSans } from '../../fonts';
 import upgradeImg from './upgrade.svg';
 import { showUpgradeIcon } from '../../effector/app-condition/events';
 import { towerUpdateHandler } from '../../utils/tower-update-handler';
-import { TowersTypes } from '../../effector/towers-progress/store';
+import {
+  TowersTypes,
+  TowersProgressStore,
+} from '../../effector/towers-progress/store';
 import {
   TutorialConditions,
   TutorialStore,
@@ -18,6 +21,10 @@ import { upgradeTowerAndShowAnimation } from '../../utils/upgrade-tower-and-show
 import { pulseAnimationHOF } from '../../hoc/pulse-anim';
 import { maxPercent } from '../../constants';
 import { extraTowerInfoModalClosed } from '../../effector/tower-info-modal-store/events';
+import { BuildingsService } from '../../buildings/config';
+import { reactGAEvent } from '../../utils/ga-event';
+import { transliterate } from '../../utils/transliterate';
+import { useStore } from 'effector-react';
 
 export const UPGRADABLE = 'upgradable';
 
@@ -99,7 +106,10 @@ export const ProgressBar: React.FC<IProgressBar> = ({
   needUpgrade,
 }) => {
   const progressBarWrapperRef = useRef<HTMLDivElement>(null);
-
+  const { title } = BuildingsService.getConfigForTower(towerTitle);
+  const {
+    level: { level },
+  } = useStore(TowersProgressStore)[towerTitle];
   const handleClick = async () => {
     if (
       tutorialCondition &&
@@ -115,9 +125,22 @@ export const ProgressBar: React.FC<IProgressBar> = ({
       } else {
         nextTutorStep();
       }
+
+      reactGAEvent({
+        eventLabel: 'uluchshit',
+        eventCategory: 'onboarding',
+        eventContent: 'sotovaya_svyaz',
+        eventContext: 'step13',
+      });
     } else if (needUpgrade) {
       showUpgradeIcon(towerTitle);
       await towerUpdateHandler(TutorialConditions.OFF, towerTitle);
+      reactGAEvent({
+        eventLabel: transliterate(title),
+        eventCategory: 'zdanie',
+        eventContent: 'uluchshit',
+        eventContext: String(level + 1),
+      });
     }
   };
   useEditProgressbarClassname(progressBarWrapperRef.current, needUpgrade);

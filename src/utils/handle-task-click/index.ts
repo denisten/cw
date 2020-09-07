@@ -22,6 +22,8 @@ import { menuClosed } from '../../effector/menu-store/events';
 import { hideMarker } from '../../effector/towers-marker/events';
 import { MarkerTypes } from '../../components/markers';
 import { editUserProperty } from '../../effector/user-data/events';
+import { reactGAEvent } from '../ga-event';
+import { transliterate } from '../transliterate';
 import { TaskTypes } from '../../app';
 
 const updateUserBalance = (money: number, energy: number) => {
@@ -43,6 +45,12 @@ export const handleTaskClick = async ({
   switch (taskData.status) {
     case TaskStatuses.CREATED:
       if (!chatTaskId) {
+        reactGAEvent({
+          eventLabel: 'vypolnit',
+          eventCategory: 'zadaniya',
+          eventContent: 'zadachi',
+          eventContext: transliterate(taskData.title),
+        });
         if (
           taskData.taskTypeSlug !== TaskTypes.COSMETIC &&
           taskData.status === TaskStatuses.CREATED
@@ -71,6 +79,12 @@ export const handleTaskClick = async ({
       }
       break;
     case TaskStatuses.DONE:
+      reactGAEvent({
+        eventLabel: 'zabrat',
+        eventCategory: 'zadaniya',
+        eventContent: 'zadachi',
+        eventContext: transliterate(taskData.title),
+      });
       animateTaskReward(taskData.money, e);
       await getTaskReward({ id, taskType });
       updateUserBalance(money, energy);

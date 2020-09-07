@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { parseSum } from '../../utils/parse-sum';
 import { MenuItems } from '../menu-paragraph';
 import { menuOpened } from '../../effector/menu-store/events';
+import { reactGAEvent } from '../../utils/ga-event';
 
 const styledConfig = {
   coinImg: {
@@ -52,7 +53,13 @@ export const CoinsWallet: React.FC<IWalletCounter> = ({
           src={plusImg}
           alt="plus"
           style={styledConfig.plusImg}
-          onClick={() => menuOpened(MenuItems.TASKS)}
+          onClick={() => {
+            reactGAEvent({
+              eventLabel: 'dobavit_bally',
+              eventCategory: 'profile',
+            });
+            menuOpened(MenuItems.TASKS);
+          }}
         />
       )}
     </WalletWrapper>

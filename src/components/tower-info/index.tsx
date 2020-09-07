@@ -39,6 +39,7 @@ import { useAudio } from '../../hooks/use-sound';
 import { SettingsStore } from '../../effector/settings/store';
 import { usePlaySoundIf } from '../../hooks/use-play-sound-if';
 import openChat from '../../sound/open-chat.mp3';
+import { reactGAEvent } from '../../utils/ga-event';
 
 export type ModalWindowProps = {
   opened?: boolean;
@@ -223,12 +224,33 @@ const TowerInfo: React.FC = () => {
     } else if (
       towerTutorialStep === TowerTutorialSteps.DESCRIPTION_DONT_OPENED
     ) {
+      reactGAEvent({
+        eventLabel: 'razblokirovat',
+        eventCategory: 'onboarding',
+        eventAction: 'button_click',
+        eventContent: 'sotovaya_svyaz',
+        eventContext: 'step10',
+      });
       openDescriptionTab();
     } else if (towerTutorialStep === TowerTutorialSteps.DESCRIPTION_OPENED) {
       openChatTab();
+      reactGAEvent({
+        eventLabel: 'chto_dalshe',
+        eventCategory: 'onboarding',
+        eventAction: 'button_click',
+        eventContent: 'sotovaya_svyaz',
+        eventContext: 'step11',
+      });
     } else if (towerTutorialStep === TowerTutorialSteps.CHAT_OPENED) {
       openTasksTab();
       nextTutorStep();
+      reactGAEvent({
+        eventLabel: 'chto_dalshe',
+        eventCategory: 'onboarding',
+        eventAction: 'button_click',
+        eventContent: 'sotovaya_svyaz',
+        eventContext: 'step12',
+      });
     }
   };
 

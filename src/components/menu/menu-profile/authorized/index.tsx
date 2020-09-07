@@ -22,6 +22,7 @@ import { setOpenPopUpState } from '../../../../effector/app-condition/events';
 import { Input } from '../../../../UI/input';
 import { Button, ButtonClassNames } from '../../../../UI/button';
 import PhoneDropdown from '../../../../UI/phone-dropdown';
+import { reactGAEvent } from '../../../../utils/ga-event';
 
 const Header = styled.div`
   display: flex;
@@ -186,6 +187,11 @@ const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
     } else {
       setNameInputHasError(true);
     }
+    reactGAEvent({
+      eventLabel: 'sohranit',
+      eventCategory: 'profile',
+      eventAction: 'button_click',
+    });
   };
 
   const popUpConfig = {
@@ -204,7 +210,15 @@ const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
       <PopUp {...popUpConfig} />
       <Header>
         <RowWrapper style={styledConfig.userLogo}>
-          <UserAvatar avatar={avatar} />
+          <UserAvatar
+            avatar={avatar}
+            onClick={() =>
+              reactGAEvent({
+                eventLabel: 'foto',
+                eventCategory: 'profile',
+              })
+            }
+          />
           <ColumnWrapper {...styledConfig.profileDataColumnWrapper}>
             <NickNameWrapper>{name}</NickNameWrapper>
             <PhoneDropdown phone={phoneNumber} />

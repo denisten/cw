@@ -17,6 +17,7 @@ import { menuOpened } from '../../effector/menu-store/events';
 import { IUserAvatar } from '../../components/menu/menu-profile/authorized';
 import backgroundImg from './background.svg';
 import { IDisplayFlag } from '../../components/root-component';
+import { reactGAEvent } from '../../utils/ga-event';
 import { useHandleBackgroundOnload } from '../../hooks/use-handle-background-onload';
 
 const CoinsWrapper = styled.div`
@@ -124,16 +125,30 @@ const handleClick = (tutorialCondition: TutorialConditions) => {
   if (!tutorialCondition) {
     menuOpened(MenuItems.PROFILE);
     extraTowerInfoModalClosed();
+    reactGAEvent({
+      eventLabel: 'profile',
+      eventCategory: 'mir',
+    });
   } else if (
     tutorialCondition === TutorialConditions.PULSE_MENU_CHANGE_CITY_NAME
   ) {
     menuOpened(MenuItems.PROFILE);
     extraTowerInfoModalClosed();
     nextTutorStep();
+    reactGAEvent({
+      eventLabel: 'profile',
+      eventCategory: 'onboarding',
+      eventContext: 'step5',
+    });
   } else if (tutorialCondition === TutorialConditions.PULSE_MENU_AUTH) {
     menuOpened(MenuItems.PROFILE);
     extraTowerInfoModalClosed();
     nextTutorStep();
+    reactGAEvent({
+      eventLabel: 'profile',
+      eventCategory: 'onboarding',
+      eventContext: 'step15',
+    });
   }
 };
 

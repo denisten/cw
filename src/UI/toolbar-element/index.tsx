@@ -3,8 +3,8 @@ import iconShop from './shop.svg';
 import iconTask from './task.svg';
 
 export enum ToolbarElements {
-  TASK = 'task',
-  SHOP = 'shop',
+  TASK = 'zadaniya',
+  SHOP = 'magazin',
 }
 
 const toolbarElementImgSelector = (el: ToolbarElements) => {

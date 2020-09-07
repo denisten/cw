@@ -27,10 +27,30 @@ class TutorialDialogTextsService {
         'Начнем с главного',
       ],
       buttonContent: [
-        'Как это работает?',
-        'И что дальше',
-        'Звучит интересно',
-        'Назвать',
+        {
+          name: 'Как это работает?',
+          eventLabel: 'kak_eto_rabotaet',
+          eventContent: 'dobro_pozhalovat',
+          eventContext: 'step1',
+        },
+        {
+          name: 'И что дальше',
+          eventLabel: 'i_chto_dalshe',
+          eventContent: 'vse_prosto',
+          eventContext: 'step2',
+        },
+        {
+          name: 'Звучит интересно',
+          eventLabel: 'zvuchit_interesno',
+          eventContent: 'eto_besplatno',
+          eventContext: 'step3',
+        },
+        {
+          name: 'Назвать',
+          eventLabel: 'nazvat',
+          eventContent: 'nachnem_s_glavnogo',
+          eventContext: 'step4',
+        },
       ],
     },
     [TutorialConditions.DIALOG_CONFIRM_CITY_NAME]: {
@@ -38,14 +58,28 @@ class TutorialDialogTextsService {
         ' станет отличным местом! Городу нужно ваше внимание, так что постарайтесь посещать его ежедневно.',
       ],
       titles: ['Класс!'],
-      buttonContent: ['Я постараюсь'],
+      buttonContent: [
+        {
+          name: 'Я постараюсь',
+          eventLabel: 'ya_postaraus',
+          eventContent: 'klass',
+          eventContext: 'step7',
+        },
+      ],
       reload: true,
       action: { step: 0, callBack: scrollToMainTower },
     },
     [TutorialConditions.DIALOG_START_MISSION]: {
       messages: ['Первая задача - ознакомиться с устройством здания.'],
       titles: ['Приступим!'],
-      buttonContent: ['Начать миссию!'],
+      buttonContent: [
+        {
+          name: 'Начать миссию!',
+          eventLabel: 'nachat_missiu',
+          eventContent: 'pristupim',
+          eventContext: 'step9',
+        },
+      ],
       action: { step: 0, callBack: openMainTower },
     },
 
@@ -54,14 +88,28 @@ class TutorialDialogTextsService {
         'Теперь главное – не сбавлять темп. Чтобы не потерять прогресс развития города, просто войдите под номером любого мобильного оператора.',
       ],
       titles: ['Отличная работа!'],
-      buttonContent: ['Войти'],
+      buttonContent: [
+        {
+          name: 'Войти',
+          eventLabel: 'voiti',
+          eventContent: 'otlichnaya_rabota',
+          eventContext: 'step14',
+        },
+      ],
     },
     [TutorialConditions.FINAL_DIALOG_WITH_AUTH_USER]: {
       messages: [
         'Отлично! Обучение пройдено. Можно продолжать пользоваться миром',
       ],
       titles: ['Отличная работа!'],
-      buttonContent: ['Играть'],
+      buttonContent: [
+        {
+          name: 'Играть',
+          eventLabel: 'play',
+          eventContent: 'play',
+          eventContext: 'play',
+        },
+      ],
       action: { step: 0, callBack: finishTutorialOnAuthUser },
     },
   };
@@ -79,7 +127,12 @@ type ITutorialContentData = Record<TutorialDialogsValues, IDialogData>;
 export interface IDialogData {
   messages: string[];
   titles: string[];
-  buttonContent: string[];
+  buttonContent: {
+    name: string;
+    eventLabel: string;
+    eventContent: string;
+    eventContext: string;
+  }[];
   reload?: boolean;
   action?: { step: number; callBack: () => void };
 }

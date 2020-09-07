@@ -17,6 +17,7 @@ import { menuOpened } from '../../effector/menu-store/events';
 import { openMarket } from '../../effector/coupons/events';
 import { MissionsStore } from '../../effector/missions-store/store';
 import { ElementOpacity } from '../../constants';
+import { reactGAEvent } from '../../utils/ga-event';
 
 const ToolbarWrapper = styled.div`
   position: absolute;
@@ -69,6 +70,10 @@ const handleToolbarElementClick = (
 ) => {
   e.stopPropagation();
   if (!tutorialCondition) {
+    reactGAEvent({
+      eventLabel: type,
+      eventCategory: 'mir',
+    });
     extraTowerInfoModalClosed();
     switch (type) {
       case ToolbarElements.TASK:
