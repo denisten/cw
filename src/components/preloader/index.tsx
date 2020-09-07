@@ -179,7 +179,10 @@ export const Preloader: React.FC<IDisplayFlag> = ({ displayFlag }) => {
     saveFRRImgQuantity(
       Array.from(document.querySelectorAll('img')).filter(img =>
         img.hasAttribute('data-render')
-      ).length
+      ).length +
+        Array.from(document.querySelectorAll('div')).filter(div =>
+          div.hasAttribute('data-render')
+        ).length
     );
   }, []);
 
