@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { MenuItems } from '../menu-paragraph';
 import { ZIndexes } from '../../components/root-component/z-indexes-enum';
@@ -18,6 +18,7 @@ import { IUserAvatar } from '../../components/menu/menu-profile/authorized';
 import backgroundImg from './background.svg';
 import { IDisplayFlag } from '../../components/root-component';
 import { reactGAEvent } from '../../utils/ga-event';
+import { useHandleBackgroundOnload } from '../../hooks/use-handle-background-onload';
 
 const CoinsWrapper = styled.div`
   display: flex;
@@ -167,11 +168,14 @@ export const ProfileButton: React.FC<IProfileButton> = ({
     tutorialCondition === TutorialConditions.PULSE_MENU_CHANGE_CITY_NAME ||
     tutorialCondition === TutorialConditions.PULSE_MENU_AUTH;
 
+  useHandleBackgroundOnload(backgroundImg);
+
   return (
     <ProfileButtonWrapper
       zIndex={zIndex}
       onClick={() => handleClick(tutorialCondition)}
       animFlag={animFlag}
+      data-render={true}
     >
       <UserAvatar avatar={avatar} />
       <NameBlock>

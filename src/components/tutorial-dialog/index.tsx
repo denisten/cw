@@ -30,6 +30,7 @@ import { useAudio } from '../../hooks/use-sound';
 import assistantSound from '../../sound/assistant-sound.mp3';
 import { usePrintDialogMessage } from '../../hooks/use-print-dialog-message';
 import { reactGAEvent } from '../../utils/ga-event';
+import { useHandleBackgroundOnload } from '../../hooks/use-handle-background-onload';
 
 const TutorialDialogWrapper = styled.div`
   width: 1128px;
@@ -236,9 +237,11 @@ export const TutorialDialog: React.FC<ITutorialDialog> = ({
     }
   };
 
+  useHandleBackgroundOnload(tutorialBackground);
+
   return (
     <MainWrapper DOMLoaded={DOMLoaded} mustBeAsAnimated={mustBeAsAnimated}>
-      <TutorialDialogWrapper>
+      <TutorialDialogWrapper data-render={true}>
         {tutorialCondition !== TutorialConditions.FINAL_DIALOG_WITH_AUTH_USER &&
           !isNowFirstStepOfTutorial(dialogStep, tutorialCondition) && (
             <ExitButton

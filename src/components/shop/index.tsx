@@ -2,17 +2,15 @@ import React from 'react';
 import { ZIndexes } from '../root-component/z-indexes-enum';
 import { Overlay } from '../../UI/overlay';
 import styled from 'styled-components';
-
 import { openMarket } from '../../effector/coupons/events';
-
 import { ExitButton } from '../../UI/exit-button';
 import { useStore } from 'effector-react';
 import { UserMarketStore } from '../../effector/coupons/store';
 import { useFetchShopCatalog } from '../../hooks/use-fetch-shop-catalog';
-
 import ShopContent from './shop-content';
 import ProductView from './product-view';
 import background from './background.svg';
+import { useHandleBackgroundOnload } from '../../hooks/use-handle-background-onload';
 
 const styledConfig = {
   overlay: {
@@ -41,10 +39,10 @@ const Wrapper = styled.div`
 const Shop = () => {
   const { openedMarket, catalog } = useStore(UserMarketStore);
   useFetchShopCatalog(openedMarket, catalog);
-
+  useHandleBackgroundOnload(background);
   return (
     <Overlay displayFlag={openedMarket} {...styledConfig.overlay}>
-      <Wrapper>
+      <Wrapper data-render={true}>
         <ExitButton
           {...styledConfig.exitButton}
           callBack={() => openMarket(false)}
