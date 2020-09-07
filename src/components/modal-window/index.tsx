@@ -106,6 +106,10 @@ export const ModalWindow: React.FC<IModalWindow> = ({
   };
   const coupons = Object.keys(userCoupons).map((item, index) => {
     const coupon = item as CouponTypes;
+    const f = (e: React.MouseEvent) => {
+      e.stopPropagation();
+      userCoupons[coupon].count && setSelectedCoupon(coupon);
+    };
     return (
       <CouponCard
         key={index}
@@ -113,7 +117,7 @@ export const ModalWindow: React.FC<IModalWindow> = ({
         active={selectedCoupon === coupon}
         titleElem={TranslatedStoreItem[coupon]}
         couponsQuantity={userCoupons[coupon].count}
-        callBack={() => userCoupons[coupon].count && setSelectedCoupon(coupon)}
+        callBack={f}
         disable={!userCoupons[coupon].count}
         openShopCallBack={() => openShop(cancelHandler)}
         style={styledConfig.couponWrapper}

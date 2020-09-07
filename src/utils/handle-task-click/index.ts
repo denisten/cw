@@ -7,11 +7,7 @@ import {
 import { ChatStore } from '../../effector/chat/store';
 import { chatTaskSession, clearChat } from '../../effector/chat/events';
 import { setTowerInfoContent } from '../../effector/app-condition/events';
-import {
-  activateTask,
-  getTaskReward,
-  verifyTask,
-} from '../../effector/tasks-store/events';
+import { getTaskReward } from '../../effector/tasks-store/events';
 import { scrollToCurrentTower } from '../scroll-to-current-tower';
 import { BuildingsService } from '../../buildings/config';
 import { animateTaskReward } from '../animate-task-reward';
@@ -21,72 +17,94 @@ import { MenuStore } from '../../effector/menu-store/store';
 import { menuClosed } from '../../effector/menu-store/events';
 import { hideMarker } from '../../effector/towers-marker/events';
 import { MarkerTypes } from '../../components/markers';
-import { editUserProperty } from '../../effector/user-data/events';
 import { TaskTypes } from '../../app';
+import { TowersTypes } from '../../effector/towers-progress/store';
+import { MenuItems } from '../../UI/menu-paragraph';
+import { updateUserBalance } from '../handle-mission-click';
 
-const updateUserBalance = (money: number, energy: number) => {
-  editUserProperty({
-    money,
-    energy,
-  });
+export const handleStartTask = async ({
+  chatTaskId,
+  id,
+  towerTitle,
+  selectedMenuItem,
+  fullSizeMode,
+}: IHandleStartTask) => {
+  if (!chatTaskId) {
+    await chatTaskSession({ id, towerTitle });
+    selectedMenuItem && menuClosed();
+    setTowerInfoContent(TowerInfoContentValues.CHAT);
+    fullSizeMode && extraTowerInfoModalOpen(towerTitle);
+    scrollToCurrentTower(BuildingsService.getConfigForTower(towerTitle).ref);
+  } else
+    coughtError({
+      text: 'Сначала нужно закончить начатое задание.',
+    });
+};
+
+export const handleRewardTask = async ({
+  e,
+  id,
+  taskType,
+  money,
+  energy,
+  towerTitle,
+}: IHandleRewardTask) => {
+  animateTaskReward(money, e);
+  await getTaskReward({ id, taskType });
+  updateUserBalance(money, energy);
+  hideMarker({ towerTitle, type: MarkerTypes.SUCCESS });
+  clearChat({ towerTitle });
 };
 
 export const handleTaskClick = async ({
-  taskData,
+  task,
   e,
   taskType,
 }: IHandleTaskClick) => {
-  const { id, productSlug: towerTitle, money, energy } = taskData;
+  const { id, productSlug: towerTitle, money, energy } = task;
   const { fullSizeMode } = AppConditionStore.getState();
   const { selectedMenuItem } = MenuStore.getState();
   const { taskId: chatTaskId } = ChatStore.getState()[towerTitle];
-  switch (taskData.status) {
+  switch (task.status) {
     case TaskStatuses.CREATED:
-      if (!chatTaskId) {
-        if (
-          taskData.taskTypeSlug !== TaskTypes.COSMETIC &&
-          taskData.status === TaskStatuses.CREATED
-        ) {
-          await chatTaskSession({ id, towerTitle });
-          if (selectedMenuItem) menuClosed();
-          setTowerInfoContent(TowerInfoContentValues.CHAT);
-        } else {
-          await activateTask({ id, towerTitle });
-        }
-        if (fullSizeMode) {
-          extraTowerInfoModalOpen(towerTitle);
-        }
-        scrollToCurrentTower(
-          BuildingsService.getConfigForTower(towerTitle).ref
-        );
-      } else if (chatTaskId) {
-        coughtError({
-          text: 'Сначала нужно закончить начатое задание.',
-        });
-      }
+      await handleStartTask({
+        chatTaskId,
+        id,
+        towerTitle,
+        selectedMenuItem,
+        fullSizeMode,
+      });
       break;
     case TaskStatuses.ACTIVE:
-      if (taskData.taskTypeSlug !== TaskTypes.INFORMATIONAL) {
-        await verifyTask(id);
-      }
+      setTowerInfoContent(TowerInfoContentValues.CHAT);
       break;
     case TaskStatuses.DONE:
-      animateTaskReward(taskData.money, e);
-      await getTaskReward({ id, taskType });
-      updateUserBalance(money, energy);
-      hideMarker({ towerTitle, type: MarkerTypes.SUCCESS });
-      clearChat({ towerTitle });
+      await handleRewardTask({ e, id, taskType, money, energy, towerTitle });
       break;
-    case TaskStatuses.VERIFICATION:
-    case TaskStatuses.REWARDED:
-    case TaskStatuses.REJECTED:
-    case TaskStatuses.EXPIRED:
-    // do smth
+    default:
+      return;
   }
 };
 
 interface IHandleTaskClick {
-  taskData: ITask;
+  task: ITask;
   e: React.MouseEvent;
   taskType: TaskTypes;
+}
+
+interface IHandleRewardTask {
+  e: React.MouseEvent;
+  id: number;
+  taskType: TaskTypes;
+  money: number;
+  energy: number;
+  towerTitle: TowersTypes;
+}
+
+interface IHandleStartTask {
+  chatTaskId: number;
+  id: number;
+  towerTitle: TowersTypes;
+  selectedMenuItem: MenuItems | null;
+  fullSizeMode: boolean;
 }

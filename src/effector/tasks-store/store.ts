@@ -1,11 +1,10 @@
 import { MissionsDomain } from './domain';
 import {
-  activateTask,
   getResult,
   resetMissionsStore,
   saveTask,
   setCurrentTaskStatus,
-  verifyTask,
+  updateTaskStatus,
 } from './events';
 import { TowersTypes } from '../towers-progress/store';
 import { chatTaskSession } from '../chat/events';
@@ -28,9 +27,14 @@ export enum TaskStatuses {
 const initStore: ITask[] = [];
 
 export const TasksStore = MissionsDomain.store(initStore)
-  .on(saveTask, (_, payload) => payload)
-  .on(activateTask.doneData, (state, payload) => payload)
-  .on(verifyTask.doneData, (state, payload) => payload)
+  .on(updateTaskStatus, (state, { taskId, status, isSubtask }) => {
+    if (isSubtask) return state;
+    const taskIdx = state.findIndex(el => el.id === taskId);
+    const task = state[taskIdx];
+    task.status = status;
+    return [...state.slice(0, taskIdx), task, ...state.slice(taskIdx + 1)];
+  })
+  .on(saveTask, (state, payload) => payload)
   .on(setCurrentTaskStatus, (state, { taskId, status }) => {
     const currentTaskIndex = state.findIndex(el => el.id === taskId);
     return [
