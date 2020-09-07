@@ -154,12 +154,14 @@ export const TutorialSlider: React.FC<ITutorialSlider> = ({
 
   useEffect(() => {
     stepViewCollectionRef.current?.children[0].classList.add('selected');
-    reactGAEvent({
-      eventLabel: 'banner',
-      eventCategory: 'onboarding',
-      eventAction: 'banner_show',
-    });
-  }, []);
+    if (displayFlag) {
+      reactGAEvent({
+        eventLabel: 'banner',
+        eventCategory: 'onboarding',
+        eventAction: 'banner_show',
+      });
+    }
+  }, [displayFlag]);
 
   const sliderContent = (
     <TutorialSliderWrapper showOverlay={showOverlay}>

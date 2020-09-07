@@ -270,14 +270,16 @@ export const TowerWrapper = memo(
         DOMLoaded={DOMLoaded}
         data-towertype={towerTitle}
       >
-        <Markers
-          towerRef={towerRef}
-          towerLevel={currentLevel}
-          markersCollection={markers}
-          towerTitle={towerTitle}
-          displayFlag={markersDisplayFlag}
-          eventLabel={eventLabel}
-        />
+        {!mutedImg && (
+          <Markers
+            towerRef={towerRef}
+            towerLevel={currentLevel}
+            markersCollection={markers}
+            towerTitle={towerTitle}
+            displayFlag={markersDisplayFlag}
+            eventLabel={eventLabel}
+          />
+        )}
         <UpgradeButton
           tutorialCondition={tutorialCondition}
           displayFlag={needUpgrade}

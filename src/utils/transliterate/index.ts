@@ -65,7 +65,6 @@ const translate = {
   ь: "'",
   б: 'b',
   ю: 'yu',
-  ' ': '_',
 };
 
 export const transliterate = (word: string) => {
@@ -76,6 +75,8 @@ export const transliterate = (word: string) => {
         const translatedChar = (translate as unknown) as {
           [key in string]: string;
         };
+        if (char === ' ') return '_';
+
         return translatedChar[char] || char;
       })
       .join('') || ''

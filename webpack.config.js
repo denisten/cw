@@ -1,6 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
-const domain = 'dev.city.mts.ru';
+const domain = 'city-dev.mts.ru';
 const host = 'web.' + domain;
 const backend = 'http://' + domain;
 const wsConnectionProtocol = 'ws://' + domain;

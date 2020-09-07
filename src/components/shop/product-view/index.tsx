@@ -33,6 +33,7 @@ import loseMoney from '../../../sound/lose-money-sound.mp3';
 import { SettingsStore } from '../../../effector/settings/store';
 import { useAudio } from '../../../hooks/use-sound';
 import { usePlaySoundIf } from '../../../hooks/use-play-sound-if';
+import box from './box.svg';
 
 const Wrapper = styled.div`
   height: 100%;
@@ -40,12 +41,27 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
 `;
+const EmptyProductWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+`;
+
+const EmptyProductBox = styled.img.attrs({ alt: 'img', src: box })`
+  width: 126px;
+  height: 109px;
+`;
+
 const EmptyProductText = styled(StyledSpan)`
-  font-weight: 900;
+  font-family: ${MTSSans.BOLD};
   font-size: 24px;
   line-height: 32px;
   letter-spacing: -0.6px;
   color: #c6c6c6;
+  margin-top: 24px;
 `;
 
 const ProductBuyWrapper = styled.div`
@@ -53,7 +69,7 @@ const ProductBuyWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  padding: 30px 32px 70px 30px;
+  padding: 30px 32px 30px 30px;
   box-sizing: border-box;
 `;
 
@@ -223,7 +239,10 @@ const ProductView = () => {
       {selectedStoreItem ? (
         <SelectedStoreItem selectedStoreItem={selectedStoreItem} />
       ) : (
-        <EmptyProductText>Выберите товар</EmptyProductText>
+        <EmptyProductWrapper>
+          <EmptyProductBox />
+          <EmptyProductText>Выбери товар</EmptyProductText>
+        </EmptyProductWrapper>
       )}
     </Wrapper>
   );
