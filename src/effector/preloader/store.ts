@@ -30,7 +30,6 @@ const recalculateResolvedRequestsQuantity = (
   resolvedRequests < requestsQuantity ? resolvedRequests + 1 : resolvedRequests;
 
 export const PreloaderStore = PreloaderDomain.store(iniStore)
-
   .on(scoreSuccessRequests, state => {
     const newValue = recalculateResolvedRequestsQuantity(
       state.resolvedRequestsQuantity,
