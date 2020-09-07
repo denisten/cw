@@ -12,6 +12,7 @@ import { useStore } from 'effector-react';
 import { SettingsStore } from '../../effector/settings/store';
 import { useAudio } from '../../hooks/use-sound';
 import { IDisplayFlag } from '../root-component';
+import { reactGAEvent } from '../../utils/ga-event';
 
 export enum MarkerTypes {
   TASK = 'task',
@@ -207,6 +208,7 @@ export const Markers: React.FC<IMarkers> = ({
   displayFlag,
   towerLevel,
   towerRef,
+  eventLabel,
 }) => {
   const {
     sound: { volume },
@@ -229,6 +231,12 @@ export const Markers: React.FC<IMarkers> = ({
                 playRewardSound();
               }
               markerClickHandler(markItem, towerTitle, towerRef, e);
+              reactGAEvent({
+                eventLabel: eventLabel,
+                eventCategory: 'mir',
+                eventContent: markItem.type,
+                filterName: 'ikonka',
+              });
             }}
           >
             <Icon type={markItem.type} style={styleConfig.icons} />
@@ -251,6 +259,7 @@ interface IMarkers extends IDisplayFlag {
   towerTitle: TowersTypes;
   towerLevel?: number;
   towerRef?: React.RefObject<HTMLDivElement>;
+  eventLabel?: string;
 }
 
 interface IMarkerView {

@@ -20,7 +20,8 @@ const DescriptionText = styled(StyledSpan)`
   letter-spacing: -0.6px;
   color: #212527;
   opacity: 0.6;
-  margin: 28px 0 44px 0;
+  margin-bottom: auto;
+  margin-top: auto;
 `;
 
 export const ProductDescription: React.FC<IProductDescription> = ({

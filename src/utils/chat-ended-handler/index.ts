@@ -4,12 +4,16 @@ import { Sender } from '../../api/tasks-api/session';
 import { pushBotMessageToCurrentChat } from '../../effector/chat/events';
 import { TowersTypes } from '../../effector/towers-progress/store';
 import { getResult } from '../../effector/tasks-store/events';
+import { reactGAEvent } from '../ga-event';
+import { BuildingsService } from '../../buildings/config';
+import { transliterate } from '../transliterate';
 
 export const chatEndedHandler = async (
   taskId: number,
   towerTitle: TowersTypes
 ) => {
   const data = await getResult(taskId);
+  const { title } = BuildingsService.getConfigForTower(towerTitle);
   if (data.quizResult.success) {
     setMarker({
       towerTitle,
@@ -39,4 +43,11 @@ export const chatEndedHandler = async (
     };
     pushBotMessageToCurrentChat(resultObject);
   }
+
+  reactGAEvent({
+    eventLabel: 'finish',
+    eventCategory: 'viktorina',
+    eventContent: transliterate(title),
+    eventContext: data.quizResult.success ? 'vyigrysh' : 'proigrysh',
+  });
 };

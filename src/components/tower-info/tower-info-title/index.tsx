@@ -22,6 +22,8 @@ import { windowOpen } from '../../../utils/window-open';
 import { TowerInfoModalStore } from '../../../effector/tower-info-modal-store/store';
 import subsDone from './subsDone.svg';
 import * as R from 'ramda';
+import { reactGAEvent } from '../../../utils/ga-event';
+import { transliterate } from '../../../utils/transliterate';
 
 const Arrow = styled.div`
   width: 35px;
@@ -117,7 +119,14 @@ export const TowerInfoTitle: React.FC<ITowerInfoTitle> = ({
     () => null
   )('');
 
-  const handleTitleClick = () => link && windowOpen(link);
+  const handleTitleClick = () => {
+    reactGAEvent({
+      eventLabel: 'zagolovok',
+      eventCategory: 'zdanie',
+      eventContent: transliterate(title),
+    });
+    link && windowOpen(link);
+  };
   return (
     <>
       <RowWrapper {...styledConfig}>

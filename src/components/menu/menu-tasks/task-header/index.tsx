@@ -6,6 +6,8 @@ import missionNotAuth from './mission-not-auth.png';
 import taskActive from './task-active.svg';
 import missionImg from './mission.svg';
 import { MTSSans } from '../../../../fonts';
+import { reactGAEvent } from '../../../../utils/ga-event';
+
 import { TaskTypes } from '../../../../app';
 
 const Header = styled.div`
@@ -70,7 +72,13 @@ export const TasksHeader: React.FC<ITaskHeader> = ({
       <HeaderItem
         active={taskElem.id === activeType}
         key={taskElem.id}
-        onClick={() => callBack(taskElem.id)}
+        onClick={() => {
+          reactGAEvent({
+            eventLabel: taskElem.eventLabel,
+            eventCategory: 'zadaniya',
+          });
+          callBack(taskElem.id);
+        }}
         disable={!isAuthorized && taskElem.id !== TaskTypes.TASK}
       >
         <span>{taskElem.label}</span>
@@ -81,7 +89,7 @@ export const TasksHeader: React.FC<ITaskHeader> = ({
 
 interface ITaskHeader {
   activeType: string;
-  taskData: { id: TaskTypes; label: string }[];
+  taskData: { id: TaskTypes; label: string; eventLabel: string }[];
   callBack: (type: TaskTypes) => void;
   isAuthorized: boolean;
 }

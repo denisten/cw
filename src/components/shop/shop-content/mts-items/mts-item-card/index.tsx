@@ -31,10 +31,11 @@ const MTSCardBody = styled.div<{ active?: boolean }>`
 const Title = styled(StyledSpan)`
   font-family: ${MTSSans.BOLD};
   font-size: 16px;
-  line-height: 24px;
+  line-height: 20px;
   letter-spacing: -0.6px;
   color: #212527;
   margin-left: 16px;
+  width: 290px;
 `;
 
 const PromoBubble = styled.div`

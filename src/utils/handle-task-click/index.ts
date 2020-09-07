@@ -21,6 +21,8 @@ import { TaskTypes } from '../../app';
 import { TowersTypes } from '../../effector/towers-progress/store';
 import { MenuItems } from '../../UI/menu-paragraph';
 import { updateUserBalance } from '../handle-mission-click';
+import { reactGAEvent } from '../ga-event';
+import { transliterate } from '../transliterate';
 
 export const handleStartTask = async ({
   chatTaskId,
@@ -74,12 +76,24 @@ export const handleTaskClick = async ({
         selectedMenuItem,
         fullSizeMode,
       });
+      reactGAEvent({
+        eventLabel: 'vypolnit',
+        eventCategory: 'zadaniya',
+        eventContent: 'zadachi',
+        eventContext: transliterate(task.title),
+      });
       break;
     case TaskStatuses.ACTIVE:
       setTowerInfoContent(TowerInfoContentValues.CHAT);
       break;
     case TaskStatuses.DONE:
       await handleRewardTask({ e, id, taskType, money, energy, towerTitle });
+      reactGAEvent({
+        eventLabel: 'zabrat',
+        eventCategory: 'zadaniya',
+        eventContent: 'zadachi',
+        eventContext: transliterate(task.title),
+      });
       break;
     default:
       return;

@@ -26,8 +26,8 @@ const TasksBody = styled.div`
 `;
 
 const taskData = [
-  { id: TaskTypes.TASK, label: 'Задачи' },
-  { id: TaskTypes.MISSION, label: 'Миссии' },
+  { id: TaskTypes.TASK, label: 'Задачи', eventLabel: 'zadachi' },
+  { id: TaskTypes.MISSION, label: 'Миссии', eventLabel: 'missii' },
 ];
 
 export const MenuTasks = () => {

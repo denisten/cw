@@ -9,6 +9,7 @@ import { ExitButton } from '../../UI/exit-button';
 import { ZIndexes } from '../root-component/z-indexes-enum';
 import { ImagesCollection } from '../../UI/images-collection';
 import { useSliderMovement } from '../../hooks/use-slider-movement';
+import { reactGAEvent } from '../../utils/ga-event';
 
 const leftOffset = 3;
 
@@ -134,6 +135,13 @@ export const TutorialSlider: React.FC<ITutorialSlider> = ({
     } else {
       setStep(prevState => prevState + value);
     }
+
+    reactGAEvent({
+      eventLabel: 'banner',
+      eventCategory: 'onboarding',
+      eventAction: 'banner_show',
+      eventContext: String(value),
+    });
   };
 
   useSliderMovement({
@@ -146,7 +154,14 @@ export const TutorialSlider: React.FC<ITutorialSlider> = ({
 
   useEffect(() => {
     stepViewCollectionRef.current?.children[0].classList.add('selected');
-  }, []);
+    if (displayFlag) {
+      reactGAEvent({
+        eventLabel: 'banner',
+        eventCategory: 'onboarding',
+        eventAction: 'banner_show',
+      });
+    }
+  }, [displayFlag]);
 
   const sliderContent = (
     <TutorialSliderWrapper showOverlay={showOverlay}>

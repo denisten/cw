@@ -9,6 +9,7 @@ import {
   TutorialConditions,
 } from '../../effector/tutorial-store/store';
 import { ElementOpacity } from '../../constants';
+import { reactGAEvent } from '../../utils/ga-event';
 
 const TutorialSliderButtonWrapper = styled.div<ITutorialSliderButtonWrapper>`
   width: 50px;
@@ -30,7 +31,13 @@ export const TutorialSliderButton = () => {
   return (
     <TutorialSliderButtonWrapper
       disableElem={checkPossibilityClick}
-      onClick={() => setOpenEncyclopediaState(true)}
+      onClick={() => {
+        reactGAEvent({
+          eventLabel: 'instrukciya',
+          eventCategory: 'mir',
+        });
+        setOpenEncyclopediaState(true);
+      }}
     />
   );
 };

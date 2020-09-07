@@ -23,6 +23,7 @@ import { TowerUpgradeAnimation } from '../tower-upgrade-animation';
 import towerUpgrade from '../../sound/tower-upgrade.mp3';
 import { SettingsStore } from '../../effector/settings/store';
 import { useAudio } from '../../hooks/use-sound';
+import { reactGAEvent } from '../../utils/ga-event';
 import { FRRImg } from '../../components/first-render-require-img';
 
 enum strokeClassNames {
@@ -165,6 +166,7 @@ export const TowerWrapper = memo(
     wideTower,
     mutedImg,
     signConfig,
+    eventLabel,
   }: ITowerWrapper): React.ReactElement => {
     let mouseDownFlag = false,
       mouseMoveFlag = 0;
@@ -191,11 +193,21 @@ export const TowerWrapper = memo(
     }, [upgradeFlag]);
 
     const handleClick = () => {
+      reactGAEvent({
+        eventLabel: eventLabel,
+        eventCategory: 'mir',
+        filterName: 'zdanie',
+      });
       if (mutedImg) return;
       if (
         tutorialCondition === TutorialConditions.ARROW_TOWER_INFO &&
         tutorialTower
       ) {
+        reactGAEvent({
+          eventLabel: 'zdanie',
+          eventCategory: 'onboarding',
+          eventContext: 'step8',
+        });
         nextTutorStep();
       } else if (!tutorialCondition || tutorialPause) {
         scrollToCurrentTower(towerRef);
@@ -258,13 +270,16 @@ export const TowerWrapper = memo(
         DOMLoaded={DOMLoaded}
         data-towertype={towerTitle}
       >
-        <Markers
-          towerRef={towerRef}
-          towerLevel={currentLevel}
-          markersCollection={markers}
-          towerTitle={towerTitle}
-          displayFlag={markersDisplayFlag}
-        />
+        {!mutedImg && (
+          <Markers
+            towerRef={towerRef}
+            towerLevel={currentLevel}
+            markersCollection={markers}
+            towerTitle={towerTitle}
+            displayFlag={markersDisplayFlag}
+            eventLabel={eventLabel}
+          />
+        )}
         <UpgradeButton
           tutorialCondition={tutorialCondition}
           displayFlag={needUpgrade}
@@ -273,6 +288,7 @@ export const TowerWrapper = memo(
           animFlag={
             tutorialCondition === TutorialConditions.UPGRADE_BUTTON_TOWER_INFO
           }
+          eventLabel={eventLabel}
         />
 
         {upgradeFlag && <TowerUpgradeAnimation wideTower={wideTower} />}
@@ -337,6 +353,7 @@ interface ITowerWrapper {
   needUpgrade: boolean;
   tutorialTower?: boolean;
   signConfig?: string[];
+  eventLabel?: string;
 }
 
 interface ITowerStyledWrapper {

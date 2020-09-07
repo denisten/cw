@@ -7,6 +7,7 @@ import { useStore } from 'effector-react';
 import { Icon } from '../../../UI/icons';
 import _debounce from 'debounce';
 import { saveUserData } from '../../../api/save-user-data';
+import { reactGAEvent } from '../../../utils/ga-event';
 
 const SettingItemsWrapper = styled.div`
   display: flex;
@@ -80,6 +81,11 @@ export const SettingItems = () => {
           callBack={() => {
             setVolume({ settingType: SettingsType.MUSIC, volume: 0 });
             saveUserData({ musicValue: 0 });
+            reactGAEvent({
+              eventLabel: 'muzika',
+              eventCategory: 'nastroiki',
+              eventContext: 'off',
+            });
           }}
         />
         <InputRange
@@ -99,6 +105,11 @@ export const SettingItems = () => {
           callBack={() => {
             setVolume({ settingType: SettingsType.SOUND, volume: 0 });
             saveUserData({ soundValue: 0 });
+            reactGAEvent({
+              eventLabel: 'zvuk',
+              eventCategory: 'nastroiki',
+              eventContext: 'off',
+            });
           }}
         />
         <InputRange
