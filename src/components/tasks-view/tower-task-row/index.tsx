@@ -227,15 +227,11 @@ export const TowerTaskRow: React.FC<ITasksRow> = ({
 
   const [isCouponModalWindowOpen, setIsCouponModalWindowOpen] = useState(false);
 
-  const handleWrapperClick = (e: React.MouseEvent) => {
+  const taskButtonHandler = async (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (taskTypeSlug === TaskTypes.TUTORIAL_TASK) {
-      // do next tutorial step in future
-    } else {
-      handleTaskClick({ taskData: task, e, taskType });
-      task.status === TaskStatuses.DONE && volume && playRewardSound();
-      task.status === TaskStatuses.CREATED && volume && playActiveTask();
-    }
+    task.status === TaskStatuses.DONE && volume && playRewardSound();
+    task.status === TaskStatuses.CREATED && volume && playActiveTask();
+    await handleTaskClick({ task, e, taskType });
   };
   const handleClick = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -301,7 +297,7 @@ export const TowerTaskRow: React.FC<ITasksRow> = ({
               <TaskButton
                 expireInSeconds={task.expireInSeconds}
                 className={task.status}
-                onClick={handleWrapperClick}
+                onClick={taskButtonHandler}
               />
               {checkTaskStatus(task.status) && (
                 <img src={notDoneImg} alt="reject" />

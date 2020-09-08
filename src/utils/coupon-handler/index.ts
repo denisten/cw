@@ -7,6 +7,8 @@ import { TowersTypes } from '../../effector/towers-progress/store';
 import { ITabSwitchers } from '../../components/tower-info';
 import { hideMarker } from '../../effector/towers-marker/events';
 import { MarkerTypes } from '../../components/markers';
+import { updateTaskStatus } from '../../effector/tasks-store/events';
+import { TaskStatuses } from '../../effector/tasks-store/store';
 
 export const couponHandler = async (
   taskId: number,
@@ -19,6 +21,13 @@ export const couponHandler = async (
     if (towerTitle) {
       clearChat({ towerTitle });
       hideMarker({ towerTitle, type: MarkerTypes.ACTIVE_TASK });
+    }
+    if (selectedCoupon === CouponTypes.COUPON_SKIP) {
+      updateTaskStatus({
+        taskId,
+        status: TaskStatuses.REWARDED,
+        isSubtask: true,
+      });
     }
     switchers && switchers.openTasksTab();
   } else {

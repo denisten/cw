@@ -196,6 +196,7 @@ export const Button: React.FC<IButton> = ({
   const buttonLayoutRef = useRef<HTMLDivElement>(null);
 
   const handleClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
     if (buttonWrapperRef.current && rippleDivRef.current && animStartedFlag) {
       const { x, y } = buttonWrapperRef.current.getBoundingClientRect();
       rippleDivRef.current.style.top = Math.abs(y - e.clientY) + 'px';

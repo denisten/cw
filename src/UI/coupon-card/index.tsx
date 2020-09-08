@@ -86,7 +86,11 @@ export const CouponCard: React.FC<ICouponCard> = ({
   style,
 }) => (
   <CardWrapper
-    onClick={callBack}
+    onClick={e => {
+      if (callBack) {
+        callBack(e);
+      }
+    }}
     active={active}
     className={disable ? disableClassName : ''}
     style={style}
@@ -107,7 +111,7 @@ export const CouponCard: React.FC<ICouponCard> = ({
 );
 
 interface ICouponCard {
-  callBack?: () => void;
+  callBack?: (e: React.MouseEvent) => void;
   active: boolean;
   couponsQuantity?: number;
   iconType: CouponTypes | TypeOfIcons | TaskTypes | MarkerTypes | string;

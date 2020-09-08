@@ -116,6 +116,7 @@ export const MissionTowerView: React.FC<IMissionTowerView> = ({
         <MissionProgressBarButton
           task={mission}
           completedSubTasksQuantity={completedSubTasksQuantity}
+          exitCallback={exitCallback}
         />
       </MissionInfo>
       <MissionDescriptionWrapper>

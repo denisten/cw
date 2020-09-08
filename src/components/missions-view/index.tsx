@@ -24,6 +24,7 @@ import { UnavailableSubtaskView } from './unavailable-subtask-view';
 import { MissionProgressBarButton } from '../../UI/mission-progress-bar-button';
 import { TaskTypes } from '../../app';
 import { IDisplayFlag } from '../root-component';
+import { calculateCompletedSubTasksQuantity } from './mission-tower-row-view';
 
 const completedTaskMargin = 20;
 
@@ -62,9 +63,9 @@ export const MissionMenuRowView: React.FC<IMissionsView> = ({ taskData }) => {
 
   const currentSubtaskIdx = detectSubTaskIdx(taskData.userSubTasks);
 
-  const completedSubTasksQuantity = taskData.userSubTasks.filter(
-    el => el.status === TaskStatuses.DONE || el.status === TaskStatuses.REWARDED
-  ).length;
+  const completedSubTasksQuantity = calculateCompletedSubTasksQuantity(
+    taskData
+  );
 
   const NotCompletedSubTasks =
     currentSubtaskIdx !== -1
