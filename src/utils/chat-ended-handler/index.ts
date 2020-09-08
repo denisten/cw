@@ -37,7 +37,7 @@ export const chatEndedHandler = async (
         text: `Увы! Задание не выполнено.
         Правильных ответов ${data.quizResult.correct} из ${data.quizResult
           .correct + data.quizResult.incorrect}. 
-        Попробуй еще раз или воспользуйся купоном во вкладке "Задания".`,
+          Воспользуйся купоном во вкладке «Задания» чтобы выполнить задание или заменить его`,
       },
       towerTitle,
     };
