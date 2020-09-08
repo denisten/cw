@@ -23,11 +23,25 @@ const DescriptionText = styled(StyledSpan)`
   margin-bottom: auto;
   margin-top: auto;
   word-wrap: break-word;
+
+  a {
+    margin-left: 6px;
+  }
 `;
 
 export const ProductDescription: React.FC<IProductDescription> = ({
   selectedStoreItem,
 }) => {
+  const linkRegExp = /(([a-z]+:\/\/)?(([a-z0-9\-]+\.)+([a-z]{2}|aero|arpa|biz|com|coop|edu|gov|info|int|jobs|mil|museum|name|nato|net|org|pro|travel|local|internal))(:[0-9]{1,5})?(\/[a-z0-9_\-\.~]+)*(\/([a-z0-9_\-\.]*)(\?[a-z0-9+_\-\.%=&amp;]*)?)?(#[a-zA-Z0-9!$&'()*+.=-_~:@/?]*)?)(\s+|$)/gi;
+  const returnTextWithATag = (text: string) =>
+    text.replace(linkRegExp, (url: string) => {
+      return `<a href=http://${url} target='_blank' rel="noopener noreferrer">Перейти</a>`;
+    });
+
+  const createMarkup = (html: string) => {
+    return { __html: html };
+  };
+
   return (
     <>
       <TitleText>{selectedStoreItem?.name.replace(/Купон|"/gi, '')}</TitleText>
@@ -35,7 +49,11 @@ export const ProductDescription: React.FC<IProductDescription> = ({
         sum={String(selectedStoreItem?.price)}
         additionText=" /шт."
       />
-      <DescriptionText>{selectedStoreItem?.description}</DescriptionText>
+      <DescriptionText
+        dangerouslySetInnerHTML={createMarkup(
+          returnTextWithATag(selectedStoreItem?.description || '')
+        )}
+      ></DescriptionText>
     </>
   );
 };
