@@ -22,6 +22,7 @@ import soundActive from './soundActive.svg';
 import musicDisable from './musicDisable.svg';
 import soundDisable from './soundDisable.svg';
 import notAvailableTask from './not-available.svg';
+import emptyPromocode from './empty-promocode.svg';
 import { MarkerTypes } from '../../components/markers';
 import { CouponTypes } from '../../effector/coupons/store';
 import { SettingsType } from '../../effector/settings/store';
@@ -34,6 +35,7 @@ export enum TypeOfIcons {
   LOGIN = 'login',
   CHAT = 'chat',
   ENTER = 'enter',
+  EMPTY_PROMO = 'emptyPromo',
 }
 
 const defaultStyle = {
@@ -104,6 +106,8 @@ export const Icon: React.FC<IIcon> = ({
         return musicDisable;
       case SettingsType.SOUND + 'disable':
         return soundDisable;
+      case TypeOfIcons.EMPTY_PROMO:
+        return emptyPromocode;
 
       default:
         return promocode;
