@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { MenuItems } from '../menu-paragraph';
 import { ZIndexes } from '../../components/root-component/z-indexes-enum';
