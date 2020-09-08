@@ -22,6 +22,7 @@ const DescriptionText = styled(StyledSpan)`
   opacity: 0.6;
   margin-bottom: auto;
   margin-top: auto;
+  word-wrap: break-word;
 
   a {
     margin-left: 6px;
