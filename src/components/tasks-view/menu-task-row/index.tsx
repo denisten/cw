@@ -30,7 +30,6 @@ import { useStore } from 'effector-react';
 import { SettingsStore } from '../../../effector/settings/store';
 import { useAudio } from '../../../hooks/use-sound';
 import { TaskStatuses } from '../../../effector/tasks-store/store';
-import { handleAuthButtonClick } from '../../../utils/handle-auth-button-click';
 import { reactGAEvent } from '../../../utils/ga-event';
 import { transliterate } from '../../../utils/transliterate';
 import { TaskTypes } from '../../../app';
@@ -109,16 +108,11 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
   const { play: playRewardSound } = useAudio(takeRewardSound, false, volume);
   const { play: playActiveTask } = useAudio(activeTask, false, volume);
 
-  const handleWrapperClick = (e: React.MouseEvent) => {
+  const taskButtonHandler = async (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (taskTypeSlug === TaskTypes.TUTORIAL_TASK) {
-      // do next tutorial step in future
-      handleAuthButtonClick();
-    } else {
-      handleTaskClick({ taskData: task, e, taskType });
-      task.status === TaskStatuses.DONE && volume && playRewardSound();
-      task.status === TaskStatuses.CREATED && volume && playActiveTask();
-    }
+    task.status === TaskStatuses.DONE && volume && playRewardSound();
+    task.status === TaskStatuses.CREATED && volume && playActiveTask();
+    await handleTaskClick({ task, e, taskType });
   };
   const handleClick = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -172,7 +166,7 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
                   <TaskButton
                     expireInSeconds={task.expireInSeconds}
                     className={task.status}
-                    onClick={handleWrapperClick}
+                    onClick={taskButtonHandler}
                   />
                   {checkTaskStatus(task.status) && (
                     <img src={notDoneImg} alt="reject" />

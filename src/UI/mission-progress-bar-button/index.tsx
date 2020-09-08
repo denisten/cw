@@ -5,11 +5,10 @@ import {
   checkTaskStatus,
   TaskButton,
 } from '../../components/tasks-view/tower-task-row';
-import { handleTaskClick } from '../../utils/handle-task-click';
 import notDoneImg from '../../components/tasks-view/tower-task-row/not-done.svg';
 import { RowWrapper } from '../row-wrapper';
 import { MTSSans } from '../../fonts';
-import { TaskTypes } from '../../app';
+import { handleMissionClick } from '../../utils/handle-mission-click';
 
 const MissionProgressBar = styled.div<IMissionProgressBar>`
   width: 110px;
@@ -51,10 +50,12 @@ export const MissionProgressBarButton: React.FC<IMissionProgressBarButton> = ({
   task,
   completedSubTasksQuantity,
   style,
+  exitCallback,
 }) => {
-  const handleTaskButtonClick = (e: React.MouseEvent) => {
+  const handleMissionButtonClick = async (e: React.MouseEvent) => {
     e.stopPropagation();
-    handleTaskClick({ taskData: task, e, taskType: TaskTypes.MISSION });
+    task.status !== TaskStatuses.CREATED && exitCallback && exitCallback();
+    await handleMissionClick({ mission: task, e });
   };
 
   return (
@@ -72,7 +73,7 @@ export const MissionProgressBarButton: React.FC<IMissionProgressBarButton> = ({
         </MissionProgressBar>
       ) : (
         <TaskButton
-          onClick={handleTaskButtonClick}
+          onClick={handleMissionButtonClick}
           className={TaskStatuses.DONE}
           expireInSeconds={task.expireInSeconds}
         />
@@ -83,6 +84,7 @@ export const MissionProgressBarButton: React.FC<IMissionProgressBarButton> = ({
 };
 
 interface IMissionProgressBarButton {
+  exitCallback?: Function;
   task: ITask;
   completedSubTasksQuantity: number;
   style?: React.CSSProperties;
