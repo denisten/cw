@@ -14,11 +14,11 @@ export interface IGetProfile {
   name: string;
   worldName: string;
   msisdn: string;
-  guid: string;
+  guid: string | null;
   freshProgressTimeout: number;
   musicValue: number;
   soundValue: number;
   showSlider: boolean;
   showTutorial: boolean;
-  operatorId: number;
+  operatorId: number | null;
 }

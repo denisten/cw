@@ -131,6 +131,7 @@ export const ProgressBar: React.FC<IProgressBar> = ({
         eventCategory: 'onboarding',
         eventContent: 'sotovaya_svyaz',
         eventContext: 'step13',
+        filterName: 'zdaniya',
       });
     } else if (needUpgrade) {
       showUpgradeIcon(towerTitle);

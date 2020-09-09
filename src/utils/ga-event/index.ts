@@ -15,10 +15,9 @@ const defaultGAEventProps = {
   actionGroup: 'interactions',
   productName: null,
   productId: null,
-  maccountType: 'master',
   numberType: 'virt',
-  accountType: 'mobile',
-  touchPoint: 'mobile',
+  accountType: null,
+  touchPoint: 'web',
   currentTariff: 'tarifische',
 };
 
@@ -33,8 +32,14 @@ export const reactGAEvent = (props: IReactGAEventParams) => {
       userId: guid,
       guId: guid,
       userAuth: isAuthorized ? '1' : '0',
+      accountType: isAuthorized ? 'mobile' : null,
+      numberType: isAuthorized ? 'virt' : null,
+      currentTariff: isAuthorized ? 'tarifische' : null,
     },
   };
+
+  // eslint-disable-next-line no-console
+  console.log(tagManagerArgs);
 
   TagManager.dataLayer(tagManagerArgs);
 };

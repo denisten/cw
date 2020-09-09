@@ -135,13 +135,6 @@ export const TutorialSlider: React.FC<ITutorialSlider> = ({
     } else {
       setStep(prevState => prevState + value);
     }
-
-    reactGAEvent({
-      eventLabel: 'banner',
-      eventCategory: 'onboarding',
-      eventAction: 'banner_show',
-      eventContext: String(value),
-    });
   };
 
   useSliderMovement({
@@ -153,15 +146,17 @@ export const TutorialSlider: React.FC<ITutorialSlider> = ({
   });
 
   useEffect(() => {
+    reactGAEvent({
+      eventLabel: 'banner',
+      eventCategory: 'onboarding',
+      eventAction: 'banner_show',
+      eventContext: String(step),
+    });
+  }, [step]);
+
+  useEffect(() => {
     stepViewCollectionRef.current?.children[0].classList.add('selected');
-    if (displayFlag) {
-      reactGAEvent({
-        eventLabel: 'banner',
-        eventCategory: 'onboarding',
-        eventAction: 'banner_show',
-      });
-    }
-  }, [displayFlag]);
+  }, []);
 
   const sliderContent = (
     <TutorialSliderWrapper showOverlay={showOverlay}>

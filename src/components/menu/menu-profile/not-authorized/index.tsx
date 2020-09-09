@@ -105,6 +105,13 @@ const NotAuthorizedProfile: React.FC<INotAuthorizedProfile> = ({
     if (tutorialCondition === TutorialConditions.PULSE_AUTH_BUTTON) {
       disableTutorialMode();
       setSuccessfulTutorial(true);
+      reactGAEvent({
+        eventLabel: 'voiti',
+        eventCategory: 'onboarding',
+        eventContent: 'otlichnaya_rabota',
+        eventContext: 'step16',
+        eventAction: 'button_click',
+      });
     }
     handleAuthButtonClick();
   };

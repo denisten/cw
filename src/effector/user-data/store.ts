@@ -48,11 +48,11 @@ const initState: IUserDataStore = {
   [UserDataStoreKeys.USER_SESSION_SOCKET]: null,
   [UserDataStoreKeys.AVATAR]: null,
   [UserDataStoreKeys.MSISDN]: null,
-  [UserDataStoreKeys.GUID]: '',
+  [UserDataStoreKeys.GUID]: null,
   [UserDataStoreKeys.FRESH_PROGRESS_TIME_OUT]: 0,
   [UserDataStoreKeys.SHOW_SLIDER]: false,
   [UserDataStoreKeys.SHOW_TUTORIAL]: true,
-  [UserDataStoreKeys.OPERATOR_ID]: 0,
+  [UserDataStoreKeys.OPERATOR_ID]: null,
 };
 
 export const UserDataStore = UserDataDomain.store<IUserDataStore>(initState)
@@ -140,11 +140,11 @@ export interface IUserDataStore {
   [UserDataStoreKeys.USER_SESSION_SOCKET]: Centrifuge | null;
   [UserDataStoreKeys.AVATAR]: string | null;
   [UserDataStoreKeys.MSISDN]: string | null;
-  [UserDataStoreKeys.GUID]: string;
+  [UserDataStoreKeys.GUID]: string | null;
   [UserDataStoreKeys.FRESH_PROGRESS_TIME_OUT]: number;
   [UserDataStoreKeys.SHOW_SLIDER]: boolean;
   [UserDataStoreKeys.SHOW_TUTORIAL]: boolean;
-  [UserDataStoreKeys.OPERATOR_ID]: number;
+  [UserDataStoreKeys.OPERATOR_ID]: number | null;
 }
 
 export interface IBirthday {

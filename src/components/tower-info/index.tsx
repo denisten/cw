@@ -230,6 +230,7 @@ const TowerInfo: React.FC = () => {
         eventAction: 'button_click',
         eventContent: 'sotovaya_svyaz',
         eventContext: 'step10',
+        filterName: 'opisanie',
       });
       openDescriptionTab();
     } else if (towerTutorialStep === TowerTutorialSteps.DESCRIPTION_OPENED) {
@@ -240,6 +241,7 @@ const TowerInfo: React.FC = () => {
         eventAction: 'button_click',
         eventContent: 'sotovaya_svyaz',
         eventContext: 'step11',
+        filterName: 'opisanie',
       });
     } else if (towerTutorialStep === TowerTutorialSteps.CHAT_OPENED) {
       openTasksTab();
@@ -250,6 +252,7 @@ const TowerInfo: React.FC = () => {
         eventAction: 'button_click',
         eventContent: 'sotovaya_svyaz',
         eventContext: 'step12',
+        filterName: 'chat',
       });
     }
   };
