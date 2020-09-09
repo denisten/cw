@@ -1,6 +1,7 @@
 import { UserDataStore } from '../../effector/user-data/store';
 import TagManager from 'react-gtm-module';
 import { AppConditionStore } from '../../effector/app-condition/store';
+import { of } from 'ramda';
 
 const defaultGAEventProps = {
   event: 'mtsEvent',
@@ -21,7 +22,10 @@ const defaultGAEventProps = {
   currentTariff: 'tarifische',
 };
 
-export const reactGAEvent = (props: IReactGAEventParams) => {
+export const reactGAEvent = (
+  props: IReactGAEventParams,
+  notEventAction?: boolean
+) => {
   const { operatorId, guid } = UserDataStore.getState();
   const { isAuthorized } = AppConditionStore.getState();
   const tagManagerArgs = {
@@ -38,6 +42,10 @@ export const reactGAEvent = (props: IReactGAEventParams) => {
     },
   };
 
+  if (notEventAction) {
+    delete tagManagerArgs.dataLayer.eventAction;
+  }
+
   // eslint-disable-next-line no-console
   console.log(tagManagerArgs);
 
@@ -49,8 +57,9 @@ interface IReactGAEventParams {
   eventCategory?: string;
   eventAction?: string;
   event?: string;
-  buttonLocation?: string;
+  buttonLocation?: string | null;
   eventContent?: string;
   eventContext?: string;
   filterName?: string;
+  actionGroup?: string;
 }
