@@ -15,13 +15,13 @@ import { IDisplayFlag } from '../root-component';
 import { reactGAEvent } from '../../utils/ga-event';
 
 export enum MarkerTypes {
-  TASK = 'task',
-  SUCCESS = 'success',
+  TASK = 'zadaniya',
+  SUCCESS = 'nagrada',
   TAKE_REWARD = 'takeReward',
   UPGRADE_TOWER = 'upgradeTower',
   TIMER = 'timer',
-  ACTIVE_TASK = 'activeTask',
-  PLAY = 'play',
+  ACTIVE_TASK = 'aktivnoe_zadanie',
+  PLAY = 'igrat',
 }
 
 const minScale = 0.9;
@@ -236,6 +236,7 @@ export const Markers: React.FC<IMarkers> = ({
                 eventCategory: 'mir',
                 eventContent: markItem.type,
                 filterName: 'ikonka',
+                buttonLocation: null,
               });
             }}
           >

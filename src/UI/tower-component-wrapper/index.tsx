@@ -211,6 +211,7 @@ export const TowerWrapper = memo(
           eventLabel: eventLabel,
           eventCategory: 'mir',
           filterName: 'zdanie',
+          buttonLocation: null,
         });
       }
     };

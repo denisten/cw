@@ -1,17 +1,16 @@
 import { UserDataStore } from '../../effector/user-data/store';
 import TagManager from 'react-gtm-module';
 import { AppConditionStore } from '../../effector/app-condition/store';
-import { of } from 'ramda';
 
 const defaultGAEventProps = {
   event: 'mtsEvent',
   eventAction: 'element_click',
   eventValue: null,
   screenName: '/',
-  eventContent: 'null',
-  eventContext: 'null',
+  eventContent: null,
+  eventContext: null,
   buttonLocation: 'popup',
-  filterName: 'null',
+  filterName: null,
   pageType: 'main',
   actionGroup: 'interactions',
   productName: null,
@@ -19,7 +18,7 @@ const defaultGAEventProps = {
   numberType: 'virt',
   accountType: null,
   touchPoint: 'web',
-  currentTariff: 'tarifische',
+  currentTariff: null,
 };
 
 export const reactGAEvent = (
@@ -38,7 +37,6 @@ export const reactGAEvent = (
       userAuth: isAuthorized ? '1' : '0',
       accountType: isAuthorized ? 'mobile' : null,
       numberType: isAuthorized ? 'virt' : null,
-      currentTariff: isAuthorized ? 'tarifische' : null,
     },
   };
 

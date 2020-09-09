@@ -25,6 +25,7 @@ export const checkChatSession = async (
       eventLabel: 'start',
       eventCategory: 'viktorina',
       eventContent: transliterate(title),
+      eventAction: 'button_click',
     });
     if (request.data.ended) {
       chatEndedHandler(taskId, towerTitle);
@@ -43,6 +44,7 @@ export const checkChatSession = async (
       eventLabel: 'start',
       eventCategory: 'viktorina',
       eventContent: transliterate(title),
+      eventAction: 'button_click',
     });
 
     if (request.data.ended) {

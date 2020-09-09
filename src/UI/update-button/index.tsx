@@ -56,6 +56,8 @@ export const UpgradeButton: React.FC<IUpgradeButton> = ({
             eventCategory: 'mir',
             eventContent: 'uluchshit',
             eventContext: String(level + 1),
+            buttonLocation: null,
+            filterName: 'ikonka',
           });
           handleClick(towerTitle, tutorialCondition);
         }}
