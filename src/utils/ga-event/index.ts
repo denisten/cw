@@ -44,9 +44,6 @@ export const reactGAEvent = (
     delete tagManagerArgs.dataLayer.eventAction;
   }
 
-  // eslint-disable-next-line no-console
-  console.log(tagManagerArgs);
-
   TagManager.dataLayer(tagManagerArgs);
 };
 
