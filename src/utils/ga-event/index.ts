@@ -7,22 +7,24 @@ const defaultGAEventProps = {
   eventAction: 'element_click',
   eventValue: null,
   screenName: '/',
-  eventContent: 'null',
-  eventContext: 'null',
+  eventContent: null,
+  eventContext: null,
   buttonLocation: 'popup',
-  filterName: 'null',
+  filterName: null,
   pageType: 'main',
   actionGroup: 'interactions',
   productName: null,
   productId: null,
-  maccountType: 'master',
   numberType: 'virt',
-  accountType: 'mobile',
-  touchPoint: 'mobile',
-  currentTariff: 'tarifische',
+  accountType: null,
+  touchPoint: 'web',
+  currentTariff: null,
 };
 
-export const reactGAEvent = (props: IReactGAEventParams) => {
+export const reactGAEvent = (
+  props: IReactGAEventParams,
+  notEventAction?: boolean
+) => {
   const { operatorId, guid } = UserDataStore.getState();
   const { isAuthorized } = AppConditionStore.getState();
   const tagManagerArgs = {
@@ -33,8 +35,14 @@ export const reactGAEvent = (props: IReactGAEventParams) => {
       userId: guid,
       guId: guid,
       userAuth: isAuthorized ? '1' : '0',
+      accountType: isAuthorized ? 'mobile' : null,
+      numberType: isAuthorized ? 'virt' : null,
     },
   };
+
+  if (notEventAction) {
+    delete tagManagerArgs.dataLayer.eventAction;
+  }
 
   TagManager.dataLayer(tagManagerArgs);
 };
@@ -44,8 +52,9 @@ interface IReactGAEventParams {
   eventCategory?: string;
   eventAction?: string;
   event?: string;
-  buttonLocation?: string;
+  buttonLocation?: string | null;
   eventContent?: string;
   eventContext?: string;
   filterName?: string;
+  actionGroup?: string;
 }

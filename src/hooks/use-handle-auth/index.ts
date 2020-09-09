@@ -51,16 +51,16 @@ const handleAuth = async (isAuthorized: boolean, dataReceived: boolean) => {
       await saveUserData({ worldName });
     }
 
-    reactGAEvent({
-      eventLabel: 'uspeshnaya_avtorizaciya',
-      eventCategory: 'avtorizaciya',
-      eventAction: 'confirmed',
-    });
-
     await waitForAllRequestsIsDone();
     await openWsConnection();
     disablePassedTutorial();
     prepareMap();
+    reactGAEvent({
+      eventLabel: 'uspeshnaya_avtorizaciya',
+      eventCategory: 'avtorizaciya',
+      eventAction: 'confirmed',
+      event: 'mtsLogin',
+    });
   }
 };
 

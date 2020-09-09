@@ -75,9 +75,9 @@ export const transliterate = (word: string) => {
         const translatedChar = (translate as unknown) as {
           [key in string]: string;
         };
-        if (char === ' ') return '_';
-
-        return translatedChar[char] || char;
+        if (char === ' ' || !char || char === '-') return '_';
+        const toLowerChar = char.toLowerCase();
+        return translatedChar[toLowerChar] || toLowerChar;
       })
       .join('') || ''
   );

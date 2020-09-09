@@ -49,5 +49,6 @@ export const chatEndedHandler = async (
     eventCategory: 'viktorina',
     eventContent: transliterate(title),
     eventContext: data.quizResult.success ? 'vyigrysh' : 'proigrysh',
+    eventAction: 'confirmed',
   });
 };

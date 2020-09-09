@@ -67,6 +67,8 @@ export const handleTaskClick = async ({
   const { fullSizeMode } = AppConditionStore.getState();
   const { selectedMenuItem } = MenuStore.getState();
   const { taskId: chatTaskId } = ChatStore.getState()[towerTitle];
+  const { title } = BuildingsService.getConfigForTower(towerTitle);
+
   switch (task.status) {
     case TaskStatuses.CREATED:
       await handleStartTask({
@@ -79,8 +81,9 @@ export const handleTaskClick = async ({
       reactGAEvent({
         eventLabel: 'vypolnit',
         eventCategory: 'zadaniya',
-        eventContent: 'zadachi',
+        eventContent: transliterate(title),
         eventContext: transliterate(task.title),
+        eventAction: 'button_click',
       });
       break;
     case TaskStatuses.ACTIVE:
@@ -91,8 +94,9 @@ export const handleTaskClick = async ({
       reactGAEvent({
         eventLabel: 'zabrat',
         eventCategory: 'zadaniya',
-        eventContent: 'zadachi',
+        eventContent: transliterate(title),
         eventContext: transliterate(task.title),
+        eventAction: 'button_click',
       });
       break;
     default:

@@ -78,9 +78,14 @@ export const App: React.FC = () => {
     };
     TagManager.initialize(tagManagerArgs);
 
-    reactGAEvent({
-      event: 'mtsPageview',
-    });
+    reactGAEvent(
+      {
+        event: 'mtsPageview',
+        buttonLocation: null,
+        actionGroup: 'non_interactions',
+      },
+      true
+    );
   }, []);
 
   const displayFlag = !(isMobile || isIE);

@@ -193,11 +193,6 @@ export const TowerWrapper = memo(
     }, [upgradeFlag]);
 
     const handleClick = () => {
-      reactGAEvent({
-        eventLabel: eventLabel,
-        eventCategory: 'mir',
-        filterName: 'zdanie',
-      });
       if (mutedImg) return;
       if (
         tutorialCondition === TutorialConditions.ARROW_TOWER_INFO &&
@@ -212,6 +207,12 @@ export const TowerWrapper = memo(
       } else if (!tutorialCondition || tutorialPause) {
         scrollToCurrentTower(towerRef);
         extraTowerInfoModalOpen(towerTitle);
+        reactGAEvent({
+          eventLabel: eventLabel,
+          eventCategory: 'mir',
+          filterName: 'zdanie',
+          buttonLocation: null,
+        });
       }
     };
 

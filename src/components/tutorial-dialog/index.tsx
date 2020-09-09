@@ -219,7 +219,7 @@ export const TutorialDialog: React.FC<ITutorialDialog> = ({
       handleAuthButtonClick();
       disableTutorialMode();
       reactGAEvent({
-        eventLabel: 'u_menya_ezhe_est_gorod',
+        eventLabel: 'u_menya_uzhe_est_gorod',
         eventCategory: 'onboarding',
         eventAction: 'button_click',
         eventContent: 'dobro_pozhalovat',
