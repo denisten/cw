@@ -44,13 +44,13 @@ export const Tooltip: React.FC<ITooltip> = ({
   tooltipId,
 }) => {
   const checkActiveTooltip = active === tooltipId;
-  const toggleTooltip = R.ifElse(
-    () => checkActiveTooltip,
-    () => callBack(ActiveTooltip.OFF),
-    () => callBack(tooltipId)
-  );
+
   return (
-    <Icon active={checkActiveTooltip} onClick={toggleTooltip}>
+    <Icon
+      active={checkActiveTooltip}
+      onMouseOut={() => callBack(ActiveTooltip.OFF)}
+      onMouseOver={() => callBack(tooltipId)}
+    >
       {checkActiveTooltip && (
         <TooltipWrapper style={style}>
           <TooltipText>{text}</TooltipText>
