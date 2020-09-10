@@ -193,8 +193,15 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
     setHideTowerInfo(true);
   }, []);
 
+  const scrollToBottom = () =>
+    chatContainer.current &&
+    chatContainer.current.scrollTo(0, chatContainer.current.scrollHeight);
+
   useEffect(() => {
-    currentTask && checkChatSession(currentTask, taskId, towerTitle);
+    !haveMessages &&
+      currentTask &&
+      checkChatSession(currentTask, taskId, towerTitle);
+    scrollToBottom();
     return () => {
       setHideTowerInfo(false);
     };
@@ -204,9 +211,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
     messages && messages[messages.length - 1]?.failedTask;
 
   useEffect(() => {
-    if (chatContainer.current) {
-      chatContainer.current.scrollTo(0, chatContainer.current.scrollHeight);
-    }
+    scrollToBottom();
     checkLastMessage() ? setFailedTask(true) : setFailedTask(false);
   }, [messages]);
 
