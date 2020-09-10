@@ -100,8 +100,6 @@ const MessageRow = styled.div<IMessageRow>`
   margin-bottom: 24px;
 `;
 
-let currentMission: null | ITask;
-
 export const couponModalConfig = {
   title: 'Выбор купона',
   popUpStyles: {
@@ -139,28 +137,12 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
   }
   const [openCouponModal, setOpenCouponModal] = useState(false);
   const [pendingOfResponse, setPendingOfResponse] = useState(false);
+  const [failedTask, setFailedTask] = useState(false);
 
-  const { count } = userCoupons[CouponTypes.COUPON_REPLACE];
+  const { count: couponReplaceCount } = userCoupons[CouponTypes.COUPON_REPLACE],
+    { count: couponSkipCount } = userCoupons[CouponTypes.COUPON_SKIP];
 
   const chatContainer = useRef<HTMLDivElement>(null);
-
-  const currentTaskIndex = tasks.findIndex(el => {
-    if (el.productSlug)
-      return (
-        el.status !== TaskStatuses.CREATED && el.productSlug === towerTitle
-      );
-  });
-
-  try {
-    currentMission = tasks[currentTaskIndex];
-  } catch (e) {
-    currentMission = null;
-  }
-
-  const checkCouponAvailability =
-    currentMission?.taskTypeSlug !== TaskTypes.INFORMATIONAL &&
-    (userCoupons[CouponTypes.COUPON_REPLACE].count > 0 ||
-      userCoupons[CouponTypes.COUPON_SKIP].count > 0);
 
   const haveMessages = messages && messages.length > 0;
 
@@ -202,7 +184,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
   const { play: newMessagePlay } = useAudio(newMessage, false, volume);
 
   usePlaySoundIf<IMessage[]>(
-    messages.length > 0 && !!volume,
+    haveMessages && !!volume,
     newMessagePlay,
     messages
   );
@@ -218,11 +200,17 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
     };
   }, [towerTitle]);
 
+  const checkLastMessage = () =>
+    messages && messages[messages.length - 1]?.failedTask;
+
   useEffect(() => {
     if (chatContainer.current) {
       chatContainer.current.scrollTo(0, chatContainer.current.scrollHeight);
     }
+    checkLastMessage() ? setFailedTask(true) : setFailedTask(false);
   }, [messages]);
+
+  const showCouponInterfaceWhenTaskIsFailed = ended && failedTask;
 
   const chatWrapperContent = haveMessages ? (
     <ChatWrapper ref={chatContainer}>
@@ -252,15 +240,15 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
   return (
     <>
       {chatWrapperContent}
-      {!ended && (
-        <ChatButtons
-          haveCoupon={checkCouponAvailability}
-          couponCount={count}
-          actions={actions}
-          callback={sendAnswerId}
-          couponCallback={() => setOpenCouponModal(true)}
-        />
-      )}
+
+      <ChatButtons
+        haveCoupon={showCouponInterfaceWhenTaskIsFailed}
+        couponCount={couponReplaceCount + couponSkipCount}
+        actions={actions}
+        callback={sendAnswerId}
+        couponCallback={() => setOpenCouponModal(true)}
+      />
+
       <ModalWindow
         {...couponModalConfig}
         displayFlag={openCouponModal}

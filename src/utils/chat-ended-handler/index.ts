@@ -38,6 +38,7 @@ export const chatEndedHandler = async (
         Правильных ответов ${data.quizResult.correct} из ${data.quizResult
           .correct + data.quizResult.incorrect}. 
           Воспользуйся купоном во вкладке «Задания» чтобы выполнить задание или заменить его`,
+        failedTask: true,
       },
       towerTitle,
     };
