@@ -146,7 +146,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
 
   const [openCouponModal, setOpenCouponModal] = useState(false);
   const [responseStatus, setResponseStatus] = useState(PromiseStatus.PENDING);
-  const [savedMessages, useSavedMessages] = useState<IMessage[]>([]);
+  const [savedMessages, setSavedMessages] = useState<IMessage[]>([]);
   const [failedTask, setFailedTask] = useState(false);
 
   const currentTask = findSubtask(taskId) || tasks.find(el => el.id === taskId);
@@ -226,7 +226,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
 
     if (!savedMessages.length) {
       if (myNewMessages.length) {
-        useSavedMessages(messages);
+        setSavedMessages(messages);
       } else {
         setResponseStatus(PromiseStatus.PENDING);
         let delay = 0;
@@ -234,7 +234,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
           lettersCount = el.text.length;
           delay += calculateMessageDelay(lettersCount);
           setTimeout(() => {
-            useSavedMessages(prevState => [...prevState, el]);
+            setSavedMessages(prevState => [...prevState, el]);
             if (idx === botsNewMessages.length - 1)
               setResponseStatus(PromiseStatus.RESOLVED);
           }, delay);
@@ -242,11 +242,11 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
       }
       return;
     } else {
-      useSavedMessages(prevState => [...prevState, ...myNewMessages]);
+      setSavedMessages(prevState => [...prevState, ...myNewMessages]);
       botsNewMessages.forEach(el => (lettersCount += el.text.length));
       setTimeout(() => {
         setResponseStatus(PromiseStatus.RESOLVED);
-        useSavedMessages(prevState => [...prevState, ...botsNewMessages]);
+        setSavedMessages(prevState => [...prevState, ...botsNewMessages]);
       }, calculateMessageDelay(lettersCount));
     }
   }, [messages]);
