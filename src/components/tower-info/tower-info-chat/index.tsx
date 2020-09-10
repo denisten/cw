@@ -202,7 +202,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
   const { play: newMessagePlay } = useAudio(newMessage, false, volume);
 
   usePlaySoundIf<IMessage[]>(
-    messages.length > 0 && !!volume,
+    haveMessages && !!volume,
     newMessagePlay,
     messages
   );
