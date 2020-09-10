@@ -54,6 +54,7 @@ export const handleRewardTask = async ({
   animateTaskReward(money, e);
   await getTaskReward({ id, taskType });
   updateUserBalance(money, energy);
+
   hideMarker({ towerTitle, type: MarkerTypes.SUCCESS });
   clearChat({ towerTitle });
 };

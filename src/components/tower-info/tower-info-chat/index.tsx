@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import { Sender, IMessage } from '../../../api/tasks-api/session';
+import { IMessage, Sender } from '../../../api/tasks-api/session';
 import {
   ITask,
   TasksStore,
@@ -114,6 +114,10 @@ export const couponModalConfig = {
   submitButtonText: 'Использовать',
   cancelButtonText: 'Отмена',
 };
+const lettersPerSecond = 100,
+  ms = 1000;
+const calculateMessageDelay = (letters: number) =>
+  (letters / lettersPerSecond) * ms;
 
 const findSubtask = (taskId: number): ITask | undefined => {
   const missions = MissionsStore.getState();
@@ -122,34 +126,38 @@ const findSubtask = (taskId: number): ITask | undefined => {
       if (missions[i].userSubTasks[j].id === taskId)
         return missions[i].userSubTasks[j];
 };
+enum PromiseStatus {
+  PENDING = 'pending',
+  RESOLVED = 'resolved',
+}
 
 export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
   towerTitle,
   switchers,
 }) => {
+  const wantedTaskStatuses = new Set([
+    TaskTypes.PRODUCT_QUIZ,
+    TaskTypes.RELATED_QUIZ,
+  ]);
+
+  const { userCoupons } = useStore(UserMarketStore);
+  const tasks = useStore(TasksStore);
   const { blockId, taskId, actions, messages, ended } = useStore(ChatStore)[
     towerTitle
   ];
-  const { userCoupons } = useStore(UserMarketStore);
-  const tasks = useStore(TasksStore);
-  let currentTask: ITask | undefined;
-  currentTask = findSubtask(taskId);
-  if (!currentTask) {
-    currentTask = tasks.find(el => el.id === taskId);
-  }
-  const [openCouponModal, setOpenCouponModal] = useState(false);
-  const [pendingOfResponse, setPendingOfResponse] = useState(false);
 
+  const [openCouponModal, setOpenCouponModal] = useState(false);
+  const [responseStatus, setResponseStatus] = useState(PromiseStatus.PENDING);
+  const [savedMessages, useSavedMessages] = useState<IMessage[]>([]);
+
+  const currentTask = findSubtask(taskId) || tasks.find(el => el.id === taskId);
   const { count } = userCoupons[CouponTypes.COUPON_REPLACE];
 
   const chatContainer = useRef<HTMLDivElement>(null);
 
-  const currentTaskIndex = tasks.findIndex(el => {
-    if (el.productSlug)
-      return (
-        el.status !== TaskStatuses.CREATED && el.productSlug === towerTitle
-      );
-  });
+  const currentTaskIndex = tasks.findIndex(
+    el => el.status !== TaskStatuses.CREATED && el.productSlug === towerTitle
+  );
 
   try {
     currentMission = tasks[currentTaskIndex];
@@ -165,20 +173,17 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
   const haveMessages = messages && messages.length > 0;
 
   const sendAnswerId = async (actionId: number) => {
-    if (!pendingOfResponse && currentTask) {
-      setPendingOfResponse(true);
+    if (responseStatus === PromiseStatus.RESOLVED && currentTask) {
+      setResponseStatus(PromiseStatus.PENDING);
       const response = await consumeUserTaskAction({
         taskId: currentTask.id,
         blockId,
         actionId,
         towerTitle,
       });
-      setPendingOfResponse(false);
+
       if (response.data.ended) {
-        if (
-          currentTask.taskTypeSlug === TaskTypes.PRODUCT_QUIZ ||
-          currentTask.taskTypeSlug === TaskTypes.RELATED_QUIZ
-        ) {
+        if (wantedTaskStatuses.has(currentTask.taskTypeSlug)) {
           chatEndedHandler(taskId, towerTitle);
         } else {
           setCurrentTaskStatus({
@@ -200,7 +205,6 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
     sound: { volume },
   } = useStore(SettingsStore);
   const { play: newMessagePlay } = useAudio(newMessage, false, volume);
-
   usePlaySoundIf<IMessage[]>(
     messages.length > 0 && !!volume,
     newMessagePlay,
@@ -217,33 +221,73 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
       setHideTowerInfo(false);
     };
   }, [towerTitle]);
+  useEffect(() => {
+    let lettersCount = 0;
+
+    const newMessages = messages.slice(savedMessages.length, messages.length);
+    const myNewMessages = newMessages.filter(
+      el => el.direction === Sender.FRONTEND
+    );
+    const botsNewMessages = newMessages.filter(
+      el => el.direction === Sender.BACKEND
+    );
+
+    if (!savedMessages.length) {
+      if (myNewMessages.length) {
+        useSavedMessages(messages);
+      } else {
+        setResponseStatus(PromiseStatus.PENDING);
+        let delay = 0;
+        botsNewMessages.forEach((el, idx) => {
+          lettersCount = el.text.length;
+          delay += calculateMessageDelay(lettersCount);
+          setTimeout(() => {
+            useSavedMessages(prevState => [...prevState, el]);
+            if (idx === botsNewMessages.length - 1)
+              setResponseStatus(PromiseStatus.RESOLVED);
+          }, delay);
+        });
+      }
+      return;
+    } else {
+      useSavedMessages(prevState => [...prevState, ...myNewMessages]);
+      botsNewMessages.forEach(el => (lettersCount += el.text.length));
+      setTimeout(() => {
+        setResponseStatus(PromiseStatus.RESOLVED);
+        useSavedMessages(prevState => [...prevState, ...botsNewMessages]);
+      }, calculateMessageDelay(lettersCount));
+    }
+  }, [messages]);
 
   useEffect(() => {
     if (chatContainer.current) {
       chatContainer.current.scrollTo(0, chatContainer.current.scrollHeight);
     }
-  }, [messages]);
+  }, [savedMessages, messages]);
 
+  const BotWriting = (
+    <BotIsWritingWrap displayFlag={true}>
+      <ChatAvatar
+        sender={Sender.BACKEND}
+        userAvatar=""
+        towerTitle={towerTitle}
+      />
+      <Writing>...</Writing>
+    </BotIsWritingWrap>
+  );
   const chatWrapperContent = haveMessages ? (
     <ChatWrapper ref={chatContainer}>
-      {messages.map((item, idx) => (
-        <MessageRow key={idx} sender={item.direction}>
+      {savedMessages.map(({ direction, text }, idx) => (
+        <MessageRow key={idx} sender={direction}>
           <ChatAvatar
-            sender={item.direction}
+            sender={direction}
             userAvatar=""
             towerTitle={towerTitle}
           />
-          <Bubble sender={item.direction} text={item.text} botName="Помощник" />
+          <Bubble sender={direction} text={text} botName="Помощник" />
         </MessageRow>
       ))}
-      <BotIsWritingWrap displayFlag={pendingOfResponse}>
-        <ChatAvatar
-          sender={Sender.BACKEND}
-          userAvatar=""
-          towerTitle={towerTitle}
-        />
-        <Writing>...</Writing>
-      </BotIsWritingWrap>
+      {responseStatus === PromiseStatus.PENDING && BotWriting}
     </ChatWrapper>
   ) : (
     <ChatPreview />
