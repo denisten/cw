@@ -18,7 +18,7 @@ export const handleMissionClick = async ({
   mission,
   e,
 }: IHandleMissionClick) => {
-  const { id, productSlug: towerTitle, money, energy } = mission;
+  const { id, productSlug: towerTitle, money } = mission;
   const { fullSizeMode } = AppConditionStore.getState();
   const { selectedMenuItem } = MenuStore.getState();
   const { taskId: chatTaskId } = ChatStore.getState()[towerTitle];
@@ -43,7 +43,6 @@ export const handleMissionClick = async ({
           id,
           taskType: TaskTypes.MISSION,
           money,
-          energy,
           towerTitle,
         });
       break;

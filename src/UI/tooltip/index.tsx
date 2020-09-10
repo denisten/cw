@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import helpBg from './help.svg';
 import helpHover from './helpHover.svg';
 import { ActiveTooltip } from '../../components/tower-info/tower-info-indicators';
-import * as R from 'ramda';
 
 const Icon = styled.div<{ active: boolean }>`
   width: 12.8px;
