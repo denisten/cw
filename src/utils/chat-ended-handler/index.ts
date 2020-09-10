@@ -38,6 +38,7 @@ export const chatEndedHandler = async (
         Правильных ответов ${data.quizResult.correct} из ${data.quizResult
           .correct + data.quizResult.incorrect}. 
           Воспользуйся купоном во вкладке «Задания» чтобы выполнить задание или заменить его`,
+        failedTask: true,
       },
       towerTitle,
     };
@@ -49,5 +50,6 @@ export const chatEndedHandler = async (
     eventCategory: 'viktorina',
     eventContent: transliterate(title),
     eventContext: data.quizResult.success ? 'vyigrysh' : 'proigrysh',
+    eventAction: 'confirmed',
   });
 };

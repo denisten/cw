@@ -20,7 +20,6 @@ import { MarkerTypes } from '../../components/markers';
 import { TaskTypes } from '../../app';
 import { TowersTypes } from '../../effector/towers-progress/store';
 import { MenuItems } from '../../UI/menu-paragraph';
-import { updateUserBalance } from '../handle-mission-click';
 import { reactGAEvent } from '../ga-event';
 import { transliterate } from '../transliterate';
 
@@ -48,13 +47,10 @@ export const handleRewardTask = async ({
   id,
   taskType,
   money,
-  energy,
   towerTitle,
 }: IHandleRewardTask) => {
   animateTaskReward(money, e);
   await getTaskReward({ id, taskType });
-  updateUserBalance(money, energy);
-
   hideMarker({ towerTitle, type: MarkerTypes.SUCCESS });
   clearChat({ towerTitle });
 };
@@ -64,10 +60,12 @@ export const handleTaskClick = async ({
   e,
   taskType,
 }: IHandleTaskClick) => {
-  const { id, productSlug: towerTitle, money, energy } = task;
+  const { id, productSlug: towerTitle, money } = task;
   const { fullSizeMode } = AppConditionStore.getState();
   const { selectedMenuItem } = MenuStore.getState();
   const { taskId: chatTaskId } = ChatStore.getState()[towerTitle];
+  const { title } = BuildingsService.getConfigForTower(towerTitle);
+
   switch (task.status) {
     case TaskStatuses.CREATED:
       await handleStartTask({
@@ -80,20 +78,22 @@ export const handleTaskClick = async ({
       reactGAEvent({
         eventLabel: 'vypolnit',
         eventCategory: 'zadaniya',
-        eventContent: 'zadachi',
+        eventContent: transliterate(title),
         eventContext: transliterate(task.title),
+        eventAction: 'button_click',
       });
       break;
     case TaskStatuses.ACTIVE:
       setTowerInfoContent(TowerInfoContentValues.CHAT);
       break;
     case TaskStatuses.DONE:
-      await handleRewardTask({ e, id, taskType, money, energy, towerTitle });
+      await handleRewardTask({ e, id, taskType, money, towerTitle });
       reactGAEvent({
         eventLabel: 'zabrat',
         eventCategory: 'zadaniya',
-        eventContent: 'zadachi',
+        eventContent: transliterate(title),
         eventContext: transliterate(task.title),
+        eventAction: 'button_click',
       });
       break;
     default:
@@ -112,7 +112,6 @@ interface IHandleRewardTask {
   id: number;
   taskType: TaskTypes;
   money: number;
-  energy: number;
   towerTitle: TowersTypes;
 }
 

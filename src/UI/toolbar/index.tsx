@@ -73,6 +73,7 @@ const handleToolbarElementClick = (
     reactGAEvent({
       eventLabel: type,
       eventCategory: 'mir',
+      buttonLocation: null,
     });
     extraTowerInfoModalClosed();
     switch (type) {

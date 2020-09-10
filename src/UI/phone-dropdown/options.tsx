@@ -9,6 +9,7 @@ import { UserDataStore } from '../../effector/user-data/store';
 import { useStore } from 'effector-react';
 import OutsideClickHandler from 'react-outside-click-handler';
 import { reactGAEvent } from '../../utils/ga-event';
+import { receivedTasks } from '../../effector/app-condition/events';
 
 const Img = styled.img`
   margin-right: 7px;
@@ -62,6 +63,7 @@ export const Options: React.FC<IOptions> = ({ showOptions, callback }) => {
       eventCategory: 'avtorizaciya',
       eventAction: 'confirmed',
     });
+    receivedTasks(false);
     userSessionSocket && userSessionSocket.disconnect();
   };
 

@@ -128,6 +128,7 @@ const handleClick = (tutorialCondition: TutorialConditions) => {
     reactGAEvent({
       eventLabel: 'profile',
       eventCategory: 'mir',
+      buttonLocation: null,
     });
   } else if (
     tutorialCondition === TutorialConditions.PULSE_MENU_CHANGE_CITY_NAME

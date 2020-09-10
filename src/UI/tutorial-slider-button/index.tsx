@@ -35,6 +35,7 @@ export const TutorialSliderButton = () => {
         reactGAEvent({
           eventLabel: 'instrukciya',
           eventCategory: 'mir',
+          buttonLocation: null,
         });
         setOpenEncyclopediaState(true);
       }}

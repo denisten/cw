@@ -5,10 +5,10 @@ import { pulseAnimationHOF } from '../../hoc/pulse-anim';
 import { MTSSans } from '../../fonts';
 
 export enum MenuItems {
-  PROFILE = 'profile',
+  PROFILE = 'kabinet',
   TASKS = 'zadaniya',
-  HELP = 'voprosy_i_otvety',
-  INFO = 'oferta',
+  HELP = 'pomosch',
+  INFO = 'chto_novogo',
   SETTINGS = 'nastroiki',
   DEV = 'instrumenty_razrabotki',
 }

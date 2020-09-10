@@ -46,7 +46,7 @@ const appConditionLocalStorage = connectLocalStorage('AppCondition').onChange(
 );
 
 export const AppConditionStore = AppDomain.store<AppConditionType>(initState)
-  .on(receivedTasks, state => ({ ...state, fetchedTasks: true }))
+  .on(receivedTasks, (state, payload) => ({ ...state, fetchedTasks: payload }))
   .on(toggleAnimation, state => ({
     ...state,
     animationOff: !state.animationOff,
