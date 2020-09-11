@@ -278,7 +278,7 @@ export const TowerTaskRow: React.FC<ITasksRow> = ({
       <Border />
       <RowWrapper style={taskRowStyledConfig.rowWrapper}>
         <TaskTimer
-          expireInSeconds={task.expireInSeconds}
+          expireInSeconds={task.localExpireInSeconds}
           towerTitle={task.productSlug}
         />
         <RowWrapper>

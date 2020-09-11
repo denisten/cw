@@ -109,7 +109,7 @@ export const MissionTowerView: React.FC<IMissionTowerView> = ({
         <ColumnWrapper displayFlag={true} position="relative">
           <TaskLoot money={mission.money} energy={0} isInTowerInfo={true} />
           <TaskTimer
-            expireInSeconds={mission.expireInSeconds}
+            expireInSeconds={mission.localExpireInSeconds}
             towerTitle={mission.productSlug}
           />
         </ColumnWrapper>

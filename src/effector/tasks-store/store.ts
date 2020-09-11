@@ -104,7 +104,7 @@ export interface ITask {
   status: TaskStatuses;
   expireAt: string;
   expireInSeconds: number | null;
-  localExpireInSeconds?: number;
+  localExpireInSeconds?: () => number;
   taskTypeSlug: TaskTypes;
   productSlug: TowersTypes;
   title: string;

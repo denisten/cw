@@ -13,5 +13,7 @@ export const timerLoopUpdater = (secondLeft: number) => {
 
   _startTimer();
 
-  return timer;
+  const getTimer = () => timer;
+
+  return getTimer;
 };

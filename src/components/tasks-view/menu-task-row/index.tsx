@@ -154,7 +154,7 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
                   isInTowerInfo={isInTowerInfo}
                 />
                 <TaskTimer
-                  expireInSeconds={task.expireInSeconds}
+                  expireInSeconds={task.localExpireInSeconds}
                   towerTitle={task.productSlug}
                 />
               </ColumnWrapper>
