@@ -11,7 +11,6 @@ const translate = {
   Щ: 'SCH',
   З: 'Z',
   Х: 'H',
-  Ъ: "'",
   ё: 'yo',
   й: 'i',
   ц: 'ts',
@@ -24,7 +23,6 @@ const translate = {
   щ: 'sch',
   з: 'z',
   х: 'h',
-  ъ: "'",
   Ф: 'F',
   Ы: 'I',
   В: 'V',
@@ -53,7 +51,6 @@ const translate = {
   М: 'M',
   И: 'I',
   Т: 'T',
-  Ь: "'",
   Б: 'B',
   Ю: 'YU',
   я: 'ya',
@@ -62,14 +59,15 @@ const translate = {
   м: 'm',
   и: 'i',
   т: 't',
-  ь: "'",
   б: 'b',
   ю: 'yu',
 };
 
 export const transliterate = (word: string) => {
+  const regExpNoSymbols = new RegExp(/[ъь!$%^&*()_+|~=`{}\[\]:";'<>?,.\/]/gi);
+  const noSymbolsWord = word.replace(regExpNoSymbols, '');
   return (
-    word
+    noSymbolsWord
       .split('')
       .map(char => {
         const translatedChar = (translate as unknown) as {

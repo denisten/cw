@@ -15,7 +15,7 @@ const defaultGAEventProps = {
   actionGroup: 'interactions',
   productName: null,
   productId: null,
-  numberType: 'virt',
+  numberType: null,
   accountType: null,
   touchPoint: 'web',
   currentTariff: null,
@@ -36,7 +36,6 @@ export const reactGAEvent = (
       guId: guid,
       userAuth: isAuthorized ? '1' : '0',
       accountType: isAuthorized ? 'mobile' : null,
-      numberType: isAuthorized ? 'virt' : null,
     },
   };
 
