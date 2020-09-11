@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import { useStore } from 'effector-react';
 import { AppConditionStore } from '../../effector/app-condition/store';
@@ -81,15 +81,27 @@ export const RootComponent = () => {
   const tutorialIsEnabled = DOMLoaded && tutorialCondition !== 0;
   const displayFlag = checkTutorialCondition(tutorialCondition);
   const zIndex = defineScrollContainerZIndex(tutorialCondition);
-  const { play } = useAudio(backgroundMusic, true, volume);
+  const { play, pause } = useAudio(backgroundMusic, true, volume);
+  const rootRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    DOMLoaded && !tutorialSliderDisplayFlag && volume && play();
-  }, [volume, tutorialSliderDisplayFlag, DOMLoaded]);
+    DOMLoaded && volume > 0 ? play() : pause();
+  }, [volume, DOMLoaded]);
+
+  const playMusicEvent = () => {
+    volume && play();
+    rootRef.current &&
+      rootRef.current.removeEventListener('click', playMusicEvent);
+  };
+
+  useEffect(() => {
+    rootRef.current &&
+      rootRef.current.addEventListener('click', playMusicEvent);
+  }, []);
 
   useRefreshProgress(freshProgressTimeout, isAuthorized);
   return (
-    <RootComponentWrapper displayFlag={DOMLoaded}>
+    <RootComponentWrapper displayFlag={DOMLoaded} ref={rootRef}>
       <UIButtonInterface />
       <Menu />
       {tutorialSliderDisplayFlag && <InitTutorialSlider />}

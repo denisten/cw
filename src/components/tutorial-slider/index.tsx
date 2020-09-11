@@ -146,14 +146,15 @@ export const TutorialSlider: React.FC<ITutorialSlider> = ({
   });
 
   useEffect(() => {
-    reactGAEvent({
-      eventLabel: 'banner',
-      eventCategory: 'onboarding',
-      eventAction: 'banner_show',
-      eventContext: String(step + 1),
-      buttonLocation: null,
-    });
-  }, [step]);
+    displayFlag &&
+      reactGAEvent({
+        eventLabel: 'banner',
+        eventCategory: 'onboarding',
+        eventAction: 'banner_show',
+        eventContext: String(step + 1),
+        buttonLocation: null,
+      });
+  }, [step, displayFlag]);
 
   useEffect(() => {
     stepViewCollectionRef.current?.children[0].classList.add('selected');
