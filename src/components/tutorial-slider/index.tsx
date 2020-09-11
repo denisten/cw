@@ -150,7 +150,8 @@ export const TutorialSlider: React.FC<ITutorialSlider> = ({
       eventLabel: 'banner',
       eventCategory: 'onboarding',
       eventAction: 'banner_show',
-      eventContext: String(step),
+      eventContext: String(step + 1),
+      buttonLocation: null,
     });
   }, [step]);
 
