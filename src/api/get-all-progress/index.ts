@@ -2,20 +2,23 @@ import { get } from '../requests';
 import { apiRoutes } from '..';
 import {
   TowersProgressStoreType,
-  ITowerProgress,
+  TowersTypes,
 } from '../../effector/towers-progress/store';
-
-const temporaryZeroingPoints = (object: { [key: string]: ITowerProgress }) => {
-  for (const key in object) {
-    const element = object[key];
-    element.points = 0;
-  }
-};
+import { calculateLevelUpPercent } from '../../utils/calculate-level-up-percent';
 
 export const getAllProgress = async () => {
   const response = await get<{ data: TowersProgressStoreType }>(
     apiRoutes.GET_ALL_PROGRESS
   );
-  temporaryZeroingPoints(response.data.data);
+
+  Object.keys(response.data.data).forEach(product => {
+    const tower = product as TowersTypes;
+    response.data.data[tower].level.levelUpPercentage = calculateLevelUpPercent(
+      response.data.data[tower].points,
+      response.data.data[tower].level.minProgressValue,
+      response.data.data[tower].level.maxProgressValue
+    );
+  });
+
   return response.data.data;
 };

@@ -23,6 +23,7 @@ import { tasksHandler } from './handlers/tasks';
 import { missionsHandler } from './handlers/missions';
 import { receivedTasks } from '../../effector/app-condition/events';
 import { AppConditionStore } from '../../effector/app-condition/store';
+import { calculateLevelUpPercent } from '../../utils/calculate-level-up-percent';
 
 const notSecuredProtocol = 'http:';
 const securedWebSocketProtocol = 'wss://';
@@ -45,15 +46,18 @@ const createSubscriptions = (centrifuge: Centrifuge, userId: number) => {
       const towerTitles = Object.keys(item.data) as TowersTypes[];
       const towerData = item.data as TowersProgressStoreType;
       towerTitles.forEach(towerTitle => {
-        const { income, level, levelUpPercentage } = towerData[
-          towerTitle
-        ].level;
+        const { income, level } = towerData[towerTitle].level;
         const { factors } = towerData[towerTitle];
+
         addTowerProgressData({
           towerTitle,
           income,
           newLevel: level,
-          levelUpPercentage,
+          levelUpPercentage: calculateLevelUpPercent(
+            towerData[towerTitle].points,
+            towerData[towerTitle].level.minProgressValue,
+            towerData[towerTitle].level.maxProgressValue
+          ),
           factors,
         });
       });
