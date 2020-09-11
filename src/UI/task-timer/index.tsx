@@ -52,7 +52,9 @@ export const TaskTimer: React.FC<ITaskTimer> = ({
   expireInSeconds,
   towerTitle,
 }) => {
-  const [secondsLeft, setSecondsLeft] = useState(expireInSeconds || null);
+  const [secondsLeft, setSecondsLeft] = useState(
+    (expireInSeconds && expireInSeconds()) || null
+  );
   const timerRef = useRef(0);
 
   useEffect(() => {
@@ -86,5 +88,5 @@ interface ITaskTimer extends ITaskTimerWrapper {
 }
 
 interface ITaskTimerWrapper {
-  expireInSeconds: number | null;
+  expireInSeconds?: () => number;
 }

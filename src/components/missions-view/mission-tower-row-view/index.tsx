@@ -90,7 +90,7 @@ export const MissionTowerRowView: React.FC<IMissionTowerRowView> = ({
             isInTowerInfo={isInTowerInfo}
           />
           <TaskTimer
-            expireInSeconds={mission.expireInSeconds}
+            expireInSeconds={mission.localExpireInSeconds}
             towerTitle={mission.productSlug}
           />
         </ColumnWrapper>
