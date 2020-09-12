@@ -32,6 +32,7 @@ export enum UserDataStoreKeys {
   SHOW_SLIDER = 'showSlider',
   SHOW_TUTORIAL = 'showTutorial',
   OPERATOR_ID = 'operatorId',
+  LOGINNED = 'loginned',
 }
 
 export const defaultNameValue = 'Мир клиента';
@@ -53,6 +54,7 @@ const initState: IUserDataStore = {
   [UserDataStoreKeys.SHOW_SLIDER]: false,
   [UserDataStoreKeys.SHOW_TUTORIAL]: true,
   [UserDataStoreKeys.OPERATOR_ID]: null,
+  [UserDataStoreKeys.LOGINNED]: false,
 };
 
 export const UserDataStore = UserDataDomain.store<IUserDataStore>(initState)
@@ -145,6 +147,7 @@ export interface IUserDataStore {
   [UserDataStoreKeys.SHOW_SLIDER]: boolean;
   [UserDataStoreKeys.SHOW_TUTORIAL]: boolean;
   [UserDataStoreKeys.OPERATOR_ID]: number | null;
+  [UserDataStoreKeys.LOGINNED]: boolean;
 }
 
 export interface IBirthday {

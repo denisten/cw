@@ -46,7 +46,7 @@ const disablePassedTutorial = () => {
 
 const handleAuth = async (isAuthorized: boolean, dataReceived: boolean) => {
   if (isAuthorized && !dataReceived) {
-    const { worldName } = UserDataStore.getState();
+    const { worldName, loginned } = UserDataStore.getState();
     if (worldName && worldName !== defaultNameValue) {
       await saveUserData({ worldName });
     }
@@ -55,12 +55,13 @@ const handleAuth = async (isAuthorized: boolean, dataReceived: boolean) => {
     await openWsConnection();
     disablePassedTutorial();
     prepareMap();
-    reactGAEvent({
-      eventLabel: 'uspeshnaya_avtorizaciya',
-      eventCategory: 'avtorizaciya',
-      eventAction: 'confirmed',
-      event: 'mtsLogin',
-    });
+    !loginned &&
+      reactGAEvent({
+        eventLabel: 'uspeshnaya_avtorizaciya',
+        eventCategory: 'avtorizaciya',
+        eventAction: 'confirmed',
+        event: 'mtsLogin',
+      });
   }
 };
 
