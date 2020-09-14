@@ -15,8 +15,6 @@ import { MissionTowerRowView } from '../../missions-view/mission-tower-row-view'
 import { MissionTowerView } from '../../missions-view/mission-tower-view';
 import { IDisplayFlag } from '../../root-component';
 import { TaskTypes } from '../../../app';
-import { hideMarker } from '../../../effector/towers-marker/events';
-import { MarkerTypes } from '../../markers';
 
 const TowerInfoTaskWrapper = styled.div`
   margin-top: 24px;
@@ -83,12 +81,6 @@ export const TowerInfoTask: React.FC<ITowerInfoTask> = ({ towerTitle }) => {
   const { tutorialCondition } = useStore(TutorialStore);
   const filteredTasks = filterTasksArray(tasks, towerTitle);
   const filteredMissions = filterTasksArray(missions, towerTitle);
-
-  useEffect(() => {
-    if (!filteredTasks.length && !filteredMissions.length) {
-      hideMarker({ towerTitle, type: MarkerTypes.TASK });
-    }
-  }, [filteredTasks.length, filteredMissions.length]);
 
   const tasksView = filteredTasks.map(task => (
     <TowerTaskRow
