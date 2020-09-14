@@ -40,6 +40,10 @@ import { SettingsStore } from '../../effector/settings/store';
 import { usePlaySoundIf } from '../../hooks/use-play-sound-if';
 import openChat from '../../sound/open-chat.mp3';
 import { reactGAEvent } from '../../utils/ga-event';
+import { TasksStore } from '../../effector/tasks-store/store';
+import { MissionsStore } from '../../effector/missions-store/store';
+import { filterTasksArray } from '../../utils/filtered-missions-array';
+import { useHideEmptyTaskMarker } from '../../hooks/use-hide-empty-task-marker';
 
 export type ModalWindowProps = {
   opened?: boolean;
@@ -161,6 +165,11 @@ const TowerInfo: React.FC = () => {
   } = useStore(SettingsStore);
   const { play: openTowerInfoSoundPlay } = useAudio(towerOpen, false, volume);
   const { play: openChatSoundPlay } = useAudio(openChat, false, volume);
+  const tasks = useStore(TasksStore);
+  const missions = useStore(MissionsStore);
+  const filteredTasks = filterTasksArray(tasks, towerTitle);
+  const filteredMissions = filterTasksArray(missions, towerTitle);
+  useHideEmptyTaskMarker({ filteredTasks, filteredMissions, towerTitle });
 
   usePlaySoundIf<boolean>(
     isExtraTowerInfoModalOpen && !!volume,
