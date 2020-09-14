@@ -46,7 +46,7 @@ const disablePassedTutorial = () => {
 
 const handleAuth = async (isAuthorized: boolean, dataReceived: boolean) => {
   if (isAuthorized && !dataReceived) {
-    const { worldName, loginned } = UserDataStore.getState();
+    const { worldName, isLoggedIn } = UserDataStore.getState();
     if (worldName && worldName !== defaultNameValue) {
       await saveUserData({ worldName });
     }
@@ -55,7 +55,7 @@ const handleAuth = async (isAuthorized: boolean, dataReceived: boolean) => {
     await openWsConnection();
     disablePassedTutorial();
     prepareMap();
-    !loginned &&
+    !isLoggedIn &&
       reactGAEvent({
         eventLabel: 'uspeshnaya_avtorizaciya',
         eventCategory: 'avtorizaciya',

@@ -20,7 +20,7 @@ export const useCheckUserAuthStatus = () => {
           editUserData({
             name: data.data.data.name,
             worldName: data.data.data.worldName,
-            loginned: true,
+            isLoggedIn: true,
           });
           if (data.data.data.showTutorial) {
             setTutorialOnAuthorizedUserFlag(true);
