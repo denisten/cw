@@ -17,11 +17,12 @@ export const useCheckUserAuthStatus = () => {
     response
       .then(data => {
         if (data.status === statusOk) {
+          editUserData({
+            name: data.data.data.name,
+            worldName: data.data.data.worldName,
+            isLoggedIn: true,
+          });
           if (data.data.data.showTutorial) {
-            editUserData({
-              name: data.data.data.name,
-              worldName: data.data.data.worldName,
-            });
             setTutorialOnAuthorizedUserFlag(true);
             enableTutorialMode();
           } else {

@@ -63,6 +63,7 @@ export interface IEditUserData {
   worldName?: string;
   assistantName?: string;
   birthday?: IBirthday;
+  isLoggedIn?: boolean;
 }
 
 export interface IEditUserProperty {
