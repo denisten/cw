@@ -128,6 +128,9 @@ const PromocodeText = styled(StyledSpan)`
   letter-spacing: -0.6px;
   color: #212527;
   font-family: ${MTSSans.BOLD};
+  max-width: 80%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const CopyPromocode = styled.img.attrs({ alt: 'copy', src: copy })`
