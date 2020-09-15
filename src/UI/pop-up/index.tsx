@@ -184,6 +184,7 @@ export const PopUp: React.FC<IPopUp> = ({
         eventAction: 'confirmed',
         eventContext: 'step6',
       });
+      saveData();
       return;
     }
     reactGAEvent({

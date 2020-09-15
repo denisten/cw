@@ -11,7 +11,7 @@ import { MenuInfo } from '../menu-info';
 import background from './background.svg';
 const MenuContentWrapper = styled.div`
   flex: 1;
-  background: url(${background}) no-repeat center;
+  background: url(${background}) no-repeat center, white;
   background-size: 100% 100%;
   width: 776px;
   height: 100%;

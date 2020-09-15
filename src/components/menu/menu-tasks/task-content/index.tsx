@@ -6,7 +6,7 @@ import { Mission } from './mission';
 import { TaskTypes } from '../../../../app';
 
 const Body = styled.div`
-  width: calc(100% - 28px);
+  width: 100%;
   height: calc(100% - 50px);
   background: white;
   padding: 27px 24px 0 33px;
@@ -14,6 +14,7 @@ const Body = styled.div`
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
+  background: white;
 `;
 
 export const TasksContent: React.FC<ITasksContent> = ({ activeType }) => {
