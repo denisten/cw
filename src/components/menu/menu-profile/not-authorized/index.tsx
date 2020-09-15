@@ -15,14 +15,30 @@ import { handleAuthButtonClick } from '../../../../utils/handle-auth-button-clic
 import { useStore } from 'effector-react';
 import { reactGAEvent } from '../../../../utils/ga-event';
 import { NotAuthorizedLayout } from './layout';
+import { AppConditionStore } from '../../../../effector/app-condition/store';
+import { maxCityNameLength } from '../authorized';
 
-const NotAuthorizedProfile: React.FC<INotAuthorizedProfile> = ({
-  openPopUpState,
-}) => {
+const popUpStyles = {
+  width: 487,
+  height: 305,
+  padding: '76px 79px 0 79px',
+};
+
+export const NotAuthorizedProfile = () => {
   const { worldName, money } = useStore(UserDataStore);
   const { tutorialCondition } = useStore(TutorialStore);
+  const { openPopUpState } = useStore(AppConditionStore);
 
-  const handleButtonClick = () => {
+  const popUpConfig = {
+    callback: () => setOpenPopUpState(TypesOfPopUps.DISABLED),
+    displayFlag: openPopUpState !== TypesOfPopUps.DISABLED,
+    popUpStyles,
+    maxInputValueLength: maxCityNameLength,
+    title: 'Введите название города',
+    initValue: worldName,
+  };
+
+  const handleButtonClick = async () => {
     if (tutorialCondition === TutorialConditions.PULSE_AUTH_BUTTON) {
       disableTutorialMode();
       setSuccessfulTutorial(true);
@@ -34,7 +50,7 @@ const NotAuthorizedProfile: React.FC<INotAuthorizedProfile> = ({
         eventAction: 'button_click',
       });
     }
-    handleAuthButtonClick();
+    await handleAuthButtonClick();
   };
 
   const handlePenClick = () => {
@@ -50,6 +66,7 @@ const NotAuthorizedProfile: React.FC<INotAuthorizedProfile> = ({
 
   return (
     <NotAuthorizedLayout
+      popUpConfig={popUpConfig}
       openPopUpState={openPopUpState}
       handleButtonClick={handleButtonClick}
       handlePenClick={handlePenClick}
@@ -59,9 +76,3 @@ const NotAuthorizedProfile: React.FC<INotAuthorizedProfile> = ({
     />
   );
 };
-
-export interface INotAuthorizedProfile {
-  openPopUpState: TypesOfPopUps;
-}
-
-export default NotAuthorizedProfile;

@@ -1,7 +1,5 @@
 import React from 'react';
-import { PopUp, TypesOfPopUps } from '../../../../UI/pop-up';
-import { setOpenPopUpState } from '../../../../effector/app-condition/events';
-import { maxCityNameLength } from '../authorized';
+import { IPopUp, PopUp, TypesOfPopUps } from '../../../../UI/pop-up';
 import { RowWrapper } from '../../../../UI/row-wrapper';
 import { CoinsWallet } from '../../../../UI/wallet';
 import {
@@ -17,7 +15,6 @@ import styled from 'styled-components';
 import { defaultScaleSize, scaleAnimation } from '../../../../hoc/scale-anim';
 import { StyledSpan } from '../../../../UI/span';
 import { MTSSans } from '../../../../fonts';
-import { INotAuthorizedProfile } from './index';
 
 const ProfileWrapper = styled.div`
   width: 100%;
@@ -71,34 +68,24 @@ const styledConfig = {
     width: '100%',
     justifyContent: 'flex-end',
   },
-  popUpStyles: {
-    width: 487,
-    height: 305,
-    padding: '76px 79px 0 79px',
-  },
   penWrapper: {
     alt: 'pen',
     scaleSize: 1.4,
   },
 };
-interface INotAuthorizedLayout extends INotAuthorizedProfile {
+interface INotAuthorizedLayout {
   worldName: string;
   money: number;
   tutorialCondition: TutorialConditions;
   handlePenClick: () => void;
   handleButtonClick: () => void;
+  openPopUpState: TypesOfPopUps;
+  popUpConfig: IPopUp;
 }
 export const NotAuthorizedLayout: React.FC<INotAuthorizedLayout> = props => {
   return (
     <ProfileWrapper>
-      <PopUp
-        callback={() => setOpenPopUpState(TypesOfPopUps.DISABLED)}
-        displayFlag={props.openPopUpState !== TypesOfPopUps.DISABLED}
-        popUpStyles={styledConfig.popUpStyles}
-        maxInputValueLength={maxCityNameLength}
-        title="Введите название города"
-        initValue={props.worldName}
-      />
+      <PopUp {...props.popUpConfig} />
       <RowWrapper style={styledConfig.moneyWallet}>
         <CoinsWallet
           sum={String(props.money)}

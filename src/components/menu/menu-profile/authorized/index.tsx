@@ -8,6 +8,7 @@ import { setOpenPopUpState } from '../../../../effector/app-condition/events';
 import { ButtonClassNames } from '../../../../UI/button';
 import { reactGAEvent } from '../../../../utils/ga-event';
 import { AuthorizedLayout, popUpEditUserNameStyles } from './layout';
+import { AppConditionStore } from '../../../../effector/app-condition/store';
 
 let nameInputHint = '';
 
@@ -25,12 +26,10 @@ const checkUserName = (name: string) =>
 const checkButtonClassName = (nameInputHasError: boolean) =>
   !nameInputHasError ? ButtonClassNames.NORMAL : ButtonClassNames.DISABLED;
 
-const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
-  openPopUpState,
-}) => {
-  const { worldName, money, name, avatar, msisdn: phoneNumber } = useStore(
-    UserDataStore
-  );
+export const AuthorizedProfile = () => {
+  const { worldName, money, name, avatar, msisdn } = useStore(UserDataStore);
+  const { openPopUpState } = useStore(AppConditionStore);
+
   const [localName, setLocalName] = useState(name);
   const [nameInputHasError, setNameInputHasError] = useState(false);
 
@@ -80,7 +79,7 @@ const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
     <AuthorizedLayout
       popUpConfig={popUpConfig}
       avatar={avatar}
-      phoneNumber={phoneNumber}
+      msisdn={msisdn}
       money={money}
       openPopUp={openPopUp}
       worldName={worldName}
@@ -94,14 +93,8 @@ const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
   );
 };
 
-interface IAuthorizedProfile {
-  openPopUpState: TypesOfPopUps;
-}
-
 export interface IUserAvatar {
   avatar?: string | null;
   width?: number;
   height?: number;
 }
-
-export default AuthorizedProfile;

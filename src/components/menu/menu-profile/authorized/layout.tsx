@@ -145,7 +145,7 @@ export const AuthorizedLayout: React.FC<IAuthorizedLayout> = props => {
           />
           <ColumnWrapper {...styledConfig.profileDataColumnWrapper}>
             <NickNameWrapper>{name}</NickNameWrapper>
-            <PhoneDropdown phone={props.phoneNumber} />
+            <PhoneDropdown phone={props.msisdn} />
           </ColumnWrapper>
         </RowWrapper>
         <CoinsWallet sum={String(props.money)} />
@@ -177,7 +177,7 @@ export const AuthorizedLayout: React.FC<IAuthorizedLayout> = props => {
 interface IAuthorizedLayout {
   popUpConfig: IPopUp;
   avatar: string | null;
-  phoneNumber: string | null;
+  msisdn: string | null;
   money: number;
   openPopUp: () => void;
   worldName: string;
