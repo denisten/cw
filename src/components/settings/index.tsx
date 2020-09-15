@@ -13,7 +13,7 @@ const SettingWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   position: relative;
-  background: url(${background}) no-repeat center, white;
+  background: url(${background}) no-repeat center;
   background-size: 100% 100%;
 `;
 
