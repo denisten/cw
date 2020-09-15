@@ -137,14 +137,17 @@ const styledConfig = {
 
 let nameInputHint = '';
 
-const checkUserName = (nameLength: number) =>
-  nameLength >= minNameLength && nameLength <= maxUserNameLength;
+const checkUserName = (name: string) =>
+  name.length >= minNameLength && name.length <= maxUserNameLength;
 
 const inputLengthErrorParams = {
   maxSymbol: 14,
   minSymbol: 3,
   noSymbols: false,
 };
+
+const checkButtonClassName = (nameInputHasError: boolean) =>
+  !nameInputHasError ? ButtonClassNames.NORMAL : ButtonClassNames.DISABLED;
 
 const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
   openPopUpState,
@@ -160,14 +163,8 @@ const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
   const [localName, setLocalName] = useState(name);
   const [birthdayDate, setBirthdayDate] = useState<IBirthday>(birthday);
   const [nameInputHasError, setNameInputHasError] = useState(false);
-  const buttonClassName = !nameInputHasError
-    ? ButtonClassNames.NORMAL
-    : ButtonClassNames.DISABLED;
 
-  useEffect(() => {
-    localName !== name && setLocalName(name);
-    birthdayDate !== birthday && setBirthdayDate(birthday);
-  }, [name, birthday]);
+  const buttonClassName = checkButtonClassName(nameInputHasError);
 
   const handleChangeNameInput = (value: string) => {
     nameInputHint = inputValidation(
@@ -182,7 +179,7 @@ const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
   const onSubmitHandler = async (e?: FormEvent) => {
     e && e.preventDefault();
     if (nameInputHasError) return;
-    if (checkUserName(localName.length)) {
+    if (checkUserName(localName)) {
       await updateUserData({ birthday: birthdayDate, name: localName });
     } else {
       setNameInputHasError(true);
@@ -205,6 +202,10 @@ const AuthorizedProfile: React.FC<IAuthorizedProfile> = ({
 
   const openPopUp = () => setOpenPopUpState(TypesOfPopUps.EDIT_WORLD_NAME);
 
+  useEffect(() => {
+    localName !== name && setLocalName(name);
+    birthdayDate !== birthday && setBirthdayDate(birthday);
+  }, [name, birthday]);
   return (
     <Wrapper>
       <PopUp {...popUpConfig} />

@@ -1,45 +1,39 @@
 import { ProductLevelDomain } from './domain';
-import { fetchProductLevelData } from './events';
-
-const initState = [
-  {
-    id: 1,
+import { TowerLevel } from '../towers-progress/store';
+const initState: IProductLevel = {
+  [TowerLevel.initial]: {
     income: 0,
     maxProgressValue: 29,
     minProgressValue: 0,
     name: '0 уровень',
   },
-  {
-    id: 2,
+  [TowerLevel.low]: {
     income: 2,
     maxProgressValue: 299,
     minProgressValue: 30,
     name: '1 уровень',
   },
-  {
-    id: 3,
+  [TowerLevel.mid]: {
     income: 3,
     maxProgressValue: 699,
     minProgressValue: 300,
     name: '2 уровень',
   },
-  {
-    id: 4,
+  [TowerLevel.high]: {
     income: 5,
     maxProgressValue: null,
     minProgressValue: 700,
     name: '3 уровень',
   },
-];
+};
 
-export const ProductLevelStore = ProductLevelDomain.store<IProductLevel[]>(
-  initState
-).on(fetchProductLevelData.doneData, (state, payload) => payload);
+export const ProductLevelStore = ProductLevelDomain.store(initState);
 
-export interface IProductLevel {
-  id: number;
+export type IProductLevel = Record<TowerLevel, ICurrentLevelData>;
+
+export interface ICurrentLevelData {
   income: number;
   maxProgressValue: number | null;
-  minProgressValue: number | null;
+  minProgressValue: number;
   name: string;
 }

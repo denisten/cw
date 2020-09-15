@@ -160,6 +160,8 @@ export const TowerInfoIndicators: React.FC<ITowerInfoIndicators> = ({
   progress,
   towerTitle,
   tutorialCondition,
+  maxProgressValue,
+  points,
 }) => {
   const { playButtonLink } = BuildingsService.getConfigForTower(towerTitle);
   const { needUpgrade } = useStore(TowersProgressStore)[towerTitle];
@@ -198,6 +200,8 @@ export const TowerInfoIndicators: React.FC<ITowerInfoIndicators> = ({
           />
         </RowWrapper>
         <ProgressBar
+          points={points}
+          maxProgressValue={maxProgressValue}
           needUpgrade={needUpgrade}
           progress={progress}
           towerTitle={towerTitle}
@@ -232,12 +236,14 @@ export const TowerInfoIndicators: React.FC<ITowerInfoIndicators> = ({
 };
 
 interface ITowerInfoIndicators {
+  maxProgressValue: number | null;
   hideTowerInfo: boolean;
   level: number;
   income: number;
   progress: number;
   towerTitle: TowersTypes;
   tutorialCondition: TutorialConditions;
+  points: number;
 }
 
 interface IHeaderLine {

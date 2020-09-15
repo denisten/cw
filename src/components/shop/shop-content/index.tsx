@@ -24,8 +24,8 @@ const Header = styled.div`
   align-items: center;
   justify-content: space-between;
   box-sizing: border-box;
-  padding: 10px 42px 0px 42px;
-  box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.15);
+  padding: 10px 42px 0 42px;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.15);
 `;
 
 const Content = styled.div`

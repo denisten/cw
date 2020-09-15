@@ -32,6 +32,7 @@ interface IAddTowerProgressData {
   towerTitle: TowersTypes;
   levelUpPercentage: number;
   factors?: IFactors;
+  points: number;
 }
 
 export interface IAddRefForTower {

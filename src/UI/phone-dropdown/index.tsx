@@ -26,7 +26,7 @@ const PhoneDropdown: React.FC<IPhoneDropdown> = ({ phone }) => {
   const [optionsDisplayFlag, setOptionsDisplayFlag] = useState(false);
   const hideOptions = () => optionsDisplayFlag && setOptionsDisplayFlag(false);
   const showOptions = () => !optionsDisplayFlag && setOptionsDisplayFlag(true);
-  const splittedNumberString =
+  const splitNumberString =
     phone &&
     Array.from(phone)
       .reduce((acc: string[], elem, index) => {
@@ -40,7 +40,7 @@ const PhoneDropdown: React.FC<IPhoneDropdown> = ({ phone }) => {
   return (
     <div>
       <PhoneNumberWrapper onClick={showOptions}>
-        +7-{splittedNumberString} <Arrow />
+        +7-{splitNumberString} <Arrow />
       </PhoneNumberWrapper>
       <Options showOptions={optionsDisplayFlag} callback={hideOptions} />
     </div>

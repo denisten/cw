@@ -44,6 +44,7 @@ import { TasksStore } from '../../effector/tasks-store/store';
 import { MissionsStore } from '../../effector/missions-store/store';
 import { filterTasksArray } from '../../utils/filtered-missions-array';
 import { useHideEmptyTaskMarker } from '../../hooks/use-hide-empty-task-marker';
+import { ProductLevelStore } from '../../effector/product-level/store';
 
 export type ModalWindowProps = {
   opened?: boolean;
@@ -157,8 +158,9 @@ const TowerInfo: React.FC = () => {
   const {
     level: { level, income, levelUpPercentage },
     factors,
+    points,
   } = useStore(TowersProgressStore)[towerTitle];
-
+  const { maxProgressValue } = useStore(ProductLevelStore)[level];
   const { ended } = useStore(ChatStore)[towerTitle];
   const {
     sound: { volume },
@@ -170,7 +172,6 @@ const TowerInfo: React.FC = () => {
   const filteredTasks = filterTasksArray(tasks, towerTitle);
   const filteredMissions = filterTasksArray(missions, towerTitle);
   useHideEmptyTaskMarker({ filteredTasks, filteredMissions, towerTitle });
-
   usePlaySoundIf<boolean>(
     isExtraTowerInfoModalOpen && !!volume,
     openTowerInfoSoundPlay,
@@ -295,6 +296,8 @@ const TowerInfo: React.FC = () => {
             subscriptionText={subscriptionText}
           />
           <TowerInfoIndicators
+            points={points}
+            maxProgressValue={maxProgressValue}
             level={level}
             towerTitle={towerTitle}
             progress={levelUpPercentage}

@@ -53,6 +53,7 @@ const createSubscriptions = (centrifuge: Centrifuge, userId: number) => {
           towerTitle,
           income,
           newLevel: level,
+          points: towerData[towerTitle].points,
           levelUpPercentage: calculateLevelUpPercent(
             towerData[towerTitle].points,
             towerData[towerTitle].level.minProgressValue,
