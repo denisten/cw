@@ -1,4 +1,4 @@
-import Centrifuge from 'centrifuge';
+import Centrifuge, { RefreshResponse } from 'centrifuge';
 import { getCookie } from '../../utils/get-cookie';
 import { getWsToken } from '../get-ws-token';
 import { apiRoutes } from '../index';
@@ -24,6 +24,7 @@ import { missionsHandler } from './handlers/missions';
 import { receivedTasks } from '../../effector/app-condition/events';
 import { AppConditionStore } from '../../effector/app-condition/store';
 import { calculateLevelUpPercent } from '../../utils/calculate-level-up-percent';
+import { post } from '../requests';
 
 const notSecuredProtocol = 'http:';
 const securedWebSocketProtocol = 'wss://';
@@ -96,13 +97,17 @@ const createSubscriptions = (centrifuge: Centrifuge, userId: number) => {
     getBalanceSubscription,
   };
 };
-
+const statusOk = 200;
 export const openWsConnection = async () => {
   const { id: userId } = UserDataStore.getState();
   const centrifuge = new Centrifuge(wsConnectionRoute, {
     subscribeEndpoint: apiRoutes.WS_SUBSCRIBE,
     subscribeHeaders: {
       'X-XSRF-TOKEN': getCookie('XSRF-TOKEN'),
+    },
+    onRefresh: async (_, cb) => {
+      const resp = await post(wsConnectionRoute);
+      resp.status === statusOk && cb(resp.data as RefreshResponse);
     },
   });
   const token = await getWsToken();
