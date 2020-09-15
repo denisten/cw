@@ -34,12 +34,11 @@ import { TaskTypes } from '../../../app';
 
 const ChatWrapper = styled.div`
   width: 100%;
-  height: 394px;
+  height: 85%;
   box-sizing: border-box;
   overflow: auto;
   border-bottom: solid 1px #e2e5eb;
   position: relative;
-  max-height: 460px;
   transition: 0.5s;
   padding-right: 14px;
   scroll-behavior: smooth;
