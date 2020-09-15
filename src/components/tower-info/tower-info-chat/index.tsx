@@ -220,6 +220,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
   }, [towerTitle]);
 
   useEffect(() => {
+    if (!messages) return;
     const newMessages = messages.slice(savedMessages.length, messages.length);
     const myNewMessages = newMessages.filter(msg => checkMyMessages(msg));
     const botsNewMessages = newMessages.filter(msg => checkBotsMessages(msg));
