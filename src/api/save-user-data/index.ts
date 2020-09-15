@@ -9,8 +9,7 @@ export const saveUserData = async (data: ISaveUserData) => {
   );
 };
 
-interface ISaveUserData extends Omit<IEditUserData, 'birthday'> {
-  birthday?: string;
+interface ISaveUserData extends IEditUserData {
   musicValue?: number;
   soundValue?: number;
   showSlider?: boolean;

@@ -11,50 +11,32 @@ import {
   getUserName,
 } from './events';
 import Centrifuge from 'centrifuge';
-import { birthdayParserToJSON } from '../../utils/birthday-parser';
 import { setVolume } from '../settings/events';
 import { SettingsType } from '../settings/store';
 
-export enum UserDataStoreKeys {
-  ID = 'id',
-  NAME = 'name',
+export const defaultNameValue = 'Мир клиента';
+export enum UserInfo {
   WORLD_NAME = 'worldName',
   ASSISTANT_NAME = 'assistantName',
-  BIRTHDAY = 'birthday',
-  MONEY = 'money',
-  COUPONS_COUNT = 'couponsCount',
-  USER_SESSION_SOCKET = 'userSessionSocket',
-  ENERGY = 'energy',
-  AVATAR = 'avatar',
-  MSISDN = 'msisdn',
-  GUID = 'guid',
-  FRESH_PROGRESS_TIME_OUT = 'freshProgressTimeout',
-  SHOW_SLIDER = 'showSlider',
-  SHOW_TUTORIAL = 'showTutorial',
-  OPERATOR_ID = 'operatorId',
-  IS_LOGGED_IN = 'isLoggedIn',
+  USER_NAME = 'name',
 }
-
-export const defaultNameValue = 'Мир клиента';
-
 const initState: IUserDataStore = {
-  [UserDataStoreKeys.ID]: 0,
-  [UserDataStoreKeys.NAME]: defaultNameValue,
-  [UserDataStoreKeys.WORLD_NAME]: defaultNameValue,
-  [UserDataStoreKeys.ASSISTANT_NAME]: defaultNameValue,
-  [UserDataStoreKeys.MONEY]: 0,
-  [UserDataStoreKeys.ENERGY]: 0,
-  [UserDataStoreKeys.BIRTHDAY]: { dd: '00', mm: '00' },
-  [UserDataStoreKeys.COUPONS_COUNT]: 2,
-  [UserDataStoreKeys.USER_SESSION_SOCKET]: null,
-  [UserDataStoreKeys.AVATAR]: null,
-  [UserDataStoreKeys.MSISDN]: null,
-  [UserDataStoreKeys.GUID]: null,
-  [UserDataStoreKeys.FRESH_PROGRESS_TIME_OUT]: 0,
-  [UserDataStoreKeys.SHOW_SLIDER]: false,
-  [UserDataStoreKeys.SHOW_TUTORIAL]: true,
-  [UserDataStoreKeys.OPERATOR_ID]: null,
-  [UserDataStoreKeys.IS_LOGGED_IN]: false,
+  id: 0,
+  name: defaultNameValue,
+  worldName: defaultNameValue,
+  assistantName: defaultNameValue,
+  money: 0,
+  energy: 0,
+  couponsCount: 2,
+  userSessionSocket: null,
+  avatar: null,
+  msisdn: null,
+  guid: null,
+  freshProgressTimeout: 0,
+  showSlider: false,
+  showTutorial: true,
+  operatorId: null,
+  isLoggedIn: false,
 };
 
 export const UserDataStore = UserDataDomain.store<IUserDataStore>(initState)
@@ -84,7 +66,6 @@ export const UserDataStore = UserDataDomain.store<IUserDataStore>(initState)
         assistantName,
         name,
         id,
-        birthday = '',
         avatar,
         msisdn,
         guid,
@@ -104,7 +85,6 @@ export const UserDataStore = UserDataDomain.store<IUserDataStore>(initState)
         worldName: worldName || defaultNameValue,
         assistantName: assistantName || defaultNameValue,
         name: name || defaultNameValue,
-        birthday: birthdayParserToJSON(birthday),
         avatar,
         msisdn,
         guid,
@@ -128,29 +108,21 @@ export const UserDataStore = UserDataDomain.store<IUserDataStore>(initState)
     ...payload,
   }))
   .reset(resetUserDataStore);
-
 export interface IUserDataStore {
-  [UserDataStoreKeys.ID]: number;
-  [UserDataStoreKeys.NAME]: string;
-  [UserDataStoreKeys.WORLD_NAME]: string;
-  [UserDataStoreKeys.ASSISTANT_NAME]: string;
-  [UserDataStoreKeys.MONEY]: number;
-  [UserDataStoreKeys.ENERGY]: number;
-  [UserDataStoreKeys.COUPONS_COUNT]: number;
-  [UserDataStoreKeys.BIRTHDAY]: IBirthday;
-  [UserDataStoreKeys.COUPONS_COUNT]: number;
-  [UserDataStoreKeys.USER_SESSION_SOCKET]: Centrifuge | null;
-  [UserDataStoreKeys.AVATAR]: string | null;
-  [UserDataStoreKeys.MSISDN]: string | null;
-  [UserDataStoreKeys.GUID]: string | null;
-  [UserDataStoreKeys.FRESH_PROGRESS_TIME_OUT]: number;
-  [UserDataStoreKeys.SHOW_SLIDER]: boolean;
-  [UserDataStoreKeys.SHOW_TUTORIAL]: boolean;
-  [UserDataStoreKeys.OPERATOR_ID]: number | null;
-  [UserDataStoreKeys.IS_LOGGED_IN]: boolean;
-}
-
-export interface IBirthday {
-  dd: string;
-  mm: string;
+  id: number;
+  [UserInfo.USER_NAME]: string;
+  [UserInfo.WORLD_NAME]: string;
+  [UserInfo.ASSISTANT_NAME]: string;
+  money: number;
+  energy: number;
+  couponsCount: number;
+  userSessionSocket: Centrifuge | null;
+  avatar: string | null;
+  msisdn: string | null;
+  guid: string | null;
+  freshProgressTimeout: number;
+  showSlider: boolean;
+  showTutorial: boolean;
+  operatorId: number | null;
+  isLoggedIn: boolean;
 }

@@ -1,5 +1,4 @@
 import { UserDataDomain } from './domain';
-import { IBirthday, UserDataStoreKeys } from './store';
 import { getProfile } from '../../api/get-profile';
 import Centrifuge from 'centrifuge';
 import { devLoginRequest } from '../../api/dev-api/login';
@@ -10,6 +9,7 @@ import { resetChatStore } from '../chat/events';
 import { resetTowersMarker } from '../towers-marker/events';
 import { resetTowerProgress } from '../towers-progress/events';
 import { resetUserShopStore } from '../coupons/events';
+import { UserInfo } from './store';
 
 export const editCurrentUserDataField = UserDataDomain.event<
   IEditCurrentUserDataField
@@ -54,7 +54,7 @@ export const editUserProperty = UserDataDomain.event<IEditUserProperty>();
 export const setUserSessionSocket = UserDataDomain.event<Centrifuge>();
 
 interface IEditCurrentUserDataField {
-  key: UserDataStoreKeys;
+  key: UserInfo;
   value: string;
 }
 
@@ -62,7 +62,6 @@ export interface IEditUserData {
   name?: string;
   worldName?: string;
   assistantName?: string;
-  birthday?: IBirthday;
   isLoggedIn?: boolean;
 }
 

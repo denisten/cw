@@ -5,8 +5,6 @@ import { MTSSans } from '../../fonts';
 import { Input } from '../input';
 import { Button, ButtonClassNames } from '../button';
 import { editCurrentUserDataField } from '../../effector/user-data/events';
-import { UserDataStoreKeys } from '../../effector/user-data/store';
-
 import { useStore } from 'effector-react';
 import {
   TutorialConditions,
@@ -16,7 +14,7 @@ import { nextTutorStep } from '../../effector/tutorial-store/events';
 import { ZIndexes } from '../../components/root-component/z-indexes-enum';
 import { ExitButton } from '../exit-button';
 
-import { maxCityNameLength, statusOk } from '../../constants';
+import { statusOk } from '../../constants';
 import { saveUserData } from '../../api/save-user-data';
 import supportSprite from '../../img/assistant/assistant.png';
 import { Sprite } from '../../components/sprite';
@@ -26,6 +24,8 @@ import { inputValidation } from '../../utils/input-validation';
 import { menuClosed } from '../../effector/menu-store/events';
 import { reactGAEvent } from '../../utils/ga-event';
 import { IDisplayFlag } from '../../components/root-component';
+import { UserInfo } from '../../effector/user-data/store';
+import { maxCityNameLength } from '../../components/menu/menu-profile/authorized';
 
 export const PopUpTitle = styled(StyledSpan)`
   font-family: ${MTSSans.BLACK};
@@ -91,7 +91,8 @@ export enum TypesOfPopUps {
 const tutorialDesiredState = (tutorialCondition: TutorialConditions) => {
   return tutorialCondition === TutorialConditions.PULSE_SAVE_CHANGE_CITY_NAME;
 };
-const inputErrorParams = { minSymbol: 3, noSymbols: true };
+const inputErrorParams = { minSymbols: 3, noSymbols: true };
+
 export const PopUp: React.FC<IPopUp> = ({
   callback,
   displayFlag,
@@ -130,7 +131,7 @@ export const PopUp: React.FC<IPopUp> = ({
     const { value } = e.target;
     worldInputHint = inputValidation(value, worldInputHint, setInputHasError, {
       ...inputErrorParams,
-      maxSymbol: maxInputValueLength,
+      maxSymbols: maxInputValueLength,
     });
     setValue(e.target.value);
   };
@@ -141,25 +142,25 @@ export const PopUp: React.FC<IPopUp> = ({
         const { status } = await saveUserData({ worldName: value });
         if (status === statusOk) {
           editCurrentUserDataField({
-            key: UserDataStoreKeys.WORLD_NAME,
+            key: UserInfo.WORLD_NAME,
             value,
           });
         }
       } else {
-        editCurrentUserDataField({ key: UserDataStoreKeys.WORLD_NAME, value });
+        editCurrentUserDataField({ key: UserInfo.WORLD_NAME, value });
       }
     } else if (popUpType === TypesOfPopUps.EDIT_ASSISTANT_NAME) {
       if (isAuthorized) {
         const { status } = await saveUserData({ assistantName: value });
         if (status === statusOk) {
           editCurrentUserDataField({
-            key: UserDataStoreKeys.ASSISTANT_NAME,
+            key: UserInfo.ASSISTANT_NAME,
             value,
           });
         }
       } else {
         editCurrentUserDataField({
-          key: UserDataStoreKeys.ASSISTANT_NAME,
+          key: UserInfo.ASSISTANT_NAME,
           value,
         });
       }
@@ -232,7 +233,7 @@ export const PopUp: React.FC<IPopUp> = ({
   );
 };
 
-interface IPopUp {
+export interface IPopUp {
   callback?: () => void;
   displayFlag?: boolean;
   popUpStyles: IPopUpStyles;

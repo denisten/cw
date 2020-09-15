@@ -28,17 +28,13 @@ export const preloaderTowersAnimationDuration = 150;
 export const totalAnimationPreloaderTowerDuration =
   preloaderTowersAnimationDuration * numberOfPreloaderTowerStates;
 
-export const minNameLength = 3,
-  maxCityNameLength = 12,
-  maxUserNameLength = 14;
-
 export enum ResponseStatuses {
   SUCCESS = 'success',
   FAILURE = 'failure',
 }
 
 export const symbolRegExp = new RegExp(
-  /[-!$%^&*()_+|~=`{}\[\]:";'<>?,@#.\/\\]/g
+  /[ -!$%^&*()_+|~=`{}\[\]:";'<>?,@#.\/\\]/g
 );
 
 export enum ElementOpacity {

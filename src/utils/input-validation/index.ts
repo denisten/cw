@@ -9,13 +9,13 @@ export const inputValidation = (
   value: string,
   inputHint: string,
   callBack: (arg: boolean) => void,
-  errorParams = { maxSymbol: 12, minSymbol: 3, noSymbols: false }
+  errorParams: IErrorParams
 ) => {
-  if (value.length < errorParams.minSymbol) {
-    inputHint = minSymbolsAlert + errorParams.minSymbol;
+  if (value.length < errorParams.minSymbols) {
+    inputHint = minSymbolsAlert + errorParams.minSymbols;
     callBack(true);
-  } else if (value.length > errorParams.maxSymbol) {
-    inputHint = maxSymbolsAlert + errorParams.maxSymbol;
+  } else if (value.length > errorParams.maxSymbols) {
+    inputHint = maxSymbolsAlert + errorParams.maxSymbols;
     callBack(true);
   } else if (errorParams.noSymbols && value.search(symbolRegExp) > -1) {
     inputHint = haveSymbolsAlert;
@@ -26,3 +26,9 @@ export const inputValidation = (
   }
   return inputHint;
 };
+
+export interface IErrorParams {
+  maxSymbols: number;
+  minSymbols: number;
+  noSymbols: boolean;
+}

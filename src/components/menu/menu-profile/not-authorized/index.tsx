@@ -5,10 +5,7 @@ import {
   TutorialOverlay,
   TutorialOverlayTopLayer,
 } from '../../../tutorial-overlay';
-import {
-  maxCityNameLength,
-  zIndexForInheritOverlay,
-} from '../../../../constants';
+import { zIndexForInheritOverlay } from '../../../../constants';
 import {
   disableTutorialMode,
   nextTutorStep,
@@ -31,6 +28,7 @@ import penImg from './pen.svg';
 import profileIcon from './profile-icon.svg';
 import { useStore } from 'effector-react';
 import { reactGAEvent } from '../../../../utils/ga-event';
+import { maxCityNameLength } from '../authorized';
 
 const ProfileWrapper = styled.div`
   width: 100%;

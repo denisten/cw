@@ -94,7 +94,7 @@ export const Input: React.FC<IInput> = ({
   );
 };
 
-interface IInput {
+export interface IInput {
   height?: number;
   style?: React.CSSProperties;
   title?: string;
