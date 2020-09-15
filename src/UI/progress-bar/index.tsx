@@ -19,7 +19,6 @@ import {
 } from '../../effector/tutorial-store/events';
 import { upgradeTowerAndShowAnimation } from '../../utils/upgrade-tower-and-show-animation';
 import { pulseAnimationHOF } from '../../hoc/pulse-anim';
-import { maxPercent } from '../../constants';
 import { extraTowerInfoModalClosed } from '../../effector/tower-info-modal-store/events';
 import { BuildingsService } from '../../buildings/config';
 import { reactGAEvent } from '../../utils/ga-event';
@@ -107,15 +106,12 @@ export const ProgressBar: React.FC<IProgressBar> = ({
 }) => {
   const progressBarWrapperRef = useRef<HTMLDivElement>(null);
   const { title } = BuildingsService.getConfigForTower(towerTitle);
-  const {
-    level: { level },
-  } = useStore(TowersProgressStore)[towerTitle];
+  const { level } = useStore(TowersProgressStore)[towerTitle].level;
+
   const handleClick = async () => {
     if (
-      tutorialCondition &&
       tutorialCondition === TutorialConditions.UPGRADE_BUTTON_TOWER_INFO &&
-      needUpgrade &&
-      progress >= maxPercent
+      needUpgrade
     ) {
       const { tutorialOnAuthorizedUser } = TutorialStore.getState();
       upgradeTowerAndShowAnimation(towerTitle);

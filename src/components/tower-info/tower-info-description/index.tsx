@@ -51,7 +51,6 @@ const TowerInfoDescriptionScrollContainer = styled.div`
 
 const Title = styled.span`
   font-size: 20px;
-  line-height: 1.3;
   margin-bottom: 20px;
   line-height: 26px;
   letter-spacing: -0.5px;
@@ -72,27 +71,29 @@ const isFullView = (tutorialCondition: TutorialConditions) =>
   tutorialCondition === TutorialConditions.UPGRADE_BUTTON_TOWER_INFO ||
   !tutorialCondition;
 
+const createMarkup = (html: string) => {
+  return { __html: html };
+};
+
 export const TowerInfoDescription: React.FC<ITowerInfoDescription> = ({
   productDescription,
   hideDescription = false,
 }) => {
-  const createMarkup = (html: string) => {
-    return { __html: html };
-  };
   const { tutorialCondition } = useStore(TutorialStore);
+
+  const description = !hideDescription && (
+    <Description
+      dangerouslySetInnerHTML={createMarkup(productDescription.description)}
+    />
+  );
+
   return (
     <TowerInfoDescriptionWrapper fullView={isFullView(tutorialCondition)}>
       <TowerInfoDescriptionScrollContainer>
         <Title
           dangerouslySetInnerHTML={createMarkup(productDescription.title)}
-        ></Title>
-        {!hideDescription && (
-          <Description
-            dangerouslySetInnerHTML={createMarkup(
-              productDescription.description
-            )}
-          ></Description>
-        )}
+        />
+        {description}
       </TowerInfoDescriptionScrollContainer>
     </TowerInfoDescriptionWrapper>
   );
@@ -103,7 +104,6 @@ export interface ITowerInfoDescription {
     description: string;
     title: string;
   };
-
   hideDescription: boolean;
 }
 
