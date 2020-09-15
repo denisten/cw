@@ -1,9 +1,10 @@
-import { symbolRegExp } from '../../constants';
 import {
   minSymbolsAlert,
   maxSymbolsAlert,
   haveSymbolsAlert,
 } from '../../UI/pop-up';
+
+const symbolRegExp = new RegExp(/[ -!$%^&*()_+|~=`{}\[\]:";'<>?,@#.\/\\]/g);
 
 export const inputValidation = (
   value: string,
