@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { MTSSans } from '../../../fonts';
 import { Button, ButtonClassNames } from '../../../UI/button';
 import { StyledSpan } from '../../../UI/span';
+import background from './background.svg';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -10,6 +11,8 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  background: url(${background}) no-repeat center, white;
+  background-size: 100% 100%;
 
   a {
     text-decoration: none;

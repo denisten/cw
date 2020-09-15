@@ -4,6 +4,7 @@ import { SettingItems } from './setting-items';
 import { MTSSans } from '../../fonts';
 import termsDoc from './terms.pdf';
 import { reactGAEvent } from '../../utils/ga-event';
+import background from './background.svg';
 
 const SettingWrapper = styled.div`
   width: 100%;
@@ -12,6 +13,8 @@ const SettingWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   position: relative;
+  background: url(${background}) no-repeat center, white;
+  background-size: 100% 100%;
 `;
 
 const SettingPopUpTitle = styled.div`
