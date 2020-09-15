@@ -11,7 +11,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: url(${background}) no-repeat center, white;
+  background: url(${background}) no-repeat center;
   background-size: 100% 100%;
 
   a {
