@@ -1,6 +1,6 @@
 import { get } from '../requests';
 import { apiRoutes } from '..';
-import { IProductLevel } from '../../effector/product-level/store';
+import { ICurrentLevelData } from '../../effector/product-level/store';
 
 export const getProductLevelData = async () => {
   const response = await get<IGetProductLevelData>(
@@ -10,6 +10,10 @@ export const getProductLevelData = async () => {
 };
 
 interface IGetProductLevelData {
-  data: IProductLevel[];
+  data: IGetProductLevelDataSubject[];
   state: string;
+}
+
+interface IGetProductLevelDataSubject extends ICurrentLevelData {
+  id: number;
 }

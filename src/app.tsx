@@ -41,11 +41,8 @@ export enum TaskTypes {
 }
 
 export const App: React.FC = () => {
-  const wheelPreventDefault = (e: WheelEvent) => {
-    if (e.ctrlKey) {
-      e.preventDefault();
-    }
-  };
+  const wheelPreventDefault = (e: WheelEvent) =>
+    e.ctrlKey && e.preventDefault();
 
   const keyDownPreventDefault = (e: KeyboardEvent) => {
     if (

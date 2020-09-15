@@ -537,12 +537,16 @@ export const TowersProgressStore = TowersProgressDomain.store<
   }))
   .on(
     addTowerProgressData,
-    (state, { towerTitle, newLevel, levelUpPercentage, income, factors }) => {
+    (
+      state,
+      { towerTitle, newLevel, levelUpPercentage, income, factors, points }
+    ) => {
       if (newLevel > state[towerTitle].level.level)
         return {
           ...state,
           [towerTitle]: {
             ...state[towerTitle],
+            points,
             needUpgrade: true,
             levelOnServer: newLevel,
             level: {
@@ -558,6 +562,7 @@ export const TowersProgressStore = TowersProgressDomain.store<
           ...state,
           [towerTitle]: {
             ...state[towerTitle],
+            points,
             levelOnServer: newLevel,
             level: {
               ...state[towerTitle].level,
