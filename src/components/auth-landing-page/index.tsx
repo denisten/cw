@@ -5,8 +5,6 @@ import {
 } from '../../effector/app-condition/events';
 import { ResponseStatuses } from '../../constants';
 
-const delayBeforeAuthWindowClose = 100;
-
 export const AuthLandingPage = () => {
   useEffect(() => {
     const locationSearch = window.location.search;
@@ -16,9 +14,7 @@ export const AuthLandingPage = () => {
     } else if (state) {
       setCancelAuthorizationStatus(state.replace('_', ''));
     }
-    setTimeout(() => {
-      window.close();
-    }, delayBeforeAuthWindowClose);
+    window.close();
   }, []);
   return null;
 };
