@@ -12,6 +12,7 @@ import {
   editTutorialSliderDisplayFlag,
   toggleAnimation,
   receivedTasks,
+  setIsLogout,
 } from './events';
 import { TowersTypes } from '../towers-progress/store';
 import { upgradeTower } from '../towers-progress/events';
@@ -30,6 +31,7 @@ const initState = {
   tutorialSliderDisplayFlag: false,
   upgradingTowerTitle: null,
   isAuthorized: false,
+  isLogout: false,
   authCancelledStatus: '',
   DOMLoaded: false,
   selectTowerInfoContent: TowerInfoContentValues.DESCRIPTION,
@@ -46,6 +48,7 @@ const appConditionLocalStorage = connectLocalStorage('AppCondition').onChange(
 );
 
 export const AppConditionStore = AppDomain.store<AppConditionType>(initState)
+  .on(setIsLogout, (state, payload) => ({ ...state, isLogout: payload }))
   .on(receivedTasks, (state, payload) => ({ ...state, fetchedTasks: payload }))
   .on(toggleAnimation, state => ({
     ...state,
@@ -135,4 +138,5 @@ export type AppConditionType = {
   fullSizeMode: boolean;
   animationOff: boolean;
   fetchedTasks: boolean;
+  isLogout: boolean;
 };

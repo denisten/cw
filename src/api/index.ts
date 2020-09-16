@@ -17,7 +17,7 @@ export enum apiRoutes {
   USER_ACCOUNT = '/api/users/current/account',
   CHAT_SESSION = '/api/users/current/tasks',
   CONSUME_USER_TASK_ACTION = '/api/users/current/tasks',
-  LOGOUT = '/api/auth/logout',
+  LOGOUT = '/api/auth/logout/url',
   GET_WS_TOKEN = '/api/ws/connection',
   WS_SUBSCRIBE = '/api/ws/subscribe',
   GET_ALL_PROGRESS = '/api/users/current/progress/current',
