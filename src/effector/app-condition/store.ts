@@ -47,6 +47,10 @@ const appConditionLocalStorage = connectLocalStorage('AppCondition').onChange(
   setAuthValue
 );
 
+const appConditionLogoutSubscribe = connectLocalStorage(
+  'AppCondition'
+).onChange(setIsLogout);
+
 export const AppConditionStore = AppDomain.store<AppConditionType>(initState)
   .on(setIsLogout, (state, payload) => ({ ...state, isLogout: payload }))
   .on(receivedTasks, (state, payload) => ({ ...state, fetchedTasks: payload }))
@@ -124,6 +128,7 @@ export const AppConditionStore = AppDomain.store<AppConditionType>(initState)
   }));
 
 AppConditionStore.watch(appConditionLocalStorage);
+AppConditionStore.watch(appConditionLogoutSubscribe);
 
 export type AppConditionType = {
   tutorialSliderDisplayFlag: boolean;
