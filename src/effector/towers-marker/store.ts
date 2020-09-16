@@ -29,7 +29,7 @@ const initState: TowersMarkerStoreType = {
   [TowersTypes.IGROTEKA]: [{ type: MarkerTypes.PLAY }],
   [TowersTypes.HOME_INTERNET]: [],
   [TowersTypes.AUTO]: [],
-  [TowersTypes.SHOP]: [{ type: MarkerTypes.PLAY }],
+  [TowersTypes.SHOP]: [],
   [TowersTypes.PARTNER_THREE]: [],
   [TowersTypes.MARVIN]: [],
   [TowersTypes.CONNECT]: [],
