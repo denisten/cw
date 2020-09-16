@@ -1,10 +1,11 @@
 import { apiRoutes } from '..';
-import { post } from '../requests';
+import { get } from '../requests';
 
 export const logoutRequest = async () => {
-  await post<ILogout>(apiRoutes.LOGOUT);
+  const response = await get<ILogout>(apiRoutes.LOGOUT);
+  return response.data.data.url;
 };
 
 interface ILogout {
-  url: string;
+  data: { url: string };
 }

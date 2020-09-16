@@ -3,13 +3,8 @@ import { getProfile } from '../../api/get-profile';
 import Centrifuge from 'centrifuge';
 import { devLoginRequest } from '../../api/dev-api/login';
 import { logoutRequest } from '../../api';
-import { editIsAuthorizedFlag, setDataReceived } from '../app-condition/events';
-import { resetMissionsStore } from '../tasks-store/events';
-import { resetChatStore } from '../chat/events';
-import { resetTowersMarker } from '../towers-marker/events';
-import { resetTowerProgress } from '../towers-progress/events';
-import { resetUserShopStore } from '../coupons/events';
 import { UserInfo } from './store';
+import { windowOpen } from '../../utils/window-open';
 
 export const editCurrentUserDataField = UserDataDomain.event<
   IEditCurrentUserDataField
@@ -36,15 +31,8 @@ export const devLogin = UserDataDomain.effect('dev login for users', {
 
 export const logout = UserDataDomain.effect('logout', {
   handler: async () => {
-    await logoutRequest();
-    editIsAuthorizedFlag(false);
-    resetMissionsStore();
-    resetChatStore();
-    resetTowersMarker();
-    resetTowerProgress();
-    setDataReceived(false);
-    resetUserShopStore();
-    return resetUserDataStore();
+    const url = await logoutRequest();
+    url && windowOpen(url);
   },
 });
 

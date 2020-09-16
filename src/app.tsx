@@ -11,11 +11,13 @@ import TagManager from 'react-gtm-module';
 import { isIE, isMobile } from 'react-device-detect';
 import { Plug } from './components/plug';
 import { reactGAEvent } from './utils/ga-event';
+import { LogoutLandingPage } from './components/logout-landing-page';
 
 export enum Routes {
   MAIN = '/',
   AUTH_LANDING_PAGE = '/auth-callback',
   PLUG = '/plug',
+  LOGOUT_LANDING_PAGE = '/logout-callback',
 }
 
 enum EventCodes {
@@ -94,6 +96,10 @@ export const App: React.FC = () => {
       <Switch>
         <Route exact path={Routes.MAIN} component={RootComponent} />
         <Route path={Routes.AUTH_LANDING_PAGE} component={AuthLandingPage} />
+        <Route
+          path={Routes.LOGOUT_LANDING_PAGE}
+          component={LogoutLandingPage}
+        />
         <Route path={Routes.PLUG} component={Plug} />
       </Switch>
     </Router>
