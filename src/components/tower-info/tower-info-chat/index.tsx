@@ -246,9 +246,9 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
 
       botLastMessages.forEach((msg, idx) => {
         setTimeout(() => {
-          setSavedMessages(prevState => {
+          setSavedMessages(() => {
             isLast(idx) && setResponseStatus(PromiseStatus.RESOLVED);
-            return [...prevState, msg];
+            return [...messages.slice(0, lastUserMessageIndex + 1 + idx), msg];
           });
         }, calculateMessageDelay(msg.text.length) + extraDelay * (idx + 1));
       });
