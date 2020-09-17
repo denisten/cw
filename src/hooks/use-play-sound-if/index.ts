@@ -6,6 +6,6 @@ export const usePlaySoundIf = <T>(
   dependence: T
 ) => {
   useEffect(() => {
-    // condition && playCallBack();
+    condition && playCallBack();
   }, [dependence]);
 };

@@ -105,8 +105,8 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
   const {
     sound: { volume },
   } = useStore(SettingsStore);
-  const { play: playRewardSound } = useAudio(takeRewardSound, false, volume);
-  const { play: playActiveTask } = useAudio(activeTask, false, volume);
+  const { play: playRewardSound } = useAudio(takeRewardSound, false);
+  const { play: playActiveTask } = useAudio(activeTask, false);
 
   const taskButtonHandler = async (e: React.MouseEvent) => {
     e.stopPropagation();

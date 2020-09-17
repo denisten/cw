@@ -7,10 +7,10 @@ import MTSSansUltraWide from './fonts/MTSSans-UltraWide.ttf';
 import { MTSSans } from './fonts';
 import {
   fixSizeClassName,
-  Signature,
   TowerClassNames,
 } from './UI/tower-component-wrapper';
 import { MarkerView } from './components/markers';
+import { Signature } from './UI/tower-component-wrapper/layout';
 
 export const GlobalStyle = createGlobalStyle`
     @font-face {
@@ -38,13 +38,10 @@ export const GlobalStyle = createGlobalStyle`
       padding: 0;
       font-family: ${MTSSans.REGULAR};
     }
-
-
     ::-webkit-scrollbar {
   background-color: none; /* or add it to the track */
   width: 6px;
 }
-
   ::-webkit-scrollbar-thumb {
       background: #bbc1c7;
       border-radius: 4px;
@@ -52,20 +49,16 @@ export const GlobalStyle = createGlobalStyle`
         background: black;
       }
   }
-
-
      .${fixSizeClassName} .${TowerClassNames.MUTED}::before {
         transform: scale(2);
         top: 100%;
         left: 40%;
       }
-
       .${fixSizeClassName} {
         ${MarkerView} {
         width:  155.04px;
         height:  156px;
       }
-
         ${Signature} {
           transform: scale(2.2);
         }

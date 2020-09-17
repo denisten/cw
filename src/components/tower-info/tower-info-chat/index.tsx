@@ -106,7 +106,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
     chatContainerRef.current &&
     chatContainerRef.current.scrollTo(0, chatContainerRef.current.scrollHeight);
 
-  const { play: newMessagePlay } = useAudio(newMessage, false, volume);
+  const { play: newMessagePlay } = useAudio(newMessage, false);
 
   const sendAnswerId = async (actionId: number) => {
     if (responseResolved && currentTask) {

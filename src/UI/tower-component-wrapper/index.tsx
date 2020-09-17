@@ -1,30 +1,22 @@
 import React, { memo, useEffect, useRef } from 'react';
-import styled from 'styled-components';
 import { TowerLevel, TowersTypes } from '../../effector/towers-progress/store';
-import { UpgradeButton } from '../update-button';
 import {
   TutorialConditions,
   TutorialStore,
 } from '../../effector/tutorial-store/store';
 import { nextTutorStep } from '../../effector/tutorial-store/events';
-import { ZIndexes } from '../../components/root-component/z-indexes-enum';
 import { scrollToCurrentTower } from '../../utils/scroll-to-current-tower';
-import { Markers } from '../../components/markers';
 import { TowersMarkerStore } from '../../effector/towers-marker/store';
 import { BuildingsService } from '../../buildings/config';
-import { MTSSans } from '../../fonts';
 import { extraTowerInfoModalOpen } from '../../effector/tower-info-modal-store/events';
 import { useStore } from 'effector-react';
 import { TowerInfoModalStore } from '../../effector/tower-info-modal-store/store';
 import { AppConditionStore } from '../../effector/app-condition/store';
-import signBcg from './signBcg.svg';
-import { TowerUpgradeAnimation } from '../tower-upgrade-animation';
-
-import towerUpgrade from '../../sound/tower-upgrade.mp3';
 import { SettingsStore } from '../../effector/settings/store';
-import { useAudio } from '../../hooks/use-sound';
 import { reactGAEvent } from '../../utils/ga-event';
-import { FRRImg } from '../../components/first-render-require-img';
+import towerOpenSound from '../../sound/tower-open.mp3';
+import useSound from 'use-sound';
+import { TowerComponentWrapperLayout } from './layout';
 
 enum strokeClassNames {
   STROKE = 'stroke',
@@ -36,109 +28,6 @@ export enum TowerClassNames {
   MUTED = 'muted',
   HOVERED = 'hovered',
 }
-
-export const Signature = styled.div`
-  position: absolute;
-  min-height: 32px;
-  z-index: 2;
-  background-image: url(${signBcg});
-  display: flex;
-  align-items: center;
-  padding: 5px 10px 5px 25px;
-  box-sizing: border-box;
-  background-repeat: no-repeat;
-  background-size: cover;
-  border-top-right-radius: 4px;
-  border-bottom-right-radius: 4px;
-  border-bottom-left-radius: 4px;
-  opacity: 0;
-  transition: opacity 0.4s;
-  bottom: -10%;
-`;
-
-const SpanElem = styled.div<{ mtsFlag: boolean }>`
-  font-family: ${props =>
-    props.mtsFlag ? MTSSans.ULTRA_WIDE : MTSSans.MEDIUM};
-  font-size: 16px;
-  line-height: 22px;
-  color: #e61818;
-  box-sizing: border-box;
-
-  &:first-child {
-    margin-right: 8px;
-  }
-  &:last-child {
-    margin-right: 0px;
-  }
-`;
-
-const TowerStyledWrapper = styled.div<ITowerStyledWrapper>`
-  display: flex;
-  position: absolute;
-  top: ${props => props.posX}%;
-  left: ${props => props.posY}%;
-  z-index: ${props => props.zIndex};
-  width: ${props => props.width}px;
-  height: ${props => props.height}px;
-  scroll-margin-right: ${props =>
-    props.scrollShift && props.DOMLoaded ? props.scrollShift : 0}px;
-
-  justify-content: center;
-
-
-  &.${TowerClassNames.HOVERED} ${Signature} {
-    opacity: 1 !important;
-  }
-
-
-  &.${TowerClassNames.MUTED} {
-    &::before {
-      content: 'Скоро открытие';
-      position: absolute;
-      top: 85%;
-      left: 50%;
-      transform: translate(-50%, 0%);
-      padding: 6px;
-      background-color: rgba(0, 0, 0, 0.6);
-      color: white;
-      font-size: 18px;
-      font-family: ${MTSSans.BOLD};
-      white-space: nowrap;
-      border-radius: 4px;
-      z-index: 2;
-    }
-    
-  }
-
-  .${strokeClassNames.STROKE} {
-    display: none;
-  }
-
-  .${strokeClassNames.STROKE_ACTIVE} {
-    display: block;
-  }
-
-
-  &:hover {
-    z-index: ${ZIndexes.HOVERED_BUILDING} !important;
-  }
-
-  &[data-towertype=${TowersTypes.UNIVERSITY}] ${Signature} {
-    bottom: 10%;
-  }
-
-  &[data-towertype=${TowersTypes.FITNESS}] ${Signature} {
-    bottom: 0%;
-  }
-
-  &[data-towertype=${TowersTypes.TV}] ${Signature},
-  &[data-towertype=${TowersTypes.THEATER}] ${Signature}
-    {
-    bottom: 5%;
-  }
-
-`;
-
 const maxMouseMoveFaultAfterClick = 20;
 
 const createTowerStyleConfig = (
@@ -182,18 +71,12 @@ export const TowerWrapper = memo(
     const markersDisplayFlag =
       !mutedImg && !needUpgrade && markers && markers.length > 0;
 
-    const {
-      sound: { volume },
-    } = useStore(SettingsStore);
-
-    const { play: towerUpgradePlay } = useAudio(towerUpgrade, false, volume);
-
-    useEffect(() => {
-      upgradeFlag && volume && towerUpgradePlay();
-    }, [upgradeFlag]);
+    const { volume } = useStore(SettingsStore).sound;
+    const [playOpenTowerSound] = useSound(towerOpenSound, { volume });
 
     const handleClick = () => {
       if (mutedImg) return;
+      playOpenTowerSound();
       if (
         tutorialCondition === TutorialConditions.ARROW_TOWER_INFO &&
         tutorialTower
@@ -259,81 +142,70 @@ export const TowerWrapper = memo(
     useEffect(() => {
       BuildingsService.setRefForTower(towerTitle, towerRef);
     }, []);
+
+    const areaProps = {
+      onMouseDown: handleMouseDown,
+      onMouseUp: handleMouseUp,
+      onMouseMove: handleMouseMove,
+      coords: areaCoords,
+      onMouseOver: mouseOverHandle,
+      onMouseOut: mouseOutHandle,
+    };
+    const FRRImgProps = {
+      src: mutedImg || tower,
+      useMap: '#' + tower,
+      style: TowerStyleConfig,
+    };
+    const towerStyledWrapperProps = {
+      posX,
+      posY,
+      zIndex,
+      width,
+      height,
+      ref: towerRef,
+      scrollShift: towerInfoShift,
+      DOMLoaded,
+    };
+    const markersProps = {
+      towerRef,
+      towerLevel: currentLevel,
+      markersCollection: markers,
+      towerTitle,
+      displayFlag: markersDisplayFlag,
+      eventLabel,
+    };
+    const upgradeButtonProps = {
+      tutorialCondition,
+      displayFlag: needUpgrade,
+      towerTitle,
+      towerLevel: currentLevel,
+      animFlag:
+        tutorialCondition === TutorialConditions.UPGRADE_BUTTON_TOWER_INFO,
+      eventLabel,
+    };
+    const strokeProps = {
+      ref: strokeRef,
+      className:
+        !upgradeFlag && focusOn === towerTitle
+          ? strokeClassNames.STROKE_ACTIVE
+          : strokeClassNames.STROKE,
+      src: shadowImg,
+    };
     return (
-      <TowerStyledWrapper
-        posX={posX}
-        posY={posY}
-        zIndex={zIndex}
-        width={width}
-        height={height}
-        ref={towerRef}
-        scrollShift={towerInfoShift}
-        DOMLoaded={DOMLoaded}
-        data-towertype={towerTitle}
-      >
-        {!mutedImg && (
-          <Markers
-            towerRef={towerRef}
-            towerLevel={currentLevel}
-            markersCollection={markers}
-            towerTitle={towerTitle}
-            displayFlag={markersDisplayFlag}
-            eventLabel={eventLabel}
-          />
-        )}
-        <UpgradeButton
-          tutorialCondition={tutorialCondition}
-          displayFlag={needUpgrade}
-          towerTitle={towerTitle}
-          towerLevel={currentLevel}
-          animFlag={
-            tutorialCondition === TutorialConditions.UPGRADE_BUTTON_TOWER_INFO
-          }
-          eventLabel={eventLabel}
-        />
-
-        {upgradeFlag && <TowerUpgradeAnimation wideTower={wideTower} />}
-        <FRRImg
-          src={mutedImg ? mutedImg : tower}
-          useMap={'#' + tower}
-          style={TowerStyleConfig}
-        />
-        <map name={tower}>
-          <area
-            alt="area"
-            onMouseDown={handleMouseDown}
-            onMouseUp={handleMouseUp}
-            onMouseMove={handleMouseMove}
-            coords={areaCoords}
-            onMouseOver={mouseOverHandle}
-            onMouseOut={mouseOutHandle}
-            shape="rect"
-          />
-        </map>
-        <img
-          ref={strokeRef}
-          className={
-            !upgradeFlag && focusOn === towerTitle
-              ? strokeClassNames.STROKE_ACTIVE
-              : strokeClassNames.STROKE
-          }
-          src={shadowImg}
-          alt="shadow"
-        />
-
-        {signConfig && (
-          <Signature>
-            {signConfig.map((signElem, ind) => (
-              <SpanElem
-                mtsFlag={signElem === 'МТС' || signElem === 'MTS'}
-                key={ind}
-              >
-                {signElem}
-              </SpanElem>
-            ))}
-          </Signature>
-        )}
-      </TowerStyledWrapper>
+      <TowerComponentWrapperLayout
+        upgradeFlag={upgradeFlag}
+        areaProps={areaProps}
+        FRRImgProps={FRRImgProps}
+        towerStyledWrapperProps={towerStyledWrapperProps}
+        markersProps={markersProps}
+        upgradeButtonProps={upgradeButtonProps}
+        strokeProps={strokeProps}
+        mutedImg={mutedImg}
+        towerImg={tower}
+        towerTitle={towerTitle}
+        wideTower={wideTower}
+        signConfig={signConfig}
+      />
     );
   }
 );
@@ -355,14 +227,4 @@ interface ITowerWrapper {
   tutorialTower?: boolean;
   signConfig?: string[];
   eventLabel?: string;
-}
-
-interface ITowerStyledWrapper {
-  posX: number;
-  posY: number;
-  zIndex?: number;
-  width: number;
-  height: number;
-  scrollShift?: number | null;
-  DOMLoaded: boolean;
 }

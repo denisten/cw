@@ -24,11 +24,6 @@ import { TowerInfoModalStore } from '../../effector/tower-info-modal-store/store
 import { setTowerInfoShift } from '../../effector/tower-info-modal-store/events';
 import { DescriptionStore } from '../../effector/descriptions/store';
 import { useFetchDescriptions } from '../../hooks/use-fetch-descriptions';
-import towerOpen from '../../sound/tower-open.mp3';
-import { useAudio } from '../../hooks/use-sound';
-import { SettingsStore } from '../../effector/settings/store';
-import { usePlaySoundIf } from '../../hooks/use-play-sound-if';
-import openChat from '../../sound/open-chat.mp3';
 import { reactGAEvent } from '../../utils/ga-event';
 import { TasksStore } from '../../effector/tasks-store/store';
 import { MissionsStore } from '../../effector/missions-store/store';
@@ -37,6 +32,7 @@ import { useHideEmptyTaskMarker } from '../../hooks/use-hide-empty-task-marker';
 import { ProductLevelStore } from '../../effector/product-level/store';
 import { TowerInfoLayout } from './layout';
 import { ButtonClassNames } from '../../UI/button';
+
 enum TowerTutorialSteps {
   DESCRIPTION_DONT_OPENED = 0,
   DESCRIPTION_OPENED = 1,
@@ -77,11 +73,6 @@ const TowerInfo: React.FC = () => {
   } = useStore(TowersProgressStore)[towerTitle];
   const { maxProgressValue } = useStore(ProductLevelStore)[level];
   const { ended } = useStore(ChatStore)[towerTitle];
-  const {
-    sound: { volume },
-  } = useStore(SettingsStore);
-  const { play: openTowerInfoSoundPlay } = useAudio(towerOpen, false, volume);
-  const { play: openChatSoundPlay } = useAudio(openChat, false, volume);
   const tasks = useStore(TasksStore);
   const missions = useStore(MissionsStore);
   const filteredTasks = filterTasksArray(tasks, towerTitle);
@@ -188,17 +179,18 @@ const TowerInfo: React.FC = () => {
   }, [towerInfoRef]);
 
   useHideEmptyTaskMarker({ filteredTasks, filteredMissions, towerTitle });
-  usePlaySoundIf<boolean>(
-    isExtraTowerInfoModalOpen && !!volume,
-    openTowerInfoSoundPlay,
-    isExtraTowerInfoModalOpen
-  );
+  // usePlaySoundIf<boolean>(
+  //   isExtraTowerInfoModalOpen && !!volume,
+  //   openTowerInfoSoundPlay,
+  //   isExtraTowerInfoModalOpen
+  // );
+  //
+  // usePlaySoundIf<TowerInfoContentValues>(
+  //   selectTowerInfoContent === TowerInfoContentValues.CHAT && !!volume,
+  //   openChatSoundPlay,
+  //   selectTowerInfoContent
+  // );
 
-  usePlaySoundIf<TowerInfoContentValues>(
-    selectTowerInfoContent === TowerInfoContentValues.CHAT && !!volume,
-    openChatSoundPlay,
-    selectTowerInfoContent
-  );
   const switchers = {
     openChatTab,
     openDescriptionTab,

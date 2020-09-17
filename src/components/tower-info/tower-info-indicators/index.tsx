@@ -172,7 +172,7 @@ export const TowerInfoIndicators: React.FC<ITowerInfoIndicators> = ({
     sound: { volume },
   } = useStore(SettingsStore);
 
-  const { play: playButtonPlay } = useAudio(playButtonSound, false, volume);
+  const { play: playButtonPlay } = useAudio(playButtonSound, false);
 
   const handlePlayButtonClick = () => {
     reactGAEvent({

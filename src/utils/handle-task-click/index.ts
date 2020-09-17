@@ -65,7 +65,6 @@ export const handleTaskClick = async ({
   const { selectedMenuItem } = MenuStore.getState();
   const { taskId: chatTaskId } = ChatStore.getState()[towerTitle];
   const { title } = BuildingsService.getConfigForTower(towerTitle);
-
   switch (task.status) {
     case TaskStatuses.CREATED:
       await handleStartTask({

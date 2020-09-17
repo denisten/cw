@@ -85,11 +85,11 @@ export const RootComponent = () => {
   const tutorialIsEnabled = DOMLoaded && tutorialCondition !== 0;
   const displayFlag = checkTutorialCondition(tutorialCondition);
   const zIndex = defineScrollContainerZIndex(tutorialCondition);
-  const { play, pause } = useAudio(backgroundMusic, true, volume);
+  const { play } = useAudio(backgroundMusic, true);
   const rootRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    DOMLoaded && volume > 0 ? play() : pause();
+    DOMLoaded && volume > 0 && play();
   }, [volume, DOMLoaded]);
 
   const playMusicEvent = () => {
