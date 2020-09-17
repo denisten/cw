@@ -56,10 +56,6 @@ export enum PromiseStatus {
   PENDING = 'pending',
   RESOLVED = 'resolved',
 }
-const checkMyMessages = (message: IMessage) =>
-  message.direction === Sender.FRONTEND;
-const checkBotsMessages = (message: IMessage) =>
-  message.direction === Sender.BACKEND;
 
 const extraDelay = 700;
 
@@ -147,30 +143,37 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
     };
   }, [towerTitle]);
 
+  const checkLastFailedMessage = () =>
+    messages && messages[messages.length - 1]?.failedTask;
+
+  const checkLastSuccessMessage = () =>
+    messages && messages[messages.length - 1]?.successTask;
+
   useEffect(() => {
     if (!messages) return;
-    const newMessages = messages.slice(savedMessages.length, messages.length);
-    const myNewMessages = newMessages.filter(msg => checkMyMessages(msg));
-    const botsNewMessages = newMessages.filter(msg => checkBotsMessages(msg));
-    const isLast = (idx: number) => botsNewMessages.length - 1 === idx;
-    if (!savedMessages.length) {
-      messages.length && setResponseStatus(PromiseStatus.RESOLVED);
-      if (myNewMessages.length) {
-        setSavedMessages(messages);
-      } else {
-        let delay = 0;
-        setResponseStatus(PromiseStatus.PENDING);
-        botsNewMessages.forEach((msg, idx) => {
-          delay += calculateMessageDelay(msg.text.length);
-          setTimeout(() => {
-            setSavedMessages(prevState => [...prevState, msg]);
-            isLast(idx) && setResponseStatus(PromiseStatus.RESOLVED);
-          }, delay);
-        });
-      }
+    if (checkLastFailedMessage() || checkLastSuccessMessage()) {
+      setResponseStatus(PromiseStatus.RESOLVED);
+      setSavedMessages(messages);
+      return;
+    }
+    const lastUserMessageIndex = messages.reduce(
+      (acc, message, index) =>
+        message.direction === Sender.FRONTEND ? (acc = index) : acc,
+      0
+    );
+    if (!lastUserMessageIndex) {
+      setSavedMessages(messages);
+      setResponseStatus(PromiseStatus.RESOLVED);
     } else {
-      setSavedMessages(prevState => [...prevState, ...myNewMessages]);
-      botsNewMessages.forEach((msg, idx) => {
+      setResponseStatus(PromiseStatus.PENDING);
+      const botLastMessages = messages.slice(
+        lastUserMessageIndex + 1,
+        messages.length
+      );
+      setSavedMessages(messages.slice(0, lastUserMessageIndex + 1));
+      const isLast = (idx: number) => botLastMessages.length - 1 === idx;
+
+      botLastMessages.forEach((msg, idx) => {
         setTimeout(() => {
           setSavedMessages(prevState => {
             isLast(idx) && setResponseStatus(PromiseStatus.RESOLVED);
@@ -178,16 +181,12 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
           });
         }, calculateMessageDelay(msg.text.length) + extraDelay * (idx + 1));
       });
-      setResponseStatus(PromiseStatus.RESOLVED);
     }
   }, [messages]);
 
-  const checkLastMessage = () =>
-    messages && messages[messages.length - 1]?.failedTask;
-
   useEffect(() => {
     scrollToBottom();
-    checkLastMessage() ? setFailedTask(true) : setFailedTask(false);
+    checkLastFailedMessage() ? setFailedTask(true) : setFailedTask(false);
   }, [savedMessages, messages]);
 
   const chatButtonsProps: IChatButtons = {

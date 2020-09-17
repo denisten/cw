@@ -1,7 +1,11 @@
 import { MissionsDomain } from './domain';
 import { saveMission } from './events';
 import { ITask, TaskStatuses } from '../tasks-store/store';
-import { getTaskReward, updateTaskStatus } from '../tasks-store/events';
+import {
+  getTaskReward,
+  updateTaskStatus,
+  resetMissionsStore,
+} from '../tasks-store/events';
 import { TaskTypes } from '../../app';
 
 const initState: ITask[] = [];
@@ -40,4 +44,5 @@ export const MissionsStore = MissionsDomain.store(initState)
     }
     return stateCopy;
   })
-  .on(saveMission, (_, payload) => payload);
+  .on(saveMission, (_, payload) => payload)
+  .reset(resetMissionsStore);

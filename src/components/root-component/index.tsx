@@ -26,6 +26,7 @@ import { useRefreshProgress } from '../../hooks/use-refresh-progress';
 import { TasksStore } from '../../effector/tasks-store/store';
 import { MissionsStore } from '../../effector/missions-store/store';
 import { TutorialDialog } from '../tutorial-dialog';
+import { useLogout } from '../../hooks/use-logout';
 
 const RootComponentWrapper = styled.div.attrs({ id: 'rootScroll' })<
   IDisplayFlag
@@ -63,12 +64,15 @@ export const RootComponent = () => {
     tutorialSliderDisplayFlag,
     isAuthorized,
     fetchedTasks,
+    isLogout,
   } = useStore(AppConditionStore);
   const { tutorialCondition } = useStore(TutorialStore);
   const { volume } = useStore(SettingsStore).music;
   const { freshProgressTimeout } = useStore(UserDataStore);
   const tasks = useStore(TasksStore);
   const missions = useStore(MissionsStore);
+
+  useLogout(isLogout);
 
   const [tasksAvailableFlag, setTasksAvailableFlag] = useState(false);
 
