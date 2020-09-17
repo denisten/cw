@@ -27,6 +27,7 @@ export const chatEndedHandler = async (
           .correct + data.quizResult.incorrect}.
           В заданиях тебя ждёт награда.`,
       },
+      successTask: true,
       towerTitle,
     };
     pushBotMessageToCurrentChat(resultObject);

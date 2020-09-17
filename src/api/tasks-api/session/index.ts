@@ -26,6 +26,7 @@ export interface IChatTaskSessionRequest {
 export interface IMessage {
   text: string;
   direction: Sender;
+  successTask?: boolean;
   failedTask?: boolean;
 }
 
