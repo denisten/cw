@@ -235,7 +235,7 @@ export const TowerInfoIndicators: React.FC<ITowerInfoIndicators> = ({
   );
 };
 
-interface ITowerInfoIndicators {
+export interface ITowerInfoIndicators {
   maxProgressValue: number | null;
   hideTowerInfo: boolean;
   level: number;

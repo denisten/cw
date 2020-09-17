@@ -1,17 +1,18 @@
 import React from 'react';
 import { TowerInfoHeader } from './tower-info-header';
-import { TowerInfoTitle } from './tower-info-title';
-import { TowerInfoIndicators } from './tower-info-indicators';
-import { TowerInfoMenu } from './tower-info-menu';
-import { TowerInfoContent } from './tower-info-content';
-import { Button, ButtonClassNames } from '../../UI/button';
-import { COMMON_TRANSITION, ITabSwitchers } from './index';
+import { ITowerInfoTitle, TowerInfoTitle } from './tower-info-title';
+import {
+  ITowerInfoIndicators,
+  TowerInfoIndicators,
+} from './tower-info-indicators';
+import { ITowerInfoMenu, TowerInfoMenu } from './tower-info-menu';
+import { ITowerInfoContent, TowerInfoContent } from './tower-info-content';
+import { Button, IButton } from '../../UI/button';
+import { COMMON_TRANSITION } from './index';
 import styled from 'styled-components';
 import { ZIndexes } from '../root-component/z-indexes-enum';
 import background from './background.svg';
 import { TutorialConditions } from '../../effector/tutorial-store/store';
-import { IFactors, TowersTypes } from '../../effector/towers-progress/store';
-import { TowerInfoContentValues } from '../../effector/app-condition/store';
 
 type ModalWindowProps = {
   opened?: boolean;
@@ -88,92 +89,40 @@ const StyleConfig = {
   },
 };
 
-export const TowerInfoLayout: React.FC<ITowerInfoLayout> = props => {
-  return (
-    <TowerInfoWrapper
-      opened={props.isExtraTowerInfoModalOpen}
-      ref={props.towerInfoRef}
-    >
-      <TowerInfoHeader tutorialCondition={props.tutorialCondition} />
-      <ModalWindowContentWrapper>
-        <TowerInfoHeader1 sizeContent={props.towerInfoDisplayFlag}>
-          <TowerInfoTitle
-            tutorialCondition={props.tutorialCondition}
-            towerTitle={props.towerTitle}
-            factors={props.factors}
-            subscriptionText={props.subscriptionText}
-          />
-          <TowerInfoIndicators
-            points={props.points}
-            maxProgressValue={props.maxProgressValue}
-            level={props.level}
-            towerTitle={props.towerTitle}
-            progress={props.levelUpPercentage}
-            income={props.income}
-            hideTowerInfo={props.towerInfoDisplayFlag}
-            tutorialCondition={props.tutorialCondition}
-          />
-        </TowerInfoHeader1>
-        <TowerInfoMenu
-          isChatEnded={props.ended}
-          refsCollection={props.refsCollection}
-          selectTowerInfoContent={props.selectTowerInfoContent}
-          towerTitle={props.towerTitle}
-        />
-
-        <TowerInfoContent
-          switchers={props.switchers}
-          selectedMenu={props.selectTowerInfoContent}
-          productDescription={props.productDescription}
-          towerTitle={props.towerTitle}
-          hideDescription={props.hideDescription}
-        />
-
-        {props.showButton && (
-          <Button
-            pulseAnimFlag={props.showButton}
-            className={ButtonClassNames.OUTLINE_NORMAL}
-            callback={props.nextTowerTutorialStep}
-            {...StyleConfig.enterButton}
-          />
-        )}
-        {props.showUnblockButton && (
-          <Button
-            pulseAnimFlag={props.showUnblockButton}
-            className={ButtonClassNames.NORMAL}
-            callback={props.nextTowerTutorialStep}
-            {...StyleConfig.unblockButton}
-          />
-        )}
-      </ModalWindowContentWrapper>
-    </TowerInfoWrapper>
-  );
-};
+export const TowerInfoLayout: React.FC<ITowerInfoLayout> = props => (
+  <TowerInfoWrapper
+    opened={props.isExtraTowerInfoModalOpen}
+    ref={props.towerInfoRef}
+  >
+    <TowerInfoHeader tutorialCondition={props.tutorialCondition} />
+    <ModalWindowContentWrapper>
+      <TowerInfoHeader1 sizeContent={props.towerInfoDisplayFlag}>
+        <TowerInfoTitle {...props.towerInfoTitleProps} />
+        <TowerInfoIndicators {...props.towerInfoIndicatorsProps} />
+      </TowerInfoHeader1>
+      <TowerInfoMenu {...props.towerInfoMenuProps} />
+      <TowerInfoContent {...props.towerInfoContentProps} />
+      {props.showButton && (
+        <Button {...props.buttonProps} {...StyleConfig.enterButton} />
+      )}
+      {props.showUnblockButton && (
+        <Button {...props.unlockButtonProps} {...StyleConfig.unblockButton} />
+      )}
+    </ModalWindowContentWrapper>
+  </TowerInfoWrapper>
+);
 
 interface ITowerInfoLayout {
+  unlockButtonProps: IButton;
+  buttonProps: IButton;
+  towerInfoContentProps: ITowerInfoContent;
+  towerInfoMenuProps: ITowerInfoMenu;
+  towerInfoTitleProps: ITowerInfoTitle;
+  towerInfoIndicatorsProps: ITowerInfoIndicators;
   isExtraTowerInfoModalOpen: boolean;
   towerInfoRef: React.RefObject<HTMLDivElement>;
   tutorialCondition: TutorialConditions;
-  towerInfoDisplayFlag: boolean; //hideTowerInfo
-  towerTitle: TowersTypes;
-  factors: IFactors | undefined;
-  subscriptionText: string;
-  points: number;
-  maxProgressValue: number | null;
-  level: number;
-  income: number;
-  progress: number;
-  levelUpPercentage: number;
-  ended: boolean;
-  refsCollection: React.RefObject<HTMLDivElement>[];
-  selectTowerInfoContent: TowerInfoContentValues;
-  productDescription: {
-    description: string;
-    title: string;
-  };
-  hideDescription: boolean;
+  towerInfoDisplayFlag: boolean;
   showButton: boolean;
-  nextTowerTutorialStep: () => void;
   showUnblockButton: boolean;
-  switchers: ITabSwitchers;
 }

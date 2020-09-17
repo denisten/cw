@@ -151,7 +151,7 @@ export const TowerInfoMenu: React.FC<ITowerInfoMenu> = ({
   );
 };
 
-interface ITowerInfoMenu {
+export interface ITowerInfoMenu {
   refsCollection: React.RefObject<HTMLDivElement>[];
   selectTowerInfoContent: TowerInfoContentValues;
   isChatEnded?: boolean;

@@ -59,6 +59,15 @@ export enum PromiseStatus {
 
 const extraDelay = 700;
 
+const checkLastFailedMessage = (messages: IMessage[]) =>
+  messages && messages[messages.length - 1]?.failedTask;
+
+const checkLastSuccessMessage = (messages: IMessage[]) =>
+  messages && messages[messages.length - 1]?.successTask;
+
+const isChatEnded = (messages: IMessage[]) =>
+  checkLastFailedMessage(messages) || checkLastSuccessMessage(messages);
+
 export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
   towerTitle,
   switchers,
@@ -87,18 +96,31 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
 
   const haveMessages = messages && messages.length > 0;
 
+  const responseResolved = responseStatus === PromiseStatus.RESOLVED;
+
+  const showCouponInterfaceWhenTaskIsFailed = ended && failedTask;
+  const { volume } = useStore(SettingsStore).sound;
+
+  const scrollToBottom = () =>
+    chatContainerRef.current &&
+    chatContainerRef.current.scrollTo(0, chatContainerRef.current.scrollHeight);
+
+  const { play: newMessagePlay } = useAudio(newMessage, false, volume);
+
   const sendAnswerId = async (actionId: number) => {
-    if (responseStatus === PromiseStatus.RESOLVED && currentTask) {
-      const { data } = await consumeUserTaskAction({
+    if (responseResolved && currentTask) {
+      const {
+        data: { ended },
+      } = await consumeUserTaskAction({
         taskId: currentTask.id,
         blockId,
         actionId,
         towerTitle,
       });
       setResponseStatus(PromiseStatus.PENDING);
-      if (data.ended) {
+      if (ended) {
         if (wantedTaskStatuses.has(currentTask.taskTypeSlug)) {
-          chatEndedHandler(taskId, towerTitle);
+          await chatEndedHandler(taskId, towerTitle);
         } else {
           setCurrentTaskStatus({
             taskId: currentTask.id,
@@ -114,15 +136,6 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
       }
     }
   };
-
-  const showCouponInterfaceWhenTaskIsFailed = ended && failedTask;
-  const { volume } = useStore(SettingsStore).sound;
-
-  const scrollToBottom = () =>
-    chatContainerRef.current &&
-    chatContainerRef.current.scrollTo(0, chatContainerRef.current.scrollHeight);
-
-  const { play: newMessagePlay } = useAudio(newMessage, false, volume);
   usePlaySoundIf<IMessage[]>(
     haveMessages && !!volume,
     newMessagePlay,
@@ -143,15 +156,9 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
     };
   }, [towerTitle]);
 
-  const checkLastFailedMessage = () =>
-    messages && messages[messages.length - 1]?.failedTask;
-
-  const checkLastSuccessMessage = () =>
-    messages && messages[messages.length - 1]?.successTask;
-
   useEffect(() => {
     if (!messages) return;
-    if (checkLastFailedMessage() || checkLastSuccessMessage()) {
+    if (isChatEnded(messages)) {
       setResponseStatus(PromiseStatus.RESOLVED);
       setSavedMessages(messages);
       return;
@@ -186,7 +193,9 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
 
   useEffect(() => {
     scrollToBottom();
-    checkLastFailedMessage() ? setFailedTask(true) : setFailedTask(false);
+    checkLastFailedMessage(messages)
+      ? setFailedTask(true)
+      : setFailedTask(false);
   }, [savedMessages, messages]);
 
   const chatButtonsProps: IChatButtons = {

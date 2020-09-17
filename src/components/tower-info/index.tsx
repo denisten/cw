@@ -36,6 +36,7 @@ import { filterTasksArray } from '../../utils/filtered-missions-array';
 import { useHideEmptyTaskMarker } from '../../hooks/use-hide-empty-task-marker';
 import { ProductLevelStore } from '../../effector/product-level/store';
 import { TowerInfoLayout } from './layout';
+import { ButtonClassNames } from '../../UI/button';
 enum TowerTutorialSteps {
   DESCRIPTION_DONT_OPENED = 0,
   DESCRIPTION_OPENED = 1,
@@ -85,18 +86,6 @@ const TowerInfo: React.FC = () => {
   const missions = useStore(MissionsStore);
   const filteredTasks = filterTasksArray(tasks, towerTitle);
   const filteredMissions = filterTasksArray(missions, towerTitle);
-  useHideEmptyTaskMarker({ filteredTasks, filteredMissions, towerTitle });
-  usePlaySoundIf<boolean>(
-    isExtraTowerInfoModalOpen && !!volume,
-    openTowerInfoSoundPlay,
-    isExtraTowerInfoModalOpen
-  );
-
-  usePlaySoundIf<TowerInfoContentValues>(
-    selectTowerInfoContent === TowerInfoContentValues.CHAT && !!volume,
-    openChatSoundPlay,
-    selectTowerInfoContent
-  );
 
   const refsCollection: Array<React.RefObject<HTMLDivElement>> = useMemo(
     () => Array.from({ length: 3 }).map(() => createRef()),
@@ -189,43 +178,85 @@ const TowerInfo: React.FC = () => {
     tutorialCondition === TutorialConditions.NEXT_BUTTON_TOWER_INFO &&
     towerTutorialStep === TowerTutorialSteps.DESCRIPTION_DONT_OPENED;
 
-  useEffect(() => {
-    if (towerInfoRef.current) {
-      setTowerInfoShift(towerInfoRef.current?.offsetWidth);
-    }
-  }, [towerInfoRef]);
-
   const hideDescription =
     tutorialCondition !== TutorialConditions.OFF &&
     towerTutorialStep === TowerTutorialSteps.DESCRIPTION_DONT_OPENED;
+
+  useEffect(() => {
+    towerInfoRef.current &&
+      setTowerInfoShift(towerInfoRef.current?.offsetWidth);
+  }, [towerInfoRef]);
+
+  useHideEmptyTaskMarker({ filteredTasks, filteredMissions, towerTitle });
+  usePlaySoundIf<boolean>(
+    isExtraTowerInfoModalOpen && !!volume,
+    openTowerInfoSoundPlay,
+    isExtraTowerInfoModalOpen
+  );
+
+  usePlaySoundIf<TowerInfoContentValues>(
+    selectTowerInfoContent === TowerInfoContentValues.CHAT && !!volume,
+    openChatSoundPlay,
+    selectTowerInfoContent
+  );
+  const switchers = {
+    openChatTab,
+    openDescriptionTab,
+    openTasksTab,
+  };
+  const towerInfoIndicatorsProps = {
+    points,
+    maxProgressValue,
+    level,
+    towerTitle,
+    progress: levelUpPercentage,
+    income,
+    hideTowerInfo,
+    tutorialCondition,
+  };
+  const towerInfoTitleProps = {
+    tutorialCondition,
+    towerTitle,
+    factors,
+    subscriptionText,
+  };
+  const towerInfoMenuProps = {
+    isChatEnded: ended,
+    refsCollection,
+    selectTowerInfoContent,
+    towerTitle,
+  };
+  const towerInfoContentProps = {
+    switchers,
+    selectedMenu: selectTowerInfoContent,
+    productDescription: returnDescriptionObject(),
+    towerTitle,
+    hideDescription,
+  };
+  const buttonProps = {
+    pulseAnimFlag: showButton,
+    className: ButtonClassNames.OUTLINE_NORMAL,
+    callback: () => nextTowerTutorialStep(),
+  };
+  const unlockButtonProps = {
+    pulseAnimFlag: showUnblockButton,
+    className: ButtonClassNames.NORMAL,
+    callback: () => nextTowerTutorialStep(),
+  };
   return (
     <TowerInfoLayout
+      unlockButtonProps={unlockButtonProps}
+      buttonProps={buttonProps}
+      towerInfoContentProps={towerInfoContentProps}
+      towerInfoMenuProps={towerInfoMenuProps}
+      towerInfoTitleProps={towerInfoTitleProps}
+      towerInfoIndicatorsProps={towerInfoIndicatorsProps}
       tutorialCondition={tutorialCondition}
-      towerTitle={towerTitle}
-      ended={ended}
-      factors={factors}
-      hideDescription={hideDescription}
-      income={income}
       isExtraTowerInfoModalOpen={isExtraTowerInfoModalOpen}
-      levelUpPercentage={levelUpPercentage}
-      points={points}
-      productDescription={returnDescriptionObject()}
-      progress={levelUpPercentage}
-      maxProgressValue={maxProgressValue}
-      nextTowerTutorialStep={nextTowerTutorialStep}
-      subscriptionText={subscriptionText}
       towerInfoDisplayFlag={hideTowerInfo}
-      refsCollection={refsCollection}
-      selectTowerInfoContent={selectTowerInfoContent}
       showButton={showButton}
       showUnblockButton={showUnblockButton}
-      switchers={{
-        openChatTab,
-        openDescriptionTab,
-        openTasksTab,
-      }}
       towerInfoRef={towerInfoRef}
-      level={level}
     />
   );
 };
