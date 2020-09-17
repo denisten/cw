@@ -32,6 +32,7 @@ import { useHideEmptyTaskMarker } from '../../hooks/use-hide-empty-task-marker';
 import { ProductLevelStore } from '../../effector/product-level/store';
 import { TowerInfoLayout } from './layout';
 import { ButtonClassNames } from '../../UI/button';
+import { SettingsStore } from '../../effector/settings/store';
 
 enum TowerTutorialSteps {
   DESCRIPTION_DONT_OPENED = 0,
@@ -77,7 +78,7 @@ const TowerInfo: React.FC = () => {
   const missions = useStore(MissionsStore);
   const filteredTasks = filterTasksArray(tasks, towerTitle);
   const filteredMissions = filterTasksArray(missions, towerTitle);
-
+  const { volume } = useStore(SettingsStore).sound;
   const refsCollection: Array<React.RefObject<HTMLDivElement>> = useMemo(
     () => Array.from({ length: 3 }).map(() => createRef()),
     []
@@ -179,18 +180,6 @@ const TowerInfo: React.FC = () => {
   }, [towerInfoRef]);
 
   useHideEmptyTaskMarker({ filteredTasks, filteredMissions, towerTitle });
-  // usePlaySoundIf<boolean>(
-  //   isExtraTowerInfoModalOpen && !!volume,
-  //   openTowerInfoSoundPlay,
-  //   isExtraTowerInfoModalOpen
-  // );
-  //
-  // usePlaySoundIf<TowerInfoContentValues>(
-  //   selectTowerInfoContent === TowerInfoContentValues.CHAT && !!volume,
-  //   openChatSoundPlay,
-  //   selectTowerInfoContent
-  // );
-
   const switchers = {
     openChatTab,
     openDescriptionTab,
