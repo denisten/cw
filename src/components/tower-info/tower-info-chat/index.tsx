@@ -149,6 +149,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
   const [responseStatus, setResponseStatus] = useState(PromiseStatus.PENDING);
   const [savedMessages, setSavedMessages] = useState<IMessage[]>([]);
   const [failedTask, setFailedTask] = useState(false);
+  const timeOutRef = useRef(0);
 
   const currentTask = findSubtask(taskId) || tasks.find(el => el.id === taskId);
   const { count: couponReplaceCount } = userCoupons[CouponTypes.COUPON_REPLACE],
@@ -222,6 +223,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
 
   useEffect(() => {
     if (!messages) return;
+    timeOutRef.current && clearTimeout(timeOutRef.current);
     if (checkLastFailedMessage() || checkLastSuccessMessage()) {
       setResponseStatus(PromiseStatus.RESOLVED);
       setSavedMessages(messages);
@@ -245,7 +247,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
       const isLast = (idx: number) => botLastMessages.length - 1 === idx;
 
       botLastMessages.forEach((msg, idx) => {
-        setTimeout(() => {
+        timeOutRef.current = setTimeout(() => {
           setSavedMessages(() => {
             isLast(idx) && setResponseStatus(PromiseStatus.RESOLVED);
             return [...messages.slice(0, lastUserMessageIndex + 1 + idx), msg];
