@@ -148,7 +148,7 @@ export const ModalWindow: React.FC<IModalWindow> = ({
   );
 };
 
-interface IModalWindow {
+export interface IModalWindow {
   title: string;
   minorText?: string;
   popUpStyles?: IPopUpStyles;

@@ -86,7 +86,7 @@ export const ChatButtons: React.FC<IChatButtons> = ({
   );
 };
 
-interface IChatButtons {
+export interface IChatButtons {
   actions: IAction[];
   callback: (id: number) => void;
   haveCoupon: boolean;
