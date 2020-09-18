@@ -155,7 +155,7 @@ const SelectedStoreItem: React.FC<{ selectedStoreItem: ICatalogItems }> = ({
   const {
     sound: { volume },
   } = useStore(SettingsStore);
-  const { play: loseMoneySoundPlay } = useAudio(loseMoney, false, volume);
+  const { play: loseMoneySoundPlay } = useAudio(loseMoney, false);
 
   usePlaySoundIf<boolean>(
     waitingForPurchase && !!volume,

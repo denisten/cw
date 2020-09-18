@@ -172,7 +172,7 @@ export const TowerInfoIndicators: React.FC<ITowerInfoIndicators> = ({
     sound: { volume },
   } = useStore(SettingsStore);
 
-  const { play: playButtonPlay } = useAudio(playButtonSound, false, volume);
+  const { play: playButtonPlay } = useAudio(playButtonSound, false);
 
   const handlePlayButtonClick = () => {
     reactGAEvent({
@@ -235,7 +235,7 @@ export const TowerInfoIndicators: React.FC<ITowerInfoIndicators> = ({
   );
 };
 
-interface ITowerInfoIndicators {
+export interface ITowerInfoIndicators {
   maxProgressValue: number | null;
   hideTowerInfo: boolean;
   level: number;

@@ -30,7 +30,7 @@ export const TowerInfoContent: React.FC<ITowerInfoContent> = memo(
   }
 );
 
-interface ITowerInfoContent {
+export interface ITowerInfoContent {
   selectedMenu: TowerInfoContentValues;
   productDescription: {
     description: string;

@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { handleTaskClick } from '../../../utils/handle-task-click';
 import { ModalWindow } from '../../modal-window';
-import { couponModalConfig } from '../../tower-info/tower-info-chat';
 import { Icon } from '../../../UI/icons';
 import { RowWrapper } from '../../../UI/row-wrapper';
 import { TaskTimer } from '../../../UI/task-timer';
@@ -33,6 +32,7 @@ import { TaskStatuses } from '../../../effector/tasks-store/store';
 import { reactGAEvent } from '../../../utils/ga-event';
 import { transliterate } from '../../../utils/transliterate';
 import { TaskTypes } from '../../../app';
+import { couponModalConfig } from '../../tower-info/tower-info-chat';
 
 export const TaskWrapper = styled.div<ITaskLocation>`
   width: 719px;
@@ -105,8 +105,8 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
   const {
     sound: { volume },
   } = useStore(SettingsStore);
-  const { play: playRewardSound } = useAudio(takeRewardSound, false, volume);
-  const { play: playActiveTask } = useAudio(activeTask, false, volume);
+  const { play: playRewardSound } = useAudio(takeRewardSound, false);
+  const { play: playActiveTask } = useAudio(activeTask, false);
 
   const taskButtonHandler = async (e: React.MouseEvent) => {
     e.stopPropagation();

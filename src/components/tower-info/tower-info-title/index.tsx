@@ -150,7 +150,7 @@ export const TowerInfoTitle: React.FC<ITowerInfoTitle> = ({
   );
 };
 
-interface ITowerInfoTitle {
+export interface ITowerInfoTitle {
   towerTitle: TowersTypes;
   tutorialCondition: TutorialConditions;
   haveSubscription?: boolean;

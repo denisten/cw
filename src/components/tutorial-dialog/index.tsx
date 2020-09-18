@@ -173,7 +173,7 @@ export const TutorialDialog: React.FC<ITutorialDialog> = ({
   const currentMessage = messages[dialogStep];
   const canPlaySound = tutorialCondition !== 0 && volume && DOMLoaded;
 
-  const { play: playAssistantSound } = useAudio(assistantSound, false, volume);
+  const { play: playAssistantSound } = useAudio(assistantSound, false);
 
   useEffect(() => {
     DOMLoaded && tutorialCondition && volume && playAssistantSound();

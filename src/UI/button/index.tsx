@@ -234,7 +234,7 @@ export const Button: React.FC<IButton> = ({
   );
 };
 
-interface IButton {
+export interface IButton {
   pulseAnimFlag?: boolean;
   className: ButtonClassNames;
   content?: string;

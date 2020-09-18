@@ -13,7 +13,9 @@ import { filterTasksArray } from '../../../utils/filtered-missions-array';
 import { reactGAEvent } from '../../../utils/ga-event';
 import { BuildingsService } from '../../../buildings/config';
 import { transliterate } from '../../../utils/transliterate';
-
+import useSound from 'use-sound';
+import openChat from '../../../sound/open-chat.mp3';
+import { SettingsStore } from '../../../effector/settings/store';
 enum SelectedColorValue {
   TRUE = '001424',
   FALSE = '6e7782',
@@ -86,6 +88,9 @@ export const TowerInfoMenu: React.FC<ITowerInfoMenu> = ({
     handleMouseOver,
     handleMouseOut,
   } = useMoveTo(FIRST_ELEM_WIDTH, refsCollection, selectTowerInfoContent);
+
+  const { volume } = useStore(SettingsStore).sound;
+  const [playOpenChatSound] = useSound(openChat, { volume });
   const missions = useStore(TasksStore);
   const { title } = BuildingsService.getConfigForTower(towerTitle);
   return (
@@ -117,6 +122,7 @@ export const TowerInfoMenu: React.FC<ITowerInfoMenu> = ({
               eventCategory: 'zdanie',
               eventContent: transliterate(title),
             });
+            playOpenChatSound();
           }}
           onMouseOver={handleMouseOver}
           ref={refsCollection[1]}
@@ -151,7 +157,7 @@ export const TowerInfoMenu: React.FC<ITowerInfoMenu> = ({
   );
 };
 
-interface ITowerInfoMenu {
+export interface ITowerInfoMenu {
   refsCollection: React.RefObject<HTMLDivElement>[];
   selectTowerInfoContent: TowerInfoContentValues;
   isChatEnded?: boolean;
