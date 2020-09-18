@@ -70,6 +70,7 @@ const Span = styled.span`
   font-size: 14px;
   line-height: 24px;
   color: #6e7782;
+  white-space: nowrap;
 `;
 
 const UpgradeButton = styled.div`
@@ -166,18 +167,14 @@ export const ProgressBar: React.FC<IProgressBar> = ({
       <UpgradeImg /> Улучшить
     </UpgradeButton>
   );
-
+  const quantity = `${points}/${maxProgressValue || '∞'}`;
   return (
     <Wrapper>
       {!needUpgrade && <EnergyImg />}
       <ProgressBarWrapper ref={progressBarWrapperRef} onClick={handleClick}>
         {content}
       </ProgressBarWrapper>
-      {!needUpgrade && (
-        <Span>
-          {points}/{maxProgressValue || '∞'}
-        </Span>
-      )}
+      {!needUpgrade && <Span>{quantity}</Span>}
     </Wrapper>
   );
 };
