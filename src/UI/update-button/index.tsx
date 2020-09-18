@@ -15,6 +15,9 @@ import { towerUpdateHandler } from '../../utils/tower-update-handler';
 import { Icon } from '../icons';
 import { reactGAEvent } from '../../utils/ga-event';
 import { useStore } from 'effector-react';
+import upgradeTowerSound from '../../sound/tower-upgrade.mp3';
+import useSound from 'use-sound';
+import { SettingsStore } from '../../effector/settings/store';
 
 const handleClick = async (
   towerTitle: TowersTypes,
@@ -39,36 +42,35 @@ export const UpgradeButton: React.FC<IUpgradeButton> = ({
   tutorialCondition,
   eventLabel,
 }) => {
-  const {
-    level: { level },
-  } = useStore(TowersProgressStore)[towerTitle];
+  const { level } = useStore(TowersProgressStore)[towerTitle].level;
+  const { volume } = useStore(SettingsStore).sound;
+  const [playTowerUpgradeSound] = useSound(upgradeTowerSound, { volume });
+  const onClickHandler = async () => {
+    reactGAEvent({
+      eventLabel: eventLabel,
+      eventCategory: 'mir',
+      eventContent: 'uluchshit',
+      eventContext: String(level + 1),
+      buttonLocation: null,
+      filterName: 'ikonka',
+    });
+    playTowerUpgradeSound();
+    await handleClick(towerTitle, tutorialCondition);
+  };
   return (
     <MarkerWrapper
       displayFlag={displayFlag}
       data-towertype={towerTitle}
       data-towerlevel={towerLevel}
     >
-      <MarkerView
-        animFlag={animFlag}
-        onClick={() => {
-          reactGAEvent({
-            eventLabel: eventLabel,
-            eventCategory: 'mir',
-            eventContent: 'uluchshit',
-            eventContext: String(level + 1),
-            buttonLocation: null,
-            filterName: 'ikonka',
-          });
-          handleClick(towerTitle, tutorialCondition);
-        }}
-      >
+      <MarkerView animFlag={animFlag} onClick={onClickHandler}>
         <Icon type={MarkerTypes.UPGRADE_TOWER} style={styleConfig.icons} />
       </MarkerView>
     </MarkerWrapper>
   );
 };
 
-interface IUpgradeButton {
+export interface IUpgradeButton {
   towerTitle: TowersTypes;
   animFlag?: boolean;
   displayFlag: boolean;

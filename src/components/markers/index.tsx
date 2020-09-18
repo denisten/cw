@@ -213,7 +213,7 @@ export const Markers: React.FC<IMarkers> = ({
   const {
     sound: { volume },
   } = useStore(SettingsStore);
-  const { play: playRewardSound } = useAudio(takeRewardSound, false, volume);
+  const { play: playRewardSound } = useAudio(takeRewardSound);
 
   return (
     <MarkerWrapper
@@ -255,7 +255,7 @@ export const Markers: React.FC<IMarkers> = ({
   );
 };
 
-interface IMarkers extends IDisplayFlag {
+export interface IMarkers extends IDisplayFlag {
   markersCollection: IMarker[];
   towerTitle: TowersTypes;
   towerLevel?: number;

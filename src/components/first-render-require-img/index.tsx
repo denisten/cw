@@ -12,7 +12,7 @@ export const FRRImg: React.FC<IFRRImg> = ({ src, style, useMap }) => (
   />
 );
 
-interface IFRRImg {
+export interface IFRRImg {
   src: string;
   style?: React.CSSProperties;
   useMap?: string;
