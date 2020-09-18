@@ -6,10 +6,6 @@ import polygonImg from './polygon.svg';
 import { MTSSans } from '../../fonts';
 import changeImg from './change.png';
 
-const BlurChange = styled.img`
-  opacity: 0.5;
-`;
-
 const Polygon = styled.div`
   display: flex;
   justify-content: center;
@@ -66,19 +62,9 @@ export const Coupon: React.FC<ICoupon> = ({
       );
     }
   } else {
-    if (couponsCount) {
-      couponJSX = (
-        <img src={changeImg} alt="change" style={styledConfig.coupon} />
-      );
-    } else {
-      couponJSX = (
-        <BlurChange
-          src={changeImg}
-          alt="change-blur"
-          style={styledConfig.coupon}
-        />
-      );
-    }
+    couponJSX = (
+      <img src={changeImg} alt="change" style={styledConfig.coupon} />
+    );
   }
   return (
     <CouponWrapper style={style}>
