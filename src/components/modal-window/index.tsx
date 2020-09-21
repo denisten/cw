@@ -16,9 +16,6 @@ import { openMarket } from '../../effector/coupons/events';
 import { couponHandler } from '../../utils/coupon-handler';
 import { TowersTypes } from '../../effector/towers-progress/store';
 import { coughtError } from '../../effector/error-boundary-store/events';
-import { useHideEmptyTaskMarker } from '../../hooks/use-hide-empty-task-marker';
-import { TasksStore } from '../../effector/tasks-store/store';
-import { MissionsStore } from '../../effector/missions-store/store';
 
 const MinorText = styled.span`
   font-size: 16px;
@@ -95,9 +92,7 @@ export const ModalWindow: React.FC<IModalWindow> = ({
   const [selectedCoupon, setSelectedCoupon] = useState<CouponTypes | null>(
     null
   );
-  const tasks = useStore(TasksStore);
-  const missions = useStore(MissionsStore);
-  useHideEmptyTaskMarker({ tasks, missions, towerTitle });
+
   const modalWindowSubmitHandler = async () => {
     if (selectedCoupon) {
       const couponsCount = userCoupons[selectedCoupon].count;
