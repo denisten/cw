@@ -73,8 +73,6 @@ const TowerStyledWrapper = styled.div<ITowerStyledWrapper>`
       content: 'Скоро открытие';
       position: absolute;
       top: 85%;
-      left: 50%;
-      transform: translate(-50%, 0%);
       padding: 6px;
       background-color: rgba(0, 0, 0, 0.6);
       color: white;
