@@ -3,12 +3,15 @@ import { hideMarker } from '../../effector/towers-marker/events';
 import { MarkerTypes } from '../../components/markers';
 import { ITask } from '../../effector/tasks-store/store';
 import { TowersTypes } from '../../effector/towers-progress/store';
+import { filterTasksArray } from '../../utils/filtered-missions-array';
 
 export const useHideEmptyTaskMarker = ({
-  filteredTasks,
-  filteredMissions,
+  tasks,
+  missions,
   towerTitle,
 }: IHideEmptyTaskMarker) => {
+  const filteredTasks = filterTasksArray(tasks, towerTitle);
+  const filteredMissions = filterTasksArray(missions, towerTitle);
   useEffect(() => {
     if (!filteredTasks.length && !filteredMissions.length) {
       hideMarker({ towerTitle, type: MarkerTypes.TASK });
@@ -17,7 +20,7 @@ export const useHideEmptyTaskMarker = ({
 };
 
 interface IHideEmptyTaskMarker {
-  filteredTasks: ITask[];
-  filteredMissions: ITask[];
+  tasks: ITask[];
+  missions: ITask[];
   towerTitle: TowersTypes;
 }

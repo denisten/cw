@@ -61,7 +61,7 @@ const CouponBlock = styled.div`
   width: 100%;
 
   ${CardWrapper}:last-child {
-    margin-right: 0px;
+    margin-right: 0;
   }
 `;
 
@@ -158,5 +158,5 @@ export interface IModalWindow {
   displayFlag: boolean;
   style?: React.CSSProperties;
   id: number;
-  towerTitle?: TowersTypes;
+  towerTitle: TowersTypes;
 }

@@ -17,6 +17,9 @@ import { reactGAEvent } from '../../utils/ga-event';
 import towerOpenSound from '../../sound/tower-open.mp3';
 import useSound from 'use-sound';
 import { TowerComponentWrapperLayout } from './layout';
+import { TasksStore } from '../../effector/tasks-store/store';
+import { MissionsStore } from '../../effector/missions-store/store';
+import { useHideEmptyTaskMarker } from '../../hooks/use-hide-empty-task-marker';
 
 enum strokeClassNames {
   STROKE = 'stroke',
@@ -66,6 +69,10 @@ export const TowerWrapper = memo(
     const { upgradingTowerTitle, DOMLoaded } = useStore(AppConditionStore);
     const { tutorialCondition, tutorialPause } = useStore(TutorialStore);
     const upgradeFlag = upgradingTowerTitle === towerTitle;
+
+    const tasks = useStore(TasksStore);
+    const missions = useStore(MissionsStore);
+    useHideEmptyTaskMarker({ tasks, missions, towerTitle });
 
     const markers = useStore(TowersMarkerStore)[towerTitle];
     const markersDisplayFlag =
