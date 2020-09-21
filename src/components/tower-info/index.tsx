@@ -25,14 +25,10 @@ import { setTowerInfoShift } from '../../effector/tower-info-modal-store/events'
 import { DescriptionStore } from '../../effector/descriptions/store';
 import { useFetchDescriptions } from '../../hooks/use-fetch-descriptions';
 import { reactGAEvent } from '../../utils/ga-event';
-import { TasksStore } from '../../effector/tasks-store/store';
-import { MissionsStore } from '../../effector/missions-store/store';
-import { filterTasksArray } from '../../utils/filtered-missions-array';
-import { useHideEmptyTaskMarker } from '../../hooks/use-hide-empty-task-marker';
+
 import { ProductLevelStore } from '../../effector/product-level/store';
 import { TowerInfoLayout } from './layout';
 import { ButtonClassNames } from '../../UI/button';
-import { SettingsStore } from '../../effector/settings/store';
 
 enum TowerTutorialSteps {
   DESCRIPTION_DONT_OPENED = 0,
@@ -74,11 +70,6 @@ const TowerInfo: React.FC = () => {
   } = useStore(TowersProgressStore)[towerTitle];
   const { maxProgressValue } = useStore(ProductLevelStore)[level];
   const { ended } = useStore(ChatStore)[towerTitle];
-  const tasks = useStore(TasksStore);
-  const missions = useStore(MissionsStore);
-  const filteredTasks = filterTasksArray(tasks, towerTitle);
-  const filteredMissions = filterTasksArray(missions, towerTitle);
-  const { volume } = useStore(SettingsStore).sound;
   const refsCollection: Array<React.RefObject<HTMLDivElement>> = useMemo(
     () => Array.from({ length: 3 }).map(() => createRef()),
     []
@@ -179,7 +170,6 @@ const TowerInfo: React.FC = () => {
       setTowerInfoShift(towerInfoRef.current?.offsetWidth);
   }, [towerInfoRef]);
 
-  useHideEmptyTaskMarker({ filteredTasks, filteredMissions, towerTitle });
   const switchers = {
     openChatTab,
     openDescriptionTab,
