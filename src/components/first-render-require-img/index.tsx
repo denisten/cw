@@ -1,7 +1,12 @@
 import React from 'react';
 import { newImgLoaded } from '../../effector/preloader/events';
 
-export const FRRImg: React.FC<IFRRImg> = ({ src, style, useMap }) => (
+export const FRRImg: React.FC<IFRRImg> = ({
+  src,
+  style,
+  useMap,
+  className,
+}) => (
   <img
     useMap={useMap}
     src={src}
@@ -9,6 +14,7 @@ export const FRRImg: React.FC<IFRRImg> = ({ src, style, useMap }) => (
     data-render={true}
     style={style}
     onLoad={() => newImgLoaded()}
+    className={className}
   />
 );
 
@@ -16,4 +22,5 @@ export interface IFRRImg {
   src: string;
   style?: React.CSSProperties;
   useMap?: string;
+  className?: string;
 }
