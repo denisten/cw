@@ -14,7 +14,6 @@ import musicTowerLevel2Img from './music/2.png';
 import musicTowerLevel2Stroke from './music/2-stroke.png';
 import musicTowerLevel3Img from './music/3.png';
 import musicTowerLevel3Stroke from './music/3-stroke.png';
-import mutedArena from './arena/-1.png';
 import arenaTowerLevel0Img from './arena/0.png';
 import arenaTowerLevel0Stroke from './arena/0-stroke.png';
 import arenaTowerLevel1Img from './arena/1.png';
@@ -47,7 +46,6 @@ import libraryTowerLevel0Stroke from './library/0-stroke.png';
 import libraryTowerLevel1Stroke from './library/1-stroke.png';
 import libraryTowerLevel2Stroke from './library/2-stroke.png';
 import libraryTowerLevel3Stroke from './library/3-stroke.png';
-import mutedObservatoryTower from './observatory/-1.png';
 import observatoryTowerLevel0Img from './observatory/0.png';
 import observatoryTowerLevel0Stroke from './observatory/0-stroke.png';
 import observatoryTowerLevel1Img from './observatory/1.png';
@@ -121,7 +119,6 @@ import satelliteTvLevel2Img from './satellite-tv/2.png';
 import satelliteTvLevel2Stroke from './satellite-tv/2-stroke.png';
 import satelliteTvLevel3Img from './satellite-tv/3.png';
 import satelliteTvLevel3Stroke from './satellite-tv/3-stroke.png';
-import mutedPartnerOne from './partners-build/partner-one/-1.png';
 import partnerOneLevel0Img from './partners-build/partner-one/0.png';
 import partnerOneLevel0Stroke from './partners-build/partner-one/0-stroke.png';
 import partnerOneLevel1Img from './partners-build/partner-one/1.png';
@@ -130,7 +127,6 @@ import partnerOneLevel2Img from './partners-build/partner-one/2.png';
 import partnerOneLevel2Stroke from './partners-build/partner-one/2-stroke.png';
 import partnerOneLevel3Img from './partners-build/partner-one/3.png';
 import partnerOneLevel3Stroke from './partners-build/partner-one/3-stroke.png';
-import mutedPartnerTwo from './partners-build/partner-two/-1.png';
 import partnerTwoLevel0Img from './partners-build/partner-two/0.png';
 import partnerTwoLevel0Stroke from './partners-build/partner-two/0-stroke.png';
 import partnerTwoLevel1Img from './partners-build/partner-two/1.png';
@@ -139,7 +135,6 @@ import partnerTwoLevel2Img from './partners-build/partner-two/2.png';
 import partnerTwoLevel2Stroke from './partners-build/partner-two/2-stroke.png';
 import partnerTwoLevel3Img from './partners-build/partner-two/3.png';
 import partnerTwoLevel3Stroke from './partners-build/partner-two/3-stroke.png';
-import mutedSlotMachinelImg from './slot-machine/-1.png';
 import slotMachineLevel0Img from './slot-machine/0.png';
 import slotMachineLevel0Stroke from './slot-machine/0-stroke.png';
 import slotMachineLevel1Img from './slot-machine/1.png';
@@ -170,7 +165,6 @@ import rtkLevel2Img from './rtk/2.png';
 import rtkLevel3Img from './rtk/3.png';
 import rtkLevel0Stroke from './rtk/0-stroke.png';
 import rtkLevel3Stroke from './rtk/3-stroke.png';
-import mutedPartnerThree from './partners-build/partner-three/-1.png';
 import partnerThreeLevel0Img from './partners-build/partner-three/0.png';
 import partnerThreeLevel0Stroke from './partners-build/partner-three/0-stroke.png';
 import partnerThreeLevel1Img from './partners-build/partner-three/1.png';
@@ -179,7 +173,6 @@ import partnerThreeLevel2Img from './partners-build/partner-three/2.png';
 import partnerThreeLevel2Stroke from './partners-build/partner-three/2-stroke.png';
 import partnerThreeLevel3Img from './partners-build/partner-three/3.png';
 import partnerThreeLevel3Stroke from './partners-build/partner-three/3-stroke.png';
-import mutedMarvin from './marvin/-1.png';
 import marvinLevel0Img from './marvin/0.png';
 import marvinLevel1Img from './marvin/1.png';
 import marvinLevel2Img from './marvin/2.png';
@@ -409,7 +402,7 @@ class BuildingsService {
       areaCoords: '46,119,606,425',
       position: [52.5, 23.7],
       ref: null,
-      mutedImg: mutedArena,
+      mutedImg: true,
       link:
         'https://moskva.mts.ru/personal/mobilnaya-svyaz/uslugi/mobilnaya-svyaz/mts-live',
       [TowerLevel.initial]: {
@@ -522,7 +515,7 @@ class BuildingsService {
     [TowersTypes.OBSERVATORY]: {
       title: 'Здание партнера 4',
       signConfig: ['Здание партнера 4'],
-      mutedImg: mutedObservatoryTower,
+      mutedImg: true,
       wideTower: false,
       zIndex: ZIndexes.BUILDING_THREE_LEVEL,
       maxLevel: TowerLevel.high,
@@ -831,7 +824,7 @@ class BuildingsService {
       areaCoords: '51,72,239,461',
       position: [62.5, 30.6],
       ref: null,
-      mutedImg: mutedPartnerOne,
+      mutedImg: true,
       [TowerLevel.initial]: {
         img: partnerOneLevel0Img,
         shadowImg: partnerOneLevel0Stroke,
@@ -861,7 +854,7 @@ class BuildingsService {
       areaCoords: '47,83,412,422',
       position: [69.4, 24.5],
       ref: null,
-      mutedImg: mutedPartnerTwo,
+      mutedImg: true,
       [TowerLevel.initial]: {
         img: partnerTwoLevel0Img,
         shadowImg: partnerTwoLevel0Stroke,
@@ -890,7 +883,7 @@ class BuildingsService {
       height: 471,
       areaCoords: '88,81,349,442',
       position: [19, 61.4],
-      mutedImg: mutedSlotMachinelImg,
+      mutedImg: true,
       ref: null,
       [TowerLevel.initial]: {
         img: slotMachineLevel0Img,
@@ -982,7 +975,7 @@ class BuildingsService {
       areaCoords: '48,121,241,490',
       position: [42.6, 65.5],
       ref: null,
-      mutedImg: mutedPartnerThree,
+      mutedImg: true,
       [TowerLevel.initial]: {
         img: partnerThreeLevel0Img,
         shadowImg: partnerThreeLevel0Stroke,
@@ -1010,7 +1003,7 @@ class BuildingsService {
       height: 306,
       areaCoords: '49,47,198,328',
       position: [19.7, 51.3],
-      mutedImg: mutedMarvin,
+      mutedImg: true,
       [TowerLevel.initial]: {
         img: marvinLevel0Img,
         shadowImg: marvinLevel0Stroke,
@@ -1079,7 +1072,7 @@ type BuildingServiceConfigTypes = Record<
 
 type CurrentTowerServiceConfigTypes = {
   signConfig?: string[];
-  mutedImg?: string;
+  mutedImg?: true;
   title: string;
   link?: string;
   playButtonLink?: string;

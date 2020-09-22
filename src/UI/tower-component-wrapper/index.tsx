@@ -30,6 +30,7 @@ export const fixSizeClassName = 'fix-size';
 export enum TowerClassNames {
   MUTED = 'muted',
   HOVERED = 'hovered',
+  TOWER_IMG = 'towerImg',
 }
 const maxMouseMoveFaultAfterClick = 20;
 
@@ -159,9 +160,10 @@ export const TowerWrapper = memo(
       onMouseOut: mouseOutHandle,
     };
     const FRRImgProps = {
-      src: mutedImg || tower,
+      src: tower,
       useMap: '#' + tower,
       style: TowerStyleConfig,
+      className: TowerClassNames.TOWER_IMG,
     };
     const towerStyledWrapperProps = {
       posX,
@@ -218,7 +220,7 @@ export const TowerWrapper = memo(
 );
 
 interface ITowerWrapper {
-  mutedImg?: string;
+  mutedImg?: boolean;
   position: number[];
   maxLevel: TowerLevel;
   wideTower: boolean;

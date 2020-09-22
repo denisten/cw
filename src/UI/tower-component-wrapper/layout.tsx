@@ -8,6 +8,7 @@ import signBcg from './signBcg.svg';
 import { MTSSans } from '../../fonts';
 import { ZIndexes } from '../../components/root-component/z-indexes-enum';
 import { TowersTypes } from '../../effector/towers-progress/store';
+import lock from './lock.png';
 
 enum strokeClassNames {
   STROKE = 'stroke',
@@ -18,6 +19,8 @@ export const fixSizeClassName = 'fix-size';
 export enum TowerClassNames {
   MUTED = 'muted',
   HOVERED = 'hovered',
+  TOWER_IMG = 'towerImg',
+  LOCK_IMG = 'lockImg',
 }
 
 export const Signature = styled.div`
@@ -54,6 +57,18 @@ const SpanElem = styled.div<ISpanElem>`
   }
 `;
 
+const LockImage = styled.img.attrs({
+  className: TowerClassNames.LOCK_IMG,
+  alt: 'img',
+  src: lock,
+})`
+  width: 60px;
+  height: 75px;
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+`;
+
 const TowerStyledWrapper = styled.div<ITowerStyledWrapper>`
   display: flex;
   position: absolute;
@@ -68,6 +83,12 @@ const TowerStyledWrapper = styled.div<ITowerStyledWrapper>`
   &.${TowerClassNames.HOVERED} ${Signature} {
     opacity: 1 !important;
   }
+  
+  img.${TowerClassNames.TOWER_IMG} {
+    filter: ${props => (props.mutedImg ? 'grayscale(100%)' : '')};
+  }
+  
+  
   &.${TowerClassNames.MUTED} {
     &::before {
       content: 'Скоро открытие';
@@ -102,14 +123,49 @@ const TowerStyledWrapper = styled.div<ITowerStyledWrapper>`
   &[data-towertype=${TowersTypes.THEATER}] ${Signature} {
     bottom: 5%;
   }
+  
+  &[data-towertype=${TowersTypes.PARTNER_ONE}] img.${TowerClassNames.LOCK_IMG} {
+    top: 69%;
+  }
+  
+    &[data-towertype=${TowersTypes.PARTNER_TWO}] img.${
+  TowerClassNames.LOCK_IMG
+} {
+    top: 63%;
+  }
+  
+      &[data-towertype=${TowersTypes.MARVIN}] img.${TowerClassNames.LOCK_IMG} {
+    top: 57%;
+  }
+  
+        &[data-towertype=${TowersTypes.IGROTEKA}] img.${
+  TowerClassNames.LOCK_IMG
+} {
+    top: 61%;
+  }
+  
+          &[data-towertype=${TowersTypes.PARTNER_THREE}] img.${
+  TowerClassNames.LOCK_IMG
+},
+           &[data-towertype=${TowersTypes.OBSERVATORY}] img.${
+  TowerClassNames.LOCK_IMG
+}
+           {
+    top: 64%;
+  }
+  
+
+  
 
 `;
 export const TowerComponentWrapperLayout: React.FC<ITowerComponentWrapperLayout> = props => {
   return (
     <TowerStyledWrapper
       {...props.towerStyledWrapperProps}
+      mutedImg={props.mutedImg}
       data-towertype={props.towerTitle}
     >
+      {props.mutedImg && <LockImage />}
       {!props.mutedImg && <Markers {...props.markersProps} />}
       <UpgradeButton {...props.upgradeButtonProps} />
       {props.upgradeFlag && (
@@ -138,7 +194,7 @@ export const TowerComponentWrapperLayout: React.FC<ITowerComponentWrapperLayout>
 
 interface ITowerComponentWrapperLayout {
   towerStyledWrapperProps: ITowerStyledWrapper;
-  mutedImg: string | undefined;
+  mutedImg?: boolean;
   markersProps: IMarkers;
   upgradeButtonProps: IUpgradeButton;
   upgradeFlag: boolean;
@@ -159,6 +215,7 @@ interface ITowerStyledWrapper {
   height: number;
   scrollShift?: number | null;
   DOMLoaded: boolean;
+  mutedImg?: boolean;
 }
 
 interface ISpanElem {
