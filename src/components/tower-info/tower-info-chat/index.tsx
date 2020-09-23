@@ -68,6 +68,9 @@ const checkLastSuccessMessage = (messages: IMessage[]) =>
 const isChatEnded = (messages: IMessage[]) =>
   checkLastFailedMessage(messages) || checkLastSuccessMessage(messages);
 
+const isLastAnswerBelongToUser = (messages: IMessage[]) =>
+  messages[messages.length - 1]?.direction === Sender.FRONTEND;
+
 export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
   towerTitle,
   switchers,
@@ -158,14 +161,17 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
     };
   }, [towerTitle]);
 
-  useEffect(() => {
-    if (!messages) return;
-    timeOutRef.current && clearTimeout(timeOutRef.current);
-    if (isChatEnded(messages)) {
+  const checkLastMessage = (messages: IMessage[]) => {
+    if (isChatEnded(messages) || isLastAnswerBelongToUser(messages)) {
       setResponseStatus(PromiseStatus.RESOLVED);
       setSavedMessages(messages);
-      return;
+      return true;
     }
+  };
+
+  useEffect(() => {
+    if (!messages || checkLastMessage(messages)) return;
+    timeOutRef.current && clearTimeout(timeOutRef.current);
     const lastUserMessageIndex = messages.reduce(
       (acc, message, index) =>
         message.direction === Sender.FRONTEND ? (acc = index) : acc,
