@@ -110,6 +110,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
 
   const sendAnswerId = async (actionId: number) => {
     if (responseResolved && currentTask) {
+      setResponseStatus(PromiseStatus.PENDING);
       const {
         data: { ended },
       } = await consumeUserTaskAction({
@@ -118,7 +119,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
         actionId,
         towerTitle,
       });
-      setResponseStatus(PromiseStatus.PENDING);
+
       if (ended) {
         if (wantedTaskStatuses.has(currentTask.taskTypeSlug)) {
           await chatEndedHandler(taskId, towerTitle);
