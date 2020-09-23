@@ -41,15 +41,15 @@ export const TaskWrapper = styled.div<ITaskLocation>`
 
 export const Title = styled(StyledSpan)<ITaskLocation>`
   max-width: 405px;
+  min-width: 398px;
   font-family: ${MTSSans.MEDIUM};
   font-size: 16px;
   line-height: 24px;
   letter-spacing: -0.4px;
   color: #001424;
-  margin-left: 14px;
   font-weight: 500;
-  min-width: 398px;
   margin-right: 7px;
+  margin-left: 14px;
 `;
 
 export const TaskButton = styled.div<ITaskButton>`

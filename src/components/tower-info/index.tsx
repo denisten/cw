@@ -25,7 +25,6 @@ import { setTowerInfoShift } from '../../effector/tower-info-modal-store/events'
 import { DescriptionStore } from '../../effector/descriptions/store';
 import { useFetchDescriptions } from '../../hooks/use-fetch-descriptions';
 import { reactGAEvent } from '../../utils/ga-event';
-
 import { ProductLevelStore } from '../../effector/product-level/store';
 import { TowerInfoLayout } from './layout';
 import { ButtonClassNames } from '../../UI/button';
@@ -50,7 +49,7 @@ const grownLineAndNextStep = (
   }
 };
 
-const TowerInfo: React.FC = () => {
+const TowerInfo = () => {
   const localDescriptionService = new BuildingsDescriptionService();
   const {
     isExtraTowerInfoModalOpen,

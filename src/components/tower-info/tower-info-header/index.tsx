@@ -10,7 +10,7 @@ const TowerInfoHeaderWrapper = styled.div`
   height: 55px;
   flex-shrink: 0;
   position: relative;
-
+  border: 5px solid pink;
   @media (max-resolution: 0.8dppx) {
     height: 5vh;
   }

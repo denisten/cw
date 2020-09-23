@@ -7,7 +7,7 @@ import { MTSSans } from '../../fonts';
 import { ITaskLocation } from '../../components/tasks-view/tower-task-row';
 
 enum TaskLootWrapperMarginValues {
-  inTowerInfo = 2,
+  inTowerInfo = 10,
   notInTowerInfo = 16,
 }
 
@@ -40,9 +40,9 @@ const styledConfig = {
     marginRight: '6px',
   },
   money: {
-    width: '19px',
-    height: '17px',
-    marginRight: '6px',
+    width: '24px',
+    height: '24px',
+    marginRight: '7px',
   },
 };
 

@@ -1,22 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
 import { ITask } from '../../../effector/tasks-store/store';
-import { Icon } from '../../../UI/icons';
+// import { Icon } from '../../../UI/icons';
 import { ColumnWrapper } from '../../../UI/column-wrapper';
-import { TaskLoot } from '../../../UI/task-loot';
-import { TaskTimer } from '../../../UI/task-timer';
-import { MissionProgressBarButton } from '../../../UI/mission-progress-bar-button';
+// import { TaskLoot } from '../../../UI/task-loot';
+// import { TaskTimer } from '../../../UI/task-timer';
+// import { MissionProgressBarButton } from '../../../UI/mission-progress-bar-button';
 import {
   checkTaskStatus,
   HintWrapper,
   TaskDescription,
   TaskDescriptionWrapper,
-  TaskInfo,
+  // TaskInfo,
   taskRowStyledConfig,
-  Title,
+  // Title,
   TowerTaskRow,
 } from '../../tasks-view/tower-task-row';
-import { calculateCompletedSubTasksQuantity } from '../mission-tower-row-view';
+import {
+  // calculateCompletedSubTasksQuantity,
+  MissionRow,
+} from '../reduced-mission-row';
 import { UnavailableSubtaskView } from '../unavailable-subtask-view';
 import { CompletedTasksWrapper, detectSubTaskIdx } from '../index';
 import backImg from './back-img.svg';
@@ -45,13 +48,13 @@ const Back = styled.div`
   }
 `;
 
-const MissionInfo = styled(TaskInfo)`
-  margin-bottom: 7px;
-`;
-
-const MissionTitle = styled(Title)`
-  min-width: 178px;
-`;
+// const MissionInfoWrapper = styled(TaskInfo)`
+//   margin-bottom: 7px;
+// `;
+//
+// const MissionTitle = styled(Title)`
+//   min-width: 178px;
+// `;
 
 const MissionDescription = styled(TaskDescription)`
   margin-bottom: 50px;
@@ -62,11 +65,11 @@ const MissionDescriptionWrapper = styled(TaskDescriptionWrapper)`
   opacity: 1;
 `;
 
-export const MissionTowerView: React.FC<IMissionTowerView> = ({
+export const MissionInfo: React.FC<IMissionTowerView> = ({
   mission,
   exitCallback,
 }) => {
-  const completedSubTasksQuantity = calculateCompletedSubTasksQuantity(mission);
+  // const completedSubTasksQuantity = calculateCompletedSubTasksQuantity(mission);
 
   const handleHintClick = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -103,22 +106,23 @@ export const MissionTowerView: React.FC<IMissionTowerView> = ({
 
   return (
     <MissionTowerViewWrapper>
-      <MissionInfo>
-        <Icon type={mission.taskTypeSlug} />
-        <MissionTitle isInTowerInfo={true}>{mission.title}</MissionTitle>
-        <ColumnWrapper displayFlag={true} position="relative">
-          <TaskLoot money={mission.money} energy={0} isInTowerInfo={true} />
-          <TaskTimer
-            expireInSeconds={mission.localExpireInSeconds}
-            towerTitle={mission.productSlug}
-          />
-        </ColumnWrapper>
-        <MissionProgressBarButton
-          task={mission}
-          completedSubTasksQuantity={completedSubTasksQuantity}
-          exitCallback={exitCallback}
-        />
-      </MissionInfo>
+      {/*<MissionInfoWrapper>*/}
+      {/*  <Icon type={mission.taskTypeSlug} />*/}
+      {/*  <MissionTitle isInTowerInfo={true}>{mission.title}</MissionTitle>*/}
+      {/*  <ColumnWrapper displayFlag={true} position="relative">*/}
+      {/*    <TaskLoot money={mission.money} energy={0} isInTowerInfo={true} />*/}
+      {/*    <TaskTimer*/}
+      {/*      expireInSeconds={mission.localExpireInSeconds}*/}
+      {/*      towerTitle={mission.productSlug}*/}
+      {/*    />*/}
+      {/*  </ColumnWrapper>*/}
+      {/*  <MissionProgressBarButton*/}
+      {/*    task={mission}*/}
+      {/*    completedSubTasksQuantity={completedSubTasksQuantity}*/}
+      {/*    exitCallback={exitCallback}*/}
+      {/*  />*/}
+      {/*</MissionInfoWrapper>*/}
+      <MissionRow mission={mission} needFullDescription={true} />
       <MissionDescriptionWrapper>
         <MissionDescription>{mission.description}</MissionDescription>
         <CompletedTasksWrapper

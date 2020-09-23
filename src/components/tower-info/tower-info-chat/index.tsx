@@ -56,6 +56,8 @@ const checkLastSuccessMessage = (messages: IMessage[]) =>
 const isChatEnded = (messages: IMessage[]) =>
   checkLastFailedMessage(messages) || checkLastSuccessMessage(messages);
 
+const timeOutRefsArray: number[] = [];
+
 export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
   towerTitle,
   switchers,
@@ -74,7 +76,6 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
   const [responseStatus, setResponseStatus] = useState(PromiseStatus.PENDING);
   const [savedMessages, setSavedMessages] = useState<IMessage[]>([]);
   const [failedTask, setFailedTask] = useState(false);
-  const timeOutRef = useRef(0);
 
   const currentTask = findSubtask(taskId) || tasks.find(el => el.id === taskId);
   const { count: couponReplaceCount } = userCoupons[CouponTypes.COUPON_REPLACE],
@@ -143,10 +144,13 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
       setHideTowerInfo(false);
     };
   }, [towerTitle]);
+  const checkTimerArr = () => timeOutRefsArray.filter(el => !!el).length;
 
   useEffect(() => {
     if (!messages) return;
-    timeOutRef.current && clearTimeout(timeOutRef.current);
+    if (checkTimerArr()) {
+      timeOutRefsArray.forEach(el => clearTimeout(el));
+    }
     if (isChatEnded(messages)) {
       setResponseStatus(PromiseStatus.RESOLVED);
       setSavedMessages(messages);
@@ -170,15 +174,18 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
       const isLast = (idx: number) => botLastMessages.length - 1 === idx;
 
       botLastMessages.forEach((msg, idx) => {
-        timeOutRef.current = setTimeout(() => {
-          setSavedMessages(() => {
+        timeOutRefsArray.push(
+          setTimeout(() => {
+            setSavedMessages([
+              ...messages.slice(0, lastUserMessageIndex + 1 + idx),
+              msg,
+            ]);
             isLast(idx) && setResponseStatus(PromiseStatus.RESOLVED);
-            return [...messages.slice(0, lastUserMessageIndex + 1 + idx), msg];
-          });
-        }, calculateMessageDelay(msg.text.length) + extraDelay * (idx + 1));
+          }, calculateMessageDelay(msg.text.length) + extraDelay * (idx + 1))
+        );
       });
     }
-  }, [messages]);
+  }, [messages, towerTitle]);
 
   useEffect(() => {
     scrollToBottom();
