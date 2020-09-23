@@ -16,7 +16,7 @@ const TutorialSliderButtonWrapper = styled.div<ITutorialSliderButtonWrapper>`
   height: 50px;
   background: url(${background}) no-repeat center;
   position: absolute;
-  right: 50px;
+  right: 40px;
   bottom: 50px;
   cursor: pointer;
   z-index: ${ZIndexes.UI_BUTTON};

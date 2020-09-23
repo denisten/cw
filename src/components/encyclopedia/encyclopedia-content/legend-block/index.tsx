@@ -14,8 +14,9 @@ export const WrapperBlock = styled.div`
 
 const LegendSection = styled.section`
   width: 100%;
-  margin-bottom: 20px;
-  display: grid;
+  margin-bottom: 46px;
+  display: flex;
+  flex-direction: column;
 
   span {
     font-size: 18px;
@@ -28,7 +29,7 @@ const LegendSection = styled.section`
     font-size: 36px;
     line-height: 49px;
     color: #001424;
-    margin-bottom: 15px;
+    margin: 16px 0;
   }
 `;
 
