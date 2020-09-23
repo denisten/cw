@@ -26,19 +26,7 @@ import { usePlaySoundIf } from '../../../hooks/use-play-sound-if';
 import { MissionsStore } from '../../../effector/missions-store/store';
 import { TaskTypes } from '../../../app';
 import { TowerInfoChatLayout } from './layout';
-
-export const couponModalConfig = {
-  title: 'Выбор купона',
-  popUpStyles: {
-    width: 535,
-    padding: '40px 74px 40px 50px',
-    alignItems: 'flex-start',
-    justifyContent: 'space-between',
-    height: 354,
-  },
-  submitButtonText: 'Использовать',
-  cancelButtonText: 'Отмена',
-};
+import { openCouponModalWindow } from '../../../effector/coupon-MW-store/events';
 
 const lettersPerSecond = 70,
   ms = 1000;
@@ -83,7 +71,6 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
     towerTitle
   ];
 
-  const [openCouponModal, setOpenCouponModal] = useState(false);
   const [responseStatus, setResponseStatus] = useState(PromiseStatus.PENDING);
   const [savedMessages, setSavedMessages] = useState<IMessage[]>([]);
   const [failedTask, setFailedTask] = useState(false);
@@ -202,18 +189,15 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
 
   const chatButtonsProps: IChatButtons = {
     haveCoupon: showCouponInterfaceWhenTaskIsFailed,
-    couponCallback: () => setOpenCouponModal(true),
+    couponCallback: () => openCouponModalWindow({ towerTitle, taskId }),
     couponCount: couponReplaceCount + couponSkipCount,
     callback: sendAnswerId,
     actions,
   };
 
   const modalWindowProps: IModalWindow = {
-    displayFlag: openCouponModal,
-    cancelHandler: () => setOpenCouponModal(false),
     id: taskId,
     towerTitle,
-    ...couponModalConfig,
   };
 
   return (

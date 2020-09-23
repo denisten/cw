@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { PopUpContentWrapper } from '../../UI/pop-up-content-wrapper';
-import { PopUpTitle, IPopUpStyles } from '../../UI/pop-up';
+import { PopUpTitle } from '../../UI/pop-up';
 import styled from 'styled-components';
 import { Button, ButtonClassNames } from '../../UI/button';
-import { ITitle } from '../tutorial-slider';
 import { MTSSans } from '../../fonts';
 import { useStore } from 'effector-react';
 import {
@@ -16,13 +15,8 @@ import { openMarket } from '../../effector/coupons/events';
 import { couponHandler } from '../../utils/coupon-handler';
 import { TowersTypes } from '../../effector/towers-progress/store';
 import { coughtError } from '../../effector/error-boundary-store/events';
-
-const MinorText = styled.span`
-  font-size: 16px;
-  line-height: 20px;
-  text-align: center;
-  color: #979797;
-`;
+import { CouponMWStore } from '../../effector/coupon-MW-store/store';
+import { closeCouponModalWindow } from '../../effector/coupon-MW-store/events';
 
 const ButtonWrapper = styled.div`
   width: 100%;
@@ -31,17 +25,17 @@ const ButtonWrapper = styled.div`
   justify-content: space-between;
 `;
 
-const CancelButton = styled.div<ITitle>`
+const CancelButton = styled.div`
   font-size: 16px;
   line-height: 20px;
-  font-family:${MTSSans.BOLD};
+  font-family: ${MTSSans.BOLD};
   color: #02adc9;
   width: 200px;
   text-align: center;
   margin-right: 14px;
   cursor: pointer;
   :after {
-    content:"${props => props.content}";
+    content: 'Отмена';
   }
 `;
 
@@ -72,23 +66,17 @@ const styledConfig = {
   },
 };
 
-const openShop = (callback: () => void) => {
-  callback();
-  openMarket(true);
+const popUpStyles = {
+  width: 535,
+  padding: '40px 74px 40px 50px',
+  alignItems: 'flex-start',
+  justifyContent: 'space-between',
+  height: 354,
 };
 
-export const ModalWindow: React.FC<IModalWindow> = ({
-  title,
-  minorText,
-  popUpStyles,
-  submitButtonText,
-  cancelButtonText = '',
-  cancelHandler,
-  displayFlag,
-  id,
-  towerTitle,
-}) => {
+export const CouponModalWindow = () => {
   const { userCoupons } = useStore(UserMarketStore);
+  const { towerTitle, taskId: id, displayFlag } = useStore(CouponMWStore);
   const [selectedCoupon, setSelectedCoupon] = useState<CouponTypes | null>(
     null
   );
@@ -98,7 +86,7 @@ export const ModalWindow: React.FC<IModalWindow> = ({
       const couponsCount = userCoupons[selectedCoupon].count;
       if (couponsCount - 1 >= 0) {
         await couponHandler(id, selectedCoupon, towerTitle);
-        cancelHandler();
+        closeCouponModalWindow();
       } else {
         coughtError({ text: 'Кончились купоны.' });
       }
@@ -119,7 +107,10 @@ export const ModalWindow: React.FC<IModalWindow> = ({
         couponsQuantity={userCoupons[coupon].count}
         callBack={f}
         disable={!userCoupons[coupon].count}
-        openShopCallBack={() => openShop(cancelHandler)}
+        openShopCallBack={() => {
+          openMarket(true);
+          closeCouponModalWindow();
+        }}
         style={styledConfig.couponWrapper}
       />
     );
@@ -130,32 +121,22 @@ export const ModalWindow: React.FC<IModalWindow> = ({
     : ButtonClassNames.DISABLED;
 
   return (
-    <>
-      <PopUpContentWrapper displayFlag={displayFlag} {...popUpStyles}>
-        <ModalPopUpTitle>{title}</ModalPopUpTitle>
-        {minorText && <MinorText>{minorText}</MinorText>}
-        <CouponBlock>{coupons}</CouponBlock>
-        <ButtonWrapper>
-          <CancelButton onClick={cancelHandler} content={cancelButtonText} />
-          <Button
-            className={buttonClassName}
-            content={submitButtonText}
-            callback={modalWindowSubmitHandler}
-          />
-        </ButtonWrapper>
-      </PopUpContentWrapper>
-    </>
+    <PopUpContentWrapper displayFlag={displayFlag} {...popUpStyles}>
+      <ModalPopUpTitle>Выбор купона</ModalPopUpTitle>
+      <CouponBlock>{coupons}</CouponBlock>
+      <ButtonWrapper>
+        <CancelButton onClick={() => closeCouponModalWindow()} />
+        <Button
+          className={buttonClassName}
+          content="Использовать"
+          callback={modalWindowSubmitHandler}
+        />
+      </ButtonWrapper>
+    </PopUpContentWrapper>
   );
 };
 
 export interface IModalWindow {
-  title: string;
-  minorText?: string;
-  popUpStyles?: IPopUpStyles;
-  submitButtonText: string;
-  cancelButtonText?: string;
-  cancelHandler: () => void;
-  displayFlag: boolean;
   style?: React.CSSProperties;
   id: number;
   towerTitle: TowersTypes;

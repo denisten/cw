@@ -11,7 +11,7 @@ import { filterTasksArray } from '../../../utils/filtered-missions-array';
 import { TowerTaskRow } from '../../tasks-view/tower-task-row';
 import { TowersTypes } from '../../../effector/towers-progress/store';
 import { MissionsStore } from '../../../effector/missions-store/store';
-import { MissionTowerRowView } from '../../missions-view/mission-tower-row-view';
+import { ReducedMissionRow } from '../../missions-view/mission-tower-row-view';
 import { MissionTowerView } from '../../missions-view/mission-tower-view';
 import { IDisplayFlag } from '../../root-component';
 import { TaskTypes } from '../../../app';
@@ -91,9 +91,8 @@ export const TowerInfoTask: React.FC<ITowerInfoTask> = ({ towerTitle }) => {
     />
   ));
   const missionsView = filteredMissions.map(el => (
-    <MissionTowerRowView
+    <ReducedMissionRow
       mission={el}
-      isInTowerInfo={true}
       key={el.id}
       callback={(payload: ITask) => setSelectedMission(payload)}
     />

@@ -25,7 +25,7 @@ enum marginRightValues {
 }
 export const TowerInfoWrapper = styled.div<ModalWindowProps>`
   position: absolute;
-  z-index: ${ZIndexes.MODAL};
+  z-index: ${ZIndexes.MENU};
   right: -3px;
   width: 36%;
   height: 100%;

@@ -14,7 +14,7 @@ import { useHandleBackgroundOnload } from '../../hooks/use-handle-background-onl
 
 const styledConfig = {
   overlay: {
-    zIndex: ZIndexes.MODAL,
+    zIndex: ZIndexes.MENU,
   },
   exitButton: {
     top: '-1%',

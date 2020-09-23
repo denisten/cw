@@ -27,6 +27,7 @@ import { TasksStore } from '../../effector/tasks-store/store';
 import { MissionsStore } from '../../effector/missions-store/store';
 import { TutorialDialog } from '../tutorial-dialog';
 import { useLogout } from '../../hooks/use-logout';
+import { CouponModalWindow } from '../modal-window';
 
 const RootComponentWrapper = styled.div.attrs({ id: 'rootScroll' })<
   IDisplayFlag
@@ -117,6 +118,7 @@ export const RootComponent = () => {
         />
       )}
       <>
+        <CouponModalWindow />
         <MoveCoinCollection />
         <TowerInfo />
         <Encyclopedia />

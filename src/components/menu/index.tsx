@@ -36,7 +36,7 @@ const StyledConfig = {
     height: '100%',
   },
   overlay: {
-    zIndex: ZIndexes.MODAL,
+    zIndex: ZIndexes.MENU,
   },
 };
 

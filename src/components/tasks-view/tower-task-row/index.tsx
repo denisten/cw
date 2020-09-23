@@ -7,11 +7,9 @@ import { TaskLoot } from '../../../UI/task-loot';
 import notDoneImg from './not-done.svg';
 import { ColumnWrapper } from '../../../UI/column-wrapper';
 import { TaskTimer } from '../../../UI/task-timer';
-import { ModalWindow } from '../../modal-window';
 import { handleTaskClick } from '../../../utils/handle-task-click';
 import vectorImg from './vector.svg';
 import { RowWrapper } from '../../../UI/row-wrapper';
-import { couponModalConfig } from '../../tower-info/tower-info-chat';
 import { ITask, TaskStatuses } from '../../../effector/tasks-store/store';
 import takeRewardSound from '../../../sound/take-reward.mp3';
 import activeTask from '../../../sound/active-task.mp3';
@@ -23,6 +21,7 @@ import { handleTaskWrapperClick } from '../menu-task-row';
 import { reactGAEvent } from '../../../utils/ga-event';
 import { transliterate } from '../../../utils/transliterate';
 import { TaskTypes } from '../../../app';
+import { openCouponModalWindow } from '../../../effector/coupon-MW-store/events';
 
 export const TaskWrapper = styled.div<ITaskLocation>`
   width: 100%;
@@ -225,8 +224,6 @@ export const TowerTaskRow: React.FC<ITasksRow> = ({
   const { play: playRewardSound } = useAudio(takeRewardSound, false);
   const { play: playActiveTask } = useAudio(activeTask, false);
 
-  const [isCouponModalWindowOpen, setIsCouponModalWindowOpen] = useState(false);
-
   const taskButtonHandler = async (e: React.MouseEvent) => {
     e.stopPropagation();
     task.status === TaskStatuses.DONE && volume && playRewardSound();
@@ -250,7 +247,7 @@ export const TowerTaskRow: React.FC<ITasksRow> = ({
   };
   const handleHintClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    setIsCouponModalWindowOpen(true);
+    openCouponModalWindow({ towerTitle, taskId: task.id });
   };
 
   return (
@@ -259,13 +256,6 @@ export const TowerTaskRow: React.FC<ITasksRow> = ({
       onClick={handleClick}
       isInTowerInfo={isInTowerInfo}
     >
-      <ModalWindow
-        {...couponModalConfig}
-        displayFlag={isCouponModalWindowOpen}
-        cancelHandler={() => setIsCouponModalWindowOpen(false)}
-        id={task.id}
-        towerTitle={towerTitle}
-      />
       <TaskInfo>
         <Icon type={taskTypeSlug} />
         <Title isInTowerInfo={isInTowerInfo}>{task.title}</Title>

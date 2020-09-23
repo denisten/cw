@@ -2,8 +2,6 @@ import React, { useRef, useState } from 'react';
 import { TaskInfo, TaskWrapper, Title } from '../../tasks-view/tower-task-row';
 import { ITask, TaskStatuses } from '../../../effector/tasks-store/store';
 import { TaskLoot } from '../../../UI/task-loot';
-import { couponModalConfig } from '../../tower-info/tower-info-chat';
-import { ModalWindow } from '../../modal-window';
 import { ColumnWrapper } from '../../../UI/column-wrapper';
 import { handleTaskWrapperClick } from '../../tasks-view/menu-task-row';
 import { TaskTimer } from '../../../UI/task-timer';
@@ -38,19 +36,16 @@ const styledConfig = {
   } as React.CSSProperties,
 };
 
-export const MissionTowerRowView: React.FC<IMissionTowerRowView> = ({
-  isInTowerInfo,
-  mission,
+export const ReducedMissionRow: React.FC<IMissionTowerRowView> = ({
   callback,
+  mission,
 }) => {
-  const { taskTypeSlug: taskType, productSlug: towerTitle } = mission;
+  const { taskTypeSlug: taskType } = mission;
 
   const [isOpened, setIsOpened] = useState(false);
   const taskWrapperRef = useRef<HTMLDivElement>(null);
   const taskDescriptionRef = useRef<HTMLDivElement>(null);
   const vectorRef = useRef<HTMLImageElement>(null);
-
-  const [isCouponModalWindowOpen, setIsCouponModalWindowOpen] = useState(false);
 
   const completedSubTasksQuantity = calculateCompletedSubTasksQuantity(mission);
 
@@ -69,26 +64,13 @@ export const MissionTowerRowView: React.FC<IMissionTowerRowView> = ({
     <MissionWrapper
       ref={taskWrapperRef}
       onClick={handleClick}
-      isInTowerInfo={isInTowerInfo}
+      isInTowerInfo={true}
     >
-      <ModalWindow
-        {...couponModalConfig}
-        displayFlag={isCouponModalWindowOpen}
-        cancelHandler={() => setIsCouponModalWindowOpen(false)}
-        id={mission.id}
-        towerTitle={towerTitle}
-      />
       <MissionInfo>
         <Icon type={taskType} />
-        <MissionTitle isInTowerInfo={isInTowerInfo}>
-          {mission.title}
-        </MissionTitle>
+        <MissionTitle isInTowerInfo={true}>{mission.title}</MissionTitle>
         <ColumnWrapper displayFlag={true} position="relative">
-          <TaskLoot
-            money={mission.money}
-            energy={0}
-            isInTowerInfo={isInTowerInfo}
-          />
+          <TaskLoot money={mission.money} energy={0} isInTowerInfo={true} />
           <TaskTimer
             expireInSeconds={mission.localExpireInSeconds}
             towerTitle={mission.productSlug}
@@ -105,7 +87,6 @@ export const MissionTowerRowView: React.FC<IMissionTowerRowView> = ({
 };
 
 interface IMissionTowerRowView {
-  isInTowerInfo: boolean;
   mission: ITask;
   callback: Function;
 }
