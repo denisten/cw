@@ -25,7 +25,7 @@ const TutorialSliderWrapper = styled.div<ITutorialSliderWrapper>`
 `;
 
 const ImageWrapper = styled.div<ITutorialSliderWrapper>`
-  width: 772px;
+  width: 773px;
   height: 301px;
   overflow: hidden;
 `;
