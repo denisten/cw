@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { IMessage } from '../../../api/tasks-api/session';
+import { IMessage, Sender } from '../../../api/tasks-api/session';
 import { TasksStore, TaskStatuses } from '../../../effector/tasks-store/store';
 import { consumeUserTaskAction } from '../../../effector/chat/events';
 import { TowersTypes } from '../../../effector/towers-progress/store';
@@ -21,28 +21,15 @@ import { useAudio } from '../../../hooks/use-sound';
 import { usePlaySoundIf } from '../../../hooks/use-play-sound-if';
 import { TaskTypes } from '../../../app';
 import { TowerInfoChatLayout } from './layout';
+import { openCouponModalWindow } from '../../../effector/coupon-MW-store/events';
 import {
   calculateMessageDelay,
   checkLastFailedMessage,
   checkLastMessage,
-  findLastUserMessageIndex,
   findSubtask,
   isLast,
   scrollToBottom,
 } from '../../../utils/chat-utils';
-
-export const couponModalConfig = {
-  title: 'Выбор купона',
-  popUpStyles: {
-    width: 535,
-    padding: '40px 74px 40px 50px',
-    alignItems: 'flex-start',
-    justifyContent: 'space-between',
-    height: 354,
-  },
-  submitButtonText: 'Использовать',
-  cancelButtonText: 'Отмена',
-};
 
 export enum PromiseStatus {
   PENDING = 'pending',
@@ -50,6 +37,7 @@ export enum PromiseStatus {
 }
 
 const extraDelay = 700;
+const timeOutRefsArray: number[] = [];
 
 export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
   towerTitle,
@@ -61,11 +49,9 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
     towerTitle
   ];
 
-  const [openCouponModal, setOpenCouponModal] = useState(false);
   const [responseStatus, setResponseStatus] = useState(PromiseStatus.PENDING);
   const [savedMessages, setSavedMessages] = useState<IMessage[]>([]);
   const [failedTask, setFailedTask] = useState(false);
-  const timeOutRef = useRef(0);
 
   const currentTask = findSubtask(taskId) || tasks.find(el => el.id === taskId);
   const { count: couponReplaceCount } = userCoupons[CouponTypes.COUPON_REPLACE],
@@ -83,7 +69,6 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
     TaskTypes.PRODUCT_QUIZ,
     TaskTypes.RELATED_QUIZ,
   ]);
-
   const sendAnswerId = async (actionId: number) => {
     if (responseResolved && currentTask) {
       setResponseStatus(PromiseStatus.PENDING);
@@ -133,8 +118,12 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
       setHideTowerInfo(false);
     };
   }, [towerTitle]);
+  const checkTimerArr = () => timeOutRefsArray.filter(el => !!el).length;
 
   useEffect(() => {
+    if (checkTimerArr()) {
+      timeOutRefsArray.forEach(el => clearTimeout(el));
+    }
     if (
       !messages ||
       checkLastMessage(
@@ -144,8 +133,11 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
       )
     )
       return;
-    timeOutRef.current && clearTimeout(timeOutRef.current);
-    const lastUserMessageIndex = findLastUserMessageIndex(messages);
+    const lastUserMessageIndex = messages.reduce(
+      (acc, message, index) =>
+        message.direction === Sender.FRONTEND ? (acc = index) : acc,
+      0
+    );
     if (!lastUserMessageIndex) {
       setSavedMessages(messages);
       setResponseStatus(PromiseStatus.RESOLVED);
@@ -158,16 +150,19 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
       setSavedMessages(messages.slice(0, lastUserMessageIndex + 1));
 
       botLastMessages.forEach((msg, idx) => {
-        timeOutRef.current = setTimeout(() => {
-          setSavedMessages(() => {
+        timeOutRefsArray.push(
+          setTimeout(() => {
+            setSavedMessages([
+              ...messages.slice(0, lastUserMessageIndex + 1 + idx),
+              msg,
+            ]);
             isLast(idx, botLastMessages) &&
               setResponseStatus(PromiseStatus.RESOLVED);
-            return [...messages.slice(0, lastUserMessageIndex + 1 + idx), msg];
-          });
-        }, calculateMessageDelay(msg.text.length) + extraDelay * (idx + 1));
+          }, calculateMessageDelay(msg.text.length) + extraDelay * (idx + 1))
+        );
       });
     }
-  }, [messages]);
+  }, [messages, towerTitle]);
 
   useEffect(() => {
     scrollToBottom(chatContainerRef);
@@ -178,18 +173,15 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
 
   const chatButtonsProps: IChatButtons = {
     haveCoupon: showCouponInterfaceWhenTaskIsFailed,
-    couponCallback: () => setOpenCouponModal(true),
+    couponCallback: () => openCouponModalWindow({ towerTitle, taskId }),
     couponCount: couponReplaceCount + couponSkipCount,
     callback: sendAnswerId,
     actions,
   };
 
   const modalWindowProps: IModalWindow = {
-    displayFlag: openCouponModal,
-    cancelHandler: () => setOpenCouponModal(false),
     id: taskId,
     towerTitle,
-    ...couponModalConfig,
   };
 
   return (

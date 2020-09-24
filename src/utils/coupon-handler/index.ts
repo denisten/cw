@@ -11,11 +11,12 @@ import { updateTaskStatus } from '../../effector/tasks-store/events';
 import { TaskStatuses } from '../../effector/tasks-store/store';
 
 export const couponHandler = async (
-  taskId: number,
+  taskId: number | null,
   selectedCoupon: CouponTypes,
-  towerTitle?: TowersTypes,
+  towerTitle: TowersTypes | null,
   switchers?: ITabSwitchers
 ) => {
+  if (!taskId) return;
   const response = await activateCoupon(selectedCoupon, taskId);
   if (response.state === ResponseStatuses.SUCCESS) {
     if (towerTitle) {

@@ -24,7 +24,7 @@ import { UnavailableSubtaskView } from './unavailable-subtask-view';
 import { MissionProgressBarButton } from '../../UI/mission-progress-bar-button';
 import { TaskTypes } from '../../app';
 import { IDisplayFlag } from '../root-component';
-import { calculateCompletedSubTasksQuantity } from './mission-tower-row-view';
+import { calculateCompletedSubTasksQuantity } from './reduced-mission-row';
 
 const completedTaskMargin = 20;
 

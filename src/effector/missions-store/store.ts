@@ -3,10 +3,10 @@ import { saveMission } from './events';
 import { ITask, TaskStatuses } from '../tasks-store/store';
 import {
   getTaskReward,
-  updateTaskStatus,
   resetMissionsStore,
+  updateTaskStatus,
 } from '../tasks-store/events';
-import { TaskTypes } from '../../app';
+import { subTasksTypes, TaskTypes } from '../../app';
 
 const initState: ITask[] = [];
 
@@ -31,7 +31,7 @@ export const MissionsStore = MissionsDomain.store(initState)
     if (taskType === TaskTypes.MISSION) {
       const missionIdx = state.findIndex(el => el.id === id);
       stateCopy.splice(missionIdx, 1);
-    } else if (taskType === TaskTypes.SUBTASK) {
+    } else if (subTasksTypes.has(taskType)) {
       for (let i = 0; i < state.length; i++) {
         const subtaskIdx = state[i].userSubTasks.findIndex(el => el.id === id);
         if (subtaskIdx !== -1) {

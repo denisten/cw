@@ -23,7 +23,6 @@ const PopUpWrapper = styled.div<IPopUpStyles>`
   background-repeat: no-repeat;
   width: ${props => props.width || defaultWidth}px;
   height: ${props => props.height || defaultHeight}px;
-  z-index: 100;
   padding: ${props => props.padding || defaultPadding};
   box-sizing: border-box;
 `;
@@ -34,7 +33,7 @@ export const PopUpContentWrapper: React.FC<IPopUpContentWrapper> = ({
   ...style
 }) => {
   return (
-    <Overlay displayFlag={displayFlag} zIndex={ZIndexes.UI_BUTTON + 1}>
+    <Overlay displayFlag={displayFlag} zIndex={ZIndexes.MODAL_WINDOW}>
       <PopUpWrapper {...style}>{children}</PopUpWrapper>
     </Overlay>
   );

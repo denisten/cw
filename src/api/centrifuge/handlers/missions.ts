@@ -11,6 +11,10 @@ export const missionsHandler = (missions: ITask[]) => {
     TaskStatuses.REJECTED,
   ]);
   missions.map(mission => {
+    if (mission.expireInSeconds) {
+      mission.localExpireInSeconds = timerLoopUpdater(mission.expireInSeconds);
+    }
+    setMarker({ towerTitle: mission.productSlug, type: MarkerTypes.TASK });
     mission.userSubTasks.map(subtask => {
       if (subtask.status === TaskStatuses.PROGRESS_COMMITTED) {
         subtask.status = TaskStatuses.REWARDED;

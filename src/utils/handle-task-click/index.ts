@@ -64,7 +64,7 @@ export const handleTaskClick = async ({
   const { fullSizeMode } = AppConditionStore.getState();
   const { selectedMenuItem } = MenuStore.getState();
   const { taskId: chatTaskId } = ChatStore.getState()[towerTitle];
-  const { title } = BuildingsService.getConfigForTower(towerTitle);
+  const { title, ref } = BuildingsService.getConfigForTower(towerTitle);
   switch (task.status) {
     case TaskStatuses.CREATED:
       await handleStartTask({
@@ -83,6 +83,11 @@ export const handleTaskClick = async ({
       });
       break;
     case TaskStatuses.ACTIVE:
+      if (selectedMenuItem) {
+        menuClosed();
+        scrollToCurrentTower(ref);
+        extraTowerInfoModalOpen(towerTitle);
+      }
       setTowerInfoContent(TowerInfoContentValues.CHAT);
       break;
     case TaskStatuses.DONE:

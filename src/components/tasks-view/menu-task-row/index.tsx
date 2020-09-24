@@ -1,6 +1,5 @@
 import React, { useRef, useState } from 'react';
 import { handleTaskClick } from '../../../utils/handle-task-click';
-import { ModalWindow } from '../../modal-window';
 import { Icon } from '../../../UI/icons';
 import { RowWrapper } from '../../../UI/row-wrapper';
 import { TaskTimer } from '../../../UI/task-timer';
@@ -32,7 +31,7 @@ import { TaskStatuses } from '../../../effector/tasks-store/store';
 import { reactGAEvent } from '../../../utils/ga-event';
 import { transliterate } from '../../../utils/transliterate';
 import { TaskTypes } from '../../../app';
-import { couponModalConfig } from '../../tower-info/tower-info-chat';
+import { openCouponModalWindow } from '../../../effector/coupon-MW-store/events';
 
 export const TaskWrapper = styled.div<ITaskLocation>`
   width: 719px;
@@ -100,8 +99,6 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
   const taskDescriptionRef = useRef<HTMLDivElement>(null);
   const vectorRef = useRef<HTMLImageElement>(null);
 
-  const [isCouponModalWindowOpen, setIsCouponModalWindowOpen] = useState(false);
-
   const {
     sound: { volume },
   } = useStore(SettingsStore);
@@ -133,7 +130,7 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
 
   const handleHintClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    setIsCouponModalWindowOpen(true);
+    openCouponModalWindow({ taskId: task.id, towerTitle });
   };
   return (
     <>
@@ -185,13 +182,6 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
           <TaskDescription>{task.description}</TaskDescription>
         </TaskDescriptionWrapper>
       </TaskWrapper>
-      <ModalWindow
-        {...couponModalConfig}
-        displayFlag={isCouponModalWindowOpen}
-        cancelHandler={() => setIsCouponModalWindowOpen(false)}
-        id={task.id}
-        towerTitle={towerTitle}
-      />
     </>
   );
 };

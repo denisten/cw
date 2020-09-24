@@ -1,15 +1,27 @@
 import React from 'react';
 import styled from 'styled-components';
 import moneyImg from './money.svg';
-import batteryImg from './battery.svg';
+import energyImg from './energy.svg';
 import { StyledSpan } from '../span';
 import { MTSSans } from '../../fonts';
 import { ITaskLocation } from '../../components/tasks-view/tower-task-row';
+import energyWhiteImg from './energy-white.svg';
 
 enum TaskLootWrapperMarginValues {
-  inTowerInfo = 2,
+  inTowerInfo = 10,
   notInTowerInfo = 16,
 }
+
+const Energy = styled.img.attrs({ src: energyImg })`
+  margin-right: 6px;
+`;
+const EnergyWhite = styled(Energy).attrs({ src: energyWhiteImg })``;
+
+const Money = styled.img.attrs({ src: moneyImg })`
+  width: 24px;
+  height: 24px;
+  margin-right: 7px;
+`;
 
 const TaskLootWrapper = styled.div<ITaskLocation>`
   display: flex;
@@ -24,42 +36,38 @@ const LootWrapper = styled.div<ILootWrapper>`
   align-items: center;
 `;
 
-const CountWrapper = styled(StyledSpan)`
-  min-width: 39px;
+const CountWrapper = styled(StyledSpan)<ICountWrapper>`
+  min-width: 30px;
   height: 23px;
   font-family: ${MTSSans.REGULAR};
   font-size: 16px;
   line-height: 1.5;
   letter-spacing: -0.4px;
-  color: #202d3d;
+  color: ${props => props.color};
   margin-right: 3px;
 `;
 
-const styledConfig = {
-  loot: {
-    marginRight: '6px',
-  },
-  money: {
-    width: '19px',
-    height: '17px',
-    marginRight: '6px',
-  },
-};
+export enum TaskLootLetterColors {
+  WHITE = '#fff',
+  DEFAULT = '#040324',
+}
 
 export const TaskLoot: React.FC<ITaskLoot> = ({
   energy,
   money,
   isInTowerInfo,
+  color = TaskLootLetterColors.DEFAULT,
 }) => {
+  const useWhiteEnergyImg = color === TaskLootLetterColors.WHITE;
   return (
     <TaskLootWrapper isInTowerInfo={isInTowerInfo}>
       <LootWrapper content={energy}>
-        <img src={batteryImg} alt="battery" style={styledConfig.loot} />
-        <CountWrapper>{energy}</CountWrapper>
+        {useWhiteEnergyImg ? <EnergyWhite /> : <Energy />}
+        <CountWrapper color={color}>{energy}</CountWrapper>
       </LootWrapper>
       <LootWrapper content={money}>
-        <img src={moneyImg} alt="money" style={styledConfig.money} />
-        <CountWrapper>{money}</CountWrapper>
+        <Money />
+        <CountWrapper color={color}>{money}</CountWrapper>
       </LootWrapper>
     </TaskLootWrapper>
   );
@@ -68,8 +76,13 @@ export const TaskLoot: React.FC<ITaskLoot> = ({
 interface ITaskLoot extends ITaskLocation {
   energy: number;
   money: number;
+  color?: TaskLootLetterColors;
 }
 
 interface ILootWrapper {
   content: number;
+}
+
+interface ICountWrapper {
+  color: TaskLootLetterColors;
 }

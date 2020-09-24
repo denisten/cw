@@ -18,8 +18,9 @@ const MissionProgressBar = styled.div<IMissionProgressBar>`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #d6f0f4;
+  background: rgba(255, 255, 255, 0.3);
   box-shadow: inset 0 0 2px rgba(32, 189, 218, 0.179469);
+  border-radius: 5px;
   span {
     transform: skew(31deg);
     color: #fff;
@@ -37,7 +38,7 @@ const MissionProgressBar = styled.div<IMissionProgressBar>`
     content: '';
     top: 0;
     left: 0;
-    background: #02adc9;
+    background: #fff;
     box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.5);
   }
 `;
@@ -59,7 +60,7 @@ export const MissionProgressBarButton: React.FC<IMissionProgressBarButton> = ({
   };
 
   return (
-    <RowWrapper style={style}>
+    <RowWrapper style={style} alignItems="center">
       {completedSubTasksQuantity !== task.userSubTasks.length ? (
         <MissionProgressBar
           progress={calculateProgress(

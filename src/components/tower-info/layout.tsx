@@ -20,14 +20,13 @@ type ModalWindowProps = {
 
 enum marginRightValues {
   OPENED = 0,
-  // eslint-disable-next-line @typescript-eslint/no-magic-numbers
   CLOSED = -100,
 }
 export const TowerInfoWrapper = styled.div<ModalWindowProps>`
   position: absolute;
-  z-index: ${ZIndexes.MODAL};
+  z-index: ${ZIndexes.MENU};
   right: -3px;
-  width: 36%;
+  width: 560px;
   height: 100%;
   top: 0;
   box-sizing: border-box;
@@ -39,20 +38,22 @@ export const TowerInfoWrapper = styled.div<ModalWindowProps>`
   flex-direction: column;
   background: url(${background}) no-repeat center;
   background-size: 100% 100%;
-  @media screen and (max-width: 1440px) {
-    width: 547px;
-  }
-
-  @media screen and (max-width: 1280px) {
-    height: 100%;
-    top: 0;
-  }
+  padding: 0 15px 0 15px;
+  //@media screen and (max-width: 1440px) {
+  //  width: 547px;
+  //}
+  //
+  //@media screen and (max-width: 1280px) {
+  //  height: 100%;
+  //  top: 0;
+  //}
 `;
 
 const ModalWindowContentWrapper = styled.div`
   height: 100%;
   width: 100%;
-  padding: 0 32px 110px 40px;
+  //padding: 0 32px 110px 40px;
+  padding: 0 0 110px 15px;
   overflow: hidden;
   box-sizing: border-box;
   display: flex;

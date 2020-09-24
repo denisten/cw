@@ -9,6 +9,7 @@ import { TaskTypes } from '../../app';
 
 export const saveTask = MissionsDomain.event<ITask[]>();
 export const updateTaskStatus = MissionsDomain.event<IUpdateTaskStatus>();
+
 interface IUpdateTaskStatus {
   taskId: number;
   status: TaskStatuses;

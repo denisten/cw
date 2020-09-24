@@ -1,5 +1,5 @@
 import React from 'react';
-import { IModalWindow, ModalWindow } from '../../modal-window';
+import { IModalWindow } from '../../modal-window';
 import { PromiseStatus } from './index';
 import { ChatAvatar } from '../../../UI/chat-avatar';
 import { IMessage, Sender } from '../../../api/tasks-api/session';
@@ -76,6 +76,7 @@ const MessageRow = styled.div<IMessageRow>`
   align-items: flex-end;
   margin-bottom: 24px;
 `;
+
 export const TowerInfoChatLayout: React.FC<ITowerInfoChatLayout> = props => {
   const isResponseResolved = () =>
     props.responseStatus === PromiseStatus.RESOLVED;
@@ -117,7 +118,6 @@ export const TowerInfoChatLayout: React.FC<ITowerInfoChatLayout> = props => {
     <>
       {chatWrapperContent}
       {chatButtons}
-      <ModalWindow {...props.modalWindowProps} />
     </>
   );
 };
