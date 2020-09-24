@@ -26,6 +26,13 @@ import { usePlaySoundIf } from '../../../hooks/use-play-sound-if';
 import { MissionsStore } from '../../../effector/missions-store/store';
 import { TaskTypes } from '../../../app';
 import { TowerInfoChatLayout } from './layout';
+import {
+  calculateMessageDelay,
+  checkLastFailedMessage,
+  isChatEnded,
+  isLastAnswerBelongToUser,
+  scrollToBottom,
+} from '../../../utils/chat-utils';
 
 export const couponModalConfig = {
   title: 'Выбор купона',
@@ -39,11 +46,6 @@ export const couponModalConfig = {
   submitButtonText: 'Использовать',
   cancelButtonText: 'Отмена',
 };
-
-const lettersPerSecond = 70,
-  ms = 1000;
-const calculateMessageDelay = (letters: number) =>
-  (letters / lettersPerSecond) * ms;
 
 const findSubtask = (taskId: number): ITask | undefined => {
   const missions = MissionsStore.getState();
@@ -59,27 +61,10 @@ export enum PromiseStatus {
 
 const extraDelay = 700;
 
-const checkLastFailedMessage = (messages: IMessage[]) =>
-  messages && messages[messages.length - 1]?.failedTask;
-
-const checkLastSuccessMessage = (messages: IMessage[]) =>
-  messages && messages[messages.length - 1]?.successTask;
-
-const isChatEnded = (messages: IMessage[]) =>
-  checkLastFailedMessage(messages) || checkLastSuccessMessage(messages);
-
-const isLastAnswerBelongToUser = (messages: IMessage[]) =>
-  messages[messages.length - 1]?.direction === Sender.FRONTEND;
-
 export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
   towerTitle,
   switchers,
 }) => {
-  const wantedTaskStatuses = new Set([
-    TaskTypes.PRODUCT_QUIZ,
-    TaskTypes.RELATED_QUIZ,
-  ]);
-
   const { userCoupons } = useStore(UserMarketStore);
   const tasks = useStore(TasksStore);
   const { blockId, taskId, actions, messages, ended } = useStore(ChatStore)[
@@ -97,19 +82,17 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
     { count: couponSkipCount } = userCoupons[CouponTypes.COUPON_SKIP];
 
   const chatContainerRef = useRef<HTMLDivElement>(null);
-
   const haveMessages = messages && messages.length > 0;
-
   const responseResolved = responseStatus === PromiseStatus.RESOLVED;
-
   const showCouponInterfaceWhenTaskIsFailed = ended && failedTask;
   const { volume } = useStore(SettingsStore).sound;
 
-  const scrollToBottom = () =>
-    chatContainerRef.current &&
-    chatContainerRef.current.scrollTo(0, chatContainerRef.current.scrollHeight);
-
   const { play: newMessagePlay } = useAudio(newMessage, false);
+
+  const wantedTaskStatuses = new Set([
+    TaskTypes.PRODUCT_QUIZ,
+    TaskTypes.RELATED_QUIZ,
+  ]);
 
   const sendAnswerId = async (actionId: number) => {
     if (responseResolved && currentTask) {
@@ -155,7 +138,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
     !haveMessages &&
       currentTask &&
       checkChatSession(currentTask, taskId, towerTitle);
-    scrollToBottom();
+    scrollToBottom(chatContainerRef);
     return () => {
       setHideTowerInfo(false);
     };
@@ -201,7 +184,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
   }, [messages]);
 
   useEffect(() => {
-    scrollToBottom();
+    scrollToBottom(chatContainerRef);
     checkLastFailedMessage(messages)
       ? setFailedTask(true)
       : setFailedTask(false);
