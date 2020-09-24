@@ -122,6 +122,9 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
   const checkTimerArr = () => timeOutRefsArray.filter(el => !!el).length;
 
   useEffect(() => {
+    if (checkTimerArr()) {
+      timeOutRefsArray.forEach(el => clearTimeout(el));
+    }
     if (
       !messages ||
       checkLastMessage(
@@ -130,9 +133,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
         () => setSavedMessages(messages)
       )
     )
-      if (checkTimerArr()) {
-        timeOutRefsArray.forEach(el => clearTimeout(el));
-      }
+      return;
     const lastUserMessageIndex = messages.reduce(
       (acc, message, index) =>
         message.direction === Sender.FRONTEND ? (acc = index) : acc,
