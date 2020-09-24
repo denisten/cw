@@ -1,10 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { IMessage, Sender } from '../../../api/tasks-api/session';
-import {
-  ITask,
-  TasksStore,
-  TaskStatuses,
-} from '../../../effector/tasks-store/store';
+import { TasksStore, TaskStatuses } from '../../../effector/tasks-store/store';
 import { consumeUserTaskAction } from '../../../effector/chat/events';
 import { TowersTypes } from '../../../effector/towers-progress/store';
 import { ITabSwitchers } from '../index';
@@ -23,23 +19,16 @@ import newMessage from '../../../sound/newMessage.wav';
 import { SettingsStore } from '../../../effector/settings/store';
 import { useAudio } from '../../../hooks/use-sound';
 import { usePlaySoundIf } from '../../../hooks/use-play-sound-if';
-import { MissionsStore } from '../../../effector/missions-store/store';
 import { TaskTypes } from '../../../app';
 import { TowerInfoChatLayout } from './layout';
 import { openCouponModalWindow } from '../../../effector/coupon-MW-store/events';
+import {
+  calculateMessageDelay,
+  findSubtask,
+  isLast,
+  scrollToBottom,
+} from '../../../utils/chat-utils';
 
-const lettersPerSecond = 70,
-  ms = 1000;
-const calculateMessageDelay = (letters: number) =>
-  (letters / lettersPerSecond) * ms;
-
-const findSubtask = (taskId: number): ITask | undefined => {
-  const missions = MissionsStore.getState();
-  for (let i = 0; i < missions.length; i++)
-    for (let j = 0; j < missions[i].userSubTasks.length; j++)
-      if (missions[i].userSubTasks[j].id === taskId)
-        return missions[i].userSubTasks[j];
-};
 export enum PromiseStatus {
   PENDING = 'pending',
   RESOLVED = 'resolved',
@@ -62,11 +51,6 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
   towerTitle,
   switchers,
 }) => {
-  const wantedTaskStatuses = new Set([
-    TaskTypes.PRODUCT_QUIZ,
-    TaskTypes.RELATED_QUIZ,
-  ]);
-
   const { userCoupons } = useStore(UserMarketStore);
   const tasks = useStore(TasksStore);
   const { blockId, taskId, actions, messages, ended } = useStore(ChatStore)[
@@ -82,22 +66,21 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
     { count: couponSkipCount } = userCoupons[CouponTypes.COUPON_SKIP];
 
   const chatContainerRef = useRef<HTMLDivElement>(null);
-
   const haveMessages = messages && messages.length > 0;
-
   const responseResolved = responseStatus === PromiseStatus.RESOLVED;
-
   const showCouponInterfaceWhenTaskIsFailed = ended && failedTask;
   const { volume } = useStore(SettingsStore).sound;
 
-  const scrollToBottom = () =>
-    chatContainerRef.current &&
-    chatContainerRef.current.scrollTo(0, chatContainerRef.current.scrollHeight);
-
   const { play: newMessagePlay } = useAudio(newMessage, false);
+
+  const wantedTaskStatuses = new Set([
+    TaskTypes.PRODUCT_QUIZ,
+    TaskTypes.RELATED_QUIZ,
+  ]);
 
   const sendAnswerId = async (actionId: number) => {
     if (responseResolved && currentTask) {
+      setResponseStatus(PromiseStatus.PENDING);
       const {
         data: { ended },
       } = await consumeUserTaskAction({
@@ -106,7 +89,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
         actionId,
         towerTitle,
       });
-      setResponseStatus(PromiseStatus.PENDING);
+
       if (ended) {
         if (wantedTaskStatuses.has(currentTask.taskTypeSlug)) {
           await chatEndedHandler(taskId, towerTitle);
@@ -139,7 +122,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
     !haveMessages &&
       currentTask &&
       checkChatSession(currentTask, taskId, towerTitle);
-    scrollToBottom();
+    scrollToBottom(chatContainerRef);
     return () => {
       setHideTowerInfo(false);
     };
@@ -171,7 +154,6 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
         messages.length
       );
       setSavedMessages(messages.slice(0, lastUserMessageIndex + 1));
-      const isLast = (idx: number) => botLastMessages.length - 1 === idx;
 
       botLastMessages.forEach((msg, idx) => {
         timeOutRefsArray.push(
@@ -180,7 +162,8 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
               ...messages.slice(0, lastUserMessageIndex + 1 + idx),
               msg,
             ]);
-            isLast(idx) && setResponseStatus(PromiseStatus.RESOLVED);
+            isLast(idx, botLastMessages) &&
+              setResponseStatus(PromiseStatus.RESOLVED);
           }, calculateMessageDelay(msg.text.length) + extraDelay * (idx + 1))
         );
       });
@@ -188,7 +171,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
   }, [messages, towerTitle]);
 
   useEffect(() => {
-    scrollToBottom();
+    scrollToBottom(chatContainerRef);
     checkLastFailedMessage(messages)
       ? setFailedTask(true)
       : setFailedTask(false);

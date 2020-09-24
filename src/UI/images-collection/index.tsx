@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import styled from 'styled-components';
 
 const Img = styled.img`
-  width: 772px;
+  width: 773px;
   height: 301px;
   flex-shrink: 0;
 `;
