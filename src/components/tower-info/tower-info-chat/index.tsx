@@ -24,6 +24,8 @@ import { TowerInfoChatLayout } from './layout';
 import { openCouponModalWindow } from '../../../effector/coupon-MW-store/events';
 import {
   calculateMessageDelay,
+  checkLastFailedMessage,
+  checkLastMessage,
   findSubtask,
   isLast,
   scrollToBottom,
@@ -35,16 +37,6 @@ export enum PromiseStatus {
 }
 
 const extraDelay = 700;
-
-const checkLastFailedMessage = (messages: IMessage[]) =>
-  messages && messages[messages.length - 1]?.failedTask;
-
-const checkLastSuccessMessage = (messages: IMessage[]) =>
-  messages && messages[messages.length - 1]?.successTask;
-
-const isChatEnded = (messages: IMessage[]) =>
-  checkLastFailedMessage(messages) || checkLastSuccessMessage(messages);
-
 const timeOutRefsArray: number[] = [];
 
 export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
@@ -130,15 +122,17 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
   const checkTimerArr = () => timeOutRefsArray.filter(el => !!el).length;
 
   useEffect(() => {
-    if (!messages) return;
-    if (checkTimerArr()) {
-      timeOutRefsArray.forEach(el => clearTimeout(el));
-    }
-    if (isChatEnded(messages)) {
-      setResponseStatus(PromiseStatus.RESOLVED);
-      setSavedMessages(messages);
-      return;
-    }
+    if (
+      !messages ||
+      checkLastMessage(
+        messages,
+        () => setResponseStatus(PromiseStatus.RESOLVED),
+        () => setSavedMessages(messages)
+      )
+    )
+      if (checkTimerArr()) {
+        timeOutRefsArray.forEach(el => clearTimeout(el));
+      }
     const lastUserMessageIndex = messages.reduce(
       (acc, message, index) =>
         message.direction === Sender.FRONTEND ? (acc = index) : acc,
