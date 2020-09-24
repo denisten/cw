@@ -69,7 +69,6 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
     TaskTypes.PRODUCT_QUIZ,
     TaskTypes.RELATED_QUIZ,
   ]);
-
   const sendAnswerId = async (actionId: number) => {
     if (responseResolved && currentTask) {
       setResponseStatus(PromiseStatus.PENDING);

@@ -49,7 +49,12 @@ export const findLastUserMessageIndex = (messages: IMessage[]) =>
     0
   );
 
-export const findSubtask = (taskId: number): ITask | undefined =>
-  MissionsStore.getState().find(mission =>
-    mission.userSubTasks.find(subTask => subTask.id === taskId)
-  );
+export const findSubtask = (taskId: number): ITask | undefined => {
+  let result = undefined;
+  MissionsStore.getState().forEach(mission => {
+    mission.userSubTasks.forEach(subtask => {
+      if (subtask.id === taskId) result = subtask;
+    });
+  });
+  return result;
+};
