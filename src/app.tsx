@@ -45,6 +45,8 @@ export const subTasksTypes = new Set([
   TaskTypes.INFORMATIONAL,
   TaskTypes.SUBTASK,
   TaskTypes.TASK,
+  TaskTypes.PRODUCT_QUIZ,
+  TaskTypes.RELATED_QUIZ,
 ]);
 
 export const App: React.FC = () => {
