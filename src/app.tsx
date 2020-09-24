@@ -26,7 +26,6 @@ enum EventCodes {
   STRING_PLUS = '=',
   STRING_MINUS = '-',
 }
-
 export enum TaskTypes {
   TUTORIAL_TASK = 'tutorial-task',
   TASK = 'task',
@@ -41,6 +40,12 @@ export enum TaskTypes {
   COSMETIC = 'cosmetic',
   SUBTASK = 'subtask',
 }
+
+export const subTasksTypes = new Set([
+  TaskTypes.INFORMATIONAL,
+  TaskTypes.SUBTASK,
+  TaskTypes.TASK,
+]);
 
 export const App: React.FC = () => {
   const wheelPreventDefault = (e: WheelEvent) =>

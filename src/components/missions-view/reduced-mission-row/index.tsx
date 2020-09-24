@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { TaskWrapper } from '../../tasks-view/tower-task-row';
 import { ITask, TaskStatuses } from '../../../effector/tasks-store/store';
-import { TaskLoot } from '../../../UI/task-loot';
+import { TaskLoot, TaskLootLetterColors } from '../../../UI/task-loot';
 import { ColumnWrapper } from '../../../UI/column-wrapper';
 import { handleTaskWrapperClick } from '../../tasks-view/menu-task-row';
 import { TaskTimer } from '../../../UI/task-timer';
@@ -12,21 +12,21 @@ import { StyledSpan } from '../../../UI/span';
 import { MTSSans } from '../../../fonts';
 import arrowImg from './arrow.svg';
 
-enum MissionWrapperHeight {
-  SMALL = 72,
-  BIG = 191,
+const defaultMissionIconMarginRight = 12;
+export enum ReducedMissionWrapperWidth {
+  IN_TOWER_INFO = 491,
+  NOT_IN_TOWER_INFO = 719,
 }
 
-const MissionWrapper = styled(TaskWrapper)<IMissionWrapper>`
-  height: ${props =>
-    props.needFullDescription
-      ? MissionWrapperHeight.BIG
-      : MissionWrapperHeight.SMALL}px;
-  width: 491px;
+export const ReducedMissionWrapper = styled(TaskWrapper)`
+  height: 72px;
+  width: ${props =>
+    props.isInTowerInfo
+      ? ReducedMissionWrapperWidth.IN_TOWER_INFO
+      : ReducedMissionWrapperWidth.NOT_IN_TOWER_INFO}px;
   min-height: 72px;
   display: flex;
   align-items: center;
-  justify-content: space-around;
   flex-direction: row;
   overflow: hidden;
   padding: 11px 19px 12px 11px;
@@ -36,19 +36,29 @@ const MissionWrapper = styled(TaskWrapper)<IMissionWrapper>`
   border-radius: 15px;
   user-select: none;
   cursor: pointer;
-  color: #fff !important ;
 `;
-
-const MissionTitle = styled(StyledSpan)`
+enum ReducedMissionTitleWidth {
+  IN_TOWER_INFO = 160,
+  NOT_IN_TOWER_INFO = 380,
+}
+export const ReducedMissionTitle = styled(StyledSpan)<IReducedMissionTitle>`
   font-family: ${MTSSans.MEDIUM};
   font-size: 16px;
   line-height: 24px;
   letter-spacing: -0.4px;
   font-weight: 500;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: ${props =>
+    props.isInTowerInfo
+      ? ReducedMissionTitleWidth.IN_TOWER_INFO
+      : ReducedMissionTitleWidth.NOT_IN_TOWER_INFO}px;
 `;
-
-const MissionIcon = styled.img.attrs({ src: rocketImg })`
-  margin-right: 12px;
+export const MissionIcon = styled.img.attrs({ src: rocketImg })<IMissionIcon>`
+  margin-right: ${props =>
+    props.marginRight || defaultMissionIconMarginRight}px;
 `;
 
 const Arrow = styled.img.attrs({ src: arrowImg })`
@@ -61,17 +71,16 @@ export const calculateCompletedSubTasksQuantity = (mission: ITask) => {
     .length;
 };
 
-const style = {
+export const style = {
   displayFlag: true,
   position: 'relative',
-  maxWidth: '177px',
   margin: '0 16px 0 0',
 };
 
-export const MissionRow: React.FC<IMissionRow> = ({
+export const ReducedMissionRow: React.FC<IReducedMissionRow> = ({
   callback,
   mission,
-  needFullDescription,
+  isInTowerInfo,
 }) => {
   const { taskTypeSlug: taskType } = mission;
 
@@ -93,15 +102,16 @@ export const MissionRow: React.FC<IMissionRow> = ({
     });
   };
   return (
-    <MissionWrapper
-      needFullDescription={needFullDescription}
+    <ReducedMissionWrapper
       ref={taskWrapperRef}
       onClick={handleClick}
-      isInTowerInfo={true}
+      isInTowerInfo={isInTowerInfo}
     >
       <MissionIcon />
       <ColumnWrapper {...style}>
-        <MissionTitle>{mission.title}</MissionTitle>
+        <ReducedMissionTitle isInTowerInfo={isInTowerInfo}>
+          {mission.title}
+        </ReducedMissionTitle>
         {mission.localExpireInSeconds && (
           <TaskTimer
             expireInSeconds={mission.localExpireInSeconds}
@@ -109,21 +119,30 @@ export const MissionRow: React.FC<IMissionRow> = ({
           />
         )}
       </ColumnWrapper>
-      <TaskLoot money={mission.money} energy={0} isInTowerInfo={true} />
+      <TaskLoot
+        money={mission.money}
+        energy={0}
+        isInTowerInfo={isInTowerInfo}
+        color={TaskLootLetterColors.WHITE}
+      />
       <MissionProgressBarButton
         task={mission}
         completedSubTasksQuantity={completedSubTasksQuantity}
       />
-      {!needFullDescription && <Arrow />}
-    </MissionWrapper>
+      <Arrow />
+    </ReducedMissionWrapper>
   );
 };
 
-interface IMissionRow extends IMissionWrapper {
+export interface IReducedMissionRow extends IReducedMissionTitle {
   mission: ITask;
   callback?: Function;
 }
 
-interface IMissionWrapper {
-  needFullDescription: boolean;
+interface IMissionIcon {
+  marginRight?: number;
+}
+
+interface IReducedMissionTitle {
+  isInTowerInfo: boolean;
 }

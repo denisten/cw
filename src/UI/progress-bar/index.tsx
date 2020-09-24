@@ -124,7 +124,6 @@ export const ProgressBar: React.FC<IProgressBar> = ({
   const progressBarWrapperRef = useRef<HTMLDivElement>(null);
   const { title } = BuildingsService.getConfigForTower(towerTitle);
   const { level } = useStore(TowersProgressStore)[towerTitle].level;
-
   const handleClick = async () => {
     if (
       tutorialCondition === TutorialConditions.UPGRADE_BUTTON_TOWER_INFO &&
@@ -159,7 +158,6 @@ export const ProgressBar: React.FC<IProgressBar> = ({
   };
 
   useEditProgressbarClassname(progressBarWrapperRef.current, needUpgrade);
-
   const content = !needUpgrade ? (
     <ProgressBarGreenLine progress={progress} />
   ) : (

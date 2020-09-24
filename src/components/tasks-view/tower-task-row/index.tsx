@@ -58,7 +58,7 @@ export const TaskButton = styled.div<ITaskButton>`
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 2px;
+  border-radius: 5px;
   cursor: pointer;
   &.${TaskStatuses.CREATED} {
     background: #02adc9;
