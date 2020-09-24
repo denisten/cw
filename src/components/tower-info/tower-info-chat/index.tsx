@@ -1,10 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { IMessage, Sender } from '../../../api/tasks-api/session';
-import {
-  ITask,
-  TasksStore,
-  TaskStatuses,
-} from '../../../effector/tasks-store/store';
+import { IMessage } from '../../../api/tasks-api/session';
+import { TasksStore, TaskStatuses } from '../../../effector/tasks-store/store';
 import { consumeUserTaskAction } from '../../../effector/chat/events';
 import { TowersTypes } from '../../../effector/towers-progress/store';
 import { ITabSwitchers } from '../index';
@@ -23,14 +19,15 @@ import newMessage from '../../../sound/newMessage.wav';
 import { SettingsStore } from '../../../effector/settings/store';
 import { useAudio } from '../../../hooks/use-sound';
 import { usePlaySoundIf } from '../../../hooks/use-play-sound-if';
-import { MissionsStore } from '../../../effector/missions-store/store';
 import { TaskTypes } from '../../../app';
 import { TowerInfoChatLayout } from './layout';
 import {
   calculateMessageDelay,
   checkLastFailedMessage,
-  isChatEnded,
-  isLastAnswerBelongToUser,
+  checkLastMessage,
+  findLastUserMessageIndex,
+  findSubtask,
+  isLast,
   scrollToBottom,
 } from '../../../utils/chat-utils';
 
@@ -47,13 +44,6 @@ export const couponModalConfig = {
   cancelButtonText: 'Отмена',
 };
 
-const findSubtask = (taskId: number): ITask | undefined => {
-  const missions = MissionsStore.getState();
-  for (let i = 0; i < missions.length; i++)
-    for (let j = 0; j < missions[i].userSubTasks.length; j++)
-      if (missions[i].userSubTasks[j].id === taskId)
-        return missions[i].userSubTasks[j];
-};
 export enum PromiseStatus {
   PENDING = 'pending',
   RESOLVED = 'resolved',
@@ -144,22 +134,18 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
     };
   }, [towerTitle]);
 
-  const checkLastMessage = (messages: IMessage[]) => {
-    if (isChatEnded(messages) || isLastAnswerBelongToUser(messages)) {
-      setResponseStatus(PromiseStatus.RESOLVED);
-      setSavedMessages(messages);
-      return true;
-    }
-  };
-
   useEffect(() => {
-    if (!messages || checkLastMessage(messages)) return;
+    if (
+      !messages ||
+      checkLastMessage(
+        messages,
+        () => setResponseStatus(PromiseStatus.RESOLVED),
+        () => setSavedMessages(messages)
+      )
+    )
+      return;
     timeOutRef.current && clearTimeout(timeOutRef.current);
-    const lastUserMessageIndex = messages.reduce(
-      (acc, message, index) =>
-        message.direction === Sender.FRONTEND ? (acc = index) : acc,
-      0
-    );
+    const lastUserMessageIndex = findLastUserMessageIndex(messages);
     if (!lastUserMessageIndex) {
       setSavedMessages(messages);
       setResponseStatus(PromiseStatus.RESOLVED);
@@ -170,12 +156,12 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
         messages.length
       );
       setSavedMessages(messages.slice(0, lastUserMessageIndex + 1));
-      const isLast = (idx: number) => botLastMessages.length - 1 === idx;
 
       botLastMessages.forEach((msg, idx) => {
         timeOutRef.current = setTimeout(() => {
           setSavedMessages(() => {
-            isLast(idx) && setResponseStatus(PromiseStatus.RESOLVED);
+            isLast(idx, botLastMessages) &&
+              setResponseStatus(PromiseStatus.RESOLVED);
             return [...messages.slice(0, lastUserMessageIndex + 1 + idx), msg];
           });
         }, calculateMessageDelay(msg.text.length) + extraDelay * (idx + 1));
