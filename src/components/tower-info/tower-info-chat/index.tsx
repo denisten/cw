@@ -54,6 +54,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
   const [failedTask, setFailedTask] = useState(false);
 
   const currentTask = findSubtask(taskId) || tasks.find(el => el.id === taskId);
+  const isSubTask = !!findSubtask(taskId);
   const { count: couponReplaceCount } = userCoupons[CouponTypes.COUPON_REPLACE],
     { count: couponSkipCount } = userCoupons[CouponTypes.COUPON_SKIP];
 
@@ -88,6 +89,7 @@ export const TowerInfoChat: React.FC<ITowerInfoChat> = ({
           setCurrentTaskStatus({
             taskId: currentTask.id,
             status: TaskStatuses.DONE,
+            isSubTask,
           });
           setMarker({
             towerTitle,

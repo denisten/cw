@@ -4,16 +4,17 @@ import { ITask, TaskStatuses } from '../tasks-store/store';
 import {
   getTaskReward,
   resetMissionsStore,
-  updateTaskStatus,
+  setCurrentTaskStatus,
 } from '../tasks-store/events';
 import { subTasksTypes, TaskTypes } from '../../app';
 
 const initState: ITask[] = [];
 
 export const MissionsStore = MissionsDomain.store(initState)
-  .on(updateTaskStatus, (state, { status, taskId, isSubtask }) => {
+
+  .on(setCurrentTaskStatus, (state, { status, taskId, isSubTask }) => {
+    if (!isSubTask) return state;
     const stateClone = [...state];
-    if (!isSubtask) return state;
     let taskIdx = -1,
       missionIdx = -1;
     for (let i = 0; i < state.length; i++) {

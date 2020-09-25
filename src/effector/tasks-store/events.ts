@@ -41,6 +41,7 @@ export const resetMissionsStore = MissionsDomain.event();
 interface ISetCurrentTaskStatus {
   taskId: number;
   status: TaskStatuses;
+  isSubTask: boolean;
 }
 
 interface IGetResult extends IGetTaskResultRequest {
