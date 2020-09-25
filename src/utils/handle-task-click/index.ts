@@ -1,9 +1,6 @@
 import React from 'react';
 import { ITask, TaskStatuses } from '../../effector/tasks-store/store';
-import {
-  AppConditionStore,
-  TowerInfoContentValues,
-} from '../../effector/app-condition/store';
+import { TowerInfoContentValues } from '../../effector/app-condition/store';
 import { ChatStore } from '../../effector/chat/store';
 import { chatTaskSession, clearChat } from '../../effector/chat/events';
 import { setTowerInfoContent } from '../../effector/app-condition/events';
@@ -23,19 +20,21 @@ import { MenuItems } from '../../UI/menu-paragraph';
 import { reactGAEvent } from '../ga-event';
 import { transliterate } from '../transliterate';
 
+const magicDelay = 400;
 export const handleStartTask = async ({
   chatTaskId,
   id,
   towerTitle,
   selectedMenuItem,
-  fullSizeMode,
 }: IHandleStartTask) => {
   if (!chatTaskId) {
     await chatTaskSession({ id, towerTitle });
     selectedMenuItem && menuClosed();
     setTowerInfoContent(TowerInfoContentValues.CHAT);
-    fullSizeMode && extraTowerInfoModalOpen(towerTitle);
-    scrollToCurrentTower(BuildingsService.getConfigForTower(towerTitle).ref);
+    extraTowerInfoModalOpen(towerTitle);
+    setTimeout(() => {
+      scrollToCurrentTower(BuildingsService.getConfigForTower(towerTitle).ref);
+    }, magicDelay);
   } else
     coughtError({
       text: 'Сначала нужно закончить начатое задание.',
@@ -61,7 +60,6 @@ export const handleTaskClick = async ({
   taskType,
 }: IHandleTaskClick) => {
   const { id, productSlug: towerTitle, money } = task;
-  const { fullSizeMode } = AppConditionStore.getState();
   const { selectedMenuItem } = MenuStore.getState();
   const { taskId: chatTaskId } = ChatStore.getState()[towerTitle];
   const { title, ref } = BuildingsService.getConfigForTower(towerTitle);
@@ -72,7 +70,6 @@ export const handleTaskClick = async ({
         id,
         towerTitle,
         selectedMenuItem,
-        fullSizeMode,
       });
       reactGAEvent({
         eventLabel: 'vypolnit',
@@ -124,5 +121,4 @@ interface IHandleStartTask {
   id: number;
   towerTitle: TowersTypes;
   selectedMenuItem: MenuItems | null;
-  fullSizeMode: boolean;
 }

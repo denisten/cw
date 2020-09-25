@@ -1,6 +1,5 @@
 import React from 'react';
 import { ITask, TaskStatuses } from '../../effector/tasks-store/store';
-import { AppConditionStore } from '../../effector/app-condition/store';
 import { ChatStore } from '../../effector/chat/store';
 import { MenuStore } from '../../effector/menu-store/store';
 import { editUserProperty } from '../../effector/user-data/events';
@@ -19,7 +18,6 @@ export const handleMissionClick = async ({
   e,
 }: IHandleMissionClick) => {
   const { id, productSlug: towerTitle, money } = mission;
-  const { fullSizeMode } = AppConditionStore.getState();
   const { selectedMenuItem } = MenuStore.getState();
   const { taskId: chatTaskId } = ChatStore.getState()[towerTitle];
   switch (mission.status) {
@@ -29,7 +27,6 @@ export const handleMissionClick = async ({
         id,
         towerTitle,
         selectedMenuItem,
-        fullSizeMode,
       });
       break;
     case TaskStatuses.ACTIVE:
