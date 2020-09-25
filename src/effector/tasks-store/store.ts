@@ -35,7 +35,8 @@ export const TasksStore = MissionsDomain.store(initStore)
     return [...state.slice(0, taskIdx), task, ...state.slice(taskIdx + 1)];
   })
   .on(saveTask, (state, payload) => payload)
-  .on(setCurrentTaskStatus, (state, { taskId, status }) => {
+  .on(setCurrentTaskStatus, (state, { taskId, status, isSubTask }) => {
+    if (isSubTask) return state;
     const currentTaskIndex = state.findIndex(el => el.id === taskId);
     return [
       ...state.slice(0, currentTaskIndex),
@@ -58,6 +59,8 @@ export const TasksStore = MissionsDomain.store(initStore)
   .on(getResult.doneData, (state, payload) => {
     const { success } = payload.quizResult;
     const currentTaskIndex = state.findIndex(el => el.id === payload.id);
+    if (currentTaskIndex === -1) return state;
+
     let editedTask;
     if (success) {
       editedTask = {
