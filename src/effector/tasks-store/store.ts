@@ -59,6 +59,8 @@ export const TasksStore = MissionsDomain.store(initStore)
   .on(getResult.doneData, (state, payload) => {
     const { success } = payload.quizResult;
     const currentTaskIndex = state.findIndex(el => el.id === payload.id);
+    if (currentTaskIndex === -1) return state;
+
     let editedTask;
     if (success) {
       editedTask = {
