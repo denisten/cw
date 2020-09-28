@@ -46,6 +46,7 @@ export const detectSubTaskIdx = (tasks: ITask[]) => {
     TaskStatuses.CREATED,
     TaskStatuses.ACTIVE,
     TaskStatuses.REJECTED,
+    TaskStatuses.DONE,
   ]);
   for (let taskIdx = 0; taskIdx < tasks.length; taskIdx++)
     if (wantedStatuses.has(tasks[taskIdx].status)) return taskIdx;
