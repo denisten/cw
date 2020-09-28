@@ -52,6 +52,7 @@ export const MissionsStore = MissionsDomain.store(initState)
 
 saveMission.watch(el =>
   el.map(el => {
+    if (el.status === TaskStatuses.ACTIVE) return;
     setMarker({
       towerTitle: el.productSlug,
       type: detectTaskStatus(el.status),
