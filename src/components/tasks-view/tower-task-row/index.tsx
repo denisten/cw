@@ -169,7 +169,7 @@ export const HintWrapper = styled.div`
   cursor: pointer;
   color: #03adc9;
   ::after {
-    content: 'Использовате купон';
+    content: 'Использовать купон';
   }
 `;
 
