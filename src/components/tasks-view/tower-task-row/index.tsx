@@ -201,6 +201,10 @@ export const taskRowStyledConfig = {
     width: '100%',
     justifyContent: 'space-between',
   } as React.CSSProperties,
+
+  firstRowWrapper: {
+    flexShrink: 0,
+  } as React.CSSProperties,
 };
 
 export const checkTaskStatus = (status: TaskStatuses) =>

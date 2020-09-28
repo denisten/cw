@@ -59,12 +59,6 @@ export const Title = styled(StyledSpan)<ITaskLocation>`
   font-weight: 500;
 `;
 
-const styledConfig = {
-  rowWrapper: {
-    flexShrink: 0,
-  },
-};
-
 export const handleTaskWrapperClick = ({
   taskDescriptionRef,
   taskType,
@@ -149,7 +143,7 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
           <Icon type={available ? taskTypeSlug : TaskStatuses.NOT_AVAILABLE} />
           <Title isInTowerInfo={isInTowerInfo}>{task.title}</Title>
           {available && (
-            <RowWrapper style={styledConfig.rowWrapper}>
+            <RowWrapper style={taskRowStyledConfig.firstRowWrapper}>
               <ColumnWrapper {...taskRowStyledConfig.columnWrapper}>
                 <TaskLoot
                   money={task.money}
