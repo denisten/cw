@@ -7,8 +7,6 @@ import {
   setCurrentTaskStatus,
 } from '../tasks-store/events';
 import { subTasksTypes, TaskTypes } from '../../app';
-import { setMarker } from '../towers-marker/events';
-import { detectTaskStatus } from '../../utils/detectTaskStatus';
 
 const initState: ITask[] = [];
 
@@ -49,13 +47,3 @@ export const MissionsStore = MissionsDomain.store(initState)
   })
   .on(saveMission, (_, payload) => payload)
   .reset(resetMissionsStore);
-
-saveMission.watch(el =>
-  el.map(el => {
-    if (el.status === TaskStatuses.ACTIVE) return;
-    setMarker({
-      towerTitle: el.productSlug,
-      type: detectTaskStatus(el.status),
-    });
-  })
-);
