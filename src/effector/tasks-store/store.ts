@@ -9,8 +9,8 @@ import {
 import { TowersTypes } from '../towers-progress/store';
 import { chatTaskSession } from '../chat/events';
 import { setMarker } from '../towers-marker/events';
-import { MarkerTypes } from '../../components/markers';
 import { TaskTypes } from '../../app';
+import { detectTaskStatus } from '../../utils/detectTaskStatus';
 
 export enum TaskStatuses {
   CREATED = 'created',
@@ -80,18 +80,6 @@ export const TasksStore = MissionsDomain.store(initStore)
     ];
   })
   .reset(resetMissionsStore);
-
-const detectTaskStatus = (taskStatus: TaskStatuses) => {
-  switch (taskStatus) {
-    case TaskStatuses.ACTIVE:
-      return MarkerTypes.ACTIVE_TASK;
-    case TaskStatuses.DONE:
-      return MarkerTypes.SUCCESS;
-    case TaskStatuses.CREATED:
-    default:
-      return MarkerTypes.TASK;
-  }
-};
 
 saveTask.watch(el =>
   el.map(el => {
