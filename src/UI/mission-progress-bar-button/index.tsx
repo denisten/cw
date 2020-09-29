@@ -4,8 +4,8 @@ import { ITask, TaskStatuses } from '../../effector/tasks-store/store';
 import {
   checkTaskStatus,
   TaskButton,
-} from '../../components/tasks-view/tower-task-row';
-import notDoneImg from '../../components/tasks-view/tower-task-row/not-done.svg';
+} from '../../components/tasks-view/task-row';
+import notDoneImg from '../../components/tasks-view/task-row/not-done.svg';
 import { RowWrapper } from '../row-wrapper';
 import { MTSSans } from '../../fonts';
 import { handleMissionClick } from '../../utils/handle-mission-click';

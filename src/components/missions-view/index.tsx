@@ -13,7 +13,7 @@ import {
   TaskInfo,
   taskRowStyledConfig,
   VectorImg,
-} from '../tasks-view/tower-task-row';
+} from '../tasks-view/task-row';
 import { Icon } from '../../UI/icons';
 import { RowWrapper } from '../../UI/row-wrapper';
 import { ColumnWrapper } from '../../UI/column-wrapper';
@@ -84,7 +84,7 @@ export const MissionMenuRowView: React.FC<IMissionsView> = ({ taskData }) => {
               isInTowerInfo={false}
               task={el}
               key={el.id}
-              taskType={TaskTypes.SUBTASK}
+              isSubTask={true}
             />
           ))
       : taskData.userSubTasks.map(el => (
@@ -92,7 +92,7 @@ export const MissionMenuRowView: React.FC<IMissionsView> = ({ taskData }) => {
             isInTowerInfo={false}
             task={el}
             key={el.id}
-            taskType={TaskTypes.SUBTASK}
+            isSubTask={true}
           />
         ));
 

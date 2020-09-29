@@ -4,7 +4,7 @@ import moneyImg from './money.svg';
 import energyImg from './energy.svg';
 import { StyledSpan } from '../span';
 import { MTSSans } from '../../fonts';
-import { ITaskLocation } from '../../components/tasks-view/tower-task-row';
+import { ITaskLocation } from '../../components/tasks-view/task-row';
 import energyWhiteImg from './energy-white.svg';
 
 enum TaskLootWrapperMarginValues {

@@ -5,7 +5,7 @@ import { RowWrapper } from '../../../UI/row-wrapper';
 import { TaskTimer } from '../../../UI/task-timer';
 import { ColumnWrapper } from '../../../UI/column-wrapper';
 import { TaskLoot } from '../../../UI/task-loot';
-import notDoneImg from '../tower-task-row/not-done.svg';
+import notDoneImg from '../task-row/not-done.svg';
 import {
   Border,
   checkTaskStatus,
@@ -18,7 +18,7 @@ import {
   TaskInfo,
   taskRowStyledConfig,
   VectorImg,
-} from '../tower-task-row';
+} from '../task-row';
 import styled from 'styled-components';
 import { StyledSpan } from '../../../UI/span';
 import { MTSSans } from '../../../fonts';
@@ -90,9 +90,8 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
   isInTowerInfo,
   task,
   available = true,
-  taskType,
 }) => {
-  const { taskTypeSlug, productSlug: towerTitle } = task;
+  const { taskTypeSlug: taskType, productSlug: towerTitle } = task;
 
   const [isOpened, setIsOpened] = useState(false);
   const taskWrapperRef = useRef<HTMLDivElement>(null);
@@ -117,7 +116,7 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
       taskDescriptionRef,
       isOpened,
       setIsOpened,
-      taskType: taskTypeSlug,
+      taskType,
       vectorRef,
     });
     reactGAEvent({
@@ -140,7 +139,7 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
         isInTowerInfo={isInTowerInfo}
       >
         <TaskInfo>
-          <Icon type={available ? taskTypeSlug : TaskStatuses.NOT_AVAILABLE} />
+          <Icon type={available ? taskType : TaskStatuses.NOT_AVAILABLE} />
           <Title isInTowerInfo={isInTowerInfo}>{task.title}</Title>
           {available && (
             <RowWrapper style={taskRowStyledConfig.firstRowWrapper}>

@@ -15,7 +15,6 @@ const UnauthorizedTaskZoneWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
   .${ButtonClassNames.NORMAL} {
     top: 140px;
   }
@@ -69,11 +68,7 @@ const firstTask: ITask = {
 export const UnauthorizedTaskZone = () => {
   return (
     <UnauthorizedTaskZoneWrapper>
-      <MenuTaskRow
-        task={firstTask}
-        isInTowerInfo={false}
-        taskType={TaskTypes.TASK}
-      />
+      <MenuTaskRow task={firstTask} isInTowerInfo={false} isSubTask={false} />
       <Title>
         Новые задания будут доступны после
         <LinkTitle onClick={handleAuthButtonClick}> авторизации</LinkTitle>.

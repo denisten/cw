@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import lockImg from './lock-img.svg';
-import { ReducedMissionWrapperWidth } from '../../missions-view/reduced-mission-row';
+import { MissionWrapperWidth } from '../../missions-view/reduced-mission-row';
 
 const LockedTaskRowWrapper = styled.div<ILockedTaskRow>`
   width: ${props =>
     props.isInTowerInfo
-      ? ReducedMissionWrapperWidth.IN_TOWER_INFO
-      : ReducedMissionWrapperWidth.NOT_IN_TOWER_INFO}px;
+      ? MissionWrapperWidth.IN_TOWER_INFO
+      : MissionWrapperWidth.NOT_IN_TOWER_INFO}px;
   height: 62px;
   background: linear-gradient(90.56deg, #2f5ccf 0%, #6412cc 99.76%), #ffffff;
   border: 1px solid #ebecef;

@@ -5,7 +5,7 @@ import { detectSubTaskIdx } from '../index';
 import backImg from './back-img.svg';
 import { MTSSans } from '../../../fonts';
 import { MissionRow } from '../mission-row';
-import { TaskRow } from '../../tasks-view/task-row';
+import { SubTaskRow } from '../../tasks-view/sub-task-row';
 import { LockedTaskRow } from '../../tasks-view/locked-task-row';
 
 const MissionTowerViewWrapper = styled.div<IMissionTowerViewWrapper>`
@@ -71,7 +71,7 @@ export const MissionInfo: React.FC<IMissionTowerView> = ({
       ? mission.userSubTasks
           .slice(0, currentSubtaskIdx + 1)
           .map(el => (
-            <TaskRow task={el} key={el.id} isInTowerInfo={isInTowerInfo} />
+            <SubTaskRow task={el} key={el.id} isInTowerInfo={isInTowerInfo} />
           ))
       : React.Fragment;
 

@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { TaskWrapper } from '../../tasks-view/tower-task-row';
+import { TaskWrapper } from '../../tasks-view/task-row';
 import { ITask, TaskStatuses } from '../../../effector/tasks-store/store';
 import { TaskLoot, TaskLootLetterColors } from '../../../UI/task-loot';
 import { ColumnWrapper } from '../../../UI/column-wrapper';
@@ -13,7 +13,8 @@ import { MTSSans } from '../../../fonts';
 import arrowImg from './arrow.svg';
 
 const defaultMissionIconMarginRight = 12;
-export enum ReducedMissionWrapperWidth {
+
+export enum MissionWrapperWidth {
   IN_TOWER_INFO = 491,
   NOT_IN_TOWER_INFO = 719,
 }
@@ -22,8 +23,8 @@ export const ReducedMissionWrapper = styled(TaskWrapper)`
   height: 72px;
   width: ${props =>
     props.isInTowerInfo
-      ? ReducedMissionWrapperWidth.IN_TOWER_INFO
-      : ReducedMissionWrapperWidth.NOT_IN_TOWER_INFO}px;
+      ? MissionWrapperWidth.IN_TOWER_INFO
+      : MissionWrapperWidth.NOT_IN_TOWER_INFO}px;
   min-height: 72px;
   display: flex;
   align-items: center;
