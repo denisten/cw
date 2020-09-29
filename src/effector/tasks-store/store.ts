@@ -10,7 +10,7 @@ import { TowersTypes } from '../towers-progress/store';
 import { chatTaskSession } from '../chat/events';
 import { setMarker } from '../towers-marker/events';
 import { TaskTypes } from '../../app';
-import { detectTaskStatus } from '../../utils/detectTaskStatus';
+import { detectTaskStatus } from '../../utils/detect-task-status';
 
 export enum TaskStatuses {
   CREATED = 'created',
