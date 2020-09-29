@@ -169,7 +169,7 @@ export const HintWrapper = styled.div`
   cursor: pointer;
   color: #03adc9;
   ::after {
-    content: 'Использовате купон';
+    content: 'Использовать купон';
   }
 `;
 
@@ -200,6 +200,10 @@ export const taskRowStyledConfig = {
     boxSizing: 'border-box',
     width: '100%',
     justifyContent: 'space-between',
+  } as React.CSSProperties,
+
+  firstRowWrapper: {
+    flexShrink: 0,
   } as React.CSSProperties,
 };
 

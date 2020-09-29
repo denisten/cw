@@ -49,7 +49,7 @@ export const TaskWrapper = styled.div<ITaskLocation>`
 `;
 
 export const Title = styled(StyledSpan)<ITaskLocation>`
-  min-width: 305px;
+  width: 100%;
   font-family: ${MTSSans.MEDIUM};
   font-size: 16px;
   line-height: 24px;
@@ -143,7 +143,7 @@ export const MenuTaskRow: React.FC<ITasksRow> = ({
           <Icon type={available ? taskTypeSlug : TaskStatuses.NOT_AVAILABLE} />
           <Title isInTowerInfo={isInTowerInfo}>{task.title}</Title>
           {available && (
-            <RowWrapper>
+            <RowWrapper style={taskRowStyledConfig.firstRowWrapper}>
               <ColumnWrapper {...taskRowStyledConfig.columnWrapper}>
                 <TaskLoot
                   money={task.money}
