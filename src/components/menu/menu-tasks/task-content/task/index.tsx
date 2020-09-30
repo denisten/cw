@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useStore } from 'effector-react';
-import { MenuTaskRow } from '../../../../tasks-view/menu-task-row';
 import { TasksStore } from '../../../../../effector/tasks-store/store';
 import { UnauthorizedTaskZone } from './unauthorize-task-zone';
 import { AppConditionStore } from '../../../../../effector/app-condition/store';
+import { TaskRow } from '../../../../tasks-view/task-row';
 
 export const TasksWrapper = styled.div<ITaskWrapper>`
   display: ${props => (props.hidden ? 'hidden' : 'block')};
@@ -20,12 +20,7 @@ export const Tasks: React.FC<ITaskView> = ({ active }) => {
     <TasksWrapper hidden={!active}>
       {!isAuthorized && <UnauthorizedTaskZone />}
       {tasks.map(el => (
-        <MenuTaskRow
-          task={el}
-          key={el.id}
-          isInTowerInfo={false}
-          isSubTask={false}
-        />
+        <TaskRow task={el} key={el.id} isInTowerInfo={false} />
       ))}
     </TasksWrapper>
   );

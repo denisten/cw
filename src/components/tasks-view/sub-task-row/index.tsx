@@ -2,7 +2,6 @@ import React from 'react';
 import { ITask, TaskStatuses } from '../../../effector/tasks-store/store';
 import styled from 'styled-components';
 import { TaskLoot, TaskLootLetterColors } from '../../../UI/task-loot';
-import { TaskButton } from '../task-row';
 import { MissionTitle } from '../../missions-view/mission-row';
 import { handleTaskClick } from '../../../utils/handle-task-click';
 import { useStore } from 'effector-react';
@@ -11,6 +10,7 @@ import { useAudio } from '../../../hooks/use-sound';
 import takeRewardSound from '../../../sound/take-reward.mp3';
 import activeTask from '../../../sound/active-task.mp3';
 import { MissionWrapperWidth } from '../../missions-view/reduced-mission-row';
+import { TaskButton } from '../../../UI/task-button';
 
 const TaskRowWrapper = styled.div<ITaskRowWrapper>`
   width: ${props =>

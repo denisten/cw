@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import { ITask } from '../../../effector/tasks-store/store';
-import { detectSubTaskIdx } from '../index';
 import backImg from './back-img.svg';
 import { MTSSans } from '../../../fonts';
 import { MissionRow } from '../mission-row';
 import { SubTaskRow } from '../../tasks-view/sub-task-row';
 import { LockedTaskRow } from '../../tasks-view/locked-task-row';
+import { detectSubTaskIdx } from '../../../utils/detect-sub-task-idx';
 
 const MissionTowerViewWrapper = styled.div<IMissionTowerViewWrapper>`
   height: 70px;

@@ -4,23 +4,39 @@ import { TaskTimer } from '../../../UI/task-timer';
 import { TaskLoot, TaskLootLetterColors } from '../../../UI/task-loot';
 import { MissionProgressBarButton } from '../../../UI/mission-progress-bar-button';
 import {
-  calculateCompletedSubTasksQuantity,
   MissionIcon,
-  ReducedMissionTitle,
-  ReducedMissionWrapper,
+  MissionWrapperWidth,
+  ReducedMissionTitleWidth,
   style,
 } from '../reduced-mission-row';
 import { ITask } from '../../../effector/tasks-store/store';
-import { handleTaskWrapperClick } from '../../tasks-view/menu-task-row';
 import styled from 'styled-components';
 import { RowWrapper } from '../../../UI/row-wrapper';
 import { MTSSans } from '../../../fonts';
+import { calculateCompletedSubTasksQuantity } from '../../../utils/calculate-completed-sub-tasks-quantity';
+import { TaskTypes } from '../../../app';
+import { ITaskRowWrapper } from '../../tasks-view/task-row';
 
-const MissionRowWrapper = styled(ReducedMissionWrapper)`
+const MissionRowWrapper = styled.div<ITaskRowWrapper>`
+  height: 72px;
+  width: ${props =>
+    props.isInTowerInfo
+      ? MissionWrapperWidth.IN_TOWER_INFO
+      : MissionWrapperWidth.NOT_IN_TOWER_INFO}px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  overflow: hidden;
+  background: linear-gradient(90.56deg, #2f5ccf 0%, #6412cc 99.76%);
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  border-radius: 15px;
+  user-select: none;
   min-height: 180px;
   padding: 25px 18px 38px 11px;
   cursor: auto;
   justify-content: end;
+  margin-bottom: 16px;
 `;
 
 const MissionDescription = styled.div`
@@ -33,11 +49,48 @@ const MissionDescription = styled.div`
   color: #ffffff;
 `;
 
-export const MissionTitle = styled(ReducedMissionTitle)`
+export const MissionTitle = styled.div<ITaskRowWrapper>`
+  font-family: ${MTSSans.MEDIUM};
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.4px;
+  font-weight: 500;
+  color: #fff;
+  overflow: hidden;
+  width: ${props =>
+    props.isInTowerInfo
+      ? ReducedMissionTitleWidth.IN_TOWER_INFO
+      : ReducedMissionTitleWidth.NOT_IN_TOWER_INFO}px;
   white-space: initial;
   overflow: initial;
   text-overflow: initial;
 `;
+export const handleTaskWrapperClick = ({
+  taskDescriptionRef,
+  taskType,
+  vectorRef,
+  isOpened,
+  setIsOpened,
+}: IHandleTaskWrapperClick) =>
+  requestAnimationFrame(() => {
+    if (
+      taskDescriptionRef.current &&
+      taskType !== TaskTypes.TUTORIAL_TASK &&
+      vectorRef.current
+    ) {
+      if (isOpened) {
+        taskDescriptionRef.current.style.display = 'none';
+        taskDescriptionRef.current.style.opacity = '0';
+        vectorRef.current.style.transform = 'rotate(0deg)';
+        setIsOpened(false);
+      } else {
+        taskDescriptionRef.current.style.display = 'flex';
+        taskDescriptionRef.current.style.opacity = '1';
+        vectorRef.current.style.transform = 'rotate(180deg)';
+        setIsOpened(true);
+      }
+    }
+  });
 
 export const MissionRow: React.FC<IMissionRow> = ({
   mission,
@@ -102,4 +155,11 @@ export const MissionRow: React.FC<IMissionRow> = ({
 interface IMissionRow {
   mission: ITask;
   isInTowerInfo: boolean;
+}
+interface IHandleTaskWrapperClick {
+  taskDescriptionRef: React.RefObject<HTMLDivElement>;
+  taskType: TaskTypes;
+  vectorRef: React.RefObject<HTMLDivElement>;
+  isOpened: boolean;
+  setIsOpened: Function;
 }

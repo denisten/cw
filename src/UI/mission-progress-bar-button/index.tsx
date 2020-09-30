@@ -1,15 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import { ITask, TaskStatuses } from '../../effector/tasks-store/store';
-import {
-  checkTaskStatus,
-  TaskButton,
-} from '../../components/tasks-view/task-row';
 import notDoneImg from '../../components/tasks-view/task-row/not-done.svg';
 import { RowWrapper } from '../row-wrapper';
 import { MTSSans } from '../../fonts';
 import { handleMissionClick } from '../../utils/handle-mission-click';
-
+import { TaskButton } from '../task-button';
 const MissionProgressBar = styled.div<IMissionProgressBar>`
   width: 110px;
   height: 16px;
@@ -46,6 +42,9 @@ const percents = 100;
 
 const calculateProgress = (completed: number, all: number) =>
   (completed / all) * percents;
+
+const checkTaskStatus = (status: TaskStatuses) =>
+  status === TaskStatuses.REJECTED;
 
 export const MissionProgressBarButton: React.FC<IMissionProgressBarButton> = ({
   task,

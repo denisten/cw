@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Button, ButtonClassNames } from '../../../../../../UI/button';
-import { MenuTaskRow } from '../../../../../tasks-view/menu-task-row';
 import { handleAuthButtonClick } from '../../../../../../utils/handle-auth-button-click';
 import {
   ITask,
   TaskStatuses,
 } from '../../../../../../effector/tasks-store/store';
 import { TowersTypes } from '../../../../../../effector/towers-progress/store';
+import { TaskRow } from '../../../../../tasks-view/task-row';
 
 const UnauthorizedTaskZoneWrapper = styled.div`
   width: 100%;
@@ -68,7 +68,7 @@ const firstTask: ITask = {
 export const UnauthorizedTaskZone = () => {
   return (
     <UnauthorizedTaskZoneWrapper>
-      <MenuTaskRow task={firstTask} isInTowerInfo={false} isSubTask={false} />
+      <TaskRow task={firstTask} isInTowerInfo={false} />
       <Title>
         Новые задания будут доступны после
         <LinkTitle onClick={handleAuthButtonClick}> авторизации</LinkTitle>.

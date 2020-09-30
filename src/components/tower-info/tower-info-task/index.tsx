@@ -8,14 +8,12 @@ import {
 } from '../../../effector/tutorial-store/store';
 import { ITask, TasksStore } from '../../../effector/tasks-store/store';
 import { filterTasksArray } from '../../../utils/filtered-missions-array';
-import { TaskRow } from '../../tasks-view/task-row';
 import { TowersTypes } from '../../../effector/towers-progress/store';
 import { MissionsStore } from '../../../effector/missions-store/store';
 import { ReducedMissionRow } from '../../missions-view/reduced-mission-row';
 import { MissionInfo } from '../../missions-view/mission-info';
 import { IDisplayFlag } from '../../root-component';
-import { TaskTypes } from '../../../app';
-import { TaskRow2 } from '../../tasks-view/task-row/index2';
+import { TaskRow } from '../../tasks-view/task-row';
 
 const TowerInfoTaskWrapper = styled.div`
   margin-top: 24px;
@@ -84,7 +82,7 @@ export const TowerInfoTask: React.FC<ITowerInfoTask> = ({ towerTitle }) => {
   const filteredMissions = filterTasksArray(missions, towerTitle);
 
   const tasksView = filteredTasks.map(task => (
-    <TaskRow2 key={task.id} isInTowerInfo={true} task={task} />
+    <TaskRow key={task.id} isInTowerInfo={true} task={task} />
   ));
   const missionsView = filteredMissions.map(el => (
     <ReducedMissionRow

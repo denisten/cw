@@ -4,7 +4,6 @@ import moneyImg from './money.svg';
 import energyImg from './energy.svg';
 import { StyledSpan } from '../span';
 import { MTSSans } from '../../fonts';
-import { ITaskLocation } from '../../components/tasks-view/task-row';
 import energyWhiteImg from './energy-white.svg';
 
 enum TaskLootWrapperMarginValues {
@@ -23,7 +22,7 @@ const Money = styled.img.attrs({ src: moneyImg })`
   margin-right: 7px;
 `;
 
-const TaskLootWrapper = styled.div<ITaskLocation>`
+const TaskLootWrapper = styled.div<ITaskLootWrapper>`
   display: flex;
   margin-right: ${props =>
     props.isInTowerInfo
@@ -73,7 +72,7 @@ export const TaskLoot: React.FC<ITaskLoot> = ({
   );
 };
 
-interface ITaskLoot extends ITaskLocation {
+interface ITaskLoot extends ITaskLootWrapper {
   energy: number;
   money: number;
   color?: TaskLootLetterColors;
@@ -85,4 +84,7 @@ interface ILootWrapper {
 
 interface ICountWrapper {
   color: TaskLootLetterColors;
+}
+interface ITaskLootWrapper {
+  isInTowerInfo: boolean;
 }

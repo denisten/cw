@@ -1,9 +1,7 @@
 import React, { useRef, useState } from 'react';
-import { TaskWrapper } from '../../tasks-view/task-row';
-import { ITask, TaskStatuses } from '../../../effector/tasks-store/store';
+import { ITask } from '../../../effector/tasks-store/store';
 import { TaskLoot, TaskLootLetterColors } from '../../../UI/task-loot';
 import { ColumnWrapper } from '../../../UI/column-wrapper';
-import { handleTaskWrapperClick } from '../../tasks-view/menu-task-row';
 import { TaskTimer } from '../../../UI/task-timer';
 import styled from 'styled-components';
 import { MissionProgressBarButton } from '../../../UI/mission-progress-bar-button';
@@ -11,6 +9,9 @@ import rocketImg from './icon.svg';
 import { StyledSpan } from '../../../UI/span';
 import { MTSSans } from '../../../fonts';
 import arrowImg from './arrow.svg';
+import { calculateCompletedSubTasksQuantity } from '../../../utils/calculate-completed-sub-tasks-quantity';
+import { handleTaskWrapperClick } from '../mission-row';
+import { ITaskRowWrapper } from '../../tasks-view/task-row';
 
 const defaultMissionIconMarginRight = 12;
 
@@ -19,7 +20,7 @@ export enum MissionWrapperWidth {
   NOT_IN_TOWER_INFO = 719,
 }
 
-export const ReducedMissionWrapper = styled(TaskWrapper)`
+export const ReducedMissionWrapper = styled.div<ITaskRowWrapper>`
   height: 72px;
   width: ${props =>
     props.isInTowerInfo
@@ -38,7 +39,7 @@ export const ReducedMissionWrapper = styled(TaskWrapper)`
   user-select: none;
   cursor: pointer;
 `;
-enum ReducedMissionTitleWidth {
+export enum ReducedMissionTitleWidth {
   IN_TOWER_INFO = 160,
   NOT_IN_TOWER_INFO = 380,
 }
@@ -65,12 +66,6 @@ export const MissionIcon = styled.img.attrs({ src: rocketImg })<IMissionIcon>`
 const Arrow = styled.img.attrs({ src: arrowImg })`
   margin-left: 20px;
 `;
-
-export const calculateCompletedSubTasksQuantity = (mission: ITask) => {
-  const wantedTaskStatusesSet = new Set([TaskStatuses.REWARDED]);
-  return mission.userSubTasks.filter(el => wantedTaskStatusesSet.has(el.status))
-    .length;
-};
 
 export const style = {
   displayFlag: true,
