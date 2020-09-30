@@ -30,7 +30,7 @@ export const TasksStore = MissionsDomain.store(initStore)
   .on(updateTaskStatus, (state, { taskId, status, isSubtask }) => {
     if (isSubtask) return state;
     const taskIdx = state.findIndex(el => el.id === taskId);
-    const task = state[taskIdx];
+    const task = { ...state[taskIdx] };
     task.status = status;
     return [...state.slice(0, taskIdx), task, ...state.slice(taskIdx + 1)];
   })

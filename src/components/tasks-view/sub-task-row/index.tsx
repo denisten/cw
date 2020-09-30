@@ -11,6 +11,10 @@ import takeRewardSound from '../../../sound/take-reward.mp3';
 import activeTask from '../../../sound/active-task.mp3';
 import { MissionWrapperWidth } from '../../missions-view/reduced-mission-row';
 import { TaskButton } from '../../../UI/task-button';
+import { ButtonWrapper } from '../task-row';
+import { checkTaskStatus } from '../../../UI/mission-progress-bar-button';
+import { Hint } from '../../hint';
+import { openCouponModalWindow } from '../../../effector/coupon-MW-store/events';
 
 const TaskRowWrapper = styled.div<ITaskRowWrapper>`
   width: ${props =>
@@ -47,7 +51,8 @@ export const SubTaskRow: React.FC<ITaskRow> = ({ task, isInTowerInfo }) => {
   } = useStore(SettingsStore);
   const { play: playRewardSound } = useAudio(takeRewardSound, false);
   const { play: playActiveTask } = useAudio(activeTask, false);
-
+  const hintCallback = () =>
+    openCouponModalWindow({ towerTitle: task.productSlug, taskId: task.id });
   const taskButtonHandler = async (e: React.MouseEvent) => {
     e.stopPropagation();
     task.status === TaskStatuses.DONE && volume && playRewardSound();
@@ -63,11 +68,14 @@ export const SubTaskRow: React.FC<ITaskRow> = ({ task, isInTowerInfo }) => {
         isInTowerInfo={true}
         color={TaskLootLetterColors.WHITE}
       />
-      <TaskButton
-        className={task.status}
-        expireInSeconds={task.expireInSeconds}
-        onClick={taskButtonHandler}
-      />
+      <ButtonWrapper>
+        <TaskButton
+          className={task.status}
+          expireInSeconds={task.expireInSeconds}
+          onClick={taskButtonHandler}
+        />
+        {checkTaskStatus(task.status) && <Hint callback={hintCallback} />}
+      </ButtonWrapper>
     </TaskRowWrapper>
   );
 };

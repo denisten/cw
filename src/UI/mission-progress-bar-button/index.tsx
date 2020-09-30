@@ -43,7 +43,7 @@ const percents = 100;
 const calculateProgress = (completed: number, all: number) =>
   (completed / all) * percents;
 
-const checkTaskStatus = (status: TaskStatuses) =>
+export const checkTaskStatus = (status: TaskStatuses) =>
   status === TaskStatuses.REJECTED;
 
 export const MissionProgressBarButton: React.FC<IMissionProgressBarButton> = ({

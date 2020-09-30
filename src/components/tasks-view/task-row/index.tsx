@@ -8,6 +8,9 @@ import { TaskLoot } from '../../../UI/task-loot';
 import { handleTaskClick } from '../../../utils/handle-task-click';
 import { CSSTransition } from 'react-transition-group';
 import { TaskButton } from '../../../UI/task-button';
+import { checkTaskStatus } from '../../../UI/mission-progress-bar-button';
+import { Hint } from '../../hint';
+import { openCouponModalWindow } from '../../../effector/coupon-MW-store/events';
 
 enum TaskRowWrapperPadding {
   IN_TOWER_INFO = '15px 16px 15px 15px',
@@ -23,7 +26,14 @@ enum TitleMargin {
   IN_TOWER_INFO = '0 5px 0 16px',
   NOT_IN_TOWER_INFO = '0 40px 0 16px',
 }
+
 const wrapperClassName = 'wrapper';
+
+export const ButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 export const TaskRowWrapper = styled.div<ITaskRowWrapper>`
   display: flex;
@@ -117,6 +127,10 @@ const Wrapper = styled.div`
 export const TaskRow: React.FC<ITaskRow2> = ({ task, isInTowerInfo }) => {
   const [isOpened, setIsOpened] = useState(false);
   const toggle = () => setIsOpened(prevState => !prevState);
+  const hintCallback = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    openCouponModalWindow({ towerTitle: task.productSlug, taskId: task.id });
+  };
   return (
     <CSSTransition classNames={wrapperClassName} in={isOpened} timeout={0}>
       <Wrapper onClick={toggle}>
@@ -128,13 +142,17 @@ export const TaskRow: React.FC<ITaskRow2> = ({ task, isInTowerInfo }) => {
             money={task.money}
             isInTowerInfo={isInTowerInfo}
           />
-          <TaskButton
-            className={task.status}
-            expireInSeconds={task.expireInSeconds}
-            onClick={e =>
-              handleTaskClick({ task, e, taskType: task.taskTypeSlug })
-            }
-          />
+          <ButtonWrapper>
+            <TaskButton
+              className={task.status}
+              expireInSeconds={task.expireInSeconds}
+              onClick={e => {
+                e.stopPropagation();
+                handleTaskClick({ task, e, taskType: task.taskTypeSlug });
+              }}
+            />
+            {checkTaskStatus(task.status) && <Hint callback={hintCallback} />}
+          </ButtonWrapper>
         </TaskRowWrapper>
         <Description>{task.description}</Description>
       </Wrapper>
